@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+
+  <!-- ============================================================
+       BASIS META TAGS
+       Aanpassen per pagina: charset en viewport blijven altijd gelijk.
+       ============================================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- AANPASSEN: Paginatitel — patroon: "Onderwerp | Hotel Asteria Venray"
+       Maximaal 60 tekens aanbevolen. -->
+  <title>{{PAGE_TITLE}} | Hotel Asteria Venray</title>
+
+  <!-- AANPASSEN: Unieke beschrijving per pagina.
+       Maximaal 155 tekens. Verwerk de belangrijkste zoekwoorden. -->
+  <meta name="description" content="{{PAGE_DESCRIPTION}}">
+
+  <!-- Robots: laat op index, follow staan tenzij de pagina niet geïndexeerd mag worden. -->
+  <meta name="robots" content="index, follow">
+
+  <!-- AANPASSEN: Canonical URL — altijd de absolute, definitieve URL van deze pagina.
+       Voorkomt duplicate content problemen. -->
+  <link rel="canonical" href="{{PAGE_URL}}">
+
+
+  <!-- ============================================================
+       OPEN GRAPH TAGS (Facebook / Meta Ads linkpreviews)
+       Aanpassen per pagina: og:title, og:description, og:image, og:url
+       og:locale, og:type en og:site_name blijven gelijk voor alle pagina's.
+       ============================================================ -->
+
+  <!-- AANPASSEN: Mag iets uitgebreider dan de <title>. Max ~90 tekens. -->
+  <meta property="og:title" content="{{PAGE_TITLE}} | Hotel Asteria Venray">
+
+  <!-- AANPASSEN: Pakkende samenvatting. Max ~200 tekens. -->
+  <meta property="og:description" content="{{PAGE_DESCRIPTION}}">
+
+  <!-- AANPASSEN: Absolute URL naar de afbeelding voor de linkpreview.
+       Aanbevolen formaat: 1200×630 px, JPG of PNG, max 8 MB.
+       Gebruik een foto die de pagina goed vertegenwoordigt. -->
+  <meta property="og:image" content="{{OG_IMAGE}}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{PAGE_TITLE}} — Hotel Asteria Venray">
+
+  <!-- AANPASSEN: Absolute URL van deze specifieke pagina (zelfde als canonical). -->
+  <meta property="og:url" content="{{PAGE_URL}}">
+
+  <!-- Blijft altijd gelijk -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+
+  <!-- ============================================================
+       TWITTER CARD TAGS
+       Aanpassen per pagina: twitter:title, twitter:description, twitter:image
+       twitter:card en twitter:site blijven gelijk.
+       ============================================================ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@AsteriaVenray">
+
+  <!-- AANPASSEN: Zelfde als og:title -->
+  <meta name="twitter:title" content="{{PAGE_TITLE}} | Hotel Asteria Venray">
+
+  <!-- AANPASSEN: Zelfde als og:description -->
+  <meta name="twitter:description" content="{{PAGE_DESCRIPTION}}">
+
+  <!-- AANPASSEN: Zelfde als og:image (min. 300×157 px, max 4096×4096 px) -->
+  <meta name="twitter:image" content="{{OG_IMAGE}}">
+  <meta name="twitter:image:alt" content="{{PAGE_TITLE}} — Hotel Asteria Venray">
+
+
+  <!-- ============================================================
+       JSON-LD SCHEMA MARKUP — Hotel
+       Dit blok blijft grotendeels gelijk voor alle pagina's.
+       Aanpassen: "@id" en "url" als je een specifieke diepe pagina markeert,
+       maar voor de homepage/landingspagina's is https://www.asteria.nl correct.
+       ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "@id": "https://www.asteria.nl/#hotel",
+    "name": "Hotel Asteria Venray",
+    "url": "https://www.asteria.nl",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.asteria.nl/assets/logo/asteria-logo.png",
+      "width": 300,
+      "height": 100
+    },
+    "image": [
+      "https://www.asteria.nl/assets/images/hotel-exterior.jpg",
+      "https://www.asteria.nl/assets/images/lobby.jpg",
+      "https://www.asteria.nl/assets/images/kamer.jpg"
+    ],
+    "description": "Hotel Asteria is een 4-sterrenhotel in Venray, Noord-Limburg. Met comfortabele kamers, moderne vergaderzalen en sfeervolle restaurantfaciliteiten — ideaal voor zakelijk verblijf en ontspanning.",
+    "telephone": "+31478511466",
+    "email": "info@asteria.nl",
+    "priceRange": "€€",
+    "starRating": {
+      "@type": "Rating",
+      "ratingValue": "4",
+      "bestRating": "5"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{STRAATNAAM_EN_NUMMER}}",
+      "addressLocality": "Venray",
+      "addressRegion": "Noord-Limburg",
+      "postalCode": "{{POSTCODE}}",
+      "addressCountry": "NL"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "51.5279",
+      "longitude": "5.9749"
+    },
+    "hasMap": "https://www.google.com/maps/search/Hotel+Asteria+Venray",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday", "Tuesday", "Wednesday", "Thursday",
+        "Friday", "Saturday", "Sunday"
+      ],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "checkinTime": "15:00",
+    "checkoutTime": "11:00",
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Gratis WiFi", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Gratis parkeren", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Vergaderzalen", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Restaurant", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Bar", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Airconditioning", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Rolstoeltoegankelijk", "value": true }
+    ],
+    "numberOfRooms": "{{AANTAL_KAMERS}}",
+    "currenciesAccepted": "EUR",
+    "paymentAccepted": "Cash, Credit Card, Debit Card",
+    "sameAs": [
+      "https://www.facebook.com/AsteriaVenray",
+      "https://www.instagram.com/AsteriaVenray",
+      "https://www.booking.com/hotel/nl/asteria-venray.html",
+      "https://www.tripadvisor.nl/Hotel-Hotel_Asteria_Venray"
+    ]
+  }
+  </script>
+
+  <!-- ============================================================
+       OPTIONEEL: BreadcrumbList schema voor diepere pagina's
+       Pas de itemListElement aan per pagina.
+       Verwijder dit blok op de homepage (geen breadcrumb nodig).
+       ============================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.asteria.nl"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{BREADCRUMB_LABEL}}",
+        "item": "{{PAGE_URL}}"
+      }
+    ]
+  }
+  </script>
+
+</head>
+<!-- ============================================================
+     SNEL OVERZICHT: WAT AANPASSEN PER PAGINA?
+     ─────────────────────────────────────────
+     {{PAGE_TITLE}}       → Paginatitel (max 60 tekens, zonder " | Hotel Asteria Venray")
+     {{PAGE_DESCRIPTION}} → Meta description + og:description (max 155 tekens)
+     {{PAGE_URL}}         → Absolute URL van de pagina (canonical + og:url)
+     {{OG_IMAGE}}         → Absolute URL linkpreview-afbeelding (1200×630 px)
+     {{BREADCRUMB_LABEL}} → Naam van de pagina in de breadcrumb (verwijder blok op homepage)
+
+     EENMALIG INVULLEN (hotel-breed, niet per pagina):
+     {{STRAATNAAM_EN_NUMMER}} → Volledig straatadres
+     {{POSTCODE}}             → Postcode van het hotel
+     {{AANTAL_KAMERS}}        → Totaal aantal hotelkamers
+     ============================================================ -->
+<body>
+  <!-- Pagina-inhoud hier -->
+</body>
+</html>
