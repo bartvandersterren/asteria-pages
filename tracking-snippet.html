@@ -1,0 +1,129 @@
+<!--
+=============================================================================
+  TRACKING SNIPPET — Hotel Asteria Venray
+=============================================================================
+
+  GEBRUIK:
+  --------
+  1. Plak het GA4-blok en het Meta Pixel-blok in de <head> van elke pagina.
+  2. Plak het noscript-blok (Meta Pixel fallback) vlak na de openende <body>.
+  3. Plak de conversion event functies in een <script>-blok vlak voor </body>,
+     of voeg ze toe aan je bestaande JavaScript-bestand.
+  4. Vervang de placeholders:
+       {{GA4_MEASUREMENT_ID}}  →  bijv. G-ABC1234567
+       {{META_PIXEL_ID}}       →  bijv. 1234567890123456
+
+  CONVERSION EVENTS GEBRUIKEN:
+  -----------------------------
+  Op een knop:   <button onclick="trackBookingClick()">Boek nu</button>
+  Op een form:   <form onsubmit="trackFormSubmit()">...</form>
+
+=============================================================================
+-->
+
+
+<!-- =========================================================
+     SECTIE 1: IN <head> PLAATSEN
+     ========================================================= -->
+
+<!-- -------------------------------------------------------
+     1A. Google Analytics 4 (GA4)
+
+     Measurement ID vinden:
+     - Ga naar analytics.google.com
+     - Kies je property → Beheer (tandwiel linksonder)
+     - Gegevensstromen → klik op je webstream
+     - Het ID staat rechtsboven: formaat G-XXXXXXXXXX
+     ------------------------------------------------------- -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{GA4_MEASUREMENT_ID}}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  // Pageview wordt automatisch getrackt
+  gtag('config', '{{GA4_MEASUREMENT_ID}}');
+</script>
+
+<!-- -------------------------------------------------------
+     1B. Meta Pixel (Facebook / Instagram)
+
+     Pixel ID vinden:
+     - Ga naar business.facebook.com → Events Manager
+     - Selecteer je pixel in de linkerkolom
+     - Het Pixel ID staat bovenaan de pagina (reeks van 15-16 cijfers)
+     ------------------------------------------------------- -->
+<!-- Meta Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', '{{META_PIXEL_ID}}');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <!-- Meta Pixel noscript fallback: vlak na <body> plaatsen -->
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id={{META_PIXEL_ID}}&ev=PageView&noscript=1" />
+</noscript>
+<!-- Einde Meta Pixel Code -->
+
+
+<!-- =========================================================
+     SECTIE 2: VLAK VOOR </body> PLAATSEN
+     ========================================================= -->
+
+<!-- -------------------------------------------------------
+     2. Conversion event functies
+
+     Gebruik:
+       Knop:    <button onclick="trackBookingClick()">Boek nu</button>
+       Formulier: <form onsubmit="trackFormSubmit()">...</form>
+
+     Je kunt extra parameters meegeven aan GA4-events, bijv.:
+       gtag('event', 'begin_checkout', { currency: 'EUR', value: 99 });
+     ------------------------------------------------------- -->
+<script>
+  /**
+   * trackBookingClick()
+   * Gebruik: onclick="trackBookingClick()" op de "Boek nu" knop
+   * - GA4:  event 'begin_checkout'
+   * - Meta: event 'InitiateCheckout'
+   */
+  function trackBookingClick() {
+    // GA4
+    gtag('event', 'begin_checkout', {
+      // Optioneel: voeg currency en value toe als je de waarde kent
+      // currency: 'EUR',
+      // value: 0
+    });
+
+    // Meta Pixel
+    fbq('track', 'InitiateCheckout');
+  }
+
+  /**
+   * trackFormSubmit()
+   * Gebruik: onsubmit="trackFormSubmit()" op een contactformulier
+   * - GA4:  event 'generate_lead'
+   * - Meta: event 'Lead'
+   */
+  function trackFormSubmit() {
+    // GA4
+    gtag('event', 'generate_lead', {
+      // Optioneel: voeg currency en value toe als je de waarde kent
+      // currency: 'EUR',
+      // value: 0
+    });
+
+    // Meta Pixel
+    fbq('track', 'Lead');
+  }
+</script>
