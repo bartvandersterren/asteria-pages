@@ -1,0 +1,468 @@
+/* ============================================================
+   ASTERIA BRAND TOKENS
+   Geëxtraheerd via Playwright computed styles van asteria.nl
+   Versie: 2026-05-05
+   ============================================================
+
+   Gebruik in elke pagina:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="brand.css">
+
+   Logo: https://www.asteria.nl/images/logo-hotel-asteria.png (90×104px)
+   ============================================================ */
+
+:root {
+
+  /* ── KLEUREN ─────────────────────────────────────────────── */
+
+  --color-red:          #c23435;          /* Primaire actie kleur — buttons, accenten, hover */
+  --color-red-dark:     #a82c2c;          /* Hover state voor rode buttons */
+
+  --color-charcoal:     #292929;          /* Header achtergrond (met opacity) */
+  --color-dark:         #242424;          /* Footer, donkere secties */
+  --color-dark-overlay: rgba(41,41,41,0.9); /* Header sticky overlay */
+
+  --color-bg:           #ededed;          /* Pagina achtergrond */
+  --color-bg-light:     #f5f5f5;          /* Lichtere secties (nieuwsbrief, dividers) */
+  --color-white:        #ffffff;          /* Witte secties, kaarten */
+
+  --color-text:         #111111;          /* Standaard body tekst */
+  --color-text-dark:    #000000;          /* H1 op lichte achtergrond */
+  --color-text-grey:    #333333;          /* Secondary button tekst */
+  --color-text-muted:   #6b6b6b;          /* Meta-info, kleine tekst */
+  --color-text-light:   #f2f2f2;          /* Tekst op donkere achtergrond */
+  --color-text-white:   #ffffff;          /* Tekst op rood/charcoal */
+
+  --color-gold:         #dcbe1f;          /* Sterren, highlights, ratings */
+  --color-border:       #cccccc;          /* Input borders, dividers */
+  --color-border-light: #d3d3d3;          /* Secondary button border */
+
+
+  /* ── TYPOGRAFIE ──────────────────────────────────────────── */
+
+  --font-heading: 'Electrolize', sans-serif;
+  --font-body:    'Montserrat', sans-serif;
+
+  /* Heading defaults */
+  --heading-transform:  uppercase;
+  --heading-weight:     400;
+  --heading-style:      normal;
+
+  /* Groottes */
+  --text-xs:    11px;
+  --text-sm:    12.75px;   /* Nav, top bar, labels */
+  --text-base:  15px;      /* Body standaard */
+  --text-md:    17px;      /* Iets groter body */
+  --text-h4:    15px;
+  --text-h3:    18px;
+  --text-h2-sm: 21px;      /* Promo/card headings */
+  --text-h2:    30px;
+  --text-h1:    30px;
+
+  /* Line heights */
+  --lh-heading: 1.2;
+  --lh-body:    1.6;
+  --lh-quote:   28px;      /* Review quotes */
+
+
+  /* ── SPACING ─────────────────────────────────────────────── */
+
+  --space-xs:   16px;
+  --space-sm:   24px;
+  --space-md:   40px;
+  --space-lg:   50px;      /* Compacte secties */
+  --space-xl:   75px;      /* Standaard sectie padding */
+
+  /* Section padding */
+  --section-padding:         var(--space-xl) 0;
+  --section-padding-compact: var(--space-lg) 0;
+
+  /* Container widths */
+  --container-sm:   900px;
+  --container-md:   1100px;
+  --container-lg:   1400px;
+
+
+  /* ── BORDERS & RADIUS ────────────────────────────────────── */
+
+  --radius-sm:    4px;
+  --radius-md:    8px;      /* Buttons, inputs */
+  --radius-lg:    20px;     /* Afbeeldingen */
+  --radius-full:  50%;      /* Cirkels */
+
+
+  /* ── BUTTONS ─────────────────────────────────────────────── */
+
+  /* Gedeeld */
+  --btn-font:       var(--font-body);
+  --btn-size:       15px;
+  --btn-weight:     300;
+  --btn-radius:     var(--radius-md);
+  --btn-padding:    12px 25px;
+  --btn-transition: 0.2s ease;
+
+  /* Primair — rood */
+  --btn-primary-bg:     var(--color-red);
+  --btn-primary-color:  var(--color-white);
+  --btn-primary-border: 1px solid var(--color-red);
+
+  /* Secundair — wit met grijze rand */
+  --btn-secondary-bg:     var(--color-white);
+  --btn-secondary-color:  var(--color-text-grey);
+  --btn-secondary-border: 1px solid var(--color-border-light);
+
+  /* Outline — rood omtrek op wit */
+  --btn-outline-bg:     transparent;
+  --btn-outline-color:  var(--color-red);
+  --btn-outline-border: 2px solid var(--color-red);
+
+
+  /* ── FORMULIEREN ─────────────────────────────────────────── */
+
+  --input-bg:       transparent;
+  --input-color:    var(--color-text);
+  --input-border:   1px solid var(--color-border);
+  --input-radius:   var(--radius-md);
+  --input-padding:  12px 16px;
+  --input-font:     var(--font-body);
+  --input-size:     var(--text-base);
+
+
+  /* ── HEADER / NAV ────────────────────────────────────────── */
+
+  --header-bg:           var(--color-dark-overlay);
+  --header-link-color:   var(--color-text-light);
+  --header-link-size:    var(--text-sm);
+  --header-link-weight:  400;
+  --header-topbar-size:  var(--text-sm);
+  --header-topbar-pad:   10px 0 13px;
+
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+
+  --footer-bg:       var(--color-dark);
+  --footer-color:    var(--color-white);
+  --footer-padding:  var(--space-xl) 0;
+  --footer-link-color: var(--color-white);
+
+
+  /* ── AFBEELDINGEN ────────────────────────────────────────── */
+
+  --img-radius: var(--radius-lg);
+
+}
+
+
+/* ============================================================
+   BASIS STIJLEN
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: var(--lh-body);
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--heading-weight);
+  text-transform: var(--heading-transform);
+  line-height: var(--lh-heading);
+  margin: 0 0 1rem;
+}
+
+h1 { font-size: var(--text-h1); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); }
+h4 { font-size: var(--text-h4); }
+
+p { margin: 0 0 1rem; }
+
+a {
+  color: var(--color-red);
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Afbeeldingen met radius alleen via expliciete class */
+img.img--rounded,
+.img--rounded {
+  border-radius: var(--img-radius);
+}
+
+
+/* ============================================================
+   CONTAINERS
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-md);
+  margin: 0 auto;
+  padding: 0 var(--space-sm);
+}
+
+.container--sm { max-width: var(--container-sm); }
+.container--lg { max-width: var(--container-lg); }
+
+
+/* ============================================================
+   SECTIES
+   ============================================================ */
+
+.section {
+  padding: var(--section-padding);
+}
+
+.section--compact {
+  padding: var(--section-padding-compact);
+}
+
+.section--white {
+  background-color: var(--color-white);
+}
+
+.section--light {
+  background-color: var(--color-bg-light);
+}
+
+.section--dark {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+
+.section--dark h1,
+.section--dark h2,
+.section--dark h3 {
+  color: var(--color-text-light);
+}
+
+.section--charcoal {
+  background-color: var(--color-charcoal);
+  color: var(--color-white);
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+  display: inline-block;
+  font-family: var(--btn-font);
+  font-size: var(--btn-size);
+  font-weight: var(--btn-weight);
+  border-radius: var(--btn-radius);
+  padding: var(--btn-padding);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity var(--btn-transition), background-color var(--btn-transition), color var(--btn-transition);
+  line-height: 1;
+}
+
+/* Primair */
+.btn--primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
+  border: var(--btn-primary-border);
+}
+.btn--primary:hover {
+  background-color: var(--color-red-dark);
+  border-color: var(--color-red-dark);
+  color: var(--color-white);
+  opacity: 1;
+}
+
+/* Secundair */
+.btn--secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-color);
+  border: var(--btn-secondary-border);
+}
+.btn--secondary:hover {
+  background-color: var(--color-bg);
+}
+
+/* Outline */
+.btn--outline {
+  background-color: var(--btn-outline-bg);
+  color: var(--btn-outline-color);
+  border: var(--btn-outline-border);
+}
+.btn--outline:hover {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+
+
+/* ============================================================
+   FORMULIEREN
+   ============================================================ */
+
+.input {
+  background-color: var(--input-bg);
+  color: var(--input-color);
+  border: var(--input-border);
+  border-radius: var(--input-radius);
+  padding: var(--input-padding);
+  font-family: var(--input-font);
+  font-size: var(--input-size);
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--color-red);
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--header-bg);
+}
+
+.header__nav a {
+  color: var(--header-link-color);
+  font-family: var(--font-body);
+  font-size: var(--header-link-size);
+  font-weight: var(--header-link-weight);
+  text-decoration: none;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-color);
+  padding: var(--footer-padding);
+}
+
+.footer a {
+  color: var(--footer-link-color);
+  text-decoration: none;
+}
+
+
+/* ============================================================
+   CONTENT BLOKKEN (patronen van de site)
+   ============================================================ */
+
+/* Intro: tekst + beeld naast elkaar */
+.block-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+/* USP / voordelen balk */
+.usp-bar {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+  font-size: var(--text-sm);
+  font-weight: 400;
+}
+
+.usp-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Promoties / kaarten grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.card__image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.card__body {
+  padding: var(--space-sm);
+}
+
+.card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-h2-sm);
+  font-weight: var(--heading-weight);
+  text-transform: var(--heading-transform);
+  margin: 0 0 var(--space-xs);
+}
+
+/* Review / testimonial */
+.review-block {
+  text-align: center;
+  max-width: var(--container-sm);
+  margin: 0 auto;
+}
+
+.review-block__quote {
+  font-size: var(--text-base);
+  line-height: var(--lh-quote);
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+}
+
+.review-block__stars {
+  color: var(--color-gold);
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.review-block__author {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+/* Nieuwsbrief sectie */
+.newsletter {
+  text-align: center;
+  padding: var(--section-padding-compact);
+  background-color: var(--color-bg-light);
+}
+
+.newsletter__form {
+  display: flex;
+  gap: 12px;
+  max-width: 480px;
+  margin: var(--space-sm) auto 0;
+}
