@@ -2,6 +2,9 @@
 
 Gebaseerd op de werkelijke copy van asteria.nl. Gebruik dit als referentie bij elke tekst die je schrijft voor landingspagina's.
 
+## TLDR
+Warm en gastvrij, nuchter Limburgs. Altijd "u". Concreet over prijs, tijd en locatie. Geen superlatieven, geen marketingjargon. Korte zinnen, actieve zinsbouw. Trots op Venray en de natuur.
+
 ---
 
 ## Karakter in één zin

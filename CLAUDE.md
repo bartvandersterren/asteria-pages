@@ -48,10 +48,13 @@ Schrijf per blok de exacte copy:
 - Subkop of bodytekst (max 2-3 zinnen)
 - CTA-knoptekst
 
-Stijlregels:
-- Tone of voice: warm, gastvrij, direct — geen reclametaal
-- Kopteksten staan in uppercase (Electrolize font)
-- CTA's zijn actiegericht ("Boek nu", "Bekijk arrangementen" — niet "Klik hier")
+Stijlregels (zie `tone-of-voice.md` voor volledig overzicht):
+- Altijd "u" — nooit "je" of "jij"
+- Warm en gastvrij, nuchter Limburgs — geen superlatieven, geen marketingjargon
+- Concreet: noem prijzen, tijden, locatie (Venray, Noord-Limburg, Maasduinen)
+- Korte actieve zinnen
+- Kopteksten in uppercase (Electrolize font)
+- CTA's actiegericht: "Boek nu", "Bekijk arrangementen" — niet "Klik hier"
 
 Vraag bevestiging op de copy voor je verdergaat.
 
