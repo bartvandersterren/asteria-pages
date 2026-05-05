@@ -12,12 +12,10 @@ Warm en gastvrij, concreet over het aanbod, trots op de Limburgse omgeving — z
 
 ## Aanspreekvorm
 
-**Gebruik "je/jij"** op landingspagina's — informeel en direct.
+**Gebruik altijd "u"** — consistent, respectvol, past bij het hotelkarakter.
 
-De site wisselt inconsistent tussen "u" (formele pagina's) en "je" (specials, feesten). Voor campagnepagina's altijd "je" — dat voelt persoonlijker en past bij de doelgroep die via ads binnenkomt.
-
-- ✅ "Kom je voor een weekendje weg?"
-- ❌ "Komt u voor een weekendje weg?"
+- ✅ "Komt u voor een weekendje weg?"
+- ❌ "Kom je voor een weekendje weg?"
 
 ---
 
