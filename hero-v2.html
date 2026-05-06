@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero V2 — Hotel Asteria</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+
+    /* ── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── NAV — pixel-perfect zoals live site (locked) ──────────── */
+    .main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: #333;
+      box-shadow: 0 0 15px rgba(0,0,0,.5);
+      font-family: var(--font-body);
+    }
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      border-bottom: 1px solid rgba(105,93,93,0.5);
+    }
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 22px 13px;
+      font-size: .85em;
+      font-weight: 400;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .top-bar .far, .top-bar .fas { margin: 0 4px 0 5px; color: #f2f2f2; font-size: 12px; }
+    .top-bar .fa-globe, .top-bar .fa-phone { margin: 0 4px 0 8px; }
+    .top-bar a { color: #f2f2f2; text-decoration: none; margin: 0 5px 0 0; }
+    .top-bar a:hover { color: #fff; }
+    .lang-nav { cursor: pointer; color: #f2f2f2; border: none; text-transform: uppercase; font-size: 12px; font-family: sans-serif; background: transparent; outline: none; -webkit-appearance: none; appearance: none; margin-left: 2px; }
+    .lang-nav option { color: #333; }
+    .lang-wrapper { display: inline-flex; align-items: center; }
+    .lang-arrow { color: #f2f2f2; font-size: 10px; margin-left: 2px; pointer-events: none; }
+    .row.nav-bar { display: flex; align-items: center; padding: 18px 22px; }
+    /* Desktop logo — absoluut, beslaat top-bar + nav-bar samen */
+    .nav-inner > .logo { position: absolute; left: 22px; top: 0; bottom: 0; z-index: 10; display: flex; align-items: center; text-decoration: none; }
+    .nav-inner > .logo img { width: 90px; display: block; }
+    /* Mobile logo — alleen zichtbaar <880px, als flex-item in nav-bar */
+    .logo--mobile { display: none; flex-shrink: 0; align-items: center; text-decoration: none; }
+    .logo--mobile img { width: 52px; display: block; }
+    .nav-content { margin-left: auto; display: flex; align-items: center; }
+    .nav-content ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; }
+    .nav-content ul li { position: relative; }
+    .nav-bar a:not(.button):not(.logo) { color: #f2f2f2; text-decoration: none; margin: 0 10px; padding-bottom: 5px; border-bottom: 2px solid transparent; font-size: 14px; white-space: nowrap; display: block; }
+    .nav-bar a:not(.button):not(.logo):hover { color: #fff; border-bottom-color: #fff; }
+    .nav-bar .button.book-now { color: #fff; background-color: #c23435; border: solid 1px #c23435; border-radius: 10px; font-size: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 110px; height: 50px; margin-left: 10px; white-space: nowrap; flex-shrink: 0; }
+    .nav-bar .button.book-now:hover { background-color: #a82c2c; }
+    /* Verberg desktop-only nav elementen op mobile */
+    .menu-close, .language-nav-mobile, .drop-icon, .mobile-checkbox, .submenu { display: none; }
+    .mobile-nav-buttons { display: none; }
+
+    /* ── MOBILE NAV — pixel-perfect van asteria.nl (max-width: 880px) ── */
+    @media (max-width: 880px) {
+      .top-bar { display: none; }
+
+      /* Mobile: logo links via .logo--mobile, mobile-nav-buttons rechts */
+      .row.nav-bar { padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
+      .nav-inner > .logo { display: none; }
+      .logo--mobile { display: flex; padding: 12px 0; }
+      .nav-content { display: none; } /* verborgen tot hamburger geklikt */
+
+      /* Mobile buttons: hamburger + bel */
+      .mobile-nav-buttons {
+        display: flex !important;
+        align-items: center;
+        gap: 4px;
+        float: right;
+        color: #fff;
+        margin: 0;
+      }
+      .mobile-nav-buttons .button {
+        display: flex !important;
+        align-items: center;
+        gap: 6px;
+        background: transparent;
+        color: #fff;
+        border: none;
+        padding: 10px 12px;
+        font-size: 13px;
+        font-family: var(--font-body);
+        cursor: pointer;
+        line-height: 25px;
+        text-decoration: none;
+      }
+      .mobile-nav-buttons .button i { font-size: 18px; }
+
+      /* Full-screen overlay menu */
+      .main-nav ul {
+        position: fixed;
+        inset: 0;
+        background: #444;
+        text-align: center;
+        padding: 20px 0;
+        opacity: 0;
+        display: none;
+        transition: opacity 0.4s ease-in-out;
+        overflow-y: scroll;
+        z-index: 1200;
+        list-style: none;
+        margin: 0;
+      }
+      .main-nav.show-mobile-nav ul:not(.submenu) { display: block; }
+      .main-nav.show-mobile-nav.delay ul { opacity: 1; }
+
+      /* Menu items in overlay */
+      .main-nav ul li { width: 100%; display: block; }
+      .main-nav ul li a { font-size: 20px; line-height: 40px; color: #f2f2f2; padding: 5px 0; display: block; border-bottom: none; text-decoration: none; }
+      .main-nav ul li a:hover { color: #fff; }
+
+      /* Sluit-knop bovenin overlay */
+      .menu-close {
+        display: block !important;
+        color: #fff;
+        font-size: 22px;
+        padding: 16px;
+        cursor: pointer;
+        list-style: none;
+      }
+    }
+
+    /* ── HERO V2 — gecentreerd, social proof, radiale vignette ─── */
+    .hero2 {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Achtergrond foto — bewust centraal gefocust op ingang */
+    .hero2__bg {
+      position: absolute;
+      inset: 0;
+      background: #0a0806 url('fotos/hero-buitenkant.jpg') 58% center / cover no-repeat;
+    }
+
+    /* Radiale vignette: donker aan de randen, open in het midden
+       Schept een spotlight-gevoel — trekt het oog naar de tekst */
+    .hero2__overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 50% 42%,
+          rgba(0,0,0,0.08) 0%,
+          rgba(0,0,0,0.52) 55%,
+          rgba(0,0,0,0.84) 100%
+        ),
+        linear-gradient(to top,
+          rgba(0,0,0,0.78) 0%,
+          rgba(0,0,0,0.22) 22%,
+          transparent 42%
+        ),
+        linear-gradient(to bottom,
+          rgba(0,0,0,0.34) 0%,
+          transparent 16%
+        );
+    }
+
+    /* Film grain — zelfde als v1, bewezen techniek */
+    .hero2__grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
+    /* ── Content wrapper ── */
+    .hero2__content {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      max-width: 860px;
+      padding: 0 32px;
+      color: #fff;
+    }
+
+    /* ── Social proof badge — review score als vertrouwensanker ──
+       Gebaseerd op UI/UX Pro Max aanbeveling: social proof in hero */
+    .hero2__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 100px;
+      padding: 8px 18px 8px 12px;
+      margin-bottom: 28px;
+      animation: heroScale 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s both;
+    }
+    .hero2__badge-stars {
+      color: var(--color-gold);
+      font-size: 13px;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .hero2__badge-text {
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.82);
+      letter-spacing: 0.04em;
+    }
+    .hero2__badge-sep {
+      width: 1px;
+      height: 12px;
+      background: rgba(255,255,255,0.22);
+    }
+    .hero2__badge-source {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.42);
+    }
+
+    /* ── Locatie label ── */
+    .hero2__location {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.34);
+      margin-bottom: 18px;
+      animation: heroScale 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+    }
+
+    /* ── H1 — gecentreerd, brede letter-spacing voor hotelplakat gevoel ── */
+    .hero2__title {
+      font-family: var(--font-heading);
+      font-size: clamp(44px, 6vw, 86px);
+      font-weight: 400;
+      text-transform: uppercase;
+      line-height: 0.96;
+      letter-spacing: 0.055em;
+      color: #fff;
+      margin: 0 0 24px;
+      text-shadow: 0 2px 60px rgba(0,0,0,0.55);
+      animation: heroScale 0.8s cubic-bezier(0.16,1,0.3,1) 0.32s both;
+    }
+
+    /* Rode horizontale streep onder de titel — centred versie van de v1 accentlijn */
+    .hero2__title-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--color-red);
+      margin: 0 auto 28px;
+      animation: heroScale 0.8s cubic-bezier(0.16,1,0.3,1) 0.42s both;
+    }
+
+    /* ── Subtekst ── */
+    .hero2__sub {
+      font-family: var(--font-body);
+      font-size: clamp(14px, 1.2vw, 17px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.60);
+      line-height: 1.80;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      letter-spacing: 0.012em;
+      animation: heroScale 0.8s cubic-bezier(0.16,1,0.3,1) 0.52s both;
+    }
+
+    /* ── CTA groep ── */
+    .hero2__cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: heroScale 0.8s cubic-bezier(0.16,1,0.3,1) 0.64s both;
+    }
+
+    .hero2__cta-group .btn--primary {
+      font-size: 11px;
+      padding: 17px 40px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      box-shadow: 0 4px 28px rgba(194,52,53,0.50), 0 1px 4px rgba(0,0,0,0.4);
+      transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      cursor: pointer;
+    }
+    .hero2__cta-group .btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 40px rgba(194,52,53,0.60), 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    /* Ghost / outline knop als secundaire CTA */
+    .hero2__btn-ghost {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      padding: 17px 32px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 2px;
+      backdrop-filter: blur(6px);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .hero2__btn-ghost:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ── Scroll indicator — gecentreerd onderaan ── */
+    .hero2__scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: heroScale 0.8s cubic-bezier(0.16,1,0.3,1) 1.2s both;
+    }
+    .hero2__scroll-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.35);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    .hero2__scroll-track {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero2__scroll-track::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: 0; right: 0;
+      height: 100%;
+      background: rgba(255,255,255,0.42);
+      animation: scrollDown 2.2s ease-in-out infinite;
+    }
+
+    /* ── Animaties ── */
+    @keyframes heroScale {
+      from { opacity: 0; transform: scale(0.97); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes scrollDown {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.35; }
+      50%       { opacity: 0.85; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero2__content *, .hero2__badge, .hero2__scroll { animation: none; opacity: 1; transform: none; }
+    }
+
+    /* ── BOOKING CARD — identiek aan v1 ── */
+    .booking-card {
+      position: relative;
+      z-index: 10;
+      max-width: 880px;
+      margin: -52px auto 0;
+      background: #fff;
+      border-radius: 12px;
+      padding: 22px 32px 28px;
+      box-shadow: 0 12px 64px rgba(0,0,0,0.18), 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .booking-card__usps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid #f0f0f0;
+      flex-wrap: wrap;
+    }
+    .booking-card__usp {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      color: #333;
+    }
+    .booking-card__usp-icon { width: 16px; height: 16px; color: var(--color-red); flex-shrink: 0; }
+    .booking-card__form {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 10px;
+      align-items: stretch;
+    }
+    .booking-input {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: #999;
+      border: 1px solid #e4e4e4;
+      border-radius: 6px;
+      padding: 13px 16px;
+      background: #fff;
+      transition: border-color 0.2s;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .booking-input:focus { border-color: var(--color-red); outline: none; color: #222; }
+    .booking-card .btn--primary {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-radius: 6px;
+      padding: 13px 24px;
+      cursor: pointer;
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .header__links { display: none; }
+      .header__topbar { display: none; }
+      .booking-card { margin: -36px 20px 0; padding: 20px 20px 24px; }
+      .booking-card__usps { gap: 16px; }
+      .booking-card__form { grid-template-columns: 1fr 1fr; }
+      .booking-card .btn--primary { grid-column: 1 / -1; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .booking-card { margin: -24px 16px 0; padding: 18px 16px 20px; }
+      .booking-card__usps { display: none; }
+      .booking-card__form { grid-template-columns: 1fr; }
+      .hero2__cta-group { flex-direction: column; width: 100%; }
+      .hero2__cta-group .btn--primary,
+      .hero2__btn-ghost { width: 100%; text-align: center; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- HEADER (locked — exact kopie van lander-google-ads.html) -->
+<nav class="main-nav">
+  <div class="nav-inner">
+    <div class="top-bar">
+      <a href="mailto:info@asteria.nl"><i class="far fa-envelope"></i>info@asteria.nl</a>
+      <a href="tel:0031478511466"><i class="fas fa-phone"></i>0478511466</a>
+      <span class="lang-wrapper">
+        <i class="fas fa-globe"></i>
+        <select class="lang-nav" id="langNav">
+          <option value="nl" selected>nl</option>
+          <option value="en">en</option>
+          <option value="de">de</option>
+        </select>
+        <span class="lang-arrow">▾</span>
+      </span>
+    </div>
+    <a class="logo" href="https://www.asteria.nl">
+      <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+    </a>
+    <div class="row nav-bar">
+      <a class="logo logo--mobile" href="https://www.asteria.nl">
+        <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+      </a>
+      <div class="nav-content">
+        <ul>
+          <li class="menu-close" id="menuClose">&#10005;</li>
+          <li><a href="https://www.asteria.nl/kamers">Kamers en Suites</a></li>
+          <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
+          <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
+          <li><a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; Feesten</a></li>
+          <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
+          <li><a href="https://www.asteria.nl/omgeving">Omgeving</a></li>
+          <li><a href="https://www.asteria.nl/contact">Contact</a></li>
+        </ul>
+        <a href="#boeken" class="button book-now" onclick="trackBookingClick()">Boek nu</a>
+      </div>
+      <div class="mobile-nav-buttons">
+        <span class="menu-button button" id="menuOpen"><i class="fas fa-bars"></i> Menu</span>
+        <a href="tel:0031478511466" class="button"><i class="fas fa-phone"></i> Bel</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- HERO V2 — gecentreerd, social proof, radiale vignette -->
+<section class="hero2" id="hero">
+  <div class="hero2__bg"></div>
+  <div class="hero2__overlay"></div>
+  <div class="hero2__grain"></div>
+
+  <div class="hero2__content">
+
+    <!-- Social proof badge — vertrouwensanker direct zichtbaar -->
+    <div class="hero2__badge" aria-label="4.4 sterren op Google, meer dan 200 reviews">
+      <span class="hero2__badge-stars" aria-hidden="true">★★★★½</span>
+      <span class="hero2__badge-sep" aria-hidden="true"></span>
+      <span class="hero2__badge-text">4.4 · meer dan 200 reviews</span>
+      <span class="hero2__badge-sep" aria-hidden="true"></span>
+      <span class="hero2__badge-source">Google</span>
+    </div>
+
+    <!-- Locatie -->
+    <span class="hero2__location">Venray &nbsp;&middot;&nbsp; Noord-Limburg</span>
+
+    <!-- H1 -->
+    <h1 class="hero2__title">{{PAGE_TITLE}}</h1>
+
+    <!-- Rode accentregel onder titel -->
+    <div class="hero2__title-rule" aria-hidden="true"></div>
+
+    <!-- Subtekst -->
+    <p class="hero2__sub">Aan de rand van Venray, omgeven door de Limburgse natuur. Dineren, overnachten of ontspannen — altijd op het juiste adres.</p>
+
+    <!-- CTA's -->
+    <div class="hero2__cta-group">
+      <a href="#boeken" class="btn btn--primary" onclick="trackBookingClick()">Check beschikbaarheid</a>
+      <a href="#aanbod" class="hero2__btn-ghost">Bekijk arrangementen</a>
+    </div>
+
+  </div>
+
+  <!-- Scroll indicator — gecentreerd onderaan -->
+  <div class="hero2__scroll" aria-hidden="true">
+    <div class="hero2__scroll-dot"></div>
+    <div class="hero2__scroll-track"></div>
+  </div>
+
+</section>
+
+
+<!-- BOOKING CARD -->
+<div class="booking-card">
+  <div class="booking-card__usps">
+    <div class="booking-card__usp">
+      <svg class="booking-card__usp-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="10" cy="10" r="8"/><path d="M7 10l2 2 4-4"/>
+      </svg>
+      Beste prijsgarantie
+    </div>
+    <div class="booking-card__usp">
+      <svg class="booking-card__usp-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="10" cy="10" r="8"/><path d="M7 10l2 2 4-4"/>
+      </svg>
+      Spaar loyalty punten voor beloningen
+    </div>
+    <div class="booking-card__usp">
+      <svg class="booking-card__usp-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="10" cy="10" r="8"/><path d="M7 10l2 2 4-4"/>
+      </svg>
+      Free upgrade (indien beschikbaar)
+    </div>
+  </div>
+  <div class="booking-card__form">
+    <input type="text" class="booking-input" placeholder="Check-in"
+      onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"
+      aria-label="Check-in datum">
+    <input type="text" class="booking-input" placeholder="Check-out"
+      onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"
+      aria-label="Check-out datum">
+    <select class="booking-input" aria-label="Aantal personen">
+      <option value="" disabled selected>Aantal personen</option>
+      <option>1 persoon</option>
+      <option>2 personen</option>
+      <option>3 personen</option>
+      <option>4 personen</option>
+      <option>5+ personen</option>
+    </select>
+    <a href="#boeken" class="btn btn--primary" onclick="trackBookingClick()">Controleer beschikbaarheid</a>
+  </div>
+</div>
+
+
+<!-- ─────────────────────────────────────────────────────
+     USP BLOK — Horizontale accordion met foto's
+     Conversiedoel: twijfel wegnemen, 4 concrete redenen
+     Design: licht grijs, 4 panelen klappen open bij hover
+───────────────────────────────────────────────────────── -->
+<section class="acc-section" aria-label="Waarom Hotel Asteria">
+  <div class="acc-intro">
+    <span class="acc-eyebrow">Wat u kunt verwachten</span>
+  </div>
+  <div class="acc-track">
+
+    <div class="acc-panel" style="background-image: url('fotos/card-kamer.jpg')" tabindex="0" aria-label="Moderne kamers">
+      <div class="acc-panel__overlay"></div>
+      <span class="acc-panel__label" aria-hidden="true">Moderne kamers</span>
+      <div class="acc-panel__content">
+        <h3 class="acc-panel__title">Moderne kamers</h3>
+        <p class="acc-panel__text">Ruime kamers met airco, comfortabel bed en een rustige sfeer. Klaar voor een goede nacht.</p>
+        <div class="acc-panel__rule" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="acc-panel" style="background-image: url('fotos/card-restaurant.jpg')" tabindex="0" aria-label="Restaurant en brasserie">
+      <div class="acc-panel__overlay"></div>
+      <span class="acc-panel__label" aria-hidden="true">Restaurant &amp; brasserie</span>
+      <div class="acc-panel__content">
+        <h3 class="acc-panel__title">Restaurant &amp; brasserie</h3>
+        <p class="acc-panel__text">Van ontbijt tot diner — verse gerechten, goede wijn, gewoon in eigen huis.</p>
+        <div class="acc-panel__rule" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="acc-panel" style="background-image: url('fotos/card-wellness.jpg')" tabindex="0" aria-label="Wellness en fitness">
+      <div class="acc-panel__overlay"></div>
+      <span class="acc-panel__label" aria-hidden="true">Wellness &amp; fitness</span>
+      <div class="acc-panel__content">
+        <h3 class="acc-panel__title">Wellness &amp; fitness</h3>
+        <p class="acc-panel__text">Sauna, stoomcabine en volledig uitgerust fitnesscentrum. Even helemaal opladen.</p>
+        <div class="acc-panel__rule" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="acc-panel" style="background-image: url('fotos/hero-buitenkant.jpg')" tabindex="0" aria-label="Gratis parkeren">
+      <div class="acc-panel__overlay"></div>
+      <span class="acc-panel__label" aria-hidden="true">Gratis parkeren</span>
+      <div class="acc-panel__content">
+        <h3 class="acc-panel__title">Gratis parkeren</h3>
+        <p class="acc-panel__text">Ruim parkeerterrein direct bij het hotel. Geen gedoe, gewoon rijden en uitstappen.</p>
+        <div class="acc-panel__rule" aria-hidden="true"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ── ACCORDION SECTIE — licht, Asteria-kleur ─────────────── */
+  .acc-section {
+    background: var(--color-bg);
+    padding: 80px 24px 96px;
+  }
+
+  .acc-intro {
+    max-width: 1400px;
+    margin: 0 auto 32px;
+  }
+
+  .acc-eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  /* ── Accordion track ─────────────────────────────────────── */
+  .acc-track {
+    display: flex;
+    height: 520px;
+    gap: 6px;
+    max-width: 1400px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  /* ── Individueel paneel ──────────────────────────────────── */
+  .acc-panel {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    transition: flex 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    outline: none;
+  }
+
+  /* Hover én keyboard-focus openen het paneel */
+  .acc-panel:hover,
+  .acc-panel:focus-within,
+  .acc-panel.is-open {
+    flex: 4.5;
+  }
+
+  /* ── Overlay — donker in rust, lichter bij open ──────────── */
+  .acc-panel__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(12, 8, 6, 0.68);
+    transition: background 0.55s ease;
+  }
+  .acc-panel:hover .acc-panel__overlay,
+  .acc-panel.is-open .acc-panel__overlay {
+    background: rgba(12, 8, 6, 0.38);
+  }
+
+  /* ── Verticaal label — zichtbaar in rust, vervaagt bij open ─ */
+  .acc-panel__label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    white-space: nowrap;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    z-index: 2;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .acc-panel:hover .acc-panel__label,
+  .acc-panel.is-open .acc-panel__label {
+    opacity: 0;
+  }
+
+  /* ── Content — verborgen in rust, verschijnt bij open ───────
+     Vertraging zodat de foto eerst zichtbaar is             ── */
+  .acc-panel__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 44px 44px;
+    z-index: 3;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease 0.2s,
+                transform 0.4s cubic-bezier(0.16,1,0.3,1) 0.15s;
+  }
+  .acc-panel:hover .acc-panel__content,
+  .acc-panel.is-open .acc-panel__content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .acc-panel__title {
+    font-family: var(--font-heading);
+    font-size: 22px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    margin: 0 0 12px;
+    line-height: 1.15;
+  }
+
+  .acc-panel__text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.75;
+    margin: 0;
+    max-width: 320px;
+  }
+
+  /* Rode accentlijn onder de tekst */
+  .acc-panel__rule {
+    width: 36px;
+    height: 2px;
+    background: var(--color-red);
+    margin-top: 20px;
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────── */
+
+  /* Tablet: lagere hoogte */
+  @media (max-width: 900px) {
+    .acc-track { height: 400px; gap: 4px; }
+    .acc-panel__content { padding: 0 28px 32px; }
+    .acc-panel__title { font-size: 18px; }
+  }
+
+  /* Mobile: verticaal gestapeld, geen accordion (geen hover) */
+  @media (max-width: 640px) {
+    .acc-section { padding: 56px 16px 72px; }
+    .acc-track {
+      flex-direction: column;
+      height: auto;
+      gap: 4px;
+      border-radius: 12px;
+    }
+    .acc-panel {
+      flex: none !important;
+      height: 220px;
+      transition: none;
+    }
+    .acc-panel__label { display: none; }
+    .acc-panel__overlay { background: rgba(12,8,6,0.50) !important; }
+    .acc-panel__content {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none;
+      padding: 0 24px 28px;
+    }
+    .acc-panel__title { font-size: 16px; }
+    .acc-panel__text { font-size: 13px; }
+    .acc-panel__rule { margin-top: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .acc-panel { transition: none; }
+    .acc-panel__label,
+    .acc-panel__content,
+    .acc-panel__overlay { transition: none; }
+  }
+</style>
+
+<script>
+  // Mobile nav toggle — zelfde patroon als asteria.nl
+  const mainNav = document.querySelector('.main-nav');
+  const menuOpen = document.getElementById('menuOpen');
+  const menuClose = document.getElementById('menuClose');
+
+  function openMenu() {
+    mainNav.classList.add('show-mobile-nav');
+    requestAnimationFrame(() => {
+      setTimeout(() => mainNav.classList.add('delay'), 10);
+    });
+  }
+  function closeMenu() {
+    mainNav.classList.remove('delay');
+    setTimeout(() => mainNav.classList.remove('show-mobile-nav'), 400);
+  }
+  if (menuOpen) menuOpen.addEventListener('click', openMenu);
+  if (menuClose) menuClose.addEventListener('click', closeMenu);
+
+  // Fold check: hero + booking card past binnen 90vh
+  function fitHeroToFold() {
+    const hero = document.querySelector('.hero2');
+    const card = document.querySelector('.booking-card');
+    if (!hero || !card) return;
+    const overlap = Math.abs(parseInt(getComputedStyle(card).marginTop)) || 52;
+    const cardVisible = card.offsetHeight - overlap;
+    hero.style.minHeight = `calc(90vh - ${cardVisible}px)`;
+  }
+  fitHeroToFold();
+  window.addEventListener('resize', fitHeroToFold);
+
+  // Accordion: touch/keyboard ondersteuning
+  document.querySelectorAll('.acc-panel').forEach(panel => {
+    panel.addEventListener('click', () => {
+      const isOpen = panel.classList.contains('is-open');
+      document.querySelectorAll('.acc-panel').forEach(p => p.classList.remove('is-open'));
+      if (!isOpen) panel.classList.add('is-open');
+    });
+  });
+
+  function trackBookingClick() {
+    if (typeof gtag !== 'undefined') gtag('event', 'begin_checkout');
+    if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
+  }
+</script>
+
+</body>
+</html>
