@@ -25,6 +25,9 @@
   <!-- Brand -->
   <link rel="stylesheet" href="brand.css">
 
+  <!-- Font Awesome (nav icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
   <!-- GA4 — vervang measurement ID -->
   <script async src="https://www.googletagmanager.com/gtag/js?id={{GA4_MEASUREMENT_ID}}"></script>
   <script>
@@ -50,17 +53,17 @@
     *, *::before, *::after { box-sizing: border-box; }
 
     /* ── Sticky header ───────────────────────────────────────── */
+
     /* ── NAV — exact zoals live site ────────────────────────── */
     .main-nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
       background: rgba(41,41,41,0.9);
       font-family: var(--font-body);
     }
 
+    /* Top bar: email, telefoon, taalwisseling */
     .main-nav .top-bar {
       padding: 6px 0;
       border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -70,55 +73,107 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 24px;
+    }
+
+    .main-nav .top-bar .columns {
       display: flex;
       justify-content: flex-end;
-      gap: 24px;
       align-items: center;
+      gap: 20px;
     }
 
     .main-nav .top-bar a {
-      color: var(--color-text-light);
+      color: rgba(242,242,242,0.75);
       font-size: 12.75px;
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .main-nav .top-bar a:hover { color: #fff; }
 
-    .main-nav .nav-bar {
+    .main-nav .top-bar .fa-globe { color: rgba(242,242,242,0.6); font-size: 12px; }
+
+    .main-nav .top-bar select.lang-nav {
+      background: transparent;
+      border: none;
+      color: rgba(242,242,242,0.75);
+      font-family: var(--font-body);
+      font-size: 12.75px;
+      cursor: pointer;
+      outline: none;
+      padding: 0;
+    }
+
+    .main-nav .top-bar select.lang-nav option {
+      background: #292929;
+      color: #fff;
+    }
+
+    /* Nav bar: logo links, menu + boek nu rechts */
+    .main-nav .row.nav-bar {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 12px 24px;
+      padding: 0 24px;
+    }
+
+    .main-nav .row.nav-bar .columns {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      padding: 10px 0 28px;
+    }
+
+    /* Logo — absoluut gepositioneerd zodat hij door beide rijen loopt */
+    .main-nav .logo {
+      position: absolute;
+      left: 24px;
+      top: 0;
+      z-index: 10;
+      display: block;
     }
 
     .main-nav .logo img {
-      height: 54px;
+      height: 100px;
       width: auto;
+      display: block;
     }
 
-    .main-nav .nav-content ul {
+    /* Taalwisseling */
+    .main-nav .top-bar .lang-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: rgba(242,242,242,0.75);
+    }
+
+    /* Nav content — alles rechts uitgelijnd */
+    .main-nav .nav-content {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .main-nav .nav-content > ul {
       list-style: none;
       margin: 0;
       padding: 0;
       display: flex;
-      gap: 28px;
       align-items: center;
+      gap: 24px;
     }
 
-    .main-nav .nav-content li { position: relative; }
-    .main-nav .nav-content .menu-close,
-    .main-nav .nav-content .language-nav-mobile,
-    .main-nav .nav-content .drop-icon,
-    .main-nav .nav-content .mobile-checkbox,
-    .main-nav .nav-content .submenu { display: none; }
+    /* Verberg mobile-only elementen */
+    .main-nav .menu-close,
+    .main-nav .language-nav-mobile,
+    .main-nav .drop-icon,
+    .main-nav .mobile-checkbox,
+    .main-nav .submenu,
+    .main-nav .mobile-nav-buttons { display: none !important; }
 
     .main-nav .nav-content a {
-      color: var(--color-text-light);
+      color: rgba(242,242,242,0.85);
       font-size: 12.75px;
       font-weight: 400;
       text-decoration: none;
@@ -126,20 +181,24 @@
 
     .main-nav .nav-content a:hover { color: #fff; }
 
-    .main-nav .book-now {
+    /* Boek nu knop */
+    .main-nav .button.book-now {
       background: var(--color-red);
-      color: #fff;
-      padding: 10px 22px;
+      color: #fff !important;
+      padding: 10px 20px;
       border-radius: var(--radius-md);
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 300;
       text-decoration: none;
       white-space: nowrap;
       border: 1px solid var(--color-red);
+      display: flex;
+      align-items: center;
+      gap: 7px;
       transition: opacity 0.2s;
     }
 
-    .main-nav .book-now:hover { opacity: 0.88; }
+    .main-nav .button.book-now:hover { opacity: 0.88; }
 
     /* ── FOOTER — exact zoals live site ─────────────────────── */
     .main-footer {
@@ -1074,31 +1133,50 @@
      HEADER
 ───────────────────────────────────────────────────────── -->
 <nav class="main-nav">
-  <!-- Top bar -->
+
+  <!-- Logo — loopt door beide rijen -->
+  <a class="logo" href="https://www.asteria.nl">
+    <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+  </a>
+
+  <!-- Rij 1: contactgegevens + taalwisseling -->
   <div class="top-bar">
     <div class="row">
-      <a href="mailto:info@asteria.nl">✉ info@asteria.nl</a>
-      <a href="tel:0031478511466">✆ 0478511466</a>
+      <div class="columns">
+        <a href="mailto:info@asteria.nl"><i class="fas fa-envelope"></i> info@asteria.nl</a>
+        <a href="tel:0031478511466"><i class="fas fa-phone"></i> 0478 51 14 66</a>
+        <span class="lang-wrapper">
+          <i class="fas fa-globe"></i>
+          <select class="lang-nav" aria-label="Taal kiezen">
+            <option value="nl" selected>NL</option>
+            <option value="de">DE</option>
+            <option value="en">EN</option>
+          </select>
+        </span>
+      </div>
     </div>
   </div>
-  <!-- Nav bar -->
-  <div class="nav-bar">
-    <a class="logo" href="https://www.asteria.nl">
-      <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
-    </a>
-    <div class="nav-content">
-      <ul>
-        <li><a href="https://www.asteria.nl/kamers">Kamers en Suites</a></li>
-        <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
-        <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
-        <li><a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; Feesten</a></li>
-        <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
-        <li><a href="https://www.asteria.nl/omgeving">Omgeving</a></li>
-        <li><a href="https://www.asteria.nl/contact">Contact</a></li>
-      </ul>
+
+  <!-- Rij 2: menu + Boek nu -->
+  <div class="row nav-bar">
+    <div class="columns">
+      <div class="nav-content">
+        <ul>
+          <li><a href="https://www.asteria.nl/kamers">Kamers en Suites</a></li>
+          <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
+          <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
+          <li><a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; Feesten</a></li>
+          <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
+          <li><a href="https://www.asteria.nl/omgeving">Omgeving</a></li>
+          <li><a href="https://www.asteria.nl/contact">Contact</a></li>
+        </ul>
+        <a href="#boeken" class="button book-now" onclick="trackBookingClick()">
+          <i class="fas fa-calendar-alt"></i> Boek nu
+        </a>
+      </div>
     </div>
-    <a href="#boeken" class="book-now" onclick="trackBookingClick()">Boek nu</a>
   </div>
+
 </nav>
 
 
