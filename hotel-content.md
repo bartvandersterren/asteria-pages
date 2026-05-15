@@ -85,13 +85,64 @@ _Gescrapet van asteria.nl op 15 mei 2026. Controleer bij twijfel de actuele webs
 
 ---
 
+## Over het hotel
+
+Hotel Asteria is een familiair hotel in het noorden van Noord-Limburg, omringd door natuur, cultuur en charme. Het team staat elke dag klaar om elk verblijf bijzonder te maken — of gasten nu komen voor rust, romantiek, een vergadering of een feest.
+
+Sterke punten: persoonlijke aandacht als DNA van het hotel, Limburgse gastvrijheid, alles onder één dak (kamers, restaurant, wellness, zalen). Draagt het Goed Hart Keurmerk.
+
+_Bron: asteria.nl/over-ons_
+
+---
+
+## Locatie & omgeving
+
+- Venray, Noord-Limburg — Maasheseweg 80a, 5804 AD
+- Direct aan de A73: "Gelegen in het hart van Noord-Limburg, direct aan de A73, biedt Hotel Asteria Venray de perfecte uitvalsbasis"
+- Nationaal Park De Maasduinen: wandelen en fietsen in duinlandschap
+- Nationaal Park De Groote Peel: uitgestrekte moerassen en open vlakten
+- Kasteeltuinen Arcen (~25 km): een van de meest veelzijdige bloemen- en plantenparken van Europa, tickets bij receptie
+- Thermaalbad Arcen: kuuroord met thermaalwater, sauna en therapeutische faciliteiten
+- Oorlogsmuseum Overloon: tickets bij receptie
+- Venray centrum: historische Grote Kerk, boetiekjes, terrassen
+- Venlo (~25 km): middeleeuwse binnenstad met winkels en restaurants
+- Designer Outlet Roermond (~40 km): 150+ shops
+- Hertog Jan Brouwerij: bezoek inclusief proefsessie
+
+_Bron: asteria.nl/omgeving_
+
+---
+
+## Restaurant & Brasserie
+
+- **Concept:** Sfeervolle brasserie met open haard en zonnig terras, plus restaurantruimte voor diner. Warme, huiselijke sfeer.
+- **Keuken:** Seizoensgebonden gerechten met dagverse streekproducten en lokale smaken. Proeverijmenu beschikbaar. Wisselende specials (mosselen, aspergemenu, brunches met live cooking, kerstdiners).
+- **Zondagsbrunch:** live cooking, uitgebreid warm/koud buffet + dessertbuffet, 11:30–14:00 uur (op vaste data)
+- **Openingstijden brasserie:** ma–vr 07:00–00:00 | za–zo 08:00–01:00
+- **Openingstijden restaurant:** ma–zo 11:30–21:30
+- **Reserveren:** 0478 511 466 of info@asteria.nl
+
+_Bron: asteria.nl/restaurant_
+
+---
+
+## Wellness
+
+- **Inhoud:** 4 unieke sauna's (o.a. infrarood- en zoutsteen), stoomcabine, dompelbad, kruidenbad, belevenisdouches, 4 voetenbaden, relaxruimte
+- **Extra:** moderne fitnessruimte voor alle hotelgasten
+- **Locatie:** Top Floor van het hotel
+- **Oppervlakte:** 300 m²
+- **Openingstijden:** niet vermeld op website (reserveren via wellnessasteria.nl/reserveren)
+- **Opmerking:** ook extern te reserveren (apart van hotelovernachting)
+
+_Bron: asteria.nl/wellness_
+
+---
+
 ## Vaste USPs
 
-- Beste prijsgarantie
-- Spaar loyalty punten voor leuke beloningen
-- Free upgrade (indien beschikbaar)
-
 _Directe boekingsvoordelen (zichtbaar op homepage en in booking widget):_
+
 - Beste prijsgarantie
 - Spaar loyalty punten voor leuke beloningen
 - Free upgrade (indien beschikbaar)
@@ -101,6 +152,8 @@ _Directe boekingsvoordelen (zichtbaar op homepage en in booking widget):_
 ## Reviews
 
 **Google-score:** 4,2 / 5 (2.219 reviews) — bron: Google Maps
+
+_Google-score 4,2/5 op basis van 2.219 reviews (Google Maps). Bruikbaar in trust-signals op landingspagina's._
 
 _De site toont eigen beoordelingen (geen Google-score/aantal zichtbaar). Onderstaande quotes zijn afkomstig van de beoordelingenpagina:_
 
@@ -125,10 +178,3 @@ _De site toont eigen beoordelingen (geen Google-score/aantal zichtbaar). Onderst
 - **Openingstijden restaurant:** ma–zo 11:30–21:30
 - **Openingstijden wellness:** niet vermeld op website
 
----
-
-## Mews booking
-
-- **Config ID:** 9fc01bd9-bc04-49f2-83cf-b44400835224
-- **Enterprise ID:** 65a522c9-4828-413d-9ad8-af1d00ffb83f
-- **Booking URL:** https://visit.asteria.nl/boeken
