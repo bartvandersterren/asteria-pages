@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kies uw datum — Hotel Asteria</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:      #c23435;
+      --charcoal: #292929;
+      --gold:     #dcbe1f;
+      --white:    #ffffff;
+      --off:      #f7f6f4;
+      --grey-100: #ededed;
+      --grey-200: #d4d4d4;
+      --grey-400: #888;
+      --grey-600: #555;
+      --green:    #2a7a50;
+      --t:        0.18s ease;
+      --font-head: 'Electrolize', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--charcoal);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── BOOKING NAV ── */
+    .booking-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--charcoal);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 60px;
+    }
+    .booking-nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .booking-nav-logo img { height: 36px; display: block; }
+    .booking-nav-close {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.6); font-family: var(--font-body);
+      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 6px; transition: color var(--t); padding: 8px 0;
+    }
+    .booking-nav-close:hover { color: #fff; }
+    .booking-nav-close svg { width: 14px; height: 14px; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar {
+      position: fixed; top: 60px; left: 0; right: 0; z-index: 100;
+      background: var(--white); border-bottom: 1px solid var(--grey-100);
+    }
+    .progress-inner {
+      max-width: 900px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; height: 48px;
+    }
+    .progress-step {
+      display: flex; align-items: center; gap: 7px;
+      font-family: var(--font-body); font-size: 11px; font-weight: 400;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      color: var(--grey-200); white-space: nowrap; transition: color var(--t);
+    }
+    .progress-step.active { color: var(--charcoal); font-weight: 700; }
+    .progress-step.done { color: var(--grey-400); }
+    .step-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; flex-shrink: 0; transition: all var(--t);
+    }
+    .progress-step.active .step-num { background: var(--red); border-color: var(--red); color: #fff; }
+    .progress-step.done .step-num { background: var(--charcoal); border-color: var(--charcoal); color: #fff; }
+    .step-label { display: none; }
+    .step-div { flex: 1; height: 1px; background: var(--grey-100); margin: 0 8px; min-width: 12px; max-width: 40px; }
+    @media (min-width: 600px) { .step-label { display: inline; } }
+
+    /* ── LAYOUT ── */
+    .page-wrap { padding-top: 108px; min-height: 100vh; }
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 100px; }
+
+    /* ── PAGE HEADER ── */
+    .page-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 8px;
+    }
+    .page-title {
+      font-family: var(--font-head); font-size: clamp(24px, 3.5vw, 34px);
+      font-weight: 400; text-transform: uppercase; letter-spacing: 2px;
+      margin-bottom: 6px; line-height: 1.1;
+    }
+    .page-subtitle {
+      font-size: 13px; font-weight: 300; color: var(--grey-600);
+      line-height: 1.6; margin-bottom: 28px;
+      transition: opacity 0.2s ease;
+    }
+
+    /* ── PERSONS ROW ── */
+    .persons-row {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+    }
+    .persons-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--grey-600);
+    }
+    .persons-select {
+      border: 1.5px solid var(--grey-200); padding: 7px 12px;
+      font-size: 13px; font-family: var(--font-body); font-weight: 300;
+      background: var(--white); color: var(--charcoal);
+      outline: none; cursor: pointer; transition: border-color var(--t);
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center;
+      padding-right: 30px;
+    }
+    .persons-select:focus { border-color: var(--charcoal); }
+
+    /* ── LEGEND ── */
+    .cal-legend {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      font-size: 11px; font-weight: 300; color: var(--grey-400);
+      margin-bottom: 20px; align-items: center;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot {
+      width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0;
+    }
+
+    /* ── CALENDAR WRAP ── */
+    .cal-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-bottom: 24px;
+    }
+    @media (max-width: 640px) {
+      .cal-wrap { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    .cal-month { }
+
+    .cal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .cal-title {
+      font-family: var(--font-head); font-size: 13px;
+      text-transform: uppercase; letter-spacing: 2px; color: var(--charcoal);
+    }
+    .cal-nav {
+      background: none; border: 1px solid var(--grey-200);
+      width: 28px; height: 28px; cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); transition: all var(--t); color: var(--charcoal);
+    }
+    .cal-nav:hover:not(:disabled) { border-color: var(--charcoal); background: var(--charcoal); color: #fff; }
+    .cal-nav:disabled { opacity: 0.2; cursor: not-allowed; }
+
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+
+    .cal-dow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--grey-400);
+      text-align: center; padding: 4px 0 10px;
+    }
+    .cal-dow.weekend-dow { color: var(--charcoal); }
+
+    .cal-day {
+      aspect-ratio: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer; position: relative;
+      border: 1.5px solid transparent;
+      transition: all var(--t); border-radius: 2px; padding: 2px;
+    }
+    .cal-day:hover:not(.disabled):not(.past):not(.empty) {
+      border-color: var(--charcoal);
+    }
+    .cal-day.past { opacity: 0.2; cursor: not-allowed; }
+    .cal-day.disabled {
+      opacity: 0.25; cursor: not-allowed;
+      background: repeating-linear-gradient(45deg, transparent, transparent 3px, var(--grey-100) 3px, var(--grey-100) 4px);
+    }
+    .cal-day.empty { cursor: default; }
+    .cal-day.weekend { background: var(--off); }
+    .cal-day.checkin { background: var(--charcoal); color: #fff; border-color: var(--charcoal); }
+    .cal-day.checkout { background: var(--charcoal); color: #fff; border-color: var(--charcoal); }
+    .cal-day.inrange { background: var(--grey-100); border-color: transparent; }
+    .cal-day.scarcity { border-color: #e8a0a0; }
+
+    .cal-num { font-size: 12px; font-weight: 400; line-height: 1; }
+    .cal-price { font-size: 8px; font-weight: 300; margin-top: 2px; line-height: 1; }
+    .cal-price.low { color: var(--green); }
+    .cal-price.high { color: var(--red); }
+    .cal-price.medium { color: var(--grey-400); }
+    .cal-day.checkin .cal-price,
+    .cal-day.checkout .cal-price { color: rgba(255,255,255,0.6); }
+    .cal-day.inrange .cal-price { color: var(--grey-400); }
+
+    /* ── SELECTION BAR ── */
+    .cal-selection {
+      border: 1.5px solid var(--charcoal);
+      padding: 16px 20px;
+      display: none; /* shown via JS */
+      align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.2s ease;
+    }
+    .cal-selection.visible { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .sel-item { }
+    .sel-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--grey-400); margin-bottom: 3px;
+    }
+    .sel-value { font-family: var(--font-head); font-size: 15px; letter-spacing: 1px; }
+    .sel-value.placeholder { color: var(--grey-400); font-family: var(--font-body); font-weight: 300; font-size: 13px; }
+
+    .sel-divider { width: 1px; height: 36px; background: var(--grey-200); }
+
+    .sel-total { text-align: right; }
+    .sel-total-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--grey-400); margin-bottom: 3px;
+    }
+    .sel-total-price { font-family: var(--font-head); font-size: 24px; letter-spacing: -0.5px; line-height: 1; }
+    .sel-total-sub { font-size: 11px; font-weight: 300; color: var(--grey-400); margin-top: 2px; }
+
+    @media (max-width: 480px) {
+      .sel-divider { display: none; }
+      .cal-selection { gap: 16px; }
+      .sel-total { text-align: left; padding-top: 8px; border-top: 1px solid var(--grey-100); width: 100%; }
+    }
+
+    /* ── BUTTON ROW ── */
+    .btn-row { display: flex; gap: 12px; align-items: center; }
+    .btn-primary {
+      background: var(--charcoal); color: #fff; border: 2px solid var(--charcoal);
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 13px 32px; cursor: pointer; transition: all var(--t);
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--red); border-color: var(--red); }
+    .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+    .btn-back {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 11px; font-weight: 400;
+      letter-spacing: 1px; text-transform: uppercase; color: var(--grey-400);
+      text-decoration: underline; text-underline-offset: 2px;
+      transition: color var(--t); padding: 0;
+    }
+    .btn-back:hover { color: var(--charcoal); }
+
+    @media (max-width: 400px) {
+      .booking-nav { padding: 0 16px; }
+      .container { padding: 28px 16px 100px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BOOKING NAV -->
+<nav class="booking-nav">
+  <a href="/" class="booking-nav-logo">
+    <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+  </a>
+  <button class="booking-nav-close" onclick="history.back()">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M1 1l12 12M13 1L1 13"/>
+    </svg>
+    Sluiten
+  </button>
+</nav>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="progress-step done">
+      <div class="step-num">✓</div>
+      <span class="step-label">Arrangement</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step active">
+      <div class="step-num">2</div>
+      <span class="step-label">Datum</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">3</div>
+      <span class="step-label">Kamer</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">4</div>
+      <span class="step-label">Extra's</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">5</div>
+      <span class="step-label">Gegevens</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">6</div>
+      <span class="step-label">Betaling</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE -->
+<div class="page-wrap">
+  <div class="container">
+
+    <div class="page-label">Stap 2 van 6</div>
+    <h1 class="page-title">Wanneer komt u?</h1>
+    <p class="page-subtitle" id="pageSubtitle">Kies eerst uw check-in datum, daarna uw check-out datum.</p>
+
+    <!-- PERSONS -->
+    <div class="persons-row">
+      <span class="persons-label">Personen</span>
+      <select class="persons-select" id="persons" onchange="onPersonsChange()">
+        <option value="2">2 personen</option>
+        <option value="1">1 persoon</option>
+        <option value="3">3 personen</option>
+        <option value="4">4 personen</option>
+      </select>
+    </div>
+
+    <!-- LEGEND -->
+    <div class="cal-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--off);border:1px solid var(--grey-200)"></div>
+        Weekend
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="border:1.5px solid var(--green)"></div>
+        Voordelige prijs
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="border:1.5px solid #e8a0a0"></div>
+        Beperkt beschikbaar
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:repeating-linear-gradient(45deg,transparent,transparent 3px,var(--grey-100) 3px,var(--grey-100) 4px);border:1px solid var(--grey-200)"></div>
+        Niet beschikbaar
+      </div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="cal-wrap" id="calWrap"></div>
+
+    <!-- SELECTION BAR -->
+    <div class="cal-selection" id="calSelection">
+      <div class="sel-item">
+        <div class="sel-label">Check-in</div>
+        <div class="sel-value" id="selCheckin">—</div>
+      </div>
+      <div class="sel-divider"></div>
+      <div class="sel-item">
+        <div class="sel-label">Check-out</div>
+        <div class="sel-value placeholder" id="selCheckout">Kies datum</div>
+      </div>
+      <div class="sel-divider"></div>
+      <div class="sel-item">
+        <div class="sel-label">Nachten</div>
+        <div class="sel-value" id="selNights">—</div>
+      </div>
+      <div class="sel-divider"></div>
+      <div class="sel-total">
+        <div class="sel-total-label">Totaal arrangement</div>
+        <div class="sel-total-price" id="selTotal">—</div>
+        <div class="sel-total-sub" id="selSub"></div>
+      </div>
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="btn-row">
+      <button class="btn-primary" id="nextBtn" disabled onclick="goToStep3()">
+        Kies kamer
+      </button>
+      <button class="btn-back" onclick="history.back()">← Terug</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ── STATE (in productie gevuld vanuit stap 1) ──
+  const state = {
+    arrangement: 'wellness',   // 'wellness' | 'culinair' | 'logies'
+    arrangementName: 'Wellness Weekend',
+    persons: 2,
+    checkin: null,
+    checkout: null,
+    nights: 0,
+    totalPrice: 0,
+  };
+
+  // ── PRIJZEN ──
+  const BASE_PRICES = { wellness: 278, culinair: 238, logies: 178 };
+  const DAY_MOD = { 0: 1.0, 1: 0.85, 2: 0.85, 3: 0.88, 4: 0.92, 5: 1.15, 6: 1.10 };
+
+  // Niet-beschikbare datums (YYYY-MM-DD)
+  const UNAVAILABLE = new Set((() => {
+    const d = []; const now = new Date();
+    [3, 10, 17, 24].forEach(offset => {
+      const dt = new Date(now); dt.setDate(dt.getDate() + offset);
+      d.push(dt.toISOString().split('T')[0]);
+    });
+    return d;
+  })());
+
+  // Schaarse datums (weekend)
+  const SCARCITY = new Set((() => {
+    const d = []; const now = new Date();
+    for (let i = 1; i <= 60; i++) {
+      const dt = new Date(now); dt.setDate(dt.getDate() + i);
+      if ((dt.getDay() === 5 || dt.getDay() === 6) && Math.random() > 0.5)
+        d.push(dt.toISOString().split('T')[0]);
+    }
+    return d;
+  })());
+
+  // ── KALENDER STATE ──
+  let viewYear, viewMonth;
+  let checkin = null, checkout = null, selecting = 'checkin';
+
+  function initCalendar() {
+    const now = new Date();
+    viewYear = now.getFullYear();
+    viewMonth = now.getMonth();
+    renderCalendars();
+  }
+
+  function getDayPrice(dateStr) {
+    const d = new Date(dateStr);
+    const base = BASE_PRICES[state.arrangement] || 278;
+    const mod = DAY_MOD[d.getDay()] || 1;
+    const seed = d.getDate() * 7 + d.getMonth() * 3;
+    const jitter = 1 + ((seed % 11) - 5) * 0.01;
+    return Math.round(base * mod * jitter);
+  }
+
+  function getPriceClass(price) {
+    const base = BASE_PRICES[state.arrangement] || 278;
+    if (price < base * 0.9) return 'low';
+    if (price > base * 1.08) return 'high';
+    return 'medium';
+  }
+
+  function renderCalendars() {
+    const wrap = document.getElementById('calWrap');
+    wrap.innerHTML = '';
+    for (let i = 0; i < 2; i++) {
+      let m = viewMonth + i, y = viewYear;
+      if (m > 11) { m -= 12; y++; }
+      wrap.appendChild(renderMonth(y, m, i));
+    }
+  }
+
+  function renderMonth(year, month, idx) {
+    const div = document.createElement('div');
+    div.className = 'cal-month';
+
+    const MONTHS = ['Januari','Februari','Maart','April','Mei','Juni',
+                    'Juli','Augustus','September','Oktober','November','December'];
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    // Header
+    const header = document.createElement('div');
+    header.className = 'cal-header';
+
+    const prev = document.createElement('button');
+    prev.className = 'cal-nav'; prev.innerHTML = '&#8249;';
+    if (idx === 0) {
+      const nm = new Date(today.getFullYear(), today.getMonth(), 1);
+      const vm = new Date(year, month, 1);
+      prev.disabled = vm <= nm;
+      prev.onclick = () => {
+        viewMonth--;
+        if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+        renderCalendars();
+      };
+    } else {
+      prev.disabled = true;
+    }
+
+    const title = document.createElement('div');
+    title.className = 'cal-title';
+    title.textContent = MONTHS[month] + ' ' + year;
+
+    const next = document.createElement('button');
+    next.className = 'cal-nav'; next.innerHTML = '&#8250;';
+    if (idx === 1) {
+      next.onclick = () => {
+        viewMonth++;
+        if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+        renderCalendars();
+      };
+    } else {
+      next.disabled = true;
+    }
+
+    header.appendChild(prev);
+    header.appendChild(title);
+    header.appendChild(next);
+    div.appendChild(header);
+
+    // Grid
+    const grid = document.createElement('div');
+    grid.className = 'cal-grid';
+
+    ['Ma','Di','Wo','Do','Vr','Za','Zo'].forEach((d, i) => {
+      const dow = document.createElement('div');
+      dow.className = 'cal-dow' + (i >= 4 ? ' weekend-dow' : '');
+      dow.textContent = d;
+      grid.appendChild(dow);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const offset = firstDay === 0 ? 6 : firstDay - 1;
+    for (let i = 0; i < offset; i++) {
+      const e = document.createElement('div');
+      e.className = 'cal-day empty';
+      grid.appendChild(e);
+    }
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateObj = new Date(year, month, d);
+      const dateStr = dateObj.toISOString().split('T')[0];
+      const dow = dateObj.getDay();
+      const isWeekend = dow === 0 || dow === 6;
+      const isPast = dateObj < today;
+      const isUnavail = UNAVAILABLE.has(dateStr);
+      const isScarcity = SCARCITY.has(dateStr);
+      const price = getDayPrice(dateStr);
+      const priceClass = getPriceClass(price);
+
+      const cell = document.createElement('div');
+      let cls = 'cal-day';
+      if (isPast) cls += ' past';
+      else if (isUnavail) cls += ' disabled';
+      else {
+        if (isWeekend) cls += ' weekend';
+        if (isScarcity) cls += ' scarcity';
+      }
+      if (checkin === dateStr) cls += ' checkin';
+      if (checkout === dateStr) cls += ' checkout';
+      if (checkin && checkout && dateStr > checkin && dateStr < checkout) cls += ' inrange';
+      cell.className = cls;
+
+      const numEl = document.createElement('div');
+      numEl.className = 'cal-num';
+      numEl.textContent = d;
+      cell.appendChild(numEl);
+
+      if (!isPast && !isUnavail) {
+        const priceEl = document.createElement('div');
+        priceEl.className = 'cal-price ' + priceClass;
+        priceEl.textContent = '€' + price;
+        cell.appendChild(priceEl);
+        cell.onclick = () => handleClick(dateStr, price);
+      }
+
+      grid.appendChild(cell);
+    }
+
+    div.appendChild(grid);
+    return div;
+  }
+
+  function handleClick(dateStr, price) {
+    if (selecting === 'checkin') {
+      checkin = dateStr;
+      checkout = null;
+      selecting = 'checkout';
+      document.getElementById('pageSubtitle').textContent = 'Goed. Kies nu uw check-out datum.';
+      showSelectionPartial();
+    } else {
+      if (dateStr <= checkin) {
+        checkin = dateStr;
+        checkout = null;
+        document.getElementById('pageSubtitle').textContent = 'Goed. Kies nu uw check-out datum.';
+        showSelectionPartial();
+      } else {
+        checkout = dateStr;
+        selecting = 'checkin';
+        document.getElementById('pageSubtitle').textContent = 'Kies een andere periode door op check-in te klikken.';
+        updateSelection();
+      }
+    }
+    renderCalendars();
+  }
+
+  function fmt(dateStr) {
+    return new Date(dateStr).toLocaleDateString('nl-NL', {
+      weekday: 'short', day: 'numeric', month: 'short'
+    });
+  }
+
+  function showSelectionPartial() {
+    const sel = document.getElementById('calSelection');
+    sel.classList.add('visible');
+    document.getElementById('selCheckin').textContent = fmt(checkin);
+    document.getElementById('selCheckin').classList.remove('placeholder');
+    document.getElementById('selCheckout').textContent = 'Kies datum';
+    document.getElementById('selCheckout').classList.add('placeholder');
+    document.getElementById('selNights').textContent = '—';
+    document.getElementById('selTotal').textContent = '—';
+    document.getElementById('selSub').textContent = '';
+    document.getElementById('nextBtn').disabled = true;
+  }
+
+  function updateSelection() {
+    const d1 = new Date(checkin), d2 = new Date(checkout);
+    const nights = Math.round((d2 - d1) / 86400000);
+
+    let total = 0;
+    for (let i = 0; i < nights; i++) {
+      const dt = new Date(d1); dt.setDate(dt.getDate() + i);
+      total += getDayPrice(dt.toISOString().split('T')[0]);
+    }
+
+    // Pas prijs aan per persoon (schaling)
+    const persons = parseInt(document.getElementById('persons').value);
+    if (persons !== 2) {
+      total = Math.round(total * (persons / 2));
+    }
+
+    state.checkin = checkin;
+    state.checkout = checkout;
+    state.nights = nights;
+    state.totalPrice = total;
+
+    const sel = document.getElementById('calSelection');
+    sel.classList.add('visible');
+
+    document.getElementById('selCheckin').textContent = fmt(checkin);
+    document.getElementById('selCheckin').classList.remove('placeholder');
+    document.getElementById('selCheckout').textContent = fmt(checkout);
+    document.getElementById('selCheckout').classList.remove('placeholder');
+    document.getElementById('selNights').textContent = nights + ' nacht' + (nights > 1 ? 'en' : '');
+    document.getElementById('selTotal').textContent = '€' + total;
+    document.getElementById('selSub').textContent = persons + ' ' + (persons === 1 ? 'persoon' : 'personen') + ' · ' + state.arrangementName;
+
+    document.getElementById('nextBtn').disabled = false;
+  }
+
+  function onPersonsChange() {
+    state.persons = parseInt(document.getElementById('persons').value);
+    if (checkin && checkout) updateSelection();
+  }
+
+  function goToStep3() {
+    // In productie: goToStep(3)
+    console.log('Naar stap 3', state);
+  }
+
+  initCalendar();
+</script>
+
+</body>
+</html>

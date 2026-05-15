@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kamer & Extra's — Hotel Asteria</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:      #c23435;
+      --charcoal: #292929;
+      --gold:     #dcbe1f;
+      --white:    #ffffff;
+      --off:      #f5f3f0;
+      --grey-100: #ebebeb;
+      --grey-200: #d0d0d0;
+      --grey-400: #999;
+      --grey-600: #555;
+      --font-head: 'Electrolize', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--off);
+      color: var(--charcoal);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    .booking-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      background: var(--charcoal);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; height: 60px;
+    }
+    .booking-nav-logo img { height: 34px; display: block; }
+    .booking-nav-close {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.5); font-family: var(--font-body);
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+      transition: color 0.2s ease; padding: 8px 0;
+    }
+    .booking-nav-close:hover { color: #fff; }
+
+    /* ══════════════════════════════════════
+       PROGRESS
+    ══════════════════════════════════════ */
+    .progress-bar {
+      position: fixed; top: 60px; left: 0; right: 0; z-index: 200;
+      background: var(--white); border-bottom: 1px solid var(--grey-100);
+    }
+    .progress-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; height: 46px;
+    }
+    .progress-step {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 10px; font-weight: 400; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--grey-200); white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .progress-step.done  { color: var(--grey-400); }
+    .progress-step.active { color: var(--charcoal); font-weight: 700; }
+    .step-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; flex-shrink: 0; transition: all 0.2s;
+    }
+    .progress-step.done  .step-num { background: var(--charcoal); border-color: var(--charcoal); color: #fff; }
+    .progress-step.active .step-num { background: var(--red); border-color: var(--red); color: #fff; }
+    .step-label { display: none; }
+    .step-div { flex: 1; height: 1px; background: var(--grey-100); margin: 0 8px; min-width: 10px; max-width: 48px; }
+    @media (min-width: 600px) { .step-label { display: inline; } }
+
+    /* ══════════════════════════════════════
+       LAYOUT
+    ══════════════════════════════════════ */
+    .page-wrap { padding-top: 106px; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 48px 28px 140px; }
+
+    /* ══════════════════════════════════════
+       PAGE HEADER
+    ══════════════════════════════════════ */
+    .page-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 52px; gap: 24px; flex-wrap: wrap;
+    }
+    .header-left { }
+    .page-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 5vw, 58px);
+      text-transform: uppercase; letter-spacing: 2px;
+      line-height: 1; color: var(--charcoal);
+    }
+    .header-right {
+      font-size: 12px; font-weight: 300; color: var(--grey-400);
+      line-height: 1.7; max-width: 280px; text-align: right;
+      font-style: italic;
+    }
+
+    /* ══════════════════════════════════════
+       SECTION DIVIDER
+    ══════════════════════════════════════ */
+    .section-head {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-head); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 4px; color: var(--charcoal);
+      white-space: nowrap;
+    }
+    .section-line { flex: 1; height: 1px; background: var(--grey-200); }
+    .section-note {
+      font-size: 10px; font-weight: 300; color: var(--grey-400);
+      letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════════
+       ROOM CARDS — editorial, full-bleed
+    ══════════════════════════════════════ */
+    .room-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3px;
+      margin-bottom: 64px;
+    }
+
+    .room-card {
+      position: relative; cursor: pointer;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--charcoal);
+    }
+
+    .room-card__img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s var(--ease-out), filter 0.4s ease;
+      filter: brightness(0.75) saturate(0.9);
+    }
+    .room-card:hover .room-card__img {
+      transform: scale(1.06);
+      filter: brightness(0.6) saturate(1);
+    }
+
+    /* Gradient overlay */
+    .room-card__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(20,15,10,0.92) 0%,
+        rgba(20,15,10,0.3) 55%,
+        rgba(20,15,10,0) 100%
+      );
+      transition: opacity 0.4s ease;
+    }
+    .room-card:hover .room-card__overlay { opacity: 0.85; }
+
+    /* Content */
+    .room-card__content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 24px 22px;
+    }
+
+    .room-card__tag {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+      margin-bottom: 6px;
+      transform: translateY(4px);
+      transition: transform 0.4s var(--ease-out), opacity 0.3s;
+    }
+    .room-card__name {
+      font-family: var(--font-head); font-size: clamp(15px, 1.8vw, 21px);
+      text-transform: uppercase; letter-spacing: 2px; color: #fff;
+      line-height: 1.1; margin-bottom: 8px;
+      transform: translateY(6px);
+      transition: transform 0.4s var(--ease-out);
+    }
+    .room-card__specs {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px;
+      opacity: 0; transform: translateY(8px);
+      transition: opacity 0.35s ease 0.05s, transform 0.4s var(--ease-out) 0.05s;
+    }
+    .room-card:hover .room-card__specs { opacity: 1; transform: translateY(0); }
+
+    .spec-tag {
+      font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.2); padding: 2px 8px;
+    }
+
+    .room-card__footer {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .room-card__price {
+      font-family: var(--font-head); font-size: 13px;
+      letter-spacing: 1px; color: rgba(255,255,255,0.7);
+      transition: color 0.2s;
+    }
+    .room-card.selected .room-card__price { color: var(--gold); }
+
+    /* Selected state */
+    .room-card__check {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s var(--ease-out);
+      flex-shrink: 0;
+    }
+    .room-card__check svg { opacity: 0; transform: scale(0.5); transition: all 0.25s var(--ease-out); }
+
+    .room-card.selected .room-card__check {
+      background: var(--gold); border-color: var(--gold);
+    }
+    .room-card.selected .room-card__check svg { opacity: 1; transform: scale(1); }
+
+    /* Selected border overlay */
+    .room-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 0px solid var(--gold);
+      transition: border-width 0.25s var(--ease-out);
+      pointer-events: none; z-index: 2;
+    }
+    .room-card.selected::after { border-width: 3px; }
+
+    /* Selected top label */
+    .room-card__selected-label {
+      position: absolute; top: 14px; left: 14px; z-index: 3;
+      background: var(--gold); color: var(--charcoal);
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 4px 10px;
+      opacity: 0; transform: translateY(-4px);
+      transition: opacity 0.25s ease, transform 0.3s var(--ease-out);
+    }
+    .room-card.selected .room-card__selected-label { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 700px) {
+      .room-grid { grid-template-columns: 1fr; gap: 3px; }
+      .room-card { aspect-ratio: 4/3; }
+    }
+    @media (min-width: 701px) and (max-width: 920px) {
+      .room-grid { grid-template-columns: 1fr 1fr; gap: 3px; }
+    }
+
+    /* ══════════════════════════════════════
+       EXTRAS GRID
+    ══════════════════════════════════════ */
+    .extras-section { margin-bottom: 24px; }
+    .extras-cat { margin-bottom: 32px; }
+    .extras-cat-title {
+      font-size: 9px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--grey-400);
+      margin-bottom: 10px;
+    }
+
+    .extras-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2px;
+    }
+
+    .extra-card {
+      background: var(--white);
+      padding: 20px 22px;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: background 0.25s ease;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    /* Hover line reveal */
+    .extra-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 0; background: var(--charcoal);
+      transition: width 0.25s var(--ease-out);
+    }
+    .extra-card:hover::before { width: 3px; }
+    .extra-card.selected::before { width: 3px; background: var(--gold); }
+
+    .extra-card:hover { background: #fafaf8; }
+    .extra-card.selected { background: var(--charcoal); }
+
+    .extra-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+
+    .extra-icon-wrap {
+      width: 40px; height: 40px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--off); transition: background 0.25s;
+    }
+    .extra-card.selected .extra-icon-wrap { background: rgba(255,255,255,0.08); }
+    .extra-icon-wrap svg { color: var(--charcoal); transition: color 0.25s; }
+    .extra-card.selected .extra-icon-wrap svg { color: var(--gold); }
+
+    .extra-toggle-btn {
+      width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+      border: 1.5px solid var(--grey-200);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.25s var(--ease-out);
+      font-size: 16px; line-height: 1; color: var(--grey-400);
+      font-family: var(--font-body);
+    }
+    .extra-card.selected .extra-toggle-btn {
+      background: var(--gold); border-color: var(--gold); color: var(--charcoal);
+      transform: rotate(45deg);
+    }
+
+    .extra-name {
+      font-size: 13px; font-weight: 400; color: var(--charcoal);
+      transition: color 0.25s;
+    }
+    .extra-card.selected .extra-name { color: #fff; }
+
+    .extra-desc {
+      font-size: 11px; font-weight: 300; color: var(--grey-400);
+      line-height: 1.5; transition: color 0.25s;
+    }
+    .extra-card.selected .extra-desc { color: rgba(255,255,255,0.4); }
+
+    .extra-price {
+      font-family: var(--font-head); font-size: 15px;
+      letter-spacing: 0.5px; color: var(--charcoal);
+      transition: color 0.25s;
+    }
+    .extra-card.selected .extra-price { color: var(--gold); }
+
+    /* ══════════════════════════════════════
+       STICKY BAR
+    ══════════════════════════════════════ */
+    .sticky-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 250;
+    }
+
+    /* Summary strip */
+    .sticky-summary {
+      background: var(--charcoal);
+      display: flex; align-items: center; gap: 0;
+      overflow: hidden;
+      max-height: 0; transition: max-height 0.4s var(--ease-out);
+    }
+    .sticky-summary.visible { max-height: 60px; }
+    .sticky-summary-inner {
+      width: 100%; max-width: 1100px; margin: 0 auto;
+      padding: 0 28px;
+      display: flex; align-items: center; gap: 20px;
+      height: 40px; flex-wrap: nowrap; overflow: hidden;
+    }
+    .summary-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.5);
+      white-space: nowrap;
+    }
+    .summary-item strong { color: #fff; font-weight: 400; }
+    .summary-sep { width: 1px; height: 14px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+
+    /* Main bar */
+    .sticky-main {
+      background: var(--white);
+      border-top: 1px solid var(--grey-100);
+      padding: 14px 28px;
+    }
+    .sticky-main-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+
+    .sticky-price-block { }
+    .sticky-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--grey-400); margin-bottom: 2px;
+    }
+    .sticky-amount {
+      font-family: var(--font-head); font-size: 28px;
+      letter-spacing: -1px; color: var(--charcoal); line-height: 1;
+      transition: color 0.3s;
+    }
+    .sticky-sub {
+      font-size: 11px; font-weight: 300; color: var(--grey-400); margin-top: 2px;
+    }
+
+    .sticky-actions { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+
+    .btn-back {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 11px; font-weight: 400;
+      letter-spacing: 1px; text-transform: uppercase; color: var(--grey-400);
+      text-decoration: underline; text-underline-offset: 3px;
+      transition: color 0.2s; padding: 0; white-space: nowrap;
+    }
+    .btn-back:hover { color: var(--charcoal); }
+
+    .btn-primary {
+      position: relative; overflow: hidden;
+      background: var(--charcoal); color: #fff;
+      border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase;
+      padding: 14px 32px; white-space: nowrap;
+      transition: background 0.25s;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--red);
+      transform: translateX(-101%);
+      transition: transform 0.3s var(--ease-out);
+    }
+    .btn-primary:hover::after { transform: translateX(0); }
+    .btn-primary span { position: relative; z-index: 1; }
+
+    @media (max-width: 520px) {
+      .page-header { flex-direction: column; }
+      .header-right { text-align: left; max-width: 100%; }
+      .sticky-main { padding: 12px 16px; }
+      .sticky-main-inner { gap: 12px; }
+      .btn-primary { padding: 12px 20px; }
+      .container { padding: 32px 16px 140px; }
+      .booking-nav { padding: 0 16px; }
+      .extras-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ══════════════════════════════════════
+       ENTRANCE ANIMATIONS
+    ══════════════════════════════════════ */
+    @media (prefers-reduced-motion: no-preference) {
+      .page-header,
+      .section-head,
+      .room-card,
+      .extra-card {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: reveal 0.6s var(--ease-out) forwards;
+      }
+      .page-header    { animation-delay: 0.05s; }
+      .section-head:nth-of-type(1) { animation-delay: 0.12s; }
+      .room-card:nth-child(1) { animation-delay: 0.18s; }
+      .room-card:nth-child(2) { animation-delay: 0.24s; }
+      .room-card:nth-child(3) { animation-delay: 0.30s; }
+      .section-head.extras-head { animation-delay: 0.36s; }
+      .extra-card { animation-delay: 0.40s; }
+
+      @keyframes reveal {
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="booking-nav">
+  <a href="/" style="text-decoration:none">
+    <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria" style="height:34px">
+  </a>
+  <button class="booking-nav-close" onclick="history.back()">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M1 1l10 10M11 1L1 11"/>
+    </svg>
+    Sluiten
+  </button>
+</nav>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="progress-step done"><div class="step-num">✓</div><span class="step-label">Arrangement</span></div>
+    <div class="step-div"></div>
+    <div class="progress-step done"><div class="step-num">✓</div><span class="step-label">Datum</span></div>
+    <div class="step-div"></div>
+    <div class="progress-step active"><div class="step-num">3</div><span class="step-label">Kamer & Extra's</span></div>
+    <div class="step-div"></div>
+    <div class="progress-step"><div class="step-num">4</div><span class="step-label">Gegevens</span></div>
+    <div class="step-div"></div>
+    <div class="progress-step"><div class="step-num">5</div><span class="step-label">Betaling</span></div>
+  </div>
+</div>
+
+<div class="page-wrap">
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="page-header">
+      <div class="header-left">
+        <div class="page-label">Stap 3 van 5</div>
+        <h1 class="page-title">Maak het<br>compleet</h1>
+      </div>
+      <div class="header-right">
+        Alle kamers zijn inbegrepen bij uw arrangement.<br>
+        Een upgrade of extra is volledig optioneel.
+      </div>
+    </div>
+
+    <!-- KAMER -->
+    <div class="section-head">
+      <div class="section-title">Kamer</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="room-grid">
+
+      <div class="room-card selected" id="room-comfort" onclick="selectRoom('comfort', 0)">
+        <div class="room-card__selected-label">Geselecteerd</div>
+        <img class="room-card__img" src="fotos/card-kamer.jpg" alt="Comfort Kamer">
+        <div class="room-card__overlay"></div>
+        <div class="room-card__content">
+          <div class="room-card__tag">Inbegrepen</div>
+          <div class="room-card__name">Comfort<br>Kamer</div>
+          <div class="room-card__specs">
+            <span class="spec-tag">25 m²</span>
+            <span class="spec-tag">Tweepersoons</span>
+            <span class="spec-tag">Tuin- of parkzicht</span>
+          </div>
+          <div class="room-card__footer">
+            <div class="room-card__price">Inbegrepen</div>
+            <div class="room-card__check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#292929" stroke-width="2"><polyline points="1,5 4,8 9,2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="room-card" id="room-superior" onclick="selectRoom('superior', 30)">
+        <div class="room-card__selected-label">Geselecteerd</div>
+        <img class="room-card__img" src="fotos/card-kamer.jpg" alt="Superior Kamer">
+        <div class="room-card__overlay"></div>
+        <div class="room-card__content">
+          <div class="room-card__tag">Upgrade</div>
+          <div class="room-card__name">Superior<br>Kamer</div>
+          <div class="room-card__specs">
+            <span class="spec-tag">32 m²</span>
+            <span class="spec-tag">Kingsize bed</span>
+            <span class="spec-tag">Eigen terras</span>
+          </div>
+          <div class="room-card__footer">
+            <div class="room-card__price">+ €30</div>
+            <div class="room-card__check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#292929" stroke-width="2"><polyline points="1,5 4,8 9,2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="room-card" id="room-suite" onclick="selectRoom('suite', 60)">
+        <div class="room-card__selected-label">Geselecteerd</div>
+        <img class="room-card__img" src="fotos/card-wellness.jpg" alt="Junior Suite">
+        <div class="room-card__overlay"></div>
+        <div class="room-card__content">
+          <div class="room-card__tag">Upgrade</div>
+          <div class="room-card__name">Junior<br>Suite</div>
+          <div class="room-card__specs">
+            <span class="spec-tag">42 m²</span>
+            <span class="spec-tag">Kingsize bed</span>
+            <span class="spec-tag">Panoramisch uitzicht</span>
+          </div>
+          <div class="room-card__footer">
+            <div class="room-card__price">+ €60</div>
+            <div class="room-card__check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#292929" stroke-width="2"><polyline points="1,5 4,8 9,2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- EXTRA'S -->
+    <div class="section-head extras-head">
+      <div class="section-title">Extra's</div>
+      <div class="section-line"></div>
+      <div class="section-note">Volledig optioneel</div>
+    </div>
+
+    <div class="extras-section">
+
+      <div class="extras-cat">
+        <div class="extras-cat-title">Romantiek</div>
+        <div class="extras-grid">
+
+          <div class="extra-card" onclick="toggleExtra(this,'champagne',25)">
+            <div class="extra-top">
+              <div class="extra-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M8 2l2 6-4 8h8l-4-8 2-6M6 16h12M10 22h4"/>
+                </svg>
+              </div>
+              <div class="extra-toggle-btn">+</div>
+            </div>
+            <div class="extra-name">Champagne bij aankomst</div>
+            <div class="extra-desc">Fles champagne op de kamer bij aankomst</div>
+            <div class="extra-price">€25</div>
+          </div>
+
+          <div class="extra-card" onclick="toggleExtra(this,'decoratie',35)">
+            <div class="extra-top">
+              <div class="extra-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                </svg>
+              </div>
+              <div class="extra-toggle-btn">+</div>
+            </div>
+            <div class="extra-name">Romantische kamerdecoratie</div>
+            <div class="extra-desc">Rozenblaadjes, kaarsen en persoonlijke boodschap</div>
+            <div class="extra-price">€35</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="extras-cat">
+        <div class="extras-cat-title">Eten & Drinken</div>
+        <div class="extras-grid">
+
+          <div class="extra-card" onclick="toggleExtra(this,'diner',45)">
+            <div class="extra-top">
+              <div class="extra-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6h3.5M16.5 13H21v7a2 2 0 01-2 2h-1a2 2 0 01-2-2v-7"/>
+                </svg>
+              </div>
+              <div class="extra-toggle-btn">+</div>
+            </div>
+            <div class="extra-name">3-gangen diner in de brasserie</div>
+            <div class="extra-desc">Per persoon, exclusief dranken</div>
+            <div class="extra-price">€45 p.p.</div>
+          </div>
+
+          <div class="extra-card" onclick="toggleExtra(this,'ontbijt-kamer',18)">
+            <div class="extra-top">
+              <div class="extra-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/>
+                </svg>
+              </div>
+              <div class="extra-toggle-btn">+</div>
+            </div>
+            <div class="extra-name">Ontbijt op de kamer</div>
+            <div class="extra-desc">Per persoon, de avond tevoren besteld</div>
+            <div class="extra-price">€18 p.p.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="extras-cat">
+        <div class="extras-cat-title">Comfort & Timing</div>
+        <div class="extras-grid">
+
+          <div class="extra-card" onclick="toggleExtra(this,'early',25)">
+            <div class="extra-top">
+              <div class="extra-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <div class="extra-toggle-btn">+</div>
+            </div>
+            <div class="extra-name">Early check-in (vanaf 11:00)</div>
+            <div class="extra-desc">Onder voorbehoud van beschikbaarheid</div>
+            <div class="extra-price">€25</div>
+          </div>
+
+          <div class="extra-card" onclick="toggleExtra(this,'late',25)">
+            <div class="extra-top">
+              <div class="extra-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                </svg>
+              </div>
+              <div class="extra-toggle-btn">+</div>
+            </div>
+            <div class="extra-name">Late check-out (tot 14:00)</div>
+            <div class="extra-desc">Nog even uitrusten voor de terugreis</div>
+            <div class="extra-price">€25</div>
+          </div>
+
+          <div class="extra-card" onclick="toggleExtra(this,'massage',75)">
+            <div class="extra-top">
+              <div class="extra-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M4 19l4-8 4 4 4-6 4 10M2 15h20"/>
+                </svg>
+              </div>
+              <div class="extra-toggle-btn">+</div>
+            </div>
+            <div class="extra-name">Massagebehandeling 60 min</div>
+            <div class="extra-desc">Per persoon — op afspraak</div>
+            <div class="extra-price">€75 p.p.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar">
+  <div class="sticky-summary" id="stickySummary">
+    <div class="sticky-summary-inner" id="summaryInner">
+      <!-- filled by JS -->
+    </div>
+  </div>
+  <div class="sticky-main">
+    <div class="sticky-main-inner">
+      <div class="sticky-price-block">
+        <div class="sticky-label">Totaal</div>
+        <div class="sticky-amount" id="stickyAmount">€556</div>
+        <div class="sticky-sub" id="stickySub">Wellness Weekend · 2 nachten · 2 personen</div>
+      </div>
+      <div class="sticky-actions">
+        <button class="btn-back" onclick="history.back()">← Terug</button>
+        <button class="btn-primary" onclick="goToStep4()">
+          <span>Naar gegevens</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const state = {
+    arrangement: 'wellness',
+    arrangementName: 'Wellness Weekend',
+    arrangementBase: 278,
+    nights: 2,
+    persons: 2,
+    roomName: 'Comfort Kamer',
+    roomUpgrade: 0,
+    extras: {},
+    extrasTotal: 0,
+  };
+
+  function getTotal() {
+    return (state.arrangementBase * state.nights) + state.roomUpgrade + state.extrasTotal;
+  }
+
+  function updateSticky() {
+    const total = getTotal();
+
+    // Animate amount change
+    const el = document.getElementById('stickyAmount');
+    el.style.transform = 'translateY(-4px)';
+    el.style.opacity = '0.4';
+    setTimeout(() => {
+      el.textContent = '€' + total;
+      el.style.transform = '';
+      el.style.opacity = '';
+      el.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+    }, 120);
+
+    const extraCount = Object.keys(state.extras).length;
+    let sub = state.arrangementName + ' · ' + state.nights + ' nacht' + (state.nights > 1 ? 'en' : '') + ' · ' + state.persons + ' personen';
+    if (state.roomUpgrade > 0) sub += ' · ' + state.roomName;
+    if (extraCount > 0) sub += ' · ' + extraCount + ' extra' + (extraCount > 1 ? '\'s' : '');
+    document.getElementById('stickySub').textContent = sub;
+
+    // Summary strip
+    const hasSomething = state.roomUpgrade > 0 || extraCount > 0;
+    const summaryEl = document.getElementById('stickySummary');
+    summaryEl.classList.toggle('visible', hasSomething);
+
+    if (hasSomething) {
+      let html = '';
+      html += `<div class="summary-item"><strong>${state.arrangementName}</strong></div>`;
+      if (state.roomUpgrade > 0) {
+        html += `<div class="summary-sep"></div><div class="summary-item"><strong>${state.roomName}</strong> +€${state.roomUpgrade}</div>`;
+      }
+      Object.entries(state.extras).forEach(([key, price]) => {
+        const labels = {
+          champagne: 'Champagne', decoratie: 'Kamerdecoratie',
+          diner: '3-gangen diner', 'ontbijt-kamer': 'Ontbijt op kamer',
+          early: 'Early check-in', late: 'Late check-out', massage: 'Massage'
+        };
+        html += `<div class="summary-sep"></div><div class="summary-item"><strong>${labels[key]||key}</strong> +€${price}</div>`;
+      });
+      document.getElementById('summaryInner').innerHTML = html;
+    }
+  }
+
+  function selectRoom(type, upgradePrice) {
+    document.querySelectorAll('.room-card').forEach(c => c.classList.remove('selected'));
+    const card = document.getElementById('room-' + type);
+    card.classList.add('selected');
+    const names = { comfort: 'Comfort Kamer', superior: 'Superior Kamer', suite: 'Junior Suite' };
+    state.roomName = names[type];
+    state.roomUpgrade = upgradePrice;
+    updateSticky();
+  }
+
+  function toggleExtra(el, id, price) {
+    const isSelected = el.classList.contains('selected');
+    el.classList.toggle('selected', !isSelected);
+    if (!isSelected) {
+      state.extras[id] = price;
+      state.extrasTotal += price;
+    } else {
+      delete state.extras[id];
+      state.extrasTotal -= price;
+    }
+    updateSticky();
+  }
+
+  function goToStep4() {
+    console.log('Naar stap 4', state);
+  }
+
+  updateSticky();
+</script>
+
+</body>
+</html>

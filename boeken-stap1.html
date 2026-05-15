@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boek uw verblijf — Hotel Asteria</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:      #c23435;
+      --charcoal: #292929;
+      --gold:     #dcbe1f;
+      --white:    #ffffff;
+      --off:      #f7f6f4;
+      --grey-100: #ededed;
+      --grey-200: #d4d4d4;
+      --grey-400: #888;
+      --grey-600: #555;
+      --t:        0.2s ease;
+      --font-head: 'Electrolize', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--charcoal);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── BOOKING NAV ── */
+    .booking-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: var(--charcoal);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 60px;
+    }
+    .booking-nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .booking-nav-logo img { height: 36px; display: block; }
+    .booking-nav-close {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.6); font-family: var(--font-body);
+      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 6px;
+      transition: color var(--t); padding: 8px 0;
+    }
+    .booking-nav-close:hover { color: #fff; }
+    .booking-nav-close svg { width: 14px; height: 14px; }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar {
+      position: fixed; top: 60px; left: 0; right: 0; z-index: 100;
+      background: var(--white); border-bottom: 1px solid var(--grey-100);
+    }
+    .progress-inner {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; height: 48px; gap: 0;
+    }
+    .progress-step {
+      display: flex; align-items: center; gap: 7px;
+      font-family: var(--font-body); font-size: 11px; font-weight: 400;
+      letter-spacing: 0.5px; text-transform: uppercase;
+      color: var(--grey-200); white-space: nowrap;
+      transition: color var(--t);
+    }
+    .progress-step.active { color: var(--charcoal); font-weight: 700; }
+    .progress-step.done { color: var(--grey-400); }
+    .step-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; flex-shrink: 0; transition: all var(--t);
+    }
+    .progress-step.active .step-num {
+      background: var(--red); border-color: var(--red); color: #fff;
+    }
+    .progress-step.done .step-num {
+      background: var(--charcoal); border-color: var(--charcoal); color: #fff;
+    }
+    .step-label { display: none; }
+    .step-div {
+      flex: 1; height: 1px; background: var(--grey-100);
+      margin: 0 8px; min-width: 12px; max-width: 40px;
+    }
+
+    @media (min-width: 600px) { .step-label { display: inline; } }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      padding-top: 108px; /* 60px nav + 48px progress */
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 860px; margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-label {
+      font-family: var(--font-body); font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--red); margin-bottom: 8px;
+    }
+    .page-title {
+      font-family: var(--font-head); font-size: clamp(26px, 4vw, 38px);
+      font-weight: 400; text-transform: uppercase; letter-spacing: 2px;
+      color: var(--charcoal); margin-bottom: 6px; line-height: 1.1;
+    }
+    .page-subtitle {
+      font-size: 14px; font-weight: 300; color: var(--grey-600);
+      line-height: 1.6; margin-bottom: 28px; max-width: 520px;
+    }
+
+    /* ── SOCIAL PROOF BAR ── */
+    .proof-bar {
+      display: flex; align-items: center; gap: 0;
+      padding: 12px 16px; background: var(--off);
+      border-left: 3px solid var(--gold);
+      margin-bottom: 32px; flex-wrap: wrap; gap: 12px;
+    }
+    .proof-stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+    .proof-score { font-size: 13px; font-weight: 700; margin-left: 5px; }
+    .proof-label { font-size: 12px; font-weight: 300; color: var(--grey-600); margin-left: 3px; }
+    .proof-sep { width: 1px; height: 14px; background: var(--grey-200); }
+    .proof-usp {
+      font-size: 12px; font-weight: 300; color: var(--grey-600);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .proof-usp svg { color: var(--red); flex-shrink: 0; }
+
+    /* ── ARRANGEMENT CARDS ── */
+    .arrangement-grid { display: flex; flex-direction: column; gap: 12px; }
+
+    .arrangement-card {
+      border: 1.5px solid var(--grey-200);
+      cursor: pointer; transition: border-color var(--t), box-shadow var(--t);
+      background: var(--white); overflow: hidden;
+    }
+    .arrangement-card:hover { border-color: var(--grey-400); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .arrangement-card.featured { border-color: var(--red); }
+    .arrangement-card.selected { border-color: var(--charcoal); border-width: 2px; }
+
+    .card-inner { display: flex; }
+
+    .card-image {
+      width: 220px; flex-shrink: 0;
+      position: relative; overflow: hidden;
+      background: var(--grey-100); min-height: 180px;
+    }
+    .card-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.4s ease;
+    }
+    .arrangement-card:hover .card-image img { transform: scale(1.03); }
+
+    .card-badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--red); color: #fff;
+      font-family: var(--font-body); font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px;
+    }
+
+    .card-body { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+
+    .card-header-row { margin-bottom: 8px; }
+    .card-title {
+      font-family: var(--font-head); font-size: 17px;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--charcoal); margin-bottom: 5px;
+    }
+    .card-desc { font-size: 13px; font-weight: 300; color: var(--grey-600); line-height: 1.5; }
+
+    .includes-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+    .include-tag {
+      font-size: 11px; font-weight: 400; color: var(--grey-600);
+      border: 1px solid var(--grey-200); padding: 3px 10px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .include-tag svg { color: var(--charcoal); flex-shrink: 0; }
+
+    .expand-toggle {
+      font-size: 11px; font-weight: 400; color: var(--grey-400);
+      background: none; border: none; cursor: pointer; padding: 0;
+      font-family: var(--font-body); letter-spacing: 0.5px;
+      text-decoration: underline; text-underline-offset: 2px;
+      display: flex; align-items: center; gap: 4px; margin-bottom: 12px;
+      transition: color var(--t);
+    }
+    .expand-toggle:hover { color: var(--charcoal); }
+    .expand-toggle svg { transition: transform 0.2s ease; }
+    .expand-toggle.open svg { transform: rotate(180deg); }
+
+    .expand-content {
+      font-size: 12px; font-weight: 300; color: var(--grey-600);
+      line-height: 1.7; margin-bottom: 12px;
+      display: none;
+    }
+    .expand-content.open { display: block; }
+
+    .card-footer {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; gap: 12px;
+      padding-top: 12px; border-top: 1px solid var(--grey-100);
+      margin-top: auto;
+    }
+    .price-from {
+      font-size: 10px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--grey-400); margin-bottom: 2px;
+    }
+    .price-amount {
+      font-family: var(--font-head); font-size: 28px;
+      color: var(--charcoal); letter-spacing: -0.5px; line-height: 1;
+    }
+    .price-unit { font-size: 12px; font-weight: 300; color: var(--grey-400); margin-left: 2px; }
+    .price-total { font-size: 11px; font-weight: 300; color: var(--grey-400); margin-top: 2px; }
+
+    .card-select-btn {
+      background: var(--charcoal); color: #fff; border: none;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 11px 20px; cursor: pointer;
+      transition: background var(--t); white-space: nowrap; flex-shrink: 0;
+    }
+    .card-select-btn:hover { background: var(--red); }
+    .arrangement-card.featured .card-select-btn { background: var(--red); }
+    .arrangement-card.featured .card-select-btn:hover { background: #a82c2c; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .card-inner { flex-direction: column; }
+      .card-image { width: 100%; min-height: 180px; }
+      .card-body { padding: 16px; }
+      .card-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .card-select-btn { width: 100%; text-align: center; padding: 13px; }
+      .proof-bar { gap: 8px; }
+      .proof-sep { display: none; }
+    }
+
+    @media (max-width: 400px) {
+      .booking-nav { padding: 0 16px; }
+      .container { padding: 28px 16px 80px; }
+    }
+
+    /* ── FADE IN ── */
+    @media (prefers-reduced-motion: no-preference) {
+      .arrangement-card {
+        opacity: 0; transform: translateY(16px);
+        animation: fadeUp 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+      }
+      .arrangement-card:nth-child(1) { animation-delay: 0.05s; }
+      .arrangement-card:nth-child(2) { animation-delay: 0.12s; }
+      .arrangement-card:nth-child(3) { animation-delay: 0.19s; }
+      @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BOOKING NAV -->
+<nav class="booking-nav">
+  <a href="/" class="booking-nav-logo">
+    <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+  </a>
+  <button class="booking-nav-close" onclick="history.back()">
+    <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M1 1l12 12M13 1L1 13"/>
+    </svg>
+    Sluiten
+  </button>
+</nav>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="progress-step active">
+      <div class="step-num">1</div>
+      <span class="step-label">Arrangement</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">2</div>
+      <span class="step-label">Datum</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">3</div>
+      <span class="step-label">Kamer</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">4</div>
+      <span class="step-label">Extra's</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">5</div>
+      <span class="step-label">Gegevens</span>
+    </div>
+    <div class="step-div"></div>
+    <div class="progress-step">
+      <div class="step-num">6</div>
+      <span class="step-label">Betaling</span>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE -->
+<div class="page-wrap">
+  <div class="container">
+
+    <div class="page-label">Stap 1 van 6</div>
+    <h1 class="page-title">Kies uw arrangement</h1>
+    <p class="page-subtitle">Overnachten in de Maasduinen, op een steenworp van Venray. Kies het arrangement dat bij u past.</p>
+
+    <!-- SOCIAL PROOF -->
+    <div class="proof-bar">
+      <span class="proof-stars">★★★★</span>
+      <span class="proof-score">4.4</span>
+      <span class="proof-label">op Google · 200+ beoordelingen</span>
+      <div class="proof-sep"></div>
+      <div class="proof-usp">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,6 5,9 10,3"/></svg>
+        Beste prijsgarantie
+      </div>
+      <div class="proof-sep"></div>
+      <div class="proof-usp">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,6 5,9 10,3"/></svg>
+        Gratis annuleren
+      </div>
+    </div>
+
+    <!-- ARRANGEMENT CARDS -->
+    <div class="arrangement-grid">
+
+      <!-- WELLNESS WEEKEND -->
+      <div class="arrangement-card featured" id="card-wellness" onclick="selectArrangement('wellness', 139)">
+        <div class="card-inner">
+          <div class="card-image">
+            <img src="fotos/card-wellness.jpg" alt="Wellness Weekend — sauna en zwembad bij Hotel Asteria" loading="eager">
+            <div class="card-badge">Meest gekozen</div>
+          </div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <div class="card-title">Wellness Weekend</div>
+              <div class="card-desc">Twee nachten midden in Noord-Limburg. Onbeperkt gebruik van sauna, stoomcabine en binnenzwembad inbegrepen.</div>
+            </div>
+            <div class="includes-list">
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8V4a2 2 0 012-2h5a2 2 0 012 2v4"/><path d="M0 8h11"/></svg>
+                2 nachten
+              </span>
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5.5" cy="5.5" r="4.5"/><path d="M5.5 3v2.5l2 1.2"/></svg>
+                Uitgebreid ontbijt
+              </span>
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 9c0-2.8 2-4.5 4.5-4.5S10 6.2 10 9"/><circle cx="5.5" cy="2.5" r="1.5"/></svg>
+                Sauna &amp; Zwembad
+              </span>
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="9" height="6" rx="1"/><path d="M3.5 4V3a2 2 0 014 0v1"/></svg>
+                Gratis parkeren
+              </span>
+            </div>
+            <button class="expand-toggle" id="toggle-wellness" onclick="toggleExpand(event, 'detail-wellness', 'toggle-wellness')">
+              Wat zit er precies in?
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,4 6,8 10,4"/></svg>
+            </button>
+            <div class="expand-content" id="detail-wellness">
+              Vrijdag check-in vanaf 15:00. Onbeperkt toegang tot sauna, stoomcabine en verwarmd binnenzwembad. Uitgebreid ontbijtbuffet op zaterdag en zondag. Check-out uiterlijk 12:00 op zondag.
+            </div>
+            <div class="card-footer">
+              <div class="card-price">
+                <div class="price-from">Vanaf</div>
+                <div>
+                  <span class="price-amount">€139</span>
+                  <span class="price-unit">p.p.</span>
+                </div>
+                <div class="price-total">€278 per stel</div>
+              </div>
+              <button class="card-select-btn">Selecteer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CULINAIR WEEKEND -->
+      <div class="arrangement-card" id="card-culinair" onclick="selectArrangement('culinair', 119)">
+        <div class="card-inner">
+          <div class="card-image">
+            <img src="fotos/card-restaurant.jpg" alt="Culinair Weekend — diner in de brasserie van Hotel Asteria" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <div class="card-title">Culinair Weekend</div>
+              <div class="card-desc">Overnachten met een 3-gangen diner in onze brasserie. Limburgse smaken, zorgvuldig bereid.</div>
+            </div>
+            <div class="includes-list">
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8V4a2 2 0 012-2h5a2 2 0 012 2v4"/><path d="M0 8h11"/></svg>
+                1 nacht
+              </span>
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5.5" cy="5.5" r="4.5"/><path d="M5.5 3v2.5l2 1.2"/></svg>
+                Uitgebreid ontbijt
+              </span>
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 9V3m3 6V5m3 4V2"/></svg>
+                3-gangen diner
+              </span>
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="9" height="6" rx="1"/><path d="M3.5 4V3a2 2 0 014 0v1"/></svg>
+                Gratis parkeren
+              </span>
+            </div>
+            <button class="expand-toggle" id="toggle-culinair" onclick="toggleExpand(event, 'detail-culinair', 'toggle-culinair')">
+              Wat zit er precies in?
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,4 6,8 10,4"/></svg>
+            </button>
+            <div class="expand-content" id="detail-culinair">
+              Check-in vanaf 15:00. Tweepersoonsontbijt met buffet. Driegangendiner voor twee personen in onze brasserie — inclusief keuze uit meerdere gangen. Gratis parkeerplaats op eigen terrein. Check-out uiterlijk 11:00.
+            </div>
+            <div class="card-footer">
+              <div class="card-price">
+                <div class="price-from">Vanaf</div>
+                <div>
+                  <span class="price-amount">€119</span>
+                  <span class="price-unit">p.p.</span>
+                </div>
+                <div class="price-total">€238 per stel</div>
+              </div>
+              <button class="card-select-btn">Selecteer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGIES & ONTBIJT -->
+      <div class="arrangement-card" id="card-logies" onclick="selectArrangement('logies', 89)">
+        <div class="card-inner">
+          <div class="card-image">
+            <img src="fotos/card-kamer.jpg" alt="Logies en Ontbijt — comfortabele kamer bij Hotel Asteria" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <div class="card-title">Logies &amp; Ontbijt</div>
+              <div class="card-desc">Comfortabel verblijven met uitgebreid ontbijtbuffet. De perfecte basis voor een dag in Noord-Limburg.</div>
+            </div>
+            <div class="includes-list">
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8V4a2 2 0 012-2h5a2 2 0 012 2v4"/><path d="M0 8h11"/></svg>
+                1 nacht
+              </span>
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="5.5" cy="5.5" r="4.5"/><path d="M5.5 3v2.5l2 1.2"/></svg>
+                Uitgebreid ontbijt
+              </span>
+              <span class="include-tag">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="9" height="6" rx="1"/><path d="M3.5 4V3a2 2 0 014 0v1"/></svg>
+                Gratis parkeren
+              </span>
+            </div>
+            <div class="card-footer">
+              <div class="card-price">
+                <div class="price-from">Vanaf</div>
+                <div>
+                  <span class="price-amount">€89</span>
+                  <span class="price-unit">p.p.</span>
+                </div>
+                <div class="price-total">€178 per stel</div>
+              </div>
+              <button class="card-select-btn">Selecteer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function selectArrangement(type, pricePerPerson) {
+    // Visuele state
+    document.querySelectorAll('.arrangement-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('card-' + type).classList.add('selected');
+    // Navigeer naar stap 2 (placeholder)
+    // goToStep(2);
+    console.log('Arrangement geselecteerd:', type, pricePerPerson);
+  }
+
+  function toggleExpand(e, contentId, toggleId) {
+    e.stopPropagation();
+    const content = document.getElementById(contentId);
+    const toggle = document.getElementById(toggleId);
+    const isOpen = content.classList.contains('open');
+    content.classList.toggle('open', !isOpen);
+    toggle.classList.toggle('open', !isOpen);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boek uw verblijf — Hotel Asteria</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:      #c23435;
+      --charcoal: #292929;
+      --gold:     #dcbe1f;
+      --white:    #ffffff;
+      --off:      #f5f3f0;
+      --grey-100: #ebebeb;
+      --grey-200: #d0d0d0;
+      --grey-400: #999;
+      --grey-600: #555;
+      --font-head: 'Electrolize', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--off);
+      color: var(--charcoal);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    .booking-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      background: var(--charcoal);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; height: 60px;
+    }
+    .nav-logo img { height: 34px; display: block; }
+    .nav-close {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.5); font-family: var(--font-body);
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px; transition: color 0.2s;
+    }
+    .nav-close:hover { color: #fff; }
+
+    /* ══════════════════════════════════════
+       PROGRESS
+    ══════════════════════════════════════ */
+    .progress-bar {
+      position: fixed; top: 60px; left: 0; right: 0; z-index: 200;
+      background: var(--white); border-bottom: 1px solid var(--grey-100);
+    }
+    .progress-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; height: 46px;
+    }
+    .p-step {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 10px; font-weight: 400; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--grey-200); white-space: nowrap; transition: color 0.2s;
+    }
+    .p-step.done  { color: var(--grey-400); }
+    .p-step.active { color: var(--charcoal); font-weight: 700; }
+    .p-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; flex-shrink: 0; transition: all 0.2s;
+    }
+    .p-step.done  .p-num { background: var(--charcoal); border-color: var(--charcoal); color: #fff; }
+    .p-step.active .p-num { background: var(--red); border-color: var(--red); color: #fff; }
+    .p-label { display: none; }
+    .p-div { flex: 1; height: 1px; background: var(--grey-100); margin: 0 8px; min-width: 10px; max-width: 48px; }
+    @media (min-width: 600px) { .p-label { display: inline; } }
+
+    /* ══════════════════════════════════════
+       PAGES
+    ══════════════════════════════════════ */
+    .page { display: none; padding-top: 106px; min-height: 100vh; }
+    .page.active { display: block; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 48px 28px 140px; }
+
+    /* ══════════════════════════════════════
+       SHARED TYPOGRAPHY
+    ══════════════════════════════════════ */
+    .page-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 10px;
+    }
+    .page-title {
+      font-family: var(--font-head);
+      font-size: clamp(32px, 5vw, 58px);
+      text-transform: uppercase; letter-spacing: 2px; line-height: 1;
+    }
+    .section-head {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: var(--font-head); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 4px; white-space: nowrap;
+    }
+    .section-line { flex: 1; height: 1px; background: var(--grey-200); }
+    .section-note {
+      font-size: 10px; font-weight: 300; color: var(--grey-400);
+      letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════════
+       STAP 1 — ARRANGEMENT
+    ══════════════════════════════════════ */
+    #step1 .page-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 36px; gap: 24px; flex-wrap: wrap;
+    }
+    .proof-bar {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 12px 16px; background: var(--white);
+      border-left: 3px solid var(--gold); margin-bottom: 32px;
+    }
+    .proof-stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+    .proof-score { font-size: 13px; font-weight: 700; margin-left: 4px; }
+    .proof-text  { font-size: 12px; font-weight: 300; color: var(--grey-600); }
+    .proof-sep   { width: 1px; height: 14px; background: var(--grey-200); }
+    .proof-usp   { font-size: 12px; font-weight: 300; color: var(--grey-600); display: flex; align-items: center; gap: 5px; }
+    .proof-usp svg { color: var(--red); }
+
+    /* Arrangement grid */
+    .arr-grid { display: flex; flex-direction: column; gap: 3px; margin-bottom: 24px; }
+
+    .arr-card {
+      display: flex; cursor: pointer; overflow: hidden;
+      border: 2px solid transparent; transition: border-color 0.25s;
+      background: var(--white);
+    }
+    .arr-card:hover { border-color: var(--grey-200); }
+    .arr-card.selected { border-color: var(--charcoal); }
+
+    .arr-img {
+      width: 260px; flex-shrink: 0; position: relative; overflow: hidden;
+      min-height: 200px; background: var(--grey-100);
+    }
+    .arr-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block; transition: transform 0.5s var(--ease);
+    }
+    .arr-card:hover .arr-img img { transform: scale(1.04); }
+    .arr-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--red); color: #fff;
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 4px 10px;
+    }
+
+    .arr-body { padding: 28px 32px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .arr-name {
+      font-family: var(--font-head); font-size: clamp(18px, 2vw, 24px);
+      text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;
+    }
+    .arr-desc { font-size: 13px; font-weight: 300; color: var(--grey-600); line-height: 1.6; margin-bottom: 16px; }
+
+    .arr-includes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .arr-tag {
+      font-size: 11px; font-weight: 400; color: var(--grey-600);
+      border: 1px solid var(--grey-200); padding: 3px 10px;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .arr-tag svg { color: var(--charcoal); flex-shrink: 0; }
+
+    .arr-footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: 1px solid var(--grey-100); }
+    .arr-price-from { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey-400); margin-bottom: 2px; }
+    .arr-price-amount { font-family: var(--font-head); font-size: 30px; letter-spacing: -0.5px; line-height: 1; }
+    .arr-price-unit  { font-size: 12px; font-weight: 300; color: var(--grey-400); margin-left: 2px; }
+    .arr-price-total { font-size: 11px; font-weight: 300; color: var(--grey-400); margin-top: 2px; }
+
+    .arr-btn {
+      background: var(--charcoal); color: #fff; border: none;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      padding: 13px 24px; cursor: pointer; transition: background 0.2s;
+      white-space: nowrap; flex-shrink: 0; position: relative; overflow: hidden;
+    }
+    .arr-btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: var(--red); transform: translateX(-101%);
+      transition: transform 0.3s var(--ease);
+    }
+    .arr-btn:hover::after { transform: translateX(0); }
+    .arr-btn span { position: relative; z-index: 1; }
+    .arr-card.selected .arr-btn { background: var(--red); }
+    .arr-card.selected .arr-btn::after { display: none; }
+
+    /* Context upsell na selectie */
+    .ctx-upsell {
+      display: none;
+      background: var(--charcoal); color: #fff;
+      padding: 16px 20px; margin-top: 3px;
+      animation: slideDown 0.35s var(--ease);
+    }
+    .ctx-upsell.show { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+    .ctx-upsell-text { font-size: 12px; font-weight: 300; flex: 1; line-height: 1.5; }
+    .ctx-upsell-text strong { font-weight: 700; color: var(--gold); }
+    .ctx-upsell-btn {
+      background: none; border: 1px solid rgba(255,255,255,0.3); color: #fff;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; padding: 9px 18px;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .ctx-upsell-btn:hover { border-color: var(--gold); background: rgba(220,190,31,0.1); }
+    .ctx-upsell-img { width: 60px; height: 60px; object-fit: cover; flex-shrink: 0; }
+
+    @media (max-width: 640px) {
+      .arr-card { flex-direction: column; }
+      .arr-img { width: 100%; min-height: 200px; }
+      .arr-body { padding: 20px; }
+      .arr-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .arr-btn { width: 100%; text-align: center; padding: 14px; }
+    }
+
+    /* ══════════════════════════════════════
+       STAP 2 — DATUM
+    ══════════════════════════════════════ */
+    #step2 { background: var(--off); }
+    #step2 .container { max-width: 1000px; }
+
+    .date-header { margin-bottom: 32px; }
+    .date-subtitle { font-size: 13px; font-weight: 300; color: var(--grey-600); margin-top: 8px; line-height: 1.6; transition: opacity 0.2s; }
+
+    .persons-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .persons-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey-600); }
+    .persons-select {
+      border: 1.5px solid var(--grey-200); padding: 7px 30px 7px 12px;
+      font-size: 13px; font-family: var(--font-body); font-weight: 300;
+      background: var(--white); color: var(--charcoal);
+      outline: none; cursor: pointer; transition: border-color 0.18s;
+      appearance: none; -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 10px center;
+    }
+    .persons-select:focus { border-color: var(--charcoal); }
+
+    .cal-legend {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      font-size: 11px; font-weight: 300; color: var(--grey-400); margin-bottom: 20px;
+    }
+    .leg-item { display: flex; align-items: center; gap: 6px; }
+    .leg-dot { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+
+    .cal-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 24px; }
+    @media (max-width: 640px) { .cal-wrap { grid-template-columns: 1fr; gap: 24px; } }
+
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .cal-title { font-family: var(--font-head); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; }
+    .cal-nav {
+      background: none; border: 1px solid var(--grey-200); width: 28px; height: 28px;
+      cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
+      transition: all 0.18s; color: var(--charcoal);
+    }
+    .cal-nav:hover:not(:disabled) { border-color: var(--charcoal); background: var(--charcoal); color: #fff; }
+    .cal-nav:disabled { opacity: 0.2; cursor: not-allowed; }
+
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+    .cal-dow { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--grey-400); text-align: center; padding: 4px 0 10px; }
+    .cal-dow.wknd { color: var(--charcoal); }
+
+    .cal-day {
+      aspect-ratio: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer; border: 1.5px solid transparent;
+      transition: all 0.15s; border-radius: 2px; padding: 2px;
+    }
+    .cal-day:hover:not(.disabled):not(.past):not(.empty) { border-color: var(--charcoal); }
+    .cal-day.past     { opacity: 0.2; cursor: not-allowed; }
+    .cal-day.disabled { opacity: 0.25; cursor: not-allowed; background: repeating-linear-gradient(45deg,transparent,transparent 3px,var(--grey-100) 3px,var(--grey-100) 4px); }
+    .cal-day.empty    { cursor: default; }
+    .cal-day.weekend  { background: var(--white); }
+    .cal-day.checkin  { background: var(--charcoal); color: #fff; border-color: var(--charcoal); }
+    .cal-day.checkout { background: var(--charcoal); color: #fff; border-color: var(--charcoal); }
+    .cal-day.inrange  { background: var(--grey-100); }
+    .cal-day.scarcity { border-color: #e8a0a0; }
+
+    .cal-num   { font-size: 12px; font-weight: 400; line-height: 1; }
+    .cal-price { font-size: 8px; font-weight: 300; margin-top: 2px; line-height: 1; }
+    .cal-price.low    { color: #2a7a50; }
+    .cal-price.high   { color: var(--red); }
+    .cal-price.medium { color: var(--grey-400); }
+    .cal-day.checkin .cal-price, .cal-day.checkout .cal-price { color: rgba(255,255,255,0.5); }
+
+    /* Selection bar */
+    .cal-selection {
+      border: 1.5px solid var(--charcoal); padding: 16px 20px;
+      display: none; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; margin-bottom: 24px;
+      animation: fadeIn 0.2s ease;
+    }
+    .cal-selection.show { display: flex; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .sel-item { }
+    .sel-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey-400); margin-bottom: 3px; }
+    .sel-val { font-family: var(--font-head); font-size: 15px; letter-spacing: 1px; }
+    .sel-val.ph { font-family: var(--font-body); font-weight: 300; font-size: 13px; color: var(--grey-400); }
+    .sel-sep  { width: 1px; height: 36px; background: var(--grey-200); }
+    .sel-total { text-align: right; }
+    .sel-total-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey-400); margin-bottom: 3px; }
+    .sel-total-price { font-family: var(--font-head); font-size: 24px; letter-spacing: -0.5px; line-height: 1; }
+    .sel-total-sub   { font-size: 11px; font-weight: 300; color: var(--grey-400); margin-top: 2px; }
+
+    /* Weekend romantisch hint */
+    .weekend-hint {
+      display: none; align-items: center; gap: 14px;
+      background: var(--white); padding: 14px 18px;
+      border-left: 3px solid var(--gold); margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+    .weekend-hint.show { display: flex; }
+    .weekend-hint-text { font-size: 12px; font-weight: 300; color: var(--grey-600); line-height: 1.5; flex: 1; }
+    .weekend-hint-text strong { font-weight: 700; color: var(--charcoal); display: block; margin-bottom: 2px; }
+    .weekend-hint-add {
+      background: none; border: 1.5px solid var(--charcoal);
+      font-family: var(--font-body); font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; padding: 8px 14px;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .weekend-hint-add:hover { background: var(--charcoal); color: #fff; }
+    .weekend-hint-add.added { background: var(--charcoal); color: var(--gold); border-color: var(--charcoal); }
+
+    /* Buttons */
+    .btn-row { display: flex; gap: 12px; align-items: center; }
+    .btn-primary {
+      position: relative; overflow: hidden;
+      background: var(--charcoal); color: #fff; border: none;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase; padding: 13px 32px;
+      cursor: pointer; transition: background 0.25s; white-space: nowrap;
+    }
+    .btn-primary::after { content: ''; position: absolute; inset: 0; background: var(--red); transform: translateX(-101%); transition: transform 0.3s var(--ease); }
+    .btn-primary:hover::after { transform: translateX(0); }
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
+    .btn-primary:disabled::after { display: none; }
+    .btn-back {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 11px; font-weight: 400;
+      letter-spacing: 1px; text-transform: uppercase; color: var(--grey-400);
+      text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s;
+    }
+    .btn-back:hover { color: var(--charcoal); }
+
+    @media (max-width: 480px) {
+      .sel-sep { display: none; }
+      .sel-total { text-align: left; width: 100%; padding-top: 8px; border-top: 1px solid var(--grey-100); }
+    }
+
+    /* ══════════════════════════════════════
+       STAP 3 — KAMER & EXTRA'S
+    ══════════════════════════════════════ */
+    #step3 .page-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 40px; gap: 24px; flex-wrap: wrap;
+    }
+    .header-note { font-size: 12px; font-weight: 300; color: var(--grey-400); font-style: italic; max-width: 260px; text-align: right; line-height: 1.7; }
+
+    /* Room grid — editorial */
+    .room-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; margin-bottom: 48px; }
+
+    .room-card {
+      position: relative; cursor: pointer; overflow: hidden;
+      aspect-ratio: 3/4; background: var(--charcoal);
+    }
+    .room-card__img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s var(--ease), filter 0.4s ease;
+      filter: brightness(0.72) saturate(0.9);
+    }
+    .room-card:hover .room-card__img { transform: scale(1.06); filter: brightness(0.55) saturate(1); }
+    .room-card__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,15,10,0.9) 0%, rgba(20,15,10,0.2) 55%, transparent 100%);
+    }
+    .room-card__content { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; padding: 22px 20px; }
+    .room-card__tag { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 5px; }
+    .room-card__name { font-family: var(--font-head); font-size: clamp(14px, 1.6vw, 20px); text-transform: uppercase; letter-spacing: 2px; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+    .room-card__specs {
+      display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.3s ease 0.05s, transform 0.35s var(--ease) 0.05s;
+    }
+    .room-card:hover .room-card__specs { opacity: 1; transform: translateY(0); }
+    .spec-tag { font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.2); padding: 2px 7px; }
+    .room-card__footer { display: flex; align-items: center; justify-content: space-between; }
+    .room-card__price { font-family: var(--font-head); font-size: 13px; letter-spacing: 1px; color: rgba(255,255,255,0.65); transition: color 0.2s; }
+    .room-card.selected .room-card__price { color: var(--gold); }
+    .room-card__check {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s var(--ease);
+    }
+    .room-card__check svg { opacity: 0; transform: scale(0.4); transition: all 0.25s var(--ease); }
+    .room-card.selected .room-card__check { background: var(--gold); border-color: var(--gold); }
+    .room-card.selected .room-card__check svg { opacity: 1; transform: scale(1); }
+    .room-card::after { content: ''; position: absolute; inset: 0; border: 0px solid var(--gold); transition: border-width 0.2s var(--ease); pointer-events: none; z-index: 2; }
+    .room-card.selected::after { border-width: 3px; }
+    .room-card__sel-label { position: absolute; top: 12px; left: 12px; z-index: 3; background: var(--gold); color: var(--charcoal); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 9px; opacity: 0; transform: translateY(-4px); transition: opacity 0.2s, transform 0.3s var(--ease); }
+    .room-card.selected .room-card__sel-label { opacity: 1; transform: translateY(0); }
+
+    /* Upgrade upsell trigger */
+    .upgrade-upsell {
+      display: none; align-items: center; gap: 16px; flex-wrap: wrap;
+      background: var(--charcoal); color: #fff;
+      padding: 16px 20px; margin-bottom: 48px;
+      animation: slideDown 0.35s var(--ease);
+    }
+    .upgrade-upsell.show { display: flex; }
+    .upgrade-upsell-text { font-size: 12px; font-weight: 300; flex: 1; line-height: 1.5; }
+    .upgrade-upsell-text strong { color: var(--gold); font-weight: 700; }
+    .upgrade-upsell-btn {
+      background: none; border: 1px solid rgba(255,255,255,0.3); color: #fff;
+      font-family: var(--font-body); font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; padding: 9px 16px;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .upgrade-upsell-btn:hover { border-color: var(--gold); }
+    .upgrade-upsell-btn.added { border-color: var(--gold); color: var(--gold); }
+
+    /* Contextual extras */
+    .extras-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2px; margin-bottom: 24px; }
+
+    .extra-card {
+      background: var(--white); padding: 20px 22px;
+      cursor: pointer; position: relative; overflow: hidden;
+      transition: background 0.2s; display: flex; flex-direction: column; gap: 10px;
+    }
+    .extra-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--charcoal); transition: width 0.2s var(--ease); }
+    .extra-card:hover::before { width: 3px; }
+    .extra-card.selected::before { width: 3px; background: var(--gold); }
+    .extra-card:hover { background: #fafaf8; }
+    .extra-card.selected { background: var(--charcoal); }
+
+    .extra-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .extra-icon { width: 38px; height: 38px; flex-shrink: 0; background: var(--off); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .extra-card.selected .extra-icon { background: rgba(255,255,255,0.08); }
+    .extra-icon svg { color: var(--charcoal); transition: color 0.2s; }
+    .extra-card.selected .extra-icon svg { color: var(--gold); }
+    .extra-toggle {
+      width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--grey-200);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s var(--ease); font-size: 16px; color: var(--grey-400); flex-shrink: 0;
+    }
+    .extra-card.selected .extra-toggle { background: var(--gold); border-color: var(--gold); color: var(--charcoal); transform: rotate(45deg); }
+    .extra-name { font-size: 13px; font-weight: 400; color: var(--charcoal); transition: color 0.2s; }
+    .extra-card.selected .extra-name { color: #fff; }
+    .extra-desc { font-size: 11px; font-weight: 300; color: var(--grey-400); line-height: 1.5; transition: color 0.2s; }
+    .extra-card.selected .extra-desc { color: rgba(255,255,255,0.4); }
+    .extra-price { font-family: var(--font-head); font-size: 15px; color: var(--charcoal); transition: color 0.2s; }
+    .extra-card.selected .extra-price { color: var(--gold); }
+
+    /* Timing extras (minimal) */
+    .timing-extras { display: flex; gap: 2px; flex-wrap: wrap; }
+    .timing-card {
+      flex: 1; min-width: 200px; background: var(--white); padding: 16px 18px;
+      cursor: pointer; display: flex; align-items: center; gap: 14px;
+      border: 1.5px solid transparent; transition: border-color 0.2s;
+    }
+    .timing-card:hover { border-color: var(--grey-200); }
+    .timing-card.selected { border-color: var(--charcoal); }
+    .timing-icon { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .timing-icon svg { color: var(--grey-400); transition: color 0.2s; }
+    .timing-card.selected .timing-icon svg { color: var(--charcoal); }
+    .timing-info { flex: 1; }
+    .timing-name { font-size: 12px; font-weight: 400; margin-bottom: 2px; }
+    .timing-desc { font-size: 11px; font-weight: 300; color: var(--grey-400); }
+    .timing-price { font-size: 13px; font-weight: 400; color: var(--grey-600); flex-shrink: 0; }
+    .timing-check { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--grey-200); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .timing-card.selected .timing-check { background: var(--charcoal); border-color: var(--charcoal); }
+    .timing-card.selected .timing-check svg { display: block; }
+    .timing-check svg { display: none; }
+
+    @media (max-width: 700px) {
+      .room-grid { grid-template-columns: 1fr; gap: 3px; }
+      .room-card { aspect-ratio: 4/3; }
+    }
+    @media (min-width: 701px) and (max-width: 920px) {
+      .room-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ══════════════════════════════════════
+       STICKY BAR
+    ══════════════════════════════════════ */
+    .sticky-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 250;
+    }
+    .sticky-summary {
+      background: var(--charcoal); overflow: hidden;
+      max-height: 0; transition: max-height 0.4s var(--ease);
+    }
+    .sticky-summary.show { max-height: 50px; }
+    .sticky-summary-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; gap: 16px;
+      height: 40px; overflow: hidden;
+    }
+    .sum-item { font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.5); white-space: nowrap; }
+    .sum-item strong { color: #fff; font-weight: 400; }
+    .sum-sep { width: 1px; height: 14px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+
+    .sticky-main { background: var(--white); border-top: 1px solid var(--grey-100); padding: 14px 28px; }
+    .sticky-main-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .sticky-price { }
+    .sticky-label-sm { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--grey-400); margin-bottom: 2px; }
+    .sticky-amount { font-family: var(--font-head); font-size: 26px; letter-spacing: -1px; line-height: 1; transition: opacity 0.15s, transform 0.15s; }
+    .sticky-amount.updating { opacity: 0.4; transform: translateY(-3px); }
+    .sticky-sub { font-size: 11px; font-weight: 300; color: var(--grey-400); margin-top: 2px; }
+    .sticky-actions { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+
+    @media (max-width: 480px) {
+      .sticky-main { padding: 12px 16px; }
+      .booking-nav { padding: 0 16px; }
+      .container { padding: 32px 16px 140px; }
+      .progress-inner { padding: 0 16px; }
+    }
+
+    /* ══════════════════════════════════════
+       STAP 4 — GEGEVENS
+    ══════════════════════════════════════ */
+    #step4 .container { max-width: 760px; }
+    #step4 .page-header { margin-bottom: 40px; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--grey-600);
+    }
+    .form-input, .form-textarea {
+      border: 1.5px solid var(--grey-200);
+      padding: 12px 14px;
+      font-size: 14px; font-family: var(--font-body); font-weight: 300;
+      background: var(--white); color: var(--charcoal);
+      outline: none; transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--charcoal); }
+    .form-input.error, .form-textarea.error { border-color: var(--red); }
+    .form-error { font-size: 10px; color: var(--red); display: none; }
+    .form-input.error + .form-error,
+    .form-textarea.error + .form-error { display: block; }
+    .form-textarea { resize: vertical; min-height: 80px; }
+
+    .occasion-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--grey-600); margin-bottom: 10px;
+    }
+    .occasion-row {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;
+    }
+    .occasion-card {
+      border: 1.5px solid var(--grey-200); padding: 10px 16px;
+      cursor: pointer; transition: all 0.2s;
+      font-size: 12px; font-weight: 300; color: var(--grey-600);
+      background: var(--white); white-space: nowrap;
+      display: flex; align-items: center; gap: 7px;
+    }
+    .occasion-card:hover { border-color: var(--charcoal); color: var(--charcoal); }
+    .occasion-card.selected { border-color: var(--charcoal); background: var(--charcoal); color: #fff; }
+    .occasion-card svg { flex-shrink: 0; }
+
+    .privacy-note {
+      font-size: 11px; font-weight: 300; color: var(--grey-400);
+      margin-top: 20px; line-height: 1.7;
+    }
+    .privacy-note a { color: var(--charcoal); }
+
+    /* ══════════════════════════════════════
+       STAP 5 — SAMENVATTING & BETALING
+    ══════════════════════════════════════ */
+    #step5 .container { max-width: 1000px; }
+    #step5 .page-header { margin-bottom: 40px; }
+
+    .step5-layout {
+      display: grid; grid-template-columns: 1fr 400px; gap: 48px; align-items: start;
+    }
+    @media (max-width: 820px) {
+      .step5-layout { grid-template-columns: 1fr; }
+      .step5-summary { order: -1; }
+    }
+
+    /* Betaalformulier */
+    .payment-section {}
+    .payment-trustbar {
+      display: flex; align-items: center; gap: 16px;
+      padding: 12px 16px; background: var(--white);
+      border-left: 3px solid var(--gold); margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .payment-trust-item {
+      font-size: 11px; font-weight: 300; color: var(--grey-600);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .payment-trust-item svg { color: var(--red); flex-shrink: 0; }
+
+    .payment-method-row {
+      display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+    }
+    .pay-method {
+      border: 1.5px solid var(--grey-200); padding: 9px 16px;
+      cursor: pointer; transition: border-color 0.2s;
+      font-size: 12px; font-weight: 300; display: flex; align-items: center; gap: 7px;
+      background: var(--white); color: var(--grey-600);
+    }
+    .pay-method.active { border-color: var(--charcoal); color: var(--charcoal); font-weight: 400; }
+    .pay-method svg { flex-shrink: 0; }
+
+    .card-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card-form-grid .full { grid-column: 1 / -1; }
+    @media (max-width: 480px) { .card-form-grid { grid-template-columns: 1fr; } }
+
+    .card-input-wrap { position: relative; }
+    .card-input-icon {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--grey-400); pointer-events: none;
+    }
+
+    .terms-check {
+      display: flex; align-items: flex-start; gap: 10px; margin-top: 20px; margin-bottom: 24px;
+    }
+    .terms-check input[type="checkbox"] {
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px;
+      accent-color: var(--charcoal); cursor: pointer;
+    }
+    .terms-check label {
+      font-size: 11px; font-weight: 300; color: var(--grey-600); line-height: 1.7; cursor: pointer;
+    }
+    .terms-check label a { color: var(--charcoal); }
+
+    .btn-boek {
+      position: relative; overflow: hidden;
+      background: var(--red); color: #fff; border: none; width: 100%;
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; padding: 16px 24px;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-boek::after { content: ''; position: absolute; inset: 0; background: #a01d1e; transform: translateX(-101%); transition: transform 0.3s var(--ease); }
+    .btn-boek:hover::after { transform: translateX(0); }
+    .btn-boek span { position: relative; z-index: 1; }
+    .btn-boek:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-boek:disabled::after { display: none; }
+
+    .cancel-note {
+      text-align: center; font-size: 11px; font-weight: 300; color: var(--grey-400);
+      margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 5px;
+    }
+    .cancel-note svg { color: var(--red); }
+
+    /* Samenvatting */
+    .summary-box { background: var(--white); padding: 28px; }
+    .summary-title {
+      font-family: var(--font-head); font-size: 11px; text-transform: uppercase;
+      letter-spacing: 3px; margin-bottom: 20px; color: var(--charcoal);
+    }
+    .summary-arr-photo {
+      width: 100%; aspect-ratio: 16/7; object-fit: cover; display: block;
+      margin-bottom: 20px;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 10px 0; border-bottom: 1px solid var(--grey-100);
+      gap: 12px;
+    }
+    .summary-row:last-of-type { border-bottom: none; }
+    .summary-row-label { font-size: 12px; font-weight: 300; color: var(--grey-600); flex: 1; }
+    .summary-row-label small { display: block; font-size: 10px; color: var(--grey-400); margin-top: 1px; }
+    .summary-row-val { font-size: 13px; font-weight: 700; white-space: nowrap; }
+    .summary-divider { height: 1px; background: var(--grey-200); margin: 4px 0; }
+    .summary-total-row {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 14px 0 0; gap: 12px;
+    }
+    .summary-total-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .summary-total-val { font-family: var(--font-head); font-size: 26px; }
+    .summary-total-sub { font-size: 10px; font-weight: 300; color: var(--grey-400); text-align: right; }
+
+    .summary-edit-link {
+      display: block; text-align: center; margin-top: 16px;
+      font-size: 10px; font-weight: 400; color: var(--grey-400);
+      letter-spacing: 1px; text-transform: uppercase;
+      cursor: pointer; text-decoration: underline; text-underline-offset: 3px;
+      transition: color 0.2s;
+    }
+    .summary-edit-link:hover { color: var(--charcoal); }
+
+    /* ══════════════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════════════ */
+    @media (prefers-reduced-motion: no-preference) {
+      .arr-card, .room-card, .extra-card, .timing-card,
+      .section-head, .proof-bar, .date-header {
+        opacity: 0; transform: translateY(16px);
+        animation: revealUp 0.5s var(--ease) forwards;
+      }
+      .arr-card:nth-child(1) { animation-delay: 0.05s; }
+      .arr-card:nth-child(2) { animation-delay: 0.12s; }
+      .arr-card:nth-child(3) { animation-delay: 0.18s; }
+      .room-card:nth-child(1) { animation-delay: 0.06s; }
+      .room-card:nth-child(2) { animation-delay: 0.12s; }
+      .room-card:nth-child(3) { animation-delay: 0.18s; }
+      @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="booking-nav">
+  <a href="/" class="nav-logo"><img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria"></a>
+  <button class="nav-close" onclick="history.back()">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1l10 10M11 1L1 11"/></svg>
+    Sluiten
+  </button>
+</nav>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-inner" id="progressInner">
+    <div class="p-step active" data-step="1"><div class="p-num">1</div><span class="p-label">Arrangement</span></div>
+    <div class="p-div"></div>
+    <div class="p-step" data-step="2"><div class="p-num">2</div><span class="p-label">Datum</span></div>
+    <div class="p-div"></div>
+    <div class="p-step" data-step="3"><div class="p-num">3</div><span class="p-label">Kamer & Extra's</span></div>
+    <div class="p-div"></div>
+    <div class="p-step" data-step="4"><div class="p-num">4</div><span class="p-label">Gegevens</span></div>
+    <div class="p-div"></div>
+    <div class="p-step" data-step="5"><div class="p-num">5</div><span class="p-label">Betaling</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAP 1 — ARRANGEMENT
+════════════════════════════════════ -->
+<div class="page active" id="step1">
+  <div class="container">
+    <div class="page-header">
+      <div>
+        <div class="page-label">Stap 1 van 5</div>
+        <h1 class="page-title">Kies uw<br>arrangement</h1>
+      </div>
+    </div>
+
+    <div class="proof-bar">
+      <span class="proof-stars">★★★★</span>
+      <span class="proof-score">4.4</span>
+      <span class="proof-text">op Google · 200+ beoordelingen</span>
+      <div class="proof-sep"></div>
+      <div class="proof-usp">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1,5.5 4,8.5 10,2.5"/></svg>
+        Beste prijsgarantie
+      </div>
+      <div class="proof-sep"></div>
+      <div class="proof-usp">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1,5.5 4,8.5 10,2.5"/></svg>
+        Gratis annuleren
+      </div>
+    </div>
+
+    <div class="arr-grid">
+
+      <!-- WELLNESS WEEKEND -->
+      <div class="arr-card" id="card-wellness" onclick="selectArr('wellness',139)">
+        <div class="arr-img">
+          <img src="fotos/wellness-spa.jpg" alt="Wellness Weekend — Hotel Asteria" loading="eager">
+          <div class="arr-badge">Meest gekozen</div>
+        </div>
+        <div class="arr-body">
+          <div>
+            <div class="arr-name">Wellness Weekend</div>
+            <div class="arr-desc">Twee nachten midden in Noord-Limburg. Onbeperkt sauna, stoomcabine en binnenzwembad inbegrepen.</div>
+            <div class="arr-includes">
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 9V5a2 2 0 012-2h6a2 2 0 012 2v4"/><path d="M0 9h12"/></svg>2 nachten</span>
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="5"/><path d="M6 3v3l2 1.5"/></svg>Uitgebreid ontbijt</span>
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 10c0-3 2.5-5 5-5s5 2 5 5"/><circle cx="6" cy="3" r="2"/></svg>Sauna & Zwembad</span>
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="10" height="7" rx="1"/><path d="M4 4V3a2 2 0 014 0v1"/></svg>Gratis parkeren</span>
+            </div>
+          </div>
+          <div class="arr-footer">
+            <div>
+              <div class="arr-price-from">Vanaf</div>
+              <div><span class="arr-price-amount">€139</span><span class="arr-price-unit">p.p.</span></div>
+              <div class="arr-price-total">€278 per stel</div>
+            </div>
+            <button class="arr-btn" onclick="event.stopPropagation(); selectArr('wellness',139)"><span>Selecteer</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Context upsell wellness: massage -->
+      <div class="ctx-upsell" id="upsell-wellness">
+        <img class="ctx-upsell-img" src="fotos/wellness-sauna.jpg" alt="">
+        <div class="ctx-upsell-text"><strong>Maak er een complete spa dag van.</strong> Voeg een massagebehandeling van 60 min toe — <span style="color:var(--gold)">€75 p.p.</span></div>
+        <button class="ctx-upsell-btn" id="btn-massage-upsell" onclick="addCtxExtra('massage',75,this)">Toevoegen</button>
+      </div>
+
+      <!-- CULINAIR WEEKEND -->
+      <div class="arr-card" id="card-culinair" onclick="selectArr('culinair',119)">
+        <div class="arr-img">
+          <img src="fotos/brasserie.jpg" alt="Culinair Weekend — Hotel Asteria" loading="lazy">
+        </div>
+        <div class="arr-body">
+          <div>
+            <div class="arr-name">Culinair Weekend</div>
+            <div class="arr-desc">Overnachten met een 3-gangen diner in onze brasserie. Limburgse smaken, zorgvuldig bereid.</div>
+            <div class="arr-includes">
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 9V5a2 2 0 012-2h6a2 2 0 012 2v4"/><path d="M0 9h12"/></svg>1 nacht</span>
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="5"/><path d="M6 3v3l2 1.5"/></svg>Uitgebreid ontbijt</span>
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 10V3m4 7V5m4 5V2"/></svg>3-gangen diner</span>
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="10" height="7" rx="1"/><path d="M4 4V3a2 2 0 014 0v1"/></svg>Gratis parkeren</span>
+            </div>
+          </div>
+          <div class="arr-footer">
+            <div>
+              <div class="arr-price-from">Vanaf</div>
+              <div><span class="arr-price-amount">€119</span><span class="arr-price-unit">p.p.</span></div>
+              <div class="arr-price-total">€238 per stel</div>
+            </div>
+            <button class="arr-btn" onclick="event.stopPropagation(); selectArr('culinair',119)"><span>Selecteer</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOGIES & ONTBIJT -->
+      <div class="arr-card" id="card-logies" onclick="selectArr('logies',89)">
+        <div class="arr-img">
+          <img src="fotos/kamer-comfort.jpg" alt="Logies en Ontbijt — Hotel Asteria" loading="lazy">
+        </div>
+        <div class="arr-body">
+          <div>
+            <div class="arr-name">Logies & Ontbijt</div>
+            <div class="arr-desc">Comfortabel verblijven met uitgebreid ontbijtbuffet. De perfecte basis voor een dag in Noord-Limburg.</div>
+            <div class="arr-includes">
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 9V5a2 2 0 012-2h6a2 2 0 012 2v4"/><path d="M0 9h12"/></svg>1 nacht</span>
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="5"/><path d="M6 3v3l2 1.5"/></svg>Uitgebreid ontbijt</span>
+              <span class="arr-tag"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1" y="4" width="10" height="7" rx="1"/><path d="M4 4V3a2 2 0 014 0v1"/></svg>Gratis parkeren</span>
+            </div>
+          </div>
+          <div class="arr-footer">
+            <div>
+              <div class="arr-price-from">Vanaf</div>
+              <div><span class="arr-price-amount">€89</span><span class="arr-price-unit">p.p.</span></div>
+              <div class="arr-price-total">€178 per stel</div>
+            </div>
+            <button class="arr-btn" onclick="event.stopPropagation(); selectArr('logies',89)"><span>Selecteer</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Context upsell logies: diner -->
+      <div class="ctx-upsell" id="upsell-logies">
+        <img class="ctx-upsell-img" src="fotos/restaurant-diner.jpg" alt="">
+        <div class="ctx-upsell-text"><strong>Maak er een culinaire avond van.</strong> Voeg een 3-gangen diner in onze brasserie toe — <span style="color:var(--gold)">€45 p.p.</span></div>
+        <button class="ctx-upsell-btn" id="btn-diner-upsell" onclick="addCtxExtra('diner',45,this)">Toevoegen</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAP 2 — DATUM
+════════════════════════════════════ -->
+<div class="page" id="step2">
+  <div class="container" style="max-width:1000px">
+
+    <div class="date-header">
+      <div class="page-label">Stap 2 van 5</div>
+      <h1 class="page-title">Wanneer komt u?</h1>
+      <div class="date-subtitle" id="dateSubtitle">Kies uw check-in datum, daarna uw check-out datum.</div>
+    </div>
+
+    <div class="persons-row">
+      <span class="persons-label">Personen</span>
+      <select class="persons-select" id="persons" onchange="onPersonsChange()">
+        <option value="2">2 personen</option>
+        <option value="1">1 persoon</option>
+        <option value="3">3 personen</option>
+        <option value="4">4 personen</option>
+      </select>
+    </div>
+
+    <div class="cal-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:var(--white);border:1px solid var(--grey-200)"></div>Weekend</div>
+      <div class="leg-item"><div class="leg-dot" style="border:1.5px solid #2a7a50"></div>Voordelige prijs</div>
+      <div class="leg-item"><div class="leg-dot" style="border:1.5px solid #e8a0a0"></div>Beperkt beschikbaar</div>
+      <div class="leg-item"><div class="leg-dot" style="background:repeating-linear-gradient(45deg,transparent,transparent 3px,var(--grey-100) 3px,var(--grey-100) 4px);border:1px solid var(--grey-200)"></div>Niet beschikbaar</div>
+    </div>
+
+    <div class="cal-wrap" id="calWrap"></div>
+
+    <!-- Weekend romantisch hint -->
+    <div class="weekend-hint" id="weekendHint">
+      <div class="weekend-hint-text">
+        <strong>Een weekendje weg — maak het onvergetelijk.</strong>
+        Voeg champagne bij aankomst toe voor een warm welkom op de kamer.
+      </div>
+      <button class="weekend-hint-add" id="btnChampagneHint" onclick="addCtxExtra('champagne',25,this)">+ Champagne · €25</button>
+    </div>
+
+    <div class="cal-selection" id="calSel">
+      <div class="sel-item">
+        <div class="sel-label">Check-in</div>
+        <div class="sel-val" id="selCheckin">—</div>
+      </div>
+      <div class="sel-sep"></div>
+      <div class="sel-item">
+        <div class="sel-label">Check-out</div>
+        <div class="sel-val ph" id="selCheckout">Kies datum</div>
+      </div>
+      <div class="sel-sep"></div>
+      <div class="sel-item">
+        <div class="sel-label">Nachten</div>
+        <div class="sel-val" id="selNights">—</div>
+      </div>
+      <div class="sel-sep"></div>
+      <div class="sel-total">
+        <div class="sel-total-label">Totaal arrangement</div>
+        <div class="sel-total-price" id="selTotal">—</div>
+        <div class="sel-total-sub" id="selSub"></div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" id="step2Btn" disabled onclick="goTo(3)"><span>Kies kamer</span></button>
+      <button class="btn-back" onclick="goTo(1)">← Terug</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAP 3 — KAMER & EXTRA'S
+════════════════════════════════════ -->
+<div class="page" id="step3">
+  <div class="container">
+
+    <div class="page-header">
+      <div>
+        <div class="page-label">Stap 3 van 5</div>
+        <h1 class="page-title">Maak het<br>compleet</h1>
+      </div>
+      <div class="header-note">Alle kamers zijn inbegrepen bij uw arrangement. Een upgrade of extra is volledig optioneel.</div>
+    </div>
+
+    <div class="section-head">
+      <div class="section-title">Kamer</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="room-grid">
+      <div class="room-card selected" id="room-comfort" onclick="selectRoom('comfort',0)">
+        <div class="room-card__sel-label">Geselecteerd</div>
+        <img class="room-card__img" src="fotos/kamer-comfort.jpg" alt="Comfort Kamer" loading="eager">
+        <div class="room-card__overlay"></div>
+        <div class="room-card__content">
+          <div class="room-card__tag">Inbegrepen</div>
+          <div class="room-card__name">Comfort<br>Kamer</div>
+          <div class="room-card__specs">
+            <span class="spec-tag">25 m²</span><span class="spec-tag">Tweepersoons</span><span class="spec-tag">Tuin- of parkzicht</span>
+          </div>
+          <div class="room-card__footer">
+            <div class="room-card__price">Inbegrepen</div>
+            <div class="room-card__check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#292929" stroke-width="2"><polyline points="1,5 4,8 9,2"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="room-card" id="room-superior" onclick="selectRoom('superior',30)">
+        <div class="room-card__sel-label">Geselecteerd</div>
+        <img class="room-card__img" src="fotos/kamer-superior.jpg" alt="Superior Kamer" loading="lazy">
+        <div class="room-card__overlay"></div>
+        <div class="room-card__content">
+          <div class="room-card__tag">Upgrade</div>
+          <div class="room-card__name">Superior<br>Kamer</div>
+          <div class="room-card__specs">
+            <span class="spec-tag">32 m²</span><span class="spec-tag">Kingsize bed</span><span class="spec-tag">Eigen terras</span>
+          </div>
+          <div class="room-card__footer">
+            <div class="room-card__price">+ €30</div>
+            <div class="room-card__check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#292929" stroke-width="2"><polyline points="1,5 4,8 9,2"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="room-card" id="room-suite" onclick="selectRoom('suite',60)">
+        <div class="room-card__sel-label">Geselecteerd</div>
+        <img class="room-card__img" src="fotos/kamer-suite.jpg" alt="Junior Suite" loading="lazy">
+        <div class="room-card__overlay"></div>
+        <div class="room-card__content">
+          <div class="room-card__tag">Upgrade</div>
+          <div class="room-card__name">Junior<br>Suite</div>
+          <div class="room-card__specs">
+            <span class="spec-tag">42 m²</span><span class="spec-tag">Kingsize bed</span><span class="spec-tag">Panoramisch uitzicht</span>
+          </div>
+          <div class="room-card__footer">
+            <div class="room-card__price">+ €60</div>
+            <div class="room-card__check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#292929" stroke-width="2"><polyline points="1,5 4,8 9,2"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upgrade upsell: champagne -->
+    <div class="upgrade-upsell" id="upgradeUpsell">
+      <div class="upgrade-upsell-text">
+        U heeft gekozen voor een upgrade — <strong>begin uw verblijf met champagne bij aankomst</strong> voor een perfect welkom op de kamer. €25
+      </div>
+      <button class="upgrade-upsell-btn" id="btnUpgradeChamp" onclick="addCtxExtra('champagne',25,this)">+ Champagne toevoegen</button>
+    </div>
+
+    <!-- Contextuele extras op basis van arrangement -->
+    <div id="ctxExtras"></div>
+
+    <!-- Timing (altijd) -->
+    <div class="section-head" style="margin-top:32px">
+      <div class="section-title">Timing</div>
+      <div class="section-line"></div>
+      <div class="section-note">Optioneel</div>
+    </div>
+    <div class="timing-extras">
+      <div class="timing-card" onclick="toggleTiming(this,'early',25)">
+        <div class="timing-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div class="timing-info">
+          <div class="timing-name">Early check-in (vanaf 11:00)</div>
+          <div class="timing-desc">Onder voorbehoud van beschikbaarheid</div>
+        </div>
+        <div class="timing-price">€25</div>
+        <div class="timing-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="#fff" stroke-width="2"><polyline points="1,4 3,6 7,2"/></svg></div>
+      </div>
+      <div class="timing-card" onclick="toggleTiming(this,'late',25)">
+        <div class="timing-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></div>
+        <div class="timing-info">
+          <div class="timing-name">Late check-out (tot 14:00)</div>
+          <div class="timing-desc">Nog even uitrusten voor de terugreis</div>
+        </div>
+        <div class="timing-price">€25</div>
+        <div class="timing-check"><svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="#fff" stroke-width="2"><polyline points="1,4 3,6 7,2"/></svg></div>
+      </div>
+    </div>
+
+    <div class="btn-row" style="margin-top:28px">
+      <button class="btn-primary" onclick="goTo(4)"><span>Naar gegevens</span></button>
+      <button class="btn-back" onclick="goTo(2)">← Terug</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAP 4 — GEGEVENS
+════════════════════════════════════ -->
+<div class="page" id="step4">
+  <div class="container">
+
+    <div class="page-header">
+      <div>
+        <div class="page-label">Stap 4 van 5</div>
+        <h1 class="page-title">Uw gegevens</h1>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label" for="fVoornaam">Voornaam</label>
+        <input class="form-input" type="text" id="fVoornaam" placeholder="Jan" autocomplete="given-name">
+        <span class="form-error">Vul uw voornaam in</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fAchternaam">Achternaam</label>
+        <input class="form-input" type="text" id="fAchternaam" placeholder="Janssen" autocomplete="family-name">
+        <span class="form-error">Vul uw achternaam in</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fEmail">E-mailadres</label>
+        <input class="form-input" type="email" id="fEmail" placeholder="jan@voorbeeld.nl" autocomplete="email">
+        <span class="form-error">Vul een geldig e-mailadres in</span>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="fTel">Telefoonnummer</label>
+        <input class="form-input" type="tel" id="fTel" placeholder="+31 6 12345678" autocomplete="tel">
+        <span class="form-error">Vul uw telefoonnummer in</span>
+      </div>
+    </div>
+
+    <div class="occasion-label">Bijzondere gelegenheid? (optioneel)</div>
+    <div class="occasion-row">
+      <div class="occasion-card" onclick="selectOccasion(this,'geen')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+        Geen
+      </div>
+      <div class="occasion-card" onclick="selectOccasion(this,'verjaardag')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><path d="M12 3c0 0-4 2-4 5s2 4 4 4 4-1 4-4-4-5-4-5z"/></svg>
+        Verjaardag
+      </div>
+      <div class="occasion-card" onclick="selectOccasion(this,'huwelijk')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Huwelijksverjaardag
+      </div>
+      <div class="occasion-card" onclick="selectOccasion(this,'romantisch')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Romantisch weekend
+      </div>
+      <div class="occasion-card" onclick="selectOccasion(this,'anders')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+        Anders
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group full">
+        <label class="form-label" for="fWensen">Bijzondere wensen (optioneel)</label>
+        <textarea class="form-textarea" id="fWensen" placeholder="Bv. allergiëen, slaapvoorkeur, aankomsttijd..." rows="3"></textarea>
+      </div>
+    </div>
+
+    <p class="privacy-note">
+      Uw gegevens worden uitsluitend gebruikt voor de verwerking van uw reservering. Wij delen uw gegevens niet met derden. Lees ons <a href="/privacy">privacybeleid</a>.
+    </p>
+
+    <div class="btn-row" style="margin-top:32px">
+      <button class="btn-primary" onclick="validateAndGoTo5()"><span>Naar betaling</span></button>
+      <button class="btn-back" onclick="goTo(3)">← Terug</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     STAP 5 — BETALING
+════════════════════════════════════ -->
+<div class="page" id="step5">
+  <div class="container">
+
+    <div class="page-header">
+      <div>
+        <div class="page-label">Stap 5 van 5</div>
+        <h1 class="page-title">Bevestig<br>uw boeking</h1>
+      </div>
+    </div>
+
+    <div class="step5-layout">
+
+      <!-- Linker kolom: betaalformulier -->
+      <div class="payment-section">
+
+        <div class="payment-trustbar">
+          <div class="payment-trust-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg>
+            Gratis annuleren
+          </div>
+          <div class="payment-trust-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Veilige betaling
+          </div>
+          <div class="payment-trust-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            SSL-beveiligd
+          </div>
+        </div>
+
+        <div class="section-head" style="margin-bottom:20px">
+          <div class="section-title">Betaalmethode</div>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="payment-method-row">
+          <button class="pay-method active" onclick="selectPayMethod(this,'card')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Creditcard
+          </button>
+          <button class="pay-method" onclick="selectPayMethod(this,'ideal')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            iDEAL
+          </button>
+          <button class="pay-method" onclick="selectPayMethod(this,'banktransfer')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            Bankoverschrijving
+          </button>
+        </div>
+
+        <!-- Kaart formulier -->
+        <div id="cardForm">
+          <div class="card-form-grid">
+            <div class="form-group full">
+              <label class="form-label" for="pKaarthouder">Naam op kaart</label>
+              <input class="form-input" type="text" id="pKaarthouder" placeholder="Jan Janssen" autocomplete="cc-name">
+            </div>
+            <div class="form-group full">
+              <label class="form-label" for="pKaartNr">Kaartnummer</label>
+              <div class="card-input-wrap">
+                <input class="form-input" type="text" id="pKaartNr" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number" oninput="formatCardNr(this)">
+                <div class="card-input-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pExpiry">Vervaldatum</label>
+              <input class="form-input" type="text" id="pExpiry" placeholder="MM/JJ" maxlength="5" autocomplete="cc-exp" oninput="formatExpiry(this)">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="pCvv">CVV</label>
+              <div class="card-input-wrap">
+                <input class="form-input" type="text" id="pCvv" placeholder="123" maxlength="4" autocomplete="cc-csc">
+                <div class="card-input-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- iDEAL / bankoverschrijving placeholder -->
+        <div id="idealForm" style="display:none">
+          <div class="form-group">
+            <label class="form-label">Kies uw bank</label>
+            <select class="form-input" style="appearance:none;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 14px center;">
+              <option>ABN AMRO</option>
+              <option>ING</option>
+              <option>Rabobank</option>
+              <option>SNS Bank</option>
+              <option>Triodos</option>
+              <option>ASN Bank</option>
+            </select>
+          </div>
+          <p style="font-size:11px;color:var(--grey-400);font-weight:300;margin-top:12px;line-height:1.7;">U wordt doorgestuurd naar uw bank om de betaling te voltooien.</p>
+        </div>
+
+        <div id="banktransferForm" style="display:none">
+          <p style="font-size:12px;color:var(--grey-600);font-weight:300;line-height:1.8;">
+            Na bevestiging ontvangt u een e-mail met onze rekeninggegevens.<br>
+            Uw reservering is definitief na ontvangst van uw betaling.
+          </p>
+        </div>
+
+        <div class="terms-check">
+          <input type="checkbox" id="termsCheck">
+          <label for="termsCheck">Ik ga akkoord met de <a href="/algemene-voorwaarden">algemene voorwaarden</a> en het <a href="/annuleringsbeleid">annuleringsbeleid</a> van Hotel Asteria.</label>
+        </div>
+
+        <button class="btn-boek" id="btnBoek" onclick="submitBooking()"><span>Bevestig & betaal</span></button>
+        <div class="cancel-note">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 6 9 17 4 12"/></svg>
+          Gratis annuleren tot 24 uur voor aankomst
+        </div>
+
+        <div style="margin-top:20px">
+          <button class="btn-back" onclick="goTo(4)">← Terug naar gegevens</button>
+        </div>
+
+      </div>
+
+      <!-- Rechter kolom: samenvatting -->
+      <div class="step5-summary">
+        <div class="summary-box">
+          <div class="summary-title">Uw boeking</div>
+          <img class="summary-arr-photo" id="summaryPhoto" src="" alt="">
+          <div id="summaryRows"></div>
+          <div class="summary-divider"></div>
+          <div class="summary-total-row">
+            <div>
+              <div class="summary-total-label">Totaal</div>
+              <div class="summary-total-sub" id="summaryTotalSub"></div>
+            </div>
+            <div>
+              <div class="summary-total-val" id="summaryTotalVal">€0</div>
+            </div>
+          </div>
+          <a class="summary-edit-link" onclick="goTo(3)">Aanpassen</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar" style="display:none">
+  <div class="sticky-summary" id="stickySummary">
+    <div class="sticky-summary-inner" id="summaryInner"></div>
+  </div>
+  <div class="sticky-main">
+    <div class="sticky-main-inner">
+      <div class="sticky-price">
+        <div class="sticky-label-sm">Totaal</div>
+        <div class="sticky-amount" id="stickyAmount">€0</div>
+        <div class="sticky-sub" id="stickySub"></div>
+      </div>
+      <div class="sticky-actions">
+        <button class="btn-back" id="stickyBack">← Terug</button>
+        <button class="btn-primary" id="stickyNext" onclick="goNext()"><span>Volgende</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── STATE ── */
+  const state = {
+    step: 1,
+    arrangement: null,
+    arrangementName: '',
+    pricePerNight: 0,
+    nights: 1,
+    persons: 2,
+    checkin: null,
+    checkout: null,
+    roomName: 'Comfort Kamer',
+    roomUpgrade: 0,
+    extras: {},
+    extrasTotal: 0,
+  };
+
+  const BASE_PRICES = { wellness: 278, culinair: 238, logies: 178 };
+  const ARR_NAMES   = { wellness: 'Wellness Weekend', culinair: 'Culinair Weekend', logies: 'Logies & Ontbijt' };
+  const DAY_MOD     = { 0:1.0, 1:0.85, 2:0.85, 3:0.88, 4:0.92, 5:1.15, 6:1.10 };
+
+  /* ── NAVIGATION ── */
+  function goTo(n) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+    window.scrollTo(0, 0);
+    state.step = n;
+    updateProgress();
+    updateStickyBar();
+    if (n === 2 && !calInited) { initCalendar(); calInited = true; }
+    if (n === 3) buildCtxExtras();
+    if (n === 5) buildSummary();
+    // Sticky bar verbergen op stap 5 (heeft eigen betaal-knop)
+    const bar = document.getElementById('stickyBar');
+    if (n === 5) { bar.style.display = 'none'; }
+    else if (state.arrangement) { updateStickyBar(); }
+  }
+
+  function goNext() {
+    if (state.step < 5) goTo(state.step + 1);
+  }
+
+  function updateProgress() {
+    document.querySelectorAll('.p-step').forEach(el => {
+      const s = parseInt(el.dataset.step);
+      el.classList.remove('active','done');
+      if (s < state.step) {
+        el.classList.add('done');
+        el.querySelector('.p-num').textContent = '✓';
+      } else if (s === state.step) {
+        el.classList.add('active');
+        el.querySelector('.p-num').textContent = s;
+      } else {
+        el.querySelector('.p-num').textContent = s;
+      }
+    });
+  }
+
+  /* ── STICKY BAR ── */
+  function getTotal() {
+    const base = (state.arrangement ? BASE_PRICES[state.arrangement] : 0) * state.nights;
+    return base + state.roomUpgrade + state.extrasTotal;
+  }
+
+  function updateStickyBar() {
+    const bar = document.getElementById('stickyBar');
+    if (state.step === 1 && !state.arrangement) { bar.style.display = 'none'; return; }
+    bar.style.display = 'block';
+
+    const total = getTotal();
+    const amtEl = document.getElementById('stickyAmount');
+    amtEl.classList.add('updating');
+    setTimeout(() => {
+      amtEl.textContent = '€' + total;
+      amtEl.classList.remove('updating');
+    }, 120);
+
+    const extraCount = Object.keys(state.extras).length;
+    let sub = state.arrangementName;
+    if (state.nights > 0) sub += ' · ' + state.nights + ' nacht' + (state.nights > 1 ? 'en' : '');
+    if (state.roomUpgrade > 0) sub += ' · ' + state.roomName;
+    if (extraCount > 0) sub += ' · ' + extraCount + ' extra' + (extraCount > 1 ? '\'s' : '');
+    document.getElementById('stickySub').textContent = sub;
+
+    // Summary strip
+    const hasMore = state.roomUpgrade > 0 || extraCount > 0;
+    const sumEl = document.getElementById('stickySummary');
+    sumEl.classList.toggle('show', hasMore);
+    if (hasMore) {
+      const labels = { champagne:'Champagne', decoratie:'Kamerdecoratie', diner:'3-gangen diner', 'ontbijt-kamer':'Ontbijt op kamer', massage:'Massage 60 min', early:'Early check-in', late:'Late check-out' };
+      let html = `<div class="sum-item"><strong>${state.arrangementName}</strong></div>`;
+      if (state.roomUpgrade > 0) html += `<div class="sum-sep"></div><div class="sum-item"><strong>${state.roomName}</strong> +€${state.roomUpgrade}</div>`;
+      Object.entries(state.extras).forEach(([k,v]) => {
+        html += `<div class="sum-sep"></div><div class="sum-item"><strong>${labels[k]||k}</strong> +€${v}</div>`;
+      });
+      document.getElementById('summaryInner').innerHTML = html;
+    }
+
+    document.getElementById('stickyBack').onclick = () => goTo(state.step - 1);
+  }
+
+  /* ── STAP 1: ARRANGEMENT ── */
+  function selectArr(type, pricePerPerson) {
+    state.arrangement = type;
+    state.arrangementName = ARR_NAMES[type];
+    state.pricePerNight = BASE_PRICES[type];
+    state.nights = type === 'wellness' ? 2 : 1;
+
+    document.querySelectorAll('.arr-card').forEach(c => c.classList.remove('selected'));
+    document.getElementById('card-' + type).classList.add('selected');
+
+    // Context upsells: verberg alle, toon relevante
+    document.querySelectorAll('.ctx-upsell').forEach(u => u.classList.remove('show'));
+    if (type === 'wellness') document.getElementById('upsell-wellness').classList.add('show');
+    if (type === 'logies')   document.getElementById('upsell-logies').classList.add('show');
+
+    updateStickyBar();
+
+    // Auto naar stap 2 na korte delay (zodat upsell zichtbaar is)
+    setTimeout(() => goTo(2), 600);
+  }
+
+  function addCtxExtra(id, price, btn) {
+    if (state.extras[id]) {
+      delete state.extras[id];
+      state.extrasTotal -= price;
+      btn.textContent = btn.dataset.addText || 'Toevoegen';
+      btn.classList.remove('added');
+    } else {
+      state.extras[id] = price;
+      state.extrasTotal += price;
+      if (!btn.dataset.addText) btn.dataset.addText = btn.textContent;
+      btn.textContent = '✓ Toegevoegd';
+      btn.classList.add('added');
+    }
+    updateStickyBar();
+  }
+
+  /* ── STAP 2: KALENDER ── */
+  let calInited = false, viewYear, viewMonth;
+  let checkin = null, checkout = null, picking = 'checkin';
+
+  const UNAVAILABLE = new Set((() => {
+    const d = [], now = new Date();
+    [3,10,17,24].forEach(o => { const dt = new Date(now); dt.setDate(dt.getDate()+o); d.push(dt.toISOString().split('T')[0]); });
+    return d;
+  })());
+  const SCARCITY = new Set((() => {
+    const d = [], now = new Date();
+    for (let i=1;i<=60;i++) { const dt = new Date(now); dt.setDate(dt.getDate()+i); if ((dt.getDay()===5||dt.getDay()===6)&&Math.random()>0.5) d.push(dt.toISOString().split('T')[0]); }
+    return d;
+  })());
+
+  function initCalendar() {
+    const now = new Date(); viewYear = now.getFullYear(); viewMonth = now.getMonth();
+    renderCals();
+  }
+
+  function getDayPrice(ds) {
+    const d = new Date(ds), base = BASE_PRICES[state.arrangement]||278, mod = DAY_MOD[d.getDay()]||1;
+    const seed = d.getDate()*7+d.getMonth()*3, jitter = 1+((seed%11)-5)*0.01;
+    return Math.round(base*mod*jitter);
+  }
+
+  function getPriceClass(p) {
+    const b = BASE_PRICES[state.arrangement]||278;
+    return p < b*0.9 ? 'low' : p > b*1.08 ? 'high' : 'medium';
+  }
+
+  function renderCals() {
+    const wrap = document.getElementById('calWrap'); wrap.innerHTML = '';
+    for (let i=0;i<2;i++) { let m=viewMonth+i, y=viewYear; if(m>11){m-=12;y++;} wrap.appendChild(renderMonth(y,m,i)); }
+  }
+
+  function renderMonth(year, month, idx) {
+    const div = document.createElement('div');
+    const MONTHS = ['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
+    const today = new Date(); today.setHours(0,0,0,0);
+    const header = document.createElement('div'); header.className = 'cal-header';
+    const prev = document.createElement('button'); prev.className = 'cal-nav'; prev.innerHTML = '&#8249;';
+    if (idx===0) { const nm=new Date(today.getFullYear(),today.getMonth(),1),vm=new Date(year,month,1); prev.disabled=vm<=nm; prev.onclick=()=>{viewMonth--;if(viewMonth<0){viewMonth=11;viewYear--;}renderCals();}; } else prev.disabled=true;
+    const title = document.createElement('div'); title.className='cal-title'; title.textContent=MONTHS[month]+' '+year;
+    const next = document.createElement('button'); next.className='cal-nav'; next.innerHTML='&#8250;';
+    if (idx===1) { next.onclick=()=>{viewMonth++;if(viewMonth>11){viewMonth=0;viewYear++;}renderCals();}; } else next.disabled=true;
+    header.appendChild(prev); header.appendChild(title); header.appendChild(next); div.appendChild(header);
+    const grid = document.createElement('div'); grid.className='cal-grid';
+    ['Ma','Di','Wo','Do','Vr','Za','Zo'].forEach((d,i)=>{const dow=document.createElement('div');dow.className='cal-dow'+(i>=4?' wknd':'');dow.textContent=d;grid.appendChild(dow);});
+    const fd=new Date(year,month,1).getDay(), off=(fd===0)?6:fd-1;
+    for(let i=0;i<off;i++){const e=document.createElement('div');e.className='cal-day empty';grid.appendChild(e);}
+    const dim=new Date(year,month+1,0).getDate();
+    for(let d=1;d<=dim;d++){
+      const dateObj=new Date(year,month,d), ds=dateObj.toISOString().split('T')[0], dow=dateObj.getDay();
+      const isWknd=dow===0||dow===6, isPast=dateObj<today, isUnavail=UNAVAILABLE.has(ds), isScarce=SCARCITY.has(ds);
+      const price=getDayPrice(ds), pc=getPriceClass(price);
+      const cell=document.createElement('div');
+      let cls='cal-day';
+      if(isPast) cls+=' past'; else if(isUnavail) cls+=' disabled'; else { if(isWknd) cls+=' weekend'; if(isScarce) cls+=' scarcity'; }
+      if(checkin===ds) cls+=' checkin'; if(checkout===ds) cls+=' checkout';
+      if(checkin&&checkout&&ds>checkin&&ds<checkout) cls+=' inrange';
+      cell.className=cls;
+      const numEl=document.createElement('div'); numEl.className='cal-num'; numEl.textContent=d; cell.appendChild(numEl);
+      if(!isPast&&!isUnavail){
+        const pe=document.createElement('div'); pe.className='cal-price '+pc; pe.textContent='€'+price; cell.appendChild(pe);
+        cell.onclick=()=>handleCalClick(ds,price);
+      }
+      grid.appendChild(cell);
+    }
+    div.appendChild(grid); return div;
+  }
+
+  function fmtDate(ds) { return new Date(ds).toLocaleDateString('nl-NL',{weekday:'short',day:'numeric',month:'short'}); }
+
+  function handleCalClick(ds) {
+    if (picking==='checkin') {
+      checkin=ds; checkout=null; picking='checkout';
+      document.getElementById('dateSubtitle').textContent='Kies nu uw check-out datum.';
+      showSelPartial();
+    } else {
+      if (ds<=checkin) { checkin=ds; checkout=null; document.getElementById('dateSubtitle').textContent='Kies nu uw check-out datum.'; showSelPartial(); }
+      else { checkout=ds; picking='checkin'; document.getElementById('dateSubtitle').textContent='Wijzig uw periode door opnieuw op een check-in datum te klikken.'; updateSel(); }
+    }
+    renderCals();
+  }
+
+  function showSelPartial() {
+    const sel=document.getElementById('calSel'); sel.classList.add('show');
+    document.getElementById('selCheckin').textContent=fmtDate(checkin); document.getElementById('selCheckin').classList.remove('ph');
+    document.getElementById('selCheckout').textContent='Kies datum'; document.getElementById('selCheckout').classList.add('ph');
+    document.getElementById('selNights').textContent='—'; document.getElementById('selTotal').textContent='—';
+    document.getElementById('step2Btn').disabled=true;
+  }
+
+  function updateSel() {
+    const d1=new Date(checkin), d2=new Date(checkout);
+    const nights=Math.round((d2-d1)/86400000);
+    let total=0; for(let i=0;i<nights;i++){const dt=new Date(d1);dt.setDate(dt.getDate()+i);total+=getDayPrice(dt.toISOString().split('T')[0]);}
+    const persons=parseInt(document.getElementById('persons').value);
+    if(persons!==2) total=Math.round(total*(persons/2));
+    state.checkin=checkin; state.checkout=checkout; state.nights=nights;
+    document.getElementById('selCheckin').textContent=fmtDate(checkin); document.getElementById('selCheckin').classList.remove('ph');
+    document.getElementById('selCheckout').textContent=fmtDate(checkout); document.getElementById('selCheckout').classList.remove('ph');
+    document.getElementById('selNights').textContent=nights+' nacht'+(nights>1?'en':'');
+    document.getElementById('selTotal').textContent='€'+total;
+    document.getElementById('selSub').textContent=persons+' '+(persons===1?'persoon':'personen')+' · '+state.arrangementName;
+    // Weekend hint
+    const dow=new Date(checkin).getDay();
+    const isWknd=dow===5||dow===6||dow===0;
+    document.getElementById('weekendHint').classList.toggle('show', isWknd);
+    document.getElementById('step2Btn').disabled=false;
+    updateStickyBar();
+  }
+
+  function onPersonsChange() {
+    state.persons=parseInt(document.getElementById('persons').value);
+    if(checkin&&checkout) updateSel();
+  }
+
+  /* ── STAP 3: KAMER + CONTEXTUELE EXTRAS ── */
+  function selectRoom(type, upgrade) {
+    document.querySelectorAll('.room-card').forEach(c=>c.classList.remove('selected'));
+    document.getElementById('room-'+type).classList.add('selected');
+    const names={comfort:'Comfort Kamer',superior:'Superior Kamer',suite:'Junior Suite'};
+    state.roomName=names[type]; state.roomUpgrade=upgrade;
+    // Upgrade upsell (champagne) — toon bij upgrade, maar niet als al champagne toegevoegd
+    const showUpgrade = upgrade > 0 && !state.extras['champagne'];
+    document.getElementById('upgradeUpsell').classList.toggle('show', showUpgrade);
+    updateStickyBar();
+  }
+
+  function buildCtxExtras() {
+    const container = document.getElementById('ctxExtras');
+    const extras = [];
+
+    // Wellness: massage
+    if (state.arrangement === 'wellness' && !state.extras['massage']) {
+      extras.push({ id:'massage', price:75, label:'Massagebehandeling 60 min', desc:'Per persoon — op afspraak in ons wellnesscentrum', perp:true,
+        icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>' });
+    }
+    // Logies of wellness: champagne als niet al toegevoegd
+    if (!state.extras['champagne']) {
+      extras.push({ id:'champagne', price:25, label:'Champagne bij aankomst', desc:'Fles champagne op de kamer bij aankomst',
+        icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l2 6-4 8h8l-4-8 2-6M6 16h12M10 22h4"/></svg>' });
+    }
+    // Romantische decoratie
+    extras.push({ id:'decoratie', price:35, label:'Romantische kamerdecoratie', desc:'Rozenblaadjes, kaarsen en persoonlijke boodschap',
+      icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>' });
+    // Diner: alleen bij logies (culinair heeft diner al)
+    if (state.arrangement === 'logies' && !state.extras['diner']) {
+      extras.push({ id:'diner', price:45, label:'3-gangen diner in de brasserie', desc:'Per persoon, exclusief dranken', perp:true,
+        icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6h3.5M16.5 13H21v7a2 2 0 01-2 2h-1a2 2 0 01-2-2v-7"/></svg>' });
+    }
+    // Ontbijt op kamer
+    extras.push({ id:'ontbijt-kamer', price:18, label:'Ontbijt op de kamer', desc:'Per persoon, de avond tevoren besteld', perp:true,
+      icon:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/></svg>' });
+
+    if (extras.length === 0) { container.innerHTML = ''; return; }
+
+    let html = '<div class="section-head" style="margin-bottom:16px"><div class="section-title">Extra\'s</div><div class="section-line"></div><div class="section-note">Optioneel</div></div><div class="extras-grid">';
+    extras.forEach(e => {
+      const isSelected = !!state.extras[e.id];
+      html += `
+        <div class="extra-card${isSelected?' selected':''}" onclick="toggleExtra(this,'${e.id}',${e.price})">
+          <div class="extra-top">
+            <div class="extra-icon">${e.icon}</div>
+            <div class="extra-toggle">+</div>
+          </div>
+          <div class="extra-name">${e.label}</div>
+          <div class="extra-desc">${e.desc}</div>
+          <div class="extra-price">€${e.price}${e.perp?' p.p.':''}</div>
+        </div>`;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+
+    // Restore toggle states
+    extras.forEach(e => {
+      if (state.extras[e.id]) {
+        const cards = container.querySelectorAll('.extra-card');
+        cards.forEach(card => {
+          if (card.getAttribute('onclick').includes(`'${e.id}'`)) {
+            const btn = card.querySelector('.extra-toggle');
+            if (btn) btn.textContent = '+'; // selected state via CSS handles rotation
+          }
+        });
+      }
+    });
+  }
+
+  function toggleExtra(el, id, price) {
+    const isSel = el.classList.contains('selected');
+    el.classList.toggle('selected', !isSel);
+    if (!isSel) { state.extras[id]=price; state.extrasTotal+=price; }
+    else { delete state.extras[id]; state.extrasTotal-=price; }
+    updateStickyBar();
+  }
+
+  function toggleTiming(el, id, price) {
+    const isSel = el.classList.contains('selected');
+    el.classList.toggle('selected', !isSel);
+    if (!isSel) { state.extras[id]=price; state.extrasTotal+=price; }
+    else { delete state.extras[id]; state.extrasTotal-=price; }
+    updateStickyBar();
+  }
+
+  /* ── STAP 4: GEGEVENS ── */
+  let selectedOccasion = '';
+
+  function selectOccasion(el, val) {
+    document.querySelectorAll('.occasion-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedOccasion = val;
+    state.occasion = val;
+  }
+
+  function validateAndGoTo5() {
+    let ok = true;
+    const fields = [
+      { id: 'fVoornaam', test: v => v.trim().length > 0 },
+      { id: 'fAchternaam', test: v => v.trim().length > 0 },
+      { id: 'fEmail', test: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+      { id: 'fTel', test: v => v.trim().length > 6 },
+    ];
+    fields.forEach(f => {
+      const el = document.getElementById(f.id);
+      const valid = f.test(el.value);
+      el.classList.toggle('error', !valid);
+      if (!valid) ok = false;
+    });
+    if (!ok) return;
+
+    state.guest = {
+      voornaam: document.getElementById('fVoornaam').value.trim(),
+      achternaam: document.getElementById('fAchternaam').value.trim(),
+      email: document.getElementById('fEmail').value.trim(),
+      tel: document.getElementById('fTel').value.trim(),
+      wensen: document.getElementById('fWensen').value.trim(),
+      occasion: selectedOccasion,
+    };
+    buildSummary();
+    goTo(5);
+  }
+
+  /* ── STAP 5: SAMENVATTING & BETALING ── */
+  const arrPhotos = {
+    wellness: 'fotos/wellness-spa.jpg',
+    culinair: 'fotos/brasserie.jpg',
+    logies: 'fotos/restaurant-ontbijt.jpg',
+  };
+  const extraLabels = {
+    massage: 'Massagebehandeling 60 min',
+    champagne: 'Champagne bij aankomst',
+    diner: '3-gangen diner',
+    decoratie: 'Romantische kamerdecoratie',
+    'ontbijt-kamer': 'Ontbijt op de kamer',
+    early: 'Early check-in',
+    late: 'Late check-out',
+  };
+
+  function buildSummary() {
+    const photo = document.getElementById('summaryPhoto');
+    photo.src = arrPhotos[state.arrangement] || '';
+
+    const fmt = d => d ? d.toLocaleDateString('nl-NL', {day:'numeric', month:'long', year:'numeric'}) : '—';
+    const nights = state.nights || 1;
+    const arrangementBase = state.pricePerNight * nights * state.persons;
+    const roomExtra = state.roomUpgrade * nights;
+    const total = arrangementBase + roomExtra + state.extrasTotal;
+
+    let rows = '';
+
+    rows += `<div class="summary-row">
+      <div class="summary-row-label">${state.arrangementName}<small>${fmt(state.checkin)} — ${fmt(state.checkout)} · ${nights} nacht${nights>1?'en':''} · ${state.persons} pers.</small></div>
+      <div class="summary-row-val">€${arrangementBase}</div>
+    </div>`;
+
+    if (state.roomName !== 'Comfort Kamer') {
+      rows += `<div class="summary-row">
+        <div class="summary-row-label">${state.roomName} upgrade<small>€${state.roomUpgrade} p.n. × ${nights} nacht${nights>1?'en':''}</small></div>
+        <div class="summary-row-val">€${roomExtra}</div>
+      </div>`;
+    }
+
+    Object.entries(state.extras).forEach(([id, price]) => {
+      rows += `<div class="summary-row">
+        <div class="summary-row-label">${extraLabels[id] || id}</div>
+        <div class="summary-row-val">€${price}</div>
+      </div>`;
+    });
+
+    document.getElementById('summaryRows').innerHTML = rows;
+    document.getElementById('summaryTotalVal').textContent = '€' + total;
+    document.getElementById('summaryTotalSub').textContent = 'Inclusief BTW · gratis parkeren';
+  }
+
+  function selectPayMethod(el, method) {
+    document.querySelectorAll('.pay-method').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('cardForm').style.display = method === 'card' ? '' : 'none';
+    document.getElementById('idealForm').style.display = method === 'ideal' ? '' : 'none';
+    document.getElementById('banktransferForm').style.display = method === 'banktransfer' ? '' : 'none';
+  }
+
+  function formatCardNr(el) {
+    let v = el.value.replace(/\D/g,'').substring(0,16);
+    el.value = v.replace(/(.{4})/g,'$1 ').trim();
+  }
+
+  function formatExpiry(el) {
+    let v = el.value.replace(/\D/g,'').substring(0,4);
+    if (v.length >= 3) v = v.substring(0,2) + '/' + v.substring(2);
+    el.value = v;
+  }
+
+  function submitBooking() {
+    const terms = document.getElementById('termsCheck');
+    if (!terms.checked) { terms.style.outline = '2px solid var(--red)'; return; }
+    terms.style.outline = '';
+
+    const btn = document.getElementById('btnBoek');
+    btn.disabled = true;
+    btn.querySelector('span').textContent = 'Bezig met verwerken...';
+
+    // TODO: Mews API call zodra client-registratie is bevestigd
+    // Tijdelijk: simuleer bevestiging
+    setTimeout(() => {
+      btn.querySelector('span').textContent = 'Boeking bevestigd!';
+      btn.style.background = '#2a7a50';
+      // Redirect naar bevestigingspagina
+      // window.location.href = '/boeken/bevestiging?ref=' + Math.random().toString(36).substr(2,8).toUpperCase();
+    }, 1500);
+  }
+</script>
+
+</body>
+</html>
