@@ -1,0 +1,623 @@
+<!-- ============================================================
+     WELLNESS ARRANGEMENT BLOK — variant B
+     Gestapelde layout: carrousel → tekst → CTA
+     Zelfstandige <section> — kan direct in hero-v2-arr-v1.html
+     ============================================================ -->
+
+<section class="arr-b" id="arrangement">
+  <style>
+    /* ── Scoped to .arr-b ───────────────────────────────────── */
+
+    .arr-b {
+      font-family: 'Montserrat', sans-serif;
+      background: #ffffff;
+    }
+
+    /* ── 1. CARROUSEL ───────────────────────────────────────── */
+
+    .arr-b__carousel {
+      position: relative;
+      width: 100%;
+      height: clamp(260px, 42vw, 480px);
+      overflow: hidden;
+      background: #1c1c1c;
+    }
+
+    .arr-b__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+      will-change: opacity;
+    }
+
+    .arr-b__img.is-active { opacity: 1; }
+
+    /* Pijlknoppen */
+    .arr-b__nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      transition: background 0.2s ease;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .arr-b__nav:hover { background: rgba(255,255,255,0.32); }
+    .arr-b__nav--prev { left: 20px; }
+    .arr-b__nav--next { right: 20px; }
+
+    /* Dots */
+    .arr-b__dots {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 2;
+    }
+
+    .arr-b__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .arr-b__dot.is-active {
+      background: #ffffff;
+      transform: scale(1.3);
+    }
+
+    /* ── 2. TEKST ───────────────────────────────────────────── */
+
+    .arr-b__content {
+      background: #ffffff;
+      padding: 48px 32px 40px;
+    }
+
+    .arr-b__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Label */
+    .arr-b__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c23435;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .arr-b__tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: #c23435;
+      flex-shrink: 0;
+    }
+
+    /* Heading */
+    .arr-b__heading {
+      font-family: 'Electrolize', sans-serif;
+      font-size: clamp(26px, 4vw, 50px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #111111;
+      line-height: 1.05;
+      margin: 0 0 36px;
+    }
+
+    /* Stap-navigatie */
+    .arr-b__steps {
+      display: flex;
+      border-bottom: 1px solid #e0e0e0;
+      margin-bottom: 32px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .arr-b__steps::-webkit-scrollbar { display: none; }
+
+    .arr-b__step {
+      background: none;
+      border: none;
+      padding: 0 0 14px;
+      margin-right: 32px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #999999;
+      white-space: nowrap;
+      position: relative;
+      transition: color 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .arr-b__step::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #c23435;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .arr-b__step.is-active { color: #111111; }
+    .arr-b__step.is-active::after { transform: scaleX(1); }
+    .arr-b__step:hover:not(.is-active) { color: #444444; }
+
+    /* Moment-panelen */
+    .arr-b__moments {
+      position: relative;
+      height: 150px;
+      margin-bottom: 32px;
+    }
+
+    .arr-b__moment {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      pointer-events: none;
+    }
+
+    .arr-b__moment.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .arr-b__moment-title {
+      font-family: 'Electrolize', sans-serif;
+      font-size: clamp(18px, 2.4vw, 30px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #111111;
+      margin: 0 0 10px;
+      line-height: 1.1;
+    }
+
+    .arr-b__moment-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: #555555;
+      line-height: 1.75;
+      max-width: 560px;
+      margin: 0 0 12px;
+    }
+
+    .arr-b__moment-include {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999999;
+      font-weight: 400;
+    }
+
+    .arr-b__moment-include::before {
+      content: '✓';
+      color: #c23435;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Voortgangsbalk */
+    .arr-b__progress {
+      height: 1px;
+      background: #eeeeee;
+      overflow: hidden;
+    }
+
+    .arr-b__progress-bar {
+      height: 100%;
+      background: #c23435;
+      width: 0%;
+    }
+
+    /* ── 3. CTA ─────────────────────────────────────────────── */
+
+    .arr-b__footer {
+      background: #f7f7f7;
+      border-top: 1px solid #e8e8e8;
+      padding: 28px 32px;
+    }
+
+    .arr-b__footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* Inclusief-pills */
+    .arr-b__included {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .arr-b__included-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #aaaaaa;
+      font-weight: 400;
+    }
+
+    .arr-b__included-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .arr-b__included-item {
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: #555555;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      padding: 4px 11px;
+      border-radius: 2px;
+    }
+
+    /* Prijs + knop */
+    .arr-b__cta {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-shrink: 0;
+    }
+
+    .arr-b__price {
+      text-align: right;
+    }
+
+    .arr-b__price-from {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #aaaaaa;
+      margin-bottom: 2px;
+    }
+
+    .arr-b__price-amount {
+      display: block;
+      font-family: 'Electrolize', sans-serif;
+      font-size: 38px;
+      color: #111111;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .arr-b__price-per {
+      display: block;
+      font-size: 11px;
+      color: #aaaaaa;
+      letter-spacing: 0.05em;
+      margin-top: 3px;
+    }
+
+    .arr-b__book-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #ffffff;
+      background: #c23435;
+      border: 1px solid #c23435;
+      padding: 18px 36px;
+      border-radius: 4px;
+      transition: background 0.25s ease, border-color 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .arr-b__book-btn:hover {
+      background: #a82c2c;
+      border-color: #a82c2c;
+      color: #fff;
+    }
+
+    .arr-b__book-btn__arrow {
+      font-size: 15px;
+      transition: transform 0.2s ease;
+    }
+
+    .arr-b__book-btn:hover .arr-b__book-btn__arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── Mobiel ─────────────────────────────────────────────── */
+
+    @media (max-width: 680px) {
+      .arr-b__nav { display: none; }
+
+      .arr-b__content { padding: 36px 20px 32px; }
+      .arr-b__heading { margin-bottom: 28px; }
+      .arr-b__steps { margin-bottom: 24px; }
+      .arr-b__step { margin-right: 20px; font-size: 10px; }
+      .arr-b__moments { height: 200px; margin-bottom: 24px; }
+      .arr-b__moment-desc { font-size: 14px; }
+
+      .arr-b__footer { padding: 24px 20px; }
+      .arr-b__footer-inner { flex-direction: column; align-items: stretch; gap: 20px; }
+      .arr-b__included { display: none; }
+      .arr-b__cta { flex-direction: row; justify-content: space-between; align-items: center; }
+      .arr-b__price { text-align: left; }
+      .arr-b__price-amount { font-size: 30px; }
+      .arr-b__book-btn { padding: 14px 20px; font-size: 12px; }
+    }
+  </style>
+
+  <!-- 1. CARROUSEL -->
+  <div class="arr-b__carousel" aria-label="Foto's van het Wellness Arrangement">
+    <div class="arr-b__img is-active" style="background-image: url('fotos/intro-lobby.jpg')"></div>
+    <div class="arr-b__img" style="background-image: url('fotos/wellness-spa.jpg')"></div>
+    <div class="arr-b__img" style="background-image: url('fotos/wellness-sauna.jpg')"></div>
+    <div class="arr-b__img" style="background-image: url('fotos/restaurant-diner.jpg')"></div>
+    <div class="arr-b__img" style="background-image: url('fotos/kamer-comfort.jpg')"></div>
+    <div class="arr-b__img" style="background-image: url('fotos/restaurant-ontbijt.jpg')"></div>
+
+    <button class="arr-b__nav arr-b__nav--prev" aria-label="Vorige foto">&#8592;</button>
+    <button class="arr-b__nav arr-b__nav--next" aria-label="Volgende foto">&#8594;</button>
+
+    <div class="arr-b__dots" role="tablist" aria-label="Foto-navigatie">
+      <button class="arr-b__dot is-active" data-step="0" aria-label="Foto 1"></button>
+      <button class="arr-b__dot" data-step="1" aria-label="Foto 2"></button>
+      <button class="arr-b__dot" data-step="2" aria-label="Foto 3"></button>
+      <button class="arr-b__dot" data-step="3" aria-label="Foto 4"></button>
+      <button class="arr-b__dot" data-step="4" aria-label="Foto 5"></button>
+      <button class="arr-b__dot" data-step="5" aria-label="Foto 6"></button>
+    </div>
+  </div>
+
+  <!-- 2. TEKST -->
+  <div class="arr-b__content">
+    <div class="arr-b__inner">
+
+      <span class="arr-b__tag">Exclusief arrangement</span>
+      <h2 class="arr-b__heading">Wellness<br>Arrangement</h2>
+
+      <nav class="arr-b__steps" role="tablist" aria-label="Ervaring per moment">
+        <button class="arr-b__step is-active" role="tab" aria-selected="true"  data-step="0">Aankomst</button>
+        <button class="arr-b__step"           role="tab" aria-selected="false" data-step="1">Wellness</button>
+        <button class="arr-b__step"           role="tab" aria-selected="false" data-step="2">Sauna</button>
+        <button class="arr-b__step"           role="tab" aria-selected="false" data-step="3">Diner</button>
+        <button class="arr-b__step"           role="tab" aria-selected="false" data-step="4">Nacht</button>
+        <button class="arr-b__step"           role="tab" aria-selected="false" data-step="5">Ontbijt</button>
+      </nav>
+
+      <div class="arr-b__moments">
+        <div class="arr-b__moment is-active" data-step="0" role="tabpanel">
+          <h3 class="arr-b__moment-title">Een warme ontvangst</h3>
+          <p class="arr-b__moment-desc">Je checkt in en vindt op de kamer een flesje Botega klaar. Badjas en slippers liggen gevouwen op het bed. De avond kan beginnen.</p>
+          <span class="arr-b__moment-include">Welkomstdrankje &middot; badjas &middot; slippers &middot; handdoekpakket</span>
+        </div>
+        <div class="arr-b__moment" data-step="1" role="tabpanel">
+          <h3 class="arr-b__moment-title">300 m&sup2; rust &amp; warmte</h3>
+          <p class="arr-b__moment-desc">Vier saunatypes, stoomcabine, dompelbad, kruidenbad en belevenisdouches — allemaal inclusief, op de Top Floor met uitzicht op het bos.</p>
+          <span class="arr-b__moment-include">Gratis toegang Top Floor Wellness &mdash; volledig inclusief</span>
+        </div>
+        <div class="arr-b__moment" data-step="2" role="tabpanel">
+          <h3 class="arr-b__moment-title">Zweet, uitzicht, stilte</h3>
+          <p class="arr-b__moment-desc">De Himalayazoutsauna kijkt uit op het bos. De Finse sauna brengt je diep in jezelf. Niemand die haast heeft. Niemand die wacht.</p>
+          <span class="arr-b__moment-include">Himalayazout &middot; Fins &middot; stoom &middot; Turks &middot; relaxruimte</span>
+        </div>
+        <div class="arr-b__moment" data-step="3" role="tabpanel">
+          <h3 class="arr-b__moment-title">Drie gangen, één avond</h3>
+          <p class="arr-b__moment-desc">Na de wellness schuif je aan in Restaurant Asteria voor een 3-gangen diner. Elk gerecht bedacht om de avond te completeren.</p>
+          <span class="arr-b__moment-include">3-gangen diner in Restaurant Asteria &mdash; inclusief</span>
+        </div>
+        <div class="arr-b__moment" data-step="4" role="tabpanel">
+          <h3 class="arr-b__moment-title">Slapen zoals je dat verdient</h3>
+          <p class="arr-b__moment-desc">Na wellness en diner zak je weg in een comfortabele kamer. De stilte van Venray, een goed bed — en nergens naartoe.</p>
+          <span class="arr-b__moment-include">Overnachting in comfortabele kamer</span>
+        </div>
+        <div class="arr-b__moment" data-step="5" role="tabpanel">
+          <h3 class="arr-b__moment-title">De ochtend van jezelf</h3>
+          <p class="arr-b__moment-desc">Een uitgebreid ontbijtbuffet wacht. Geen haast, geen planning. Gewoon genieten tot je klaar bent om te vertrekken.</p>
+          <span class="arr-b__moment-include">Uitgebreid ontbijtbuffet &mdash; inclusief</span>
+        </div>
+      </div>
+
+      <div class="arr-b__progress" aria-hidden="true">
+        <div class="arr-b__progress-bar"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. CTA -->
+  <div class="arr-b__footer">
+    <div class="arr-b__footer-inner">
+
+      <div class="arr-b__included" aria-hidden="true">
+        <span class="arr-b__included-label">Alles inclusief</span>
+        <div class="arr-b__included-items">
+          <span class="arr-b__included-item">Welkomstdrankje</span>
+          <span class="arr-b__included-item">Wellness (Top Floor)</span>
+          <span class="arr-b__included-item">3-gangen diner</span>
+          <span class="arr-b__included-item">Ontbijt</span>
+          <span class="arr-b__included-item">Badjas &amp; slippers</span>
+        </div>
+      </div>
+
+      <div class="arr-b__cta">
+        <div class="arr-b__price">
+          <span class="arr-b__price-from">vanaf</span>
+          <span class="arr-b__price-amount">€&nbsp;139,50</span>
+          <span class="arr-b__price-per">p.p. &middot; excl. verblijfsbelasting</span>
+        </div>
+        <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+           class="arr-b__book-btn"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Boek het Wellness Arrangement">
+          Reserveer direct
+          <span class="arr-b__book-btn__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var section     = document.querySelector('#arrangement');
+      if (!section) return;
+
+      var steps       = section.querySelectorAll('.arr-b__step');
+      var moments     = section.querySelectorAll('.arr-b__moment');
+      var imgs        = section.querySelectorAll('.arr-b__img');
+      var dots        = section.querySelectorAll('.arr-b__dot');
+      var progressBar = section.querySelector('.arr-b__progress-bar');
+      var btnPrev     = section.querySelector('.arr-b__nav--prev');
+      var btnNext     = section.querySelector('.arr-b__nav--next');
+
+      var current = 0, timer = null, INTERVAL = 5000;
+
+      function goTo(index) {
+        // Deactiveer
+        [steps[current], moments[current], imgs[current], dots[current]].forEach(function (el) {
+          el.classList.remove('is-active');
+        });
+        steps[current].setAttribute('aria-selected', 'false');
+
+        current = (index + steps.length) % steps.length;
+
+        // Activeer
+        [steps[current], moments[current], imgs[current], dots[current]].forEach(function (el) {
+          el.classList.add('is-active');
+        });
+        steps[current].setAttribute('aria-selected', 'true');
+
+        steps[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+        // Voortgangsbalk
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            progressBar.style.transition = 'width ' + INTERVAL + 'ms linear';
+            progressBar.style.width = '100%';
+          });
+        });
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(function () { goTo(current + 1); }, INTERVAL);
+      }
+
+      // Stap-knoppen
+      steps.forEach(function (step, i) {
+        step.addEventListener('click', function () { goTo(i); startTimer(); });
+      });
+
+      // Dots
+      dots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () { goTo(i); startTimer(); });
+      });
+
+      // Pijlen
+      btnPrev.addEventListener('click', function () { goTo(current - 1); startTimer(); });
+      btnNext.addEventListener('click', function () { goTo(current + 1); startTimer(); });
+
+      // Swipe op carrousel (mobiel)
+      var touchStartX = 0;
+      var carousel = section.querySelector('.arr-b__carousel');
+
+      carousel.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 44) {
+          goTo(dx < 0 ? current + 1 : current - 1);
+          startTimer();
+        }
+      }, { passive: true });
+
+      // Swipe op tekst-zone
+      var momentsEl = section.querySelector('.arr-b__moments');
+
+      momentsEl.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+
+      momentsEl.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 44) {
+          goTo(dx < 0 ? current + 1 : current - 1);
+          startTimer();
+        }
+      }, { passive: true });
+
+      // Pauzeer bij hover
+      section.addEventListener('mouseenter', function () {
+        clearInterval(timer);
+        progressBar.style.transition = 'none';
+      });
+      section.addEventListener('mouseleave', function () {
+        goTo(current);
+        startTimer();
+      });
+
+      goTo(0);
+      startTimer();
+    }());
+  </script>
+
+</section>
