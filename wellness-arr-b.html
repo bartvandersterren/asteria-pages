@@ -15,6 +15,7 @@
   <style>
     /* ── RESET ─────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; max-width: 100%; }
 
     /* ══════════════════════════════════════════════════════════
        NAV — exact overgenomen van hero-v2-arr-v1.html
@@ -276,6 +277,7 @@
     .arr {
       background: #f0efed;
       padding: 72px 40px 0;
+      overflow-x: hidden;
     }
 
     .arr__layout {
@@ -285,6 +287,12 @@
       grid-template-columns: 1.05fr 1fr;
       gap: 64px;
       align-items: start;
+    }
+
+    /* Voorkom dat grid-items hun content niet inperken (min-width: auto default) */
+    .arr__media,
+    .arr__text {
+      min-width: 0;
     }
 
     /* ── Links: carrousel ─────────────────────────────────── */
@@ -719,7 +727,12 @@
 
       .arr__moments { height: 205px; margin-bottom: 24px; }
 
-      .arr__bar { padding: 22px 24px; }
+      /* Bar breekt uit de sectie-padding zodat hij rand-tot-rand loopt */
+      .arr__bar {
+        margin-left: -24px;
+        margin-right: -24px;
+        padding: 22px 24px;
+      }
 
       .arr__included { display: none; }
 
