@@ -1,0 +1,601 @@
+<!-- ============================================================
+     WELLNESS ARRANGEMENT BLOK — variant C
+     Interactive split: foto links (wisselt per item), content rechts
+     Zelfstandige <section> — in te voegen in elke pagina.
+
+     Foto's (WebP, geoptimaliseerd):
+       fotos/arr-c-kamer.webp      → Overnachting
+       fotos/arr-c-drankje.webp    → Welkomstdrankje (brasserie)
+       fotos/arr-c-badjas.webp     → Badjas & slippers (sauna sfeer)
+       fotos/arr-c-wellness.webp   → Wellness toegang (spa-gang)
+       fotos/arr-c-diner.webp      → Drie-gangen diner
+       fotos/arr-c-ontbijt.webp    → Ontbijtbuffet
+
+     Vereist: brand.css + Google Fonts (Electrolize + Montserrat)
+     ============================================================ -->
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrangement Blok C — preview</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; color: #334155; background: #f8fafc; }
+
+    /* ── Preload hint: browser laadt achtergrond-afbeeldingen eerder ── */
+    @media (prefers-reduced-motion: reduce) {
+      .arr-c__photo { transition: none; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ARRANGEMENT BLOK C
+       ═══════════════════════════════════════════════════════════════ */
+
+    .arr-c {
+      display: flex;
+      min-height: 660px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    /* ── Links: fotopaneel ────────────────────────────────────────── */
+
+    .arr-c__photos {
+      flex: 0 0 52%;
+      position: relative;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .arr-c__photo {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: opacity;
+    }
+
+    .arr-c__photo.is-active { opacity: 1; }
+
+    /* Subtiel vignette onderaan voor caption leesbaarheid */
+    .arr-c__photos::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 60%,
+        rgba(0, 0, 0, 0.45) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Label onderaan de foto */
+    .arr-c__photo-caption {
+      position: absolute;
+      bottom: 22px;
+      left: 28px;
+      z-index: 2;
+      font-family: 'Electrolize', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.72);
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    /* ── Rechts: contentpaneel ────────────────────────────────────── */
+
+    .arr-c__content {
+      flex: 1;
+      padding: 52px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid #f1f5f9;
+    }
+
+    .arr-c__eyebrow {
+      font-family: 'Electrolize', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      color: #c23435;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .arr-c__title {
+      font-family: 'Electrolize', sans-serif;
+      font-size: 21px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #0f172a;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .arr-c__intro {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 13.5px;
+      color: #64748b;
+      line-height: 1.65;
+      margin-bottom: 26px;
+      max-width: 360px;
+    }
+
+    /* ── Feature-lijst ────────────────────────────────────────────── */
+
+    .arr-c__features {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .arr-c__feature {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 10px 12px 13px;
+      border-bottom: 1px solid #f1f5f9;
+      border-left: 3px solid transparent;
+      border-radius: 0 6px 6px 0;
+      cursor: pointer;
+      transition:
+        background 0.22s ease,
+        border-color 0.22s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .arr-c__feature:last-child { border-bottom: none; }
+
+    .arr-c__feature:hover,
+    .arr-c__feature.is-active {
+      background: #fef6f6;
+      border-left-color: #c23435;
+    }
+
+    /* Icoon-badge */
+    .arr-c__feature-icon {
+      flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      border-radius: 8px;
+      color: #94a3b8;
+      transition: background 0.22s ease, color 0.22s ease;
+    }
+
+    .arr-c__feature:hover .arr-c__feature-icon,
+    .arr-c__feature.is-active .arr-c__feature-icon {
+      background: #fde8e8;
+      color: #c23435;
+    }
+
+    .arr-c__feature-icon svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    /* Tekst */
+    .arr-c__feature-body { flex: 1; min-width: 0; }
+
+    .arr-c__feature-name {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 1px;
+    }
+
+    .arr-c__feature-desc {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      font-weight: 300;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    /* Vinkje rechts */
+    .arr-c__feature-check {
+      flex-shrink: 0;
+      color: #c23435;
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+
+    .arr-c__feature-check svg { width: 15px; height: 15px; }
+
+    .arr-c__feature.is-active .arr-c__feature-check { opacity: 1; }
+
+    /* ── Prijs ────────────────────────────────────────────────────── */
+
+    .arr-c__price-row {
+      padding: 18px 0 20px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .arr-c__price-from {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: #94a3b8;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .arr-c__price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1;
+      display: block;
+    }
+
+    .arr-c__price-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: #94a3b8;
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* ── CTA ──────────────────────────────────────────────────────── */
+
+    .arr-c__cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      min-height: 50px;
+      background: #c23435;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 200ms ease;
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .arr-c__cta:hover { background: #a82c2c; }
+    .arr-c__cta:focus { outline: 2px solid #c23435; outline-offset: 3px; }
+
+    .arr-c__cta svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* ── Trust badges ─────────────────────────────────────────────── */
+
+    .arr-c__trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 18px;
+    }
+
+    .arr-c__trust-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .arr-c__trust-item svg { width: 11px; height: 11px; color: #94a3b8; }
+
+    /* ── Responsive: mobiel ───────────────────────────────────────── */
+
+    @media (max-width: 900px) {
+      .arr-c__content { padding: 48px 44px; }
+    }
+
+    @media (max-width: 768px) {
+      .arr-c {
+        flex-direction: column;
+        min-height: auto;
+      }
+
+      .arr-c__photos {
+        flex: none;
+        height: 56vw;
+        min-height: 240px;
+        max-height: 360px;
+      }
+
+      .arr-c__content {
+        padding: 32px 20px 36px;
+        border-left: none;
+        border-top: 1px solid #f1f5f9;
+        justify-content: flex-start;
+      }
+
+      .arr-c__title { font-size: 17px; }
+      .arr-c__intro { font-size: 13px; margin-bottom: 18px; }
+      .arr-c__price { font-size: 30px; }
+
+      .arr-c__feature { padding: 11px 8px 11px 10px; }
+      .arr-c__feature-icon { width: 34px; height: 34px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Optionele wrapper voor preview spacing -->
+<div style="max-width: 1280px; margin: 48px auto; box-shadow: 0 4px 40px rgba(0,0,0,0.08); border-radius: 2px;">
+
+<section class="arr-c" id="arrangement-c" aria-label="Wellness arrangement — wat is inbegrepen">
+
+  <!-- ── LINKS: fotopaneel ──────────────────────────────────────── -->
+  <div class="arr-c__photos" aria-hidden="true">
+
+    <div class="arr-c__photo is-active" data-key="kamer"
+         style="background-image:url('fotos/arr-c-kamer.webp')"></div>
+
+    <div class="arr-c__photo" data-key="drankje"
+         style="background-image:url('fotos/arr-c-drankje.webp')"></div>
+
+    <div class="arr-c__photo" data-key="badjas"
+         style="background-image:url('fotos/arr-c-badjas.webp')"></div>
+
+    <div class="arr-c__photo" data-key="wellness"
+         style="background-image:url('fotos/arr-c-wellness.webp')"></div>
+
+    <div class="arr-c__photo" data-key="diner"
+         style="background-image:url('fotos/arr-c-diner.webp')"></div>
+
+    <div class="arr-c__photo" data-key="ontbijt"
+         style="background-image:url('fotos/arr-c-ontbijt.webp')"></div>
+
+    <span class="arr-c__photo-caption" id="arrCCaption">Comfortabele kamer</span>
+  </div>
+
+  <!-- ── RECHTS: contentpaneel ─────────────────────────────────── -->
+  <div class="arr-c__content">
+
+    <span class="arr-c__eyebrow">Wellness Arrangement</span>
+    <h2 class="arr-c__title">Wat is inbegrepen?</h2>
+    <p class="arr-c__intro">
+      Eén avond vol rust en verwennerij &mdash; met overnachting, diner en vrije toegang tot de wellness op de Top Floor.
+    </p>
+
+    <ul class="arr-c__features" id="arrCFeatures">
+
+      <!-- 1. Overnachting -->
+      <li class="arr-c__feature is-active"
+          data-key="kamer"
+          data-caption="Comfortabele kamer">
+        <div class="arr-c__feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="13" rx="2"/>
+            <path d="M2 13h20"/>
+            <path d="M7 13V7"/>
+            <path d="M7 9h4"/>
+          </svg>
+        </div>
+        <div class="arr-c__feature-body">
+          <strong class="arr-c__feature-name">Overnachting</strong>
+          <span class="arr-c__feature-desc">Comfortabele kamer voor 2 personen</span>
+        </div>
+        <div class="arr-c__feature-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+      </li>
+
+      <!-- 2. Welkomstdrankje -->
+      <li class="arr-c__feature"
+          data-key="drankje"
+          data-caption="Botega welkomstdrankje op de kamer">
+        <div class="arr-c__feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 22h8"/>
+            <path d="M12 11v11"/>
+            <path d="M6.8 4h10.4l-2 7c0 2.2-1.9 4-4.2 4S6.8 13.2 6.8 11L4.8 4z"/>
+          </svg>
+        </div>
+        <div class="arr-c__feature-body">
+          <strong class="arr-c__feature-name">Welkomstdrankje</strong>
+          <span class="arr-c__feature-desc">Botega op de kamer bij aankomst</span>
+        </div>
+        <div class="arr-c__feature-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+      </li>
+
+      <!-- 3. Badjas & slippers -->
+      <li class="arr-c__feature"
+          data-key="badjas"
+          data-caption="Badjas, slippers &amp; handdoekpakket">
+        <div class="arr-c__feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
+          </svg>
+        </div>
+        <div class="arr-c__feature-body">
+          <strong class="arr-c__feature-name">Badjas &amp; slippers</strong>
+          <span class="arr-c__feature-desc">Inclusief handdoekpakket</span>
+        </div>
+        <div class="arr-c__feature-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+      </li>
+
+      <!-- 4. Wellness -->
+      <li class="arr-c__feature"
+          data-key="wellness"
+          data-caption="4 sauna's &amp; stoombad — Top Floor">
+        <div class="arr-c__feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>
+          </svg>
+        </div>
+        <div class="arr-c__feature-body">
+          <strong class="arr-c__feature-name">Vrije wellness toegang</strong>
+          <span class="arr-c__feature-desc">4 sauna&rsquo;s &amp; stoombad op de Top Floor</span>
+        </div>
+        <div class="arr-c__feature-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+      </li>
+
+      <!-- 5. Diner -->
+      <li class="arr-c__feature"
+          data-key="diner"
+          data-caption="Drie-gangen diner">
+        <div class="arr-c__feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+            <path d="M7 2v20"/>
+            <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+          </svg>
+        </div>
+        <div class="arr-c__feature-body">
+          <strong class="arr-c__feature-name">Drie-gangen diner</strong>
+          <span class="arr-c__feature-desc">In ons restaurant op de begane grond</span>
+        </div>
+        <div class="arr-c__feature-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+      </li>
+
+      <!-- 6. Ontbijt -->
+      <li class="arr-c__feature"
+          data-key="ontbijt"
+          data-caption="Uitgebreid ontbijtbuffet">
+        <div class="arr-c__feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/>
+            <line x1="10" y1="1" x2="10" y2="4"/>
+            <line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+        </div>
+        <div class="arr-c__feature-body">
+          <strong class="arr-c__feature-name">Uitgebreid ontbijtbuffet</strong>
+          <span class="arr-c__feature-desc">Verse start van uw dag</span>
+        </div>
+        <div class="arr-c__feature-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+      </li>
+
+    </ul>
+
+    <!-- Prijs -->
+    <div class="arr-c__price-row">
+      <span class="arr-c__price-from">Vanaf</span>
+      <strong class="arr-c__price">&euro;139,50</strong>
+      <span class="arr-c__price-sub">per persoon &middot; 2-persoonskamer</span>
+    </div>
+
+    <!-- CTA -->
+    <a
+      href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+      class="arr-c__cta"
+      target="_blank"
+      rel="noopener"
+    >
+      Boek het arrangement
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+
+    <!-- Trust -->
+    <div class="arr-c__trust">
+      <span class="arr-c__trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Beste prijs garantie
+      </span>
+      <span class="arr-c__trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Direct bevestigd
+      </span>
+      <span class="arr-c__trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Gratis annuleren
+      </span>
+    </div>
+
+  </div><!-- /.arr-c__content -->
+</section>
+
+</div><!-- /preview wrapper -->
+
+<script>
+  (function () {
+    'use strict';
+
+    const features = document.querySelectorAll('.arr-c__feature');
+    const photos   = document.querySelectorAll('.arr-c__photo');
+    const caption  = document.getElementById('arrCCaption');
+
+    function activate(key, captionText) {
+      features.forEach(f => f.classList.toggle('is-active', f.dataset.key === key));
+      photos.forEach(p   => p.classList.toggle('is-active', p.dataset.key === key));
+      if (caption) caption.textContent = captionText;
+    }
+
+    features.forEach(function (feature) {
+      // Hover op desktop
+      feature.addEventListener('mouseenter', function () {
+        activate(this.dataset.key, this.dataset.caption);
+      });
+      // Tap / click op mobile
+      feature.addEventListener('click', function () {
+        activate(this.dataset.key, this.dataset.caption);
+      });
+      // Keyboard navigatie
+      feature.setAttribute('role', 'button');
+      feature.setAttribute('tabindex', '0');
+      feature.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activate(this.dataset.key, this.dataset.caption);
+        }
+      });
+    });
+  }());
+</script>
+
+</body>
+</html>
