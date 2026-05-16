@@ -505,13 +505,18 @@
     /* Tablet */
     @media (max-width: 900px) { .arr-c__content { padding: 48px 44px; } }
 
-    /* Mobile — sectie = exact 1 scherm
+    /* Mobile — sectie = exact 1 scherm als kaart met afgeronde hoeken
        Features scrollen intern; prijs+CTA blijven altijd zichtbaar onderaan */
     @media (max-width: 768px) {
+      body { background: #f0efed; }
+
       .arr-c {
         flex-direction: column;
-        height: 100svh;
+        height: calc(100svh - 32px); /* ruimte voor de kaart-marge */
+        margin: 16px;
+        border-radius: 20px;
         overflow: hidden;
+        box-shadow: 0 4px 32px rgba(0,0,0,0.10);
       }
 
       .arr-c__photos { flex: 0 0 36%; }
