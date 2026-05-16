@@ -711,7 +711,8 @@
 
     @media (max-width: 860px) {
       .arr {
-        padding: 56px 24px 0;
+        min-height: 100svh;
+        padding: 56px 24px 40px;
       }
 
       .arr__layout {
@@ -725,26 +726,10 @@
 
       .arr__heading { margin-bottom: 24px; }
 
-      .arr__moments { height: 205px; margin-bottom: 24px; }
+      .arr__moments { height: 220px; margin-bottom: 24px; }
 
-      /* Bar breekt uit de sectie-padding zodat hij rand-tot-rand loopt */
-      .arr__bar {
-        margin-left: -24px;
-        margin-right: -24px;
-        padding: 22px 24px;
-      }
-
-      .arr__included { display: none; }
-
-      .arr__bar-inner {
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .arr__price { text-align: left; }
-      .arr__price-amount { font-size: 32px; }
-
-      .arr__btn { padding: 15px 22px; font-size: 11px; }
+      /* Sticky bbar vervangt arr__bar op mobile */
+      .arr__bar { display: none; }
 
       .footer__inner {
         grid-template-columns: 1fr;
@@ -758,6 +743,176 @@
     @media (max-width: 480px) {
       .arr__moment-desc { font-size: 13px; }
       .arr__step { margin-right: 20px; }
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       BOOKING BAR — prijs + trust badges + CTA
+    ══════════════════════════════════════════════════════════ */
+
+    .bbar-wrap {
+      position: relative;
+      z-index: 10;
+      padding: 0 40px;
+      margin-top: -72px;
+    }
+
+    .bbar {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.13), 0 2px 6px rgba(0,0,0,0.07);
+      padding: 26px 36px;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .bbar__info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .bbar__name {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c23435;
+    }
+
+    .bbar__tagline {
+      font-size: 12px;
+      color: #777;
+      font-weight: 300;
+      margin-bottom: 6px;
+    }
+
+    .bbar__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+    }
+
+    .bbar__from {
+      font-size: 11px;
+      color: #aaa;
+      letter-spacing: 0.05em;
+    }
+
+    .bbar__amount {
+      font-family: 'Electrolize', sans-serif;
+      font-size: 38px;
+      color: #111;
+      line-height: 1;
+    }
+
+    .bbar__pp {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .bbar__note {
+      font-size: 10px;
+      color: #bbb;
+      letter-spacing: 0.02em;
+      margin-top: 3px;
+    }
+
+    .bbar__badges {
+      display: flex;
+      gap: 28px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .bbar__badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 300;
+      color: #555;
+      line-height: 1.45;
+    }
+
+    .bbar__badge-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 15px;
+    }
+
+    .bbar__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+      background: #c23435;
+      padding: 20px 36px;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .bbar__btn:hover { background: #a82c2c; }
+
+    .bbar__btn-arrow {
+      font-size: 14px;
+      transition: transform 0.2s;
+    }
+
+    .bbar__btn:hover .bbar__btn-arrow { transform: translateX(4px); }
+
+    @media (max-width: 860px) {
+      .bbar-wrap {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        padding: 0;
+        margin: 0;
+      }
+
+      .bbar {
+        border-radius: 0;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+        padding: 14px 20px;
+        gap: 0;
+        justify-content: space-between;
+      }
+
+      .bbar__badges,
+      .bbar__tagline,
+      .bbar__note { display: none; }
+
+      .bbar__name { font-size: 9px; letter-spacing: 0.15em; }
+      .bbar__amount { font-size: 26px; }
+      .bbar__pp { font-size: 12px; }
+      .bbar__from { font-size: 10px; }
+      .bbar__price-row { gap: 4px; }
+
+      .bbar__btn { padding: 14px 20px; font-size: 11px; border-radius: 6px; }
+
+      body { padding-bottom: 72px; }
     }
   </style>
 </head>
@@ -828,6 +983,43 @@
     <div class="hero__scroll-track"></div>
   </div>
 </section>
+
+
+<!-- ══ BOOKING BAR ════════════════════════════════════════════ -->
+<div class="bbar-wrap">
+  <div class="bbar">
+    <div class="bbar__info">
+      <span class="bbar__name">Wellness Arrangement</span>
+      <span class="bbar__tagline">Twee dagen pure ontspanning</span>
+      <div class="bbar__price-row">
+        <span class="bbar__from">vanaf</span>
+        <span class="bbar__amount">€&nbsp;139,50</span>
+        <span class="bbar__pp">p.p.</span>
+      </div>
+      <span class="bbar__note">o.b.v. 2-persoonskamer &middot; excl. verblijfsbelasting € 2,- p.p.p.n.</span>
+    </div>
+    <div class="bbar__badges">
+      <div class="bbar__badge">
+        <div class="bbar__badge-icon"><i class="far fa-calendar-alt"></i></div>
+        <span>Beste prijs<br>gegarandeerd</span>
+      </div>
+      <div class="bbar__badge">
+        <div class="bbar__badge-icon"><i class="fas fa-check"></i></div>
+        <span>Directe<br>bevestiging</span>
+      </div>
+      <div class="bbar__badge">
+        <div class="bbar__badge-icon"><i class="fas fa-gift"></i></div>
+        <span>Gratis annuleren<br>t/m dag van aankomst*</span>
+      </div>
+    </div>
+    <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+       class="bbar__btn"
+       target="_blank"
+       rel="noopener noreferrer">
+      Reserveer direct <span class="bbar__btn-arrow">&rarr;</span>
+    </a>
+  </div>
+</div>
 
 
 <!-- ══ ARRANGEMENT BLOK B ════════════════════════════════════ -->
