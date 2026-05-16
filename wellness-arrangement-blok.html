@@ -1,0 +1,638 @@
+<!-- ============================================================
+     WELLNESS ARRANGEMENT BLOK — v3
+     Zelfstandige <section> — plak dit in hero-v2-arr-v1.html
+     ter vervanging van <section class="arr-section">
+     ============================================================ -->
+
+<section class="arr-section" id="arrangement">
+  <style>
+    /* ── Scoped to .arr-section ─────────────────────────────── */
+
+    .arr-section {
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      background: #1c1c1c;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* ── Achtergrondbeelden ─────────────────────────────────── */
+
+    .arr-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .arr-bg__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      will-change: opacity;
+    }
+
+    .arr-bg__img.is-active {
+      opacity: 1;
+    }
+
+    /* ── Gradient overlay ───────────────────────────────────────
+       Twee lagen:
+       1. Links → rechts: linker tekstzone donkerder, foto rechts
+       2. Transparant → donker van onder: leesbaar voor content
+    ─────────────────────────────────────────────────────────── */
+
+    .arr-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(
+          to right,
+          rgba(10,10,10,0.72) 0%,
+          rgba(10,10,10,0.40) 55%,
+          rgba(10,10,10,0.10) 100%
+        ),
+        linear-gradient(
+          to bottom,
+          rgba(10,10,10,0.10) 0%,
+          rgba(10,10,10,0.30) 45%,
+          rgba(10,10,10,0.85) 100%
+        );
+    }
+
+    /* ── Inner content ──────────────────────────────────────── */
+
+    .arr-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 64px 32px 56px;
+      width: 100%;
+    }
+
+    /* ── Label ──────────────────────────────────────────────── */
+
+    .arr-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #c23435;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .arr-tag::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: #c23435;
+      flex-shrink: 0;
+    }
+
+    /* ── Sectie heading ─────────────────────────────────────── */
+
+    .arr-heading {
+      font-family: 'Electrolize', sans-serif;
+      font-size: clamp(30px, 4.5vw, 56px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #ffffff;
+      line-height: 1.05;
+      margin: 0 0 44px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+
+    /* ── Stap-navigatie ─────────────────────────────────────── */
+
+    .arr-steps {
+      display: flex;
+      border-bottom: 1px solid rgba(255,255,255,0.18);
+      margin-bottom: 36px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .arr-steps::-webkit-scrollbar { display: none; }
+
+    .arr-step {
+      background: none;
+      border: none;
+      padding: 0 0 15px;
+      margin-right: 34px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+      position: relative;
+      transition: color 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .arr-step::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #c23435;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .arr-step.is-active {
+      color: #ffffff;
+    }
+
+    .arr-step.is-active::after {
+      transform: scaleX(1);
+    }
+
+    .arr-step:hover:not(.is-active) {
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ── Moment-panelen ─────────────────────────────────────── */
+
+    .arr-moments {
+      position: relative;
+      height: 160px;
+      margin-bottom: 36px;
+    }
+
+    .arr-moment {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    .arr-moment.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .arr-moment__title {
+      font-family: 'Electrolize', sans-serif;
+      font-size: clamp(20px, 2.8vw, 34px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+      margin: 0 0 12px;
+      line-height: 1.1;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+    }
+
+    .arr-moment__desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.75;
+      max-width: 520px;
+      margin: 0 0 14px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .arr-moment__include {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      font-weight: 400;
+    }
+
+    .arr-moment__include::before {
+      content: '✓';
+      color: #c23435;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* ── Voortgangsbalk ─────────────────────────────────────── */
+
+    .arr-progress {
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    .arr-progress__bar {
+      height: 100%;
+      background: #c23435;
+      width: 0%;
+    }
+
+    /* ── Onderste rij: pills + prijs + CTA ─────────────────── */
+
+    .arr-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .arr-included {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .arr-included__label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      font-weight: 400;
+    }
+
+    .arr-included__items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .arr-included__item {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 5px 12px;
+      border-radius: 2px;
+    }
+
+    .arr-cta {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-shrink: 0;
+    }
+
+    .arr-price {
+      text-align: right;
+    }
+
+    .arr-price__from {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+
+    .arr-price__amount {
+      display: block;
+      font-family: 'Electrolize', sans-serif;
+      font-size: 40px;
+      color: #ffffff;
+      line-height: 1;
+      font-weight: 400;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+
+    .arr-price__per {
+      display: block;
+      font-size: 11px;
+      color: rgba(255,255,255,0.42);
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    .arr-book-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #ffffff;
+      background: #c23435;
+      border: 1px solid #c23435;
+      padding: 18px 36px;
+      border-radius: 4px;
+      transition: background 0.25s ease, border-color 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .arr-book-btn:hover {
+      background: #a82c2c;
+      border-color: #a82c2c;
+      color: #fff;
+    }
+
+    .arr-book-btn__arrow {
+      font-size: 15px;
+      transition: transform 0.2s ease;
+    }
+
+    .arr-book-btn:hover .arr-book-btn__arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── Mobiel ─────────────────────────────────────────────── */
+
+    @media (max-width: 680px) {
+      /* Geen min-height — hoogte volgt content */
+      .arr-section {
+        min-height: 0;
+      }
+
+      .arr-inner {
+        padding: 48px 20px 44px;
+      }
+
+      .arr-heading {
+        margin-bottom: 32px;
+      }
+
+      .arr-steps {
+        margin-bottom: 28px;
+      }
+
+      .arr-step {
+        margin-right: 24px;
+        padding-bottom: 12px;
+        font-size: 10px;
+      }
+
+      /* Moment-hoogte iets groter voor langere tekst op smal scherm */
+      .arr-moments {
+        height: 220px;
+        margin-bottom: 28px;
+      }
+
+      .arr-moment__desc {
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .arr-progress {
+        margin-bottom: 32px;
+      }
+
+      /* Pills weglaten op mobiel — te krap */
+      .arr-included {
+        display: none;
+      }
+
+      .arr-bottom {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+      }
+
+      .arr-cta {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .arr-price {
+        text-align: left;
+      }
+
+      .arr-price__amount {
+        font-size: 30px;
+      }
+
+      .arr-book-btn {
+        padding: 14px 20px;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+      }
+    }
+  </style>
+
+  <!-- Crossfadende achtergrondbeelden -->
+  <div class="arr-bg" aria-hidden="true">
+    <div class="arr-bg__img is-active"
+         style="background-image: url('fotos/intro-lobby.jpg')"></div>
+    <div class="arr-bg__img"
+         style="background-image: url('fotos/wellness-spa.jpg')"></div>
+    <div class="arr-bg__img"
+         style="background-image: url('fotos/wellness-sauna.jpg')"></div>
+    <div class="arr-bg__img"
+         style="background-image: url('fotos/restaurant-diner.jpg')"></div>
+    <div class="arr-bg__img"
+         style="background-image: url('fotos/kamer-comfort.jpg')"></div>
+    <div class="arr-bg__img"
+         style="background-image: url('fotos/restaurant-ontbijt.jpg')"></div>
+  </div>
+
+  <!-- Gradient overlay -->
+  <div class="arr-overlay" aria-hidden="true"></div>
+
+  <!-- Content -->
+  <div class="arr-inner">
+
+    <span class="arr-tag">Exclusief arrangement</span>
+
+    <h2 class="arr-heading">Wellness<br>Arrangement</h2>
+
+    <!-- Stap-navigatie -->
+    <nav class="arr-steps" role="tablist" aria-label="Ervaring per moment">
+      <button class="arr-step is-active" role="tab" aria-selected="true"  data-step="0">Aankomst</button>
+      <button class="arr-step"           role="tab" aria-selected="false" data-step="1">Wellness</button>
+      <button class="arr-step"           role="tab" aria-selected="false" data-step="2">Sauna</button>
+      <button class="arr-step"           role="tab" aria-selected="false" data-step="3">Diner</button>
+      <button class="arr-step"           role="tab" aria-selected="false" data-step="4">Nacht</button>
+      <button class="arr-step"           role="tab" aria-selected="false" data-step="5">Ontbijt</button>
+    </nav>
+
+    <!-- Moment-panelen -->
+    <div class="arr-moments">
+
+      <div class="arr-moment is-active" data-step="0" role="tabpanel">
+        <h3 class="arr-moment__title">Een warme ontvangst</h3>
+        <p class="arr-moment__desc">Je checkt in en vindt op de kamer een flesje Botega klaar. Badjas en slippers liggen gevouwen op het bed. De avond kan beginnen.</p>
+        <span class="arr-moment__include">Welkomstdrankje &middot; badjas &middot; slippers &middot; handdoekpakket</span>
+      </div>
+
+      <div class="arr-moment" data-step="1" role="tabpanel">
+        <h3 class="arr-moment__title">300 m&sup2; rust &amp; warmte</h3>
+        <p class="arr-moment__desc">Vier saunatypes, stoomcabine, dompelbad, kruidenbad en belevenisdouches — allemaal inclusief, op de Top Floor met uitzicht op het bos.</p>
+        <span class="arr-moment__include">Gratis toegang Top Floor Wellness &mdash; volledig inclusief</span>
+      </div>
+
+      <div class="arr-moment" data-step="2" role="tabpanel">
+        <h3 class="arr-moment__title">Zweet, uitzicht, stilte</h3>
+        <p class="arr-moment__desc">De Himalayazoutsauna kijkt uit op het bos. De Finse sauna brengt je diep in jezelf. Niemand die haast heeft. Niemand die wacht.</p>
+        <span class="arr-moment__include">Himalayazout &middot; Fins &middot; stoom &middot; Turks &middot; relaxruimte</span>
+      </div>
+
+      <div class="arr-moment" data-step="3" role="tabpanel">
+        <h3 class="arr-moment__title">Drie gangen, één avond</h3>
+        <p class="arr-moment__desc">Na de wellness schuif je aan in Restaurant Asteria voor een 3-gangen diner. Elk gerecht bedacht om de avond te completeren.</p>
+        <span class="arr-moment__include">3-gangen diner in Restaurant Asteria &mdash; inclusief</span>
+      </div>
+
+      <div class="arr-moment" data-step="4" role="tabpanel">
+        <h3 class="arr-moment__title">Slapen zoals je dat verdient</h3>
+        <p class="arr-moment__desc">Na wellness en diner zak je weg in een comfortabele kamer. De stilte van Venray, een goed bed — en nergens naartoe.</p>
+        <span class="arr-moment__include">Overnachting in comfortabele kamer</span>
+      </div>
+
+      <div class="arr-moment" data-step="5" role="tabpanel">
+        <h3 class="arr-moment__title">De ochtend van jezelf</h3>
+        <p class="arr-moment__desc">Een uitgebreid ontbijtbuffet wacht. Geen haast, geen planning. Gewoon genieten tot je klaar bent om te vertrekken.</p>
+        <span class="arr-moment__include">Uitgebreid ontbijtbuffet &mdash; inclusief</span>
+      </div>
+
+    </div>
+
+    <!-- Auto-advance voortgangsbalk -->
+    <div class="arr-progress" aria-hidden="true">
+      <div class="arr-progress__bar"></div>
+    </div>
+
+    <!-- Onderste rij -->
+    <div class="arr-bottom">
+
+      <div class="arr-included" aria-hidden="true">
+        <span class="arr-included__label">Alles inclusief</span>
+        <div class="arr-included__items">
+          <span class="arr-included__item">Welkomstdrankje</span>
+          <span class="arr-included__item">Wellness (Top Floor)</span>
+          <span class="arr-included__item">3-gangen diner</span>
+          <span class="arr-included__item">Ontbijt</span>
+          <span class="arr-included__item">Badjas &amp; slippers</span>
+        </div>
+      </div>
+
+      <div class="arr-cta">
+        <div class="arr-price">
+          <span class="arr-price__from">vanaf</span>
+          <span class="arr-price__amount">€&nbsp;139,50</span>
+          <span class="arr-price__per">p.p. &middot; excl. verblijfsbelasting</span>
+        </div>
+        <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+           class="arr-book-btn"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Boek het Wellness Arrangement">
+          Reserveer direct
+          <span class="arr-book-btn__arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var section     = document.querySelector('#arrangement');
+      if (!section) return;
+
+      var steps       = section.querySelectorAll('.arr-step');
+      var moments     = section.querySelectorAll('.arr-moment');
+      var bgImgs      = section.querySelectorAll('.arr-bg__img');
+      var progressBar = section.querySelector('.arr-progress__bar');
+
+      var current  = 0;
+      var timer    = null;
+      var INTERVAL = 5000;
+
+      function goTo(index) {
+        steps[current].classList.remove('is-active');
+        steps[current].setAttribute('aria-selected', 'false');
+        moments[current].classList.remove('is-active');
+        bgImgs[current].classList.remove('is-active');
+
+        current = (index + steps.length) % steps.length;
+
+        steps[current].classList.add('is-active');
+        steps[current].setAttribute('aria-selected', 'true');
+        moments[current].classList.add('is-active');
+        bgImgs[current].classList.add('is-active');
+
+        steps[current].scrollIntoView({
+          behavior: 'smooth', block: 'nearest', inline: 'center'
+        });
+
+        progressBar.style.transition = 'none';
+        progressBar.style.width = '0%';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            progressBar.style.transition = 'width ' + INTERVAL + 'ms linear';
+            progressBar.style.width = '100%';
+          });
+        });
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(function () { goTo(current + 1); }, INTERVAL);
+      }
+
+      steps.forEach(function (step, i) {
+        step.addEventListener('click', function () { goTo(i); startTimer(); });
+      });
+
+      // Swipe op mobiel
+      var touchStartX = 0;
+      var momentsEl = section.querySelector('.arr-moments');
+
+      momentsEl.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+      }, { passive: true });
+
+      momentsEl.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 44) {
+          goTo(dx < 0 ? current + 1 : current - 1);
+          startTimer();
+        }
+      }, { passive: true });
+
+      // Pauzeer bij hover (desktop)
+      section.addEventListener('mouseenter', function () {
+        clearInterval(timer);
+        progressBar.style.transition = 'none';
+      });
+      section.addEventListener('mouseleave', function () {
+        goTo(current);
+        startTimer();
+      });
+
+      goTo(0);
+      startTimer();
+    }());
+  </script>
+
+</section>
