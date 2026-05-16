@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wellness Arrangement — variant B</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #ededed;
+      color: #111;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       ARRANGEMENT SECTIE
+    ══════════════════════════════════════════════════════════ */
+
+    .arr {
+      background: #ededed;
+      padding: 64px 32px 0;
+    }
+
+    /* Links/rechts layout */
+    .arr__layout {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* ── Links: carrousel ─────────────────────────────────── */
+
+    .arr__media {
+      position: relative;
+    }
+
+    .arr__carousel {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background: #1c1c1c;
+    }
+
+    .arr__img {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1s ease;
+      will-change: opacity;
+    }
+
+    .arr__img.is-active { opacity: 1; }
+
+    /* Pijl-knoppen op carrousel */
+    .arr__arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      background: rgba(255,255,255,0.22);
+      border: 1px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+
+    .arr__arrow:hover { background: rgba(255,255,255,0.38); }
+    .arr__arrow--prev { left: 14px; }
+    .arr__arrow--next { right: 14px; }
+
+    /* Dots */
+    .arr__dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .arr__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #bbbbbb;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .arr__dot.is-active {
+      background: #c23435;
+      transform: scale(1.25);
+    }
+
+    /* ── Rechts: tekst ────────────────────────────────────── */
+
+    .arr__text {
+      padding-top: 8px;
+    }
+
+    .arr__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #c23435;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .arr__tag::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: #c23435;
+    }
+
+    .arr__heading {
+      font-family: 'Electrolize', sans-serif;
+      font-size: clamp(26px, 3.2vw, 46px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #111111;
+      line-height: 1.05;
+      margin: 0 0 32px;
+    }
+
+    /* Stap-tabs */
+    .arr__steps {
+      display: flex;
+      border-bottom: 1px solid #cccccc;
+      margin-bottom: 28px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .arr__steps::-webkit-scrollbar { display: none; }
+
+    .arr__step {
+      background: none;
+      border: none;
+      padding: 0 0 13px;
+      margin-right: 28px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #aaaaaa;
+      white-space: nowrap;
+      position: relative;
+      transition: color 0.25s;
+      flex-shrink: 0;
+    }
+
+    .arr__step::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #c23435;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .arr__step.is-active { color: #111111; }
+    .arr__step.is-active::after { transform: scaleX(1); }
+    .arr__step:hover:not(.is-active) { color: #555; }
+
+    /* Moment-panelen */
+    .arr__moments {
+      position: relative;
+      height: 165px;
+      margin-bottom: 28px;
+    }
+
+    .arr__moment {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      pointer-events: none;
+    }
+
+    .arr__moment.is-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .arr__moment-title {
+      font-family: 'Electrolize', sans-serif;
+      font-size: clamp(17px, 2.2vw, 26px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #111111;
+      margin: 0 0 10px;
+      line-height: 1.1;
+    }
+
+    .arr__moment-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: #555555;
+      line-height: 1.75;
+      margin: 0 0 12px;
+    }
+
+    .arr__moment-include {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #aaaaaa;
+    }
+
+    .arr__moment-include::before {
+      content: '✓';
+      color: #c23435;
+      font-weight: 700;
+    }
+
+    /* Voortgangsbalk */
+    .arr__progress {
+      height: 1px;
+      background: #cccccc;
+      overflow: hidden;
+    }
+
+    .arr__progress-bar {
+      height: 100%;
+      background: #c23435;
+      width: 0%;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       ONDERSTE BALK
+    ══════════════════════════════════════════════════════════ */
+
+    .arr__bar {
+      margin-top: 48px;
+      background: #ffffff;
+      border-top: 1px solid #e0e0e0;
+      padding: 24px 32px;
+    }
+
+    .arr__bar-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* Pills */
+    .arr__included {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .arr__included-label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #aaaaaa;
+    }
+
+    .arr__included-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .arr__included-item {
+      font-size: 11px;
+      color: #555555;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      padding: 4px 12px;
+      border-radius: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Prijs + knop */
+    .arr__cta {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-shrink: 0;
+    }
+
+    .arr__price { text-align: right; }
+
+    .arr__price-from {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #aaaaaa;
+      margin-bottom: 2px;
+    }
+
+    .arr__price-amount {
+      display: block;
+      font-family: 'Electrolize', sans-serif;
+      font-size: 40px;
+      color: #111111;
+      line-height: 1;
+    }
+
+    .arr__price-per {
+      display: block;
+      font-size: 11px;
+      color: #aaaaaa;
+      margin-top: 3px;
+      letter-spacing: 0.04em;
+    }
+
+    .arr__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #ffffff;
+      background: #c23435;
+      border: 1px solid #c23435;
+      padding: 18px 36px;
+      border-radius: 4px;
+      transition: background 0.25s, border-color 0.25s;
+      white-space: nowrap;
+    }
+
+    .arr__btn:hover { background: #a82c2c; border-color: #a82c2c; }
+
+    .arr__btn-arrow {
+      font-size: 15px;
+      transition: transform 0.2s;
+    }
+
+    .arr__btn:hover .arr__btn-arrow { transform: translateX(4px); }
+
+    /* ══════════════════════════════════════════════════════════
+       MOBIEL
+    ══════════════════════════════════════════════════════════ */
+
+    @media (max-width: 760px) {
+      .arr {
+        padding: 40px 20px 0;
+      }
+
+      .arr__layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      /* Op mobiel: carrousel bovenaan, tekst eronder */
+      .arr__media { order: 1; }
+      .arr__text  { order: 2; padding-top: 0; }
+
+      .arr__carousel {
+        /* Laat de aspect-ratio zijn werk doen, geen vaste hoogte */
+        border-radius: 12px;
+      }
+
+      .arr__arrow { display: none; }
+
+      .arr__heading { margin-bottom: 24px; }
+
+      .arr__moments { height: 200px; }
+
+      .arr__bar { margin-top: 32px; padding: 20px; }
+
+      .arr__included { display: none; }
+
+      .arr__bar-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .arr__price { text-align: left; }
+      .arr__price-amount { font-size: 30px; }
+
+      .arr__btn { padding: 14px 20px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="arr" id="arrangement">
+
+  <!-- Links/rechts layout -->
+  <div class="arr__layout">
+
+    <!-- Links: carrousel -->
+    <div class="arr__media">
+      <div class="arr__carousel">
+        <div class="arr__img is-active" style="background-image: url('fotos/intro-lobby.jpg')"></div>
+        <div class="arr__img" style="background-image: url('fotos/wellness-spa.jpg')"></div>
+        <div class="arr__img" style="background-image: url('fotos/wellness-sauna.jpg')"></div>
+        <div class="arr__img" style="background-image: url('fotos/restaurant-diner.jpg')"></div>
+        <div class="arr__img" style="background-image: url('fotos/kamer-comfort.jpg')"></div>
+        <div class="arr__img" style="background-image: url('fotos/restaurant-ontbijt.jpg')"></div>
+
+        <button class="arr__arrow arr__arrow--prev" aria-label="Vorige">&#8592;</button>
+        <button class="arr__arrow arr__arrow--next" aria-label="Volgende">&#8594;</button>
+      </div>
+
+      <div class="arr__dots">
+        <button class="arr__dot is-active" data-step="0"></button>
+        <button class="arr__dot" data-step="1"></button>
+        <button class="arr__dot" data-step="2"></button>
+        <button class="arr__dot" data-step="3"></button>
+        <button class="arr__dot" data-step="4"></button>
+        <button class="arr__dot" data-step="5"></button>
+      </div>
+    </div>
+
+    <!-- Rechts: tekst -->
+    <div class="arr__text">
+      <span class="arr__tag">Exclusief arrangement</span>
+      <h2 class="arr__heading">Wellness<br>Arrangement</h2>
+
+      <nav class="arr__steps" role="tablist">
+        <button class="arr__step is-active" data-step="0">Aankomst</button>
+        <button class="arr__step" data-step="1">Wellness</button>
+        <button class="arr__step" data-step="2">Sauna</button>
+        <button class="arr__step" data-step="3">Diner</button>
+        <button class="arr__step" data-step="4">Nacht</button>
+        <button class="arr__step" data-step="5">Ontbijt</button>
+      </nav>
+
+      <div class="arr__moments">
+        <div class="arr__moment is-active" data-step="0">
+          <h3 class="arr__moment-title">Een warme ontvangst</h3>
+          <p class="arr__moment-desc">Je checkt in en vindt op de kamer een flesje Botega klaar. Badjas en slippers liggen gevouwen op het bed. De avond kan beginnen.</p>
+          <span class="arr__moment-include">Welkomstdrankje &middot; badjas &middot; slippers &middot; handdoekpakket</span>
+        </div>
+        <div class="arr__moment" data-step="1">
+          <h3 class="arr__moment-title">300 m&sup2; rust &amp; warmte</h3>
+          <p class="arr__moment-desc">Vier saunatypes, stoomcabine, dompelbad, kruidenbad en belevenisdouches — allemaal inclusief, op de Top Floor met uitzicht op het bos.</p>
+          <span class="arr__moment-include">Gratis toegang Top Floor Wellness &mdash; volledig inclusief</span>
+        </div>
+        <div class="arr__moment" data-step="2">
+          <h3 class="arr__moment-title">Zweet, uitzicht, stilte</h3>
+          <p class="arr__moment-desc">De Himalayazoutsauna kijkt uit op het bos. De Finse sauna brengt je diep in jezelf. Niemand die haast heeft. Niemand die wacht.</p>
+          <span class="arr__moment-include">Himalayazout &middot; Fins &middot; stoom &middot; Turks &middot; relaxruimte</span>
+        </div>
+        <div class="arr__moment" data-step="3">
+          <h3 class="arr__moment-title">Drie gangen, één avond</h3>
+          <p class="arr__moment-desc">Na de wellness schuif je aan in Restaurant Asteria voor een 3-gangen diner. Elk gerecht bedacht om de avond te completeren.</p>
+          <span class="arr__moment-include">3-gangen diner in Restaurant Asteria &mdash; inclusief</span>
+        </div>
+        <div class="arr__moment" data-step="4">
+          <h3 class="arr__moment-title">Slapen zoals je dat verdient</h3>
+          <p class="arr__moment-desc">Na wellness en diner zak je weg in een comfortabele kamer. De stilte van Venray, een goed bed — en nergens naartoe.</p>
+          <span class="arr__moment-include">Overnachting in comfortabele kamer</span>
+        </div>
+        <div class="arr__moment" data-step="5">
+          <h3 class="arr__moment-title">De ochtend van jezelf</h3>
+          <p class="arr__moment-desc">Een uitgebreid ontbijtbuffet wacht. Geen haast, geen planning. Gewoon genieten tot je klaar bent om te vertrekken.</p>
+          <span class="arr__moment-include">Uitgebreid ontbijtbuffet &mdash; inclusief</span>
+        </div>
+      </div>
+
+      <div class="arr__progress">
+        <div class="arr__progress-bar"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Onderste balk -->
+  <div class="arr__bar">
+    <div class="arr__bar-inner">
+      <div class="arr__included">
+        <span class="arr__included-label">Alles inclusief</span>
+        <div class="arr__included-items">
+          <span class="arr__included-item">Welkomstdrankje</span>
+          <span class="arr__included-item">Wellness (Top Floor)</span>
+          <span class="arr__included-item">3-gangen diner</span>
+          <span class="arr__included-item">Ontbijt</span>
+          <span class="arr__included-item">Badjas &amp; slippers</span>
+        </div>
+      </div>
+      <div class="arr__cta">
+        <div class="arr__price">
+          <span class="arr__price-from">vanaf</span>
+          <span class="arr__price-amount">€&nbsp;139,50</span>
+          <span class="arr__price-per">p.p. &middot; excl. verblijfsbelasting</span>
+        </div>
+        <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+           class="arr__btn"
+           target="_blank"
+           rel="noopener noreferrer">
+          Reserveer direct
+          <span class="arr__btn-arrow">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  (function () {
+    var section     = document.querySelector('#arrangement');
+    var steps       = section.querySelectorAll('.arr__step');
+    var moments     = section.querySelectorAll('.arr__moment');
+    var imgs        = section.querySelectorAll('.arr__img');
+    var dots        = section.querySelectorAll('.arr__dot');
+    var progressBar = section.querySelector('.arr__progress-bar');
+    var btnPrev     = section.querySelector('.arr__arrow--prev');
+    var btnNext     = section.querySelector('.arr__arrow--next');
+
+    var current = 0, timer = null, INTERVAL = 5000;
+
+    function goTo(index) {
+      steps[current].classList.remove('is-active');
+      moments[current].classList.remove('is-active');
+      imgs[current].classList.remove('is-active');
+      dots[current].classList.remove('is-active');
+
+      current = (index + steps.length) % steps.length;
+
+      steps[current].classList.add('is-active');
+      moments[current].classList.add('is-active');
+      imgs[current].classList.add('is-active');
+      dots[current].classList.add('is-active');
+
+      steps[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          progressBar.style.transition = 'width ' + INTERVAL + 'ms linear';
+          progressBar.style.width = '100%';
+        });
+      });
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(function () { goTo(current + 1); }, INTERVAL);
+    }
+
+    steps.forEach(function (s, i) { s.addEventListener('click', function () { goTo(i); startTimer(); }); });
+    dots.forEach(function (d, i)  { d.addEventListener('click', function () { goTo(i); startTimer(); }); });
+    btnPrev.addEventListener('click', function () { goTo(current - 1); startTimer(); });
+    btnNext.addEventListener('click', function () { goTo(current + 1); startTimer(); });
+
+    // Swipe — carrousel én tekst-zone
+    function addSwipe(el) {
+      var sx = 0;
+      el.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+      el.addEventListener('touchend',   function (e) {
+        var dx = e.changedTouches[0].clientX - sx;
+        if (Math.abs(dx) > 44) { goTo(dx < 0 ? current + 1 : current - 1); startTimer(); }
+      }, { passive: true });
+    }
+
+    addSwipe(section.querySelector('.arr__carousel'));
+    addSwipe(section.querySelector('.arr__moments'));
+
+    section.addEventListener('mouseenter', function () {
+      clearInterval(timer);
+      progressBar.style.transition = 'none';
+    });
+    section.addEventListener('mouseleave', function () { goTo(current); startTimer(); });
+
+    goTo(0);
+    startTimer();
+  }());
+</script>
+
+</body>
+</html>
