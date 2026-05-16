@@ -285,7 +285,7 @@
       .hero__btn, .hero__btn-ghost { width: 100%; text-align: center; }
     }
 
-    /* ── ARRANGEMENT — editorial split layout ──────────────────── */
+    /* ── ARRANGEMENT — sticky foto + interactieve lijst ────────── */
     .arr {
       background: #fff;
     }
@@ -293,27 +293,46 @@
     .arr__inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 700px;
+      align-items: start; /* cruciaal: sticky werkt alleen met align-items: start */
     }
 
-    .arr__photo {
-      position: relative;
+    /* Foto-kolom — sticky op desktop, vult de viewport */
+    .arr__photo-col {
+      position: sticky;
+      top: 0;
+      height: 100vh;
       overflow: hidden;
     }
-    .arr__photo img {
+
+    /* Foto container — houdt de gestapelde crossfade-afbeeldingen */
+    .arr__photo {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Alle foto's gestapeld — alleen de actieve heeft opacity: 1 */
+    .arr__photo-img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+      opacity: 0;
+      transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1);
+      will-change: opacity;
     }
-    .arr__photo:hover img { transform: scale(1.03); }
+    .arr__photo-img.is-active {
+      opacity: 1;
+    }
 
     .arr__content {
       padding: 100px 72px 100px 80px;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      min-height: 100vh; /* genoeg scroll-ruimte voor de sticky foto */
     }
 
     .arr__eyebrow {
@@ -439,11 +458,21 @@
     }
 
     @media (max-width: 960px) {
-      .arr__inner { grid-template-columns: 1fr; }
-      .arr__photo { height: 360px; }
-      .arr__content { padding: 64px 32px 72px; }
+      .arr__inner {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+      /* Mobile: foto sticky bovenaan, lijst scrollt eronder langs */
+      .arr__photo-col {
+        position: sticky;
+        top: 60px; /* onder de mobile nav */
+        height: 62vw;
+        z-index: 5;
+      }
+      .arr__content { padding: 64px 32px 72px; min-height: auto; }
     }
     @media (max-width: 480px) {
+      .arr__photo-col { height: 72vw; top: 54px; }
       .arr__content { padding: 48px 24px 56px; }
       .arr__cta { width: 100%; text-align: center; align-self: stretch; }
     }
@@ -949,10 +978,33 @@
 <section class="arr" id="arrangement">
   <div class="arr__inner">
 
-    <div class="arr__photo">
-      <img src="fotos/kamer-comfort.jpg"
-           alt="Comfortabele kamer bij Hotel Asteria Venray"
-           loading="lazy">
+    <!-- Foto-kolom: sticky op desktop, sticky bovenaan op mobile -->
+    <div class="arr__photo-col">
+      <div class="arr__photo" aria-hidden="true">
+        <!-- Foto 1: kamer — actief bij start -->
+        <img class="arr__photo-img is-active"
+             data-photo-id="kamer"
+             src="fotos/kamer-comfort.jpg"
+             alt="Comfortabele kamer bij Hotel Asteria Venray">
+        <!-- Foto 2: wellness -->
+        <img class="arr__photo-img"
+             data-photo-id="wellness"
+             src="fotos/wellness-spa.jpg"
+             alt="Wellness spa bij Hotel Asteria Venray"
+             loading="lazy">
+        <!-- Foto 3: diner -->
+        <img class="arr__photo-img"
+             data-photo-id="diner"
+             src="fotos/restaurant-diner.jpg"
+             alt="Restaurant en diner bij Hotel Asteria Venray"
+             loading="lazy">
+        <!-- Foto 4: buitenkant / parkeren -->
+        <img class="arr__photo-img"
+             data-photo-id="buiten"
+             src="fotos/hero-buitenkant.jpg"
+             alt="Hotel Asteria Venray buitenzijde"
+             loading="lazy">
+      </div>
     </div>
 
     <div class="arr__content reveal">
@@ -962,31 +1014,31 @@
       <p class="arr__desc">Van aankomst tot vertrek wordt u verwend. Geen keuzes, geen gedoe &mdash; gewoon genieten.</p>
 
       <ul class="arr__includes" aria-label="Inbegrepen bij het arrangement">
-        <li>
+        <li data-photo="kamer">
           <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
           Overnachting in een comfortabele kamer
         </li>
-        <li>
+        <li data-photo="kamer">
           <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
           Welkomstdrankje op de kamer (Botega)
         </li>
-        <li>
+        <li data-photo="wellness">
           <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
           Badjas, slippers &amp; handdoekpakket
         </li>
-        <li>
+        <li data-photo="wellness">
           <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
           Vrij gebruik van wellness (300 m&sup2;, Top Floor)
         </li>
-        <li>
+        <li data-photo="diner">
           <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
           Heerlijk 3-gangen diner in het restaurant
         </li>
-        <li>
+        <li data-photo="diner">
           <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
           Uitgebreid ontbijtbuffet de volgende ochtend
         </li>
-        <li>
+        <li data-photo="buiten">
           <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
           Gratis parkeren op eigen terrein
         </li>
@@ -1212,6 +1264,37 @@
     });
   }, { threshold: 0.12 });
   revealEls.forEach(el => revealObserver.observe(el));
+
+  // ── Arrangement: foto wisselt op hover (desktop) / scroll (mobile) ─
+  const photoImgs  = document.querySelectorAll('.arr__photo-img');
+  const photoItems = document.querySelectorAll('.arr__includes li[data-photo]');
+
+  function switchPhoto(photoId) {
+    photoImgs.forEach(img => {
+      img.classList.toggle('is-active', img.dataset.photoId === photoId);
+    });
+  }
+
+  const isDesktop = () => window.innerWidth > 960;
+
+  // Desktop: foto wisselt op mouseenter
+  photoItems.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      if (isDesktop()) switchPhoto(item.dataset.photo);
+    });
+  });
+
+  // Mobile: foto wisselt als item midden-in-viewport scrollt
+  const photoScrollObserver = new IntersectionObserver((entries) => {
+    if (isDesktop()) return;
+    entries.forEach(entry => {
+      if (entry.isIntersecting) switchPhoto(entry.target.dataset.photo);
+    });
+  }, {
+    rootMargin: '-35% 0px -35% 0px',
+    threshold: 0
+  });
+  photoItems.forEach(item => photoScrollObserver.observe(item));
 
   // ── Analytics ─────────────────────────────────────────────────
   function trackBookingClick() {
