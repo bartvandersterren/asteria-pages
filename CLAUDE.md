@@ -12,6 +12,7 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 - `tone-of-voice.md` — stemgeluid en schrijfstijl
 - `cro-guidelines.md` — conversie-optimalisatie richtlijnen
 - `brand.css` — design tokens (kleuren, typografie, spacing)
+- `design-dna.md` — visuele stijl, anti-patronen, referenties (lezen vóór bouwen)
 
 ## Technische context
 
@@ -40,5 +41,21 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 
 ## Foto's
 
-- fotos/ in repo = geselecteerde foto's (semantisch benoemd, ~17 stuks)
-- ~/Documents/Asteria Fotobank/ = volledig archief (318MB, 800 foto's) — niet in git
+- fotos/ in repo = geselecteerde WebP foto's (semantisch benoemd, 23 stuks, quality=72)
+- ~/Documents/Asteria Fotobank/ = volledig archief (318MB, 399 originelen) — niet in git
+
+## Testing & Playwright
+
+- Mobile testen: gebruik `browser_run_code_unsafe` met `page.setViewportSize({ width: 375, height: 812 })` — `browser_resize` werkt niet (type coercion bug)
+- Na `git push` ~35 seconden wachten vóór live URL testen (Cloudflare deploy tijd)
+- Screenshot workflow: `browser_run_code_unsafe` voor viewport + navigate + scroll, dan `browser_take_screenshot`
+
+## Cloudflare Functions
+
+- Google Reviews proxy: `functions/api/google-reviews.js` — vereist `GOOGLE_PLACES_API_KEY` env var in Cloudflare Pages dashboard
+- Place ID opzoeken: `curl "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Hotel+Asteria+Venray&inputtype=textquery&fields=place_id&key=JOUW_KEY"`
+- Place ID staat als placeholder in google-reviews.js regel 9 — nog invullen
+
+## Mobile layout gotcha
+
+- Op mobile heeft `body { background: #f0efed }` — secties ná de arr-c kaart (margin: 16px) krijgen 16px gap in body-kleur. Houd hier rekening mee bij nieuwe blokken.
