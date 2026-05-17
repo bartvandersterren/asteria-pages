@@ -1182,6 +1182,52 @@
       margin: 0;
     }
 
+    /* ── Desktop: side panel ── */
+    @media (min-width: 900px) {
+      /* Backdrop verdwijnt op desktop — panel staat naast de kaart */
+      .wp-backdrop { display: none !important; }
+
+      /* Panel: vaste breedte rechts, hoogte = 100% sectie */
+      .wp-panel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: auto;
+        width: 320px;
+        max-height: none;
+        border-radius: 0;
+        transform: translateX(100%);
+        transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        overflow-y: auto;
+        box-shadow: -4px 0 24px rgba(0,0,0,0.25);
+      }
+
+      .wp-panel.is-open {
+        transform: translateX(0);
+      }
+
+      .wp-panel__handle { display: none; }
+
+      .wp-panel__close {
+        top: 16px;
+        right: 16px;
+      }
+
+      .wp-panel__photo-wrap {
+        height: 240px;
+        margin-top: 0;
+      }
+
+      .wp-panel__body {
+        padding: 20px 24px 40px;
+      }
+
+      .wp-panel__title {
+        font-size: 26px;
+      }
+    }
+
   </style>
 </head>
 <body>
