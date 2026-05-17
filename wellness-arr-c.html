@@ -779,9 +779,18 @@
       padding: 40px;
     }
     @media (max-width: 600px) {
-      .reviews { padding: 48px 0 56px; }
-      .reviews__header { padding: 0 20px; margin-bottom: 28px; }
-      .review-card { width: 230px; }
+      .reviews { padding: 44px 0 52px; }
+      .reviews__header {
+        padding: 0 20px;
+        margin-bottom: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .reviews__score { font-size: 38px; }
+      .reviews__live-badge { align-self: flex-start; }
+      .review-card { width: 220px; }
+      .reviews__track { gap: 10px; }
     }
 
     /* ══════════════════════════════════════════════════════════
