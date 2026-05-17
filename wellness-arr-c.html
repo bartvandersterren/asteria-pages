@@ -631,9 +631,111 @@
       .footer { padding: 48px 24px 36px; }
     }
 
+    /* ══════════════════════════════════════════════════════════
+       STICKY CTA
+    ══════════════════════════════════════════════════════════ */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 900;
+      background: #1a1a1a;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+    }
+    .sticky-cta.is-visible { transform: translateY(0); }
+
+    /* Variant A */
+    .sticky-cta__info {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .sticky-cta__name {
+      font-family: 'Electrolize', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .sticky-cta__price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+    .sticky-cta__price-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* Variant B */
+    .sticky-cta__sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      margin-top: 2px;
+    }
+
+    /* Knop (beide varianten) */
+    .sticky-cta__btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #c23435;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      transition: background 200ms ease;
+      white-space: nowrap;
+    }
+    .sticky-cta__btn:hover { background: #a82c2c; }
+
+    @media (max-width: 600px) {
+      .sticky-cta { padding: 10px 16px; gap: 12px; }
+      .sticky-cta__price { font-size: 17px; }
+      .sticky-cta__btn { font-size: 13px; padding: 11px 18px; }
+    }
+
   </style>
 </head>
 <body>
+
+<!-- ══ STICKY CTA ════════════════════════════════════════ -->
+<div class="sticky-cta" id="stickyCta" role="complementary" aria-label="Snel boeken">
+  <!-- Variant A: prijs zichtbaar -->
+  <div class="sticky-cta__info" id="stickyVariantA">
+    <span class="sticky-cta__name">Wellness Arrangement</span>
+    <strong class="sticky-cta__price">&euro;139,50</strong>
+    <span class="sticky-cta__price-sub">per persoon &middot; 2-persoonskamer</span>
+  </div>
+  <!-- Variant B: inbegrepen zichtbaar, geen prijs -->
+  <div class="sticky-cta__info" id="stickyVariantB" style="display:none">
+    <span class="sticky-cta__name">Boek het arrangement</span>
+    <span class="sticky-cta__sub">Incl. wellness, diner &amp; ontbijt</span>
+  </div>
+  <a
+    href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+    class="sticky-cta__btn"
+    id="stickyCtaBtn"
+    target="_blank"
+    rel="noopener"
+  >Boek nu</a>
+</div>
 
 <!-- ══ NAV ═══════════════════════════════════════════════════ -->
 <nav class="main-nav" id="nav">
@@ -987,6 +1089,47 @@
         }
       });
     });
+  }());
+
+
+  /* ── Sticky CTA + A/B test ── */
+  (function () {
+    var bar      = document.getElementById('stickyCta');
+    var hero     = document.getElementById('hero');
+    var footer   = document.querySelector('.footer');
+    var variantA = document.getElementById('stickyVariantA');
+    var variantB = document.getElementById('stickyVariantB');
+    var btn      = document.getElementById('stickyCtaBtn');
+
+    // A/B split: 50/50, persistent per sessie
+    var variant = sessionStorage.getItem('sticky_ab');
+    if (!variant) {
+      variant = Math.random() < 0.5 ? 'A' : 'B';
+      sessionStorage.setItem('sticky_ab', variant);
+    }
+    if (variant === 'B') {
+      variantA.style.display = 'none';
+      variantB.style.display = '';
+      btn.textContent = 'Bekijk beschikbaarheid';
+    }
+
+    // Klik tracken (custom event — koppel later aan analytics)
+    btn.addEventListener('click', function () {
+      var ev = new CustomEvent('sticky_cta_click', { detail: { variant: variant } });
+      document.dispatchEvent(ev);
+      // console.log('sticky_cta_click', variant); // debug
+    });
+
+    // Toon/verberg op scroll
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.target === hero)   { bar.classList.toggle('is-visible', !e.isIntersecting); }
+        if (e.target === footer) { bar.classList.toggle('is-visible', !e.isIntersecting); }
+      });
+    }, { threshold: 0.1 });
+
+    if (hero)   io.observe(hero);
+    if (footer) io.observe(footer);
   }());
 </script>
 
