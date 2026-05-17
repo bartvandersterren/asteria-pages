@@ -1094,9 +1094,9 @@
 
   /* ── Sticky CTA + A/B test ── */
   (function () {
-    var bar      = document.getElementById('stickyCta');
-    var hero     = document.getElementById('hero');
-    var footer   = document.querySelector('.footer');
+    var bar        = document.getElementById('stickyCta');
+    var arrangement = document.getElementById('arrangement');
+    var footer     = document.querySelector('.footer');
     var variantA = document.getElementById('stickyVariantA');
     var variantB = document.getElementById('stickyVariantB');
     var btn      = document.getElementById('stickyCtaBtn');
@@ -1120,16 +1120,16 @@
       // console.log('sticky_cta_click', variant); // debug
     });
 
-    // Toon/verberg op scroll
+    // Toon zodra arrangement uit beeld, verberg als footer in beeld
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.target === hero)   { bar.classList.toggle('is-visible', !e.isIntersecting); }
-        if (e.target === footer) { bar.classList.toggle('is-visible', !e.isIntersecting); }
+        if (e.target === arrangement) { bar.classList.toggle('is-visible', !e.isIntersecting); }
+        if (e.target === footer)      { bar.classList.toggle('is-visible', !e.isIntersecting); }
       });
     }, { threshold: 0.1 });
 
-    if (hero)   io.observe(hero);
-    if (footer) io.observe(footer);
+    if (arrangement) io.observe(arrangement);
+    if (footer)      io.observe(footer);
   }());
 </script>
 
