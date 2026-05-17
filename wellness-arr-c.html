@@ -974,6 +974,39 @@
       }
     }
 
+    /* ══════════════════════════════════════════════════════════
+       WELLNESS PLATTEGROND
+    ══════════════════════════════════════════════════════════ */
+    .wp-section {
+      position: relative;
+      width: 100vw;
+      height: 100svh;
+      overflow: hidden;
+      background: #2a2018;
+      margin-left: calc(-50vw + 50%);
+    }
+
+    .wp-section__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+    }
+
+    .wp-section__gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(20, 12, 6, 0.55) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
 
   </style>
 </head>
@@ -1317,6 +1350,18 @@
 
 </section>
 
+<!-- ══ WELLNESS PLATTEGROND ═══════════════════════════════════ -->
+<section class="wp-section" id="wellness-plattegrond" aria-label="Wellness faciliteiten — interactieve plattegrond">
+  <img
+    class="wp-section__img"
+    src="wellness-plattegrond.png"
+    alt="Plattegrond van de wellness op de Top Floor van Hotel Asteria"
+    loading="lazy"
+  >
+  <div class="wp-section__gradient"></div>
+  <!-- Pins en drawer worden door JS ingevuld (Task 3 & 4) -->
+  <div class="wp-pins" id="wp-pins"></div>
+</section>
 
 <!-- ══ FOOTER ════════════════════════════════════════════════ -->
 <footer class="footer">
