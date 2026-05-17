@@ -1855,6 +1855,19 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') wpClosePanel();
   });
+
+  // Swipe-down om drawer te sluiten (mobile only)
+  var wpPanel = document.getElementById('wp-panel');
+  var wpTouchStartY = 0;
+
+  wpPanel.addEventListener('touchstart', function(e) {
+    wpTouchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  wpPanel.addEventListener('touchend', function(e) {
+    var deltaY = e.changedTouches[0].clientY - wpTouchStartY;
+    if (deltaY > 60) wpClosePanel();
+  }, { passive: true });
 });
 
 document.addEventListener('DOMContentLoaded', wpRenderPins);
