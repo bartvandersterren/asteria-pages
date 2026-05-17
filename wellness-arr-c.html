@@ -1008,6 +1008,56 @@
       z-index: 1;
     }
 
+    /* Pins */
+    .wp-pins {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .wp-pin {
+      position: absolute;
+      pointer-events: auto;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      /* Vergroot taptarget naar 44×44px zonder de visuele pin te vergroten */
+      padding: 15px;
+      margin: -15px;
+      background: none;
+      border: none;
+      border-radius: 50%;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .wp-pin__dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #c23435;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .wp-pin__dot::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: rgba(194, 52, 53, 0.35);
+      animation: wp-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes wp-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50%       { transform: scale(1.5); opacity: 0; }
+    }
+
+    .wp-pin:focus-visible .wp-pin__dot {
+      outline: 2px solid #fff;
+      outline-offset: 4px;
+    }
+
   </style>
 </head>
 <body>
@@ -1534,6 +1584,32 @@ const WP_ZONES = [
     pin: { left: 64, top: 78 }
   },
 ];
+
+// ══ WELLNESS PLATTEGROND — PIN RENDERING ═════════════════════
+function wpRenderPins() {
+  var container = document.getElementById('wp-pins');
+  if (!container) return;
+
+  WP_ZONES.forEach(function(zone) {
+    var btn = document.createElement('button');
+    btn.className = 'wp-pin';
+    btn.setAttribute('aria-label', zone.naam + ' — tik voor meer info');
+    btn.setAttribute('data-zone-id', zone.id);
+    btn.style.left = zone.pin.left + '%';
+    btn.style.top  = zone.pin.top  + '%';
+
+    btn.innerHTML = '<div class="wp-pin__dot"></div>';
+    btn.addEventListener('click', function() { wpOpenPanel(zone.id); });
+    container.appendChild(btn);
+  });
+}
+
+function wpOpenPanel(zoneId) {
+  // stub — implemented in Task 4
+  console.log('pin clicked:', zoneId);
+}
+
+document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   /* ── Hamburger menu ── */
   (function () {
