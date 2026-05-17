@@ -1345,6 +1345,151 @@
 
 
 <script>
+// ══ WELLNESS PLATTEGROND — ZONE DATA ══════════════════════════
+const WP_ZONES = [
+  {
+    id: 'sauna-fins',
+    naam: 'Finse Sauna',
+    label: 'Sauna 1',
+    foto: 'fotos/wellness-sauna.webp',
+    omschrijving: 'De klassieke Finse sauna verwarmt het lichaam met droge hitte. Ideaal voor een diepe spier­ontspanning en om de bloedsomloop te stimuleren.',
+    specs: [
+      { icon: 'temp', tekst: '80–85°C' },
+      { icon: 'type', tekst: 'Droge hitte' },
+    ],
+    pin: { left: 68, top: 42 }
+  },
+  {
+    id: 'sauna-bio',
+    naam: 'Bio Sauna',
+    label: 'Sauna 2',
+    foto: 'fotos/wellness-sauna2.webp',
+    omschrijving: 'De bio sauna combineert lagere temperaturen met hoge luchtvochtigheid. Zachter voor de luchtwegen, ideaal als instap­sauna of voor wie het wat milder wil.',
+    specs: [
+      { icon: 'temp', tekst: '50–60°C' },
+      { icon: 'type', tekst: 'Vochtige hitte' },
+    ],
+    pin: { left: 50, top: 22 }
+  },
+  {
+    id: 'sauna-zoutsteen',
+    naam: 'Zoutsteen Sauna',
+    label: 'Sauna 3',
+    foto: 'fotos/wellness-sauna.webp',
+    omschrijving: 'Verlicht met zoutsteenlampen die een warm roze licht verspreiden. Het zout in de lucht heeft een positief effect op de luchtwegen en huid.',
+    specs: [
+      { icon: 'temp', tekst: '65–70°C' },
+      { icon: 'type', tekst: 'Zoutsteen' },
+    ],
+    pin: { left: 66, top: 22 }
+  },
+  {
+    id: 'sauna-infrarood-groot',
+    naam: 'Infrarood Sauna',
+    label: 'Sauna 4',
+    foto: 'fotos/wellness-sauna2.webp',
+    omschrijving: 'Infraroodstraling verwarmt het lichaam van binnenuit zonder de lucht te verhitten. Lager verbruik, hogere penetratie — perfect voor spier­herstel.',
+    specs: [
+      { icon: 'temp', tekst: '40–50°C' },
+      { icon: 'type', tekst: 'Infrarood' },
+    ],
+    pin: { left: 78, top: 37 }
+  },
+  {
+    id: 'infrarood-sauna',
+    naam: 'Infrarood Sauna',
+    label: 'Infrarood',
+    foto: 'fotos/wellness-spa.webp',
+    omschrijving: 'Een compacte infrarood­cabine voor een intensieve opwarming. De zachte stralingswarmte dringt diep door in spieren en gewrichten.',
+    specs: [
+      { icon: 'temp', tekst: '35–45°C' },
+      { icon: 'type', tekst: 'Infrarood' },
+    ],
+    pin: { left: 35, top: 28 }
+  },
+  {
+    id: 'ijsbad',
+    naam: 'IJz-/Dompelbad',
+    label: 'Contrast',
+    foto: 'fotos/wellness-spa.webp',
+    omschrijving: 'Het koude dompelbad na de sauna is het geheim van het contrastbaden. De plotselinge kou stimuleert de bloedsomloop en geeft een energieboost.',
+    specs: [
+      { icon: 'temp', tekst: '±10°C' },
+      { icon: 'type', tekst: 'Koud bad' },
+    ],
+    pin: { left: 40, top: 38 }
+  },
+  {
+    id: 'kruidenbad',
+    naam: 'Kruidenbad',
+    label: 'Kruidenbad',
+    foto: 'fotos/wellness-spa.webp',
+    omschrijving: 'Een warm sfeervol bad met verse kruiden. De geuren en warmte zorgen voor diepe ontspanning van lichaam en geest.',
+    specs: [
+      { icon: 'temp', tekst: '±38°C' },
+      { icon: 'type', tekst: 'Warm bad' },
+    ],
+    pin: { left: 52, top: 43 }
+  },
+  {
+    id: 'voetenbaden',
+    naam: 'Voetenbaden',
+    label: '4 bassins',
+    foto: 'fotos/wellness-spa.webp',
+    omschrijving: 'Vier voetenbaden wisselen warm en koud af. Verwen je voeten na een wandeling of sauna­sessie — reflexpunten worden gestimuleerd, benen voelen lichter.',
+    specs: [
+      { icon: 'aantal', tekst: '4 bassins' },
+      { icon: 'type', tekst: 'Warm & koud' },
+    ],
+    pin: { left: 48, top: 28 }
+  },
+  {
+    id: 'stoomdouche',
+    naam: 'Stoomdouche',
+    label: 'Stoom',
+    foto: 'fotos/wellness-hero.webp',
+    omschrijving: 'Een stoomcabine vol vochtige warmte. De stoom opent poriën, reinigt de huid en ontspant de bovenste luchtwegen. Ideaal na de sauna.',
+    specs: [
+      { icon: 'temp', tekst: '40–45°C' },
+      { icon: 'type', tekst: 'Stoom' },
+    ],
+    pin: { left: 27, top: 50 }
+  },
+  {
+    id: 'belevingsdouche',
+    naam: 'Belevingsdouche',
+    label: 'Ervaring',
+    foto: 'fotos/wellness-hero.webp',
+    omschrijving: 'Kies je eigen beleving: tropische regen, Scandinavische mist of een verfrissende koude straal. Elke douche is een nieuwe sensatie.',
+    specs: [
+      { icon: 'type', tekst: 'Regen / Mist / Koud' },
+    ],
+    pin: { left: 33, top: 50 }
+  },
+  {
+    id: 'gym',
+    naam: 'Gym & Fitness',
+    label: 'Fitness',
+    foto: 'fotos/wellness-hero.webp',
+    omschrijving: 'Een moderne fitnessruimte met cardio- en krachtapparatuur. Vrij toegankelijk voor alle hotelgasten — voor een actieve start of afsluiting van de dag.',
+    specs: [
+      { icon: 'type', tekst: 'Cardio & Kracht' },
+    ],
+    pin: { left: 18, top: 72 }
+  },
+  {
+    id: 'lounge',
+    naam: 'Relaxruimte',
+    label: 'Lounge',
+    foto: 'fotos/wellness-spa.webp',
+    omschrijving: 'De relaxruimte met comfortabele ligbedden biedt uitzicht over de omgeving. Neem de tijd na de sauna — rust is onderdeel van het ritueel.',
+    specs: [
+      { icon: 'type', tekst: 'Ligbedden' },
+    ],
+    pin: { left: 64, top: 78 }
+  },
+];
+
   /* ── Hamburger menu ── */
   (function () {
     var nav      = document.querySelector('.main-nav');
