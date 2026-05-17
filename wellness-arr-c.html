@@ -979,25 +979,30 @@
 <body>
 
 <!-- ══ STICKY CTA ════════════════════════════════════════ -->
-<div class="sticky-cta" id="stickyCta" role="complementary" aria-label="Snel boeken">
-  <!-- Variant A: prijs zichtbaar -->
-  <div class="sticky-cta__info" id="stickyVariantA">
-    <span class="sticky-cta__name">Wellness Arrangement</span>
-    <strong class="sticky-cta__price">&euro;139,50</strong>
-    <span class="sticky-cta__price-sub">per persoon &middot; 2-persoonskamer</span>
-  </div>
-  <!-- Variant B: inbegrepen zichtbaar, geen prijs -->
-  <div class="sticky-cta__info" id="stickyVariantB" style="display:none">
-    <span class="sticky-cta__name">Boek het arrangement</span>
-    <span class="sticky-cta__sub">Incl. wellness, diner &amp; ontbijt</span>
-  </div>
+<a
+  href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+  class="sticky-fab"
+  id="stickyFab"
+  target="_blank"
+  rel="noopener"
+  aria-label="Boek direct: Wellness Arrangement"
+>
+  Boek direct
+  <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
+<div class="sticky-card" id="stickyCard" role="complementary" aria-label="Snel boeken">
+  <span class="sticky-card__name">Wellness Arrangement</span>
+  <strong class="sticky-card__price">&euro;139,50</strong>
+  <span class="sticky-card__price-sub">per persoon</span>
   <a
     href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
-    class="sticky-cta__btn"
-    id="stickyCtaBtn"
+    class="sticky-card__btn"
     target="_blank"
     rel="noopener"
-  >Boek nu</a>
+  >Boek direct &rarr;</a>
 </div>
 
 <!-- ══ NAV ═══════════════════════════════════════════════════ -->
