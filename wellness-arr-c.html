@@ -854,35 +854,37 @@
       position: fixed;
       bottom: 0; left: 0; right: 0;
       z-index: 900;
-      background: #1a1a1a;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 12px 24px;
+      background: #131110;
+      border-top: 2px solid rgba(194, 52, 53, 0.5);
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      align-items: stretch;
       transform: translateY(100%);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform;
     }
     .sticky-cta.is-visible { transform: translateY(0); }
 
-    /* Variant A */
+    /* Info paneel (beide varianten) */
     .sticky-cta__info {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      justify-content: center;
+      gap: 2px;
+      padding: 12px 20px 12px 20px;
+      border-left: 3px solid #c23435;
     }
     .sticky-cta__name {
       font-family: 'Electrolize', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.14em;
+      font-size: 9px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.3);
     }
     .sticky-cta__price {
       font-family: 'Montserrat', sans-serif;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       color: #fff;
       line-height: 1;
@@ -890,7 +892,8 @@
     .sticky-cta__price-sub {
       font-family: 'Montserrat', sans-serif;
       font-size: 10px;
-      color: rgba(255,255,255,0.4);
+      font-weight: 300;
+      color: rgba(255,255,255,0.3);
     }
 
     /* Variant B */
@@ -898,8 +901,7 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 11px;
       font-weight: 300;
-      color: rgba(255,255,255,0.5);
-      margin-top: 2px;
+      color: rgba(255,255,255,0.4);
     }
 
     /* Knop (beide varianten) */
@@ -907,24 +909,35 @@
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 10px;
       background: #c23435;
       color: #fff;
       font-family: 'Montserrat', sans-serif;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
       text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 4px;
+      padding: 0 32px;
+      align-self: stretch;
       transition: background 200ms ease;
       white-space: nowrap;
     }
+    .sticky-cta__btn svg { width: 16px; height: 16px; flex-shrink: 0; }
     .sticky-cta__btn:hover { background: #a82c2c; }
+    .sticky-cta__btn:focus { outline: 2px solid #fff; outline-offset: -3px; }
 
     @media (max-width: 600px) {
-      .sticky-cta { padding: 10px 16px; gap: 12px; }
-      .sticky-cta__price { font-size: 17px; }
-      .sticky-cta__btn { font-size: 13px; padding: 11px 18px; }
+      .sticky-cta { flex-direction: column; }
+      .sticky-cta__info { padding: 10px 14px; }
+      .sticky-cta__price { font-size: 18px; }
+      .sticky-cta__btn {
+        font-size: 13px;
+        padding: 13px 16px;
+        align-self: auto;
+        width: 100%;
+        border-top: 1px solid rgba(255,255,255,0.06);
+      }
     }
 
   </style>
@@ -1235,7 +1248,7 @@
 
   </div><!-- /.arr-c__content -->
 </section>
-
+<div id="arr-sentinel" aria-hidden="true"></div>
 
 <!-- ══ REVIEWS ══════════════════════════════════════════════ -->
 <section class="reviews" id="reviews" aria-label="Gastbeoordelingen">
@@ -1406,9 +1419,7 @@
 
   /* ── Sticky CTA + A/B test ── */
   (function () {
-    var bar        = document.getElementById('stickyCta');
-    var arrangement = document.getElementById('arrangement');
-    var footer     = document.querySelector('.footer');
+    var bar = document.getElementById('stickyCta');
     var variantA = document.getElementById('stickyVariantA');
     var variantB = document.getElementById('stickyVariantB');
     var btn      = document.getElementById('stickyCtaBtn');
@@ -1432,16 +1443,24 @@
       // console.log('sticky_cta_click', variant); // debug
     });
 
-    // Toon zodra arrangement uit beeld, verberg als footer in beeld
+    // Toon zodra reviews-sectie in beeld komt (arrangement voorbij)
+    var reviews = document.getElementById('reviews');
+    var pastArr = false;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.target === arrangement) { bar.classList.toggle('is-visible', !e.isIntersecting); }
-        if (e.target === footer)      { bar.classList.toggle('is-visible', !e.isIntersecting); }
+        if (e.target === reviews) {
+          if (e.isIntersecting) {
+            pastArr = true; // reviews in beeld → arrangement gepasseerd
+          } else if (e.boundingClientRect.top > 0) {
+            pastArr = false; // reviews nog onder viewport → arrangement nog zichtbaar
+          }
+          // reviews boven viewport (top < 0): pastArr blijft true
+        }
+        bar.classList.toggle('is-visible', pastArr);
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0 });
 
-    if (arrangement) io.observe(arrangement);
-    if (footer)      io.observe(footer);
+    if (reviews) io.observe(reviews);
   }());
 </script>
 
