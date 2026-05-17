@@ -1456,50 +1456,29 @@
   }());
 
 
-  /* ── Sticky CTA + A/B test ── */
+  /* ── Sticky CTA ── */
   (function () {
-    var bar = document.getElementById('stickyCta');
-    var variantA = document.getElementById('stickyVariantA');
-    var variantB = document.getElementById('stickyVariantB');
-    var btn      = document.getElementById('stickyCtaBtn');
-
-    // A/B split: 50/50, persistent per sessie
-    var variant = sessionStorage.getItem('sticky_ab');
-    if (!variant) {
-      variant = Math.random() < 0.5 ? 'A' : 'B';
-      sessionStorage.setItem('sticky_ab', variant);
-    }
-    if (variant === 'B') {
-      variantA.style.display = 'none';
-      variantB.style.display = '';
-      btn.textContent = 'Bekijk beschikbaarheid';
-    }
-
-    // Klik tracken (custom event — koppel later aan analytics)
-    btn.addEventListener('click', function () {
-      var ev = new CustomEvent('sticky_cta_click', { detail: { variant: variant } });
-      document.dispatchEvent(ev);
-      // console.log('sticky_cta_click', variant); // debug
-    });
-
-    // Toon zodra reviews-sectie in beeld komt (arrangement voorbij)
+    var fab  = document.getElementById('stickyFab');
+    var card = document.getElementById('stickyCard');
     var reviews = document.getElementById('reviews');
-    var pastArr = false;
+    if (!fab || !card || !reviews) return;
+
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.target === reviews) {
-          if (e.isIntersecting) {
-            pastArr = true; // reviews in beeld → arrangement gepasseerd
-          } else if (e.boundingClientRect.top > 0) {
-            pastArr = false; // reviews nog onder viewport → arrangement nog zichtbaar
-          }
-          // reviews boven viewport (top < 0): pastArr blijft true
+        var show;
+        if (e.isIntersecting) {
+          show = true;                        // reviews in beeld → arrangement voorbij
+        } else if (e.boundingClientRect.top > 0) {
+          show = false;                       // reviews nog onder viewport
+        } else {
+          show = true;                        // reviews al boven viewport (ver gescrolld)
         }
-        bar.classList.toggle('is-visible', pastArr);
+        fab.classList.toggle('is-visible', show);
+        card.classList.toggle('is-visible', show);
       });
     }, { threshold: 0 });
 
-    if (reviews) io.observe(reviews);
+    io.observe(reviews);
   }());
 </script>
 
