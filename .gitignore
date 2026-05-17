@@ -3,3 +3,7 @@
 .env
 node_modules/
 .wrangler/
+
+# Image generation test output
+test-output/
+test-image-gen.js
