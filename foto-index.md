@@ -391,6 +391,127 @@ _Fotobank: `/Users/bartvandersterren/Documents/Asteria Fotobank`_
 | `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9887-HDR.jpg` | Dit is de moderne lobby/foyer van Hotel Asteria met een indrukwekkende hoogte en luxe inrichting. De ruimte wordt gedomineerd door een opvallende donkere plafondzone met decoratieve gouden/koperen wandelpatronen en verlichte witte bollen, terwijl de vloer in licht marmer en de witte zuilen een elegant contrast creëren; aangevuld met comfortabele stoelen in het voorplan en sfeervolle blauwe ledverlichting in de achterliggende bar- en receptiegebieden. |
 | `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9890-HDR.jpg` | Dit is een moderne hotelgang met een warm, uitnodigend karakter, verlicht door paarse en blauwe ambient lighting die tegen de witte wanden schijnt. De ruimte wordt gekenmerkt door een rood-oranje patterned vloerbedekking, witte zuilen, decoratieve bloemenstellages en grote glazen deuren aan het einde die uitzicht bieden op het externe gebied. |
 | `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9895.jpg` | Dit is een moderne conferentie- of evenementenzaal in Hotel Asteria met een professioneel ingerichte podiumruimte, waarop twee grote displays het "Zaa7zeven" logo tonen. De ruimte straalt elegantie uit met kristallen kroonluchters, subtiele blauwe verlichting aan het plafond, zwarte theaterstoelen, hoogglans vloer en stijlvolle tafels met bloemenversieringen, wat een luxueuze en goed uitgeruste setting voor congressen en galadiners creëert. |
+
+---
+
+## Kamers per Kamertype
+
+_Visueel geanalyseerd en gematcht met asteria.nl website-foto's. ✓ = visueel bevestigd door directe vergelijking._
+
+---
+
+### Comfort Kamer
+_Kenmerken: beige/grijs craquelé-muur, oranje kussens, 2 losse bedden (altijd losse bedden), douche (geen bad)._
+
+| Bestand | Type | Toelichting |
+|---------|------|-------------|
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9537-HDR.jpg` | Slaapkamer | 2 losse bedden, oranje kussens, geometrisch behang |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9540-HDR.jpg` | Slaapkamer | 2 losse bedden, oranje kussens, kitchenette rechts |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9528-HDR.jpg` | Slaapkamer ✓ | 2 losse bedden, oranje kussens, grijze + oranje stoel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9549-HDR.jpg` | Slaapkamer ✓ | 2 losse bedden, amber kussens, bureau + cognac stoel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9247-HDR.jpg` | Badkamer | Inloopdouche + toilet + houten wasmeubel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9304-HDR.jpg` | Badkamer | Inloopdouche + toilet + houten wasmeubel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9307-HDR.jpg` | Badkamer | Inloopdouche + toilet + houten wasmeubel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9334-HDR.jpg` | Badkamer | Inloopdouche + toilet + houten wasmeubel |
+
+---
+
+### Royale Kamer
+_Kenmerken: blauw-grijze craquelé-muur, oranje kussens, ronde grijze fauteuil + oranje velvet stoel bij raam, double bed (altijd double). Geen X-frame stoelen (dat is Deluxe). Badkamer met ligbad._
+
+| Bestand | Type | Toelichting |
+|---------|------|-------------|
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9337-HDR.jpg` | Slaapkamer ✓ | Double bed, blauw-grijze muur, stoelen bij raam |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9143-HDR.jpg` | Slaapkamer ✓ | Double bed, kitchenette links, oranje kussens |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9325-HDR.jpg` | Slaapkamer ✓ | Double bed, kitchenette links zichtbaar |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9355-HDR.jpg` | Slaapkamer | Double bed, grafisch behang op hoofdwand |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9361-HDR.jpg` | Slaapkamer | Double bed, grijze muur, oranje kussens |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9250-HDR.jpg` | Badkamer | Ligbad + glazen douchewand |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9262-HDR.jpg` | Badkamer | Ligbad + dubbele wastafel + glazen douchewand |
+
+---
+
+### Deluxe Kamer
+_Kenmerken: blauw-grijze craquelé-muur, oranje kussens, 2 oranje X-frame loungestoelen, infraroodsauna in de badkamer._
+
+| Bestand | Type | Toelichting |
+|---------|------|-------------|
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9134-HDR.jpg` | Slaapkamer ✓ | Overzicht met 2 oranje X-frame loungestoelen |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9289-HDR.jpg` | Slaapkamer ✓ | Perspectief vanuit TV-hoek, loungestoelen |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9552-HDR.jpg` | Slaapkamer ✓ | Bed + 2 cognac X-frame chairs + koffieniche rechts |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9367.jpg` | Badkamer | Infraroodsauna links, inloopdouche rechts |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9378-HDR.jpg` | Badkamer | Infraroodsauna naast wastafel, digitale bediening |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9387-HDR.jpg` | Badkamer | Infraroodsauna close-up, verwarmingspanelen |
+
+---
+
+### Junior Suite
+_Kenmerken: groene/olijfgroene kussens, donkerbruin slaapbank, groene velvet X-frame stoelen, kitchenette/koffieniche, 1 kingsize bed, bad (ligbad)._
+
+| Bestand | Type | Toelichting |
+|---------|------|-------------|
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9172-HDR.jpg` | Zithoek ✓ | Bank + groene stoelen + koffieniche, TV links |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9480-HDR.jpg` | Zithoek ✓ | Bank + stoelen, bed linksachter zichtbaar |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9507-HDR.jpg` | Slaapkamer ✓ | Bed + zithoek vanuit slaapgedeelte, ronde spiegel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9250-HDR.jpg` | Badkamer | Ligbad + douche + glazen wand |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9262-HDR.jpg` | Badkamer | Ligbad + douche + wastafel + spiegel |
+
+---
+
+### Suite
+_Kenmerken: groene kussens, taupe/beige gestoffeerd hoofdeinde, donker bank, koelkastje. Eenvoudiger dan Junior Suite (geen ronde spiegel/cirkel-element)._
+
+| Bestand | Type | Toelichting |
+|---------|------|-------------|
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9519-HDR.jpg` | Slaapkamer ✓ | Bed, taupe hoofdeinde, groene kussens, bank links |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9489-HDR.jpg` | Zithoek ✓ | Bank + groene stoelen, ruimtelijk overzicht |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9504-HDR.jpg` | Zithoek + slaap | Bank + bed zichtbaar op achtergrond |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9513-HDR.jpg` | Suite overzicht | Zithoek + keuken/bar, ronde spiegel, TV |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9367.jpg` | Badkamer | Infraroodsauna links, inloopdouche rechts |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9378-HDR.jpg` | Badkamer | Infraroodsauna naast wastafel, digitale bediening |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9387-HDR.jpg` | Badkamer | Infraroodsauna close-up, verwarmingspanelen |
+
+---
+
+### Bruidssuite
+_Kenmerken: crème verticale panelen hoofdeinde, hangende gloeilampen, vrijstaand bad, donkere tegelmuur, open badkamer concept._
+
+| Bestand | Type | Toelichting |
+|---------|------|-------------|
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9408-HDR.jpg` | Slaapkamer ✓ | Bed + verticale panelen + hanglampjes |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9432-HDR.jpg` | Badkamer + slaap ✓ | Vrijstaand bad voorgrond, slaapkamer op achtergrond |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9429-HDR.jpg` | Badkamer | Vrijstaand bad, donker vanitymeubel, gouden kranen |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9441-HDR.jpg` | Badkamer | Vrijstaand bad + inloopdouche + dubbele wastafel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9467.jpg` | Slaapkamer | Bed, gouden kussens, verticale gordijnpanelen |
+
+---
+
+### Mindervalide Kamer
+_Kenmerken: groene kussens, 2 losse bedden, brede houten kast (toegankelijk), badkamer met aangepaste douche (zitje + beugels)._
+
+| Bestand | Type | Toelichting |
+|---------|------|-------------|
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9196-HDR.jpg` | Slaapkamer ✓ | 2 split bedden + grote houten kast, groene kussens |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9163-HDR.jpg` | Slaapkamer | Kamer vanuit kasthoek, 1 bed zichtbaar, groene stoel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9205-HDR.jpg` | Badkamer ✓ | Aangepaste douche met zitje + beugels |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9211-HDR.jpg` | Badkamer ✓ | Ligbad + wastafels |
+
+---
+
+---
+
+### Kamerdetails (algemeen bruikbaar)
+
+| Bestand | Omschrijving |
+|---------|-------------|
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9137-HDR.jpg` | TV-wand met ronde verlichte nis + koffiehoek |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9149.jpg` | TV-paneel close-up met indirecte verlichting |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9153.jpg` | Espressomachine + koffiecapsules op bureau |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9156.jpg` | Verlichte niche met decoratieve vaas + bloemen |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9220-HDR.jpg` | Koffie/thee hoek close-up |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9447.jpg` | Gouden wandkraan boven witte wastafel |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9448.jpg` | Gouden kraan, witte wastafel, donkere tegels |
+| `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9460.jpg` | Grohe douchethermostaat close-up |
 | `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9896.jpg` | Deze elegante hotelgang wordt verlicht door een rij identieke wandlampen met paarse kappen die een warme, sfeervolle gloei uitstralen tegen de subtiel verlichte paarse en roze achtergrond. De moderne, minimalistische inrichting met zachte kleuren en gedempt licht creëert een rustgevende en luxueuze sfeer die typisch is voor een stijlvol boutique hotel. |
 | `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9897.jpg` | Deze hotelgang wordt verlicht door elegante wandlampen met ronde kappen en gestructureerde, balusterachtige bases die tegen een paars-roze verlichte wand zijn gemonteerd. De warme, gele gloed van de lampen creëert een luxueuze en moderne sfeer, terwijl de zachte kleurovergangen tussen blauw en paars een sophisticated gastverblijf uitstralen. |
 | `/Users/bartvandersterren/Documents/Asteria Fotobank/Interieur/_O0A9898.jpg` | Een feestelijk dessert wordt gepresenteerd op een paars bord met hotellogo's: een ronde taart met goudkleurige frosting, versierd met gele vruchtstukken en chocolade decoraties, netjes in punten gesneden. De sfeer is elegant en gastronomisch, met aandacht voor detail en professionele presentatie die het hotelkeuken-niveau uitstraalt. |
