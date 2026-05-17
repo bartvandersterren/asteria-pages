@@ -502,6 +502,33 @@
 
     .arr-c__trust-item svg { width: 11px; height: 11px; }
 
+    /* Mini rating in arr-c */
+    .arr-c__rating {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      margin-bottom: 14px;
+      color: inherit;
+    }
+    .arr-c__rating-stars {
+      color: #f59e0b;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+    .arr-c__rating-score {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .arr-c__rating-count {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    .arr-c__rating:hover .arr-c__rating-count { color: #64748b; }
+
     /* Tablet */
     @media (max-width: 900px) { .arr-c__content { padding: 48px 44px; } }
 
@@ -843,6 +870,11 @@
   <!-- Rechts: contentpaneel -->
   <div class="arr-c__content">
 
+    <a href="#reviews" class="arr-c__rating" aria-label="4,2 van 5 sterren · 2.219 Google reviews">
+      <span class="arr-c__rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="arr-c__rating-score">4,2</span>
+      <span class="arr-c__rating-count">· 2.219 reviews</span>
+    </a>
     <span class="arr-c__eyebrow">Wellness Arrangement</span>
     <h2 class="arr-c__title">Wat is inbegrepen?</h2>
     <p class="arr-c__intro">
