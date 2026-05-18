@@ -1186,6 +1186,130 @@
       .wp-intro__title { font-size: 32px; }
     }
 
+  /* ══════════════════════════════════════════════════════════
+     DINER BLOK
+  ══════════════════════════════════════════════════════════ */
+  .diner {
+    background: #f0efed;
+    padding: 40px 20px;
+  }
+
+  .diner__card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    max-width: 960px;
+    margin: 0 auto;
+    min-height: 420px;
+    border-radius: 20px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.13);
+  }
+
+  .diner__bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('fotos/restaurant-sfeer.webp');
+    background-size: cover;
+    background-position: 70% center;
+  }
+
+  .diner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(8,6,4,0.22) 0%, rgba(8,6,4,0.52) 100%);
+  }
+
+  .diner__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 72px 48px;
+    max-width: 520px;
+    width: 100%;
+  }
+
+  .diner__eyebrow {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .diner__title {
+    font-family: 'Electrolize', sans-serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+
+  .diner__sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.68);
+    line-height: 1.75;
+    margin-bottom: 36px;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .diner__cta {
+    display: inline-block;
+    background: #c23435;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    padding: 14px 36px;
+    border-radius: 8px;
+    transition: background 200ms ease;
+  }
+
+  .diner__cta:hover { background: #a82c2c; }
+
+  @media (max-width: 768px) {
+    .diner {
+      padding: 0;
+    }
+    .diner__card {
+      border-radius: 0;
+      box-shadow: none;
+      min-height: unset;
+      aspect-ratio: 4/3;
+      max-width: 100%;
+    }
+    .diner__content {
+      padding: 24px 28px;
+      max-width: 100%;
+    }
+    .diner__title {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .diner__eyebrow {
+      margin-bottom: 10px;
+    }
+    .diner__sub {
+      display: none;
+    }
+    .diner__cta {
+      font-size: 12px;
+      padding: 11px 22px;
+    }
+  }
+
   </style>
 </head>
 <body>
@@ -1570,6 +1694,23 @@
       <h3 class="wp-panel__title" id="wp-panel-title"></h3>
       <div class="wp-panel__specs" id="wp-panel-specs"></div>
       <p class="wp-panel__desc" id="wp-panel-desc"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DINER ════════════════════════════════════════════ -->
+<section class="diner" aria-label="Drie-gangen diner — inbegrepen in het arrangement">
+  <div class="diner__card">
+    <div class="diner__bg" role="img" aria-label="Restaurant Hotel Asteria — intiem dineren met uitzicht op het groen"></div>
+    <div class="diner__overlay"></div>
+    <div class="diner__content">
+      <span class="diner__eyebrow">Inbegrepen in het arrangement</span>
+      <h2 class="diner__title">Een heerlijk<br>drie-gangen diner</h2>
+      <p class="diner__sub">Na een avond in de wellness schuift u aan in ons restaurant. Vers bereid, seizoensgebonden, geen haast.</p>
+      <a class="diner__cta"
+         href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+         target="_blank"
+         rel="noopener">Boek het arrangement</a>
     </div>
   </div>
 </section>
