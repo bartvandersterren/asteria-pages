@@ -845,6 +845,44 @@
     .footer__copy { font-size: 12px; color: rgba(255,255,255,0.3); }
 
     /* ══════════════════════════════════════════════════════════
+   COOKIE BANNER
+══════════════════════════════════════════════════════════ */
+.cookie-banner {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 9999;
+  background: #1a1a1a;
+  color: rgba(255,255,255,0.8);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.3);
+}
+.cookie-banner[hidden] { display: none; }
+.cookie-banner__text { max-width: 600px; }
+.cookie-banner__text a { color: #fff; text-decoration: underline; }
+.cookie-banner__btn {
+  background: #c23435;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.cookie-banner__btn:hover { background: #a82c2c; }
+
+    /* ══════════════════════════════════════════════════════════
        STICKY CTA
     ══════════════════════════════════════════════════════════ */
     /* ── Sticky CTA: gedeelde animatie ── */
@@ -2134,7 +2172,28 @@
 
 
 
+<!-- ══ COOKIE BANNER ═════════════════════════════════════ -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookiemelding">
+  <p class="cookie-banner__text">
+    Deze website gebruikt cookies voor een optimale ervaring.
+    <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">Meer info</a>
+  </p>
+  <button class="cookie-banner__btn" id="cookieAccept">Akkoord</button>
+</div>
+
 <script>
+/* ── Cookie banner ── */
+(function () {
+  if (localStorage.getItem('cookie-consent')) {
+    document.getElementById('cookieBanner').hidden = true;
+    return;
+  }
+  document.getElementById('cookieAccept').addEventListener('click', function () {
+    localStorage.setItem('cookie-consent', '1');
+    document.getElementById('cookieBanner').hidden = true;
+  });
+}());
+
 // ══ WELLNESS PLATTEGROND — ZONE DATA ══════════════════════════
 // pin.left / pin.top = % van de AFBEELDING (1248×917 px)
 // wpRenderPins() rekent dit om naar container-% rekening houdend met object-fit: cover
