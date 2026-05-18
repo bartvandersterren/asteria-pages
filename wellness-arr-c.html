@@ -26,7 +26,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -61,8 +60,8 @@
       font-weight: 400;
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .top-bar .far, .top-bar .fas { margin: 0 4px 0 5px; color: #f2f2f2; font-size: 12px; }
-    .top-bar .fa-globe, .top-bar .fa-phone { margin: 0 4px 0 8px; }
+    .top-bar .nav-icon { width: 14px; height: 14px; margin: 0 5px 0 8px; vertical-align: -2px; fill: none; stroke: #f2f2f2; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .mobile-nav-buttons .nav-icon { width: 18px; height: 18px; margin-right: 4px; vertical-align: -3px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .top-bar a { color: #f2f2f2; text-decoration: none; margin: 0 5px 0 0; }
     .top-bar a:hover { color: #fff; }
     .lang-nav { cursor: pointer; color: #f2f2f2; border: none; text-transform: uppercase; font-size: 12px; font-family: sans-serif; background: transparent; outline: none; -webkit-appearance: none; appearance: none; margin-left: 2px; }
@@ -92,7 +91,6 @@
       .nav-content { display: none; }
       .mobile-nav-buttons { display: flex !important; align-items: center; gap: 4px; float: right; color: #fff; margin: 0; }
       .mobile-nav-buttons .button { display: flex !important; align-items: center; gap: 6px; background: transparent; color: #fff; border: none; padding: 10px 12px; font-size: 13px; font-family: 'Montserrat', sans-serif; cursor: pointer; line-height: 25px; text-decoration: none; }
-      .mobile-nav-buttons .button i { font-size: 18px; }
       .main-nav ul { position: fixed; inset: 0; background: #444; text-align: center; padding: 20px 0; opacity: 0; display: none; transition: opacity 0.4s ease-in-out; overflow-y: scroll; z-index: 1200; list-style: none; margin: 0; }
       .main-nav.show-mobile-nav ul:not(.submenu) { display: block; }
       .main-nav.show-mobile-nav.delay ul { opacity: 1; }
@@ -1655,10 +1653,10 @@
 <nav class="main-nav" id="nav">
   <div class="nav-inner">
     <div class="top-bar">
-      <a href="mailto:info@asteria.nl"><i class="far fa-envelope"></i>info@asteria.nl</a>
-      <a href="tel:0031478511466"><i class="fas fa-phone"></i>0478 511 466</a>
+      <a href="mailto:info@asteria.nl"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 9 10-9"/></svg>info@asteria.nl</a>
+      <a href="tel:0031478511466"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>0478 511 466</a>
       <span class="lang-wrapper">
-        <i class="fas fa-globe"></i>
+        <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
         <select class="lang-nav">
           <option value="nl" selected>nl</option>
           <option value="en">en</option>
@@ -1688,8 +1686,8 @@
            class="button book-now" target="_blank" rel="noopener">Boek nu</a>
       </div>
       <div class="mobile-nav-buttons">
-        <span class="menu-button button" id="menuOpen"><i class="fas fa-bars"></i> Menu</span>
-        <a href="tel:0031478511466" class="button"><i class="fas fa-phone"></i> Bel</a>
+        <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Menu</span>
+        <a href="tel:0031478511466" class="button"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Bel</a>
       </div>
     </div>
   </div>
