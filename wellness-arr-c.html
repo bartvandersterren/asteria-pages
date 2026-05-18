@@ -810,56 +810,39 @@
     /* ══════════════════════════════════════════════════════════
        FOOTER
     ══════════════════════════════════════════════════════════ */
-
     .footer {
-      background: #242424;
-      color: rgba(255,255,255,0.55);
-      padding: 56px 40px 40px;
+      background: #1a1a1a;
+      color: rgba(255,255,255,0.6);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      padding: 60px 24px 40px;
+      text-align: center;
     }
-
     .footer__inner {
-      max-width: 1180px;
+      max-width: 600px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 48px;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
     }
-
-    .footer__logo img { width: 64px; opacity: 0.7; display: block; }
-
-    .footer__info { font-size: 13px; font-weight: 300; line-height: 1.9; }
-
+    .footer__logo img { width: 60px; opacity: 0.8; }
     .footer__name {
       font-family: 'Electrolize', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 6px;
+      font-size: 16px;
+      color: #fff;
+      margin-bottom: 4px;
     }
-
-    .footer__info a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    .footer__info { line-height: 1.8; }
+    .footer__info a { color: rgba(255,255,255,0.6); text-decoration: none; }
     .footer__info a:hover { color: #fff; }
-
-    .footer__copy { font-size: 11px; letter-spacing: 0.04em; text-align: right; padding-top: 4px; }
-
-    .footer__divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 40px 0 20px; }
-
-    .footer__bottom {
-      max-width: 1180px;
-      margin: 0 auto;
-      font-size: 11px;
-      color: rgba(255,255,255,0.25);
-      letter-spacing: 0.04em;
-    }
-
-    @media (max-width: 768px) {
-      .footer__inner { grid-template-columns: 1fr; gap: 24px; }
-      .footer__copy { text-align: left; }
-      .footer { padding: 48px 24px 36px; }
-    }
+    .footer__social { display: flex; gap: 16px; }
+    .footer__social a { color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer__social a:hover { color: #fff; }
+    .footer__links { display: flex; gap: 20px; font-size: 13px; }
+    .footer__links a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer__links a:hover { color: #fff; }
+    .footer__copy { font-size: 12px; color: rgba(255,255,255,0.3); }
 
     /* ══════════════════════════════════════════════════════════
        STICKY CTA
@@ -2117,22 +2100,35 @@
   <div class="footer__inner">
     <div class="footer__logo">
       <a href="https://www.asteria.nl">
-        <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+        <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria" loading="lazy">
       </a>
     </div>
     <div class="footer__info">
       <p class="footer__name">Hotel Asteria</p>
-      Leunseweg 2 &nbsp;&middot;&nbsp; 5804 AB Venray<br>
+      Maasheseweg 80a &nbsp;&middot;&nbsp; 5804 AD Venray<br>
       <a href="tel:0031478511466">0478 511 466</a> &nbsp;&middot;&nbsp;
       <a href="mailto:info@asteria.nl">info@asteria.nl</a><br>
-      <a href="https://www.asteria.nl">www.asteria.nl</a>
+      <a href="https://www.asteria.nl" target="_blank" rel="noopener">www.asteria.nl</a>
+    </div>
+    <div class="footer__social">
+      <a href="https://www.facebook.com/AsteriaVenray" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/hotelasteriavenray" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/company/hotel-asteria-venray" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z"/></svg>
+      </a>
+    </div>
+    <div class="footer__links">
+      <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://www.asteria.nl/algemene-voorwaarden" target="_blank" rel="noopener">Algemene voorwaarden</a>
     </div>
     <div class="footer__copy">
-      &copy; 2026 Hotel Asteria<br>Alle rechten voorbehouden
+      &copy; 2026 Hotel Asteria &nbsp;&middot;&nbsp; Onderdeel van Van der Sterren Hotels
     </div>
   </div>
-  <hr class="footer__divider">
-  <p class="footer__bottom">Hotel Asteria is onderdeel van Van der Sterren Hotels</p>
 </footer>
 
 
