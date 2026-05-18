@@ -977,6 +977,45 @@
     /* ══════════════════════════════════════════════════════════
        WELLNESS PLATTEGROND
     ══════════════════════════════════════════════════════════ */
+
+    /* ── Intro header boven de interactieve kaart ── */
+    .wp-intro {
+      background: #fff;
+      padding: 100px 40px 72px;
+    }
+    .wp-intro__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .wp-intro__label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c23435;
+      margin-bottom: 20px;
+    }
+    .wp-intro__title {
+      font-family: 'Electrolize', sans-serif;
+      font-size: 52px;
+      font-weight: 400;
+      color: #0f172a;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+    .wp-intro__sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: #475569;
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
     .wp-section {
       position: relative;
       width: 100vw;
@@ -1230,8 +1269,26 @@
 
     /* ── Mobiel: volledig plattegrond zichtbaar ── */
     @media (max-width: 899px) {
-      /* Sectie past mee met de afbeelding */
-      .wp-section { height: auto; }
+      /* Intro header kleiner op mobile */
+      .wp-intro {
+        padding: 64px 20px 48px;
+      }
+      .wp-intro__title {
+        font-size: 32px;
+      }
+      .wp-intro__sub {
+        max-width: none;
+      }
+
+      /* Sectie past mee met de afbeelding + kaart-treatment */
+      .wp-section {
+        height: auto;
+        width: calc(100% - 32px);
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-bottom: 16px;
+        border-radius: 20px;
+      }
 
       /* Afbeelding op natuurlijke verhouding (geen bijsnijding) */
       .wp-section__img {
@@ -1589,6 +1646,14 @@
 </section>
 
 <!-- ══ WELLNESS PLATTEGROND ═══════════════════════════════════ -->
+<div class="wp-intro">
+  <div class="wp-intro__inner">
+    <span class="wp-intro__label">Wellness &middot; Top Floor</span>
+    <h2 class="wp-intro__title">Verken de faciliteiten</h2>
+    <p class="wp-intro__sub">Ontdek alle ruimtes van onze 300m² wellness op de Top Floor. Tik op een locatie voor meer informatie over elke ruimte.</p>
+  </div>
+</div>
+
 <section class="wp-section" id="wellness-plattegrond" aria-label="Wellness faciliteiten — interactieve plattegrond">
   <img
     class="wp-section__img"
