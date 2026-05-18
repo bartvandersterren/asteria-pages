@@ -1514,133 +1514,28 @@
   }
   .room-popup__cta:hover { background: #a82c2c; }
 
-  /* ── Desktop Variant A: 2-koloms grid ── */
+  /* ── Desktop: fit in 1vh ── */
   @media (min-width: 769px) {
-    .rooms--grid .rooms__list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .rooms--grid .room-row {
-      flex-direction: column;
-      align-items: stretch;
-      border: 1px solid #e8e5e0;
-    }
-    .rooms--grid .room-row__img {
-      width: 100%;
-      height: 180px;
-      aspect-ratio: auto;
-    }
-    .rooms--grid .room-row__body {
-      padding: 16px 20px;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-    }
-    .rooms--grid .room-row__chevron { display: none; }
-    .rooms--grid .rooms__base {
-      border: 1px solid #e8e5e0;
-    }
-    .rooms--grid .rooms__base-img {
-      width: 240px;
-    }
-  }
-
-  /* ── Desktop Variant B: split hero + compact list ── */
-  @media (min-width: 769px) {
-    .rooms--split .rooms__inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: start;
-    }
-    .rooms--split .rooms__header {
-      grid-column: 1 / -1;
-    }
-    .rooms--split .rooms__preview {
-      display: block;
-      position: sticky;
-      top: 100px;
-    }
-    .rooms--split .rooms__preview-img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      border-radius: 16px;
-      transition: opacity 0.3s ease;
-    }
-    .rooms--split .rooms__preview-name {
-      font-family: 'Electrolize', sans-serif;
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #0f172a;
-      margin-top: 16px;
-      margin-bottom: 6px;
-    }
-    .rooms--split .rooms__preview-desc {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      font-weight: 300;
-      color: #64748b;
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-    .rooms--split .rooms__preview-features {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px 14px;
-      margin-bottom: 20px;
-    }
-    .rooms--split .rooms__preview-feat {
-      font-size: 12px;
-      color: #475569;
+    .rooms {
+      padding: 48px 40px;
+      min-height: 0;
+      max-height: 100vh;
       display: flex;
       align-items: center;
-      gap: 5px;
+      box-sizing: border-box;
     }
-    .rooms--split .rooms__preview-feat::before {
-      content: '\2713';
-      color: #c23435;
-      font-weight: 700;
+    .rooms__inner { width: 100%; }
+    .rooms__sub { margin-bottom: 24px; }
+    .rooms__base { margin-bottom: 10px; }
+    .rooms__base-img { width: 160px; }
+    .rooms__base-body { padding: 14px 20px; }
+    .rooms__list { gap: 8px; }
+    .room-row__img {
+      width: 160px;
+      aspect-ratio: 16/9;
     }
-    .rooms--split .rooms__preview-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 32px;
-      min-height: 48px;
-      background: #c23435;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 13px;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 200ms ease;
-    }
-    .rooms--split .rooms__preview-cta:hover { background: #a82c2c; }
-    .rooms--split .rooms__right {
-      display: flex;
-      flex-direction: column;
-    }
-    .rooms--split .rooms__base {
-      border: 1px solid #e8e5e0;
-    }
-    .rooms--split .rooms__base-img { width: 140px; }
-    .rooms--split .room-row__img { width: 140px; }
-    .rooms--split .room-row {
-      border: 1px solid #e8e5e0;
-    }
-    .rooms--split .room-row.is-active {
-      border-color: #c23435;
-      box-shadow: 0 0 0 1px #c23435;
-    }
+    .room-row__body { padding: 12px 18px; }
   }
-
-  /* hide preview by default */
-  .rooms__preview { display: none; }
 
   /* ── Mobile ── */
   @media (max-width: 768px) {
@@ -2199,22 +2094,10 @@
 <!-- ══ KAMERTYPES ═══════════════════════════════════════ -->
 <section class="rooms" id="kamertypes" aria-label="Kamertypes">
   <div class="rooms__inner">
-    <div class="rooms__header">
-      <span class="rooms__eyebrow">Kies je kamer</span>
-      <h2 class="rooms__title">Welke kamer past bij jou?</h2>
-      <p class="rooms__sub">Upgrade voor meer comfort of privacy</p>
-    </div>
+    <span class="rooms__eyebrow">Kies je kamer</span>
+    <h2 class="rooms__title">Welke kamer past bij jou?</h2>
+    <p class="rooms__sub">Upgrade voor meer comfort of privacy</p>
 
-    <!-- Preview panel (variant B split) -->
-    <div class="rooms__preview" id="roomsPreview">
-      <img class="rooms__preview-img" id="previewImg" src="fotos/kamer-comfort.webp" alt="Comfort Kamer">
-      <div class="rooms__preview-name" id="previewName">Comfort Kamer</div>
-      <p class="rooms__preview-desc" id="previewDesc">~22 m² · tweepersoons bed · douche · zithoek · airco · WiFi</p>
-      <ul class="rooms__preview-features" id="previewFeatures"></ul>
-      <a class="rooms__preview-cta" id="previewCta" href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS" target="_blank" rel="noopener">Boek dit arrangement</a>
-    </div>
-
-    <div class="rooms__right">
     <!-- Comfort = baseline -->
     <div class="rooms__base">
       <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="Comfort Kamer" loading="lazy">
@@ -2289,7 +2172,6 @@
       </div>
 
     </div>
-    </div><!-- /rooms__right -->
   </div>
 </section>
 
@@ -2776,28 +2658,20 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 (function () {
   var BOOK_URL = 'https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS';
 
-  // Variant toggle: ?rooms=compact|thumb|grid|split
+  // A/B toggle: ?rooms=compact | ?rooms=thumb | random 50/50
   var section = document.querySelector('.rooms');
-  var isMobile = window.innerWidth <= 768;
   if (section) {
     var params = new URLSearchParams(window.location.search);
     var variant = params.get('rooms');
-    // Mobile: only compact/thumb matter
-    if (isMobile) {
-      if (variant !== 'compact' && variant !== 'thumb') {
-        variant = sessionStorage.getItem('rooms-variant-mobile');
-        if (!variant) {
-          variant = Math.random() < 0.5 ? 'compact' : 'thumb';
-          sessionStorage.setItem('rooms-variant-mobile', variant);
-        }
+    if (variant !== 'compact' && variant !== 'thumb') {
+      variant = sessionStorage.getItem('rooms-variant');
+      if (!variant) {
+        variant = Math.random() < 0.5 ? 'compact' : 'thumb';
+        sessionStorage.setItem('rooms-variant', variant);
       }
-      if (variant === 'thumb') section.classList.add('rooms--thumb');
-    } else {
-      // Desktop: grid or split
-      if (variant !== 'grid' && variant !== 'split') {
-        variant = 'grid'; // default desktop
-      }
-      section.classList.add('rooms--' + variant);
+    }
+    if (variant === 'thumb') {
+      section.classList.add('rooms--thumb');
     }
   }
 
@@ -2840,56 +2714,6 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     }
   };
 
-  // Split variant: hover updates preview, click = book (no popup)
-  if (!isMobile && section && section.classList.contains('rooms--split')) {
-    var previewImg = document.getElementById('previewImg');
-    var previewName = document.getElementById('previewName');
-    var previewDesc = document.getElementById('previewDesc');
-    var previewFeatures = document.getElementById('previewFeatures');
-
-    var baseRoom = {
-      name: 'Comfort Kamer',
-      img: 'fotos/kamer-comfort.webp',
-      desc: '~22 m² · tweepersoons bed · douche · zithoek · airco · WiFi',
-      features: []
-    };
-
-    function updatePreview(data) {
-      previewImg.src = data.img;
-      previewImg.alt = data.name;
-      previewName.textContent = data.name;
-      previewDesc.textContent = data.desc;
-      if (data.features && data.features.length) {
-        previewFeatures.innerHTML = data.features.map(function(f) {
-          return '<li class="rooms__preview-feat">' + f + '</li>';
-        }).join('');
-        previewFeatures.style.display = '';
-      } else {
-        previewFeatures.style.display = 'none';
-      }
-    }
-
-    // Set active state on rows
-    var allRows = section.querySelectorAll('.room-row');
-    var baseCard = section.querySelector('.rooms__base');
-
-    function setActive(el) {
-      allRows.forEach(function(r) { r.classList.remove('is-active'); });
-      if (baseCard) baseCard.classList.remove('is-active');
-      if (el) el.classList.add('is-active');
-    }
-
-    if (baseCard) {
-      baseCard.style.cursor = 'pointer';
-      baseCard.addEventListener('mouseenter', function() {
-        updatePreview(baseRoom);
-        setActive(baseCard);
-      });
-    }
-
-    updatePreview(baseRoom);
-  }
-
   var overlay = document.getElementById('roomPopup');
   var inner = document.getElementById('roomPopupInner');
 
@@ -2925,25 +2749,11 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     if (e.key === 'Escape') closePopup();
   });
 
-  var isSplit = section && section.classList.contains('rooms--split') && !isMobile;
-
   document.querySelectorAll('.room-row').forEach(function (row) {
-    if (isSplit) {
-      // Split: hover updates preview, click does nothing (CTA is in preview)
-      row.addEventListener('mouseenter', function () {
-        var r = ROOMS[this.dataset.room];
-        if (r && typeof updatePreview === 'function') {
-          updatePreview(r);
-          setActive(this);
-        }
-      });
-    } else {
-      // Grid / mobile: click opens popup
-      row.addEventListener('click', function () { openPopup(this.dataset.room); });
-      row.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(this.dataset.room); }
-      });
-    }
+    row.addEventListener('click', function () { openPopup(this.dataset.room); });
+    row.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(this.dataset.room); }
+    });
   });
 }());
 </script>
