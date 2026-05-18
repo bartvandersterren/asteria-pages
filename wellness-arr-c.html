@@ -978,14 +978,22 @@
        WELLNESS PLATTEGROND
     ══════════════════════════════════════════════════════════ */
 
-    /* ── Intro header boven de interactieve kaart ── */
-    .wp-intro {
-      background: #fff;
-      padding: 100px 40px 72px;
+    /* ── Sectie: intro links (sticky), stage rechts ── */
+    .wp-section {
+      background: #f8f7f5;
+      padding: 100px 40px 120px;
     }
-    .wp-intro__inner {
-      max-width: 1100px;
+    .wp-section__inner {
+      max-width: 1200px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 72px;
+      align-items: start;
+    }
+    .wp-section__intro {
+      position: sticky;
+      top: 120px;
     }
     .wp-intro__label {
       display: block;
@@ -999,7 +1007,7 @@
     }
     .wp-intro__title {
       font-family: 'Electrolize', sans-serif;
-      font-size: 52px;
+      font-size: 44px;
       font-weight: 400;
       color: #0f172a;
       letter-spacing: 0.04em;
@@ -1009,43 +1017,25 @@
     }
     .wp-intro__sub {
       font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 300;
       color: #475569;
       line-height: 1.7;
-      max-width: 520px;
     }
 
-    .wp-section {
+    /* ── Stage: afbeelding + pins ── */
+    .wp-section__stage {
       position: relative;
-      width: 100vw;
-      height: 100svh;
+      border-radius: 20px;
       overflow: hidden;
-      background: #2a2018;
-      margin-left: calc(-50vw + 50%);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.10);
     }
-
     .wp-section__img {
-      position: absolute;
-      inset: 0;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
+      height: auto;
       display: block;
     }
-
-    .wp-section__gradient {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        transparent 40%,
-        rgba(20, 12, 6, 0.55) 100%
-      );
-      pointer-events: none;
-      z-index: 1;
-    }
+    .wp-section__gradient { display: none; }
 
     /* Pins */
     .wp-pins {
@@ -1054,13 +1044,11 @@
       z-index: 2;
       pointer-events: none;
     }
-
     .wp-pin {
       position: absolute;
       pointer-events: auto;
       transform: translate(-50%, -50%);
       cursor: pointer;
-      /* Vergroot taptarget naar 44×44px zonder de visuele pin te vergroten */
       padding: 15px;
       margin: -15px;
       background: none;
@@ -1068,7 +1056,6 @@
       border-radius: 50%;
       -webkit-tap-highlight-color: transparent;
     }
-
     .wp-pin__dot {
       width: 14px;
       height: 14px;
@@ -1077,7 +1064,6 @@
       position: relative;
       box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
-
     .wp-pin__dot::after {
       content: '';
       position: absolute;
@@ -1086,23 +1072,21 @@
       background: rgba(194, 52, 53, 0.35);
       animation: wp-pulse 2s ease-in-out infinite;
     }
-
     @keyframes wp-pulse {
       0%, 100% { transform: scale(1); opacity: 0.7; }
       50%       { transform: scale(1.5); opacity: 0; }
     }
-
     .wp-pin:focus-visible .wp-pin__dot {
-      outline: 2px solid #fff;
+      outline: 2px solid #c23435;
       outline-offset: 4px;
     }
 
-    /* Backdrop */
+    /* Backdrop (mobile) */
     .wp-backdrop {
-      position: absolute;
+      position: fixed;
       inset: 0;
       background: rgba(0,0,0,0);
-      z-index: 3;
+      z-index: 200;
       transition: background 0.3s;
       pointer-events: none;
     }
@@ -1113,13 +1097,13 @@
 
     /* Panel — mobile: drawer vanuit onderkant */
     .wp-panel {
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       background: #fff;
       border-radius: 20px 20px 0 0;
-      z-index: 4;
+      z-index: 201;
       transform: translateY(100%);
       transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
       max-height: 72svh;
@@ -1127,180 +1111,71 @@
       -webkit-overflow-scrolling: touch;
     }
     .wp-panel[hidden] { display: none; }
-    .wp-panel.is-open {
-      transform: translateY(0);
-      display: block;
-    }
+    .wp-panel.is-open { transform: translateY(0); display: block; }
 
     .wp-panel__handle {
-      width: 40px;
-      height: 4px;
-      background: #ddd;
-      border-radius: 2px;
-      margin: 12px auto 0;
-      flex-shrink: 0;
+      width: 40px; height: 4px;
+      background: #ddd; border-radius: 2px;
+      margin: 12px auto 0; flex-shrink: 0;
     }
-
     .wp-panel__close {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #888;
-      padding: 4px;
-      line-height: 0;
+      position: absolute; top: 14px; right: 16px;
+      background: none; border: none; cursor: pointer;
+      color: #888; padding: 4px; line-height: 0;
     }
-
     .wp-panel__photo-wrap {
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-      margin-top: 8px;
-      flex-shrink: 0;
+      width: 100%; height: 200px;
+      overflow: hidden; margin-top: 8px; flex-shrink: 0;
     }
-    .wp-panel__photo {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .wp-panel__body {
-      padding: 16px 20px 28px;
-    }
-
+    .wp-panel__photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .wp-panel__body { padding: 16px 20px 28px; }
     .wp-panel__label {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #c23435;
+      font-family: 'Montserrat', sans-serif; font-size: 10px;
+      font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #c23435;
     }
-
     .wp-panel__title {
-      font-family: 'Electrolize', sans-serif;
-      font-size: 22px;
-      color: #1a1a1a;
-      margin: 4px 0 12px;
-      font-weight: normal;
+      font-family: 'Electrolize', sans-serif; font-size: 22px;
+      color: #1a1a1a; margin: 4px 0 12px; font-weight: normal;
     }
-
-    .wp-panel__specs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
+    .wp-panel__specs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
     .wp-spec-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: #f5f0ea;
-      color: #444;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #f5f0ea; color: #444;
+      font-family: 'Montserrat', sans-serif; font-size: 12px;
+      font-weight: 600; padding: 4px 10px; border-radius: 20px;
     }
-
-    .wp-spec-badge svg {
-      flex-shrink: 0;
-    }
-
+    .wp-spec-badge svg { flex-shrink: 0; }
     .wp-panel__desc {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 14px;
-      font-weight: 300;
-      color: #555;
-      line-height: 1.65;
-      margin: 0;
+      font-family: 'Montserrat', sans-serif; font-size: 14px;
+      font-weight: 300; color: #555; line-height: 1.65; margin: 0;
     }
 
-    /* ── Desktop: side panel ── */
+    /* ── Desktop: panel schuift van rechts als fixed sheet ── */
     @media (min-width: 900px) {
-      /* Backdrop verdwijnt op desktop — panel staat naast de kaart */
       .wp-backdrop { display: none !important; }
-
-      /* Panel: vaste breedte rechts, hoogte = 100% sectie */
       .wp-panel {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: auto;
-        width: 320px;
-        max-height: none;
-        border-radius: 0;
+        top: 0; right: 0; bottom: 0; left: auto;
+        width: 340px; max-height: none; border-radius: 0;
         transform: translateX(100%);
         transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
         overflow-y: auto;
-        box-shadow: -4px 0 24px rgba(0,0,0,0.25);
+        box-shadow: -4px 0 24px rgba(0,0,0,0.18);
       }
-
-      .wp-panel.is-open {
-        transform: translateX(0);
-      }
-
+      .wp-panel.is-open { transform: translateX(0); }
       .wp-panel__handle { display: none; }
-
-      .wp-panel__close {
-        top: 16px;
-        right: 16px;
-      }
-
-      .wp-panel__photo-wrap {
-        height: 240px;
-        margin-top: 0;
-      }
-
-      .wp-panel__body {
-        padding: 20px 24px 40px;
-      }
-
-      .wp-panel__title {
-        font-size: 26px;
-      }
+      .wp-panel__close { top: 16px; right: 16px; }
+      .wp-panel__photo-wrap { height: 240px; margin-top: 0; }
+      .wp-panel__body { padding: 20px 24px 40px; }
+      .wp-panel__title { font-size: 26px; }
     }
 
-    /* ── Mobiel: volledig plattegrond zichtbaar ── */
+    /* ── Mobile: gestapeld, kleinere padding ── */
     @media (max-width: 899px) {
-      /* Intro header kleiner op mobile */
-      .wp-intro {
-        padding: 64px 20px 48px;
-      }
-      .wp-intro__title {
-        font-size: 32px;
-      }
-      .wp-intro__sub {
-        max-width: none;
-      }
-
-      /* Sectie past mee met de afbeelding + kaart-treatment */
-      .wp-section {
-        height: auto;
-        width: calc(100% - 32px);
-        margin-left: 16px;
-        margin-right: 16px;
-        margin-bottom: 16px;
-        border-radius: 20px;
-      }
-
-      /* Afbeelding op natuurlijke verhouding (geen bijsnijding) */
-      .wp-section__img {
-        position: relative;
-        width: 100%;
-        height: auto;
-        object-fit: unset;
-      }
-
-      /* Backdrop en panel vastgezet aan viewport zodat drawer vanuit schermonderkant schuift */
-      .wp-backdrop { position: fixed; }
-      .wp-panel    { position: fixed; }
+      .wp-section { padding: 64px 16px 64px; }
+      .wp-section__inner { grid-template-columns: 1fr; gap: 28px; }
+      .wp-section__intro { position: static; }
+      .wp-intro__title { font-size: 32px; }
     }
 
   </style>
@@ -1646,29 +1521,31 @@
 </section>
 
 <!-- ══ WELLNESS PLATTEGROND ═══════════════════════════════════ -->
-<div class="wp-intro">
-  <div class="wp-intro__inner">
-    <span class="wp-intro__label">Wellness &middot; Top Floor</span>
-    <h2 class="wp-intro__title">Verken de faciliteiten</h2>
-    <p class="wp-intro__sub">Ontdek alle ruimtes van onze 300m² wellness op de Top Floor. Tik op een locatie voor meer informatie over elke ruimte.</p>
-  </div>
-</div>
-
 <section class="wp-section" id="wellness-plattegrond" aria-label="Wellness faciliteiten — interactieve plattegrond">
-  <img
-    class="wp-section__img"
-    src="fotos/plattegrond-wellness.png"
-    alt="Plattegrond van de wellness op de Top Floor van Hotel Asteria"
-    loading="lazy"
-  >
-  <div class="wp-section__gradient"></div>
-  <!-- Pins en drawer worden door JS ingevuld (Task 3 & 4) -->
-  <div class="wp-pins" id="wp-pins"></div>
+  <div class="wp-section__inner">
+
+    <div class="wp-section__intro">
+      <span class="wp-intro__label">Wellness &middot; Top Floor</span>
+      <h2 class="wp-intro__title">Verken de faciliteiten</h2>
+      <p class="wp-intro__sub">Ontdek alle ruimtes van onze 300m² wellness op de Top Floor. Tik op een locatie voor meer informatie over elke ruimte.</p>
+    </div>
+
+    <div class="wp-section__stage">
+      <img
+        class="wp-section__img"
+        src="fotos/plattegrond-wellness.png"
+        alt="Plattegrond van de wellness op de Top Floor van Hotel Asteria"
+        loading="lazy"
+      >
+      <div class="wp-pins" id="wp-pins"></div>
+    </div>
+
+  </div>
 
   <!-- Backdrop -->
   <div class="wp-backdrop" id="wp-backdrop" aria-hidden="true"></div>
 
-  <!-- Drawer (mobile) / Side panel (desktop via CSS) -->
+  <!-- Drawer (mobile) / Side panel (desktop, fixed) -->
   <div class="wp-panel" id="wp-panel" role="dialog" aria-modal="true" aria-label="Wellness ruimte details" hidden>
     <div class="wp-panel__handle" aria-hidden="true"></div>
     <button class="wp-panel__close" id="wp-panel-close" aria-label="Sluiten">
@@ -1853,28 +1730,9 @@ const WP_ZONES = [
 
 // ══ WELLNESS PLATTEGROND — PIN RENDERING ═════════════════════
 // pin.left/top zijn % van de AFBEELDING (naturale afmetingen).
-// Omdat de sectie object-fit:cover gebruikt, moet elke pin omgerekend worden
-// naar % van de container, rekening houdend met de bijsnijding.
+// Afbeelding staat op width:100% height:auto — geen bijsnijding, pins direct in %.
 function wpImgToContainerPct(img, imgPctX, imgPctY) {
-  var cW = img.offsetWidth;
-  var cH = img.offsetHeight;
-  var nW = img.naturalWidth  || 1248;
-  var nH = img.naturalHeight || 917;
-  var imgRatio = nW / nH;
-  var cRatio   = cW / cH;
-  var rW, rH, oX, oY;
-  if (imgRatio > cRatio) {
-    // Image breder dan container → schalen op hoogte, links/rechts bijgesneden
-    rH = cH; rW = cH * imgRatio;
-    oX = (rW - cW) / 2; oY = 0;
-  } else {
-    // Image hoger dan container → schalen op breedte, boven/onder bijgesneden
-    rW = cW; rH = cW / imgRatio;
-    oX = 0; oY = (rH - cH) / 2;
-  }
-  var px = (imgPctX / 100) * rW - oX;
-  var py = (imgPctY / 100) * rH - oY;
-  return { left: (px / cW) * 100, top: (py / cH) * 100 };
+  return { left: imgPctX, top: imgPctY };
 }
 
 function wpPositionPins(img, container) {
