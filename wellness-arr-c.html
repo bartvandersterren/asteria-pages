@@ -1228,6 +1228,24 @@
       }
     }
 
+    /* ── Mobiel: volledig plattegrond zichtbaar ── */
+    @media (max-width: 899px) {
+      /* Sectie past mee met de afbeelding */
+      .wp-section { height: auto; }
+
+      /* Afbeelding op natuurlijke verhouding (geen bijsnijding) */
+      .wp-section__img {
+        position: relative;
+        width: 100%;
+        height: auto;
+        object-fit: unset;
+      }
+
+      /* Backdrop en panel vastgezet aan viewport zodat drawer vanuit schermonderkant schuift */
+      .wp-backdrop { position: fixed; }
+      .wp-panel    { position: fixed; }
+    }
+
   </style>
 </head>
 <body>
@@ -1574,7 +1592,7 @@
 <section class="wp-section" id="wellness-plattegrond" aria-label="Wellness faciliteiten — interactieve plattegrond">
   <img
     class="wp-section__img"
-    src="wellness-plattegrond.png"
+    src="fotos/plattegrond-wellness.png"
     alt="Plattegrond van de wellness op de Top Floor van Hotel Asteria"
     loading="lazy"
   >
@@ -1634,90 +1652,56 @@
 
 <script>
 // ══ WELLNESS PLATTEGROND — ZONE DATA ══════════════════════════
+// pin.left / pin.top = % van de AFBEELDING (1248×917 px)
+// wpRenderPins() rekent dit om naar container-% rekening houdend met object-fit: cover
 const WP_ZONES = [
   {
     id: 'sauna-fins',
-    naam: 'Finse Sauna',
-    label: 'Sauna 1',
+    naam: 'Sauna 2',
+    label: 'Sauna',
     foto: 'fotos/wellness-sauna.webp',
-    omschrijving: 'De klassieke Finse sauna verwarmt het lichaam met droge hitte. Ideaal voor een diepe spier­ontspanning en om de bloedsomloop te stimuleren.',
+    omschrijving: 'De grote Finse sauna verwarmt het lichaam met droge hitte. Ideaal voor een diepe spier­ontspanning en om de bloedsomloop te stimuleren.',
     specs: [
       { icon: 'temp', tekst: '80–85°C' },
       { icon: 'type', tekst: 'Droge hitte' },
     ],
-    pin: { left: 68, top: 42 }
+    pin: { left: 76, top: 14 }
   },
   {
     id: 'sauna-bio',
-    naam: 'Bio Sauna',
-    label: 'Sauna 2',
+    naam: 'Sauna 3',
+    label: 'Sauna',
     foto: 'fotos/wellness-sauna2.webp',
     omschrijving: 'De bio sauna combineert lagere temperaturen met hoge luchtvochtigheid. Zachter voor de luchtwegen, ideaal als instap­sauna of voor wie het wat milder wil.',
     specs: [
       { icon: 'temp', tekst: '50–60°C' },
       { icon: 'type', tekst: 'Vochtige hitte' },
     ],
-    pin: { left: 50, top: 22 }
+    pin: { left: 89, top: 13 }
   },
   {
     id: 'sauna-zoutsteen',
-    naam: 'Zoutsteen Sauna',
-    label: 'Sauna 3',
+    naam: 'Sauna 4',
+    label: 'Sauna',
     foto: 'fotos/wellness-sauna.webp',
     omschrijving: 'Verlicht met zoutsteenlampen die een warm roze licht verspreiden. Het zout in de lucht heeft een positief effect op de luchtwegen en huid.',
     specs: [
       { icon: 'temp', tekst: '65–70°C' },
       { icon: 'type', tekst: 'Zoutsteen' },
     ],
-    pin: { left: 66, top: 22 }
+    pin: { left: 89, top: 32 }
   },
   {
-    id: 'sauna-infrarood-groot',
+    id: 'sauna-infrarood',
     naam: 'Infrarood Sauna',
-    label: 'Sauna 4',
+    label: 'Infrarood',
     foto: 'fotos/wellness-sauna2.webp',
-    omschrijving: 'Infraroodstraling verwarmt het lichaam van binnenuit zonder de lucht te verhitten. Lager verbruik, hogere penetratie — perfect voor spier­herstel.',
+    omschrijving: 'Infraroodstraling verwarmt het lichaam van binnenuit zonder de lucht te verhitten. Zachte warmte die diep in spieren en gewrichten dringt — perfect voor herstel.',
     specs: [
       { icon: 'temp', tekst: '40–50°C' },
       { icon: 'type', tekst: 'Infrarood' },
     ],
-    pin: { left: 78, top: 37 }
-  },
-  {
-    id: 'infrarood-sauna',
-    naam: 'Infrarood Cabine',
-    label: 'Infrarood',
-    foto: 'fotos/wellness-spa.webp',
-    omschrijving: 'Een compacte infrarood­cabine voor een intensieve opwarming. De zachte stralingswarmte dringt diep door in spieren en gewrichten.',
-    specs: [
-      { icon: 'temp', tekst: '35–45°C' },
-      { icon: 'type', tekst: 'Infrarood' },
-    ],
-    pin: { left: 35, top: 28 }
-  },
-  {
-    id: 'ijsbad',
-    naam: 'IJs-/Dompelbad',
-    label: 'Contrast',
-    foto: 'fotos/wellness-spa.webp',
-    omschrijving: 'Het koude dompelbad na de sauna is het geheim van het contrastbaden. De plotselinge kou stimuleert de bloedsomloop en geeft een energieboost.',
-    specs: [
-      { icon: 'temp', tekst: '±10°C' },
-      { icon: 'type', tekst: 'Koud bad' },
-    ],
-    pin: { left: 40, top: 38 }
-  },
-  {
-    id: 'kruidenbad',
-    naam: 'Kruidenbad',
-    label: 'Kruidenbad',
-    foto: 'fotos/wellness-spa.webp',
-    omschrijving: 'Een warm sfeervol bad met verse kruiden. De geuren en warmte zorgen voor diepe ontspanning van lichaam en geest.',
-    specs: [
-      { icon: 'temp', tekst: '±38°C' },
-      { icon: 'type', tekst: 'Warm bad' },
-    ],
-    pin: { left: 52, top: 43 }
+    pin: { left: 57, top: 17 }
   },
   {
     id: 'voetenbaden',
@@ -1729,7 +1713,31 @@ const WP_ZONES = [
       { icon: 'aantal', tekst: '4 bassins' },
       { icon: 'type', tekst: 'Warm & koud' },
     ],
-    pin: { left: 48, top: 28 }
+    pin: { left: 65, top: 32 }
+  },
+  {
+    id: 'ijsbad',
+    naam: 'IJs-/Dompelbad',
+    label: 'Contrast',
+    foto: 'fotos/wellness-spa.webp',
+    omschrijving: 'Het koude dompelbad na de sauna is het geheim van het contrastbaden. De plotselinge kou stimuleert de bloedsomloop en geeft een directe energieboost.',
+    specs: [
+      { icon: 'temp', tekst: '±10°C' },
+      { icon: 'type', tekst: 'Koud bad' },
+    ],
+    pin: { left: 48, top: 36 }
+  },
+  {
+    id: 'kruidenbad',
+    naam: 'Kruidenbad',
+    label: 'Kruidenbad',
+    foto: 'fotos/wellness-spa.webp',
+    omschrijving: 'Een warm sfeervol bad met verse kruiden. De geuren en warmte zorgen voor diepe ontspanning van lichaam en geest.',
+    specs: [
+      { icon: 'temp', tekst: '±38°C' },
+      { icon: 'type', tekst: 'Warm bad' },
+    ],
+    pin: { left: 47, top: 46 }
   },
   {
     id: 'stoomdouche',
@@ -1741,7 +1749,7 @@ const WP_ZONES = [
       { icon: 'temp', tekst: '40–45°C' },
       { icon: 'type', tekst: 'Stoom' },
     ],
-    pin: { left: 27, top: 50 }
+    pin: { left: 40, top: 59 }
   },
   {
     id: 'belevingsdouche',
@@ -1752,7 +1760,7 @@ const WP_ZONES = [
     specs: [
       { icon: 'type', tekst: 'Regen / Mist / Koud' },
     ],
-    pin: { left: 33, top: 50 }
+    pin: { left: 61, top: 56 }
   },
   {
     id: 'gym',
@@ -1763,7 +1771,7 @@ const WP_ZONES = [
     specs: [
       { icon: 'type', tekst: 'Cardio & Kracht' },
     ],
-    pin: { left: 18, top: 72 }
+    pin: { left: 22, top: 78 }
   },
   {
     id: 'lounge',
@@ -1774,26 +1782,75 @@ const WP_ZONES = [
     specs: [
       { icon: 'type', tekst: 'Ligbedden' },
     ],
-    pin: { left: 64, top: 78 }
+    pin: { left: 79, top: 78 }
   },
 ];
 
 // ══ WELLNESS PLATTEGROND — PIN RENDERING ═════════════════════
+// pin.left/top zijn % van de AFBEELDING (naturale afmetingen).
+// Omdat de sectie object-fit:cover gebruikt, moet elke pin omgerekend worden
+// naar % van de container, rekening houdend met de bijsnijding.
+function wpImgToContainerPct(img, imgPctX, imgPctY) {
+  var cW = img.offsetWidth;
+  var cH = img.offsetHeight;
+  var nW = img.naturalWidth  || 1248;
+  var nH = img.naturalHeight || 917;
+  var imgRatio = nW / nH;
+  var cRatio   = cW / cH;
+  var rW, rH, oX, oY;
+  if (imgRatio > cRatio) {
+    // Image breder dan container → schalen op hoogte, links/rechts bijgesneden
+    rH = cH; rW = cH * imgRatio;
+    oX = (rW - cW) / 2; oY = 0;
+  } else {
+    // Image hoger dan container → schalen op breedte, boven/onder bijgesneden
+    rW = cW; rH = cW / imgRatio;
+    oX = 0; oY = (rH - cH) / 2;
+  }
+  var px = (imgPctX / 100) * rW - oX;
+  var py = (imgPctY / 100) * rH - oY;
+  return { left: (px / cW) * 100, top: (py / cH) * 100 };
+}
+
+function wpPositionPins(img, container) {
+  WP_ZONES.forEach(function(zone) {
+    var btn = container.querySelector('[data-zone-id="' + zone.id + '"]');
+    if (!btn) return;
+    var pos = wpImgToContainerPct(img, zone.pin.left, zone.pin.top);
+    btn.style.left = pos.left + '%';
+    btn.style.top  = pos.top  + '%';
+  });
+}
+
 function wpRenderPins() {
   var container = document.getElementById('wp-pins');
-  if (!container) return;
+  var img = document.querySelector('.wp-section__img');
+  if (!container || !img) return;
 
+  // Maak de pin-knoppen aan
   WP_ZONES.forEach(function(zone) {
     var btn = document.createElement('button');
     btn.className = 'wp-pin';
     btn.setAttribute('aria-label', zone.naam + ' — tik voor meer info');
     btn.setAttribute('data-zone-id', zone.id);
-    btn.style.left = zone.pin.left + '%';
-    btn.style.top  = zone.pin.top  + '%';
-
     btn.innerHTML = '<div class="wp-pin__dot"></div>';
     btn.addEventListener('click', function() { wpOpenPanel(zone.id); });
     container.appendChild(btn);
+  });
+
+  // Positioneer zodra afbeelding geladen is
+  function doPosition() { wpPositionPins(img, container); }
+  if (img.complete && img.naturalWidth) {
+    doPosition();
+  } else {
+    img.addEventListener('load', doPosition);
+  }
+
+  // Herpositioneer bij resize (bijv. orientatiewijziging)
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(doPosition, 60);
   });
 }
 
