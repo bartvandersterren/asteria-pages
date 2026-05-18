@@ -1151,21 +1151,29 @@
       font-weight: 300; color: #555; line-height: 1.65; margin: 0;
     }
 
-    /* ── Desktop: panel schuift van rechts als fixed sheet ── */
+    /* ── Desktop: gecentreerde modal met backdrop ── */
     @media (min-width: 900px) {
-      .wp-backdrop { display: none !important; }
       .wp-panel {
-        top: 0; right: 0; bottom: 0; left: auto;
-        width: 340px; max-height: none; border-radius: 0;
-        transform: translateX(100%);
-        transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        top: 50%;
+        left: 50%;
+        right: auto;
+        bottom: auto;
+        width: 480px;
+        max-height: 80vh;
+        border-radius: 20px;
+        transform: translate(-50%, -50%) scale(0.94);
+        opacity: 0;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
         overflow-y: auto;
-        box-shadow: -4px 0 24px rgba(0,0,0,0.18);
+        box-shadow: 0 24px 80px rgba(0,0,0,0.22), 0 4px 16px rgba(0,0,0,0.10);
       }
-      .wp-panel.is-open { transform: translateX(0); }
+      .wp-panel.is-open {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
       .wp-panel__handle { display: none; }
       .wp-panel__close { top: 16px; right: 16px; }
-      .wp-panel__photo-wrap { height: 240px; margin-top: 0; }
+      .wp-panel__photo-wrap { height: 260px; margin-top: 0; }
       .wp-panel__body { padding: 20px 24px 40px; }
       .wp-panel__title { font-size: 26px; }
     }
