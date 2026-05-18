@@ -27,6 +27,47 @@
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
 
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "name": "Hotel Asteria",
+    "url": "https://www.asteria.nl",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Maasheseweg 80a",
+      "postalCode": "5804 AD",
+      "addressLocality": "Venray",
+      "addressCountry": "NL"
+    },
+    "telephone": "+31478511466",
+    "email": "info@asteria.nl",
+    "image": "https://visit.asteria.nl/fotos/wellness-hero.webp",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.2",
+      "reviewCount": "2219",
+      "bestRating": "5"
+    },
+    "makesOffer": {
+      "@type": "Offer",
+      "name": "Wellness Arrangement",
+      "description": "Overnachting, welkomstdrankje, badjas en slippers, vrije toegang wellness, drie-gangen diner en ontbijtbuffet.",
+      "price": "139.50",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "139.50",
+        "priceCurrency": "EUR",
+        "unitText": "per persoon"
+      },
+      "url": "https://visit.asteria.nl/wellness-arr-c",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { overflow-x: hidden; max-width: 100%; }
