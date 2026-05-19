@@ -3234,6 +3234,9 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(this.dataset.room); }
     });
   });
+
+  // Expose ROOMS voor booking popup IIFE
+  window.ROOMS = ROOMS;
 }());
 
 /* ══ BOOKING POPUP ══════════════════════════════════════════ */
@@ -3274,8 +3277,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER
       + '&mewsStart=' + toYMD(checkin)
       + '&mewsEnd='   + toYMD(checkout);
-    if (roomKey && ROOMS[roomKey] && ROOMS[roomKey].mewsCategoryId) {
-      url += '&mewsCategories[0]=' + ROOMS[roomKey].mewsCategoryId;
+    if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
+      url += '&mewsCategories[0]=' + window.ROOMS[roomKey].mewsCategoryId;
     }
     return url;
   }
@@ -3386,7 +3389,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     selectedRoomKey = null; // reset bij elke render
 
     elRooms.innerHTML = ROOM_KEYS.map(function (key) {
-      var r = ROOMS[key];
+      var r = window.ROOMS[key];
       var isDefault = key === 'comfort';
       return '<div class="bk-room-card' + (isDefault ? ' is-selected' : '') + '" data-key="' + key + '" role="radio" aria-checked="' + (isDefault ? 'true' : 'false') + '" tabindex="0">' +
         '<div class="bk-room-card__header">' +
