@@ -22,6 +22,9 @@
   <!-- Preload hero image (LCP) -->
   <link rel="preload" as="image" href="fotos/wellness-hero.webp" type="image/webp">
 
+  <!-- Flatpickr date picker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -2230,6 +2233,58 @@
   <div class="room-popup" id="roomPopupInner"></div>
 </div>
 
+<!-- ══ BOOKING POPUP ════════════════════════════════════════════ -->
+<div class="bk-overlay" id="bookingPopup" role="dialog" aria-modal="true" aria-label="Verblijf boeken">
+  <div class="bk-modal" id="bookingModal">
+
+    <!-- Stap 1: Datum kiezen -->
+    <div class="bk-step" id="bkStep1">
+      <button class="bk-close" id="bkClose" aria-label="Sluiten">&times;</button>
+      <div class="bk-step-indicator" aria-hidden="true">
+        <span class="bk-dot bk-dot--active"></span>
+        <span class="bk-dot"></span>
+      </div>
+      <h2 class="bk-title">Kies uw verblijfsdata</h2>
+      <div id="bkCalendar"></div>
+      <div class="bk-summary" id="bkSummary" aria-live="polite">
+        <div class="bk-summary__field">
+          <span class="bk-summary__label">Aankomst</span>
+          <span class="bk-summary__value" id="bkAankomst">&mdash;</span>
+        </div>
+        <div class="bk-summary__sep" aria-hidden="true"></div>
+        <div class="bk-summary__field">
+          <span class="bk-summary__label">Vertrek</span>
+          <span class="bk-summary__value" id="bkVertrek">&mdash;</span>
+        </div>
+        <div class="bk-summary__sep" aria-hidden="true"></div>
+        <div class="bk-summary__field">
+          <span class="bk-summary__label">Nachten</span>
+          <span class="bk-summary__value" id="bkNachten">&mdash;</span>
+        </div>
+      </div>
+      <div class="bk-cta-row">
+        <button class="bk-btn-primary" id="bkToStep2" disabled>Volgende: kies kamer &rarr;</button>
+        <button class="bk-btn-ghost" id="bkDirectBook">Of boek direct zonder kamerkeuze</button>
+      </div>
+    </div>
+
+    <!-- Stap 2: Kamer kiezen -->
+    <div class="bk-step" id="bkStep2" hidden>
+      <button class="bk-back" id="bkBack" aria-label="Terug naar datumkeuze">&larr; Aanpassen</button>
+      <div class="bk-step-indicator" aria-hidden="true">
+        <span class="bk-dot"></span>
+        <span class="bk-dot bk-dot--active"></span>
+      </div>
+      <h2 class="bk-title">Kies uw kamer</h2>
+      <div class="bk-rooms" id="bkRooms" role="radiogroup" aria-label="Kamertype kiezen"></div>
+      <div class="bk-cta-row">
+        <button class="bk-btn-primary" id="bkConfirm">Bekijk beschikbaarheid &rarr;</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- ══ DINER ════════════════════════════════════════════ -->
 <section class="diner" aria-label="Drie-gangen diner, inbegrepen in het arrangement">
   <div class="diner__card">
@@ -2294,6 +2349,8 @@
   </p>
   <button class="cookie-banner__btn" id="cookieAccept">Akkoord</button>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
 
 <script>
 /* ── Cookie banner ── */
