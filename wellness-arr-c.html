@@ -1873,19 +1873,103 @@
     border: 1px solid #e5e7eb;
     border-radius: 12px;
     width: 100%;
+    font-family: 'Montserrat', sans-serif;
+  }
+  /* Header: maand + jaar */
+  #bkCalendar .flatpickr-months {
+    padding: 10px 4px 6px;
+    align-items: center;
+  }
+  #bkCalendar .flatpickr-month {
+    height: auto;
+    line-height: 1;
+  }
+  #bkCalendar .flatpickr-current-month {
+    font-size: 15px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: static;
+    width: auto;
+    left: auto;
+    transform: none;
+  }
+  /* Maand select + jaar input: styled als plain tekst */
+  #bkCalendar .flatpickr-monthDropdownContainer select,
+  #bkCalendar .numInputWrapper input {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #1a1a1a;
+    background: none;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    padding: 0;
+    width: auto;
+  }
+  #bkCalendar .numInputWrapper { width: 56px; }
+  #bkCalendar .numInputWrapper span { display: none; }
+  /* Navigatie pijlen */
+  #bkCalendar .flatpickr-prev-month,
+  #bkCalendar .flatpickr-next-month {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    height: auto;
+    top: 8px;
+    fill: #9ca3af;
+    color: #9ca3af;
+  }
+  #bkCalendar .flatpickr-prev-month:hover,
+  #bkCalendar .flatpickr-next-month:hover { fill: #1a1a1a; color: #1a1a1a; }
+  /* Weekdag labels */
+  #bkCalendar .flatpickr-weekdays { background: none; padding: 4px 0; }
+  #bkCalendar .flatpickr-weekday {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #9ca3af;
+    background: none;
+  }
+  /* Dag cellen */
+  #bkCalendar .flatpickr-day {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    border-radius: 8px;
+    color: #1a1a1a;
+    border: 1.5px solid transparent;
+  }
+  #bkCalendar .flatpickr-day.flatpickr-disabled,
+  #bkCalendar .flatpickr-day.prevMonthDay,
+  #bkCalendar .flatpickr-day.nextMonthDay { color: #d1d5db; }
+  #bkCalendar .flatpickr-day:hover:not(.flatpickr-disabled):not(.selected):not(.startRange):not(.endRange) {
+    background: #f3f4f6;
+    border-color: #f3f4f6;
   }
   .flatpickr-day.selected,
   .flatpickr-day.startRange,
   .flatpickr-day.endRange {
     background: #c23435 !important;
     border-color: #c23435 !important;
+    color: #fff !important;
+    font-weight: 700;
   }
   .flatpickr-day.inRange {
     background: #fde8e8 !important;
     border-color: #fde8e8 !important;
     box-shadow: -5px 0 0 #fde8e8, 5px 0 0 #fde8e8;
   }
-  .flatpickr-day.today { border-color: #c23435; }
+  .flatpickr-day.today:not(.selected) { border-color: #c23435; }
 
   /* ── Bevestigingsbalk ── */
   .bk-summary {
@@ -2069,6 +2153,92 @@
 
   /* ── Stap animatie ── */
   .bk-step[hidden] { display: none; }
+
+  /* ── Pre-geselecteerde kamer badge ── */
+  .bk-selected-room {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff8f8;
+    border: 1.5px solid #fca5a5;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .bk-selected-room__label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9ca3af;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .bk-selected-room__name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #c23435;
+  }
+  .bk-selected-room__change {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: #9ca3af;
+    text-decoration: underline;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .bk-selected-room__change:hover { color: #1a1a1a; }
+
+  /* ── Room detail sub-view (stap 3) ── */
+  .bk-room-detail__img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .bk-room-detail__name {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin: 8px 0 10px;
+  }
+  .bk-room-detail__desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .bk-room-detail__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .bk-room-detail__feature {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bk-room-detail__feature::before {
+    content: '\2713';
+    color: #c23435;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
 
   /* ── Button-variant resets voor omgezette CTAs ── */
   button.hero__cta,
@@ -2587,6 +2757,13 @@
           <span class="bk-summary__value" id="bkNachten">&mdash;</span>
         </div>
       </div>
+      <div class="bk-selected-room" id="bkSelectedRoom" hidden>
+        <div>
+          <span class="bk-selected-room__label">Geselecteerde kamer</span>
+          <span class="bk-selected-room__name" id="bkSelectedRoomName"></span>
+        </div>
+        <button class="bk-selected-room__change" id="bkChangeRoom">wijzig</button>
+      </div>
       <div class="bk-cta-row">
         <button class="bk-btn-primary" id="bkToStep2" disabled>Volgende: kies kamer &rarr;</button>
         <button class="bk-btn-ghost" id="bkDirectBook" disabled>Of boek direct zonder kamerkeuze</button>
@@ -2605,6 +2782,12 @@
       <div class="bk-cta-row">
         <button class="bk-btn-primary" id="bkConfirm">Bekijk beschikbaarheid &rarr;</button>
       </div>
+    </div>
+
+    <!-- Stap 3: Kamerdetail sub-view -->
+    <div class="bk-step" id="bkStep3" hidden>
+      <button class="bk-back" id="bkBackToRooms" aria-label="Terug naar kamerkeuze">&larr; Terug</button>
+      <div id="bkRoomDetail"></div>
     </div>
 
   </div>
@@ -3272,8 +3455,10 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   var overlay   = document.getElementById('bookingPopup');
   var step1     = document.getElementById('bkStep1');
   var step2     = document.getElementById('bkStep2');
+  var step3     = document.getElementById('bkStep3');
   var btnClose  = document.getElementById('bkClose');
   var btnBack   = document.getElementById('bkBack');
+  var btnBackToRooms = document.getElementById('bkBackToRooms');
   var btnToStep2    = document.getElementById('bkToStep2');
   var btnDirectBook = document.getElementById('bkDirectBook');
   var btnConfirm    = document.getElementById('bkConfirm');
@@ -3281,6 +3466,9 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   var elVertrek  = document.getElementById('bkVertrek');
   var elNachten  = document.getElementById('bkNachten');
   var elRooms    = document.getElementById('bkRooms');
+  var elSelectedRoom     = document.getElementById('bkSelectedRoom');
+  var elSelectedRoomName = document.getElementById('bkSelectedRoomName');
+  var btnChangeRoom      = document.getElementById('bkChangeRoom');
 
   var selectedDates = [];   // [Date aankomst, Date vertrek]
   var selectedRoomKey = null; // kamersleutel voor stap 2
@@ -3418,6 +3606,22 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     // Altijd stap 1 tonen bij openen
     step1.hidden = false;
     step2.hidden = true;
+    step3.hidden = true;
+
+    // Pre-selectie UI
+    var modal = document.getElementById('bookingModal');
+    if (selectedRoomKey && window.ROOMS && window.ROOMS[selectedRoomKey]) {
+      modal.classList.add('has-preselected');
+      elSelectedRoomName.textContent = window.ROOMS[selectedRoomKey].name;
+      elSelectedRoom.hidden = false;
+      btnToStep2.textContent = 'Bekijk beschikbaarheid \u2192';
+      btnDirectBook.hidden = true;
+    } else {
+      modal.classList.remove('has-preselected');
+      elSelectedRoom.hidden = true;
+      btnToStep2.textContent = 'Volgende: kies kamer \u2192';
+      btnDirectBook.hidden = false;
+    }
 
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
@@ -3429,6 +3633,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   function closeBookingPopup() {
     overlay.classList.remove('is-open');
     document.body.style.overflow = '';
+    btnDirectBook.hidden = false;
+    document.getElementById('bookingModal').classList.remove('has-preselected');
   }
 
   // Sluit via overlay klik (buiten modal)
@@ -3482,6 +3688,20 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     step2.hidden = true;
   });
 
+  btnBackToRooms.addEventListener('click', function () {
+    step3.hidden = true;
+    step2.hidden = false;
+  });
+
+  btnChangeRoom.addEventListener('click', function () {
+    selectedRoomKey = null;
+    var modal = document.getElementById('bookingModal');
+    modal.classList.remove('has-preselected');
+    elSelectedRoom.hidden = true;
+    btnToStep2.textContent = 'Volgende: kies kamer \u2192';
+    btnDirectBook.hidden = false;
+  });
+
   // Escape key
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeBookingPopup();
@@ -3512,9 +3732,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
           '<span class="bk-room-card__upgrade">' + r.upgrade + '</span>' +
           (priceLabel ? '<span class="bk-room-card__price">' + priceLabel + '</span>' : '') +
           volLabel +
-          '<button class="bk-room-card__toggle" data-key="' + key + '" tabindex="-1" aria-expanded="false">meer info</button>' +
+          '<button class="bk-room-card__toggle" data-key="' + key + '" tabindex="-1">meer info</button>' +
         '</div>' +
-        '<div class="bk-room-card__details" id="bk-details-' + key + '">' + r.shortDesc + '</div>' +
       '</div>';
     }).join('');
 
@@ -3539,18 +3758,43 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       });
     });
 
-    // Accordion toggle
+    // "Meer info" → room detail sub-view
     elRooms.querySelectorAll('.bk-room-card__toggle').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
-        var k = btn.getAttribute('data-key');
-        var details = document.getElementById('bk-details-' + k);
-        var isOpen = details.classList.contains('is-open');
-        details.classList.toggle('is-open', !isOpen);
-        btn.setAttribute('aria-expanded', String(!isOpen));
-        btn.textContent = !isOpen ? 'minder' : 'meer info';
+        goToRoomDetail(btn.getAttribute('data-key'));
       });
     });
+  }
+
+  function goToRoomDetail(key) {
+    var r = window.ROOMS && window.ROOMS[key];
+    if (!r) return;
+    var detailEl = document.getElementById('bkRoomDetail');
+    detailEl.innerHTML =
+      '<img class="bk-room-detail__img" src="' + r.imgs[0] + '" alt="' + r.name + '" loading="lazy">' +
+      r.badge +
+      '<h3 class="bk-room-detail__name">' + r.name + '</h3>' +
+      '<p class="bk-room-detail__desc">' + r.desc + '</p>' +
+      '<ul class="bk-room-detail__features">' +
+        r.features.map(function (f) { return '<li class="bk-room-detail__feature">' + f + '</li>'; }).join('') +
+      '</ul>' +
+      '<button class="bk-btn-primary" data-select-key="' + key + '">Selecteer deze kamer</button>';
+
+    detailEl.querySelector('[data-select-key]').addEventListener('click', function () {
+      var k = this.dataset.selectKey;
+      selectedRoomKey = k;
+      step3.hidden = true;
+      step2.hidden = false;
+      elRooms.querySelectorAll('.bk-room-card').forEach(function (c) {
+        var isThis = c.getAttribute('data-key') === k;
+        c.classList.toggle('is-selected', isThis);
+        c.setAttribute('aria-checked', isThis ? 'true' : 'false');
+      });
+    });
+
+    step2.hidden = true;
+    step3.hidden = false;
   }
 
   btnConfirm.addEventListener('click', function () {
