@@ -3356,9 +3356,9 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   btnToStep2.addEventListener('click', function () {
     if (selectedDates.length < 2) return;
 
-    // Als er al een kamer geselecteerd is, sla stap 2 over
-    if (window.selectedRoomId) {
-      window.open(buildBookingUrl(selectedDates[0], selectedDates[1], window.selectedRoomId), '_blank', 'noopener');
+    // Als er al een kamer geselecteerd is (via kamerpopup), sla stap 2 over
+    if (selectedRoomKey) {
+      window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
       closeBookingPopup();
       return;
     }
