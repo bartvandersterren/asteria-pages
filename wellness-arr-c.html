@@ -2551,7 +2551,7 @@
       </div>
       <div class="bk-cta-row">
         <button class="bk-btn-primary" id="bkToStep2" disabled>Volgende: kies kamer &rarr;</button>
-        <button class="bk-btn-ghost" id="bkDirectBook">Of boek direct zonder kamerkeuze</button>
+        <button class="bk-btn-ghost" id="bkDirectBook" disabled>Of boek direct zonder kamerkeuze</button>
       </div>
     </div>
 
@@ -3234,7 +3234,6 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   var VOUCHER   = 'WELLNESS';
 
   var overlay   = document.getElementById('bookingPopup');
-  var modal     = document.getElementById('bookingModal');
   var step1     = document.getElementById('bkStep1');
   var step2     = document.getElementById('bkStep2');
   var btnClose  = document.getElementById('bkClose');
@@ -3294,7 +3293,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   var fpInstance = null;
 
   function initFlatpickr() {
-    if (fpInstance) { fpInstance.jumpToDate(new Date()); return; }
+    if (fpInstance) { fpInstance.clear(); fpInstance.jumpToDate(new Date()); return; }
+    if (typeof flatpickr !== 'function') { return; }
     fpInstance = flatpickr(document.getElementById('bkCalendar'), {
       inline: true,
       mode: 'range',
