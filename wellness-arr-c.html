@@ -3374,7 +3374,54 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   // Stap 2: kamers renderen (wordt gevuld in Task 5)
   function renderRoomCards() {
-    // Zie Task 5
+    var ROOM_KEYS = ['comfort', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];
+    selectedRoomKey = null; // reset bij elke render
+
+    elRooms.innerHTML = ROOM_KEYS.map(function (key) {
+      var r = ROOMS[key];
+      var isDefault = key === 'comfort';
+      return '<div class="bk-room-card' + (isDefault ? ' is-selected' : '') + '" data-key="' + key + '" role="radio" aria-checked="' + (isDefault ? 'true' : 'false') + '" tabindex="0">' +
+        '<div class="bk-room-card__header">' +
+          '<div class="bk-room-card__radio"></div>' +
+          '<span class="bk-room-card__name">' + r.name + '</span>' +
+          '<span class="bk-room-card__upgrade">' + r.upgrade + '</span>' +
+          '<button class="bk-room-card__toggle" data-key="' + key + '" tabindex="-1" aria-expanded="false">meer info</button>' +
+        '</div>' +
+        '<div class="bk-room-card__details" id="bk-details-' + key + '">' + r.shortDesc + '</div>' +
+      '</div>';
+    }).join('');
+
+    // Comfort standaard geselecteerd
+    selectedRoomKey = 'comfort';
+
+    // Klik op card → selecteer
+    elRooms.querySelectorAll('.bk-room-card').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        // Voorkom dubbel togglen als toggle-knop geklikt is
+        if (e.target.classList.contains('bk-room-card__toggle')) return;
+
+        elRooms.querySelectorAll('.bk-room-card').forEach(function (c) {
+          c.classList.remove('is-selected');
+          c.setAttribute('aria-checked', 'false');
+        });
+        card.classList.add('is-selected');
+        card.setAttribute('aria-checked', 'true');
+        selectedRoomKey = card.getAttribute('data-key');
+      });
+    });
+
+    // Klik op "meer info" → accordion toggle
+    elRooms.querySelectorAll('.bk-room-card__toggle').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var key = btn.getAttribute('data-key');
+        var details = document.getElementById('bk-details-' + key);
+        var isOpen = details.classList.contains('is-open');
+        details.classList.toggle('is-open', !isOpen);
+        btn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+        btn.textContent = !isOpen ? 'minder' : 'meer info';
+      });
+    });
   }
 
   btnConfirm.addEventListener('click', function () {
