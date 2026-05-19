@@ -1854,6 +1854,109 @@
   }
   .bk-dot--active { background: #c23435; }
 
+  /* ── Custom Datepicker ── */
+  #bkCalendar { width: 100%; }
+
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cal-nav__prev,
+  .cal-nav__next {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 2px 8px;
+    line-height: 1;
+    font-family: inherit;
+  }
+  .cal-nav__prev:hover:not([disabled]),
+  .cal-nav__next:hover:not([disabled]) { color: #1a1a1a; }
+  .cal-nav__prev[disabled] { color: #e5e7eb; cursor: default; }
+  .cal-nav__label {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    text-align: center;
+  }
+  .cal-grid-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  @media (min-width: 600px) {
+    .cal-grid-wrap { flex-direction: row; }
+    .cal-month { flex: 1; min-width: 0; }
+  }
+  .cal-month-label {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 13px;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 2px;
+  }
+  .cal-weekdays span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-align: center;
+    padding: 4px 0;
+  }
+  .cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .cal-day {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #1a1a1a;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+  }
+  .cal-day:hover:not(.is-disabled):not(.is-start):not(.is-end) {
+    background: #f3f4f6;
+  }
+  .cal-day.is-disabled {
+    color: #d1d5db;
+    cursor: default;
+    pointer-events: none;
+  }
+  .cal-day.is-today { border-color: #c23435; }
+  .cal-day.is-start,
+  .cal-day.is-end {
+    background: #c23435;
+    border-color: #c23435;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+  .cal-day.is-in-range,
+  .cal-day.is-hover-range {
+    background: #fde8e8;
+    border-color: #fde8e8;
+    border-radius: 0;
+    color: #1a1a1a;
+  }
+
   /* ── Titel ── */
   .bk-title {
     font-family: 'Electrolize', sans-serif;
