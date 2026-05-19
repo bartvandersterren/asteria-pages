@@ -2020,6 +2020,25 @@
     display: none;
   }
   .bk-room-card__details.is-open { display: block; }
+  .bk-room-card.is-unavailable {
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+  .bk-room-card__vol {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    color: #c23435;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .bk-room-card__price {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d2d2d;
+  }
 
   /* ── Radio indicator ── */
   .bk-room-card__radio {
@@ -3471,34 +3490,45 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   // Exporteer openBookingPopup zodat andere scripts het kunnen aanroepen
   window.openBookingPopup = openBookingPopup;
 
-  // Stap 2: kamers renderen (wordt gevuld in Task 5)
-  function renderRoomCards() {
+  function renderRoomCards(availability) {
     var ROOM_KEYS = ['comfort', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];
-    selectedRoomKey = null; // reset bij elke render
+    selectedRoomKey = null;
+    var firstAvailableKey = null;
 
     elRooms.innerHTML = ROOM_KEYS.map(function (key) {
       var r = window.ROOMS[key];
-      var isDefault = key === 'comfort';
-      return '<div class="bk-room-card' + (isDefault ? ' is-selected' : '') + '" data-key="' + key + '" role="radio" aria-checked="' + (isDefault ? 'true' : 'false') + '" tabindex="0">' +
+      var avail = availability && r.mewsCategoryId && availability[r.mewsCategoryId];
+      var isAvailable = !availability || !avail || avail.available; // bij null data: alles beschikbaar tonen
+      var lowestPrice = avail && avail.lowestPrice;
+      var priceLabel  = lowestPrice ? '\u20ac\u00a0' + Math.round(lowestPrice) : '';
+      var volLabel    = availability && avail && !avail.available ? '<span class="bk-room-card__vol">Vol</span>' : '';
+
+      if (isAvailable && !firstAvailableKey) firstAvailableKey = key;
+
+      return '<div class="bk-room-card' + (!isAvailable ? ' is-unavailable' : '') + '" data-key="' + key + '" role="radio" aria-checked="false" tabindex="' + (isAvailable ? '0' : '-1') + '">' +
         '<div class="bk-room-card__header">' +
           '<div class="bk-room-card__radio"></div>' +
           '<span class="bk-room-card__name">' + r.name + '</span>' +
           '<span class="bk-room-card__upgrade">' + r.upgrade + '</span>' +
+          (priceLabel ? '<span class="bk-room-card__price">' + priceLabel + '</span>' : '') +
+          volLabel +
           '<button class="bk-room-card__toggle" data-key="' + key + '" tabindex="-1" aria-expanded="false">meer info</button>' +
         '</div>' +
         '<div class="bk-room-card__details" id="bk-details-' + key + '">' + r.shortDesc + '</div>' +
       '</div>';
     }).join('');
 
-    // Comfort standaard geselecteerd
-    selectedRoomKey = 'comfort';
+    // Selecteer eerste beschikbare kamer
+    if (firstAvailableKey) {
+      var firstCard = elRooms.querySelector('[data-key="' + firstAvailableKey + '"]');
+      if (firstCard) { firstCard.classList.add('is-selected'); firstCard.setAttribute('aria-checked', 'true'); }
+      selectedRoomKey = firstAvailableKey;
+    }
 
-    // Klik op card → selecteer
-    elRooms.querySelectorAll('.bk-room-card').forEach(function (card) {
+    // Klik op card -> selecteer (alleen beschikbare kamers)
+    elRooms.querySelectorAll('.bk-room-card:not(.is-unavailable)').forEach(function (card) {
       card.addEventListener('click', function (e) {
-        // Voorkom dubbel togglen als toggle-knop geklikt is
         if (e.target.classList.contains('bk-room-card__toggle')) return;
-
         elRooms.querySelectorAll('.bk-room-card').forEach(function (c) {
           c.classList.remove('is-selected');
           c.setAttribute('aria-checked', 'false');
@@ -3509,22 +3539,22 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       });
     });
 
-    // Klik op "meer info" → accordion toggle
+    // Accordion toggle
     elRooms.querySelectorAll('.bk-room-card__toggle').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
-        var key = btn.getAttribute('data-key');
-        var details = document.getElementById('bk-details-' + key);
+        var k = btn.getAttribute('data-key');
+        var details = document.getElementById('bk-details-' + k);
         var isOpen = details.classList.contains('is-open');
         details.classList.toggle('is-open', !isOpen);
-        btn.setAttribute('aria-expanded', !isOpen ? 'true' : 'false');
+        btn.setAttribute('aria-expanded', String(!isOpen));
         btn.textContent = !isOpen ? 'minder' : 'meer info';
       });
     });
   }
 
   btnConfirm.addEventListener('click', function () {
-    if (selectedDates.length < 2) return;
+    if (selectedDates.length < 2 || !selectedRoomKey) return;
     window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
     closeBookingPopup();
   });
