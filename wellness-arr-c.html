@@ -2853,6 +2853,211 @@
 </div>
 
 <script>
+/* ── Custom Datepicker ── */
+(function() {
+  var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',
+                     'Juli','Augustus','September','Oktober','November','December'];
+  var DAY_NAMES   = ['Ma','Di','Wo','Do','Vr','Za','Zo'];
+
+  var cal = {
+    viewYear: 0, viewMonth: 0,
+    selectedStart: null, selectedEnd: null,
+    hoverDate: null,
+    onDateChange: null
+  };
+
+  function todayMidnight() {
+    var d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  }
+
+  function isSameDay(a, b) {
+    return a && b &&
+      a.getFullYear() === b.getFullYear() &&
+      a.getMonth()    === b.getMonth()    &&
+      a.getDate()     === b.getDate();
+  }
+
+  function isBefore(a, b) { return a.getTime() < b.getTime(); }
+  function isAfter(a, b)  { return a.getTime() > b.getTime(); }
+
+  function formatISO(d) {
+    var m   = d.getMonth() + 1;
+    var day = d.getDate();
+    return d.getFullYear() + '-' + (m < 10 ? '0' + m : m) + '-' + (day < 10 ? '0' + day : day);
+  }
+
+  function firstWeekdayOfMonth(year, month) {
+    // 0 = maandag, 6 = zondag
+    var dow = new Date(year, month, 1).getDay(); // 0=zo,1=ma,...6=za
+    return dow === 0 ? 6 : dow - 1;
+  }
+
+  function daysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function renderMonth(year, month) {
+    var todayDate  = todayMidnight();
+    var daysCount  = daysInMonth(year, month);
+    var firstDay   = firstWeekdayOfMonth(year, month);
+    var start      = cal.selectedStart;
+    var end        = cal.selectedEnd;
+    var hover      = cal.hoverDate;
+
+    // Bepaal effectieve range voor in-range highlight
+    var rangeA = null, rangeB = null;
+    if (start && end) {
+      rangeA = isBefore(start, end) ? start : end;
+      rangeB = isBefore(start, end) ? end   : start;
+    } else if (start && hover && !isSameDay(hover, start)) {
+      rangeA = isBefore(start, hover) ? start : hover;
+      rangeB = isBefore(start, hover) ? hover : start;
+    }
+
+    var html = '<div class="cal-month">';
+    html += '<div class="cal-month-label">' + MONTH_NAMES[month] + ' ' + year + '</div>';
+    html += '<div class="cal-weekdays">';
+    for (var w = 0; w < 7; w++) {
+      html += '<span>' + DAY_NAMES[w] + '</span>';
+    }
+    html += '</div><div class="cal-days">';
+
+    // Lege cellen vóór de eerste dag
+    for (var e = 0; e < firstDay; e++) {
+      html += '<span class="cal-day-empty"></span>';
+    }
+
+    for (var day = 1; day <= daysCount; day++) {
+      var date     = new Date(year, month, day);
+      var iso      = formatISO(date);
+      var disabled = isBefore(date, todayDate);
+      var classes  = ['cal-day'];
+
+      if (disabled)                          classes.push('is-disabled');
+      if (isSameDay(date, todayDate) && !disabled) classes.push('is-today');
+      if (isSameDay(date, start))            classes.push('is-start');
+      if (isSameDay(date, end))              classes.push('is-end');
+
+      if (rangeA && rangeB && isAfter(date, rangeA) && isBefore(date, rangeB)) {
+        classes.push(cal.selectedEnd ? 'is-in-range' : 'is-hover-range');
+      }
+
+      var attrs = disabled ? ' disabled aria-disabled="true"' : '';
+      html += '<button class="' + classes.join(' ') + '" data-date="' + iso + '"' + attrs + '>' + day + '</button>';
+    }
+
+    html += '</div></div>';
+    return html;
+  }
+
+  function render() {
+    var container = document.getElementById('bkCalendar');
+    if (!container) return;
+
+    var y1 = cal.viewYear, m1 = cal.viewMonth;
+    var y2 = y1, m2 = m1 + 1;
+    if (m2 > 11) { m2 = 0; y2++; }
+
+    var todayDate    = todayMidnight();
+    var prevDisabled = (y1 < todayDate.getFullYear()) ||
+                       (y1 === todayDate.getFullYear() && m1 <= todayDate.getMonth());
+
+    var html = '<div class="cal-nav">';
+    html += '<button class="cal-nav__prev"' + (prevDisabled ? ' disabled' : '') + '>&#8249;</button>';
+    html += '<span class="cal-nav__label">' + MONTH_NAMES[m1] + ' \u2014 ' + MONTH_NAMES[m2] + ' ' + y2 + '</span>';
+    html += '<button class="cal-nav__next">&#8250;</button>';
+    html += '</div>';
+    html += '<div class="cal-grid-wrap">';
+    html += renderMonth(y1, m1);
+    html += renderMonth(y2, m2);
+    html += '</div>';
+
+    container.innerHTML = html;
+    attachListeners(container);
+  }
+
+  function attachListeners(container) {
+    var btnPrev = container.querySelector('.cal-nav__prev');
+    var btnNext = container.querySelector('.cal-nav__next');
+
+    btnPrev.addEventListener('click', function() {
+      cal.viewMonth--;
+      if (cal.viewMonth < 0) { cal.viewMonth = 11; cal.viewYear--; }
+      render();
+    });
+    btnNext.addEventListener('click', function() {
+      cal.viewMonth++;
+      if (cal.viewMonth > 11) { cal.viewMonth = 0; cal.viewYear++; }
+      render();
+    });
+
+    container.querySelectorAll('.cal-day:not([disabled])').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var date = new Date(btn.dataset.date + 'T00:00:00');
+        if (!cal.selectedStart || (cal.selectedStart && cal.selectedEnd)) {
+          cal.selectedStart = date;
+          cal.selectedEnd   = null;
+        } else {
+          if (isSameDay(date, cal.selectedStart)) {
+            cal.selectedStart = null;
+          } else if (isBefore(date, cal.selectedStart)) {
+            cal.selectedEnd   = cal.selectedStart;
+            cal.selectedStart = date;
+          } else {
+            cal.selectedEnd = date;
+          }
+        }
+        cal.hoverDate = null;
+        render();
+        if (cal.onDateChange) {
+          cal.onDateChange(cal.selectedStart, cal.selectedEnd);
+        }
+      });
+
+      btn.addEventListener('mouseenter', function() {
+        if (cal.selectedStart && !cal.selectedEnd) {
+          var newHover = new Date(btn.dataset.date + 'T00:00:00');
+          if (!cal.hoverDate || !isSameDay(newHover, cal.hoverDate)) {
+            cal.hoverDate = newHover;
+            render();
+          }
+        }
+      });
+    });
+
+    container.addEventListener('mouseleave', function() {
+      if (cal.hoverDate) {
+        cal.hoverDate = null;
+        render();
+      }
+    });
+  }
+
+  window.initCustomCalendar = function(onDateChange) {
+    var t = todayMidnight();
+    cal.viewYear      = t.getFullYear();
+    cal.viewMonth     = t.getMonth();
+    cal.selectedStart = null;
+    cal.selectedEnd   = null;
+    cal.hoverDate     = null;
+    cal.onDateChange  = onDateChange || null;
+    render();
+  };
+
+  window.clearCustomCalendar = function() {
+    var t = todayMidnight();
+    cal.viewYear      = t.getFullYear();
+    cal.viewMonth     = t.getMonth();
+    cal.selectedStart = null;
+    cal.selectedEnd   = null;
+    cal.hoverDate     = null;
+    render();
+  };
+})();
+</script>
+
+<script>
 /* ── Cookie banner ── */
 (function () {
   if (localStorage.getItem('cookie-consent')) {
