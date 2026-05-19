@@ -3227,6 +3227,163 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     });
   });
 }());
+
+/* ══ BOOKING POPUP ══════════════════════════════════════════ */
+(function () {
+  var MEWS_BASE = 'https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76';
+  var VOUCHER   = 'WELLNESS';
+
+  var overlay   = document.getElementById('bookingPopup');
+  var modal     = document.getElementById('bookingModal');
+  var step1     = document.getElementById('bkStep1');
+  var step2     = document.getElementById('bkStep2');
+  var btnClose  = document.getElementById('bkClose');
+  var btnBack   = document.getElementById('bkBack');
+  var btnToStep2    = document.getElementById('bkToStep2');
+  var btnDirectBook = document.getElementById('bkDirectBook');
+  var btnConfirm    = document.getElementById('bkConfirm');
+  var elAankomst = document.getElementById('bkAankomst');
+  var elVertrek  = document.getElementById('bkVertrek');
+  var elNachten  = document.getElementById('bkNachten');
+  var elRooms    = document.getElementById('bkRooms');
+
+  var selectedDates = [];   // [Date aankomst, Date vertrek]
+  var selectedRoomKey = null; // kamersleutel voor stap 2
+
+  var DAYS_NL = ['zo','ma','di','wo','do','vr','za'];
+  var MONTHS_NL = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+
+  function formatDate(d) {
+    return DAYS_NL[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS_NL[d.getMonth()];
+  }
+
+  function toYMD(d) {
+    var mm = d.getMonth() + 1;
+    var dd = d.getDate();
+    return d.getFullYear() + '-' + (mm < 10 ? '0' : '') + mm + '-' + (dd < 10 ? '0' : '') + dd;
+  }
+
+  function buildBookingUrl(checkin, checkout, roomKey) {
+    var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER
+      + '&mewsStart=' + toYMD(checkin)
+      + '&mewsEnd='   + toYMD(checkout);
+    if (roomKey && ROOMS[roomKey] && ROOMS[roomKey].mewsCategoryId) {
+      url += '&mewsCategories[0]=' + ROOMS[roomKey].mewsCategoryId;
+    }
+    return url;
+  }
+
+  function updateSummary() {
+    if (selectedDates.length === 2) {
+      var diff = Math.round((selectedDates[1] - selectedDates[0]) / 86400000);
+      elAankomst.textContent = formatDate(selectedDates[0]);
+      elVertrek.textContent  = formatDate(selectedDates[1]);
+      elNachten.textContent  = diff + (diff === 1 ? ' nacht' : ' nachten');
+      btnToStep2.disabled    = false;
+      btnDirectBook.disabled = false;
+    } else {
+      elAankomst.textContent = '\u2014';
+      elVertrek.textContent  = '\u2014';
+      elNachten.textContent  = '\u2014';
+      btnToStep2.disabled    = true;
+      btnDirectBook.disabled = true;
+    }
+  }
+
+  // Flatpickr init (wordt pas aangemaakt bij eerste openPopup)
+  var fpInstance = null;
+
+  function initFlatpickr() {
+    if (fpInstance) { fpInstance.jumpToDate(new Date()); return; }
+    fpInstance = flatpickr(document.getElementById('bkCalendar'), {
+      inline: true,
+      mode: 'range',
+      minDate: 'today',
+      locale: {
+        rangeSeparator: ' \u2014 '
+      },
+      onChange: function (dates) {
+        selectedDates = dates.length === 2 ? dates : [];
+        updateSummary();
+      }
+    });
+  }
+
+  function openBookingPopup(preselectedRoomKey) {
+    selectedRoomKey = preselectedRoomKey || null;
+    selectedDates   = [];
+    updateSummary();
+
+    // Altijd stap 1 tonen bij openen
+    step1.hidden = false;
+    step2.hidden = true;
+
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+
+    // Flatpickr wordt geïnitialiseerd na de CSS-transitie
+    setTimeout(initFlatpickr, 50);
+  }
+
+  function closeBookingPopup() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  // Sluit via overlay klik (buiten modal)
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeBookingPopup();
+  });
+
+  btnClose.addEventListener('click', closeBookingPopup);
+
+  btnToStep2.addEventListener('click', function () {
+    if (selectedDates.length < 2) return;
+
+    // Als er al een kamer geselecteerd is, sla stap 2 over
+    if (window.selectedRoomId) {
+      window.open(buildBookingUrl(selectedDates[0], selectedDates[1], window.selectedRoomId), '_blank', 'noopener');
+      closeBookingPopup();
+      return;
+    }
+
+    // Anders stap 2 tonen
+    step1.hidden = true;
+    step2.hidden = false;
+    renderRoomCards();
+  });
+
+  btnDirectBook.addEventListener('click', function () {
+    if (selectedDates.length < 2) return;
+    window.open(buildBookingUrl(selectedDates[0], selectedDates[1], null), '_blank', 'noopener');
+    closeBookingPopup();
+  });
+
+  btnBack.addEventListener('click', function () {
+    step1.hidden = false;
+    step2.hidden = true;
+  });
+
+  // Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeBookingPopup();
+  });
+
+  // Exporteer openBookingPopup zodat andere scripts het kunnen aanroepen
+  window.openBookingPopup = openBookingPopup;
+
+  // Stap 2: kamers renderen (wordt gevuld in Task 5)
+  function renderRoomCards() {
+    // Zie Task 5
+  }
+
+  btnConfirm.addEventListener('click', function () {
+    if (selectedDates.length < 2) return;
+    window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
+    closeBookingPopup();
+  });
+
+}());
 </script>
 
 
