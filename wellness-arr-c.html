@@ -2149,7 +2149,7 @@
     <p class="rooms__sub">Upgrade voor meer comfort of privacy</p>
 
     <!-- Comfort = baseline -->
-    <div class="rooms__base">
+    <div class="rooms__base" data-room="comfort" role="button" tabindex="0" style="cursor:pointer">
       <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="Comfort Kamer" loading="lazy">
       <div class="rooms__base-body">
         <span class="rooms__base-badge">Standaard inbegrepen</span>
@@ -2716,6 +2716,13 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   // Room data
   var ROOMS = {
+    'comfort': {
+      badge: '<span class="room-row__badge badge--included">Standaard inbegrepen</span>',
+      name: 'Comfort Kamer',
+      imgs: ['fotos/kamer-comfort.webp'],
+      desc: 'Een comfortabele kamer voor twee personen met alles wat je nodig hebt voor een ontspannen verblijf.',
+      features: ['~22 m²', 'Tweepersoons bed', 'Douche', 'Zithoek', 'Airco', 'WiFi']
+    },
     'royale': {
       badge: '<span class="room-row__badge badge--upgrade">Upgrade</span>',
       name: 'Royale Kamer',
@@ -2836,6 +2843,15 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closePopup();
   });
+
+  // Comfort baseline — ook klikbaar
+  var baseEl = document.querySelector('.rooms__base[data-room]');
+  if (baseEl) {
+    baseEl.addEventListener('click', function () { openPopup(this.dataset.room); });
+    baseEl.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(this.dataset.room); }
+    });
+  }
 
   document.querySelectorAll('.room-row').forEach(function (row) {
     row.addEventListener('click', function () { openPopup(this.dataset.room); });
