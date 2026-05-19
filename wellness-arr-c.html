@@ -3265,6 +3265,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   var selectedDates = [];   // [Date aankomst, Date vertrek]
   var selectedRoomKey = null; // kamersleutel voor stap 2
+  var availabilityResult  = null;   // gevuld door fetchAvailability
+  var availabilityLoading = false;  // true terwijl fetch loopt
 
   var DAYS_NL = ['zo','ma','di','wo','do','vr','za'];
   var MONTHS_NL = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
@@ -3348,12 +3350,22 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       elNachten.textContent  = diff + (diff === 1 ? ' nacht' : ' nachten');
       btnToStep2.disabled    = false;
       btnDirectBook.disabled = false;
+
+      // Start availability fetch alvast op achtergrond
+      availabilityResult  = null;
+      availabilityLoading = true;
+      fetchAvailability(selectedDates[0], selectedDates[1], function (err, result) {
+        availabilityLoading = false;
+        availabilityResult  = err ? null : result;
+      });
     } else {
       elAankomst.textContent = '\u2014';
       elVertrek.textContent  = '\u2014';
       elNachten.textContent  = '\u2014';
       btnToStep2.disabled    = true;
       btnDirectBook.disabled = true;
+      availabilityResult  = null;
+      availabilityLoading = false;
     }
   }
 
@@ -3380,6 +3392,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   function openBookingPopup(preselectedRoomKey) {
     selectedRoomKey = preselectedRoomKey || null;
     selectedDates   = [];
+    availabilityResult  = null;
+    availabilityLoading = false;
     updateSummary();
 
     // Altijd stap 1 tonen bij openen
@@ -3415,10 +3429,27 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       return;
     }
 
-    // Anders stap 2 tonen
+    // Wacht op availability als nog bezig
+    if (availabilityLoading) {
+      btnToStep2.textContent = 'Laden\u2026';
+      btnToStep2.disabled = true;
+      var poll = setInterval(function () {
+        if (!availabilityLoading) {
+          clearInterval(poll);
+          btnToStep2.textContent = 'Kies een kamer';
+          btnToStep2.disabled = false;
+          step1.hidden = true;
+          step2.hidden = false;
+          renderRoomCards(availabilityResult);
+        }
+      }, 100);
+      return;
+    }
+
+    // Availability beschikbaar (of gefaald — dan renderen zonder data)
     step1.hidden = true;
     step2.hidden = false;
-    renderRoomCards();
+    renderRoomCards(availabilityResult);
   });
 
   btnDirectBook.addEventListener('click', function () {
