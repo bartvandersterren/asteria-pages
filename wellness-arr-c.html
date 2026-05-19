@@ -1566,6 +1566,13 @@
     transition: background 200ms ease;
   }
   .room-popup__cta:hover { background: #a82c2c; }
+  button.room-popup__cta {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    width: 100%;
+    text-align: center;
+  }
 
   /* ── Desktop: fit in 1vh (incl. sticky header ~131px) ── */
   @media (min-width: 769px) {
@@ -2043,35 +2050,46 @@
   /* ── Stap animatie ── */
   .bk-step[hidden] { display: none; }
 
+  /* ── Button-variant resets voor omgezette CTAs ── */
+  button.hero__cta,
+  button.arr-c__cta,
+  button.diner__cta {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+  }
+  button.sticky-card__btn {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    width: 100%;
+  }
+
   </style>
 </head>
 <body>
 
 <!-- ══ STICKY CTA ════════════════════════════════════════ -->
-<a
-  href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+<button
   class="sticky-fab"
   id="stickyFab"
-  target="_blank"
-  rel="noopener"
   aria-label="Boek direct: Wellness Arrangement"
+  onclick="window.openBookingPopup()"
 >
   Boek direct
   <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
-</a>
+</button>
 
 <div class="sticky-card" id="stickyCard" role="complementary" aria-label="Snel boeken">
   <span class="sticky-card__name">Wellness Arrangement</span>
   <strong class="sticky-card__price">&euro;139,50</strong>
   <span class="sticky-card__price-sub">per persoon</span>
-  <a
-    href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+  <button
     class="sticky-card__btn"
-    target="_blank"
-    rel="noopener"
-  >Boek direct &rarr;</a>
+    onclick="window.openBookingPopup()"
+  >Boek direct &rarr;</button>
 </div>
 
 <!-- ══ NAV ═══════════════════════════════════════════════════ -->
@@ -2107,8 +2125,7 @@
           <li><a href="https://www.asteria.nl/omgeving">Omgeving</a></li>
           <li><a href="https://www.asteria.nl/contact">Contact</a></li>
         </ul>
-        <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
-           class="button book-now" target="_blank" rel="noopener">Boek nu</a>
+        <button class="button book-now" onclick="window.openBookingPopup()">Boek nu</button>
       </div>
       <div class="mobile-nav-buttons">
         <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Menu</span>
@@ -2130,12 +2147,10 @@
     <h1 class="hero__title">Wellness, diner<br>&amp; een goed bed</h1>
     <div class="hero__rule" aria-hidden="true"></div>
     <p class="hero__sub">Sauna, drie-gangen diner en een comfortabele kamer. Alles geregeld, u hoeft alleen te komen.</p>
-    <a
-      href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+    <button
       class="hero__cta"
-      target="_blank"
-      rel="noopener"
-    >Boek het arrangement</a>
+      onclick="window.openBookingPopup()"
+    >Boek het arrangement</button>
     <div class="hero__trust">
       <span>&#10003; 4 sauna's op de Top Floor</span>
       <span>&#10003; Diner &amp; ontbijt inbegrepen</span>
@@ -2340,17 +2355,15 @@
         <span class="arr-c__price-sub">p.p. op basis van een Comfort Kamer</span>
       </div>
 
-      <a
-        href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+      <button
         class="arr-c__cta"
-        target="_blank"
-        rel="noopener"
+        onclick="window.openBookingPopup()"
       >
         Boek het arrangement
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
-      </a>
+      </button>
 
     </div><!-- /.arr-c__bottom -->
 
@@ -2581,10 +2594,7 @@
       <span class="diner__eyebrow">Inbegrepen in het arrangement</span>
       <h2 class="diner__title">Een heerlijk drie-gangen diner</h2>
       <p class="diner__sub">Na een avond in de wellness schuift u aan in ons restaurant. Vers bereid, seizoensgebonden, geen haast.</p>
-      <a class="diner__cta"
-         href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
-         target="_blank"
-         rel="noopener">Boek het arrangement</a>
+      <button class="diner__cta" onclick="window.openBookingPopup()">Boek het arrangement</button>
     </div>
   </div>
 </section>
@@ -3039,8 +3049,6 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
 /* ── Kamertypes — A/B toggle + popup ── */
 (function () {
-  var BOOK_URL = 'https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS';
-
   // A/B toggle: ?rooms=compact | ?rooms=thumb | random 50/50
   var section = document.querySelector('.rooms');
   if (section) {
@@ -3172,7 +3180,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
         '<ul class="room-popup__features">' +
           r.features.map(function (f) { return '<li class="room-popup__feature">' + f + '</li>'; }).join('') +
         '</ul>' +
-        '<a href="' + BOOK_URL + '" class="room-popup__cta" target="_blank" rel="noopener">Boek dit arrangement</a>' +
+        '<button class="room-popup__cta" onclick="window.openBookingPopup(\'' + key + '\')">Boek dit arrangement</button>' +
       '</div>';
 
     // Slider controls
