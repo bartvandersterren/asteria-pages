@@ -22,9 +22,6 @@
   <!-- Preload hero image (LCP) -->
   <link rel="preload" as="image" href="fotos/wellness-hero.webp" type="image/webp">
 
-  <!-- Flatpickr date picker -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -1867,122 +1864,6 @@
     text-align: center;
   }
 
-  /* ── Flatpickr overrides ── */
-  #bkCalendar {
-    width: 100%;
-  }
-  #bkCalendar .flatpickr-calendar {
-    box-shadow: none;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    width: 100% !important;
-    max-width: 100%;
-    font-family: 'Montserrat', sans-serif;
-  }
-  #bkCalendar .flatpickr-days,
-  #bkCalendar .dayContainer {
-    width: 100% !important;
-    max-width: 100%;
-    min-width: 0 !important;
-  }
-  /* Header: maand + jaar */
-  #bkCalendar .flatpickr-months {
-    padding: 10px 4px 6px;
-    align-items: center;
-  }
-  #bkCalendar .flatpickr-month {
-    height: auto;
-    line-height: 1;
-  }
-  #bkCalendar .flatpickr-current-month {
-    font-size: 15px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    position: static;
-    width: auto;
-    left: auto;
-    transform: none;
-  }
-  /* Maand select + jaar input: styled als plain tekst */
-  #bkCalendar .flatpickr-monthDropdownContainer select,
-  #bkCalendar .numInputWrapper input {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    color: #1a1a1a;
-    background: none;
-    border: none;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    cursor: pointer;
-    padding: 0;
-    width: auto;
-  }
-  #bkCalendar .numInputWrapper { width: 56px; }
-  #bkCalendar .numInputWrapper span { display: none; }
-  /* Navigatie pijlen */
-  #bkCalendar .flatpickr-prev-month,
-  #bkCalendar .flatpickr-next-month {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 14px;
-    height: auto;
-    top: 8px;
-    fill: #9ca3af;
-    color: #9ca3af;
-  }
-  #bkCalendar .flatpickr-prev-month:hover,
-  #bkCalendar .flatpickr-next-month:hover { fill: #1a1a1a; color: #1a1a1a; }
-  /* Weekdag labels */
-  #bkCalendar .flatpickr-weekdays { background: none; padding: 4px 0; }
-  #bkCalendar .flatpickr-weekday {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #9ca3af;
-    background: none;
-  }
-  /* Dag cellen */
-  #bkCalendar .flatpickr-day {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    border-radius: 8px;
-    color: #1a1a1a;
-    border: 1.5px solid transparent;
-    max-width: none;
-    flex-basis: 14.2857%;
-  }
-  #bkCalendar .flatpickr-day.flatpickr-disabled,
-  #bkCalendar .flatpickr-day.prevMonthDay,
-  #bkCalendar .flatpickr-day.nextMonthDay { color: #d1d5db; }
-  #bkCalendar .flatpickr-day:hover:not(.flatpickr-disabled):not(.selected):not(.startRange):not(.endRange) {
-    background: #f3f4f6;
-    border-color: #f3f4f6;
-  }
-  .flatpickr-day.selected,
-  .flatpickr-day.startRange,
-  .flatpickr-day.endRange {
-    background: #c23435 !important;
-    border-color: #c23435 !important;
-    color: #fff !important;
-    font-weight: 700;
-  }
-  .flatpickr-day.inRange {
-    background: #fde8e8 !important;
-    border-color: #fde8e8 !important;
-    box-shadow: -5px 0 0 #fde8e8, 5px 0 0 #fde8e8;
-  }
-  .flatpickr-day.today:not(.selected) { border-color: #c23435; }
-
   /* ── Bevestigingsbalk ── */
   .bk-summary {
     display: flex;
@@ -2867,8 +2748,6 @@
   <button class="cookie-banner__btn" id="cookieAccept">Akkoord</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
-
 <script>
 /* ── Cookie banner ── */
 (function () {
@@ -3588,35 +3467,6 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     }
   }
 
-  // Flatpickr init (wordt pas aangemaakt bij eerste openPopup)
-  var fpInstance = null;
-
-  function initFlatpickr() {
-    if (fpInstance) { fpInstance.clear(); fpInstance.jumpToDate(new Date()); return; }
-    if (typeof flatpickr !== 'function') { return; }
-    fpInstance = flatpickr(document.getElementById('bkCalendar'), {
-      inline: true,
-      mode: 'range',
-      minDate: 'today',
-      locale: {
-        rangeSeparator: ' \u2014 '
-      },
-      onChange: function (dates) {
-        selectedDates = dates.length === 2 ? dates : [];
-        updateSummary();
-      }
-    });
-    // Flatpickr zet inline styles op .flatpickr-days en .dayContainer;
-    // die overrulen CSS — forceer volledige breedte via JS.
-    var calContainer = document.getElementById('bkCalendar');
-    var calEl  = calContainer.querySelector('.flatpickr-calendar');
-    var daysEl = calContainer.querySelector('.flatpickr-days');
-    var dayContEl = calContainer.querySelector('.dayContainer');
-    if (calEl)    { calEl.style.width = '100%'; }
-    if (daysEl)   { daysEl.style.width = '100%'; daysEl.style.maxWidth = '100%'; }
-    if (dayContEl){ dayContEl.style.width = '100%'; dayContEl.style.minWidth = '0'; dayContEl.style.maxWidth = '100%'; }
-  }
-
   function openBookingPopup(preselectedRoomKey) {
     selectedRoomKey = preselectedRoomKey || null;
     selectedDates   = [];
@@ -3647,8 +3497,13 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
 
-    // Flatpickr wordt geïnitialiseerd na de CSS-transitie
-    setTimeout(initFlatpickr, 50);
+    // Custom datepicker — wordt ingevuld in Task 3
+    if (window.initCustomCalendar) {
+      window.initCustomCalendar(function(start, end) {
+        selectedDates = start && end ? [start, end] : [];
+        updateSummary();
+      });
+    }
   }
 
   function closeBookingPopup() {
