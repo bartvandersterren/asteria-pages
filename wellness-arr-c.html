@@ -1868,12 +1868,22 @@
   }
 
   /* ── Flatpickr overrides ── */
+  #bkCalendar {
+    width: 100%;
+  }
   #bkCalendar .flatpickr-calendar {
     box-shadow: none;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
-    width: 100%;
+    width: 100% !important;
+    max-width: 100%;
     font-family: 'Montserrat', sans-serif;
+  }
+  #bkCalendar .flatpickr-days,
+  #bkCalendar .dayContainer {
+    width: 100% !important;
+    max-width: 100%;
+    min-width: 0 !important;
   }
   /* Header: maand + jaar */
   #bkCalendar .flatpickr-months {
@@ -1948,6 +1958,8 @@
     border-radius: 8px;
     color: #1a1a1a;
     border: 1.5px solid transparent;
+    max-width: none;
+    flex-basis: 14.2857%;
   }
   #bkCalendar .flatpickr-day.flatpickr-disabled,
   #bkCalendar .flatpickr-day.prevMonthDay,
