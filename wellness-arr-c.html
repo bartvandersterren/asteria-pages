@@ -3279,6 +3279,55 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     return d.getFullYear() + '-' + (mm < 10 ? '0' : '') + mm + '-' + (dd < 10 ? '0' : '') + dd;
   }
 
+  var availabilityCache = {}; // key: "YYYY-MM-DD|YYYY-MM-DD" -> { categoryId: { available, lowestPrice } }
+
+  function fetchAvailability(checkin, checkout, callback) {
+    var cacheKey = toYMD(checkin) + '|' + toYMD(checkout);
+    if (availabilityCache[cacheKey]) { callback(null, availabilityCache[cacheKey]); return; }
+
+    var categoryIds = Object.values(window.ROOMS).map(function (r) { return r.mewsCategoryId; });
+
+    fetch('/mews/api/distributor/v1/hotels/getAvailability', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        Client: 'Asteria Pages 1.0.0',
+        ConfigurationId: '9fc01bd9-bc04-49f2-83cf-b44400835224',
+        HotelId: '65a522c9-4828-413d-9ad8-af1d00ffb83f',
+        StartUtc: toYMD(checkin) + 'T12:00:00Z',
+        EndUtc: toYMD(checkout) + 'T12:00:00Z',
+        VoucherCode: 'WELLNESS',
+        CategoryIds: categoryIds
+      })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      var result = {};
+      var avails = data.RoomCategoryAvailabilities || [];
+      avails.forEach(function (a) {
+        var lowestPrice = null;
+        if (a.RoomOccupancyAvailabilities && a.RoomOccupancyAvailabilities.length) {
+          var firstOcc = a.RoomOccupancyAvailabilities[0];
+          if (firstOcc.Pricing && firstOcc.Pricing.length) {
+            var pricing = firstOcc.Pricing[0];
+            if (pricing.Price && pricing.Price.GrossValue != null) {
+              lowestPrice = pricing.Price.GrossValue;
+            }
+          }
+        }
+        result[a.RoomCategoryId] = {
+          available: a.AvailableRoomCount > 0,
+          lowestPrice: lowestPrice
+        };
+      });
+      availabilityCache[cacheKey] = result;
+      callback(null, result);
+    })
+    .catch(function (err) {
+      callback(err, null);
+    });
+  }
+
   function buildBookingUrl(checkin, checkout, roomKey) {
     var url = MEWS_BASE + '?mewsStart=' + toYMD(checkin)
       + '&mewsEnd='   + toYMD(checkout);
