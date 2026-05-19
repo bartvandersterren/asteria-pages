@@ -3606,6 +3606,15 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
         updateSummary();
       }
     });
+    // Flatpickr zet inline styles op .flatpickr-days en .dayContainer;
+    // die overrulen CSS — forceer volledige breedte via JS.
+    var calContainer = document.getElementById('bkCalendar');
+    var calEl  = calContainer.querySelector('.flatpickr-calendar');
+    var daysEl = calContainer.querySelector('.flatpickr-days');
+    var dayContEl = calContainer.querySelector('.dayContainer');
+    if (calEl)    { calEl.style.width = '100%'; }
+    if (daysEl)   { daysEl.style.width = '100%'; daysEl.style.maxWidth = '100%'; }
+    if (dayContEl){ dayContEl.style.width = '100%'; dayContEl.style.minWidth = '0'; dayContEl.style.maxWidth = '100%'; }
   }
 
   function openBookingPopup(preselectedRoomKey) {
