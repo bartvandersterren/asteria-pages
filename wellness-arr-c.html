@@ -3283,7 +3283,10 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     var url = MEWS_BASE + '?mewsStart=' + toYMD(checkin)
       + '&mewsEnd='   + toYMD(checkout);
     if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
-      url += '&mewsCategories[0]=' + window.ROOMS[roomKey].mewsCategoryId;
+      var catId = window.ROOMS[roomKey].mewsCategoryId;
+      url += '&mewsRoute=rates&mewsRoom=' + catId;
+    } else {
+      url += '&mewsRoute=rooms';
     }
     return url;
   }
