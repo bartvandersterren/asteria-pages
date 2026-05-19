@@ -1756,6 +1756,293 @@
     }
   }
 
+  /* ══════════════════════════════════════════════════════════
+     BOOKING POPUP
+  ══════════════════════════════════════════════════════════ */
+
+  /* ── Overlay ── */
+  .bk-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .bk-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ── Modal ── */
+  .bk-modal {
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 480px;
+    max-height: 92vh;
+    overflow-y: auto;
+    padding: 28px 24px 32px;
+    transform: translateY(40px);
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .bk-overlay.is-open .bk-modal {
+    transform: translateY(0);
+  }
+
+  @media (min-width: 600px) {
+    .bk-overlay {
+      align-items: center;
+    }
+    .bk-modal {
+      border-radius: 20px;
+      max-height: 88vh;
+    }
+  }
+
+  /* ── Sluit & terug knoppen ── */
+  .bk-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #6b7280;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+  }
+  .bk-close:hover { color: #0f172a; }
+
+  .bk-back {
+    background: none;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .bk-back:hover { color: #0f172a; }
+
+  /* ── Stap indicator ── */
+  .bk-step-indicator {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .bk-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e5e7eb;
+  }
+  .bk-dot--active { background: #c23435; }
+
+  /* ── Titel ── */
+  .bk-title {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  /* ── Flatpickr overrides ── */
+  #bkCalendar .flatpickr-calendar {
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    width: 100%;
+  }
+  .flatpickr-day.selected,
+  .flatpickr-day.startRange,
+  .flatpickr-day.endRange {
+    background: #c23435 !important;
+    border-color: #c23435 !important;
+  }
+  .flatpickr-day.inRange {
+    background: #fde8e8 !important;
+    border-color: #fde8e8 !important;
+    box-shadow: -5px 0 0 #fde8e8, 5px 0 0 #fde8e8;
+  }
+  .flatpickr-day.today { border-color: #c23435; }
+
+  /* ── Bevestigingsbalk ── */
+  .bk-summary {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: #f8f7f5;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 16px 0;
+  }
+  .bk-summary__field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .bk-summary__sep {
+    width: 1px;
+    height: 32px;
+    background: #e5e7eb;
+  }
+  .bk-summary__label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9ca3af;
+  }
+  .bk-summary__value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  /* ── CTA rij ── */
+  .bk-cta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .bk-btn-primary {
+    background: #c23435;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: background 200ms ease;
+    width: 100%;
+  }
+  .bk-btn-primary:hover:not(:disabled) { background: #a82c2c; }
+  .bk-btn-primary:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+  }
+  .bk-btn-ghost {
+    background: none;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #6b7280;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 4px 0;
+    text-align: center;
+  }
+  .bk-btn-ghost:hover { color: #1a1a1a; }
+
+  /* ── Kamerkeuze cards (stap 2) ── */
+  .bk-rooms {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .bk-room-card {
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 200ms ease;
+  }
+  .bk-room-card.is-selected {
+    border-color: #c23435;
+    background: #fff8f8;
+  }
+  .bk-room-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  .bk-room-card__name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+    flex: 1;
+  }
+  .bk-room-card__upgrade {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+  .bk-room-card.is-selected .bk-room-card__upgrade { color: #c23435; }
+  .bk-room-card__toggle {
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 2px 4px;
+    flex-shrink: 0;
+  }
+  .bk-room-card__toggle:hover { color: #1a1a1a; }
+  .bk-room-card__details {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #6b7280;
+    padding: 0 14px 12px;
+    display: none;
+  }
+  .bk-room-card__details.is-open { display: block; }
+
+  /* ── Radio indicator ── */
+  .bk-room-card__radio {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 200ms;
+  }
+  .bk-room-card.is-selected .bk-room-card__radio {
+    border-color: #c23435;
+  }
+  .bk-room-card__radio::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 200ms;
+  }
+  .bk-room-card.is-selected .bk-room-card__radio::after {
+    background: #c23435;
+  }
+
+  /* ── Stap animatie ── */
+  .bk-step[hidden] { display: none; }
+
   </style>
 </head>
 <body>
