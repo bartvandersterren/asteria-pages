@@ -2878,8 +2878,8 @@
       a.getDate()     === b.getDate();
   }
 
-  function isBefore(a, b) { return a.getTime() < b.getTime(); }
-  function isAfter(a, b)  { return a.getTime() > b.getTime(); }
+  function isBefore(a, b) { return !!a && !!b && a.getTime() < b.getTime(); }
+  function isAfter(a, b)  { return !!a && !!b && a.getTime() > b.getTime(); }
 
   function formatISO(d) {
     var m   = d.getMonth() + 1;
@@ -3820,6 +3820,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     document.body.style.overflow = '';
     btnDirectBook.hidden = false;
     document.getElementById('bookingModal').classList.remove('has-preselected');
+    if (window.clearCustomCalendar) window.clearCustomCalendar();
   }
 
   // Sluit via overlay klik (buiten modal)
