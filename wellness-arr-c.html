@@ -27,6 +27,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
 
+  <!-- Revinate Contact API -->
+  <script type="text/javascript" src="//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1" defer></script>
+
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -2840,8 +2843,14 @@
   </div>
 </footer>
 
-
-
+<!-- ══ REVINATE HIDDEN FORM ════════════════════════════════ -->
+<form id="revinate_contact_api_form"
+      token="210bb345-899a-4f69-9b9f-4a00624a2024"
+      style="display:none"
+      onsubmit="return false;">
+  <input type="email" name="email" id="ec_hidden_email">
+  <input type="text" name="vipStatus" value="Wellness nieuwsbrief">
+</form>
 
 <!-- ══ COOKIE BANNER ═════════════════════════════════════ -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookiemelding">
