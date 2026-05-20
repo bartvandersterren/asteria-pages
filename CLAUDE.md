@@ -37,7 +37,10 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 - Backend: functions/mews/[[path]].js (Mews proxy) + functions/api/session.js (KV session)
 - KV binding: ASTERIA_KV (gekoppeld aan Cloudflare Pages, namespace_id: 0b06387ff7724995b0e287df3f0c5cb0)
 - Session injecteren: POST https://visit.asteria.nl/api/session met {"session":"<token>","client":"Mews Distributor 5656.0.0"}
-- Mews IDs: configId 9fc01bd9-bc04-49f2-83cf-b44400835224 | enterpriseId 65a522c9-4828-413d-9ad8-af1d00ffb83f
+- Mews IDs: distributorId/configId **6dc9094c-76e3-4fd8-83a7-af1d00ffc556** (gebruik dit overal) | enterpriseId 65a522c9-4828-413d-9ad8-af1d00ffb83f | serviceId 755424cc-3077-4320-b069-af1d00ffbe47
+- Oude ID bee2f902-... heeft geen online-tarievenconfiguratie — nooit gebruiken
+- Availability API: POST /mews/api/bookingEngine/v1/services/getAvailability → geeft per-nacht counts per categoryId over een periode (vereist session token)
+- Deeplinks: mewsRoute=rates&mewsRoom=<categoryId> (kamer geselecteerd) of mewsRoute=rooms (alleen datums)
 
 ## Foto's
 
@@ -59,3 +62,11 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 ## Mobile layout gotcha
 
 - Op mobile heeft `body { background: #f0efed }` — secties ná de arr-c kaart (margin: 16px) krijgen 16px gap in body-kleur. Houd hier rekening mee bij nieuwe blokken.
+
+## Translations workflow (2026-05-20 — live)
+
+- **Bronbestand:** `wellness-arr-c.template.html` met `{{KEY}}` markers (~107 keys)
+- **Vertalingen:** `translations/{nl,en,de}.json`
+- **Bouwen:** `python3 build.py` → schrijft 3 HTML-outputbestanden
+- **Wijziging aanbrengen:** pas JSON aan → `python3 build.py` → commit template + JSONs + 3 HTMLs
+- `generate_translations.py` = eenmalig bootstrapscript, niet meer nodig voor dagelijks gebruik
