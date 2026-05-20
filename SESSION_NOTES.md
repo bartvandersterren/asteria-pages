@@ -1,49 +1,56 @@
-# Session Notes — 2026-05-19
+# Session Notes — 2026-05-20 (sessie 4)
 
-## Wat gedaan
+## Gedaan
 
-### Eerdere sessie
-- Comfort kamer klikbaar gemaakt in het kamerblok (wellness-arr-c.html)
+### Translations refactor — plan gestart maar NIET afgerond
 
-### Deze sessie
-Volledige brainstorm + design spec voor de **booking popup** op wellness-arr-c.html.
+Plan aangemaakt maar schrijven mislukt vanwege te grote bestandsinhoud (bash heredoc + Write tool hadden moeite met special chars in JSON).
 
-**Spec:** `docs/superpowers/specs/2026-05-19-booking-popup-design.md` (gecommit 5c3afd4)
+Geanalyseerd:
+- Alle NL/EN/DE diffs grondig doorgelopen
+- ~120 vertaalsleutels geïdentificeerd
+- Aanpak vastgesteld: `{{key}}` template + 3 JSON-bestanden + build.py
+- Bugs in huidige DE vertaling gevonden: `Kies een kamer`, `Cookiemelding`, `Comfortabele kamer` caption — fixen in refactor
 
-### Kern van het design
-- Alle 4 "Boek"-knoppen openen een 2-staps popup
-- **Stap 1**: Inline Flatpickr range-picker (kalender direct zichtbaar), bevestigingsbalk (aankomst/vertrek/nachten read-only), CTA naar stap 2 of direct boeken
-- **Stap 2** (conditioneel, skip als kamer al gekozen op pagina): 6 kamer-cards met vaste upgrade-delta's, accordion voor meer info
-- **Deeplink naar Mews**: `mewsVoucherCode=WELLNESS&mewsStart=&mewsEnd=&mewsCategories[0]=<id>`
-- **Fase 2**: switch naar boeken.html via één `buildBookingUrl()` functie
+## Openstaand — volgende sessie
 
-### Technische bevindingen (Playwright onderzoek)
-- `mewsStart` / `mewsEnd` (YYYY-MM-DD) werken ✓
-- `mewsVoucherCode` werkt ✓
-- `mewsCategories[0]=<id>` — in URL verwerkt door Mews
-- Mews booking engine ID: `bee2f902-f30f-4977-b9f7-af5d00e4ab76`
-- Mews serviceId: `755424cc-3077-4320-b069-af1d00ffbe47`
+### Translations refactor — plan schrijven
 
-### Kamer → Mews categoryId mapping
-| Kamer | Delta | Mews ID |
-|---|---|---|
-| Comfort | basis | `98900f3b-e5e2-49c9-9776-af1d00ffc315` |
-| Royale | +€10 p.p. | `a8fd7310-0d61-422f-89e6-af1d00ffc315` |
-| Deluxe | +€20 p.p. | `c737de50-e41e-4c8d-a818-af1d00ffc315` |
-| Junior suite | +€30 p.p. | `27ea8deb-ded5-4856-8fdd-af1d00ffc315` |
-| Suite | +€40 p.p. | `4a642b66-68e6-444c-beeb-af1d00ffc315` |
-| Bruidssuite | +€60 p.p. | `a9f18d18-561b-47a9-8ba7-b2a800cfd0e2` |
+**Aanpak:**
+- Gebruik Python script om planbestand te genereren (niet bash heredoc, niet Write tool voor grote bestanden)
+- Of: schrijf plan in meerdere kleine Write tool-calls per sectie
 
-## Wat open staat
+**Wat het plan moet bevatten:**
+- Task 1: translations/ map + nl.json + en.json + de.json (complete JSON met ~120 keys)
+- Task 2: template aanmaken uit wellness-arr-c.html (complete substitutie-tabel)
+- Task 3: build.py schrijven
+- Task 4: testen lokaal
+- Task 5: CLAUDE.md updaten + push
 
-**Volgende stap: implementatieplan schrijven**
-1. `/clear` doen
-2. Skill `superpowers:writing-plans` aanroepen
-3. Spec: `docs/superpowers/specs/2026-05-19-booking-popup-design.md`
+**Key design beslissingen (vastgesteld):**
+- Template: `wellness-arr-c.template.html` met `{{key}}` markers
+- Build: Python 3 stdlib, geen Cloudflare build-stap nodig (gegenereerde HTML gecommit)
+- NL file is de basis voor het template
+- Taaldetectie script (alleen NL): als `lang_detect_script` key — leeg in EN/DE
+- fallback_reviews als JSON-string in key (zodat build.py simpel blijft)
+- JS arrays (MONTH_NAMES etc.) als string-literal in JSON value
 
-## Gotchas voor implementatie
-- Flatpickr via CDN (geen build stap nodig)
-- Popup z-index hoger dan sticky nav (z-index: 1000) en bestaande kamerpopup
-- Mobile: popup scrollbaar als kalender + stap 2 viewport overschrijdt
-- Bestaande kamerpopup JS nakijken voor `selectedRoomId` pattern
-- `.superpowers/` toevoegen aan `.gitignore`
+**Alle keys zijn geïdentificeerd** — zie analyse in sessie 4 (niet opgeslagen, herhaal via diff).
+
+## Manuele stappen nog steeds openstaand
+
+### CF Dashboard
+1. D1 database aanmaken → `asteria-analytics`
+2. Schema uitvoeren (zie header `functions/api/track.js`)
+3. Binding `ASTERIA_D1` toevoegen
+4. CF Access op `/admin/*` en `/api/stats*`
+
+### Mews
+- Voucher `WELLNESS124` (€124,50 p.p.)
+- Voucher `WELKOM` (email capture)
+
+### Revinate
+- Welkomstautomation instellen
+
+### Google Reviews
+- `GOOGLE_PLACES_API_KEY` + Place ID in CF Pages dashboard
