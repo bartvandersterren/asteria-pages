@@ -4262,7 +4262,10 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   var submitBtn  = document.getElementById('ecSubmit');
   var errorEl    = document.getElementById('ecError');
 
+  if (!overlay) return;
+
   var shown = false;
+  var submitting = false;
 
   // ── Open / close ─────────────────────────────────────
   function openPopup() {
@@ -4292,20 +4295,26 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   // ── Submit handler ───────────────────────────────────
   function showSuccess() {
+    submitting = false;
     formState.classList.add('is-hidden');
     successEl.classList.add('is-visible');
     localStorage.setItem('ec_converted', '1');
   }
 
   function showError() {
+    submitting = false;
     errorEl.classList.add('is-visible');
     submitBtn.disabled = false;
     submitBtn.textContent = 'Aanmelden';
   }
 
   submitBtn.addEventListener('click', function () {
+    if (submitting) return;
+    submitting = true;
+
     var email = emailInput.value.trim();
     if (!email || !emailInput.checkValidity()) {
+      submitting = false;
       emailInput.focus();
       return;
     }
@@ -4333,7 +4342,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   // Enter in email input triggert submit
   emailInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') submitBtn.click();
+    if (e.key === 'Enter' && !submitting) submitBtn.click();
   });
 
   // ── A/B split ────────────────────────────────────────
