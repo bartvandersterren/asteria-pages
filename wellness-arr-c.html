@@ -2482,6 +2482,7 @@
   id="stickyFab"
   aria-label="Boek direct: Wellness Arrangement"
   onclick="window.openBookingPopup()"
+  data-track-cta="sticky_fab"
 >
   Boek direct
   <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -2496,6 +2497,7 @@
   <button
     class="sticky-card__btn"
     onclick="window.openBookingPopup()"
+    data-track-cta="sticky_card"
   >Boek direct &rarr;</button>
 </div>
 
@@ -2557,6 +2559,7 @@
     <button
       class="hero__cta"
       onclick="window.openBookingPopup()"
+      data-track-cta="hero"
     >Boek het arrangement</button>
     <div class="hero__trust">
       <span>&#10003; 4 sauna's op de Top Floor</span>
@@ -2765,6 +2768,7 @@
       <button
         class="arr-c__cta"
         onclick="window.openBookingPopup()"
+        data-track-cta="arr_c"
       >
         Boek het arrangement
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3906,10 +3910,76 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   window.ROOMS = ROOMS;
 }());
 
+/* ══ ANALYTICS ══════════════════════════════════════════════ */
+(function () {
+  var sid = sessionStorage.getItem('_sid');
+  if (!sid) {
+    sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    sessionStorage.setItem('_sid', sid);
+  }
+
+  function track(event, props) {
+    var payload = {
+      session_id:    sid,
+      event:         event,
+      page:          location.pathname,
+      referrer:      document.referrer || null,
+      variant_price: sessionStorage.getItem('price_variant') || null,
+      variant_email: sessionStorage.getItem('ec_variant') || null,
+    };
+    if (props) {
+      Object.keys(props).forEach(function (k) { payload[k] = props[k]; });
+    }
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      keepalive: true,
+    }).catch(function () {});
+  }
+
+  window.track = track;
+
+  // page_view bij laden
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { track('page_view'); });
+  } else {
+    track('page_view');
+  }
+
+  // CTA clicks
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-track-cta]').forEach(function (el) {
+      el.addEventListener('click', function () {
+        track('cta_click', { cta: el.getAttribute('data-track-cta') });
+      });
+    });
+  });
+}());
+
+/* ══ A/B PRICE TEST ═════════════════════════════════════════ */
+(function () {
+  var v = sessionStorage.getItem('price_variant');
+  if (!v) {
+    v = Math.random() < 0.5 ? 'A' : 'B';
+    sessionStorage.setItem('price_variant', v);
+  }
+  window.priceVariant = v;
+
+  if (v === 'B') {
+    document.addEventListener('DOMContentLoaded', function () {
+      var stickyPrice = document.querySelector('.sticky-card__price');
+      var arrPrice    = document.querySelector('.arr-c__price');
+      if (stickyPrice) stickyPrice.textContent = '\u20ac124,50';
+      if (arrPrice)    arrPrice.textContent    = '\u20ac124,50';
+    });
+  }
+}());
+
 /* ══ BOOKING POPUP ══════════════════════════════════════════ */
 (function () {
   var MEWS_BASE = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
-  var VOUCHER   = 'WELLNESSARRA';
+  var VOUCHER   = window.priceVariant === 'B' ? 'WELLNESS124' : 'WELLNESSARRA';
 
   var overlay   = document.getElementById('bookingPopup');
   var step1     = document.getElementById('bkStep1');
@@ -4064,6 +4134,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+    if (window.track) window.track('popup_open');
 
     // Custom datepicker — wordt ingevuld in Task 3
     if (window.initCustomCalendar) {
@@ -4094,6 +4165,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
     // Als er al een kamer geselecteerd is (via kamerpopup), sla stap 2 over
     if (selectedRoomKey) {
+      if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
       window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
       closeBookingPopup();
       return;
@@ -4110,6 +4182,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
           btnToStep2.disabled = false;
           step1.hidden = true;
           step2.hidden = false;
+          if (window.track) window.track('step2_reached');
           renderRoomCards(availabilityResult);
         }
       }, 100);
@@ -4117,6 +4190,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     }
 
     // Availability beschikbaar (of gefaald — dan renderen zonder data)
+    if (window.track) window.track('step2_reached');
     step1.hidden = true;
     step2.hidden = false;
     renderRoomCards(availabilityResult);
@@ -4124,6 +4198,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   btnDirectBook.addEventListener('click', function () {
     if (selectedDates.length < 2) return;
+    if (window.track) window.track('mews_click', { room_key: null });
     window.open(buildBookingUrl(selectedDates[0], selectedDates[1], null), '_blank', 'noopener');
     closeBookingPopup();
   });
@@ -4244,6 +4319,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   btnConfirm.addEventListener('click', function () {
     if (selectedDates.length < 2 || !selectedRoomKey) return;
+    if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
     window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
     closeBookingPopup();
   });
@@ -4301,6 +4377,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     formState.classList.add('is-hidden');
     successEl.classList.add('is-visible');
     localStorage.setItem('ec_converted', '1');
+    if (window.track) window.track('email_success');
   }
 
   function showError() {
@@ -4324,6 +4401,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     submitBtn.disabled = true;
     submitBtn.textContent = '...';
     errorEl.classList.remove('is-visible');
+    if (window.track) window.track('email_submit');
 
     // Kopieer email naar verborgen Revinate form
     var hiddenEmail = document.getElementById('ec_hidden_email');

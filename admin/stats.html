@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asteria Analytics</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f8f7f5; color: #1a1a1a; padding: 32px 24px; }
+    h1 { font-size: 20px; font-weight: 600; margin-bottom: 24px; }
+    h2 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #6b7280; margin: 28px 0 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 32px; }
+    .card { background: #fff; border-radius: 10px; padding: 16px 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+    .card__label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .card__value { font-size: 28px; font-weight: 700; }
+    .card--a .card__value { color: #2563eb; }
+    .card--b .card__value { color: #c23435; }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); font-size: 13px; }
+    th { background: #f3f4f6; font-weight: 600; text-align: left; padding: 10px 14px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: #6b7280; }
+    td { padding: 9px 14px; border-top: 1px solid #f3f4f6; }
+    tr:hover td { background: #fafafa; }
+    .filter-row { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+    select, input { font-size: 13px; padding: 7px 12px; border: 1px solid #d1d5db; border-radius: 7px; background: #fff; }
+    button { font-size: 13px; padding: 7px 16px; border-radius: 7px; border: none; background: #c23435; color: #fff; cursor: pointer; font-weight: 600; }
+    button:hover { background: #a82c2c; }
+    .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    .tag--a { background: #dbeafe; color: #1d4ed8; }
+    .tag--b { background: #fee2e2; color: #c23435; }
+    #error { color: #c23435; font-size: 14px; margin-top: 16px; }
+    #loading { color: #9ca3af; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+<h1>Asteria Analytics</h1>
+
+<div id="summary">
+  <p id="loading">Laden...</p>
+</div>
+
+<h2>Events</h2>
+<div class="filter-row">
+  <select id="filterEvent">
+    <option value="">Alle events</option>
+    <option value="page_view">page_view</option>
+    <option value="cta_click">cta_click</option>
+    <option value="popup_open">popup_open</option>
+    <option value="step2_reached">step2_reached</option>
+    <option value="mews_click">mews_click</option>
+    <option value="email_submit">email_submit</option>
+    <option value="email_success">email_success</option>
+  </select>
+  <input type="number" id="filterLimit" value="200" min="10" max="2000" style="width:90px">
+  <button onclick="loadEvents()">Vernieuwen</button>
+</div>
+<div id="eventsTable"><p id="loading2">Laden...</p></div>
+<p id="error"></p>
+
+<script>
+async function loadSummary() {
+  try {
+    const res = await fetch('/api/stats?summary=1');
+    const data = await res.json();
+
+    const eventMap = {};
+    (data.events || []).forEach(function(row) { eventMap[row.event] = row.count; });
+
+    const variantMap = {};
+    (data.variants || []).forEach(function(row) {
+      var k = row.event + '_' + (row.variant_price || 'null');
+      variantMap[k] = row.count;
+    });
+
+    var pvA = variantMap['page_view_A'] || 0;
+    var pvB = variantMap['page_view_B'] || 0;
+    var mcA = variantMap['mews_click_A'] || 0;
+    var mcB = variantMap['mews_click_B'] || 0;
+    var cvrA = pvA > 0 ? ((mcA / pvA) * 100).toFixed(1) : '—';
+    var cvrB = pvB > 0 ? ((mcB / pvB) * 100).toFixed(1) : '—';
+
+    document.getElementById('summary').innerHTML =
+      '<h2>Samenvatting</h2>' +
+      '<div class="grid">' +
+        mkCard('Page views', eventMap['page_view'] || 0, '') +
+        mkCard('Popup geopend', eventMap['popup_open'] || 0, '') +
+        mkCard('Stap 2 bereikt', eventMap['step2_reached'] || 0, '') +
+        mkCard('Naar Mews', eventMap['mews_click'] || 0, '') +
+        mkCard('Email submit', eventMap['email_submit'] || 0, '') +
+        mkCard('Email success', eventMap['email_success'] || 0, '') +
+      '</div>' +
+      '<h2>Prijs A/B test</h2>' +
+      '<div class="grid">' +
+        mkCard2('Variant A (€139,50)', 'page views', pvA, 'mews clicks', mcA, 'conv.', cvrA + '%', 'a') +
+        mkCard2('Variant B (€124,50)', 'page views', pvB, 'mews clicks', mcB, 'conv.', cvrB + '%', 'b') +
+      '</div>';
+  } catch(e) {
+    document.getElementById('summary').innerHTML = '<p style="color:#c23435">Fout bij laden samenvatting: ' + e.message + '</p>';
+  }
+}
+
+function mkCard(label, value, cls) {
+  return '<div class="card' + (cls ? ' card--' + cls : '') + '">' +
+    '<div class="card__label">' + label + '</div>' +
+    '<div class="card__value">' + value + '</div>' +
+  '</div>';
+}
+
+function mkCard2(title, l1, v1, l2, v2, l3, v3, cls) {
+  return '<div class="card card--' + cls + '" style="grid-column:span 2;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end;gap:16px">' +
+    '<div><div class="card__label">' + title + ' — ' + l1 + '</div><div class="card__value" style="font-size:22px">' + v1 + '</div></div>' +
+    '<div><div class="card__label">' + l2 + '</div><div class="card__value" style="font-size:22px">' + v2 + '</div></div>' +
+    '<div><div class="card__label">' + l3 + '</div><div class="card__value" style="font-size:22px">' + v3 + '</div></div>' +
+  '</div>';
+}
+
+async function loadEvents() {
+  var event = document.getElementById('filterEvent').value;
+  var limit = document.getElementById('filterLimit').value || 200;
+  var url = '/api/stats?limit=' + limit + (event ? '&event=' + event : '');
+  document.getElementById('eventsTable').innerHTML = '<p>Laden...</p>';
+  try {
+    var res = await fetch(url);
+    var rows = await res.json();
+    if (!Array.isArray(rows) || rows.length === 0) {
+      document.getElementById('eventsTable').innerHTML = '<p style="color:#9ca3af;padding:16px 0">Geen events gevonden.</p>';
+      return;
+    }
+    var html = '<table><thead><tr>' +
+      '<th>Tijd</th><th>Event</th><th>Variant prijs</th><th>Variant email</th><th>Pagina</th><th>Referrer</th>' +
+      '</tr></thead><tbody>';
+    rows.forEach(function(r) {
+      var vp = r.variant_price;
+      html += '<tr>' +
+        '<td>' + (r.ts ? r.ts.replace('T', ' ').slice(0, 19) : '') + '</td>' +
+        '<td>' + (r.event || '') + '</td>' +
+        '<td>' + (vp ? '<span class="tag tag--' + vp.toLowerCase() + '">' + vp + '</span>' : '') + '</td>' +
+        '<td>' + (r.variant_email || '') + '</td>' +
+        '<td>' + (r.page || '') + '</td>' +
+        '<td style="color:#9ca3af;font-size:11px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (r.referrer || '') + '</td>' +
+      '</tr>';
+    });
+    html += '</tbody></table>';
+    document.getElementById('eventsTable').innerHTML = html;
+  } catch(e) {
+    document.getElementById('error').textContent = 'Fout: ' + e.message;
+  }
+}
+
+loadSummary();
+loadEvents();
+</script>
+
+</body>
+</html>
