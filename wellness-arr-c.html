@@ -3062,6 +3062,44 @@
   <input type="text" name="vipStatus" value="Wellness nieuwsbrief">
 </form>
 
+<!-- ══ EMAIL CAPTURE ═════════════════════════════════════ -->
+<div class="ec-overlay" id="ecOverlay" role="dialog" aria-modal="true" aria-label="Nieuwsbrief aanmelden">
+  <div class="ec-modal" id="ecModal">
+    <div class="ec-modal-inner">
+      <div class="ec-modal-bg"></div>
+      <button class="ec-close" id="ecClose" aria-label="Sluiten">&times;</button>
+      <div class="ec-content">
+
+        <!-- Scherm 1: form -->
+        <div class="ec-form-state" id="ecFormState">
+          <h2 class="ec-title">Gratis badjas, handdoek<br>&amp; bubbels op de kamer</h2>
+          <p class="ec-sub">Meld u aan voor de nieuwsbrief en ontvang het pakket bij uw eerste verblijf.</p>
+          <p class="ec-error" id="ecError">Er ging iets mis. Probeer het opnieuw.</p>
+          <div class="ec-form-row">
+            <input class="ec-email-input" type="email" id="ecEmail" placeholder="uw e-mailadres" autocomplete="email">
+            <button class="ec-submit-btn" id="ecSubmit">Aanmelden</button>
+          </div>
+          <p class="ec-consent">Door u aan te melden gaat u akkoord met onze <a href="/privacyverklaring" target="_blank">privacyverklaring</a>. Afmelden kan altijd.</p>
+        </div>
+
+        <!-- Scherm 2: succes -->
+        <div class="ec-success" id="ecSuccess">
+          <div class="ec-success-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <polyline points="2,4 12,13 22,4"/>
+            </svg>
+          </div>
+          <h2 class="ec-success-title">Check uw inbox</h2>
+          <p class="ec-success-sub">We hebben u een mail gestuurd. Open hem om uw aanmelding te bevestigen &mdash; uw persoonlijke code staat daarin.</p>
+          <p class="ec-spam-note">Geen mail ontvangen? Check uw spamfolder.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ COOKIE BANNER ═════════════════════════════════════ -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookiemelding">
   <p class="cookie-banner__text">
