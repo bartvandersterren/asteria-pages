@@ -10,6 +10,12 @@
   <!-- Canonical -->
   <link rel="canonical" href="https://visit.asteria.nl/wellness-arr-c">
 
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="nl" href="https://visit.asteria.nl/wellness-arr-c">
+  <link rel="alternate" hreflang="en" href="https://visit.asteria.nl/wellness-arr-c-en">
+  <link rel="alternate" hreflang="de" href="https://visit.asteria.nl/wellness-arr-c-de">
+  <link rel="alternate" hreflang="x-default" href="https://visit.asteria.nl/wellness-arr-c">
+
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Wellness Arrangement | Hotel Asteria Venray">
@@ -2476,6 +2482,25 @@
 </head>
 <body>
 
+<!-- ══ TAALDETECTIE ══════════════════════════════════════════ -->
+<script>
+(function() {
+  var stored = localStorage.getItem('asteria_lang');
+  if (stored === 'en') { window.location.replace('/wellness-arr-c-en'); return; }
+  if (stored === 'de') { window.location.replace('/wellness-arr-c-de'); return; }
+  if (!stored) {
+    var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+    if (lang.startsWith('de')) {
+      localStorage.setItem('asteria_lang', 'de');
+      window.location.replace('/wellness-arr-c-de');
+    } else if (!lang.startsWith('nl')) {
+      localStorage.setItem('asteria_lang', 'en');
+      window.location.replace('/wellness-arr-c-en');
+    }
+  }
+})();
+</script>
+
 <!-- ══ STICKY CTA ════════════════════════════════════════ -->
 <button
   class="sticky-fab"
@@ -4465,6 +4490,19 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     }
     window.addEventListener('scroll', onScroll, { passive: true });
   }
+})();
+
+/* ── Taalwisselaar ── */
+(function() {
+  var sel = document.querySelector('.lang-nav');
+  if (!sel) return;
+  sel.value = 'nl';
+  sel.addEventListener('change', function() {
+    var v = sel.value;
+    localStorage.setItem('asteria_lang', v);
+    if (v === 'en') window.location.href = '/wellness-arr-c-en';
+    else if (v === 'de') window.location.href = '/wellness-arr-c-de';
+  });
 })();
 </script>
 
