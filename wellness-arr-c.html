@@ -4247,6 +4247,132 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   });
 
 }());
+
+/* ══ EMAIL CAPTURE ══════════════════════════════════════ */
+(function () {
+  // ── Guards ──────────────────────────────────────────
+  if (localStorage.getItem('ec_converted')) return;
+
+  var overlay   = document.getElementById('ecOverlay');
+  var modal     = document.getElementById('ecModal');
+  var btnClose  = document.getElementById('ecClose');
+  var formState = document.getElementById('ecFormState');
+  var successEl = document.getElementById('ecSuccess');
+  var emailInput = document.getElementById('ecEmail');
+  var submitBtn  = document.getElementById('ecSubmit');
+  var errorEl    = document.getElementById('ecError');
+
+  var shown = false;
+
+  // ── Open / close ─────────────────────────────────────
+  function openPopup() {
+    if (shown) return;
+    if (sessionStorage.getItem('ec_shown')) return;
+    shown = true;
+    sessionStorage.setItem('ec_shown', '1');
+    overlay.classList.add('is-open');
+    setTimeout(function () { emailInput && emailInput.focus(); }, 350);
+  }
+
+  function closePopup() {
+    overlay.classList.remove('is-open');
+  }
+
+  btnClose.addEventListener('click', closePopup);
+
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closePopup();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePopup();
+  });
+
+  window.openEmailCapture = openPopup;
+
+  // ── Submit handler ───────────────────────────────────
+  function showSuccess() {
+    formState.classList.add('is-hidden');
+    successEl.classList.add('is-visible');
+    localStorage.setItem('ec_converted', '1');
+  }
+
+  function showError() {
+    errorEl.classList.add('is-visible');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Aanmelden';
+  }
+
+  submitBtn.addEventListener('click', function () {
+    var email = emailInput.value.trim();
+    if (!email || !emailInput.checkValidity()) {
+      emailInput.focus();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '...';
+    errorEl.classList.remove('is-visible');
+
+    // Kopieer email naar verborgen Revinate form
+    var hiddenEmail = document.getElementById('ec_hidden_email');
+    if (hiddenEmail) hiddenEmail.value = email;
+
+    // Roep Revinate submit aan
+    try {
+      if (typeof revFormOnSubmit === 'function') {
+        revFormOnSubmit();
+        showSuccess();
+      } else {
+        showError();
+      }
+    } catch (e) {
+      showError();
+    }
+  });
+
+  // Enter in email input triggert submit
+  emailInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') submitBtn.click();
+  });
+
+  // ── A/B split ────────────────────────────────────────
+  var variant = sessionStorage.getItem('ec_variant');
+  if (!variant) {
+    variant = Math.random() < 0.5 ? 'A' : 'B';
+    sessionStorage.setItem('ec_variant', variant);
+  }
+
+  // ── Variant A: timer 4 seconden ──────────────────────
+  if (variant === 'A') {
+    setTimeout(openPopup, 4000);
+    return;
+  }
+
+  // ── Variant B: exit intent (desktop) + scroll (mobile) ──
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  if (!isMobile) {
+    // Exit intent: muis verlaat venster bovenkant
+    document.addEventListener('mouseleave', function handler(e) {
+      if (e.clientY <= 5) {
+        document.removeEventListener('mouseleave', handler);
+        openPopup();
+      }
+    });
+  } else {
+    // Scroll-depth: 70% van de pagina gescrold
+    function onScroll() {
+      var scrolled = window.scrollY + window.innerHeight;
+      var total = document.documentElement.scrollHeight;
+      if (scrolled / total >= 0.70) {
+        window.removeEventListener('scroll', onScroll);
+        openPopup();
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+})();
 </script>
 
 
