@@ -2490,10 +2490,10 @@
   if (stored === 'de') { window.location.replace('/wellness-arr-c-de'); return; }
   if (!stored) {
     var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-    if (lang.startsWith('de')) {
+    if (lang.indexOf('de') === 0) {
       localStorage.setItem('asteria_lang', 'de');
       window.location.replace('/wellness-arr-c-de');
-    } else if (!lang.startsWith('nl')) {
+    } else if (lang.indexOf('nl') !== 0) {
       localStorage.setItem('asteria_lang', 'en');
       window.location.replace('/wellness-arr-c-en');
     }
@@ -4500,8 +4500,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   sel.addEventListener('change', function() {
     var v = sel.value;
     localStorage.setItem('asteria_lang', v);
-    if (v === 'en') window.location.href = '/wellness-arr-c-en';
-    else if (v === 'de') window.location.href = '/wellness-arr-c-de';
+    if (v === 'en') window.location.replace('/wellness-arr-c-en');
+    else if (v === 'de') window.location.replace('/wellness-arr-c-de');
   });
 })();
 </script>
