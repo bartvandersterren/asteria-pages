@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="{{HTML_LANG}}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wellness Arrangement | Hotel Asteria Venray</title>
+  <title>{{PAGE_TITLE}}</title>
   <link rel="icon" href="/favicon.ico">
-  <meta name="description" content="Wellness-Arrangement mit Übernachtung, Drei-Gänge-Dinner und Frühstücksbuffet im Hotel Asteria Venray. Vier einzigartige Saunen auf der Top Floor. Ab €139,50 p.P.">
+  <meta name="description" content="{{META_DESC}}">
 
   <!-- Canonical -->
-  <link rel="canonical" href="https://visit.asteria.nl/wellness-arr-c-de">
+  <link rel="canonical" href="{{CANONICAL_URL}}">
 
   <!-- Hreflang -->
-  <link rel="alternate" hreflang="de" href="https://visit.asteria.nl/wellness-arr-c-de">
-  <link rel="alternate" hreflang="en" href="https://visit.asteria.nl/wellness-arr-c-de-en">
-  <link rel="alternate" hreflang="de" href="https://visit.asteria.nl/wellness-arr-c-de-de">
-  <link rel="alternate" hreflang="x-default" href="https://visit.asteria.nl/wellness-arr-c-de">
+  <link rel="alternate" hreflang="{{HTML_LANG}}" href="{{CANONICAL_URL}}">
+  <link rel="alternate" hreflang="en" href="{{CANONICAL_URL}}-en">
+  <link rel="alternate" hreflang="de" href="{{CANONICAL_URL}}-de">
+  <link rel="alternate" hreflang="x-default" href="{{CANONICAL_URL}}">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Wellness Arrangement | Hotel Asteria Venray">
-  <meta property="og:description" content="Wellness-Arrangement mit Übernachtung, Drei-Gänge-Dinner und Frühstücksbuffet im Hotel Asteria Venray. Vier einzigartige Saunen auf der Top Floor. Ab €139,50 p.P.">
-  <meta property="og:image" content="https://visit.asteria.de/fotos/wellness-hero.webp">
-  <meta property="og:url" content="https://visit.asteria.nl/wellness-arr-c-de">
-  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="{{PAGE_TITLE}}">
+  <meta property="og:description" content="{{META_DESC}}">
+  <meta property="og:image" content="https://visit.asteria.{{HTML_LANG}}/fotos/wellness-hero.webp">
+  <meta property="og:url" content="{{CANONICAL_URL}}">
+  <meta property="og:locale" content="{{OG_LOCALE}}">
   <meta property="og:site_name" content="Hotel Asteria Venray">
 
   <!-- Preload hero image (LCP) -->
@@ -33,7 +33,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
 
-  <!-- Revinate Kontakt API -->
+  <!-- Revinate {{NAV_CONTACT}} API -->
   <script type="text/javascript" src="//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1" defer></script>
 
   <!-- Structured Data -->
@@ -42,7 +42,7 @@
     "@context": "https://schema.org",
     "@type": "Hotel",
     "name": "Hotel Asteria",
-    "url": "https://www.asteria.de",
+    "url": "https://www.asteria.{{HTML_LANG}}",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Maasheseweg 80a",
@@ -51,8 +51,8 @@
       "addressCountry": "NL"
     },
     "telephone": "+31478511466",
-    "email": "info@asteria.de",
-    "image": "https://visit.asteria.de/fotos/wellness-hero.webp",
+    "email": "info@asteria.{{HTML_LANG}}",
+    "image": "https://visit.asteria.{{HTML_LANG}}/fotos/wellness-hero.webp",
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.2",
@@ -61,17 +61,17 @@
     },
     "makesOffer": {
       "@type": "Offer",
-      "name": "Wellness Arrangement",
-      "description": "Übernachtung, Willkommensgetränk, Bademantel und Hausschuhe, freier Wellnesszugang, Drei-Gänge-Dinner und Frühstücksbuffet.",
+      "name": "{{ARRANGEMENT_NAME}}",
+      "description": "{{SCHEMA_OFFER_DESC}}",
       "price": "139.50",
       "priceCurrency": "EUR",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
         "price": "139.50",
         "priceCurrency": "EUR",
-        "unitText": "pro Person"
+        {{SCHEMA_UNIT_TEXT}}
       },
-      "url": "https://visit.asteria.nl/wellness-arr-c-de",
+      "url": "{{CANONICAL_URL}}",
       "availability": "https://schema.org/InStock"
     }
   }
@@ -116,7 +116,7 @@
     .top-bar a:hover { color: #fff; }
     .lang-nav { cursor: pointer; color: #f2f2f2; border: none; text-transform: uppercase; font-size: 12px; font-family: sans-serif; background: transparent; outline: none; -webkit-appearance: none; appearance: none; margin-left: 2px; }
     .lang-nav option { color: #333; }
-    .lang-wrapper { display: ideine-flex; align-items: center; }
+    .lang-wrapper { display: i{{HTML_LANG}}ine-flex; align-items: center; }
     .lang-arrow { color: #f2f2f2; font-size: 10px; margin-left: 2px; pointer-events: none; }
     .row.nav-bar { display: flex; align-items: center; padding: 18px 22px; }
     .nav-inner > .logo { position: absolute; left: 22px; top: 0; bottom: 0; z-index: 10; display: flex; align-items: center; text-decoration: none; }
@@ -283,7 +283,7 @@
       50%       { opacity: 0.85; }
     }
     .hero__cta {
-      display: ideine-flex;
+      display: i{{HTML_LANG}}ine-flex;
       align-items: center;
       justify-content: center;
       background: #c23435;
@@ -568,7 +568,7 @@
 
     /* Mini rating in arr-c */
     .arr-c__rating {
-      display: ideine-flex;
+      display: i{{HTML_LANG}}ine-flex;
       align-items: center;
       gap: 6px;
       text-decoration: none;
@@ -659,7 +659,7 @@
       }
 
       .arr-c__price-from { font-size: 11px; margin-bottom: 0; }
-      .arr-c__price { font-size: 22px; display: ideine; }
+      .arr-c__price { font-size: 22px; display: i{{HTML_LANG}}ine; }
       .arr-c__price-sub { font-size: 11px; margin-top: 0; }
 
       .arr-c__cta { min-height: 46px; font-size: 13px; margin-bottom: 8px; }
@@ -947,7 +947,7 @@
       bottom: 20px;
       right: 16px;
       z-index: 900;
-      display: ideine-flex;
+      display: i{{HTML_LANG}}ine-flex;
       align-items: center;
       gap: 8px;
       background: #c23435;
@@ -1228,7 +1228,7 @@
     }
     .wp-panel__specs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
     .wp-spec-badge {
-      display: ideine-flex; align-items: center; gap: 5px;
+      display: i{{HTML_LANG}}ine-flex; align-items: center; gap: 5px;
       background: #f5f0ea; color: #444;
       font-family: 'Montserrat', sans-serif; font-size: 12px;
       font-weight: 600; padding: 4px 10px; border-radius: 20px;
@@ -1330,7 +1330,7 @@
     justify-content: center;
   }
   .rooms__base-badge {
-    display: ideine-block;
+    display: i{{HTML_LANG}}ine-block;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.07em;
@@ -1391,7 +1391,7 @@
   }
   .room-row__info { flex: 1; min-width: 0; }
   .room-row__badge {
-    display: ideine-block;
+    display: i{{HTML_LANG}}ine-block;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.07em;
@@ -1723,7 +1723,7 @@
   }
 
   .diner__cta {
-    display: ideine-block;
+    display: i{{HTML_LANG}}ine-block;
     background: #c23435;
     color: #fff;
     font-family: 'Montserrat', sans-serif;
@@ -2482,71 +2482,69 @@
 </head>
 <body>
 
-
+{{LANG_DETECT_SCRIPT}}
 
 <!-- ══ STICKY CTA ════════════════════════════════════════ -->
 <button
   class="sticky-fab"
   id="stickyFab"
-  aria-label="Jetzt buchen: Wellness Arrangement"
+  aria-label="{{STICKY_FAB_ARIA}}"
   onclick="window.openBookingPopup()"
   data-track-cta="sticky_fab"
 >
-  Jetzt buchen
+  {{BTN_BOOK_DIRECT}}
   <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
 
-<div class="sticky-card" id="stickyCard" role="complementary" aria-label="Schnell buchen">
-  <span class="sticky-card__name">Wellness Arrangement</span>
+<div class="sticky-card" id="stickyCard" role="complementary" aria-label="{{STICKY_CARD_ARIA}}">
+  <span class="sticky-card__name">{{ARRANGEMENT_NAME}}</span>
   <strong class="sticky-card__price">&euro;139,50</strong>
-  <span class="sticky-card__price-sub">p.P.</span>
+  <span class="sticky-card__price-sub">{{STICKY_CARD_PER_PERSON}}</span>
   <button
     class="sticky-card__btn"
     onclick="window.openBookingPopup()"
     data-track-cta="sticky_card"
-  >Jetzt buchen &rarr;</button>
+  >{{BTN_BOOK_DIRECT}} &rarr;</button>
 </div>
 
 <!-- ══ NAV ═══════════════════════════════════════════════════ -->
 <nav class="main-nav" id="nav">
   <div class="nav-inner">
     <div class="top-bar">
-      <a href="mailto:info@asteria.de"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 9 10-9"/></svg>info@asteria.de</a>
+      <a href="mailto:info@asteria.{{HTML_LANG}}"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 9 10-9"/></svg>info@asteria.{{HTML_LANG}}</a>
       <a href="tel:0031478511466"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>0478 511 466</a>
       <span class="lang-wrapper">
         <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
         <select class="lang-nav">
-          <option value="nl">nl</option>
-          <option value="en">en</option>
-          <option value="de" selected>de</option>
+          {{LANG_SELECT_OPTIONS}}
         </select>
         <span class="lang-arrow">&#9662;</span>
       </span>
     </div>
-    <a class="logo" href="https://www.asteria.de">
-      <img src="https://www.asteria.de/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+    <a class="logo" href="https://www.asteria.{{HTML_LANG}}">
+      <img src="https://www.asteria.{{HTML_LANG}}/images/logo-hotel-asteria.png" alt="Hotel Asteria">
     </a>
     <div class="row nav-bar">
-      <a class="logo logo--mobile" href="https://www.asteria.de">
-        <img src="https://www.asteria.de/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+      <a class="logo logo--mobile" href="https://www.asteria.{{HTML_LANG}}">
+        <img src="https://www.asteria.{{HTML_LANG}}/images/logo-hotel-asteria.png" alt="Hotel Asteria">
       </a>
       <div class="nav-content">
         <ul>
           <li class="menu-close" id="menuClose">&#10005;</li>
-          <li><a href="https://www.asteria.de/kamers">Zimmer und Suiten</a></li>
-          <li><a href="https://www.asteria.de/hotel">Hotel</a></li>
-          <li><a href="https://www.asteria.de/restaurant">Restaurant</a></li>
-          <li><a href="https://www.asteria.de/wellness">Wellness</a></li>
-          <li><a href="https://www.asteria.de/omgeving">Umgebung</a></li>
-          <li><a href="https://www.asteria.de/contact">Kontakt</a></li>
+          <li><a href="https://www.asteria.{{HTML_LANG}}/kamers">{{NAV_ROOMS}}</a></li>
+          <li><a href="https://www.asteria.{{HTML_LANG}}/hotel">Hotel</a></li>
+          <li><a href="https://www.asteria.{{HTML_LANG}}/restaurant">Restaurant</a></li>
+          <li><a href="https://www.asteria.{{HTML_LANG}}/wellness">Wellness</a></li>
+          <li><a href="https://www.asteria.{{HTML_LANG}}/omgeving">{{NAV_SURROUNDINGS}}</a></li>
+          <li><a href="https://www.asteria.{{HTML_LANG}}/contact">{{NAV_CONTACT}}</a></li>
         </ul>
-        <button class="button book-now" onclick="window.openBookingPopup()">Jetzt buchen</button>
+        <button class="button book-now" onclick="window.openBookingPopup()">{{NAV_BOOK_BTN}}</button>
       </div>
       <div class="mobile-nav-buttons">
-        <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Menü</span>
-        <a href="tel:0031478511466" class="button"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Anrufen</a>
+        <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> {{NAV_MENU}}</span>
+        <a href="tel:0031478511466" class="button"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> {{NAV_CALL}}</a>
       </div>
     </div>
   </div>
@@ -2560,19 +2558,19 @@
   <div class="hero__grain"></div>
 
   <div class="hero__content">
-    <span class="hero__location">Venray &nbsp;&middot;&nbsp; Nord-Limburg</span>
-    <h1 class="hero__title">Wellness, Abendessen<br>&amp; ein gutes Bett</h1>
+    <span class="hero__location">Venray &nbsp;&middot;&nbsp; {{HERO_LOCATION}}</span>
+    <h1 class="hero__title">{{HERO_TITLE}}</h1>
     <div class="hero__rule" aria-hidden="true"></div>
-    <p class="hero__sub">Sauna, Drei-Gänge-Dinner und ein komfortables Zimmer. Alles geregelt, Sie müssen nur kommen.</p>
+    <p class="hero__sub">{{HERO_SUBTITLE}}</p>
     <button
       class="hero__cta"
       onclick="window.openBookingPopup()"
       data-track-cta="hero"
-    >Das Arrangement buchen</button>
+    >{{BTN_BOOK_ARRANGEMENT}}</button>
     <div class="hero__trust">
-      <span>&#10003; 4 Saunen auf der Top Floor</span>
-      <span>&#10003; Dinner &amp; Frühstück inbegriffen</span>
-      <span>&#10003; Kostenlose Stornierung</span>
+      <span>&#10003; {{HERO_USP1}}</span>
+      <span>&#10003; {{HERO_USP2}}</span>
+      <span>&#10003; {{HERO_USP3}}</span>
     </div>
   </div>
 
@@ -2584,7 +2582,7 @@
 
 
 <!-- ══ ARRANGEMENT BLOK C ════════════════════════════════════ -->
-<section class="arr-c" id="arrangement" aria-label="Wellness Arrangement, was ist inbegriffen">
+<section class="arr-c" id="arrangement" aria-label="{{ARR_C_ARIA}}">
 
   <!-- Links: fotopaneel -->
   <div class="arr-c__photos" aria-hidden="true">
@@ -2607,29 +2605,29 @@
     <div class="arr-c__photo" data-key="ontbijt"
          style="background-image:url('fotos/arr-c-ontbijt.webp')"></div>
 
-    <span class="arr-c__photo-caption" id="arrCCaption">Komfortables Zimmer</span>
+    <span class="arr-c__photo-caption" id="arrCCaption">{{ARR_C_CAPTION_INIT}}</span>
   </div>
 
   <!-- Rechts: contentpaneel -->
   <div class="arr-c__content">
 
-    <a href="#reviews" class="arr-c__rating" aria-label="4,2 von 5 Sternen · 2.219 Google-Bewertungen">
+    <a href="#reviews" class="arr-c__rating" aria-label="{{ARR_C_RATING_ARIA}}">
       <span class="arr-c__rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
       <span class="arr-c__rating-score">4,2</span>
-      <span class="arr-c__rating-count">· 2.219 Bewertungen</span>
+      <span class="arr-c__rating-count">{{ARR_C_RATING_COUNT}}</span>
     </a>
-    <span class="arr-c__eyebrow">Wellness Arrangement</span>
-    <h2 class="arr-c__title">Was ist inbegriffen?</h2>
+    <span class="arr-c__eyebrow">{{ARRANGEMENT_NAME}}</span>
+    <h2 class="arr-c__title">{{ARR_C_TITLE}}</h2>
     <p class="arr-c__intro">
-      Eine Übernachtung mit Wellness, Abendessen und Frühstück. Freier Zugang zum Wellnessbereich auf der Top Floor.
+      {{ARR_C_INTRO}}
     </p>
 
     <ul class="arr-c__features" id="arrCFeatures">
 
-      <!-- 1. Übernachtung -->
+      <!-- 1. {{ARR_C_F1_NAME}} -->
       <li class="arr-c__feature is-active"
           data-key="kamer"
-          data-caption="Komfortables Zimmer"
+          data-caption="{{ARR_C_CAPTION_INIT}}"
           role="button" tabindex="0">
         <div class="arr-c__feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2640,8 +2638,8 @@
           </svg>
         </div>
         <div class="arr-c__feature-body">
-          <strong class="arr-c__feature-name">Übernachtung</strong>
-          <span class="arr-c__feature-desc">Zimmer nach Wahl, vom Comfort bis zur Suite</span>
+          <strong class="arr-c__feature-name">{{ARR_C_F1_NAME}}</strong>
+          <span class="arr-c__feature-desc">{{ARR_C_F1_DESC}}</span>
         </div>
         <div class="arr-c__feature-check" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2650,10 +2648,10 @@
         </div>
       </li>
 
-      <!-- 2. Willkommensgetränk -->
+      <!-- 2. {{ARR_C_F2_NAME}} -->
       <li class="arr-c__feature"
           data-key="drankje"
-          data-caption="Botega Willkommensgetränk auf dem Zimmer"
+          data-caption="{{ARR_C_F2_CAP}}"
           role="button" tabindex="0">
         <div class="arr-c__feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2662,8 +2660,8 @@
           </svg>
         </div>
         <div class="arr-c__feature-body">
-          <strong class="arr-c__feature-name">Willkommensgetränk</strong>
-          <span class="arr-c__feature-desc">Botega Prosecco auf dem Zimmer bei der Ankunft</span>
+          <strong class="arr-c__feature-name">{{ARR_C_F2_NAME}}</strong>
+          <span class="arr-c__feature-desc">{{ARR_C_F2_DESC}}</span>
         </div>
         <div class="arr-c__feature-check" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2675,7 +2673,7 @@
       <!-- 3. Badjas & slippers -->
       <li class="arr-c__feature"
           data-key="badjas"
-          data-caption="Bademantel, Pantoffeln &amp; Handtücher"
+          data-caption="{{ARR_C_F3_CAP}}"
           role="button" tabindex="0">
         <div class="arr-c__feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2683,8 +2681,8 @@
           </svg>
         </div>
         <div class="arr-c__feature-body">
-          <strong class="arr-c__feature-name">Bademantel &amp; Pantoffeln</strong>
-          <span class="arr-c__feature-desc">Alles bereitgestellt, nichts mitbringen</span>
+          <strong class="arr-c__feature-name">{{ARR_C_F3_NAME}}</strong>
+          <span class="arr-c__feature-desc">{{ARR_C_F3_DESC}}</span>
         </div>
         <div class="arr-c__feature-check" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2696,7 +2694,7 @@
       <!-- 4. Wellness -->
       <li class="arr-c__feature"
           data-key="wellness"
-          data-caption="4 Saunen &amp; Dampfbad · Top Floor"
+          data-caption="{{ARR_C_F4_CAP}}"
           role="button" tabindex="0">
         <div class="arr-c__feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2704,8 +2702,8 @@
           </svg>
         </div>
         <div class="arr-c__feature-body">
-          <strong class="arr-c__feature-name">Freier Wellnesszugang</strong>
-          <span class="arr-c__feature-desc">4 Saunen &amp; Dampfbad auf der Top Floor</span>
+          <strong class="arr-c__feature-name">{{ARR_C_F4_NAME}}</strong>
+          <span class="arr-c__feature-desc">{{ARR_C_F4_DESC}}</span>
         </div>
         <div class="arr-c__feature-check" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2717,7 +2715,7 @@
       <!-- 5. Diner -->
       <li class="arr-c__feature"
           data-key="diner"
-          data-caption="Drei-Gänge-Dinner"
+          data-caption="{{ARR_C_F5_CAP}}"
           role="button" tabindex="0">
         <div class="arr-c__feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2727,8 +2725,8 @@
           </svg>
         </div>
         <div class="arr-c__feature-body">
-          <strong class="arr-c__feature-name">Drei-Gänge-Dinner</strong>
-          <span class="arr-c__feature-desc">Saisonale Gerichte, entspanntes Abendessen</span>
+          <strong class="arr-c__feature-name">{{ARR_C_F5_CAP}}</strong>
+          <span class="arr-c__feature-desc">{{ARR_C_F5_DESC}}</span>
         </div>
         <div class="arr-c__feature-check" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2740,7 +2738,7 @@
       <!-- 6. Ontbijt -->
       <li class="arr-c__feature"
           data-key="ontbijt"
-          data-caption="Ausgiebiges Frühstücksbuffet"
+          data-caption="{{ARR_C_F6_CAP}}"
           role="button" tabindex="0">
         <div class="arr-c__feature-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -2752,8 +2750,8 @@
           </svg>
         </div>
         <div class="arr-c__feature-body">
-          <strong class="arr-c__feature-name">Ausgiebiges Frühstücksbuffet</strong>
-          <span class="arr-c__feature-desc">Frisches Brot, Aufschnitt und mehr</span>
+          <strong class="arr-c__feature-name">{{ARR_C_F6_CAP}}</strong>
+          <span class="arr-c__feature-desc">{{ARR_C_F6_DESC}}</span>
         </div>
         <div class="arr-c__feature-check" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2768,9 +2766,9 @@
     <div class="arr-c__bottom">
 
       <div class="arr-c__price-row">
-        <span class="arr-c__price-from">Ab</span>
+        <span class="arr-c__price-from">{{ARR_C_PRICE_FROM}}</span>
         <strong class="arr-c__price">&euro;139,50</strong>
-        <span class="arr-c__price-sub">p.P. auf Basis eines Comfort-Zimmers</span>
+        <span class="arr-c__price-sub">{{ARR_C_PRICE_SUB}}</span>
       </div>
 
       <button
@@ -2778,7 +2776,7 @@
         onclick="window.openBookingPopup()"
         data-track-cta="arr_c"
       >
-        Das Arrangement buchen
+        {{BTN_BOOK_ARRANGEMENT}}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
@@ -2791,14 +2789,14 @@
 <div id="arr-sentinel" aria-hidden="true"></div>
 
 <!-- ══ REVIEWS ══════════════════════════════════════════════ -->
-<section class="reviews" id="reviews" aria-label="Gästebewertungen">
+<section class="reviews" id="reviews" aria-label="{{REVIEWS_ARIA}}">
 
   <div class="reviews__header">
     <div class="reviews__score-block">
       <span class="reviews__score" id="reviewsScore">4,2</span>
       <div class="reviews__score-meta">
         <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <span class="reviews__total" id="reviewsTotal">2.219 Bewertungen</span>
+        <span class="reviews__total" id="reviewsTotal">{{REVIEWS_TOTAL_INIT}}</span>
       </div>
     </div>
     <div class="reviews__live-badge" aria-label="Live Google Reviews">
@@ -2811,27 +2809,27 @@
 
   <div class="reviews__marquee-wrap">
     <div class="reviews__track" id="reviewsTrack">
-      <p class="reviews__loading">Bewertungen werden geladen&hellip;</p>
+      <p class="reviews__loading">{{REVIEWS_LOADING}}</p>
     </div>
   </div>
 
 </section>
 
 <!-- ══ WELLNESS PLATTEGROND ═══════════════════════════════════ -->
-<section class="wp-section" id="wellness-plattegrond" aria-label="Wellnesseinrichtungen, interaktiver Grundriss">
+<section class="wp-section" id="wellness-plattegrond" aria-label="{{WP_ARIA}}">
   <div class="wp-section__inner">
 
     <div class="wp-section__intro">
       <span class="wp-intro__label">Wellness &middot; Top Floor</span>
-      <h2 class="wp-intro__title">Erkunden Sie die Einrichtungen</h2>
-      <p class="wp-intro__sub">Entdecken Sie alle Räume unseres 300m² großen Wellnessbereichs auf der Top Floor. Tippen Sie auf einen Standort für weitere Informationen.</p>
+      <h2 class="wp-intro__title">{{WP_TITLE}}</h2>
+      <p class="wp-intro__sub">{{WP_SUBTITLE}}</p>
     </div>
 
     <div class="wp-section__stage">
       <img
         class="wp-section__img"
         src="fotos/plattegrond-wellness.png"
-        alt="Grundriss des Wellnessbereichs auf der Top Floor von Hotel Asteria"
+        alt="{{WP_IMG_ALT}}"
         loading="lazy"
       >
       <div class="wp-pins" id="wp-pins"></div>
@@ -2843,9 +2841,9 @@
   <div class="wp-backdrop" id="wp-backdrop" aria-hidden="true"></div>
 
   <!-- Drawer (mobile) / Side panel (desktop, fixed) -->
-  <div class="wp-panel" id="wp-panel" role="dialog" aria-modal="true" aria-label="Wellnessraum Details" hidden>
+  <div class="wp-panel" id="wp-panel" role="dialog" aria-modal="true" aria-label="{{WP_PANEL_ARIA}}" hidden>
     <div class="wp-panel__handle" aria-hidden="true"></div>
-    <button class="wp-panel__close" id="wp-panel-close" aria-label="Schließen">
+    <button class="wp-panel__close" id="wp-panel-close" aria-label="{{BTN_CLOSE_ARIA}}">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
         <line x1="2" y1="2" x2="16" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         <line x1="16" y1="2" x2="2" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -2864,19 +2862,19 @@
 </section>
 
 <!-- ══ KAMERTYPES ═══════════════════════════════════════ -->
-<section class="rooms" id="kamertypes" aria-label="Zimmertypen">
+<section class="rooms" id="kamertypes" aria-label="{{ROOMS_ARIA}}">
   <div class="rooms__inner">
-    <span class="rooms__eyebrow">Wählen Sie Ihr Zimmer</span>
-    <h2 class="rooms__title">Welches Zimmer passt zu Ihnen?</h2>
-    <p class="rooms__sub">Upgrade für mehr Komfort oder Privatsphäre</p>
+    <span class="rooms__eyebrow">{{ROOMS_EYEBROW}}</span>
+    <h2 class="rooms__title">{{ROOMS_TITLE}}</h2>
+    <p class="rooms__sub">{{ROOMS_SUB}}</p>
 
     <!-- Comfort = baseline -->
     <div class="rooms__base" data-room="comfort" role="button" tabindex="0" style="cursor:pointer">
-      <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="Comfort Zimmer" loading="lazy">
+      <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="{{ROOM_COMFORT_IMG_ALT}}" loading="lazy">
       <div class="rooms__base-body">
-        <span class="rooms__base-badge">Im Arrangement enthalten</span>
-        <span class="rooms__base-name">Comfort Zimmer</span>
-        <p class="rooms__base-feats">~22 m² · Doppelbett · Dusche · Sitzecke · Klimaanlage · WLAN</p>
+        <span class="rooms__base-badge">{{ROOM_COMFORT_BADGE_STATIC}}</span>
+        <span class="rooms__base-name">{{ROOM_COMFORT_IMG_ALT}}</span>
+        <p class="rooms__base-feats">{{ROOM_COMFORT_FEATS_STATIC}}</p>
       </div>
     </div>
 
@@ -2884,24 +2882,24 @@
     <div class="rooms__list">
 
       <div class="room-row" data-room="royale" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-royale.webp" alt="Royale Kamer" loading="lazy">
+        <img class="room-row__img" src="fotos/kamer-royale.webp" alt="{{ROOM_ROYALE_IMG_ALT}}" loading="lazy">
         <div class="room-row__body">
           <div class="room-row__info">
             <span class="room-row__badge badge--upgrade">Upgrade</span>
-            <div class="room-row__name">Royale Kamer</div>
-            <div class="room-row__deltas"><span class="plus">+</span> mehr Platz <span class="plus">+</span> Badewanne</div>
+            <div class="room-row__name">{{ROOM_ROYALE_IMG_ALT}}</div>
+            <div class="room-row__deltas"><span class="plus">+</span> {{ROOM_ROYALE_DELTAS}}</div>
           </div>
           <span class="room-row__chevron">›</span>
         </div>
       </div>
 
       <div class="room-row" data-room="deluxe" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-deluxe.webp" alt="Deluxe Kamer" loading="lazy">
+        <img class="room-row__img" src="fotos/kamer-deluxe.webp" alt="{{ROOM_DELUXE_IMG_ALT}}" loading="lazy">
         <div class="room-row__body">
           <div class="room-row__info">
-            <span class="room-row__badge badge--sauna">+ Eigene Sauna</span>
-            <div class="room-row__name">Deluxe Kamer</div>
-            <div class="room-row__deltas"><span class="plus">+</span> mehr Platz <span class="plus">+</span> private Infrarotsauna</div>
+            <span class="room-row__badge badge--sauna">{{ROOM_SAUNA_BADGE_STATIC}}</span>
+            <div class="room-row__name">{{ROOM_DELUXE_IMG_ALT}}</div>
+            <div class="room-row__deltas"><span class="plus">+</span> {{ROOM_DELUXE_DELTAS}}</div>
           </div>
           <span class="room-row__chevron">›</span>
         </div>
@@ -2913,7 +2911,7 @@
           <div class="room-row__info">
             <span class="room-row__badge badge--upgrade">Upgrade</span>
             <div class="room-row__name">Junior Suite</div>
-            <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> große Sitzecke <span class="plus">+</span> Badewanne <span class="plus">+</span> Kühlschrank</div>
+            <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_JUNIOR_DELTAS}}</div>
           </div>
           <span class="room-row__chevron">›</span>
         </div>
@@ -2923,21 +2921,21 @@
         <img class="room-row__img" src="fotos/kamer-suite.webp" alt="Suite" loading="lazy">
         <div class="room-row__body">
           <div class="room-row__info">
-            <span class="room-row__badge badge--sauna">+ Eigene Sauna</span>
+            <span class="room-row__badge badge--sauna">{{ROOM_SAUNA_BADGE_STATIC}}</span>
             <div class="room-row__name">Suite</div>
-            <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> private Infrarotsauna <span class="plus">+</span> große Sitzecke <span class="plus">+</span> Kühlschrank</div>
+            <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_SUITE_DELTAS}}</div>
           </div>
           <span class="room-row__chevron">›</span>
         </div>
       </div>
 
       <div class="room-row" data-room="bruidssuite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-bruidssuite.webp" alt="Bruidssuite" loading="lazy">
+        <img class="room-row__img" src="fotos/kamer-bruidssuite.webp" alt="{{ROOM_BRUIDSSUITE_IMG_ALT}}" loading="lazy">
         <div class="room-row__body">
           <div class="room-row__info">
             <span class="room-row__badge badge--premium">Premium</span>
-            <div class="room-row__name">Bruidssuite</div>
-            <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> freistehende Badewanne <span class="plus">+</span> begehbare Dusche <span class="plus">+</span> Kühlschrank</div>
+            <div class="room-row__name">{{ROOM_BRUIDSSUITE_IMG_ALT}}</div>
+            <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_BRUIDSSUITE_DELTAS}}</div>
           </div>
           <span class="room-row__chevron">›</span>
         </div>
@@ -2948,69 +2946,69 @@
 </section>
 
 <!-- Kamerpopup -->
-<div class="room-popup-overlay" id="roomPopup" role="dialog" aria-modal="true" aria-label="Zimmerdetails">
+<div class="room-popup-overlay" id="roomPopup" role="dialog" aria-modal="true" aria-label="{{POPUP_ARIA}}">
   <div class="room-popup" id="roomPopupInner"></div>
 </div>
 
 <!-- ══ BOOKING POPUP ════════════════════════════════════════════ -->
-<div class="bk-overlay" id="bookingPopup" role="dialog" aria-modal="true" aria-label="Aufenthalt buchen">
+<div class="bk-overlay" id="bookingPopup" role="dialog" aria-modal="true" aria-label="{{BK_POPUP_ARIA}}">
   <div class="bk-modal" id="bookingModal">
 
-    <!-- Stap 1: Datum kiezen -->
+    <!-- {{BK_COMMENT_STEP1}} -->
     <div class="bk-step" id="bkStep1">
-      <button class="bk-close" id="bkClose" aria-label="Schließen">&times;</button>
+      <button class="bk-close" id="bkClose" aria-label="{{BTN_CLOSE_ARIA}}">&times;</button>
       <div class="bk-step-indicator" aria-hidden="true">
         <span class="bk-dot bk-dot--active"></span>
         <span class="bk-dot"></span>
       </div>
-      <h2 class="bk-title">Wählen Sie Ihre Aufenthaltsdaten</h2>
+      <h2 class="bk-title">{{BK_TITLE_STEP1}}</h2>
       <div id="bkCalendar"></div>
       <div class="bk-summary" id="bkSummary" aria-live="polite">
         <div class="bk-summary__field">
-          <span class="bk-summary__label">Ankunft</span>
-          <span class="bk-summary__value" id="bkAnkunft">&mdash;</span>
+          <span class="bk-summary__label">{{BK_LABEL_ARRIVAL}}</span>
+          <span class="bk-summary__value" id="bk{{BK_LABEL_ARRIVAL}}">&mdash;</span>
         </div>
         <div class="bk-summary__sep" aria-hidden="true"></div>
         <div class="bk-summary__field">
-          <span class="bk-summary__label">Abreise</span>
-          <span class="bk-summary__value" id="bkAbreise">&mdash;</span>
+          <span class="bk-summary__label">{{BK_LABEL_DEPARTURE}}</span>
+          <span class="bk-summary__value" id="bk{{BK_LABEL_DEPARTURE}}">&mdash;</span>
         </div>
         <div class="bk-summary__sep" aria-hidden="true"></div>
         <div class="bk-summary__field">
-          <span class="bk-summary__label">Nächte</span>
-          <span class="bk-summary__value" id="bkNächte">&mdash;</span>
+          <span class="bk-summary__label">{{BK_LABEL_NIGHTS}}</span>
+          <span class="bk-summary__value" id="bk{{BK_LABEL_NIGHTS}}">&mdash;</span>
         </div>
       </div>
       <div class="bk-selected-room" id="bkSelectedRoom" hidden>
         <div>
-          <span class="bk-selected-room__label">Ausgewähltes Zimmer</span>
+          <span class="bk-selected-room__label">{{BK_SELECTED_ROOM_LABEL}}</span>
           <span class="bk-selected-room__name" id="bkSelectedRoomName"></span>
         </div>
-        <button class="bk-selected-room__change" id="bkChangeRoom">ändern</button>
+        <button class="bk-selected-room__change" id="bkChangeRoom">{{BK_CHANGE_ROOM_BTN}}</button>
       </div>
       <div class="bk-cta-row">
-        <button class="bk-btn-primary" id="bkToStep2" disabled>Weiter: Zimmer wählen &rarr;</button>
-        <button class="bk-btn-ghost" id="bkDirectBook" disabled>Oder direkt ohne Zimmerauswahl buchen</button>
+        <button class="bk-btn-primary" id="bkToStep2" disabled>{{BK_BTN_NEXT_STEP2_HTML}}</button>
+        <button class="bk-btn-ghost" id="bkDirectBook" disabled>{{BK_BTN_DIRECT_BOOK}}</button>
       </div>
     </div>
 
-    <!-- Stap 2: Kamer kiezen -->
+    <!-- {{BK_COMMENT_STEP2}} -->
     <div class="bk-step" id="bkStep2" hidden>
-      <button class="bk-back" id="bkBack" aria-label="Zurück zur Datumsauswahl">&larr; Zurück</button>
+      <button class="bk-back" id="bkBack" aria-label="{{BK_BACK_STEP1_ARIA}}">&larr; {{BK_BACK_STEP1_TEXT}}</button>
       <div class="bk-step-indicator" aria-hidden="true">
         <span class="bk-dot"></span>
         <span class="bk-dot bk-dot--active"></span>
       </div>
-      <h2 class="bk-title">Wählen Sie Ihr Zimmer</h2>
-      <div class="bk-rooms" id="bkRooms" role="radiogroup" aria-label="Kamertype kiezen"></div>
+      <h2 class="bk-title">{{ROOMS_EYEBROW}}</h2>
+      <div class="bk-rooms" id="bkRooms" role="radiogroup" aria-label="{{BK_ROOMS_ARIA}}"></div>
       <div class="bk-cta-row">
-        <button class="bk-btn-primary" id="bkConfirm">Verfügbarkeit prüfen &rarr;</button>
+        <button class="bk-btn-primary" id="bkConfirm">{{BK_BTN_CONFIRM_HTML}}</button>
       </div>
     </div>
 
-    <!-- Stap 3: Kamerdetail sub-view -->
+    <!-- {{BK_COMMENT_STEP3}} -->
     <div class="bk-step" id="bkStep3" hidden>
-      <button class="bk-back" id="bkBackToRooms" aria-label="Zurück zur Zimmerauswahl">&larr; Terug</button>
+      <button class="bk-back" id="bkBackToRooms" aria-label="{{BK_BACK_STEP2_ARIA}}">&larr; Terug</button>
       <div id="bkRoomDetail"></div>
     </div>
 
@@ -3018,15 +3016,15 @@
 </div>
 
 <!-- ══ DINER ════════════════════════════════════════════ -->
-<section class="diner" aria-label="Drei-Gänge-Dinner, im Arrangement enthalten">
+<section class="diner" aria-label="{{DINER_ARIA}}">
   <div class="diner__card">
-    <div class="diner__bg" role="img" aria-label="Restaurant Hotel Asteria, intimes Dinieren mit Blick ins Grüne"></div>
+    <div class="diner__bg" role="img" aria-label="{{DINER_BG_ARIA}}"></div>
     <div class="diner__overlay"></div>
     <div class="diner__content">
-      <span class="diner__eyebrow">Im Arrangement enthalten</span>
-      <h2 class="diner__title">Ein köstliches Drei-Gänge-Dinner</h2>
-      <p class="diner__sub">Nach einem Abend im Wellnessbereich nehmen Sie in unserem Restaurant Platz. Frisch zubereitet, saisonal, keine Eile.</p>
-      <button class="diner__cta" onclick="window.openBookingPopup()">Das Arrangement buchen</button>
+      <span class="diner__eyebrow">{{DINER_EYEBROW}}</span>
+      <h2 class="diner__title">{{DINER_TITLE}}</h2>
+      <p class="diner__sub">{{DINER_SUB}}</p>
+      <button class="diner__cta" onclick="window.openBookingPopup()">{{BTN_BOOK_ARRANGEMENT}}</button>
     </div>
   </div>
 </section>
@@ -3035,16 +3033,16 @@
 <footer class="footer">
   <div class="footer__inner">
     <div class="footer__logo">
-      <a href="https://www.asteria.de">
-        <img src="https://www.asteria.de/images/logo-hotel-asteria.png" alt="Hotel Asteria" loading="lazy">
+      <a href="https://www.asteria.{{HTML_LANG}}">
+        <img src="https://www.asteria.{{HTML_LANG}}/images/logo-hotel-asteria.png" alt="Hotel Asteria" loading="lazy">
       </a>
     </div>
     <div class="footer__info">
       <p class="footer__name">Hotel Asteria</p>
       Maasheseweg 80a &nbsp;&middot;&nbsp; 5804 AD Venray<br>
       <a href="tel:0031478511466">0478 511 466</a> &nbsp;&middot;&nbsp;
-      <a href="mailto:info@asteria.de">info@asteria.de</a><br>
-      <a href="https://www.asteria.de" target="_blank" rel="noopener">www.asteria.de</a>
+      <a href="mailto:info@asteria.{{HTML_LANG}}">info@asteria.{{HTML_LANG}}</a><br>
+      <a href="https://www.asteria.{{HTML_LANG}}" target="_blank" rel="noopener">www.asteria.{{HTML_LANG}}</a>
     </div>
     <div class="footer__social">
       <a href="https://www.facebook.com/AsteriaVenray" target="_blank" rel="noopener" aria-label="Facebook">
@@ -3058,11 +3056,11 @@
       </a>
     </div>
     <div class="footer__links">
-      <a href="https://www.asteria.de/privacy" target="_blank" rel="noopener">Privacy</a>
-      <a href="https://www.asteria.de/algemene-voorwaarden" target="_blank" rel="noopener">AGB</a>
+      <a href="https://www.asteria.{{HTML_LANG}}/privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://www.asteria.{{HTML_LANG}}/algemene-voorwaarden" target="_blank" rel="noopener">{{FOOTER_TERMS}}</a>
     </div>
     <div class="footer__copy">
-      &copy; 2026 Hotel Asteria &nbsp;&middot;&nbsp; Teil von Van der Sterren Hotels
+      &copy; 2026 Hotel Asteria &nbsp;&middot;&nbsp; {{FOOTER_COPYRIGHT}}
     </div>
   </div>
 </footer>
@@ -3077,26 +3075,26 @@
 </form>
 
 <!-- ══ EMAIL CAPTURE ═════════════════════════════════════ -->
-<div class="ec-overlay" id="ecOverlay" role="dialog" aria-modal="true" aria-label="Newsletter anmelden">
+<div class="ec-overlay" id="ecOverlay" role="dialog" aria-modal="true" aria-label="{{EC_OVERLAY_ARIA}}">
   <div class="ec-modal" id="ecModal">
     <div class="ec-modal-inner">
       <div class="ec-modal-bg"></div>
-      <button class="ec-close" id="ecClose" aria-label="Schließen">&times;</button>
+      <button class="ec-close" id="ecClose" aria-label="{{BTN_CLOSE_ARIA}}">&times;</button>
       <div class="ec-content">
 
-        <!-- Scherm 1: form -->
+        <!-- {{EC_COMMENT_SCREEN1}} -->
         <div class="ec-form-state" id="ecFormState">
-          <h2 class="ec-title">Kostenloser Bademantel, Handtuch<br>&amp; Sekt auf dem Zimmer</h2>
-          <p class="ec-sub">Melden Sie sich für den Newsletter an und erhalten Sie das Paket bei Ihrem ersten Aufenthalt.</p>
-          <p class="ec-error" id="ecError">Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.</p>
+          <h2 class="ec-title">{{EC_TITLE}}</h2>
+          <p class="ec-sub">{{EC_SUB}}</p>
+          <p class="ec-error" id="ecError">{{EC_ERROR}}</p>
           <div class="ec-form-row">
-            <input class="ec-email-input" type="email" id="ecEmail" placeholder="Ihre E-Mail-Adresse" autocomplete="email">
-            <button class="ec-submit-btn" id="ecSubmit">Anmelden</button>
+            <input class="ec-email-input" type="email" id="ecEmail" placeholder="{{EC_EMAIL_PLACEHOLDER}}" autocomplete="email">
+            <button class="ec-submit-btn" id="ecSubmit">{{BTN_SUBSCRIBE}}</button>
           </div>
-          <p class="ec-consent">Mit der Anmeldung stimmen Sie unserer <a href="/privacyverklaring" target="_blank">Datenschutzerklärung</a> zu. Abmeldung jederzeit möglich.</p>
+          <p class="ec-consent">{{EC_CONSENT}}</p>
         </div>
 
-        <!-- Scherm 2: succes -->
+        <!-- {{EC_COMMENT_SCREEN2}} -->
         <div class="ec-success" id="ecSuccess">
           <div class="ec-success-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -3104,9 +3102,9 @@
               <polyline points="2,4 12,13 22,4"/>
             </svg>
           </div>
-          <h2 class="ec-success-title">Prüfen Sie Ihren Posteingang</h2>
-          <p class="ec-success-sub">Wir haben Ihnen eine E-Mail geschickt. Öffnen Sie sie, um Ihre Anmeldung zu bestätigen. Ihr persönlicher Code ist darin enthalten.</p>
-          <p class="ec-spam-note">Keine E-Mail erhalten? Prüfen Sie Ihren Spam-Ordner.</p>
+          <h2 class="ec-success-title">{{EC_SUCCESS_TITLE}}</h2>
+          <p class="ec-success-sub">{{EC_SUCCESS_SUB}}</p>
+          <p class="ec-spam-note">{{EC_SPAM_NOTE}}</p>
         </div>
 
       </div>
@@ -3115,20 +3113,19 @@
 </div>
 
 <!-- ══ COOKIE BANNER ═════════════════════════════════════ -->
-<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookiemelding">
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="{{COOKIE_BANNER_ARIA}}">
   <p class="cookie-banner__text">
-    Diese Website verwendet Cookies für ein optimales Erlebnis.
-    <a href="https://www.asteria.de/privacy" target="_blank" rel="noopener">Mehr Infos</a>
+    {{COOKIE_TEXT}}
+    <a href="https://www.asteria.{{HTML_LANG}}/privacy" target="_blank" rel="noopener">{{COOKIE_LINK_TEXT}}</a>
   </p>
-  <button class="cookie-banner__btn" id="cookieAccept">Akzeptieren</button>
+  <button class="cookie-banner__btn" id="cookieAccept">{{COOKIE_BTN}}</button>
 </div>
 
 <script>
 /* ── Custom Datepicker ── */
 (function() {
-  var MONTH_NAMES = ['Januar','Februar','März','April','Mai','Juni',
-                     'Juli','August','September','Oktober','November','Dezember'];
-  var DAY_NAMES   = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+{{CAL_MONTH_NAMES_JS}}
+{{CAL_DAY_NAMES_JS}}
 
   var cal = {
     viewYear: 0, viewMonth: 0,
@@ -3344,126 +3341,7 @@
 // ══ WELLNESS PLATTEGROND — ZONE DATA ══════════════════════════
 // pin.left / pin.top = % van de AFBEELDING (1248×917 px)
 // wpRenderPins() rekent dit om naar container-% rekening houdend met object-fit: cover
-const WP_ZONES = [
-  {
-    id: 'sauna-bos',
-    naam: 'Sauna 2 · Waldsauna',
-    label: 'Wald',
-    foto: 'fotos/wp-sauna-bos.webp',
-    omschrijving: 'Die heißeste Sauna mit atmosphärisch beleuchtetem Waldhintergrund. Intensive Trockenhitze für den erfahrenen Saunagänger.',
-    specs: [
-      { icon: 'temp', tekst: '±100°C' },
-      { icon: 'type', tekst: 'Trockenhitze' },
-    ],
-    pin: { left: 76.5, top: 15.5 }
-  },
-  {
-    id: 'sauna-zoutsteen',
-    naam: 'Sauna 3 · Salzsteinsauna',
-    label: 'Salzstein',
-    foto: 'fotos/wp-sauna-zoutsteen.webp',
-    omschrijving: 'Beleuchtet mit Salzsteinlampen, die ein warmes rosa Licht verbreiten. Das Salz in der Luft wirkt sich positiv auf die Atemwege und die Haut aus.',
-    specs: [
-      { icon: 'temp', tekst: '±90°C' },
-      { icon: 'type', tekst: 'Salzstein' },
-    ],
-    pin: { left: 91.1, top: 15.7 }
-  },
-  {
-    id: 'sauna-fins',
-    naam: 'Sauna 4 · Finnische Sauna',
-    label: 'Finnisch',
-    foto: 'fotos/wp-sauna-fins.webp',
-    omschrijving: 'Die klassische finnische Sauna mit Trockenhitze. Ideal für tiefe Muskelentspannung und zur Anregung des Blutkreislaufs.',
-    specs: [
-      { icon: 'temp', tekst: '±80°C' },
-      { icon: 'type', tekst: 'Trockenhitze' },
-    ],
-    pin: { left: 90.9, top: 35.2 }
-  },
-  {
-    id: 'sauna-infrarood',
-    naam: 'Infrarotsauna',
-    label: 'Infrarot',
-    foto: 'fotos/wp-sauna-infrarood.webp',
-    omschrijving: 'Infrarotstrahlung erwärmt den Körper von innen, ohne die Luft zu erhitzen. Sanfte Wärme, die tief in Muskeln und Gelenke eindringt. Ideal zur Regeneration.',
-    specs: [
-      { icon: 'temp', tekst: '40–50°C' },
-      { icon: 'type', tekst: 'Infrarot' },
-    ],
-    pin: { left: 53.3, top: 11.4 }
-  },
-  {
-    id: 'voetenbaden',
-    naam: 'Fußbäder',
-    label: '4 Becken',
-    foto: 'fotos/wp-voetenbaden.webp',
-    omschrijving: 'Vier Fußbäder wechseln warm und kalt ab. Verwöhnen Sie Ihre Füße nach einem Spaziergang oder einer Saunasitzung. Reflexzonen werden stimuliert, die Beine fühlen sich leichter an.',
-    specs: [
-      { icon: 'aantal', tekst: '4 Becken' },
-      { icon: 'type', tekst: 'Warm & kalt' },
-    ],
-    pin: { left: 65.5, top: 19.1 }
-  },
-  {
-    id: 'ijsbad',
-    naam: 'Eis-/Tauchbad',
-    label: 'Kontrast',
-    foto: 'fotos/wp-dompelbad.webp',
-    omschrijving: 'Das kalte Tauchbad nach der Sauna ist das Geheimnis des Kontrastbadens. Die plötzliche Kälte regt den Blutkreislauf an und gibt sofortige Energie.',
-    specs: [
-      { icon: 'temp', tekst: '±10°C' },
-      { icon: 'type', tekst: 'Kaltes Bad' },
-    ],
-    pin: { left: 44.5, top: 25.9 }
-  },
-  {
-    id: 'kruidenbad',
-    naam: 'Kräuterbad',
-    label: 'Kräuterbad',
-    foto: 'fotos/wp-kruidenbad.webp',
-    omschrijving: 'Ein warmes, stimmungsvolles Bad mit frischen Kräutern. Die Düfte und Wärme sorgen für tiefe Entspannung von Körper und Geist.',
-    specs: [
-      { icon: 'temp', tekst: '±38°C' },
-      { icon: 'type', tekst: 'Warmes Bad' },
-    ],
-    pin: { left: 44.5, top: 37.3 }
-  },
-  {
-    id: 'stoomdouche',
-    naam: 'Dampfdusche',
-    label: 'Dampf',
-    foto: 'fotos/wp-stoomdouche.webp',
-    omschrijving: 'Eine Dampfkabine voller feuchter Wärme. Der Dampf öffnet die Poren, reinigt die Haut und entspannt die oberen Atemwege. Ideal nach der Sauna.',
-    specs: [
-      { icon: 'temp', tekst: '40–45°C' },
-      { icon: 'type', tekst: 'Dampf' },
-    ],
-    pin: { left: 41.7, top: 50.1 }
-  },
-  {
-    id: 'gym',
-    naam: 'Gym & Fitness',
-    label: 'Fitness',
-    foto: 'fotos/wp-gym.webp',
-    omschrijving: 'Ein moderner Fitnessraum mit Cardio- und Kraftgeräten. Frei zugänglich für alle Hotelgäste, für einen aktiven Start oder Abschluss des Tages.',
-    specs: [
-      { icon: 'type', tekst: 'Cardio & Kraft' },
-    ],
-    pin: { left: 19.9, top: 71.0 }
-  },
-  {
-    id: 'lounge',
-    naam: 'Ruheraum',
-    label: 'Lounge',
-    foto: 'fotos/wp-relaxruimte.webp',
-    omschrijving: 'Der Ruheraum mit komfortablen Liegebetten bietet Ausblick über die Umgebung. Nehmen Sie sich Zeit nach der Sauna. Ruhe ist Teil des Rituals.',
-    specs: [
-      { icon: 'type', tekst: 'Liegebetten' },
-    ],
-    pin: { left: 78.7, top: 70.0 }
-  },
-];
+{{WP_ZONES_JS}}
 
 // ══ WELLNESS PLATTEGROND — PIN RENDERING ═════════════════════
 // pin.left/top zijn % van de AFBEELDING (naturale afmetingen).
@@ -3491,7 +3369,7 @@ function wpRenderPins() {
   WP_ZONES.forEach(function(zone) {
     var btn = document.createElement('button');
     btn.className = 'wp-pin';
-    btn.setAttribute('aria-label', zone.naam + ', tippen für mehr Infos');
+    btn.setAttribute('aria-label', zone.naam + '{{WP_PIN_ARIA_SUFFIX}}');
     btn.setAttribute('data-zone-id', zone.id);
     btn.innerHTML = '<div class="wp-pin__dot"></div>';
     btn.addEventListener('click', function() { wpOpenPanel(zone.id); });
@@ -3506,7 +3384,7 @@ function wpRenderPins() {
     img.addEventListener('load', doPosition);
   }
 
-  // Herpositioneer bij resize (bijv. orientatieänderning)
+  // Herpositioneer bij resize (bijv. orientatie{{BK_CHANGE_ROOM_BTN}}ing)
   var resizeTimer;
   window.addEventListener('resize', function() {
     clearTimeout(resizeTimer);
@@ -3573,7 +3451,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (e.key === 'Escape') wpClosePanel();
   });
 
-  // Swipe-down om drawer te sluiten (mobile odey)
+  // Swipe-down om drawer te sluiten (mobile o{{HTML_LANG}}y)
   var wpPanel = document.getElementById('wp-panel');
   var wpTouchStartY = 0;
 
@@ -3677,20 +3555,14 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       track.innerHTML = html + html;
     }
 
-    var fallback = [
-      { author: 'Rob', time: '24. Dezember 2025', rating: 5, text: 'Geräumige Zimmer mit herrlicher Sauna. Frühstück super und Abendessen sehr gut!' },
-      { author: 'Danielle', time: '14. August 2025', rating: 5, text: 'Wir hatten 2 wunderbare Tage in Venray mit 1 Übernachtung, Abendessen, Frühstück und spätem Check-out. Das Abendessen war top und das Frühstück auch. Personal sehr freundlich. Wir kommen definitiv wieder.' },
-      { author: 'Cornelia O.', time: '10. Juni 2024', rating: 5, text: 'Super guter Aufenthalt, tolle Betten. Kaffeemaschine auf dem Zimmer. Top Hotel.' },
-      { author: 'Judith B.', time: '3. Februar 2025', rating: 5, text: 'Toller Aufenthalt! Das Wellness auf dem Top Floor ist wirklich empfehlenswert. Herrlich entspannt.' },
-      { author: 'Martin V.', time: '18. November 2024', rating: 4, text: 'Schöne Lage, freundliches Personal. Abendessen war ausgezeichnet zubereitet.' }
-    ];
+{{REVIEWS_FALLBACK_JS}}
 
     fetch('/api/google-reviews')
       .then(function (r) { return r.json(); })
       .then(function (data) {
         if (data.error) throw new Error(data.error);
         if (score) score.textContent = data.rating ? data.rating.toFixed(1).replace('.', ',') : '4,2';
-        if (total) total.textContent = (data.total ? data.total.toLocaleString('de-DE') : '2.219') + ' Bewertungen';
+        if (total) total.textContent = {{REVIEWS_JS_EXPR}};
         var reviews = (data.reviews || []).slice(0, 8);
         if (!reviews.length) throw new Error('geen reviews');
         renderMarquee(reviews, false);
@@ -3726,7 +3598,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     io.observe(reviews);
   }());
 
-/* ── Zimmertypen — A/B toggle + popup ── */
+/* ── {{ROOMS_ARIA}} — A/B toggle + popup ── */
 (function () {
   // A/B toggle: ?rooms=compact | ?rooms=thumb | random 50/50
   var section = document.querySelector('.rooms');
@@ -3746,68 +3618,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   }
 
   // Room data
-  var ROOMS = {
-    'comfort': {
-      badge: '<span class="room-row__badge badge--included">Im Arrangement enthalten</span>',
-      name: 'Comfort Zimmer',
-      imgs: ['fotos/kamer-comfort.webp'],
-      desc: 'Ein komfortables Zimmer für zwei Personen mit allem, was Sie für einen entspannten Aufenthalt benötigen.',
-      features: ['~22 m²', 'Doppelbett', 'Dusche', 'Sitzecke', 'Klimaanlage', 'WLAN'],
-      upgrade: 'basis',
-      shortDesc: '~22 m\u00b2 \u00b7 Doppelbett \u00b7 Dusche',
-      mewsCategoryId: '98900f3b-e5e2-49c9-9776-af1d00ffc315'
-    },
-    'royale': {
-      badge: '<span class="room-row__badge badge--upgrade">Upgrade</span>',
-      name: 'Royale Zimmer',
-      imgs: ['fotos/kamer-royale.webp', 'fotos/kamer-royale-2.webp', 'fotos/kamer-royale-3.webp'],
-      desc: 'Mehr Platz zum Atmen \u2014 und die Wahl einer Badewanne, wenn Sie sich nach dem Wellness auch auf dem Zimmer entspannen möchten.',
-      features: ['Geräumiger als Comfort', 'Badewanne oder Dusche', 'Sitzecke', 'Kaffeemaschine', 'Klimaanlage'],
-      upgrade: '+\u20ac10 p.P.',
-      shortDesc: 'Geräumiger \u00b7 Badewanne oder Dusche \u00b7 Kaffeemaschine',
-      mewsCategoryId: 'a8fd7310-0d61-422f-89e6-af1d00ffc315'
-    },
-    'deluxe': {
-      badge: '<span class="room-row__badge badge--sauna">+ Eigene Sauna</span>',
-      name: 'Deluxe Zimmer',
-      imgs: ['fotos/kamer-deluxe.webp', 'fotos/kamer-deluxe-2.webp', 'fotos/kamer-deluxe-3.webp'],
-      desc: 'Eine private Infrarotsauna auf dem Zimmer. Wellness beginnt an Ihrer Tür \u2014 keine Gemeinschaftsräume.',
-      features: ['Private Infrarotsauna', 'Mehr Platz', 'Doppelbett', 'Dusche', 'Sitzecke', 'Kaffeemaschine', 'Klimaanlage'],
-      upgrade: '+\u20ac20 p.P.',
-      shortDesc: '~25 m\u00b2 \u00b7 private Infrarotsauna \u00b7 Kingsize-Bett',
-      mewsCategoryId: 'c737de50-e41e-4c8d-a818-af1d00ffc315'
-    },
-    'junior-suite': {
-      badge: '<span class="room-row__badge badge--upgrade">Upgrade</span>',
-      name: 'Junior Suite',
-      imgs: ['fotos/kamer-junior-suite.webp', 'fotos/kamer-junior-suite-2.webp'],
-      desc: 'Die extra Größe, die einen Wellnessabend wirklich luxuriös macht: Kingsize-Bett, eine Badewanne und eine große Sitzecke.',
-      features: ['Kingsize-Bett', 'Badewanne', 'Große Sitzecke mit Schlafsofa', 'Kühlschrank', 'Kaffeemaschine', 'Klimaanlage'],
-      upgrade: '+\u20ac30 p.P.',
-      shortDesc: 'Kingsize-Bett \u00b7 Badewanne \u00b7 große Sitzecke',
-      mewsCategoryId: '27ea8deb-ded5-4856-8fdd-af1d00ffc315'
-    },
-    'suite': {
-      badge: '<span class="room-row__badge badge--sauna">+ Eigene Sauna</span>',
-      name: 'Suite',
-      imgs: ['fotos/kamer-suite.webp', 'fotos/kamer-suite-2.webp', 'fotos/kamer-suite-3.webp'],
-      desc: 'Das Beste aus beiden Welten: eine geräumige Suite mit privater Infrarotsauna und Zugang zum gemeinsamen Wellnesszentrum.',
-      features: ['Kingsize-Bett', 'Private Infrarotsauna', 'Große Sitzecke mit Schlafsofa', 'Kühlschrank', 'Klimaanlage'],
-      upgrade: '+\u20ac40 p.P.',
-      shortDesc: 'Kingsize-Bett \u00b7 private Infrarotsauna \u00b7 geräumige Suite',
-      mewsCategoryId: '4a642b66-68e6-444c-beeb-af1d00ffc315'
-    },
-    'bruidssuite': {
-      badge: '<span class="room-row__badge badge--premium">Premium</span>',
-      name: 'Brautsuite',
-      imgs: ['fotos/kamer-bruidssuite.webp', 'fotos/kamer-bruidssuite-2.webp', 'fotos/kamer-bruidssuite-3.webp'],
-      desc: 'Freistehende Badewanne, geräumige begehbare Dusche und die romantischste Atmosphäre des Hotels. Für einen unvergesslichen Abend.',
-      features: ['Kingsize-Bett', 'Freistehende Badewanne', 'Geräumige begehbare Dusche', 'Sitzecke', 'Kühlschrank', 'Klimaanlage'],
-      upgrade: '+\u20ac60 p.P.',
-      shortDesc: 'Kingsize-Bett \u00b7 freistehende Badewanne \u00b7 romantische Atmosphäre',
-      mewsCategoryId: 'a9f18d18-561b-47a9-8ba7-b2a800cfd0e2'
-    }
-  };
+{{ROOMS_JS_DATA}}
 
   // Bijhouden welke kamer de gast via de kamerpopup heeft bekeken
   window.selectedRoomId = null;
@@ -3843,8 +3654,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       '</div>' : '';
 
     var arrowsHtml = imgs.length > 1 ?
-      '<button class="room-popup__arrow room-popup__arrow--prev" aria-label="Zurück">\u2039</button>' +
-      '<button class="room-popup__arrow room-popup__arrow--next" aria-label="Weiter">\u203A</button>' : '';
+      '<button class="room-popup__arrow room-popup__arrow--prev" aria-label="{{ROOM_POPUP_PREV_ARIA}}">\u2039</button>' +
+      '<button class="room-popup__arrow room-popup__arrow--next" aria-label="{{ROOM_POPUP_NEXT_ARIA}}">\u203A</button>' : '';
 
     inner.innerHTML =
       '<div class="room-popup__slider">' +
@@ -3852,14 +3663,14 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
         dotsHtml + arrowsHtml +
       '</div>' +
       '<div class="room-popup__body">' +
-        '<button class="room-popup__close" id="popupClose" aria-label="Schließen">&times;</button>' +
+        '<button class="room-popup__close" id="popupClose" aria-label="{{BTN_CLOSE_ARIA}}">&times;</button>' +
         r.badge +
         '<h3 class="room-popup__name">' + r.name + '</h3>' +
         '<p class="room-popup__desc">' + r.desc + '</p>' +
         '<ul class="room-popup__features">' +
           r.features.map(function (f) { return '<li class="room-popup__feature">' + f + '</li>'; }).join('') +
         '</ul>' +
-        '<button class="room-popup__cta" onclick="window.openBookingPopup(\'' + key + '\')">Dieses Zimmer wählen</button>' +
+        '<button class="room-popup__cta" onclick="window.openBookingPopup(\'' + key + '\')">{{ROOM_POPUP_CTA}}</button>' +
       '</div>';
 
     // Slider controls
@@ -3999,9 +3810,9 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   var btnToStep2    = document.getElementById('bkToStep2');
   var btnDirectBook = document.getElementById('bkDirectBook');
   var btnConfirm    = document.getElementById('bkConfirm');
-  var elAnkunft = document.getElementById('bkAnkunft');
-  var elAbreise  = document.getElementById('bkAbreise');
-  var elNächte  = document.getElementById('bkNächte');
+  var el{{BK_LABEL_ARRIVAL}} = document.getElementById('bk{{BK_LABEL_ARRIVAL}}');
+  var el{{BK_LABEL_DEPARTURE}}  = document.getElementById('bk{{BK_LABEL_DEPARTURE}}');
+  var el{{BK_LABEL_NIGHTS}}  = document.getElementById('bk{{BK_LABEL_NIGHTS}}');
   var elRooms    = document.getElementById('bkRooms');
   var elSelectedRoom     = document.getElementById('bkSelectedRoom');
   var elSelectedRoomName = document.getElementById('bkSelectedRoomName');
@@ -4012,8 +3823,8 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   var availabilityResult  = null;   // gevuld door fetchAvailability
   var availabilityLoading = false;  // true terwijl fetch loopt
 
-  var DAYS_NL = ['So','Mo','Di','Mi','Do','Fr','Sa'];
-  var MONTHS_NL = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];
+{{BOOKING_DAYS_NL_JS}}
+{{BOOKING_MONTHS_NL_JS}}
 
   function formatDate(d) {
     return DAYS_NL[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS_NL[d.getMonth()];
@@ -4089,9 +3900,9 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   function updateSummary() {
     if (selectedDates.length === 2) {
       var diff = Math.round((selectedDates[1] - selectedDates[0]) / 86400000);
-      elAnkunft.textContent = formatDate(selectedDates[0]);
-      elAbreise.textContent  = formatDate(selectedDates[1]);
-      elNächte.textContent  = diff + (diff === 1 ? ' Nacht' : ' Nächte');
+      el{{BK_LABEL_ARRIVAL}}.textContent = formatDate(selectedDates[0]);
+      el{{BK_LABEL_DEPARTURE}}.textContent  = formatDate(selectedDates[1]);
+      el{{BK_LABEL_NIGHTS}}.textContent  = diff + (diff === 1 ? {{BK_JS_NIGHTS_SINGULAR}} : {{BK_JS_NIGHTS_PLURAL}});
       btnToStep2.disabled    = false;
       btnDirectBook.disabled = false;
 
@@ -4103,9 +3914,9 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
         availabilityResult  = err ? null : result;
       });
     } else {
-      elAnkunft.textContent = '\u2014';
-      elAbreise.textContent  = '\u2014';
-      elNächte.textContent  = '\u2014';
+      el{{BK_LABEL_ARRIVAL}}.textContent = '\u2014';
+      el{{BK_LABEL_DEPARTURE}}.textContent  = '\u2014';
+      el{{BK_LABEL_NIGHTS}}.textContent  = '\u2014';
       btnToStep2.disabled    = true;
       btnDirectBook.disabled = true;
       availabilityResult  = null;
@@ -4131,12 +3942,12 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       modal.classList.add('has-preselected');
       elSelectedRoomName.textContent = window.ROOMS[selectedRoomKey].name;
       elSelectedRoom.hidden = false;
-      btnToStep2.textContent = 'Verfügbarkeit prüfen \u2192';
+      btnToStep2.textContent = {{BK_JS_CHECK_AVAIL}};
       btnDirectBook.hidden = true;
     } else {
       modal.classList.remove('has-preselected');
       elSelectedRoom.hidden = true;
-      btnToStep2.textContent = 'Weiter: Zimmer wählen \u2192';
+      btnToStep2.textContent = {{BK_JS_NEXT_STEP2}};
       btnDirectBook.hidden = false;
     }
 
@@ -4181,12 +3992,12 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
     // Wacht op availability als nog bezig
     if (availabilityLoading) {
-      btnToStep2.textContent = 'Laden\u2026';
+      btnToStep2.textContent = {{BK_JS_LOADING}};
       btnToStep2.disabled = true;
       var poll = setInterval(function () {
         if (!availabilityLoading) {
           clearInterval(poll);
-          btnToStep2.textContent = 'Kies een kamer';
+          btnToStep2.textContent = {{BK_JS_NO_AVAIL}};
           btnToStep2.disabled = false;
           step1.hidden = true;
           step2.hidden = false;
@@ -4226,7 +4037,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     var modal = document.getElementById('bookingModal');
     modal.classList.remove('has-preselected');
     elSelectedRoom.hidden = true;
-    btnToStep2.textContent = 'Weiter: Zimmer wählen \u2192';
+    btnToStep2.textContent = {{BK_JS_NEXT_STEP2}};
     btnDirectBook.hidden = false;
   });
 
@@ -4249,7 +4060,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       var isAvailable = !availability || !avail || avail.available; // bij null data: alles beschikbaar tonen
       var lowestPrice = avail && avail.lowestPrice;
       var priceLabel  = lowestPrice ? '\u20ac\u00a0' + Math.round(lowestPrice) : '';
-      var volLabel    = availability && avail && !avail.available ? '<span class="bk-room-card__vol">Belegt</span>' : '';
+      var volLabel    = availability && avail && !avail.available ? '<span class="{{BK_JS_VOL}}' : '';
 
       if (isAvailable && !firstAvailableKey) firstAvailableKey = key;
 
@@ -4260,7 +4071,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
           '<span class="bk-room-card__upgrade">' + r.upgrade + '</span>' +
           (priceLabel ? '<span class="bk-room-card__price">' + priceLabel + '</span>' : '') +
           volLabel +
-          '<button class="bk-room-card__toggle" data-key="' + key + '" tabindex="-1">mehr Info</button>' +
+          '<button class="bk-room-card__toggle" data-key="' + key + '" {{BK_JS_MEER_INFO}}' +
         '</div>' +
       '</div>';
     }).join('');
@@ -4286,7 +4097,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       });
     });
 
-    // "Mehr Infos" → room detail sub-view
+    // "{{COOKIE_LINK_TEXT}}" → room detail sub-view
     elRooms.querySelectorAll('.bk-room-card__toggle').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.stopPropagation();
@@ -4307,7 +4118,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       '<ul class="bk-room-detail__features">' +
         r.features.map(function (f) { return '<li class="bk-room-detail__feature">' + f + '</li>'; }).join('') +
       '</ul>' +
-      '<button class="bk-btn-primary" data-select-key="' + key + '">Selecteer deze kamer</button>';
+      '<button class="bk-btn-primary" data-select-key="' + key + '"{{BK_JS_SELECT_ROOM}}';
 
     detailEl.querySelector('[data-select-key]').addEventListener('click', function () {
       var k = this.dataset.selectKey;
@@ -4392,7 +4203,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     submitting = false;
     errorEl.classList.add('is-visible');
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Anmelden';
+    submitBtn.textContent = '{{BTN_SUBSCRIBE}}';
   }
 
   submitBtn.addEventListener('click', function () {
@@ -4479,12 +4290,11 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 (function() {
   var sel = document.querySelector('.lang-nav');
   if (!sel) return;
-  sel.value = 'de';
+  sel.value = {{LANG_SWITCH_SEL_VALUE}};
   sel.addEventListener('change', function() {
     var v = sel.value;
     localStorage.setItem('asteria_lang', v);
-    if (v === 'nl') window.location.replace('/wellness-arr-c');
-    else if (v === 'en') window.location.replace('/wellness-arr-c-en');
+{{LANG_SWITCH_JS}}
   });
 })();
 </script>
