@@ -1792,7 +1792,7 @@
   margin: 0 auto;
   display: flex;
   gap: 64px;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 /* Linker kolom: heading + grote afbeelding sticky */
@@ -1806,12 +1806,13 @@
 }
 .usp-heading {
   font-family: 'Electrolize', sans-serif;
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1.1;
   color: #1a1a1a;
+  white-space: nowrap;
 }
 .usp-heading em {
   font-style: normal;
@@ -1819,7 +1820,8 @@
 }
 .usp-main-img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  flex: 1;
+  min-height: 0;
   object-fit: cover;
   border-radius: 16px;
   transition: opacity 0.2s ease;
@@ -2426,7 +2428,7 @@
 
     <!-- Linker kolom: heading + grote wisselafbeelding -->
     <div class="usp-heading-col">
-      <h2 class="usp-heading">Waarom<br>Hotel<br><em>Asteria?</em></h2>
+      <h2 class="usp-heading">Waarom Hotel <em>Asteria?</em></h2>
       <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray" class="usp-main-img" id="uspMainImg" loading="lazy">
     </div>
 
