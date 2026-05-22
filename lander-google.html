@@ -2193,6 +2193,368 @@
   .beleving__hint { display: none; }
 }
 
+/* ══ ARRANGEMENTEN ══════════════════════════════════════════ */
+.arr {
+  padding: 100px 24px;
+  background: #f8f7f5;
+}
+.arr__inner {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+.arr__eyebrow {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.arr__title {
+  font-family: 'Electrolize', sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.arr__sub {
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+  font-weight: 300;
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+.arr__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.12fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.arr-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.arr-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  transform: translateY(-4px);
+}
+.arr-card--featured {
+  box-shadow: 0 4px 24px rgba(194,52,53,0.12);
+}
+.arr-card--featured:hover {
+  box-shadow: 0 12px 40px rgba(194,52,53,0.2);
+  transform: translateY(-6px);
+}
+.arr-card__photo {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+.arr-card--featured .arr-card__photo {
+  height: 240px;
+}
+.arr-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.arr-card:hover .arr-card__photo img {
+  transform: scale(1.04);
+}
+.arr-card__photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.05) 60%);
+}
+.arr-card__photo-bottom {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  right: 16px;
+}
+.arr-card__badge {
+  background: #c23435;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+.arr-card__season {
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.35);
+}
+.arr-card__body {
+  padding: 22px 22px 20px;
+}
+.arr-card__eyebrow {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+.arr-card__title {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.arr-card__tagline {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 300;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.arr-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.arr-card__price {
+  font-size: 26px;
+  font-weight: 700;
+  color: #c23435;
+  letter-spacing: -0.5px;
+}
+.arr-card__price-unit {
+  font-size: 11px;
+  color: #94a3b8;
+}
+.arr-card__divider {
+  height: 1px;
+  background: #f0efed;
+  margin-bottom: 16px;
+}
+.arr-card__includes-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 12px;
+}
+.arr-card__feature {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 9px;
+  align-items: flex-start;
+}
+.arr-card__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+  background: #c8d5b8;
+}
+.arr-card__dot--highlight {
+  background: #c23435;
+  width: 6px;
+  height: 6px;
+  margin-top: 5px;
+}
+.arr-card__feat-text {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #334155;
+}
+.arr-card__feature--highlight .arr-card__feat-text {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+.arr-card__cta {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin-top: 20px;
+  background: #c23435;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+  text-align: center;
+  text-decoration: none;
+}
+.arr-card__cta:hover { background: #a82d2e; }
+.arr-card__more {
+  display: block;
+  width: 100%;
+  padding: 9px;
+  margin-top: 8px;
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid #e2e0dc;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.arr-card__more:hover { border-color: #94a3b8; color: #475569; }
+
+/* Popup */
+.arr-popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.arr-popup-overlay.is-open { display: flex; }
+.arr-popup {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: arrPopupIn 0.25s ease;
+}
+@keyframes arrPopupIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+.arr-popup__close {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  line-height: 1;
+}
+.arr-popup__photo {
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+}
+.arr-popup__photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.arr-popup__photo-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.05) 60%);
+}
+.arr-popup__photo-bottom {
+  position: absolute;
+  bottom: 14px; left: 18px;
+}
+.arr-popup__body { padding: 24px 24px 28px; }
+.arr-popup__title {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.arr-popup__price {
+  font-size: 13px;
+  color: #c23435;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.arr-popup__includes-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 12px;
+}
+.arr-popup__feature {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.5;
+}
+.arr-popup__check {
+  color: #4a7c4a;
+  flex-shrink: 0;
+  font-size: 13px;
+  margin-top: 1px;
+}
+.arr-popup__note {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: #f8f7f5;
+  border-radius: 8px;
+  font-size: 11px;
+  color: #64748b;
+  line-height: 1.5;
+}
+.arr-popup__cta {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-top: 18px;
+  background: #c23435;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.arr-popup__cta:hover { background: #a82d2e; }
+
+@media (max-width: 768px) {
+  .arr { padding: 64px 16px; }
+  .arr__grid { grid-template-columns: 1fr; gap: 14px; }
+  .arr-card__photo { height: 170px; }
+  .arr-card--featured .arr-card__photo { height: 170px; }
+  .arr-card__title { font-size: 17px; }
+  .arr-popup__photo { height: 180px; }
+}
+
   </style>
 </head>
 <body>
@@ -2516,6 +2878,111 @@
     </div>
   </div>
 </section>
+
+<!-- ══ ARRANGEMENTEN ════════════════════════════════════════ -->
+<section class="arr" id="arrangementen" aria-label="Arrangementen Hotel Asteria">
+  <div class="arr__inner">
+    <p class="arr__eyebrow">Verblijf bij Hotel Asteria</p>
+    <h2 class="arr__title">Kies uw arrangement</h2>
+    <p class="arr__sub">Alle arrangementen inclusief uitgebreid ontbijt — boek direct voor de beste prijs</p>
+
+    <div class="arr__grid">
+
+      <!-- Weekend -->
+      <div class="arr-card">
+        <div class="arr-card__photo">
+          <img src="fotos/restaurant-diner.webp" alt="Weekend arrangement Hotel Asteria — diner" loading="lazy">
+          <div class="arr-card__photo-overlay"></div>
+          <div class="arr-card__photo-bottom"></div>
+        </div>
+        <div class="arr-card__body">
+          <p class="arr-card__eyebrow">Weekendje weg</p>
+          <h3 class="arr-card__title">Weekend</h3>
+          <p class="arr-card__tagline">Twee nachten ontspannen — goed eten, goed slapen</p>
+          <div class="arr-card__price-row">
+            <span class="arr-card__price">€ 166,–</span>
+            <span class="arr-card__price-unit">p.p. · 2 nachten</span>
+          </div>
+          <div class="arr-card__divider"></div>
+          <p class="arr-card__includes-label">Inbegrepen</p>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Welkomstglas huiswijn of speciaal bier</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">2 overnachtingen in Comfort Kamer</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">2× uitgebreid ontbijtbuffet</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">1× heerlijk 3-gangendiner</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Late checkout tot 14:00</span></div>
+          <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND" target="_blank" rel="noopener">Boek direct</a>
+          <button class="arr-card__more" data-arr="weekend">Meer informatie</button>
+        </div>
+      </div>
+
+      <!-- Wellness — FEATURED -->
+      <div class="arr-card arr-card--featured">
+        <div class="arr-card__photo">
+          <img src="fotos/wellness-spa.webp" alt="Wellnessarrangement Hotel Asteria — spa Top Floor" loading="lazy">
+          <div class="arr-card__photo-overlay"></div>
+          <div class="arr-card__photo-bottom">
+            <span class="arr-card__badge">Meest gekozen</span>
+          </div>
+        </div>
+        <div class="arr-card__body">
+          <p class="arr-card__eyebrow">Compleet verwend</p>
+          <h3 class="arr-card__title">Wellness</h3>
+          <p class="arr-card__tagline">Spa, diner &amp; verwennerij — alles inbegrepen voor één avond</p>
+          <div class="arr-card__price-row">
+            <span class="arr-card__price">€ 139,50</span>
+            <span class="arr-card__price-unit">p.p. · 1 nacht</span>
+          </div>
+          <div class="arr-card__divider"></div>
+          <p class="arr-card__includes-label">Inbegrepen</p>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Overnachting in Comfort Kamer</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Uitgebreid ontbijtbuffet</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">3-gangendiner</span></div>
+          <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Welkomstflesje Botega op de kamer</span></div>
+          <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Badjas &amp; slippers</span></div>
+          <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Toegang 300 m² wellness · Top Floor</span></div>
+          <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELLNESS" target="_blank" rel="noopener">Boek direct</a>
+          <button class="arr-card__more" data-arr="wellness">Meer informatie</button>
+        </div>
+      </div>
+
+      <!-- Asperge -->
+      <div class="arr-card">
+        <div class="arr-card__photo">
+          <img src="fotos/restaurant-sfeer.webp" alt="Asperge arrangement Hotel Asteria — Limburgse asperges" loading="lazy">
+          <div class="arr-card__photo-overlay"></div>
+          <div class="arr-card__photo-bottom">
+            <span class="arr-card__season">t/m 24 juni</span>
+          </div>
+        </div>
+        <div class="arr-card__body">
+          <p class="arr-card__eyebrow">Limburgse smaak</p>
+          <h3 class="arr-card__title">Asperge</h3>
+          <p class="arr-card__tagline">Seizoensarrangement — lokale beleving op het bord</p>
+          <div class="arr-card__price-row">
+            <span class="arr-card__price">€ 138,–</span>
+            <span class="arr-card__price-unit">p.p. · 1 nacht</span>
+          </div>
+          <div class="arr-card__divider"></div>
+          <p class="arr-card__includes-label">Inbegrepen</p>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Overnachting in Comfort Kamer</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Welkomstglas huiswijn of speciaal bier</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Uitgebreid ontbijtbuffet</span></div>
+          <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">3-gangen aspergemenü van de chef</span></div>
+          <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Gratis entree Museum De Locht</span></div>
+          <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">1 kg Limburgse asperges + recept mee naar huis</span></div>
+          <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ASPERGE" target="_blank" rel="noopener">Boek direct</a>
+          <button class="arr-card__more" data-arr="asperge">Meer informatie</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Arrangementen popup -->
+<div class="arr-popup-overlay" id="arrPopup" role="dialog" aria-modal="true" aria-label="Arrangementdetails">
+  <div class="arr-popup" id="arrPopupInner"></div>
+</div>
 
 <!-- Kamerpopup -->
 <div class="room-popup-overlay" id="roomPopup" role="dialog" aria-modal="true" aria-label="Kamerdetails">
@@ -3829,6 +4296,121 @@
     localStorage.setItem('asteria_lang', v);
   });
 })();
+
+  // ── Arrangementen popup ─────────────────────────────────
+  (function() {
+    var ARR_DATA = {
+      weekend: {
+        foto: 'fotos/restaurant-diner.webp',
+        alt: 'Weekend arrangement — diner Hotel Asteria',
+        badge: null,
+        eyebrow: 'Weekendje weg',
+        title: 'Weekend Aanbieding',
+        price: '€ 166,–',
+        priceNote: 'per persoon · op basis van tweepersoonskamer · 2 nachten',
+        features: [
+          'Welkomstglas huiswijn of speciaal bier',
+          '2 overnachtingen in Comfort Kamer',
+          '2× uitgebreid ontbijtbuffet',
+          '1× heerlijk 3-gangendiner (dag van aankomst)',
+          'Late checkout op zondag tot 14:00 (op basis van beschikbaarheid)'
+        ],
+        note: '+ € 2,– verblijfsbelasting p.p.p.n. &nbsp;·&nbsp; Gratis parkeren &nbsp;·&nbsp; Gratis WiFi',
+        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND'
+      },
+      wellness: {
+        foto: 'fotos/wellness-spa.webp',
+        alt: 'Wellnessarrangement — spa Top Floor Hotel Asteria',
+        badge: 'Meest gekozen',
+        eyebrow: 'Compleet verwend',
+        title: 'Wellnessarrangement',
+        price: '€ 139,50',
+        priceNote: 'per persoon · op basis van tweepersoonskamer · 1 nacht',
+        features: [
+          'Overnachting in Comfort Kamer',
+          'Welkomstflesje Botega op de kamer',
+          'Badjas & slippers',
+          'Handdoekpakket',
+          'Toegang 300 m² wellness op de Top Floor (4 sauna\'s, stoomcabine, dompelbad, kruidenbad)',
+          'Heerlijk 3-gangendiner',
+          'Uitgebreid ontbijtbuffet'
+        ],
+        note: '+ € 2,– verblijfsbelasting p.p.p.n. &nbsp;·&nbsp; Gratis parkeren &nbsp;·&nbsp; Gratis WiFi',
+        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELLNESS'
+      },
+      asperge: {
+        foto: 'fotos/restaurant-sfeer.webp',
+        alt: 'Asperge arrangement — aspergemenü Hotel Asteria',
+        badge: 't/m 24 juni',
+        eyebrow: 'Limburgse smaak',
+        title: 'Asperge Arrangement',
+        price: '€ 138,–',
+        priceNote: 'per persoon · op basis van tweepersoonskamer · 1 nacht · beschikbaar t/m 24 juni',
+        features: [
+          'Welkomstglas huiswijn of speciaal biertje',
+          'Overnachting in Comfort Kamer',
+          'Uitgebreid ontbijtbuffet',
+          'Heerlijk 3-gangen Aspergemenü van de chef',
+          'Gratis toegang tot Museum De Locht',
+          '1 kg Limburgse asperges + recept van de chef',
+          'Wandel- en fietsroutekaarten'
+        ],
+        note: '+ € 2,– verblijfsbelasting p.p.p.n. &nbsp;·&nbsp; Gratis parkeren &nbsp;·&nbsp; Gratis WiFi',
+        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ASPERGE'
+      }
+    };
+
+    var overlay = document.getElementById('arrPopup');
+    var inner = document.getElementById('arrPopupInner');
+    if (!overlay || !inner) return;
+
+    function openPopup(key) {
+      var d = ARR_DATA[key];
+      if (!d) return;
+      var badgeHtml = d.badge ? '<span class="arr-card__badge">' + d.badge + '</span>' : '';
+      var featHtml = d.features.map(function(f) {
+        return '<div class="arr-popup__feature"><span class="arr-popup__check">✓</span><span>' + f + '</span></div>';
+      }).join('');
+      inner.innerHTML =
+        '<button class="arr-popup__close" id="arrPopupClose" aria-label="Sluiten">&times;</button>' +
+        '<div class="arr-popup__photo">' +
+          '<img src="' + d.foto + '" alt="' + d.alt + '" loading="eager">' +
+          '<div class="arr-popup__photo-overlay"></div>' +
+          '<div class="arr-popup__photo-bottom">' + badgeHtml + '</div>' +
+        '</div>' +
+        '<div class="arr-popup__body">' +
+          '<p class="arr-card__eyebrow" style="margin-bottom:4px">' + d.eyebrow + '</p>' +
+          '<h3 class="arr-popup__title">' + d.title + '</h3>' +
+          '<p class="arr-popup__price">' + d.price + ' <span style="font-weight:300;color:#94a3b8">— ' + d.priceNote + '</span></p>' +
+          '<p class="arr-popup__includes-label">Alles inbegrepen</p>' +
+          featHtml +
+          '<div class="arr-popup__note">' + d.note + '</div>' +
+          '<a class="arr-popup__cta" href="' + d.url + '" target="_blank" rel="noopener">Boek direct — ' + d.price + ' p.p.</a>' +
+        '</div>';
+
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('arrPopupClose').addEventListener('click', closePopup);
+    }
+
+    function closePopup() {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closePopup();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePopup();
+    });
+
+    document.querySelectorAll('.arr-card__more').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        openPopup(btn.getAttribute('data-arr'));
+      });
+    });
+  })();
 
   // ── USP desktop: wissel afbeelding op hover ─────────────
   (function() {
