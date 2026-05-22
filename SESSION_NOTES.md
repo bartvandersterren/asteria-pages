@@ -20,19 +20,14 @@ Aangepast:
 - Canonical + OG URLs → `/lander-google`
 - Meta description generiek
 
-**Bug gevonden en gefixed:**
-Bij het verwijderen brak `button.hero__cta,` (hangende komma) de CSS-parser. Gefixed.
+**Bug gevonden en gefixed (sessie 2):**
+`@media (prefers-reduced-motion: reduce)` miste sluit-`}` — veroorzaakte dat alle CSS na hero (reviews, kamertypes, footer, booking popup) niet werd geladen. Root cause: bij verwijderen van `.arr-c__photo` uit de selector ging per abuis ook de `}` mee. Fix: commit a2436cb.
 
-## Open / te verifiëren
-
-- Bart moet de live pagina nog visueel controleren — Playwright screenshots hingen (marquee-animatie).
-- Paginatitel is nog "Wellness Arrangement | Hotel Asteria Venray" — wordt Task 2
-
-## Volgende sessie — Task 2: Hero aanpassen
+## Open / Volgende sessie — Task 2: Hero aanpassen
 
 - Generieke hotel hero-foto kiezen uit `foto-index.md`
 - Hero headline + subline → hotel-first copy (max 8 woorden)
 - Trust badges → generieke hotel USPs
 - Sticky CTA: "Boek het Wellness Arrangement" → "Boek uw verblijf"
-- Paginatitel aanpassen
+- Paginatitel aanpassen: nog "Wellness Arrangement | Hotel Asteria Venray"
 - Plan: `docs/superpowers/plans/2026-05-22-lander-google.md` — Task 2 sectie
