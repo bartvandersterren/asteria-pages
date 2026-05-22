@@ -2637,7 +2637,7 @@
       entries.forEach(function (e) {
         var show;
         if (e.isIntersecting) {
-          show = true;                        // reviews in beeld → arrangement voorbij
+          show = true;                        // reviews in beeld
         } else if (e.boundingClientRect.top > 0) {
           show = false;                       // reviews nog onder viewport
         } else {
@@ -3051,7 +3051,7 @@
     document.body.style.overflow = 'hidden';
     if (window.track) window.track('popup_open');
 
-    // Custom datepicker — wordt ingevuld in Task 3
+    // Initialiseer custom datepicker
     if (window.initCustomCalendar) {
       window.initCustomCalendar(function(start, end) {
         selectedDates = start && end ? [start, end] : [];
