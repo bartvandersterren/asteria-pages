@@ -2,32 +2,30 @@
 
 ## Wat gedaan
 
-**Task 1 van lander-google plan — Strippen — AFGEROND**
+Plan `docs/superpowers/plans/2026-05-22-lander-google.md` volledig uitgevoerd via subagent-driven-development.
 
-`lander-google.html` aangemaakt als fork van `wellness-arr-c.html`. Live op `visit.asteria.nl/lander-google`.
+Tasks 2-8 allemaal afgerond en live op `visit.asteria.nl/lander-google`:
 
-Verwijderd:
-- arr-c arrangement blok + CSS
-- Wellness plattegrond + hotspot blok + CSS
-- Diner blok + CSS
-- A/B price test IIFE
-- arr-c feature-interactie IIFE
-- Taaldetectie/redirect script (geen -en/-de versies voor lander-google)
-- Voucher codes (WELLNESSARRA, WELLNESS124)
+- **Task 2:** Hero generiek — foto `hero-buitenkant.webp`, copy "Hotel Asteria Venray", trust badges, sticky card generiek
+- **Task 3:** USP-blok toegevoegd (locatie / wellness / reviews) na hero, voor reviews
+- **Task 4:** Sfeerblok toegevoegd (intro-lobby, card-wellness, blok-natuur) tussen reviews en kamertypes
+- **Task 5:** Kamertypes copy generiek — em dashes, arrangement-framing, popup CTA "Boek deze kamer"
+- **Task 6:** Booking popup comments opgeschoond (was al grotendeels generiek)
+- **Task 7:** Email capture + footer geverifieerd — alles correct, geen wijzigingen nodig
+- **Task 8:** Polish — copy-review (em dashes, superlatieven), meta tags bijgewerkt, screenshots OK
 
-Aangepast:
-- `buildBookingUrl()` — geen `mewsVoucherCode` parameter
-- Canonical + OG URLs → `/lander-google`
-- Meta description generiek
+## Wat open staat
 
-**Bug gevonden en gefixed (sessie 2):**
-`@media (prefers-reduced-motion: reduce)` miste sluit-`}` — veroorzaakte dat alle CSS na hero (reviews, kamertypes, footer, booking popup) niet werd geladen. Root cause: bij verwijderen van `.arr-c__photo` uit de selector ging per abuis ook de `}` mee. Fix: commit a2436cb.
+Niets — plan volledig afgerond. Pagina is live.
 
-## Open / Volgende sessie — Task 2: Hero aanpassen
+## Pre-existing issues (niet onze schuld)
 
-- Generieke hotel hero-foto kiezen uit `foto-index.md`
-- Hero headline + subline → hotel-first copy (max 8 woorden)
-- Trust badges → generieke hotel USPs
-- Sticky CTA: "Boek het Wellness Arrangement" → "Boek uw verblijf"
-- Paginatitel aanpassen: nog "Wellness Arrangement | Hotel Asteria Venray"
-- Plan: `docs/superpowers/plans/2026-05-22-lander-google.md` — Task 2 sectie
+- `api/google-reviews` geeft 500 — Google Places API key niet geconfigureerd in Cloudflare dashboard
+- `calendar-icon.svg` 404 op asteria.nl — van asteria.nl's eigen server
+
+## Volgende sessie
+
+Geen directe vervolgstappen voor lander-google. Mogelijke volgende taken:
+- A/B testen opzetten voor de lander
+- Google Ads koppelen aan de URL
+- Conversion tracking verbeteren
