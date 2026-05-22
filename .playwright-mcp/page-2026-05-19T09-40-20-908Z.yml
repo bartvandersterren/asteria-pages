@@ -1,0 +1,54 @@
+- iframe [ref=e1]:
+  - generic [ref=f56e7]:
+    - generic [ref=f56e8]:
+      - generic [ref=f56e9]: "Skip to:"
+      - list [ref=f56e10]:
+        - listitem [ref=f56e11]:
+          - link "Toolbar" [ref=f56e12] [cursor=pointer]:
+            - /url: "#toolbar"
+        - listitem [ref=f56e13]:
+          - link "Site navigation" [ref=f56e14] [cursor=pointer]:
+            - /url: "#navigation"
+        - listitem [ref=f56e15]:
+          - link "Main content" [ref=f56e16] [cursor=pointer]:
+            - /url: "#main"
+    - generic [ref=f56e17]:
+      - banner [ref=f56e18]:
+        - generic [ref=f56e19]:
+          - generic [ref=f56e22]: Hotel Asteria Venray
+          - generic [ref=f56e25]:
+            - button "Select your language" [ref=f56e26] [cursor=pointer]:
+              - generic [ref=f56e28]: EN - US
+            - button "Select your currency" [ref=f56e29] [cursor=pointer]:
+              - generic [ref=f56e30]: EUR
+      - navigation "Progress" [ref=f56e31]:
+        - generic [ref=f56e32]:
+          - button "1 of 5" [ref=f56e33] [cursor=pointer]:
+            - generic [ref=f56e34]: 1 of 5
+          - navigation "progress" [ref=f56e36]:
+            - list [ref=f56e37]:
+              - listitem [ref=f56e38]:
+                - generic "Link to Dates" [ref=f56e39]:
+                  - generic [ref=f56e40]:
+                    - generic [ref=f56e41]: "1"
+                    - generic [ref=f56e44]: Dates
+    - main [ref=f56e45]:
+      - generic [ref=f56e52]:
+        - generic:
+          - heading "Dates" [level=1]
+        - region [ref=f56e54]:
+          - generic [ref=f56e58]:
+            - generic [ref=f56e62]:
+              - generic [ref=f56e63]: Dates
+              - button "7/6/2026 - 7/7/2026" [ref=f56e64] [cursor=pointer]:
+                - paragraph [ref=f56e66]: 7/6/2026 - 7/7/2026
+            - generic [ref=f56e71]:
+              - generic [ref=f56e73]: Adults
+              - generic [ref=f56e75]:
+                - button "Decrement" [ref=f56e77] [cursor=pointer]
+                - spinbutton "Adults" [ref=f56e82]: "2"
+                - button "Increment" [ref=f56e84] [cursor=pointer]
+            - button "Add promotional code" [ref=f56e88] [cursor=pointer]:
+              - generic [ref=f56e90]: Add promotional code
+            - button "Next" [ref=f56e91] [cursor=pointer]:
+              - generic [ref=f56e92]: Next

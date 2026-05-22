@@ -1,0 +1,246 @@
+- generic [active] [ref=e1]:
+  - 'button "Boek direct: Wellness Arrangement" [ref=e2]':
+    - text: Boek direct
+    - img [ref=e3]
+  - complementary "Snel boeken" [ref=e5]:
+    - text: Wellness Arrangement
+    - strong [ref=e6]: €139,50
+    - text: per persoon
+    - button "Boek direct →" [ref=e7]
+  - navigation [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - link "info@asteria.nl" [ref=e11] [cursor=pointer]:
+          - /url: mailto:info@asteria.nl
+          - img [ref=e12]
+          - text: info@asteria.nl
+        - link "0478 511 466" [ref=e15] [cursor=pointer]:
+          - /url: tel:0031478511466
+          - img [ref=e16]
+          - text: 0478 511 466
+        - generic [ref=e18]:
+          - img [ref=e19]
+          - combobox [ref=e22] [cursor=pointer]:
+            - option "nl" [selected]
+            - option "en"
+            - option "de"
+          - generic: ▾
+      - link "Hotel Asteria" [ref=e23] [cursor=pointer]:
+        - /url: https://www.asteria.nl
+        - img "Hotel Asteria" [ref=e24]
+      - generic [ref=e26]:
+        - list [ref=e27]:
+          - listitem [ref=e28]:
+            - link "Kamers en Suites" [ref=e29] [cursor=pointer]:
+              - /url: https://www.asteria.nl/kamers
+          - listitem [ref=e30]:
+            - link "Hotel" [ref=e31] [cursor=pointer]:
+              - /url: https://www.asteria.nl/hotel
+          - listitem [ref=e32]:
+            - link "Restaurant" [ref=e33] [cursor=pointer]:
+              - /url: https://www.asteria.nl/restaurant
+          - listitem [ref=e34]:
+            - link "Wellness" [ref=e35] [cursor=pointer]:
+              - /url: https://www.asteria.nl/wellness
+          - listitem [ref=e36]:
+            - link "Omgeving" [ref=e37] [cursor=pointer]:
+              - /url: https://www.asteria.nl/omgeving
+          - listitem [ref=e38]:
+            - link "Contact" [ref=e39] [cursor=pointer]:
+              - /url: https://www.asteria.nl/contact
+        - button "Boek nu" [ref=e40]
+  - generic [ref=e44]:
+    - generic [ref=e45]: Venray · Noord-Limburg
+    - heading "Wellness, diner & een goed bed" [level=1] [ref=e46]:
+      - text: Wellness, diner
+      - text: "& een goed bed"
+    - paragraph [ref=e48]: Sauna, drie-gangen diner en een comfortabele kamer. Alles geregeld, u hoeft alleen te komen.
+    - button "Boek het arrangement" [ref=e49]
+    - generic [ref=e50]:
+      - generic [ref=e51]: ✓ 4 sauna's op de Top Floor
+      - generic [ref=e52]: ✓ Diner & ontbijt inbegrepen
+      - generic [ref=e53]: ✓ Gratis annuleren
+  - region "Gastbeoordelingen" [ref=e57]:
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - text: 4,2
+        - generic [ref=e60]: ★★★★★ 2.219 beoordelingen
+      - generic "Live Google Reviews" [ref=e61]: Google Reviews Live
+    - generic [ref=e63]:
+      - article [ref=e64]:
+        - generic [ref=e65]:
+          - generic [ref=e66]: R
+          - generic [ref=e67]: Rob24 december 2025
+        - generic [ref=e68]: ★★★★★
+        - paragraph [ref=e69]: Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!
+      - article [ref=e70]:
+        - generic [ref=e71]:
+          - generic [ref=e72]: D
+          - generic [ref=e73]: Danielle14 augustus 2025
+        - generic [ref=e74]: ★★★★★
+        - paragraph [ref=e75]: We hebben 2 heerlijke dagen Venray gehad met 1 overnachting, diner, ontbijt en late check out. Het diner was top en het ontbijt ook. Personeel heel vriendelijk. Wij komen hier zeker nog eens terug.
+      - article [ref=e76]:
+        - generic [ref=e77]:
+          - generic [ref=e78]: CO
+          - generic [ref=e79]: Cornelia O.10 juni 2024
+        - generic [ref=e80]: ★★★★★
+        - paragraph [ref=e81]: Was super goed fijne bedden. Koffie apparaat op je kamer. Top hotel.
+      - article [ref=e82]:
+        - generic [ref=e83]:
+          - generic [ref=e84]: JB
+          - generic [ref=e85]: Judith B.3 februari 2025
+        - generic [ref=e86]: ★★★★★
+        - paragraph [ref=e87]: Geweldig verblijf! De wellness op de Top Floor is echt een aanrader. Heerlijk relaxt.
+      - article [ref=e88]:
+        - generic [ref=e89]:
+          - generic [ref=e90]: MV
+          - generic [ref=e91]: Martin V.18 november 2024
+        - generic [ref=e92]: ★★★★☆
+        - paragraph [ref=e93]: Mooie locatie, vriendelijk personeel. Diner was uitstekend verzorgd.
+      - article [ref=e94]:
+        - generic [ref=e95]:
+          - generic [ref=e96]: R
+          - generic [ref=e97]: Rob24 december 2025
+        - generic [ref=e98]: ★★★★★
+        - paragraph [ref=e99]: Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!
+      - article [ref=e100]:
+        - generic [ref=e101]:
+          - generic [ref=e102]: D
+          - generic [ref=e103]: Danielle14 augustus 2025
+        - generic [ref=e104]: ★★★★★
+        - paragraph [ref=e105]: We hebben 2 heerlijke dagen Venray gehad met 1 overnachting, diner, ontbijt en late check out. Het diner was top en het ontbijt ook. Personeel heel vriendelijk. Wij komen hier zeker nog eens terug.
+      - article [ref=e106]:
+        - generic [ref=e107]:
+          - generic [ref=e108]: CO
+          - generic [ref=e109]: Cornelia O.10 juni 2024
+        - generic [ref=e110]: ★★★★★
+        - paragraph [ref=e111]: Was super goed fijne bedden. Koffie apparaat op je kamer. Top hotel.
+      - article [ref=e112]:
+        - generic [ref=e113]:
+          - generic [ref=e114]: JB
+          - generic [ref=e115]: Judith B.3 februari 2025
+        - generic [ref=e116]: ★★★★★
+        - paragraph [ref=e117]: Geweldig verblijf! De wellness op de Top Floor is echt een aanrader. Heerlijk relaxt.
+      - article [ref=e118]:
+        - generic [ref=e119]:
+          - generic [ref=e120]: MV
+          - generic [ref=e121]: Martin V.18 november 2024
+        - generic [ref=e122]: ★★★★☆
+        - paragraph [ref=e123]: Mooie locatie, vriendelijk personeel. Diner was uitstekend verzorgd.
+  - region "Kamertypes" [ref=e124]:
+    - generic [ref=e125]:
+      - text: Kies uw kamer
+      - heading "Welke kamer past bij u?" [level=2] [ref=e126]
+      - paragraph [ref=e127]: Upgrade voor meer comfort of privacy
+      - button "Comfort Kamer Standaard inbegrepen Comfort Kamer ~22 m² · tweepersoons bed · douche · zithoek · airco · WiFi" [ref=e128] [cursor=pointer]:
+        - img "Comfort Kamer" [ref=e129]
+        - generic [ref=e130]:
+          - text: Standaard inbegrepen Comfort Kamer
+          - paragraph [ref=e131]: ~22 m² · tweepersoons bed · douche · zithoek · airco · WiFi
+      - generic [ref=e132]:
+        - button "Royale Kamer Upgrade Royale Kamer + meer ruimte + ligbad ›" [ref=e133]:
+          - img "Royale Kamer" [ref=e134]
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - text: Upgrade
+              - generic [ref=e137]: Royale Kamer
+              - generic [ref=e138]: + meer ruimte + ligbad
+            - text: ›
+        - button "Deluxe Kamer + Eigen sauna Deluxe Kamer + meer ruimte + privé infraroodsauna ›" [ref=e139]:
+          - img "Deluxe Kamer" [ref=e140]
+          - generic [ref=e141]:
+            - generic [ref=e142]:
+              - text: + Eigen sauna
+              - generic [ref=e143]: Deluxe Kamer
+              - generic [ref=e144]: + meer ruimte + privé infraroodsauna
+            - text: ›
+        - button "Junior Suite Upgrade Junior Suite + kingsize bed + ruime zithoek + ligbad + koelkast ›" [ref=e145]:
+          - img "Junior Suite" [ref=e146]
+          - generic [ref=e147]:
+            - generic [ref=e148]:
+              - text: Upgrade
+              - generic [ref=e149]: Junior Suite
+              - generic [ref=e150]: + kingsize bed + ruime zithoek + ligbad + koelkast
+            - text: ›
+        - button "Suite + Eigen sauna Suite + kingsize bed + privé infraroodsauna + ruime zithoek + koelkast ›" [ref=e151]:
+          - img "Suite" [ref=e152]
+          - generic [ref=e153]:
+            - generic [ref=e154]:
+              - text: + Eigen sauna
+              - generic [ref=e155]: Suite
+              - generic [ref=e156]: + kingsize bed + privé infraroodsauna + ruime zithoek + koelkast
+            - text: ›
+        - button "Bruidssuite Premium Bruidssuite + kingsize bed + vrijstaand bad + inloopdouche + koelkast ›" [ref=e157]:
+          - img "Bruidssuite" [ref=e158]
+          - generic [ref=e159]:
+            - generic [ref=e160]:
+              - text: Premium
+              - generic [ref=e161]: Bruidssuite
+              - generic [ref=e162]: + kingsize bed + vrijstaand bad + inloopdouche + koelkast
+            - text: ›
+  - dialog "Kamerdetails"
+  - dialog "Verblijf boeken" [ref=e163]:
+    - generic [ref=e165]:
+      - button "Sluiten" [ref=e166]: ×
+      - heading "Kies uw verblijfsdata" [level=2] [ref=e167]
+      - generic [ref=e168]:
+        - generic [ref=e169]: Aankomst —
+        - generic [ref=e170]: Vertrek —
+        - generic [ref=e171]: Nachten —
+      - generic [ref=e172]:
+        - 'button "Volgende: kies kamer →" [disabled] [ref=e173]'
+        - button "Of boek direct zonder kamerkeuze" [disabled] [ref=e174]
+  - contentinfo [ref=e175]:
+    - generic [ref=e176]:
+      - link "Hotel Asteria" [ref=e178] [cursor=pointer]:
+        - /url: https://www.asteria.nl
+        - img "Hotel Asteria" [ref=e179]
+      - generic [ref=e180]:
+        - paragraph [ref=e181]: Hotel Asteria
+        - text: Maasheseweg 80a · 5804 AD Venray
+        - link "0478 511 466" [ref=e182] [cursor=pointer]:
+          - /url: tel:0031478511466
+        - text: ·
+        - link "info@asteria.nl" [ref=e183] [cursor=pointer]:
+          - /url: mailto:info@asteria.nl
+        - link "www.asteria.nl" [ref=e184] [cursor=pointer]:
+          - /url: https://www.asteria.nl
+      - generic [ref=e185]:
+        - link "Facebook" [ref=e186] [cursor=pointer]:
+          - /url: https://www.facebook.com/AsteriaVenray
+          - img [ref=e187]
+        - link "Instagram" [ref=e189] [cursor=pointer]:
+          - /url: https://www.instagram.com/hotelasteriavenray
+          - img [ref=e190]
+        - link "LinkedIn" [ref=e194] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/hotel-asteria-venray
+          - img [ref=e195]
+      - generic [ref=e197]:
+        - link "Privacy" [ref=e198] [cursor=pointer]:
+          - /url: https://www.asteria.nl/privacy
+        - link "Algemene voorwaarden" [ref=e199] [cursor=pointer]:
+          - /url: https://www.asteria.nl/algemene-voorwaarden
+      - generic [ref=e200]: © 2026 Hotel Asteria · Onderdeel van Van der Sterren Hotels
+  - dialog "Nieuwsbrief aanmelden" [ref=e201]:
+    - generic [ref=e203]:
+      - button "Sluiten" [ref=e204]: ×
+      - generic [ref=e205]:
+        - generic [ref=e206]:
+          - heading "Gratis badjas, handdoek & bubbels op de kamer" [level=2] [ref=e207]:
+            - text: Gratis badjas, handdoek
+            - text: "& bubbels op de kamer"
+          - paragraph [ref=e208]: Meld u aan voor de nieuwsbrief en ontvang het pakket bij uw eerste verblijf.
+          - paragraph [ref=e209]: Er ging iets mis. Probeer het opnieuw.
+          - generic [ref=e210]:
+            - textbox "uw e-mailadres" [ref=e211]
+            - button "Aanmelden" [ref=e212]
+          - paragraph [ref=e213]:
+            - text: Door u aan te melden gaat u akkoord met onze
+            - link "privacyverklaring" [ref=e214] [cursor=pointer]:
+              - /url: /privacyverklaring
+            - text: . Afmelden kan altijd.
+        - generic [ref=e215]:
+          - img [ref=e217]
+          - heading "Check uw inbox" [level=2] [ref=e220]
+          - paragraph [ref=e221]: We hebben u een mail gestuurd. Open hem om uw aanmelding te bevestigen. Uw persoonlijke code staat daarin.
+          - paragraph [ref=e222]: Geen mail ontvangen? Check uw spamfolder.

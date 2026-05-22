@@ -1,0 +1,171 @@
+- generic [active] [ref=e1]:
+  - complementary "Snel boeken" [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: Wellness Arrangement
+      - strong [ref=e5]: €139,50
+      - generic [ref=e6]: per persoon · 2-persoonskamer
+    - link "Boek nu" [ref=e7] [cursor=pointer]:
+      - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS
+  - navigation [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - link " info@asteria.nl" [ref=e11] [cursor=pointer]:
+          - /url: mailto:info@asteria.nl
+          - generic [ref=e12]: 
+          - text: info@asteria.nl
+        - link " 0478 511 466" [ref=e13] [cursor=pointer]:
+          - /url: tel:0031478511466
+          - generic [ref=e14]: 
+          - text: 0478 511 466
+        - generic [ref=e15]:
+          - generic [ref=e16]: 
+          - combobox [ref=e17] [cursor=pointer]:
+            - option "nl" [selected]
+            - option "en"
+            - option "de"
+          - generic: ▾
+      - link "Hotel Asteria" [ref=e18] [cursor=pointer]:
+        - /url: https://www.asteria.nl
+        - img "Hotel Asteria" [ref=e19]
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - list [ref=e22]:
+            - listitem [ref=e23]:
+              - link "Kamers en Suites" [ref=e24] [cursor=pointer]:
+                - /url: https://www.asteria.nl/kamers
+            - listitem [ref=e25]:
+              - link "Hotel" [ref=e26] [cursor=pointer]:
+                - /url: https://www.asteria.nl/hotel
+            - listitem [ref=e27]:
+              - link "Restaurant" [ref=e28] [cursor=pointer]:
+                - /url: https://www.asteria.nl/restaurant
+            - listitem [ref=e29]:
+              - link "Wellness" [ref=e30] [cursor=pointer]:
+                - /url: https://www.asteria.nl/wellness
+            - listitem [ref=e31]:
+              - link "Omgeving" [ref=e32] [cursor=pointer]:
+                - /url: https://www.asteria.nl/omgeving
+            - listitem [ref=e33]:
+              - link "Contact" [ref=e34] [cursor=pointer]:
+                - /url: https://www.asteria.nl/contact
+          - link "Boek nu" [ref=e35] [cursor=pointer]:
+            - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS
+        - text:  
+  - generic [ref=e39]:
+    - generic [ref=e40]: Venray · Noord-Limburg
+    - heading "Eén avond. Volledig ontspannen." [level=1] [ref=e41]:
+      - text: Eén avond.
+      - text: Volledig ontspannen.
+    - paragraph [ref=e43]: Wellness, een 3-gangen diner en een goed bed — alles inbegrepen. Het Wellness Arrangement van Hotel Asteria.
+    - link "Boek het arrangement" [ref=e44] [cursor=pointer]:
+      - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS
+    - generic [ref=e45]:
+      - generic [ref=e46]: ✓ Beste prijs garantie
+      - generic [ref=e47]: ✓ Direct bevestigd
+      - generic [ref=e48]: ✓ Gratis annuleren
+  - region "Wellness arrangement — wat is inbegrepen" [ref=e52]:
+    - generic [ref=e53]:
+      - generic: Comfortabele kamer
+    - generic [ref=e60]:
+      - link "4,2 van 5 sterren · 2.219 Google reviews" [ref=e61] [cursor=pointer]:
+        - /url: "#reviews"
+        - generic [ref=e62]: ★★★★★
+        - generic [ref=e63]: 4,2
+        - generic [ref=e64]: · 2.219 reviews
+      - generic [ref=e65]: Wellness Arrangement
+      - heading "Wat is inbegrepen?" [level=2] [ref=e66]
+      - paragraph [ref=e67]: Eén avond vol rust en verwennerij — met overnachting, diner en vrije toegang tot de wellness op de Top Floor.
+      - list [ref=e68]:
+        - button "Overnachting Comfortabele kamer voor 2 personen" [ref=e69] [cursor=pointer]:
+          - img [ref=e71]
+          - generic [ref=e73]:
+            - strong [ref=e74]: Overnachting
+            - generic [ref=e75]: Comfortabele kamer voor 2 personen
+          - img [ref=e77]
+        - button "Welkomstdrankje Botega op de kamer bij aankomst" [ref=e79] [cursor=pointer]:
+          - img [ref=e81]
+          - generic [ref=e84]:
+            - strong [ref=e85]: Welkomstdrankje
+            - generic [ref=e86]: Botega op de kamer bij aankomst
+          - img [ref=e88]
+        - button "Badjas & slippers Inclusief handdoekpakket" [ref=e90] [cursor=pointer]:
+          - img [ref=e92]
+          - generic [ref=e94]:
+            - strong [ref=e95]: Badjas & slippers
+            - generic [ref=e96]: Inclusief handdoekpakket
+          - img [ref=e98]
+        - button "Vrije wellness toegang 4 sauna’s & stoombad op de Top Floor" [ref=e100] [cursor=pointer]:
+          - img [ref=e102]
+          - generic [ref=e104]:
+            - strong [ref=e105]: Vrije wellness toegang
+            - generic [ref=e106]: 4 sauna’s & stoombad op de Top Floor
+          - img [ref=e108]
+        - button "Drie-gangen diner In ons restaurant op de begane grond" [ref=e110] [cursor=pointer]:
+          - img [ref=e112]
+          - generic [ref=e115]:
+            - strong [ref=e116]: Drie-gangen diner
+            - generic [ref=e117]: In ons restaurant op de begane grond
+          - img [ref=e119]
+        - button "Uitgebreid ontbijtbuffet Verse start van uw dag" [ref=e121] [cursor=pointer]:
+          - img [ref=e123]
+          - generic [ref=e126]:
+            - strong [ref=e127]: Uitgebreid ontbijtbuffet
+            - generic [ref=e128]: Verse start van uw dag
+          - img [ref=e130]
+      - generic [ref=e132]:
+        - generic [ref=e133]:
+          - generic [ref=e134]: Vanaf
+          - strong [ref=e135]: €139,50
+          - generic [ref=e136]: per persoon · 2-persoonskamer
+        - link "Boek het arrangement" [ref=e137] [cursor=pointer]:
+          - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS
+          - text: Boek het arrangement
+          - img [ref=e138]
+  - region "Gastbeoordelingen" [ref=e140]:
+    - generic [ref=e141]:
+      - generic [ref=e142]:
+        - generic [ref=e143]:
+          - generic [ref=e144]: 4,2
+          - generic [ref=e145]:
+            - generic [ref=e146]: ★★★★★
+            - generic [ref=e147]: 2.219 beoordelingen
+        - generic [ref=e148]: Google Reviews
+      - generic [ref=e150]:
+        - article [ref=e151]:
+          - generic [ref=e152]:
+            - generic [ref=e153]: R
+            - generic [ref=e154]: Rob24 december 2025
+            - generic [ref=e155]: ★★★★★
+          - paragraph [ref=e156]: Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!
+        - article [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]: D
+            - generic [ref=e160]: Danielle14 augustus 2025
+            - generic [ref=e161]: ★★★★★
+          - paragraph [ref=e162]: We hebben 2 heerlijke dagen Venray gehad met 1 overnachting, diner, ontbijt en late check out. Het diner was top en het ontbijt ook. Personeel heel vriendelijk. Wij komen hier zeker nog eens terug.
+        - article [ref=e163]:
+          - generic [ref=e164]:
+            - generic [ref=e165]: CO
+            - generic [ref=e166]: Cornelia O.10 juni 2024
+            - generic [ref=e167]: ★★★★★
+          - paragraph [ref=e168]: Was super goed fijne bedden. Koffie apparaat op je kamer. Top hotel.
+  - contentinfo [ref=e169]:
+    - generic [ref=e170]:
+      - link "Hotel Asteria" [ref=e172] [cursor=pointer]:
+        - /url: https://www.asteria.nl
+        - img "Hotel Asteria" [ref=e173]
+      - generic [ref=e174]:
+        - paragraph [ref=e175]: Hotel Asteria
+        - text: Leunseweg 2 · 5804 AB Venray
+        - link "0478 511 466" [ref=e176] [cursor=pointer]:
+          - /url: tel:0031478511466
+        - text: ·
+        - link "info@asteria.nl" [ref=e177] [cursor=pointer]:
+          - /url: mailto:info@asteria.nl
+        - link "www.asteria.nl" [ref=e178] [cursor=pointer]:
+          - /url: https://www.asteria.nl
+      - generic [ref=e179]:
+        - text: © 2026 Hotel Asteria
+        - text: Alle rechten voorbehouden
+    - separator [ref=e180]
+    - paragraph [ref=e181]: Hotel Asteria is onderdeel van Van der Sterren Hotels

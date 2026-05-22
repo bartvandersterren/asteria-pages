@@ -1,0 +1,254 @@
+- generic [active]:
+  - dialog "This website uses cookies" [ref=e1]:
+    - generic [ref=e2]:
+      - generic [ref=e4]:
+        - img "logo" [ref=e6]
+        - link "Cookiebot by Usercentrics - opens in a new window" [ref=e7] [cursor=pointer]:
+          - /url: https://www.cookiebot.com/en/what-is-behind-powered-by-cookiebot/?utm_source=banner_cb&utm_medium=referral&utm_content=v2
+          - img [ref=e8]
+      - tablist [ref=e35]:
+        - tab "Consent" [selected] [ref=e36] [cursor=pointer]
+        - tab "Details" [ref=e37] [cursor=pointer]
+        - tab "About" [ref=e38] [cursor=pointer]
+      - tabpanel "Consent" [ref=e40]:
+        - generic [ref=e42]:
+          - heading "This website uses cookies" [level=2] [ref=e43]
+          - generic [ref=e44]: We use cookies to personalise content and ads, to provide social media features and to analyse our traffic. We also share information about your use of our site with our social media, advertising and analytics partners who may combine it with other information that you’ve provided to them or that they’ve collected from your use of their services.
+      - generic [ref=e48]:
+        - button "Deny" [ref=e49] [cursor=pointer]
+        - button "Customize" [ref=e50] [cursor=pointer]: Customize
+        - button "Allow all" [ref=e52] [cursor=pointer]
+  - generic [ref=e53]:
+    - navigation [ref=e54]:
+      - generic [ref=e57]:
+        - link " info@asteria.nl" [ref=e58] [cursor=pointer]:
+          - /url: mailto:info@asteria.nl
+          - generic [ref=e59]: 
+          - text: info@asteria.nl
+        - link " 0478511466" [ref=e60] [cursor=pointer]:
+          - /url: tel:0031478511466
+          - generic [ref=e61]: 
+          - text: "0478511466"
+        - generic [ref=e62]: 
+        - combobox [ref=e63] [cursor=pointer]:
+          - option "nl" [selected]
+          - option "en"
+          - option "de"
+      - generic [ref=e65]:
+        - link "Hotel Asteria" [ref=e66] [cursor=pointer]:
+          - /url: https://www.asteria.nl/
+          - img "Hotel Asteria" [ref=e67]
+        - generic [ref=e68]:
+          - list [ref=e69]:
+            - listitem [ref=e70]:
+              - link "Kamers en Suites" [ref=e71] [cursor=pointer]:
+                - /url: https://www.asteria.nl/kamers
+            - listitem [ref=e72]:
+              - link "Hotel" [ref=e73] [cursor=pointer]:
+                - /url: https://www.asteria.nl/hotel
+            - listitem [ref=e74]:
+              - link "Restaurant" [ref=e75] [cursor=pointer]:
+                - /url: https://www.asteria.nl/restaurant
+            - listitem [ref=e76]:
+              - link "Zalen & Feesten" [ref=e77] [cursor=pointer]:
+                - /url: https://www.asteria.nl/zalen-feesten
+            - listitem [ref=e78]:
+              - link "Wellness" [ref=e79] [cursor=pointer]:
+                - /url: https://www.asteria.nl/wellness
+            - listitem [ref=e80]:
+              - link "Omgeving" [ref=e81] [cursor=pointer]:
+                - /url: https://www.asteria.nl/omgeving
+            - listitem [ref=e82]:
+              - link "Contact" [ref=e83] [cursor=pointer]:
+                - /url: https://www.asteria.nl/contact
+          - link "Boek nu" [ref=e84] [cursor=pointer]:
+            - /url: https://www.asteria.nl/bookingEngine
+            - text:  Boek nu
+          - generic:  
+    - generic [ref=e88]:
+      - link "Hotel Asteria" [ref=e90] [cursor=pointer]:
+        - /url: https://www.asteria.nl/
+      - text: ">"
+      - link "Omgeving" [ref=e92] [cursor=pointer]:
+        - /url: https://www.asteria.nl/omgeving
+    - generic [ref=e95]:
+      - heading "Ontdek Noord Limburg vanuit Hotel Asteria" [level=1] [ref=e96]
+      - paragraph [ref=e97]: Vraag je jezelf af wat je tijdens jouw verblijf kunt doen, zien en beleven? Wij hebben de leukste activiteiten rondom ons hotel voor jou in kaart gebracht. Tevens hebben wij enkele goude tips van onze collega's voor je op een rijtje gezet. Kies hieronder jouw favoriet en lees rustig verder!
+    - generic [ref=e100]:
+      - generic [ref=e102] [cursor=pointer]: + Populaire uitjes
+      - generic [ref=e104] [cursor=pointer]: + Musea
+      - generic [ref=e106] [cursor=pointer]: + Natuur
+      - generic [ref=e108] [cursor=pointer]: + Shoppen
+      - generic [ref=e110] [cursor=pointer]: + Actief
+      - generic [ref=e112] [cursor=pointer]: + Ontspanning
+      - generic [ref=e114] [cursor=pointer]: + Voor de kids
+    - generic [ref=e117]:
+      - generic [ref=e118]:
+        - img "Natuurgebiede de Groote Peel in Noord Limburg" [ref=e120]
+        - generic [ref=e122]:
+          - heading "De Groote Peel" [level=2] [ref=e123]
+          - paragraph [ref=e124]: Ontdek de natuur van De Groote Peel te voet of per fiets!
+          - paragraph [ref=e125]: Verken het uitgestrekte landschap van Nationaal Park De Groote Peel, een paradijs voor wandelaars en fietsers. Met zijn open vlakten, moerassen, en knoestige bomen biedt dit unieke natuurgebied een adembenemend decor voor een ontspannen tocht door de natuur.
+          - paragraph [ref=e126]:
+            - link "Meer informatie" [ref=e127] [cursor=pointer]:
+              - /url: https://www.asteria.nl/de-groote-peel
+      - generic [ref=e128]:
+        - img "Nationaal Park de Maasduinen | Hotel Asteria Venray" [ref=e130]
+        - generic [ref=e132]:
+          - heading "Nationaal Park de Maasduinen" [level=2] [ref=e133]
+          - paragraph [ref=e134]: Verken de schoonheid van Nationaal Park de Maasduinen
+          - paragraph [ref=e135]: Of je nu kiest voor een rustige wandeling of een actieve fietstocht, Nationaal Park De Maasduinen biedt de perfecte omgeving om te ontsnappen aan de drukte en helemaal op te gaan in de natuur. Verken dit prachtige gebied en maak jouw verblijf bij Asteria compleet met een rustgevende dag in dit indrukwekkende natuurgebied.
+          - paragraph [ref=e136]:
+            - link "Meer informatie" [ref=e137] [cursor=pointer]:
+              - /url: https://www.asteria.nl/nationaal-park-de-maasduinen
+      - generic [ref=e141]:
+        - heading "Venray Centrum" [level=2] [ref=e142]
+        - paragraph [ref=e143]: "Ontdek Venray en beleef de charme van dit sfeervolle dorp: winkel in unieke boetiekjes, bewonder de Grote Kerk, en geniet van een hapje en drankje op een gezellig terras. Het hele jaar door zijn er evenementen en markten, waar je kunt genieten van lokale specialiteiten en de Limburgse gastvrijheid. Venray is dé perfecte bestemming voor een ontspannen en veelzijdig dagje uit tijdens je verblijf bij Asteria."
+        - paragraph [ref=e144]:
+          - link "Meer informatie" [ref=e145] [cursor=pointer]:
+            - /url: https://www.asteria.nl/venray-centrum
+      - generic [ref=e146]:
+        - generic [ref=e147]:
+          - img "Kasteeltuinen Arcen omgeving Venray - hotel Asteria"
+        - generic [ref=e149]:
+          - heading "Kasteeltuinen Arcen" [level=2] [ref=e150]
+          - paragraph [ref=e151]: Kasteeltuinen Arcen is gelegen in het pittoreske dorpje Arcen, in de prachtige Maasduinen van Noord-Limburg. Het is een van de meest veelzijdige bloemen- en plantenparken van Europa. Laat je zintuigen prikkelen, beleef de historie en ontdek de meer dan 15 unieke tuinen die zijn aangelegd rondom een historische buitenplaats met een 17e eeuws kasteel.
+          - paragraph [ref=e152]: Tickets zijn verkrijgbaar bij onze receptie
+          - paragraph [ref=e153]:
+            - link "Meer informatie" [ref=e154] [cursor=pointer]:
+              - /url: https://www.asteria.nl/nl/kasteeltuinen-arcen
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - img "Oorlogsmuseum omgeving Venray - hotel Asteria"
+        - generic [ref=e158]:
+          - heading "Oorlogsmuseum" [level=2] [ref=e159]
+          - paragraph [ref=e160]: Het Oorlogsmuseum Overloon presenteert de geschiedenis van de Tweede Wereldoorlog. Je ziet hier hoe het zover heeft kunnen komen dat in vijf jaar tijd meer dan vijftig miljoen mensen hun leven verloren, maar ook hoe de onderdrukte bevolking vindingrijk met beperkingen en tekorten omging. Er is aandacht voor het verzet, maar ook voor de vervolging. Ten slotte wordt er natuurlijk ook aandacht besteed aan de bevrijding en de Slag bij Overloon.
+          - paragraph [ref=e161]:
+            - emphasis [ref=e162]: Tickets zijn verkrijgbaar bij onze receptie
+          - paragraph [ref=e163]:
+            - link "Meer informatie" [ref=e164] [cursor=pointer]:
+              - /url: oorlogsmuseum-overloon
+      - generic [ref=e165]:
+        - generic [ref=e166]:
+          - img "Venlo Centrum Zuid | Hotel Asteria Venray"
+        - generic [ref=e168]:
+          - heading "Venlo Centrum Zuid" [level=2] [ref=e169]
+          - paragraph [ref=e170]: Venlo is een stad in Noord-Limburg gelegen aan een bocht van de Maas. De stad heeft een lange historie en mede daardoor een karakteristieke binnenstad. De stad kent nog de oude stratenstructuur van de middeleeuwen, met een stadhuis uit de 15de eeuw en kronkelige straatjes die de diverse pleinen verbinden. Met de vele leuke winkels, ateliers en heerlijke restaurants zult u zich hier niet snel vervelen.
+          - paragraph [ref=e171]:
+            - link "Meer informatie" [ref=e172] [cursor=pointer]:
+              - /url: https://www.asteria.nl/nl/venlo-centrum-zuid
+      - generic [ref=e173]:
+        - generic [ref=e174]:
+          - img "Designer outlet Roermond | Hotel Asteria Venray"
+        - generic [ref=e176]:
+          - heading "Designer outlet Roermond" [level=2] [ref=e177]
+          - paragraph [ref=e178]: In het Outletcenter Roermond verkopen vrijwel alle bekende merken hun kleding, tassen, sieraden en nog veel meer tegen hele voordelige tarieven. Met meer dan 150 shops en dus een uitgebreid assortiment zit er voor iedereen wel iets tussen!
+          - paragraph [ref=e179]:
+            - link "Meer informatie" [ref=e180] [cursor=pointer]:
+              - /url: https://www.asteria.nl/designer-outlet-roermond
+      - generic [ref=e181]:
+        - generic [ref=e182]:
+          - img "Thermaalbad Arcen | Hotel Asteria Venray"
+        - generic [ref=e184]:
+          - heading "Thermaalbad Arcen" [level=2] [ref=e185]
+          - paragraph [ref=e186]:
+            - text: Thermaalbad Arcen is een Nederlands kuuroord gelegen in het buitengebied van het dorp Arcen. Het kuuroord beschikt over binnen- en buitenbaden met warm water uit plaatselijke dieptebronnen, massage- en therapeutische baden, sauna - faciliteiten en therapeutische faciliteiten. In 1987 is is men begonnen met het omhoogpompen van het thermaalwater. Het thermaalbad is in 1989 geopend, en daarmee een van de eerste kuuroorden van Nederland.
+            - link "Meer informatie" [ref=e187] [cursor=pointer]:
+              - /url: https://www.asteria.nl/nl/thermaalbad-arcen
+      - generic [ref=e188]:
+        - generic [ref=e189]:
+          - img "De Hertog Jan Brouwerij | Hotel Asteria Venray"
+        - generic [ref=e191]:
+          - heading "De Hertog Jan Brouwerij" [level=2] [ref=e192]
+          - paragraph [ref=e193]: Van authentieke koperen brouwketels tot een sfeervolle kelder met flessen Grand Prestige van diverse jaargangen. Tijdens een brouwerijbezoek volg je onder begeleiding van een ervaren gids het complete brouwproces. Je ruikt de hop, proeft de mout en natuurlijk... het bier. Na afloop kun je een bezoek brengen aan de brouwerijwinkel en Café de Hertog Jan Proeverij.
+          - paragraph [ref=e194]
+          - paragraph [ref=e195]:
+            - link "Meer informatie" [ref=e196] [cursor=pointer]:
+              - /url: hertog-jan-brouwerij
+      - generic [ref=e197]:
+        - generic [ref=e198]:
+          - img "Mind Mystery | Hotel Asteria Venray"
+        - generic [ref=e200]:
+          - heading "Mind Mystery" [level=2] [ref=e201]
+          - paragraph [ref=e202]:
+            - text: Heb je weleens door een huis gewandeld waarbij je de vloer niet kunt aanraken en met alle gemak over het plafond loopt? Een handstand op de eettafel of een badkuip met slechts een pink in de lucht houden? Met meer dan 100 optische illusies, trucjes, activiteiten en bezienswaardigheden is Mind Mystery een uniek thema park, vol vertier en verbazing voor jong en oud.
+            - link "Meer informatie" [ref=e203] [cursor=pointer]:
+              - /url: https://www.asteria.nl/nl/mind-mystery
+    - generic [ref=e206]:
+      - heading "Aanmelden voor de nieuwsbrief" [level=2] [ref=e207]
+      - paragraph [ref=e208]: Ontvang exclusieve deals
+      - link "Aanmelden" [ref=e209] [cursor=pointer]:
+        - /url: https://interface.mailcampaigns.nl/interface/contactform.php?ref=p2uiq2Mipz1sBGLjKmZ3BD==
+    - contentinfo [ref=e210]:
+      - generic [ref=e211]:
+        - img "Hotel Asteria" [ref=e213]
+        - generic [ref=e215]:
+          - heading "Hotel Asteria" [level=3] [ref=e216]
+          - paragraph [ref=e218]:
+            - text: Maasheseweg 80a
+            - text: 5804 AD Venray
+            - generic [ref=e219]: Nederland
+            - link "0478511466" [ref=e220] [cursor=pointer]:
+              - /url: tel:0031478511466
+            - link "info@asteria.nl" [ref=e221] [cursor=pointer]:
+              - /url: mailto:info@asteria.nl
+          - generic [ref=e222]:
+            - link "" [ref=e223] [cursor=pointer]:
+              - /url: https://www.facebook.com/AsteriaVenray/
+            - link "" [ref=e224] [cursor=pointer]:
+              - /url: https://www.linkedin.com/companies/hotel-asteria-venray
+            - link "" [ref=e225] [cursor=pointer]:
+              - /url: https://instagram.com/hotelasteriavenray/
+            - link "" [ref=e226] [cursor=pointer]:
+              - /url: https://www.tripadvisor.co.uk/Hotel_Review-g652276-d1726559-Reviews-Hotel_Asteria_Venray-Venray_Limburg_Province.html
+        - generic [ref=e227]:
+          - heading "Quick links" [level=3] [ref=e228]
+          - paragraph [ref=e229]:
+            - link "Happy Summer arrangement" [ref=e230] [cursor=pointer]:
+              - /url: https://www.asteria.nl/arrangementen/happy-summer-arrangement
+            - link "Omgeving" [ref=e231] [cursor=pointer]:
+              - /url: https://www.asteria.nl/omgeving
+            - link "Vacatures" [ref=e232] [cursor=pointer]:
+              - /url: https://www.asteria.nl/vacatures
+            - link "Galerij" [ref=e233] [cursor=pointer]:
+              - /url: https://www.asteria.nl/galerij
+            - link "Beoordelingen" [ref=e234] [cursor=pointer]:
+              - /url: https://www.asteria.nl/beoordelingen
+            - link "Sitemap" [ref=e235] [cursor=pointer]:
+              - /url: https://www.asteria.nl/sitemap
+            - link "Privacy" [ref=e236] [cursor=pointer]:
+              - /url: https://www.asteria.nl/privacy
+            - link "Loyalty Card" [ref=e237] [cursor=pointer]:
+              - /url: https://www.asteria.nl/loyalty-card
+            - link "Hotel Noord Limburg" [ref=e238] [cursor=pointer]:
+              - /url: https://www.asteria.nl/hotel-noord-limburg
+            - link "Algemene voorwaarden" [ref=e239] [cursor=pointer]:
+              - /url: https://www.asteria.nl/algemene-voorwaarden
+        - generic [ref=e240]:
+          - heading "Language" [level=3] [ref=e241]
+          - paragraph [ref=e242]:
+            - link "Nederlands Nederlands" [ref=e243] [cursor=pointer]:
+              - /url: https://www.asteria.nl/omgeving
+              - img "Nederlands" [ref=e244]
+              - text: Nederlands
+            - link "English English" [ref=e245] [cursor=pointer]:
+              - /url: https://www.asteria.nl/en/location
+              - img "English" [ref=e246]
+              - text: English
+            - link "Deutsch Deutsch" [ref=e247] [cursor=pointer]:
+              - /url: https://www.asteria.nl/de/standort
+              - img "Deutsch" [ref=e248]
+              - text: Deutsch
+          - link "Goed Hart Keurmerk" [ref=e249] [cursor=pointer]:
+            - /url: https://www.goedhartkeurmerk.nl/helden
+            - img "Goed Hart Keurmerk" [ref=e250]
+    - contentinfo [ref=e251]:
+      - 'link "Hotel Website by: Porter" [ref=e254] [cursor=pointer]':
+        - /url: https://www.porterforhotels.com
+    - link "" [ref=e255] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=e256]: 
+  - iframe [ref=e257]:
+    
+  - iframe [ref=e258]:
+    - img [ref=f89e3]

@@ -7,3 +7,4 @@ node_modules/
 # Image generation test output
 test-output/
 test-image-gen.js
+.superpowers/

@@ -1,0 +1,11 @@
+[ 2956758ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[ 3125777ms] ReferenceError: ROOMS is not defined
+    at https://visit.asteria.nl/wellness-arr-c:3389:15
+    at Array.map (<anonymous>)
+    at renderRoomCards (https://visit.asteria.nl/wellness-arr-c:3388:35)
+    at HTMLButtonElement.<anonymous> (https://visit.asteria.nl/wellness-arr-c:3361:5)
+    at eval (eval at evaluate (:302:30), <anonymous>:1:44)
+    at UtilityScript.evaluate (<anonymous>:304:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+[ 3257022ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[ 3296318ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0

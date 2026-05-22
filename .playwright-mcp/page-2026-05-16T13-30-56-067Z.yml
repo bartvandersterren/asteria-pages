@@ -1,0 +1,107 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - text:   
+      - generic [ref=e4]:
+        - link "Hotel Asteria" [ref=e5] [cursor=pointer]:
+          - /url: https://www.asteria.nl
+          - img "Hotel Asteria" [ref=e6]
+        - generic [ref=e7]:
+          - generic [ref=e8] [cursor=pointer]:
+            - generic [ref=e9]: 
+            - text: Menu
+          - link " Bel" [ref=e10] [cursor=pointer]:
+            - /url: tel:0031478511466
+            - generic [ref=e11]: 
+            - text: Bel
+  - generic [ref=e15]:
+    - generic [ref=e16]: Venray · Noord-Limburg
+    - heading "Eén avond. Volledig ontspannen." [level=1] [ref=e17]:
+      - text: Eén avond.
+      - text: Volledig ontspannen.
+    - paragraph [ref=e19]: Wellness, een 3-gangen diner en een goed bed — alles inbegrepen. Het Wellness Arrangement van Hotel Asteria.
+  - region "Wellness arrangement — wat is inbegrepen" [ref=e23]:
+    - generic [ref=e24]:
+      - generic: Comfortabele kamer
+    - generic [ref=e31]:
+      - generic [ref=e32]: Wellness Arrangement
+      - heading "Wat is inbegrepen?" [level=2] [ref=e33]
+      - list [ref=e34]:
+        - button "Overnachting Comfortabele kamer voor 2 personen" [ref=e35] [cursor=pointer]:
+          - img [ref=e37]
+          - generic [ref=e39]:
+            - strong [ref=e40]: Overnachting
+            - generic [ref=e41]: Comfortabele kamer voor 2 personen
+          - img [ref=e43]
+        - button "Welkomstdrankje Botega op de kamer bij aankomst" [ref=e45] [cursor=pointer]:
+          - img [ref=e47]
+          - generic [ref=e50]:
+            - strong [ref=e51]: Welkomstdrankje
+            - generic [ref=e52]: Botega op de kamer bij aankomst
+          - img [ref=e54]
+        - button "Badjas & slippers Inclusief handdoekpakket" [ref=e56] [cursor=pointer]:
+          - img [ref=e58]
+          - generic [ref=e60]:
+            - strong [ref=e61]: Badjas & slippers
+            - generic [ref=e62]: Inclusief handdoekpakket
+          - img [ref=e64]
+        - button "Vrije wellness toegang 4 sauna’s & stoombad op de Top Floor" [ref=e66] [cursor=pointer]:
+          - img [ref=e68]
+          - generic [ref=e70]:
+            - strong [ref=e71]: Vrije wellness toegang
+            - generic [ref=e72]: 4 sauna’s & stoombad op de Top Floor
+          - img [ref=e74]
+        - button "Drie-gangen diner In ons restaurant op de begane grond" [ref=e76] [cursor=pointer]:
+          - img [ref=e78]
+          - generic [ref=e81]:
+            - strong [ref=e82]: Drie-gangen diner
+            - generic [ref=e83]: In ons restaurant op de begane grond
+          - img [ref=e85]
+        - button "Uitgebreid ontbijtbuffet Verse start van uw dag" [ref=e87] [cursor=pointer]:
+          - img [ref=e89]
+          - generic [ref=e92]:
+            - strong [ref=e93]: Uitgebreid ontbijtbuffet
+            - generic [ref=e94]: Verse start van uw dag
+          - img [ref=e96]
+      - generic [ref=e98]:
+        - generic [ref=e99]: Vanaf
+        - strong [ref=e100]: €139,50
+        - generic [ref=e101]: per persoon · 2-persoonskamer
+      - link "Boek het arrangement" [ref=e102] [cursor=pointer]:
+        - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS
+        - text: Boek het arrangement
+        - img [ref=e103]
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - img [ref=e107]
+          - text: Beste prijs garantie
+        - generic [ref=e109]:
+          - img [ref=e110]
+          - text: Direct bevestigd
+        - generic [ref=e112]:
+          - img [ref=e113]
+          - text: Gratis annuleren
+  - contentinfo [ref=e115]:
+    - generic [ref=e116]:
+      - link "Hotel Asteria" [ref=e118] [cursor=pointer]:
+        - /url: https://www.asteria.nl
+        - img "Hotel Asteria" [ref=e119]
+      - generic [ref=e120]:
+        - paragraph [ref=e121]: Hotel Asteria
+        - text: Leunseweg 2 · 5804 AB Venray
+        - link "0478 511 466" [ref=e122] [cursor=pointer]:
+          - /url: tel:0031478511466
+        - text: ·
+        - link "info@asteria.nl" [ref=e123] [cursor=pointer]:
+          - /url: mailto:info@asteria.nl
+        - link "www.asteria.nl" [ref=e124] [cursor=pointer]:
+          - /url: https://www.asteria.nl
+      - generic [ref=e125]:
+        - text: © 2026 Hotel Asteria
+        - text: Alle rechten voorbehouden
+    - separator [ref=e126]
+    - paragraph [ref=e127]: Hotel Asteria is onderdeel van Van der Sterren Hotels
+  - generic:
+    - link:
+      - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS
+      - text: Boek nu

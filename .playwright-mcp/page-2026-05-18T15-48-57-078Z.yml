@@ -1,0 +1,70 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - heading "Pinpoint Calibratie" [level=1] [ref=e3]
+    - generic [ref=e4]: Sleep een pin naar de juiste plek · of klik op de kaart om de geselecteerde pin te verplaatsen
+    - button "Reset" [ref=e5] [cursor=pointer]
+  - generic [ref=e6]:
+    - generic [ref=e7]:
+      - img "Plattegrond"
+      - generic [ref=e8]:
+        - generic: Sauna 2
+      - generic [ref=e10]:
+        - generic: Sauna 3
+      - generic [ref=e12]:
+        - generic: Sauna 4
+      - generic [ref=e14]:
+        - generic: Infrarood Sauna
+      - generic [ref=e16]:
+        - generic: Voetenbaden
+      - generic [ref=e18]:
+        - generic: IJs-/Dompelbad
+      - generic [ref=e20]:
+        - generic: Kruidenbad
+      - generic [ref=e22]:
+        - generic: Stoomdouche
+      - generic [ref=e24]:
+        - generic: Belevingsdouche
+      - generic [ref=e26]:
+        - generic: Gym & Fitness
+      - generic [ref=e28]:
+        - generic: Relaxruimte
+    - generic [ref=e30]:
+      - generic [ref=e31]: Zones
+      - generic [ref=e32]:
+        - generic [ref=e33] [cursor=pointer]:
+          - generic [ref=e35]: Sauna 2
+          - generic [ref=e36]: 76.0, 14.0
+        - generic [ref=e37] [cursor=pointer]:
+          - generic [ref=e39]: Sauna 3
+          - generic [ref=e40]: 89.0, 13.0
+        - generic [ref=e41] [cursor=pointer]:
+          - generic [ref=e43]: Sauna 4
+          - generic [ref=e44]: 89.0, 32.0
+        - generic [ref=e45] [cursor=pointer]:
+          - generic [ref=e47]: Infrarood Sauna
+          - generic [ref=e48]: 57.0, 17.0
+        - generic [ref=e49] [cursor=pointer]:
+          - generic [ref=e51]: Voetenbaden
+          - generic [ref=e52]: 65.0, 32.0
+        - generic [ref=e53] [cursor=pointer]:
+          - generic [ref=e55]: IJs-/Dompelbad
+          - generic [ref=e56]: 48.0, 36.0
+        - generic [ref=e57] [cursor=pointer]:
+          - generic [ref=e59]: Kruidenbad
+          - generic [ref=e60]: 47.0, 46.0
+        - generic [ref=e61] [cursor=pointer]:
+          - generic [ref=e63]: Stoomdouche
+          - generic [ref=e64]: 40.0, 59.0
+        - generic [ref=e65] [cursor=pointer]:
+          - generic [ref=e67]: Belevingsdouche
+          - generic [ref=e68]: 61.0, 56.0
+        - generic [ref=e69] [cursor=pointer]:
+          - generic [ref=e71]: Gym & Fitness
+          - generic [ref=e72]: 22.0, 78.0
+        - generic [ref=e73] [cursor=pointer]:
+          - generic [ref=e75]: Relaxruimte
+          - generic [ref=e76]: 79.0, 78.0
+      - generic [ref=e77]:
+        - generic [ref=e78]: Output — kopieer naar WP_ZONES
+        - textbox [ref=e79]: "{ id: 'sauna-fins', pin: { left: 76.0, top: 14.0 } }, { id: 'sauna-bio', pin: { left: 89.0, top: 13.0 } }, { id: 'sauna-zoutsteen', pin: { left: 89.0, top: 32.0 } }, { id: 'sauna-infrarood', pin: { left: 57.0, top: 17.0 } }, { id: 'voetenbaden', pin: { left: 65.0, top: 32.0 } }, { id: 'ijsbad', pin: { left: 48.0, top: 36.0 } }, { id: 'kruidenbad', pin: { left: 47.0, top: 46.0 } }, { id: 'stoomdouche', pin: { left: 40.0, top: 59.0 } }, { id: 'belevingsdouche', pin: { left: 61.0, top: 56.0 } }, { id: 'gym', pin: { left: 22.0, top: 78.0 } }, { id: 'lounge', pin: { left: 79.0, top: 78.0 } },"
+        - button "Kopieer" [ref=e80] [cursor=pointer]

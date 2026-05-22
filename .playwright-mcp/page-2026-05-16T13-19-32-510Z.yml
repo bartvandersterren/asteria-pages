@@ -1,0 +1,62 @@
+- region "Wellness arrangement — wat is inbegrepen" [ref=e3]:
+  - generic [ref=e4]:
+    - generic: Comfortabele kamer
+  - generic [ref=e11]:
+    - generic [ref=e12]: Wellness Arrangement
+    - heading "Wat is inbegrepen?" [level=2] [ref=e13]
+    - paragraph [ref=e14]: Eén avond vol rust en verwennerij — met overnachting, diner en vrije toegang tot de wellness op de Top Floor.
+    - list [ref=e15]:
+      - button "Overnachting Comfortabele kamer voor 2 personen" [ref=e16] [cursor=pointer]:
+        - img [ref=e18]
+        - generic [ref=e20]:
+          - strong [ref=e21]: Overnachting
+          - generic [ref=e22]: Comfortabele kamer voor 2 personen
+        - img [ref=e24]
+      - button "Welkomstdrankje Botega op de kamer bij aankomst" [ref=e26] [cursor=pointer]:
+        - img [ref=e28]
+        - generic [ref=e30]:
+          - strong [ref=e31]: Welkomstdrankje
+          - generic [ref=e32]: Botega op de kamer bij aankomst
+        - img [ref=e34]
+      - button "Badjas & slippers Inclusief handdoekpakket" [ref=e36] [cursor=pointer]:
+        - img [ref=e38]
+        - generic [ref=e40]:
+          - strong [ref=e41]: Badjas & slippers
+          - generic [ref=e42]: Inclusief handdoekpakket
+        - img [ref=e44]
+      - button "Vrije wellness toegang 4 sauna’s & stoombad op de Top Floor" [ref=e46] [cursor=pointer]:
+        - img [ref=e48]
+        - generic [ref=e50]:
+          - strong [ref=e51]: Vrije wellness toegang
+          - generic [ref=e52]: 4 sauna’s & stoombad op de Top Floor
+        - img [ref=e54]
+      - button "Drie-gangen diner In ons restaurant op de begane grond" [ref=e56] [cursor=pointer]:
+        - img [ref=e58]
+        - generic [ref=e61]:
+          - strong [ref=e62]: Drie-gangen diner
+          - generic [ref=e63]: In ons restaurant op de begane grond
+        - img [ref=e65]
+      - button "Uitgebreid ontbijtbuffet Verse start van uw dag" [ref=e67] [cursor=pointer]:
+        - img [ref=e69]
+        - generic [ref=e72]:
+          - strong [ref=e73]: Uitgebreid ontbijtbuffet
+          - generic [ref=e74]: Verse start van uw dag
+        - img [ref=e76]
+    - generic [ref=e78]:
+      - generic [ref=e79]: Vanaf
+      - strong [ref=e80]: €139,50
+      - generic [ref=e81]: per persoon · 2-persoonskamer
+    - link "Boek het arrangement" [ref=e82] [cursor=pointer]:
+      - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS
+      - text: Boek het arrangement
+      - img [ref=e83]
+    - generic [ref=e85]:
+      - generic [ref=e86]:
+        - img [ref=e87]
+        - text: Beste prijs garantie
+      - generic [ref=e89]:
+        - img [ref=e90]
+        - text: Direct bevestigd
+      - generic [ref=e92]:
+        - img [ref=e93]
+        - text: Gratis annuleren

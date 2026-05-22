@@ -1,0 +1,5 @@
+[     499ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[ 2333095ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:8765/api/google-reviews:0
+[ 2333832ms] [ERROR] Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST')) @ http://localhost:8765/api/track:0
+[ 2348588ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:8765/api/google-reviews:0
+[ 2348588ms] [ERROR] Failed to load resource: the server responded with a status of 501 (Unsupported method ('POST')) @ http://localhost:8765/api/track:0

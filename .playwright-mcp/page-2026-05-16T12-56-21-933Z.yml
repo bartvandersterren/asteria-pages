@@ -1,0 +1,101 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - text:   
+      - generic [ref=e4]:
+        - link "Hotel Asteria" [ref=e5] [cursor=pointer]:
+          - /url: https://www.asteria.nl
+          - img "Hotel Asteria" [ref=e6]
+        - generic [ref=e7]:
+          - generic [ref=e8] [cursor=pointer]:
+            - generic [ref=e9]: 
+            - text: Menu
+          - link " Bel" [ref=e10] [cursor=pointer]:
+            - /url: tel:0031478511466
+            - generic [ref=e11]: 
+            - text: Bel
+  - generic [ref=e15]:
+    - generic [ref=e16]: Venray · Noord-Limburg
+    - heading "Eén avond. Volledig ontspannen." [level=1] [ref=e17]:
+      - text: Eén avond.
+      - text: Volledig ontspannen.
+    - paragraph [ref=e19]: Wellness, een 3-gangen diner en een goed bed — alles inbegrepen. Het Wellness Arrangement van Hotel Asteria.
+    - link "Bekijk het arrangement" [ref=e21] [cursor=pointer]:
+      - /url: "#arrangement"
+  - generic [ref=e26]:
+    - generic [ref=e27]:
+      - generic [ref=e28]: Wellness Arrangement
+      - generic [ref=e29]:
+        - generic [ref=e30]: vanaf
+        - generic [ref=e31]: € 139,50
+        - generic [ref=e32]: p.p.
+    - text:   
+    - link "Reserveer direct →" [ref=e33] [cursor=pointer]:
+      - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS
+      - text: Reserveer direct
+      - generic [ref=e34]: →
+  - generic [ref=e36]:
+    - generic [ref=e45]:
+      - button "Aankomst" [ref=e46] [cursor=pointer]
+      - button "Wellness" [ref=e47] [cursor=pointer]
+      - button "Sauna" [ref=e48] [cursor=pointer]
+      - button "Diner" [ref=e49] [cursor=pointer]
+      - button "Nacht" [ref=e50] [cursor=pointer]
+      - button "Ontbijt" [ref=e51] [cursor=pointer]
+    - generic [ref=e52]:
+      - generic [ref=e53]: Exclusief arrangement
+      - heading "Wellness Arrangement" [level=2] [ref=e54]:
+        - text: Wellness
+        - text: Arrangement
+      - tablist "Ervaring per moment" [ref=e55]:
+        - tab "Aankomst" [selected] [ref=e56] [cursor=pointer]
+        - tab "Wellness" [ref=e57] [cursor=pointer]
+        - tab "Sauna" [ref=e58] [cursor=pointer]
+        - tab "Diner" [ref=e59] [cursor=pointer]
+        - tab "Nacht" [ref=e60] [cursor=pointer]
+        - tab "Ontbijt" [ref=e61] [cursor=pointer]
+      - generic [ref=e62]:
+        - tabpanel [ref=e63]:
+          - heading "Een warme ontvangst" [level=3] [ref=e64]
+          - paragraph [ref=e65]: Je checkt in en vindt op de kamer een flesje Botega klaar. Badjas en slippers liggen gevouwen op het bed. De avond kan beginnen.
+          - generic [ref=e66]: ✓ Welkomstdrankje · badjas · slippers · handdoekpakket
+        - tabpanel:
+          - heading "300 m² rust & warmte" [level=3]
+          - paragraph: Vier saunatypes, stoomcabine, dompelbad, kruidenbad en belevenisdouches — allemaal inclusief, op de Top Floor met uitzicht op het bos.
+          - generic: ✓ Gratis toegang Top Floor Wellness — volledig inclusief
+        - tabpanel:
+          - heading "Zweet, uitzicht, stilte" [level=3]
+          - paragraph: De Himalayazoutsauna kijkt uit op het bos. De Finse sauna brengt je diep in jezelf. Niemand die haast heeft. Niemand die wacht.
+          - generic: ✓ Himalayazout · Fins · stoom · Turks · relaxruimte
+        - tabpanel:
+          - heading "Drie gangen, één avond" [level=3]
+          - paragraph: Na de wellness schuif je aan in Restaurant Asteria voor een 3-gangen diner. Elk gerecht bedacht om de avond te completeren.
+          - generic: ✓ 3-gangen diner in Restaurant Asteria — inclusief
+        - tabpanel:
+          - heading "Slapen zoals je dat verdient" [level=3]
+          - paragraph: Na wellness en diner zak je weg in een comfortabele kamer. De stilte van Venray, een goed bed — en nergens naartoe.
+          - generic: ✓ Overnachting in comfortabele kamer
+        - tabpanel:
+          - heading "De ochtend van jezelf" [level=3]
+          - paragraph: Een uitgebreid ontbijtbuffet wacht. Geen haast, geen planning. Gewoon genieten tot je klaar bent om te vertrekken.
+          - generic: ✓ Uitgebreid ontbijtbuffet — inclusief
+  - contentinfo [ref=e69]:
+    - generic [ref=e70]:
+      - link "Hotel Asteria" [ref=e72] [cursor=pointer]:
+        - /url: https://www.asteria.nl
+        - img "Hotel Asteria" [ref=e73]
+      - generic [ref=e74]:
+        - paragraph [ref=e75]: Hotel Asteria
+        - text: Leunseweg 2 · 5804 AB Venray
+        - link "0478 511 466" [ref=e76] [cursor=pointer]:
+          - /url: tel:0031478511466
+        - text: ·
+        - link "info@asteria.nl" [ref=e77] [cursor=pointer]:
+          - /url: mailto:info@asteria.nl
+        - link "www.asteria.nl" [ref=e78] [cursor=pointer]:
+          - /url: https://www.asteria.nl
+      - generic [ref=e79]:
+        - text: © 2026 Hotel Asteria
+        - text: Alle rechten voorbehouden
+    - separator [ref=e80]
+    - paragraph [ref=e81]: Hotel Asteria is onderdeel van Van der Sterren Hotels

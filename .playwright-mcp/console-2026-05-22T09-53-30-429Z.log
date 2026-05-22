@@ -1,0 +1,15 @@
+[     878ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[    7748ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[   13984ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  172460ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  286095ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  338093ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  338693ms] [ERROR] Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID @ https://www.asteria.de/images/logo-hotel-asteria.png:0
+[  347425ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  347454ms] [ERROR] Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID @ https://www.asteria.de/images/logo-hotel-asteria.png:0
+[  347593ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  347602ms] [ERROR] Failed to load resource: net::ERR_CERT_AUTHORITY_INVALID @ https://www.asteria.de/images/logo-hotel-asteria.png:0
+[  385261ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  472167ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  536384ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  843423ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0

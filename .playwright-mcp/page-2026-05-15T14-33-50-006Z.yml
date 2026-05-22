@@ -1,0 +1,200 @@
+- generic [active]:
+  - generic [ref=e1]:
+    - navigation [ref=e2]:
+      - generic [ref=e5]:
+        - link " info@asteria.nl" [ref=e6] [cursor=pointer]:
+          - /url: mailto:info@asteria.nl
+          - generic [ref=e7]: 
+          - text: info@asteria.nl
+        - link " 0478511466" [ref=e8] [cursor=pointer]:
+          - /url: tel:0031478511466
+          - generic [ref=e9]: 
+          - text: "0478511466"
+        - generic [ref=e10]: 
+        - combobox [ref=e11] [cursor=pointer]:
+          - option "nl" [selected]
+          - option "en"
+          - option "de"
+      - generic [ref=e13]:
+        - link "Hotel Asteria" [ref=e14] [cursor=pointer]:
+          - /url: https://www.asteria.nl/
+          - img "Hotel Asteria" [ref=e15]
+        - generic [ref=e16]:
+          - list [ref=e17]:
+            - listitem [ref=e18]:
+              - link "Kamers en Suites" [ref=e19] [cursor=pointer]:
+                - /url: https://www.asteria.nl/kamers
+            - listitem [ref=e20]:
+              - link "Hotel" [ref=e21] [cursor=pointer]:
+                - /url: https://www.asteria.nl/hotel
+            - listitem [ref=e22]:
+              - link "Restaurant" [ref=e23] [cursor=pointer]:
+                - /url: https://www.asteria.nl/restaurant
+            - listitem [ref=e24]:
+              - link "Zalen & Feesten" [ref=e25] [cursor=pointer]:
+                - /url: https://www.asteria.nl/zalen-feesten
+            - listitem [ref=e26]:
+              - link "Wellness" [ref=e27] [cursor=pointer]:
+                - /url: https://www.asteria.nl/wellness
+            - listitem [ref=e28]:
+              - link "Omgeving" [ref=e29] [cursor=pointer]:
+                - /url: https://www.asteria.nl/omgeving
+            - listitem [ref=e30]:
+              - link "Contact" [ref=e31] [cursor=pointer]:
+                - /url: https://www.asteria.nl/contact
+          - link "Boek nu" [ref=e32] [cursor=pointer]:
+            - /url: https://www.asteria.nl/bookingEngine
+            - text:  Boek nu
+          - generic:  
+    - banner [ref=e33]:
+      - generic [ref=e34]:
+        - list:
+          - listitem [ref=e35]:
+            - img [ref=e36]
+        - list:
+          - listitem:
+            - link " Previous" [ref=e37]:
+              - /url: "#"
+          - listitem:
+            - link " Next" [ref=e38]:
+              - /url: "#"
+    - generic [ref=e42]:
+      - link "Hotel Asteria" [ref=e44] [cursor=pointer]:
+        - /url: https://www.asteria.nl/
+      - text: ">"
+      - link "Hotel" [ref=e46] [cursor=pointer]:
+        - /url: https://www.asteria.nl/hotel
+      - text: ">"
+      - link "Hotelarrangementen" [ref=e48] [cursor=pointer]:
+        - /url: https://www.asteria.nl/arrangementen
+      - text: ">"
+      - link "Oorlogsmuseum Arrangement" [ref=e50] [cursor=pointer]:
+        - /url: https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement
+    - generic [ref=e51]:
+      - generic [ref=e53]:
+        - heading "Oorlogsmuseum Arrangement" [level=1] [ref=e54]
+        - paragraph [ref=e55]:
+          - text: In samenwerking met
+          - link "Oorlogsmuseum Overloon" [ref=e56] [cursor=pointer]:
+            - /url: https://www.oorlogsmuseum.nl/nl/
+          - text: hebben wij een indrukwekkend arrangement samengesteld
+          - strong [ref=e57]: in het teken van de Tweede Wereldoorlog
+          - text: . Het verhaal en de belevenis van de tweede wereldoorlog staat centraal en dat merk je al wanneer je aankomt in ons hotel. Je wordt ontvangen met een informatieve welkomstbrief, filmpjes over het Oorlogsmuseum en een
+          - strong [ref=e58]: passende verrassing
+          - text: op je kamer. Hierdoor kan jij vast in de juiste sfeer komen voordat je het museum gaat bezoeken.
+        - paragraph [ref=e59]:
+          - text: Tijdens je bezoek aan het oorlogsmuseum ga je de geschiedenis van de tweede wereldoorlog ervaren, compleet met een
+          - strong [ref=e60]: kop koffie of thee
+          - text: in het museumcafé. Na een indrukwekkende middag in het museum geniet je bij ons van een heerlijk
+          - strong [ref=e61]: 3-gangen diner
+          - text: ", voordat je neerstrijkt op onze comfortabele bedden. De volgende ochtend geniet je van een"
+          - strong [ref=e62]: uitgebreid ontbijtbuffet
+          - text: ", zodat je met volle maag nog even de omgeving kan gaan verkennen voordat je terug naar huis keert. Wil je liever op de dag van vertrek het museum bezoeken? Ook dat is uiteraard geen probleem!"
+        - paragraph [ref=e63]:
+          - strong [ref=e64]: Tip huur een fiets bij Hotel Asteria en fiets over de Venray Remembers Fietsroute richting het Oorlogsmuseum in Overloon, voor een complete ervaring.
+        - link "Reserveer dit arrangement" [ref=e65] [cursor=pointer]:
+          - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=OORLOGSMUSEUM
+        - link "Terug naar het overzicht" [ref=e66] [cursor=pointer]:
+          - /url: https://www.asteria.nl/arrangementen
+      - generic [ref=e67]:
+        - generic [ref=e69]:
+          - paragraph [ref=e70]:
+            - strong [ref=e71]: OORLOGSMUSEUM ARRANGEMENT
+          - list [ref=e72]:
+            - listitem [ref=e73]: Overnachting op een Comfort kamer
+            - listitem [ref=e74]: Presentje van het oorlogsmuseum op de kamer
+            - listitem [ref=e75]: Uitgebreid ontbijtbuffet
+            - listitem [ref=e76]: Een goed verzorgd 3-gangen diner
+            - listitem [ref=e77]:
+              - text: Welkomstenvelop;
+              - list [ref=e78]:
+                - listitem [ref=e79]: Welkomstbrief van Asteria & Oorlogsmuseum
+                - listitem [ref=e80]: QR-code met video van Oorlogsmuseum
+                - listitem [ref=e81]: Entreeticket voor het oorlogsmuseum
+            - listitem [ref=e82]: Ontvangst bij het oorlogsmuseum met een kop koffie/thee
+          - paragraph [ref=e83]:
+            - text: € 131,- per persoon op basis van een tweepersoonskamer
+            - text: € 189,- per persoon op basis van een eenpersoonskamer
+            - text: Exclusief verblijfsbelasting van € 2,- per persoon per nacht
+          - paragraph [ref=e84]:
+            - link "Kijk voordat je reserveert naar de beschikbaarheid van de entreetickets bij het oorlogsmuseum." [ref=e85] [cursor=pointer]:
+              - /url: https://tickets.oorlogsmuseum.nl/nl-NL/tickets
+              - generic [ref=e86]:
+                - strong [ref=e87]: Kijk voordat je reserveert naar de beschikbaarheid van de entreetickets bij het oorlogsmuseum
+                - text: .
+            - text: Geef vervolgens je gewenste dag aan ons door, dan zorgen wij ervoor dat jouw tickets gereserveerd worden.
+          - paragraph [ref=e88]:
+            - link "Boek het oorlogsmuseum arrangement" [ref=e89] [cursor=pointer]:
+              - /url: https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=OORLOGSMUSEUM
+        - img "Oorlogsmuseum Arrangement hotel Asteria" [ref=e91]
+    - contentinfo [ref=e92]:
+      - generic [ref=e93]:
+        - img "Hotel Asteria" [ref=e95]
+        - generic [ref=e97]:
+          - heading "Hotel Asteria" [level=3] [ref=e98]
+          - paragraph [ref=e100]:
+            - text: Maasheseweg 80a
+            - text: 5804 AD Venray
+            - generic [ref=e101]: Nederland
+            - link "0478511466" [ref=e102] [cursor=pointer]:
+              - /url: tel:0031478511466
+            - link "info@asteria.nl" [ref=e103] [cursor=pointer]:
+              - /url: mailto:info@asteria.nl
+          - generic [ref=e104]:
+            - link "" [ref=e105] [cursor=pointer]:
+              - /url: https://www.facebook.com/AsteriaVenray/
+            - link "" [ref=e106] [cursor=pointer]:
+              - /url: https://www.linkedin.com/companies/hotel-asteria-venray
+            - link "" [ref=e107] [cursor=pointer]:
+              - /url: https://instagram.com/hotelasteriavenray/
+            - link "" [ref=e108] [cursor=pointer]:
+              - /url: https://www.tripadvisor.co.uk/Hotel_Review-g652276-d1726559-Reviews-Hotel_Asteria_Venray-Venray_Limburg_Province.html
+        - generic [ref=e109]:
+          - heading "Quick links" [level=3] [ref=e110]
+          - paragraph [ref=e111]:
+            - link "Happy Summer arrangement" [ref=e112] [cursor=pointer]:
+              - /url: https://www.asteria.nl/arrangementen/happy-summer-arrangement
+            - link "Omgeving" [ref=e113] [cursor=pointer]:
+              - /url: https://www.asteria.nl/omgeving
+            - link "Vacatures" [ref=e114] [cursor=pointer]:
+              - /url: https://www.asteria.nl/vacatures
+            - link "Galerij" [ref=e115] [cursor=pointer]:
+              - /url: https://www.asteria.nl/galerij
+            - link "Beoordelingen" [ref=e116] [cursor=pointer]:
+              - /url: https://www.asteria.nl/beoordelingen
+            - link "Sitemap" [ref=e117] [cursor=pointer]:
+              - /url: https://www.asteria.nl/sitemap
+            - link "Privacy" [ref=e118] [cursor=pointer]:
+              - /url: https://www.asteria.nl/privacy
+            - link "Loyalty Card" [ref=e119] [cursor=pointer]:
+              - /url: https://www.asteria.nl/loyalty-card
+            - link "Hotel Noord Limburg" [ref=e120] [cursor=pointer]:
+              - /url: https://www.asteria.nl/hotel-noord-limburg
+            - link "Algemene voorwaarden" [ref=e121] [cursor=pointer]:
+              - /url: https://www.asteria.nl/algemene-voorwaarden
+        - generic [ref=e122]:
+          - heading "Language" [level=3] [ref=e123]
+          - paragraph [ref=e124]:
+            - link "Nederlands Nederlands" [ref=e125] [cursor=pointer]:
+              - /url: https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement
+              - img "Nederlands" [ref=e126]
+              - text: Nederlands
+            - link "English English" [ref=e127] [cursor=pointer]:
+              - /url: https://www.asteria.nl/en/packages/war-museum-package
+              - img "English" [ref=e128]
+              - text: English
+            - link "Deutsch Deutsch" [ref=e129] [cursor=pointer]:
+              - /url: https://www.asteria.nl/de/arrangements/kriegsmuseum-arrangement
+              - img "Deutsch" [ref=e130]
+              - text: Deutsch
+          - link "Goed Hart Keurmerk" [ref=e131] [cursor=pointer]:
+            - /url: https://www.goedhartkeurmerk.nl/helden
+            - img "Goed Hart Keurmerk" [ref=e132]
+    - contentinfo [ref=e133]:
+      - 'link "Hotel Website by: Porter" [ref=e136] [cursor=pointer]':
+        - /url: https://www.porterforhotels.com
+    - link "" [ref=e137] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=e138]: 
+  - iframe [ref=e139]:
+    - img [ref=f26e3]

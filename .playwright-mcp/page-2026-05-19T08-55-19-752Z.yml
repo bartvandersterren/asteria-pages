@@ -1,0 +1,82 @@
+- iframe [active] [ref=e1]:
+  - generic [ref=f35e3]:
+    - generic [ref=f35e4]:
+      - generic [ref=f35e5]: "Skip to:"
+      - list [ref=f35e6]:
+        - listitem [ref=f35e7]:
+          - link "Toolbar" [ref=f35e8] [cursor=pointer]:
+            - /url: "#toolbar"
+        - listitem [ref=f35e9]:
+          - link "Site navigation" [ref=f35e10] [cursor=pointer]:
+            - /url: "#navigation"
+        - listitem [ref=f35e11]:
+          - link "Main content" [ref=f35e12] [cursor=pointer]:
+            - /url: "#main"
+    - generic [ref=f35e13]:
+      - banner [ref=f35e14]:
+        - generic [ref=f35e15]:
+          - generic [ref=f35e18]: Hotel Asteria Venray
+          - generic [ref=f35e21]:
+            - button "Select your language" [ref=f35e22] [cursor=pointer]:
+              - generic [ref=f35e24]: EN - US
+            - button "Select your currency" [ref=f35e25] [cursor=pointer]:
+              - generic [ref=f35e26]: EUR
+      - navigation "Progress" [ref=f35e27]:
+        - generic [ref=f35e28]:
+          - button "3 of 5" [ref=f35e29] [cursor=pointer]:
+            - generic [ref=f35e30]: 3 of 5
+          - navigation "progress" [ref=f35e32]:
+            - list [ref=f35e33]:
+              - listitem [ref=f35e34]:
+                - generic "Link to Rates" [ref=f35e35]:
+                  - generic [ref=f35e36]:
+                    - generic [ref=f35e37]: "3"
+                    - generic [ref=f35e40]: Rates
+    - main [ref=f35e41]:
+      - region [ref=f35e48]:
+        - generic [ref=f35e49]:
+          - heading "Select rate" [level=1] [ref=f35e51]
+          - generic [ref=f35e53]:
+            - generic [ref=f35e54]:
+              - strong [ref=f35e55]:
+                - generic [ref=f35e56]: Nights selected 1
+              - generic [ref=f35e57]:
+                - generic [ref=f35e58]: Wed 6/10/2026
+                - generic [ref=f35e59]: →
+                - generic [ref=f35e60]: Thu 6/11/2026
+            - generic [ref=f35e61]:
+              - strong [ref=f35e62]:
+                - generic [ref=f35e63]: Guests selected 2
+              - generic [ref=f35e65]: Adults 2
+            - button "Edit" [ref=f35e66] [cursor=pointer]:
+              - generic [ref=f35e67]: Edit
+        - generic [ref=f35e69]:
+          - generic [ref=f35e71]:
+            - region "Gallery" [ref=f35e74]:
+              - link "Space image 1 Of 7, View all photos" [ref=f35e77] [cursor=pointer]:
+                - /url: https://cdn.mews.com/media/image/ca68ff45-3786-41ed-8596-b39900f662fd?quality=85
+                - img "Space image 1 Of 7, View all photos" [ref=f35e78]
+            - generic [ref=f35e88]:
+              - heading "Comfort Room | 22m² | Twin beds" [level=3] [ref=f35e89]
+              - generic [ref=f35e90]:
+                - generic [ref=f35e94]: "Maximum persons: 2"
+                - generic [ref=f35e95]:
+                  - paragraph [ref=f35e100]:
+                    - generic [ref=f35e101]:
+                      - text: "- Twin beds (2 single beds)"
+                      - text: "- Bathroom with shower"
+                      - text: "- Seating area with comfortable chairs"
+                      - text: "- Air conditioning"
+                      - text: "- Coffee and tea facilities"
+                      - text: "- Flat-screen TV with streaming options"
+                      - text: "- Free WiFi"
+                      - text: Enjoy a comfortable and modern room, ideal for a relaxing stay in North Limburg. Whether you're here for a short break or a business trip, our Comfort Room makes you feel right at home.
+                      - text: The images shown are for illustration purposes. The actual room layout and furnishings may vary.
+                  - button [ref=f35e103] [cursor=pointer]:
+                    - generic [ref=f35e106]: More
+                - button "Book now" [ref=f35e107] [cursor=pointer]:
+                  - generic [ref=f35e108]: Book now
+          - generic [ref=f35e109]:
+            - strong [ref=f35e110]: We're very sorry, there is no availability in this category.
+            - button "Select another category" [ref=f35e111] [cursor=pointer]:
+              - generic [ref=f35e112]: Select another category

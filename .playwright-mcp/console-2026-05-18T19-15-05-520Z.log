@@ -1,0 +1,29 @@
+[     146ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[   88815ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  193920ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  512346ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:2861
+[  512346ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[  512353ms] [ERROR] Failed to load resource: net::ERR_FILE_NOT_FOUND @ file:///favicon.ico:0
+[  550978ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:2861
+[  550978ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[  550996ms] [ERROR] Failed to load resource: net::ERR_FILE_NOT_FOUND @ file:///favicon.ico:0
+[  859868ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:2857
+[  859869ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[  859918ms] [ERROR] Failed to load resource: net::ERR_FILE_NOT_FOUND @ file:///favicon.ico:0
+[  889525ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:2857
+[  889525ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[  889553ms] [ERROR] Failed to load resource: net::ERR_FILE_NOT_FOUND @ file:///favicon.ico:0
+[34576878ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:2857
+[34576879ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[34576942ms] [ERROR] Failed to load resource: net::ERR_FILE_NOT_FOUND @ file:///favicon.ico:0
+[34617734ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:2857
+[34617734ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[34617781ms] [ERROR] Failed to load resource: net::ERR_FILE_NOT_FOUND @ file:///favicon.ico:0
+[35450347ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:2857
+[35450347ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[35450355ms] [ERROR] Failed to load resource: net::ERR_FILE_NOT_FOUND @ file:///favicon.ico:0
+[36694269ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:2857
+[36694269ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[36694314ms] [ERROR] Failed to load resource: net::ERR_FILE_NOT_FOUND @ file:///favicon.ico:0
+[36765952ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[36882518ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0

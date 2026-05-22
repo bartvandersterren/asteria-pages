@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pinpoint Calibratie</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #111; font-family: 'Segoe UI', sans-serif; color: #fff; display: flex; flex-direction: column; min-height: 100vh; }
+
+  header { padding: 16px 24px; background: #1a1a1a; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  h1 { font-size: 15px; font-weight: 600; }
+  .hint { font-size: 12px; color: #888; }
+  .btn { background: #c23435; color: #fff; border: none; border-radius: 6px; padding: 8px 16px; font-size: 13px; cursor: pointer; white-space: nowrap; }
+  .btn:hover { background: #a82c2c; }
+  .btn-ghost { background: #333; color: #ccc; }
+  .btn-ghost:hover { background: #444; }
+
+  .main { display: flex; flex: 1; gap: 0; }
+
+  /* Map */
+  .map-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #0a0a0a;
+    cursor: crosshair;
+  }
+  .map-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+
+  /* Pins */
+  .pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    z-index: 10;
+  }
+  .pin:active { cursor: grabbing; }
+  .pin.selected .dot { background: #f59e0b; box-shadow: 0 0 0 4px rgba(245,158,11,0.35); }
+  .dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: #c23435;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 3px rgba(194,52,53,0.4);
+    transition: background 0.15s, box-shadow 0.15s;
+  }
+  .pin-label {
+    position: absolute;
+    left: 50%; top: calc(100% + 6px);
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    font-size: 10px;
+    white-space: nowrap;
+    padding: 3px 7px;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    background: #1a1a1a;
+    border-left: 1px solid #2a2a2a;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sidebar-header { padding: 14px 16px; border-bottom: 1px solid #2a2a2a; font-size: 12px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.08em; }
+  .zone-list { flex: 1; overflow-y: auto; }
+  .zone-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #222;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .zone-item:hover { background: #222; }
+  .zone-item.active { background: #2a1a1a; border-left: 3px solid #c23435; }
+  .zone-dot { width: 10px; height: 10px; border-radius: 50%; background: #c23435; flex-shrink: 0; }
+  .zone-item.active .zone-dot { background: #f59e0b; }
+  .zone-name { font-size: 13px; flex: 1; }
+  .zone-coords { font-size: 11px; color: #666; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .output-wrap { border-top: 1px solid #2a2a2a; padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .output-label { font-size: 11px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+  textarea {
+    background: #111;
+    border: 1px solid #333;
+    color: #7ec8a0;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    padding: 10px;
+    border-radius: 6px;
+    resize: none;
+    height: 140px;
+    line-height: 1.6;
+  }
+  .copy-btn { width: 100%; }
+  .copy-ok { background: #1a6b3a !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Pinpoint Calibratie</h1>
+  <span class="hint">Sleep een pin naar de juiste plek · of klik op de kaart om de geselecteerde pin te verplaatsen</span>
+  <button class="btn btn-ghost" onclick="resetPins()">Reset</button>
+</header>
+
+<div class="main">
+  <div class="map-wrap" id="mapWrap">
+    <img id="mapImg" src="fotos/plattegrond-wellness.png" alt="Plattegrond">
+  </div>
+
+  <div class="sidebar">
+    <div class="sidebar-header">Zones</div>
+    <div class="zone-list" id="zoneList"></div>
+    <div class="output-wrap">
+      <div class="output-label">Output — kopieer naar WP_ZONES</div>
+      <textarea id="output" readonly></textarea>
+      <button class="btn copy-btn" id="copyBtn" onclick="copyOutput()">Kopieer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var ZONES = [
+  { id: 'sauna-fins',       naam: 'Sauna 2',           pin: { left: 76, top: 14 } },
+  { id: 'sauna-bio',        naam: 'Sauna 3',           pin: { left: 89, top: 13 } },
+  { id: 'sauna-zoutsteen',  naam: 'Sauna 4',           pin: { left: 89, top: 32 } },
+  { id: 'sauna-infrarood',  naam: 'Infrarood Sauna',   pin: { left: 57, top: 17 } },
+  { id: 'voetenbaden',      naam: 'Voetenbaden',       pin: { left: 65, top: 32 } },
+  { id: 'ijsbad',           naam: 'IJs-/Dompelbad',    pin: { left: 48, top: 36 } },
+  { id: 'kruidenbad',       naam: 'Kruidenbad',        pin: { left: 47, top: 46 } },
+  { id: 'stoomdouche',      naam: 'Stoomdouche',       pin: { left: 40, top: 59 } },
+  { id: 'belevingsdouche',  naam: 'Belevingsdouche',   pin: { left: 61, top: 56 } },
+  { id: 'gym',              naam: 'Gym & Fitness',     pin: { left: 22, top: 78 } },
+  { id: 'lounge',           naam: 'Relaxruimte',       pin: { left: 79, top: 78 } },
+];
+
+var selectedId = ZONES[0].id;
+var dragState = null;
+
+function getMapRect() {
+  return document.getElementById('mapImg').getBoundingClientRect();
+}
+
+function pctFromEvent(e) {
+  var r = getMapRect();
+  var clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  var clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  return {
+    left: Math.max(0, Math.min(100, (clientX - r.left) / r.width * 100)),
+    top:  Math.max(0, Math.min(100, (clientY - r.top)  / r.height * 100))
+  };
+}
+
+function renderPins() {
+  var wrap = document.getElementById('mapWrap');
+  wrap.querySelectorAll('.pin').forEach(function(el) { el.remove(); });
+
+  ZONES.forEach(function(zone) {
+    var pin = document.createElement('div');
+    pin.className = 'pin' + (zone.id === selectedId ? ' selected' : '');
+    pin.dataset.id = zone.id;
+    pin.style.left = zone.pin.left + '%';
+    pin.style.top  = zone.pin.top  + '%';
+    pin.innerHTML = '<div class="dot"></div><div class="pin-label">' + zone.naam + '</div>';
+
+    // Drag
+    pin.addEventListener('mousedown', startDrag);
+    pin.addEventListener('touchstart', startDrag, { passive: false });
+
+    // Select on click (without drag)
+    pin.addEventListener('click', function(e) {
+      e.stopPropagation();
+      selectedId = zone.id;
+      renderAll();
+    });
+
+    wrap.appendChild(pin);
+  });
+}
+
+function startDrag(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  var id = e.currentTarget.dataset.id;
+  selectedId = id;
+  dragState = { id: id };
+  renderAll();
+
+  function onMove(ev) {
+    if (!dragState) return;
+    var pos = pctFromEvent(ev);
+    var zone = ZONES.find(function(z) { return z.id === dragState.id; });
+    if (!zone) return;
+    zone.pin.left = Math.round(pos.left * 10) / 10;
+    zone.pin.top  = Math.round(pos.top  * 10) / 10;
+    renderAll();
+  }
+  function onUp() {
+    dragState = null;
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onUp);
+  }
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend', onUp);
+}
+
+// Click on map → move selected pin
+document.getElementById('mapWrap').addEventListener('click', function(e) {
+  if (e.target.closest('.pin')) return;
+  var pos = pctFromEvent(e);
+  var zone = ZONES.find(function(z) { return z.id === selectedId; });
+  if (!zone) return;
+  zone.pin.left = Math.round(pos.left * 10) / 10;
+  zone.pin.top  = Math.round(pos.top  * 10) / 10;
+  renderAll();
+});
+
+function renderZoneList() {
+  var list = document.getElementById('zoneList');
+  list.innerHTML = '';
+  ZONES.forEach(function(zone) {
+    var item = document.createElement('div');
+    item.className = 'zone-item' + (zone.id === selectedId ? ' active' : '');
+    item.innerHTML =
+      '<div class="zone-dot"></div>' +
+      '<span class="zone-name">' + zone.naam + '</span>' +
+      '<span class="zone-coords">' + zone.pin.left.toFixed(1) + ', ' + zone.pin.top.toFixed(1) + '</span>';
+    item.addEventListener('click', function() {
+      selectedId = zone.id;
+      renderAll();
+    });
+    list.appendChild(item);
+  });
+}
+
+function renderOutput() {
+  var lines = ZONES.map(function(z) {
+    return '  { id: \'' + z.id + '\', pin: { left: ' + z.pin.left.toFixed(1) + ', top: ' + z.pin.top.toFixed(1) + ' } },';
+  });
+  document.getElementById('output').value = lines.join('\n');
+}
+
+function renderAll() {
+  renderPins();
+  renderZoneList();
+  renderOutput();
+}
+
+function resetPins() {
+  if (!confirm('Pins resetten naar beginstand?')) return;
+  ZONES.forEach(function(z) {
+    var orig = [
+      { id: 'sauna-fins', left: 76, top: 14 }, { id: 'sauna-bio', left: 89, top: 13 },
+      { id: 'sauna-zoutsteen', left: 89, top: 32 }, { id: 'sauna-infrarood', left: 57, top: 17 },
+      { id: 'voetenbaden', left: 65, top: 32 }, { id: 'ijsbad', left: 48, top: 36 },
+      { id: 'kruidenbad', left: 47, top: 46 }, { id: 'stoomdouche', left: 40, top: 59 },
+      { id: 'belevingsdouche', left: 61, top: 56 }, { id: 'gym', left: 22, top: 78 },
+      { id: 'lounge', left: 79, top: 78 }
+    ].find(function(o) { return o.id === z.id; });
+    if (orig) { z.pin.left = orig.left; z.pin.top = orig.top; }
+  });
+  renderAll();
+}
+
+function copyOutput() {
+  var ta = document.getElementById('output');
+  ta.select();
+  document.execCommand('copy');
+  var btn = document.getElementById('copyBtn');
+  btn.textContent = 'Gekopieerd!';
+  btn.classList.add('copy-ok');
+  setTimeout(function() { btn.textContent = 'Kopieer'; btn.classList.remove('copy-ok'); }, 2000);
+}
+
+renderAll();
+</script>
+</body>
+</html>

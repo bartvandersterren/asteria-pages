@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wellness Foto's — Zone Toewijzing</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #111; color: #eee; }
+  .toolbar { position: sticky; top: 0; z-index: 10; background: #1a1a1a; padding: 16px 24px; border-bottom: 1px solid #333; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .toolbar h1 { font-size: 18px; white-space: nowrap; }
+  .toolbar .count { color: #999; font-size: 13px; }
+  .filter-btn { padding: 6px 14px; border-radius: 20px; border: 1px solid #444; background: transparent; color: #ccc; font-size: 12px; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .filter-btn:hover { border-color: #888; color: #fff; }
+  .filter-btn.active { background: #c23435; border-color: #c23435; color: #fff; }
+  .export-btn { margin-left: auto; padding: 8px 18px; border-radius: 6px; border: none; background: #c23435; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .export-btn:hover { background: #a82c2c; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; padding: 24px; }
+  .card { background: #1a1a1a; border-radius: 12px; overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s; }
+  .card.assigned { border-color: #c23435; }
+  .card.hidden { display: none; }
+  .card img { width: 100%; height: 220px; object-fit: cover; display: block; cursor: pointer; }
+  .info { padding: 12px 14px; }
+  .fname { font-size: 11px; font-weight: 600; color: #c23435; font-family: monospace; margin-bottom: 6px; }
+  .zone-select { width: 100%; padding: 8px 10px; border-radius: 6px; border: 1px solid #444; background: #222; color: #eee; font-size: 13px; margin-bottom: 8px; cursor: pointer; }
+  .zone-select:focus { border-color: #c23435; outline: none; }
+  .desc { font-size: 11px; color: #777; line-height: 1.5; }
+  .zone-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; margin-top: 4px; }
+  /* Lightbox */
+  .lb { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; align-items: center; justify-content: center; cursor: zoom-out; }
+  .lb.open { display: flex; }
+  .lb img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 8px; }
+  /* Export modal */
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center; }
+  .modal.open { display: flex; }
+  .modal-content { background: #1a1a1a; border-radius: 12px; padding: 24px; max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; }
+  .modal-content h2 { margin-bottom: 16px; font-size: 18px; }
+  .modal-content pre { background: #111; padding: 16px; border-radius: 8px; font-size: 12px; overflow-x: auto; white-space: pre-wrap; }
+  .modal-close { float: right; background: none; border: none; color: #999; font-size: 24px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h1>Zone Toewijzing</h1>
+  <span class="count" id="countLabel">0/50 toegewezen</span>
+  <button class="filter-btn active" onclick="filterCards('all')">Alle</button>
+  <button class="filter-btn" onclick="filterCards('unassigned')">Nog niet</button>
+  <button class="filter-btn" onclick="filterCards('assigned')">Toegewezen</button>
+  <button class="export-btn" onclick="exportMapping()">Exporteer mapping</button>
+</div>
+
+<div class="grid" id="grid">
+<div class="card" data-idx="0">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1058004.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1058004.jpg</div>
+    <select class="zone-select" data-fname="P1058004.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In een modern wellnessgedeelte zitten twee gasten in witte badjassen ontspannen in individuele betonnen voetenbaden, omgeven door groene mozaïektegels en een serene atmosfeer met natuurlijke planten o</div>
+  </div>
+</div>
+<div class="card" data-idx="1">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1058010.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1058010.jpg</div>
+    <select class="zone-select" data-fname="P1058010.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Twee gasten in witte badjassen zitten ontspannen in ronde, stenen baden met warm water in een luxe wellnessruimte met groene mozaïektegels en rustgevende natuurlijke verlichting. De sfeer ademt rust e</div>
+  </div>
+</div>
+<div class="card" data-idx="2">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1058068.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1058068.jpg</div>
+    <select class="zone-select" data-fname="P1058068.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc"># Foto-archiefbeschrijving  In deze luxe spa-ruimte zitten twee gasten in witte badjassen ontspannen in stenen voetbaden met warm water, omgeven door groen mozaïektegels en moderne badkuipen. Het natu</div>
+  </div>
+</div>
+<div class="card" data-idx="3">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1058153.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1058153.jpg</div>
+    <select class="zone-select" data-fname="P1058153.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne sauna- of wellness-ruimte met een warme, houten interieur waarin meerdere houten zitbanken zijn geplaatst, elk voorzien van witte kussens en rode infraroodpanelen aan de muur. De ru</div>
+  </div>
+</div>
+<div class="card" data-idx="4">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1058172.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1058172.jpg</div>
+    <select class="zone-select" data-fname="P1058172.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man staat in een sauna of spa-ruimte met houten wanden en rode neon-verlichting, gekleed in een lichtblauwe handdoek en glimlacht naar iemand buiten beeld. De warme, ontspannende sfeer wordt verst</div>
+  </div>
+</div>
+<div class="card" data-idx="5">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068208.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068208.jpg</div>
+    <select class="zone-select" data-fname="P1068208.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In een moderne sauna met houten wanden en rode neonverlichting zit een man op de houten bank, gekleed in een handdoek, terwijl een vrouw in rode badkleding op de voorgrond onscherp zichtbaar is. De wa</div>
+  </div>
+</div>
+<div class="card" data-idx="6">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068226.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068226.jpg</div>
+    <select class="zone-select" data-fname="P1068226.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een vrouw in een spa- of wellnesssetting poseert rustig met gesloten ogen tegen een houten wand, gekleed in een witte handdoek, terwijl warme zonlicht door het raam valt en een serene, ontspannende at</div>
+  </div>
+</div>
+<div class="card" data-idx="7">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068230.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068230.jpg</div>
+    <select class="zone-select" data-fname="P1068230.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man staat shirtloos in een spa- of wellnessruimte met warm getint licht, omgeven door verticale houten latten en rode gordijnstof op de achtergrond. De sfeer is ontspannend en luxueus, met subtiel</div>
+  </div>
+</div>
+<div class="card" data-idx="8">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068272.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068272.jpg</div>
+    <select class="zone-select" data-fname="P1068272.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In deze luxe sauna ontspannen twee gasten zich op houten banken met sfeervolle, ingebouwde verlichting achter marmeren panelen. De moderne, houtafwerking en het warme licht creëren een serene en elega</div>
+  </div>
+</div>
+<div class="card" data-idx="9">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068300.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068300.jpg</div>
+    <select class="zone-select" data-fname="P1068300.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man ligt ontspannen op een houten sauna-bank met een witte handdoek, zijn hoofd steunend op een houten neckrest, met gesloten ogen in een staat van volledige ontspanning. De warme, natuurlijke hou</div>
+  </div>
+</div>
+<div class="card" data-idx="10">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068302.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068302.jpg</div>
+    <select class="zone-select" data-fname="P1068302.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een gastheer of gaste ligt ontspannen op houten bedplanken in wat lijkt op een sauna of wellness-ruimte, met een handdoek om zich heen en een houten nakhoofd onder het hoofd, terwijl op de achtergrond</div>
+  </div>
+</div>
+<div class="card" data-idx="11">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068310.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068310.jpg</div>
+    <select class="zone-select" data-fname="P1068310.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc"># Sauna  In deze moderne sauna met marmereffect wanden en houten afwerking ontspannen twee gasten op verschillende niveaus van de houten banken. De warme, geruststellende sfeer wordt versterkt door de</div>
+  </div>
+</div>
+<div class="card" data-idx="12">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068322.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068322.jpg</div>
+    <select class="zone-select" data-fname="P1068322.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In een luxe sauna of spa-ruimte van het hotel ontspannen twee gasten zich in een houten cabine met moderne, gestoffeerde zitbanken. De sfeer is ontspannen en verzorgd, met warme houttinten, gedimd lic</div>
+  </div>
+</div>
+<div class="card" data-idx="13">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068332.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068332.jpg</div>
+    <select class="zone-select" data-fname="P1068332.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Twee gasten genieten ontspannen in de warmwaterbaden van het spa, waarbij de man op de voorgrond met gesloten ogen goed merkbaar ontspant terwijl de vrouw op de achtergrond in het water zit. De sfeer </div>
+  </div>
+</div>
+<div class="card" data-idx="14">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068372.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068372.jpg</div>
+    <select class="zone-select" data-fname="P1068372.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc"># Beschrijving  In een houten sauna zitten twee personen naast elkaar op een houten bank, waarbij warm licht door de horizontale houten panelen naar binnen valt en een ontspannende, warme sfeer creëer</div>
+  </div>
+</div>
+<div class="card" data-idx="15">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068426.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068426.jpg</div>
+    <select class="zone-select" data-fname="P1068426.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man ontspant zich in een elegant, modern bad met gestileerde witte afwerking tegen een achtergrond van groen mozaïektegels en hangend groen. De minimalistische badkamer ademt luxe en sereniteit ui</div>
+  </div>
+</div>
+<div class="card" data-idx="16">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068434.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068434.jpg</div>
+    <select class="zone-select" data-fname="P1068434.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man ontspant zich in een groot, modern bad met minimalistisch design tegen een achtergrond van groene mozaïektegels. De ruimte ademt luxe en rust uit, met natuurlijk licht, betonnen wanden en groe</div>
+  </div>
+</div>
+<div class="card" data-idx="17">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068447.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068447.jpg</div>
+    <select class="zone-select" data-fname="P1068447.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man ontspant zich in een modern verwarmde bad met groen mozaïektegels aan de wand, terwijl hij met gesloten ogen geniet van het warme water. De sfeer is rustgevend en luxueus, met een minimalistis</div>
+  </div>
+</div>
+<div class="card" data-idx="18">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068463.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068463.jpg</div>
+    <select class="zone-select" data-fname="P1068463.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man ontspant zich in een warm bad met groen mozaïektegels aan de wand, terwijl hij ontspannen naar boven kijkt met een serene uitdrukking op zijn gezicht. De sfeer ademt rust en welzijn uit, onder</div>
+  </div>
+</div>
+<div class="card" data-idx="19">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068473.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068473.jpg</div>
+    <select class="zone-select" data-fname="P1068473.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man ontspant zich in een warm bad met groen mozaïektegels op de achtergrond, wat suggereert dat dit een spa- of wellnessruimte van het hotel is. De sfeer is rustgevend en luxe, met aangename verli</div>
+  </div>
+</div>
+<div class="card" data-idx="20">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068482.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068482.jpg</div>
+    <select class="zone-select" data-fname="P1068482.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man ontspant zich in een warm water bad met groene mozaïek tegels op de achtergrond, wat suggereert dat dit zich in een spa- of wellnessruimte van het hotel bevindt. De sfeer is ontspannen en luxu</div>
+  </div>
+</div>
+<div class="card" data-idx="21">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068518.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068518.jpg</div>
+    <select class="zone-select" data-fname="P1068518.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een vrouw in sportkleding oefent in een moderne fitnessruimte met donkere wanden en grote ramen waar zonlicht naar binnen valt. Op de achtergrond zijn sportkleding en trainingsequipment zichtbaar, wat</div>
+  </div>
+</div>
+<div class="card" data-idx="22">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068533.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068533.jpg</div>
+    <select class="zone-select" data-fname="P1068533.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een vrouw in sportkleding zit voor een donker raam of scherm in wat lijkt op een fitnessruimte of sportfaciliteit, waarbij het kunstlicht haar gezicht zacht verlicht en een gefocuste, serene sfeer cre</div>
+  </div>
+</div>
+<div class="card" data-idx="23">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068544.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068544.jpg</div>
+    <select class="zone-select" data-fname="P1068544.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In de moderne fitnessruimte van het hotel trainen twee gasten samen op stationaire fietsen, waarbij de vrouw lachend naar de camera kijkt terwijl zij beiden geconcentreerd aan het trainen zijn. De rui</div>
+  </div>
+</div>
+<div class="card" data-idx="24">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068551.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068551.jpg</div>
+    <select class="zone-select" data-fname="P1068551.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In de moderne fitnessruimte van het hotel trainen twee gasten samen op stationaire fietsen, waarbij de vrouw lachend naar de camera kijkt terwijl zij beiden geconcentreerd bezig zijn met hun workout. </div>
+  </div>
+</div>
+<div class="card" data-idx="25">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068594.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068594.jpg</div>
+    <select class="zone-select" data-fname="P1068594.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In de moderne fitnessruimte van het hotel trainen twee personen op loopbanden, waarbij de vrouw op de voorgrond geconcentreerd vooruit kijkt terwijl grote ramen uitzicht geven op het landschap buiten.</div>
+  </div>
+</div>
+<div class="card" data-idx="26">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068645.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068645.jpg</div>
+    <select class="zone-select" data-fname="P1068645.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In de moderne fitnessruimte van Hotel Asteria trainen twee gasten op hometrainers met uitzicht op het groene landschap buiten, terwijl verschillende trainingsapparaten en halters in de achtergrond zic</div>
+  </div>
+</div>
+<div class="card" data-idx="27">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068655.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068655.jpg</div>
+    <select class="zone-select" data-fname="P1068655.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">In de fitnessruimte van het hotel trainen twee gasten op hometrainers, waarbij zij geconcentreerd vooruit kijken terwijl zonlicht door de grote ramen naar binnen valt. De moderne trainingsruimte ademt</div>
+  </div>
+</div>
+<div class="card" data-idx="28">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068695.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068695.jpg</div>
+    <select class="zone-select" data-fname="P1068695.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man in een grijs sportshirt voert een schouderpersing uit met halters in een moderne fitnessruimte met grote ramen die uitkijken op een stadslandschap met water. De heldere, natuurlijke verlichtin</div>
+  </div>
+</div>
+<div class="card" data-idx="29">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068727.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068727.jpg</div>
+    <select class="zone-select" data-fname="P1068727.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een man in een grijs shirt trapt een shoulder press uit met halters in een moderne fitnessruimte met grote ramen en uitzicht op de omgeving. De ruimte heeft een stijlvolle inrichting met bakstenen muu</div>
+  </div>
+</div>
+<div class="card" data-idx="30">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068887.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068887.jpg</div>
+    <select class="zone-select" data-fname="P1068887.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een luxe spa- of wellnessruimte met een opvallende groene mozaïektegel-sauna of stoomcabine, waarin een elegant gebogen zitbank zichtbaar is. De ruimte ademt rust en welzijn uit met zachte warm</div>
+  </div>
+</div>
+<div class="card" data-idx="31">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068891.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068891.jpg</div>
+    <select class="zone-select" data-fname="P1068891.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne spa- of saunaruimte met een luxe uitstraling, waarin een groen mozaïeken zitbank met ergonomische golving tegen de achterwand aangebracht is, terwijl beige tegels en warme verlichti</div>
+  </div>
+</div>
+<div class="card" data-idx="32">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/P1068898.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">P1068898.jpg</div>
+    <select class="zone-select" data-fname="P1068898.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een luxe stoomcabine of Turkse bad in het spa-gedeelte van het hotel, met groene mozaïektegels op de zijwanden en beige natuurstenen wanden die in warm licht baden. De sfeer is ontspannend en w</div>
+  </div>
+</div>
+<div class="card" data-idx="33">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0005-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0005-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0005-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een luxe sauna met moderne houten afwerking en indirecte LED-verlichting die warme tinten uitstraalt, waarin twee niveaus met houten banken zijn ingebouwd en op de bovenste plank opgerolde witte handd</div>
+  </div>
+</div>
+<div class="card" data-idx="34">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0011-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0011-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0011-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een luxe saunaruimte met indrukwekkende houten afwerkingen, waarin meerdere houten zitbanken op verschillende niveaus zijn gerangschikt tegen wanden met verticale paneling. Het interieur wordt </div>
+  </div>
+</div>
+<div class="card" data-idx="35">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0020-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0020-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0020-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een luxe wellness- en spa-ruimte met een rond, groen tegels bekleed bad als middelpunt, omgeven door comfortabele grijze keramische baden en twee houten zitbanken. De ruimte ademt rust uit dank</div>
+  </div>
+</div>
+<div class="card" data-idx="36">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0026-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0026-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0026-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een luxueus spa- of wellnessgedeelte met twee ronde baden in groene mozaïektegels, vier witte stenen baden en twee grote ligbaden aan weerszijden. Het ruimte wordt gedomineerd door een indrukwe</div>
+  </div>
+</div>
+<div class="card" data-idx="37">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0032-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0032-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0032-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een modern wellnesscentrum met een ingebouwde jacuzzi in turquoise tegels, omgeven door een ruime, lichte ruimte met elegante houten plafondafwerking en subtiele spotverlichting. De sfeer wordt</div>
+  </div>
+</div>
+<div class="card" data-idx="38">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0038-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0038-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0038-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne sauna met licht houtafwerking en twee houten bankjes waarvan er één zich in de voorgrond bevindt. Tegen de rechterwand is een groot verlicht paneel aangebracht met een gouden herfst</div>
+  </div>
+</div>
+<div class="card" data-idx="39">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0053-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0053-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0053-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne sauna met een warme, uitnodigende sfeer, voorzien van houten banken langs beide zijden en een gloeiendo verlichte bakstenen achterwand die een authentieke warmte uitstraalt. Het int</div>
+  </div>
+</div>
+<div class="card" data-idx="40">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0056-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0056-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0056-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne sauna met lange houten banken aan beide zijden, waarbij warme houttinten en natuurlijk licht van grote ramen een rustgevende sfeer creëren. De wand in het midden toont een schilderi</div>
+  </div>
+</div>
+<div class="card" data-idx="41">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0087-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0087-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0087-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne sauna met donker houtwerk en een elegant design, voorzien van gestapelde houten banken en een groot raam met uitzicht op een boslandschap met naaldbomen. De ruimte straalt rust en l</div>
+  </div>
+</div>
+<div class="card" data-idx="42">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A0093-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A0093-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A0093-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een luxe stoomcabine in een spa-afdeling met groen mozaïektegels aan wanden en plafond, voorzien van een ergonomisch gebogen zitbank. De ruimte straalt een rustgevende, verwarmende sfeer uit me</div>
+  </div>
+</div>
+<div class="card" data-idx="43">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A9963-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A9963-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A9963-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne fitnesszaal op een hooggelegen verdieping van het hotel, voorzien van diverse trainingapparatuur zoals loopbanden, crosstrainers en gewichtsmachines tegen een achtergrond van grote </div>
+  </div>
+</div>
+<div class="card" data-idx="44">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A9966-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A9966-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A9966-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne, lichte fitnessruimte op de bovenverdieping van Hotel Asteria met grote ramen die uitkijken over het omliggende landschap. De ruimte is volledig uitgerust met professioneel training</div>
+  </div>
+</div>
+<div class="card" data-idx="45">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A9975-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A9975-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A9975-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne, lichte fitnessruimte met panoramische ramen die uitkijken over het omliggende groen landschap, uitgerust met diverse trainingapparatuur zoals hometrainers, halters, kettlebells en </div>
+  </div>
+</div>
+<div class="card" data-idx="46">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A9981-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A9981-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A9981-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een modern en ruim fitnesscentrum met grote raampartijen die uitzicht bieden op het omringende landschap en een bakstenen terrein. De lichte houten plafonds en natuurlijke inrichting met zwarte</div>
+  </div>
+</div>
+<div class="card" data-idx="47">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A9993-HDR.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A9993-HDR.jpg</div>
+    <select class="zone-select" data-fname="_O0A9993-HDR.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een moderne fitnessruimte op de bovenste verdieping van het hotel met panoramische ramen die uitkijken over het omliggende landschap. De ruimte is voorzien van diverse trainingsequipment zoals </div>
+  </div>
+</div>
+<div class="card" data-idx="48">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A9997.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A9997.jpg</div>
+    <select class="zone-select" data-fname="_O0A9997.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Een fitnessruimte met een rij zware halters van het merk Hammer Strength, waarbij de 12 pond zware halter in scherpe focus op de voorgrond staat. De grijze halters met ergonomisch gevormd handvat ligg</div>
+  </div>
+</div>
+<div class="card" data-idx="49">
+  <img src="/Users/bartvandersterren/Documents/Asteria%20Fotobank/Interieur/_O0A9999.jpg" loading="lazy">
+  <div class="info">
+    <div class="fname">_O0A9999.jpg</div>
+    <select class="zone-select" data-fname="_O0A9999.jpg" onchange="save()"><option value="">— geen zone —</option>
+<option value="sauna-fins">Finse Sauna</option>
+<option value="sauna-bio">Bos Sauna (Bio)</option>
+<option value="sauna-zoutsteen">Zoutsteen Sauna</option>
+<option value="sauna-infrarood">Infrarood Sauna</option>
+<option value="stoomdouche">Stoombad</option>
+<option value="voetenbaden">Voetenbaden</option>
+<option value="ijsbad">IJs-/Dompelbad</option>
+<option value="kruidenbad">Kruidenbad</option>
+<option value="belevingsdouche">Belevingsdouche</option>
+<option value="gym">Gym & Fitness</option>
+<option value="lounge">Relaxruimte</option>
+</select>
+    <div class="desc">Dit is een fitnessruimte van Hotel Asteria met moderne trainingsapparatuur van het merk Technogym, waarvan een zwart apparaat met karakteristieke perforeerde front en zilverkleurige ring duidelijk zic</div>
+  </div>
+</div>
+
+</div>
+
+<div class="lb" id="lb" onclick="this.classList.remove('open')"><img id="lbImg"></div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">&times;</button>
+    <h2>Mapping</h2>
+    <p style="color:#999;font-size:13px;margin-bottom:12px;">Kopieer dit en stuur het naar mij:</p>
+    <pre id="exportPre"></pre>
+  </div>
+</div>
+
+<script>
+var ZONES = {"sauna-fins": "Finse Sauna", "sauna-bio": "Bos Sauna (Bio)", "sauna-zoutsteen": "Zoutsteen Sauna", "sauna-infrarood": "Infrarood Sauna", "stoomdouche": "Stoombad", "voetenbaden": "Voetenbaden", "ijsbad": "IJs-/Dompelbad", "kruidenbad": "Kruidenbad", "belevingsdouche": "Belevingsdouche", "gym": "Gym & Fitness", "lounge": "Relaxruimte"};
+var ZONE_COLORS = {
+  'sauna-fins': '#e67e22', 'sauna-bio': '#27ae60', 'sauna-zoutsteen': '#f39c12',
+  'sauna-infrarood': '#e74c3c', 'stoomdouche': '#1abc9c', 'voetenbaden': '#3498db',
+  'ijsbad': '#9b59b6', 'kruidenbad': '#2ecc71', 'belevingsdouche': '#e91e63',
+  'gym': '#ff9800', 'lounge': '#795548'
+};
+
+// Load saved state
+var saved = JSON.parse(localStorage.getItem('wp-zone-mapping') || '{}');
+document.querySelectorAll('.zone-select').forEach(function(sel) {
+  var fname = sel.dataset.fname;
+  if (saved[fname]) {
+    sel.value = saved[fname];
+    sel.closest('.card').classList.add('assigned');
+  }
+});
+updateCount();
+
+function save() {
+  var mapping = {};
+  document.querySelectorAll('.zone-select').forEach(function(sel) {
+    if (sel.value) mapping[sel.dataset.fname] = sel.value;
+    sel.closest('.card').classList.toggle('assigned', !!sel.value);
+  });
+  localStorage.setItem('wp-zone-mapping', JSON.stringify(mapping));
+  updateCount();
+}
+
+function updateCount() {
+  var total = document.querySelectorAll('.zone-select').length;
+  var assigned = document.querySelectorAll('.zone-select').length - document.querySelectorAll('.zone-select option:checked[value=""]').length;
+  // Recount properly
+  assigned = 0;
+  document.querySelectorAll('.zone-select').forEach(function(s) { if(s.value) assigned++; });
+  document.getElementById('countLabel').textContent = assigned + '/' + total + ' toegewezen';
+}
+
+var currentFilter = 'all';
+function filterCards(mode) {
+  currentFilter = mode;
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.querySelectorAll('.card').forEach(function(card) {
+    var isAssigned = card.classList.contains('assigned');
+    if (mode === 'all') card.classList.remove('hidden');
+    else if (mode === 'assigned') card.classList.toggle('hidden', !isAssigned);
+    else card.classList.toggle('hidden', isAssigned);
+  });
+}
+
+function exportMapping() {
+  var mapping = JSON.parse(localStorage.getItem('wp-zone-mapping') || '{}');
+  var byZone = {};
+  for (var fname in mapping) {
+    var zone = mapping[fname];
+    if (!byZone[zone]) byZone[zone] = [];
+    byZone[zone].push(fname);
+  }
+  var lines = [];
+  for (var zoneId in ZONES) {
+    var files = byZone[zoneId] || [];
+    if (files.length) {
+      lines.push(ZONES[zoneId] + ' (' + zoneId + '):');
+      files.forEach(function(f) { lines.push('  - ' + f); });
+      lines.push('');
+    }
+  }
+  if (!lines.length) lines.push('Nog geen foto\'s toegewezen.');
+  document.getElementById('exportPre').textContent = lines.join('\n');
+  document.getElementById('modal').classList.add('open');
+}
+
+// Lightbox on image click
+document.querySelectorAll('.card img').forEach(function(img) {
+  img.addEventListener('click', function() {
+    document.getElementById('lbImg').src = this.src;
+    document.getElementById('lb').classList.add('open');
+  });
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('lb').classList.remove('open');
+    document.getElementById('modal').classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>

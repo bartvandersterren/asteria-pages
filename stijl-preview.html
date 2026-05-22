@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Stijlkeuze — Wellness Plattegrond</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1a1a1a; font-family: 'Montserrat', sans-serif; padding: 40px 20px; }
+  h1 { color: #fff; text-align: center; margin-bottom: 8px; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; }
+  p.sub { color: #888; text-align: center; margin-bottom: 40px; font-size: 13px; }
+  .grid { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+  .card { background: #222; border-radius: 12px; padding: 24px; width: 420px; }
+  .badge { color: #c23435; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .title { color: #fff; font-size: 16px; margin-bottom: 6px; }
+  .desc { color: #888; font-size: 12px; line-height: 1.6; margin-bottom: 16px; }
+  .map { border-radius: 8px; overflow: hidden; }
+  svg { display: block; width: 100%; height: auto; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<h1>Stijlkeuze — Wellness Plattegrond</h1>
+<p class="sub">Drie visuele richtingen voor de AI-prompt. Kies op gevoel.</p>
+
+<div class="grid">
+
+  <!-- STIJL A: Architecturaal / Clean -->
+  <div class="card">
+    <div class="badge">Optie A</div>
+    <div class="title">Architecturaal / Clean</div>
+    <div class="desc">Witte vlakken, subtiele kleurcodering per type ruimte, dunne zwarte lijnen. Professioneel en tijdloos.</div>
+    <div class="map">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="300" fill="#f4f1eb"/>
+        <!-- Buitenmuur -->
+        <rect x="16" y="16" width="368" height="268" fill="none" stroke="#555" stroke-width="3"/>
+        <!-- Sauna zone (warm crème) -->
+        <rect x="16" y="16" width="80" height="80" fill="#f7ede8" stroke="#888" stroke-width="1"/>
+        <text x="56" y="52" font-family="Courier New" font-size="9" fill="#555" text-anchor="middle">Zoutsteen</text>
+        <text x="56" y="63" font-family="Courier New" font-size="9" fill="#555" text-anchor="middle">Sauna</text>
+
+        <rect x="96" y="16" width="80" height="80" fill="#f7ede8" stroke="#888" stroke-width="1"/>
+        <text x="136" y="52" font-family="Courier New" font-size="9" fill="#555" text-anchor="middle">Bio Sauna</text>
+
+        <rect x="176" y="16" width="80" height="80" fill="#f7ede8" stroke="#888" stroke-width="1"/>
+        <text x="216" y="52" font-family="Courier New" font-size="9" fill="#555" text-anchor="middle">Finse Sauna</text>
+
+        <rect x="256" y="16" width="64" height="80" fill="#f7ede8" stroke="#888" stroke-width="1"/>
+        <text x="288" y="52" font-family="Courier New" font-size="8" fill="#555" text-anchor="middle">Infrarood</text>
+        <text x="288" y="63" font-family="Courier New" font-size="8" fill="#555" text-anchor="middle">Sauna</text>
+
+        <rect x="320" y="16" width="64" height="80" fill="#f7ede8" stroke="#888" stroke-width="1"/>
+        <text x="352" y="52" font-family="Courier New" font-size="8" fill="#555" text-anchor="middle">IR Cabine</text>
+
+        <!-- Gang -->
+        <rect x="16" y="96" width="368" height="36" fill="#ede9e2" stroke="#bbb" stroke-width="0.5"/>
+        <text x="200" y="118" font-family="Courier New" font-size="8" fill="#999" text-anchor="middle" letter-spacing="4">— gang / circulatie —</text>
+
+        <!-- Water zone (blauw) -->
+        <rect x="16" y="132" width="100" height="80" fill="#e4eef5" stroke="#8aacbd" stroke-width="1"/>
+        <text x="66" y="170" font-family="Courier New" font-size="9" fill="#4a6e82" text-anchor="middle">Voetenbaden</text>
+
+        <rect x="116" y="132" width="100" height="80" fill="#e4eef5" stroke="#8aacbd" stroke-width="1"/>
+        <text x="166" y="170" font-family="Courier New" font-size="9" fill="#4a6e82" text-anchor="middle">Kruidenbad</text>
+
+        <rect x="216" y="132" width="80" height="80" fill="#dce8f0" stroke="#8aacbd" stroke-width="1"/>
+        <text x="256" y="165" font-family="Courier New" font-size="9" fill="#4a6e82" text-anchor="middle">IJs-/</text>
+        <text x="256" y="177" font-family="Courier New" font-size="9" fill="#4a6e82" text-anchor="middle">Dompelbad</text>
+
+        <!-- Douches -->
+        <rect x="296" y="132" width="88" height="36" fill="#eaf5ec" stroke="#8aad8e" stroke-width="1"/>
+        <text x="340" y="153" font-family="Courier New" font-size="8" fill="#4a6e54" text-anchor="middle">Stoom / Belevingsdouche</text>
+
+        <rect x="296" y="168" width="88" height="44" fill="#eaf5ec" stroke="#8aad8e" stroke-width="1"/>
+        <text x="340" y="194" font-family="Courier New" font-size="9" fill="#4a6e54" text-anchor="middle">Douches</text>
+
+        <!-- Gym -->
+        <rect x="16" y="212" width="120" height="72" fill="#f0ede8" stroke="#aaa" stroke-width="1"/>
+        <text x="76" y="251" font-family="Courier New" font-size="9" fill="#555" text-anchor="middle">Gym &amp; Fitness</text>
+
+        <!-- Relaxruimte -->
+        <rect x="136" y="212" width="248" height="72" fill="#f5f2ed" stroke="#bbb" stroke-width="1" stroke-dasharray="4,2"/>
+        <text x="260" y="251" font-family="Courier New" font-size="10" fill="#777" text-anchor="middle">Relaxruimte</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- STIJL B: Editorial / Warm -->
+  <div class="card">
+    <div class="badge">Optie B</div>
+    <div class="title">Editorial / Warm</div>
+    <div class="desc">Aardtinten, zachte vlakken zonder harde lijnen, cursieve labels. Voelt als een luxe spa-gids of hotelbrochure.</div>
+    <div class="map">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="300" fill="#f0ebe1"/>
+        <!-- Buitenmuur -->
+        <rect x="16" y="16" width="368" height="268" fill="#ede7db" stroke="#c9b89a" stroke-width="2.5" rx="4"/>
+
+        <!-- Saunas warm terracotta -->
+        <rect x="18" y="18" width="78" height="78" fill="#e2cabb" rx="2"/>
+        <text x="57" y="52" font-family="Georgia,serif" font-size="8.5" fill="#6b4c35" text-anchor="middle" font-style="italic">Zoutsteen</text>
+        <text x="57" y="63" font-family="Georgia,serif" font-size="8.5" fill="#6b4c35" text-anchor="middle" font-style="italic">Sauna</text>
+
+        <rect x="98" y="18" width="78" height="78" fill="#e2cabb" rx="2"/>
+        <text x="137" y="60" font-family="Georgia,serif" font-size="8.5" fill="#6b4c35" text-anchor="middle" font-style="italic">Bio Sauna</text>
+
+        <rect x="178" y="18" width="78" height="78" fill="#ddc5b0" rx="2"/>
+        <text x="217" y="60" font-family="Georgia,serif" font-size="8.5" fill="#6b4c35" text-anchor="middle" font-style="italic">Finse Sauna</text>
+
+        <rect x="258" y="18" width="62" height="78" fill="#e2cabb" rx="2"/>
+        <text x="289" y="55" font-family="Georgia,serif" font-size="8" fill="#6b4c35" text-anchor="middle" font-style="italic">Infrarood</text>
+        <text x="289" y="67" font-family="Georgia,serif" font-size="8" fill="#6b4c35" text-anchor="middle" font-style="italic">Sauna</text>
+
+        <rect x="322" y="18" width="62" height="78" fill="#e2cabb" rx="2"/>
+        <text x="353" y="60" font-family="Georgia,serif" font-size="8" fill="#6b4c35" text-anchor="middle" font-style="italic">IR Cabine</text>
+
+        <!-- Gang -->
+        <rect x="18" y="98" width="364" height="32" fill="#e8e0d2"/>
+        <text x="200" y="117" font-family="Georgia,serif" font-size="7.5" fill="#a09078" text-anchor="middle" font-style="italic" letter-spacing="3">— circulatie —</text>
+
+        <!-- Water steenblauw -->
+        <rect x="18" y="132" width="98" height="78" fill="#c8d8e5" rx="2"/>
+        <text x="67" y="174" font-family="Georgia,serif" font-size="8.5" fill="#3d5f72" text-anchor="middle" font-style="italic">Voetenbaden</text>
+
+        <rect x="118" y="132" width="98" height="78" fill="#c8d8e5" rx="2"/>
+        <text x="167" y="174" font-family="Georgia,serif" font-size="8.5" fill="#3d5f72" text-anchor="middle" font-style="italic">Kruidenbad</text>
+
+        <rect x="218" y="132" width="78" height="78" fill="#b8cdd8" rx="2"/>
+        <text x="257" y="168" font-family="Georgia,serif" font-size="8.5" fill="#3d5f72" text-anchor="middle" font-style="italic">IJs-/</text>
+        <text x="257" y="180" font-family="Georgia,serif" font-size="8.5" fill="#3d5f72" text-anchor="middle" font-style="italic">Dompelbad</text>
+
+        <!-- Douches saliegroen -->
+        <rect x="298" y="132" width="84" height="36" fill="#c5d8c8" rx="2"/>
+        <text x="340" y="152" font-family="Georgia,serif" font-size="7.5" fill="#3d5f44" text-anchor="middle" font-style="italic">Stoom &amp; Beleving</text>
+
+        <rect x="298" y="170" width="84" height="40" fill="#c5d8c8" rx="2"/>
+        <text x="340" y="193" font-family="Georgia,serif" font-size="8.5" fill="#3d5f44" text-anchor="middle" font-style="italic">Douches</text>
+
+        <!-- Gym -->
+        <rect x="18" y="212" width="118" height="70" fill="#d5ccbe" rx="2"/>
+        <text x="77" y="250" font-family="Georgia,serif" font-size="9" fill="#5a4a35" text-anchor="middle" font-style="italic">Gym &amp; Fitness</text>
+
+        <!-- Relaxruimte -->
+        <rect x="138" y="212" width="244" height="70" fill="#e0d8ca" rx="2"/>
+        <text x="260" y="250" font-family="Georgia,serif" font-size="10" fill="#7a6a55" text-anchor="middle" font-style="italic">Relaxruimte</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- STIJL C: Modern Dark -->
+  <div class="card">
+    <div class="badge">Optie C</div>
+    <div class="title">Modern / Dark</div>
+    <div class="desc">Donkere achtergrond, kleur per ruimtetype, strakke uppercase labels. Grafisch en modern — minder warm maar opvallend.</div>
+    <div class="map">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="300" fill="#1a2430"/>
+        <rect x="16" y="16" width="368" height="268" fill="#1e2c3a" stroke="#2d4055" stroke-width="1.5"/>
+
+        <!-- Saunas rood -->
+        <rect x="18" y="18" width="78" height="78" fill="#8b2020"/>
+        <text x="57" y="52" font-family="Courier New" font-size="7.5" fill="#ffccc8" text-anchor="middle" letter-spacing="0.5">ZOUTSTEEN</text>
+        <text x="57" y="63" font-family="Courier New" font-size="7.5" fill="#ffccc8" text-anchor="middle" letter-spacing="0.5">SAUNA</text>
+
+        <rect x="98" y="18" width="78" height="78" fill="#8b2020"/>
+        <text x="137" y="57" font-family="Courier New" font-size="7.5" fill="#ffccc8" text-anchor="middle" letter-spacing="0.5">BIO SAUNA</text>
+
+        <rect x="178" y="18" width="78" height="78" fill="#a02525"/>
+        <text x="217" y="57" font-family="Courier New" font-size="7.5" fill="#ffccc8" text-anchor="middle" letter-spacing="0.5">FINSE SAUNA</text>
+
+        <rect x="258" y="18" width="62" height="78" fill="#8b2020"/>
+        <text x="289" y="52" font-family="Courier New" font-size="7" fill="#ffccc8" text-anchor="middle">INFRAROOD</text>
+        <text x="289" y="63" font-family="Courier New" font-size="7" fill="#ffccc8" text-anchor="middle">SAUNA</text>
+
+        <rect x="322" y="18" width="62" height="78" fill="#8b2020"/>
+        <text x="353" y="57" font-family="Courier New" font-size="7" fill="#ffccc8" text-anchor="middle">IR CABINE</text>
+
+        <!-- Gang -->
+        <rect x="18" y="98" width="364" height="32" fill="#253545"/>
+        <text x="200" y="117" font-family="Courier New" font-size="7" fill="#4a6a85" text-anchor="middle" letter-spacing="5">CIRCULATIE</text>
+
+        <!-- Water blauw -->
+        <rect x="18" y="132" width="98" height="78" fill="#1e4a6a"/>
+        <text x="67" y="174" font-family="Courier New" font-size="7.5" fill="#90c8e8" text-anchor="middle" letter-spacing="0.5">VOETENBADEN</text>
+
+        <rect x="118" y="132" width="98" height="78" fill="#1e4a6a"/>
+        <text x="167" y="174" font-family="Courier New" font-size="7.5" fill="#90c8e8" text-anchor="middle" letter-spacing="0.5">KRUIDENBAD</text>
+
+        <rect x="218" y="132" width="78" height="78" fill="#163a55"/>
+        <text x="257" y="168" font-family="Courier New" font-size="7.5" fill="#90c8e8" text-anchor="middle">IJS-/</text>
+        <text x="257" y="180" font-family="Courier New" font-size="7.5" fill="#90c8e8" text-anchor="middle">DOMPELBAD</text>
+
+        <!-- Douches groen -->
+        <rect x="298" y="132" width="84" height="36" fill="#1a4530"/>
+        <text x="340" y="153" font-family="Courier New" font-size="7" fill="#80c898" text-anchor="middle">STOOM / BELEVING</text>
+
+        <rect x="298" y="170" width="84" height="40" fill="#1a4530"/>
+        <text x="340" y="193" font-family="Courier New" font-size="7.5" fill="#80c898" text-anchor="middle">DOUCHES</text>
+
+        <!-- Gym -->
+        <rect x="18" y="212" width="118" height="70" fill="#2a2545"/>
+        <text x="77" y="250" font-family="Courier New" font-size="8" fill="#a898d8" text-anchor="middle" letter-spacing="0.5">GYM &amp; FITNESS</text>
+
+        <!-- Relax -->
+        <rect x="138" y="212" width="244" height="70" fill="#222a35"/>
+        <text x="260" y="250" font-family="Courier New" font-size="9" fill="#8898a8" text-anchor="middle" letter-spacing="1">RELAXRUIMTE</text>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+<p style="margin-top:32px; color:#444; font-size:11px; text-align:center;">Schematisch — niet de exacte plattegrond. Ruimte-layout gebaseerd op beschikbare hotspot-data.</p>
+</body>
+</html>

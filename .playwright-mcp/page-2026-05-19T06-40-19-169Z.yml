@@ -1,0 +1,70 @@
+- iframe [ref=e1]:
+  - generic [ref=f7e7]:
+    - generic [ref=f7e8]:
+      - generic [ref=f7e9]: "Skip to:"
+      - list [ref=f7e10]:
+        - listitem [ref=f7e11]:
+          - link "Toolbar" [ref=f7e12] [cursor=pointer]:
+            - /url: "#toolbar"
+        - listitem [ref=f7e13]:
+          - link "Site navigation" [ref=f7e14] [cursor=pointer]:
+            - /url: "#navigation"
+        - listitem [ref=f7e15]:
+          - link "Main content" [ref=f7e16] [cursor=pointer]:
+            - /url: "#main"
+    - generic [ref=f7e17]:
+      - banner [ref=f7e18]:
+        - generic [ref=f7e19]:
+          - generic [ref=f7e21]:
+            - img "Hotel Asteria Venray" [ref=f7e23]
+            - generic [ref=f7e24]: Hotel Asteria Venray
+          - generic [ref=f7e27]:
+            - button "Select your language" [ref=f7e28] [cursor=pointer]:
+              - generic [ref=f7e30]: EN - US
+            - button "Select your currency" [ref=f7e31] [cursor=pointer]:
+              - generic [ref=f7e32]: EUR
+      - navigation "Progress" [ref=f7e33]:
+        - navigation "progress" [ref=f7e34]:
+          - list [ref=f7e35]:
+            - listitem [ref=f7e36]:
+              - generic "Link to Dates" [ref=f7e37]:
+                - generic [ref=f7e38]:
+                  - generic [ref=f7e39]: "1"
+                  - generic [ref=f7e42]: Dates
+            - listitem [ref=f7e43]:
+              - button "Link to Categories" [ref=f7e44] [cursor=pointer]:
+                - generic [ref=f7e45]:
+                  - generic [ref=f7e46]: "2"
+                  - generic [ref=f7e49]: Categories
+            - listitem [ref=f7e50]:
+              - generic "Link to Rates" [ref=f7e51]:
+                - generic [ref=f7e56]: Rates
+            - listitem [ref=f7e57]:
+              - generic "Link to Summary" [ref=f7e58]:
+                - generic [ref=f7e63]: Summary
+            - listitem [ref=f7e64]:
+              - generic "Link to Details" [ref=f7e65]:
+                - generic [ref=f7e70]: Details
+    - main [ref=f7e71]:
+      - generic [ref=f7e78]:
+        - generic:
+          - heading "Dates" [level=1]
+        - region [ref=f7e80]:
+          - generic [ref=f7e84]:
+            - generic [ref=f7e88]:
+              - generic [ref=f7e89]: Dates
+              - button "5/19/2026 - 5/21/2026" [ref=f7e90] [cursor=pointer]:
+                - paragraph [ref=f7e92]: 5/19/2026 - 5/21/2026
+            - generic [ref=f7e97]:
+              - generic [ref=f7e99]: Adults
+              - generic [ref=f7e101]:
+                - button "Decrement" [ref=f7e103] [cursor=pointer]
+                - spinbutton "Adults" [ref=f7e108]: "2"
+                - button "Increment" [ref=f7e110] [cursor=pointer]
+            - generic [ref=f7e115]:
+              - generic [ref=f7e117]: Promotion code
+              - generic [ref=f7e119]:
+                - textbox "Promotion code" [ref=f7e121]: WELLNESS
+                - generic [ref=f7e122]: Promotion code
+            - button "Next" [ref=f7e123] [cursor=pointer]:
+              - generic [ref=f7e124]: Next

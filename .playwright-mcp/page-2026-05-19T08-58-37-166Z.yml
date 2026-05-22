@@ -1,0 +1,459 @@
+- generic [active]:
+  - generic [ref=e1]:
+    - navigation [ref=e2]:
+      - text:   
+      - generic [ref=e4]:
+        - link "Hotel Asteria" [ref=e5] [cursor=pointer]:
+          - /url: https://www.asteria.nl/
+          - img "Hotel Asteria" [ref=e6]
+        - generic [ref=e7]:
+          - link "Boek nu" [ref=e8] [cursor=pointer]:
+            - /url: https://www.asteria.nl/bookingEngine
+            - text:  Boek nu
+          - generic [ref=e9]:
+            - generic [ref=e10] [cursor=pointer]:
+              - generic [ref=e11]: 
+              - text: Menu
+            - text: 
+    - banner [ref=e12]:
+      - generic [ref=e13]:
+        - list:
+          - listitem [ref=e14]:
+            - img [ref=e15]
+        - list:
+          - listitem:
+            - link " Previous" [ref=e16]:
+              - /url: "#"
+          - listitem:
+            - link " Next" [ref=e17]:
+              - /url: "#"
+    - text:   
+    - generic [ref=e20]:
+      - heading "Voel je welkom in Noord Limburg, bij Hotel Asteria Venray." [level=1] [ref=e21]
+      - heading "Dineren, Vergaderen, Overnachten en Feesten in Venray" [level=2] [ref=e22]
+      - paragraph [ref=e23]:
+        - text: In het prachtige
+        - link "Noord Limburg" [ref=e24] [cursor=pointer]:
+          - /url: hotel-noord-limburg
+        - text: vindt u Hotel Asteria aan de rand van Venray. Gelegen in het gebied van de Limburgse Peel en Nationaal Park de Maasduinen is het de ideale uitvalsbasis voor al uw wandel- en fietsvakanties.
+      - paragraph [ref=e25]:
+        - text: Tijdens uw verblijf bij Asteria bent u verzekerd van een heerlijk nachtje weg. In ons
+        - link "restaurant Asteria" [ref=e26] [cursor=pointer]:
+          - /url: restaurant
+        - text: en onze gezellige brasserie zullen de verrassende gerechten u zeker smaken. Na een actieve dag is het ruime terras een fijne plek om in de zon te zitten met een hapje of een drankje. Sluit de dag af met een drankje in onze hotelbar, voordat u neerstrijkt op de fijne bedden in uw
+        - link "moderne hotelkamer" [ref=e27] [cursor=pointer]:
+          - /url: kamers
+        - text: .
+        - text: Al onze hotelkamers zijn voorzien van gratis wifi, airconditioning, een zithoek en een badkamer met bad of douche. Mocht u meer luxe willen tijdens uw verblijf, dan zijn onze
+        - link "Deluxe kamers en suites" [ref=e28] [cursor=pointer]:
+          - /url: kamers
+        - text: met infrarood sauna geschikt voor u.
+      - paragraph [ref=e29]:
+        - link "Bekijk kamers" [ref=e30] [cursor=pointer]:
+          - /url: kamers
+        - link "Bekijk foto's" [ref=e31] [cursor=pointer]:
+          - /url: galerij
+    - generic [ref=e33]:
+      - heading "Voordelen van direct boeken" [level=2] [ref=e35]
+      - list [ref=e37]:
+        - listitem [ref=e38]:
+          - generic [ref=e39]: 
+          - text: Beste prijsgarantie
+        - listitem [ref=e40]:
+          - generic [ref=e41]: 
+          - text: Spaar loyalty punten voor leuke beloningen
+        - listitem [ref=e42]:
+          - generic [ref=e43]: 
+          - text: Free upgrade (indien beschikbaar)
+      - link "Boek nu" [ref=e45] [cursor=pointer]:
+        - /url: https://www.asteria.nl/bookingEngine
+    - generic [ref=e47]:
+      - heading "Specials" [level=2] [ref=e49]
+      - generic [ref=e50]:
+        - link "Vaderdag | Brunch | Hotel Restaurant Asteria" [ref=e51] [cursor=pointer]:
+          - /url: https://www.asteria.nl/vaderdag
+          - img "Vaderdag | Brunch | Hotel Restaurant Asteria" [ref=e52]
+        - generic [ref=e53]:
+          - heading "Vaderdag" [level=3] [ref=e54]:
+            - link "Vaderdag" [ref=e55] [cursor=pointer]:
+              - /url: https://www.asteria.nl/vaderdag
+          - paragraph [ref=e56]: Vier Vaderdag met een onvergetelijke brunch!
+          - paragraph [ref=e57]:
+            - text: Zondag 21 juni draait alles om vaders! Laat hem het stralende middelpunt zijn en verras hem met onze feestelijke
+            - strong [ref=e58]: Vaderdagbrunch.
+            - text: Samen genieten van een uitgebreid warm en koud buffet, gevolgd door een verrukkelijk dessertbuffet. En als extra verrassing staat er voor elke vader een leuk cadeautje klaar!
+            - strong [ref=e59]: "PRIJZEN:"
+            - text: Volwassenen € 39,50
+            - text: Kinderen 4 t/m 12 jaar € 2,00 per leeftijdsjaar
+            - text: Kinderen t/m 3 jaar GRATIS
+          - paragraph [ref=e60]:
+            - text: Wil je je vader op een andere manier verrassen? Ontdek ook onze andere cadeau-opties, zoals een nachtje weg of een
+            - strong [ref=e61]: gepersonaliseerde cadeaubon.
+          - paragraph [ref=e62]
+          - link "Meer informatie" [ref=e63] [cursor=pointer]:
+            - /url: https://www.asteria.nl/vaderdag
+      - generic [ref=e64]:
+        - link "Zondagsbrunch restaurant Asteria" [ref=e65] [cursor=pointer]:
+          - /url: ""
+          - img "Zondagsbrunch restaurant Asteria"
+        - generic [ref=e66]:
+          - heading "Zondagsbrunch" [level=3] [ref=e67]:
+            - link "Zondagsbrunch" [ref=e68] [cursor=pointer]:
+              - /url: ""
+          - paragraph [ref=e69]:
+            - strong [ref=e70]: Geniet van een sfeervolle Zondagsbrunch met live cooking!
+          - paragraph [ref=e71]:
+            - text: Sluit je week ontspannen af met een heerlijke brunch met live cooking. Van
+            - strong [ref=e72]: 11:30 tot 14:00 uur
+            - text: geniet je van een uitgebreid
+            - strong [ref=e73]: warm en koud buffet
+            - text: ", met een verrukkelijk"
+            - strong [ref=e74]: dessertbuffet.
+            - text: Of je nu samen komt met je partner, familie of een grotere groep, onze
+            - strong [ref=e75]: Zondagsbrunch
+            - text: is de perfecte gelegenheid om samen te ontspannen en te genieten van de lekkere gerechten.
+          - paragraph [ref=e76]:
+            - text: "Onze brunch staat voor jullie klaar op de volgende data: 24-05, 07-06, 23-08, 13-09, 27-09, 11-10, 25-10, 08-11, 22-11, 06-12 en 20-12."
+            - generic [ref=e77]:
+              - text: "3 t/m 12 jaar:"
+              - strong [ref=e78]: €2,00
+              - text: per leeftijdsjaar
+            - generic [ref=e79]:
+              - text: "vanaf 12 jaar:"
+              - strong [ref=e80]: €36,50 p.p.
+            - link "Reserveer direct" [ref=e81] [cursor=pointer]:
+              - /url: mailto:info@asteria.nl
+      - generic [ref=e82]:
+        - link "Vergaderen in Noord Limburg" [ref=e83] [cursor=pointer]:
+          - /url: vergaderen
+          - img "Vergaderen in Noord Limburg"
+        - generic [ref=e84]:
+          - heading "Vergaderen" [level=3] [ref=e85]:
+            - link "Vergaderen" [ref=e86] [cursor=pointer]:
+              - /url: vergaderen
+          - paragraph [ref=e87]:
+            - text: Hotel Asteria Venray is de
+            - link "vergaderlocatie bij uitstek in Noord Limburg" [ref=e88] [cursor=pointer]:
+              - /url: vergaderen
+            - text: . Onze 7 multifunctionele vergaderzalen bieden u bij elke vergadering, meeting of congres de perfecte ambiance. De aanwezigheid van hotel en
+            - link "restaurant" [ref=e89] [cursor=pointer]:
+              - /url: restaurant
+            - text: bieden u tevens de mogelijkheid tot het houden van één- of meerdaagse vergaderingen of congressen. Ons hartelijke personeel staat voor u en uw gasten klaar en doet er alles aan om het u zo comfortabel mogelijk te maken.
+          - link "Boek vergadering" [ref=e90] [cursor=pointer]:
+            - /url: vergaderen
+    - generic [ref=e92]:
+      - generic [ref=e96]:
+        - heading "Hotel arrangementen" [level=3] [ref=e97]
+        - paragraph [ref=e98]:
+          - text: Elk seizoen hebben we weer nieuwe arrangementen voor een compleet verblijf in Noord Limburg, zoals onze weekend aanbieding,
+          - link "fietsarrangementen" [ref=e99] [cursor=pointer]:
+            - /url: arrangementen
+          - text: ", Kerst -en Oud en Nieuw arrangementen."
+        - paragraph [ref=e100]:
+          - link "Bekijk arrangementen" [ref=e101] [cursor=pointer]:
+            - /url: arrangementen
+        - paragraph [ref=e102]
+      - generic [ref=e104]:
+        - generic [ref=e107]:
+          - heading "Feesten Zaal Zeven" [level=3] [ref=e108]
+          - paragraph [ref=e109]: Heb je iets te vieren? Dan ben je bij ons aan het juiste adres. Onze grote, moderne feestzaal bied je alle faciliteiten die jij nodig hebt voor een onvergetelijke dag onder één dak.
+          - paragraph [ref=e110]:
+            - link "Bekijk de mogelijkheden" [ref=e111] [cursor=pointer]:
+              - /url: https://www.asteria.nl/feesten
+        - generic [ref=e113]:
+          - heading "Loyalty Card" [level=3] [ref=e114]
+          - paragraph [ref=e115]: Spaar mee en ontvang leuke beloningen! Eenvoudig verdiend, elke euro die je besteedt is namelijk 1 punt waard!
+          - paragraph [ref=e116]:
+            - link "Bekijk de voordelen" [ref=e117] [cursor=pointer]:
+              - /url: /loyalty-card
+    - generic [ref=e119]:
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - img "Ontdek de evenementen van Asteria"
+        - generic [ref=e123]:
+          - heading "Onze evenementen" [level=2] [ref=e124]
+          - paragraph [ref=e125]:
+            - text: Kom naar Asteria voor bijzondere evenementen en gezellige momenten. Geniet samen van sfeervolle
+            - strong [ref=e126]
+            - text: feestdagen, zoals een sfeervol
+            - link "Kerstdiner" [ref=e127] [cursor=pointer]:
+              - /url: https://www.asteria.nl/kerst
+            - text: ", een bruisende"
+            - link "Oud & Nieuw party" [ref=e128] [cursor=pointer]:
+              - /url: https://www.asteria.nl/oud-en-nieuw-bij-asteria-venray
+            - text: of een gezellig Paasontbijt. Ervaar met familie en vrienden onze heerlijke gerechten in een warme feestelijke ambiance.
+          - paragraph [ref=e129]: Daarnaast biedt Zaal Zeven het hele jaar door unieke evenementen. Van spetterende tribute nights en dance party's tot heerlijke diners met entertainment, elke avond belooft sfeer, gezelligheid en topentertainment.
+          - paragraph [ref=e130]: Bekijk onze planning en mis geen enkel evenement bij Asteria!
+          - paragraph [ref=e131]:
+            - link "Ontdek onze evenementen" [ref=e132] [cursor=pointer]:
+              - /url: https://www.asteria.nl/evenementen
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - img "Restaurant Asteria Venray"
+        - generic [ref=e136]:
+          - heading "Restaurant" [level=2] [ref=e137]
+          - paragraph [ref=e138]: Bij Asteria draait alles om zorgeloos genieten. In onze sfeervolle brasserie kun je ontspannen met een kop koffie of een borrel, terwijl onze bar de perfecte plek is voor een gezellige avond met vrienden.
+          - paragraph [ref=e139]: Laat je verrassen door ons proeverijmenu, waarmee je een selectie van verfijnde gerechten kunt ontdekken. Of kies een favoriet van onze uitgebreide menukaart, met heerlijke opties voor zowel lunch als diner. Daarnaast bieden we regelmatig specials, geïnspireerd door seizoensgebonden ingrediënten en lokale smaken.
+          - paragraph [ref=e140]: Kom langs en proef de gastvrijheid van Asteria. Reserveer vandaag nog jouw tafel!
+          - paragraph [ref=e141]:
+            - link "Reserveer een tafel" [ref=e142] [cursor=pointer]:
+              - /url: mailto:info@asteria.nl
+            - link "Bekijk restaurant" [ref=e143] [cursor=pointer]:
+              - /url: https://www.asteria.nl/restaurant
+    - generic [ref=e144]:
+      - heading "Beoordelingen" [level=2] [ref=e147]
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - list:
+            - listitem [ref=e151]:
+              - generic [ref=e153]:
+                - generic [ref=e154]: 
+                - generic [ref=e155]: 
+                - generic [ref=e156]: 
+                - generic [ref=e157]: 
+                - generic [ref=e158]: 
+              - generic [ref=e159]:
+                - paragraph [ref=e160]: "“Was super goed fijne bedden. Koffie apparaat op je kamer. Top hotel Kamers: 5/5 | Service: 5/5 | Locatie: 5/5”"
+                - separator [ref=e161]
+                - paragraph [ref=e162]:
+                  - strong [ref=e163]: Cornelia Oogjes
+                  - generic [ref=e164]: 2024-06-10
+                  - img [ref=e166]
+            - listitem [ref=e167]:
+              - generic [ref=e169]:
+                - generic [ref=e170]: 
+                - generic [ref=e171]: 
+                - generic [ref=e172]: 
+                - generic [ref=e173]: 
+                - generic [ref=e174]: 
+              - generic [ref=e175]:
+                - paragraph [ref=e176]: “Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!”
+                - separator [ref=e177]
+                - paragraph [ref=e178]:
+                  - strong [ref=e179]: Rob
+                  - generic [ref=e180]: 2025-12-24
+                  - img "bookingcom" [ref=e182]
+            - listitem [ref=e183]:
+              - generic [ref=e185]:
+                - generic [ref=e186]: 
+                - generic [ref=e187]: 
+                - generic [ref=e188]: 
+                - generic [ref=e189]: 
+                - generic [ref=e190]: 
+              - generic [ref=e191]:
+                - paragraph [ref=e192]: “Verzorgd en lekker ontbijt. Mooi en proper hotel met ruime parking en afgesloten fietsstalling. Perfecte uitvalbasis om mooie fietsroutes de maken of om omliggende steden te bezoeken.”
+                - separator [ref=e193]
+                - paragraph [ref=e194]:
+                  - strong [ref=e195]: Luc
+                  - generic [ref=e196]: 2025-09-22
+                  - img "bookingcom" [ref=e198]
+            - listitem [ref=e199]:
+              - generic [ref=e201]:
+                - generic [ref=e202]: 
+                - generic [ref=e203]: 
+                - generic [ref=e204]: 
+                - generic [ref=e205]: 
+                - generic [ref=e206]:
+                  - generic [ref=e207]: 
+                  - generic [ref=e208]: 
+              - generic [ref=e209]:
+                - paragraph [ref=e210]: “We hebben 2 heerlijke dagen Venray gehad met 1 overnachting, diner, ontbijt en late check out. Lekker een drankje gedaan op het terras, konden al eerder inchecken, kamer was zeer netjes en schoon. Het diner was top en het ontbijt was ook top aan alles was gedacht. Personeel heel vriendelijk. Wat we soms merken als je via socialdeal boekt dat je ook in een soort van hoekje gedreven word, dit was hier totaal niet het geval, je was hetzelfde als elke gast. Wij komen hier zeker nog eens terug. En op de kamer de airco was met 33 graden buiten zeer aangenaam. Kortom alleen maar lof!!”
+                - separator [ref=e211]
+                - paragraph [ref=e212]:
+                  - strong [ref=e213]: Danielle
+                  - generic [ref=e214]: 2025-08-14
+                  - generic:
+                    - img "hotel"
+            - listitem [ref=e215]:
+              - generic [ref=e217]:
+                - generic [ref=e218]: 
+                - generic [ref=e219]: 
+                - generic [ref=e220]: 
+                - generic [ref=e221]: 
+                - generic [ref=e222]: 
+              - generic [ref=e223]:
+                - paragraph [ref=e224]: "“Héérlijke 4-nachten bij Venray : ZALIG..!!! Ligging van het hotel is perfect: pal naast afrit snelweg en toch dicht bij de stad. Van snelweg-geluiden hadden we geen last. Naast een degelijke isolatie is de kamer verder héél goed : groot, goed bed, douche & wc werken perfect. Prettig om op je kamer zelf van een koffie te genieten ! Kamer is ruim, groot TV scherm : prima..!!! We zijn fietsers, 100 km fietsen is voor ons de norm... Ontbijt is voor ons zoooo belangrijk, we waren niet ontgoocheld : super goed ontbijt..!!!! Ons fietsen stonden in de nacht veilig weg, niet onbelangrijk... Personeel : goed op de hoogte van alles & nog wat...behulpzaam en altijd vriendelijk”"
+                - separator [ref=e225]
+                - paragraph [ref=e226]:
+                  - strong [ref=e227]: Eddy
+                  - generic [ref=e228]: 2025-06-12
+                  - img "bookingcom" [ref=e230]
+            - listitem [ref=e231]:
+              - generic [ref=e233]:
+                - generic [ref=e234]: 
+                - generic [ref=e235]: 
+                - generic [ref=e236]: 
+                - generic [ref=e237]: 
+                - generic [ref=e238]:
+                  - generic [ref=e239]: 
+                  - generic [ref=e240]: 
+              - generic [ref=e241]:
+                - paragraph [ref=e242]: “Comfortabele bedden, ruime kamer, schone badkamer. ”
+                - separator [ref=e243]
+                - paragraph [ref=e244]:
+                  - strong [ref=e245]: Suus
+                  - generic [ref=e246]: 2024-07-21
+                  - img "bookingcom" [ref=e248]
+            - listitem [ref=e249]:
+              - generic [ref=e251]:
+                - generic [ref=e252]: 
+                - generic [ref=e253]: 
+                - generic [ref=e254]: 
+                - generic [ref=e255]: 
+                - generic [ref=e256]: 
+              - generic [ref=e257]:
+                - paragraph [ref=e258]: "“Het was heerlijk vertoeven in het hotel. Zeker voor fietsfanaten. En omdat we geen tv konden kijken, kregen we een andere tv op een zuil aangeboden. Konden we savonds toch nog even kijken. Kamers: 5/5 | Service: 5/5 | Locatie 4/5”"
+                - separator [ref=e259]
+                - paragraph [ref=e260]:
+                  - strong [ref=e261]: Ingrid Kortekaas
+                  - generic [ref=e262]: 2024-06-24
+                  - img "google" [ref=e264]
+            - listitem [ref=e265]:
+              - generic [ref=e267]:
+                - generic [ref=e268]: 
+                - generic [ref=e269]: 
+                - generic [ref=e270]: 
+                - generic [ref=e271]: 
+                - generic [ref=e272]: 
+              - generic [ref=e273]:
+                - paragraph [ref=e274]: "“Was super goed fijne bedden. Koffie apparaat op je kamer. Top hotel Kamers: 5/5 | Service: 5/5 | Locatie: 5/5”"
+                - separator [ref=e275]
+                - paragraph [ref=e276]:
+                  - strong [ref=e277]: Cornelia Oogjes
+                  - generic [ref=e278]: 2024-06-10
+                  - img "google" [ref=e280]
+            - listitem [ref=e281]:
+              - generic [ref=e283]:
+                - generic [ref=e284]: 
+                - generic [ref=e285]: 
+                - generic [ref=e286]: 
+                - generic [ref=e287]: 
+                - generic [ref=e288]: 
+              - generic [ref=e289]:
+                - paragraph [ref=e290]: “Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!”
+                - separator [ref=e291]
+                - paragraph [ref=e292]:
+                  - strong [ref=e293]: Rob
+                  - generic [ref=e294]: 2025-12-24
+                  - img [ref=e296]
+        - list [ref=e297]:
+          - listitem [ref=e298]:
+            - link "1" [ref=e299]:
+              - /url: "#"
+          - listitem [ref=e300]:
+            - link "2" [ref=e301] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e302]:
+            - link "3" [ref=e303] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e304]:
+            - link "4" [ref=e305] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e306]:
+            - link "5" [ref=e307] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e308]:
+            - link "6" [ref=e309] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e310]:
+            - link "7" [ref=e311] [cursor=pointer]:
+              - /url: "#"
+        - list:
+          - listitem:
+            - link "Previous" [ref=e312] [cursor=pointer]:
+              - /url: "#"
+          - listitem:
+            - link "Next" [ref=e313] [cursor=pointer]:
+              - /url: "#"
+    - generic [ref=e316]:
+      - heading "Aanmelden voor de nieuwsbrief" [level=2] [ref=e317]
+      - paragraph [ref=e318]: Ontvang exclusieve deals
+      - link "Aanmelden" [ref=e319] [cursor=pointer]:
+        - /url: https://interface.mailcampaigns.nl/interface/contactform.php?ref=p2uiq2Mipz1sBGLjKmZ3BD==
+    - contentinfo [ref=e320]:
+      - generic [ref=e321]:
+        - img "Hotel Asteria" [ref=e323]
+        - generic [ref=e325]:
+          - heading "Hotel Asteria" [level=3] [ref=e326]
+          - paragraph [ref=e328]:
+            - text: Maasheseweg 80a
+            - text: 5804 AD Venray
+            - generic [ref=e329]: Nederland
+            - link "0478511466" [ref=e330] [cursor=pointer]:
+              - /url: tel:0031478511466
+            - link "info@asteria.nl" [ref=e331] [cursor=pointer]:
+              - /url: mailto:info@asteria.nl
+          - generic [ref=e332]:
+            - link "" [ref=e333] [cursor=pointer]:
+              - /url: https://www.facebook.com/AsteriaVenray/
+            - link "" [ref=e334] [cursor=pointer]:
+              - /url: https://www.linkedin.com/companies/hotel-asteria-venray
+            - link "" [ref=e335] [cursor=pointer]:
+              - /url: https://instagram.com/hotelasteriavenray/
+            - link "" [ref=e336] [cursor=pointer]:
+              - /url: https://www.tripadvisor.co.uk/Hotel_Review-g652276-d1726559-Reviews-Hotel_Asteria_Venray-Venray_Limburg_Province.html
+        - paragraph [ref=e338]:
+          - link "Happy Summer arrangement" [ref=e339] [cursor=pointer]:
+            - /url: https://www.asteria.nl/arrangementen/happy-summer-arrangement
+          - link "Omgeving" [ref=e340] [cursor=pointer]:
+            - /url: https://www.asteria.nl/omgeving
+          - link "Vacatures" [ref=e341] [cursor=pointer]:
+            - /url: https://www.asteria.nl/vacatures
+          - link "Galerij" [ref=e342] [cursor=pointer]:
+            - /url: https://www.asteria.nl/galerij
+          - link "Beoordelingen" [ref=e343] [cursor=pointer]:
+            - /url: https://www.asteria.nl/beoordelingen
+          - link "Sitemap" [ref=e344] [cursor=pointer]:
+            - /url: https://www.asteria.nl/sitemap
+          - link "Privacy" [ref=e345] [cursor=pointer]:
+            - /url: https://www.asteria.nl/privacy
+          - link "Loyalty Card" [ref=e346] [cursor=pointer]:
+            - /url: https://www.asteria.nl/loyalty-card
+          - link "Hotel Noord Limburg" [ref=e347] [cursor=pointer]:
+            - /url: https://www.asteria.nl/hotel-noord-limburg
+          - link "Algemene voorwaarden" [ref=e348] [cursor=pointer]:
+            - /url: https://www.asteria.nl/algemene-voorwaarden
+        - generic [ref=e349]:
+          - heading "Language" [level=3] [ref=e350]
+          - paragraph [ref=e351]:
+            - link "Nederlands Nederlands" [ref=e352] [cursor=pointer]:
+              - /url: https://www.asteria.nl/
+              - img "Nederlands"
+              - text: Nederlands
+            - link "English English" [ref=e353] [cursor=pointer]:
+              - /url: https://www.asteria.nl/en/
+              - img "English"
+              - text: English
+            - link "Deutsch Deutsch" [ref=e354] [cursor=pointer]:
+              - /url: https://www.asteria.nl/de/
+              - img "Deutsch"
+              - text: Deutsch
+          - link "Goed Hart Keurmerk" [ref=e355] [cursor=pointer]:
+            - /url: https://www.goedhartkeurmerk.nl/helden
+            - img "Goed Hart Keurmerk" [ref=e356]
+    - contentinfo [ref=e357]:
+      - 'link "Hotel Website by: Porter" [ref=e360] [cursor=pointer]':
+        - /url: https://www.porterforhotels.com
+    - link "" [ref=e361] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=e362]: 
+  - iframe [ref=e363]:
+    - generic [ref=f42e3]:
+      - generic [ref=f42e4]:
+        - generic [ref=f42e5]: "Skip to:"
+        - list [ref=f42e6]:
+          - listitem [ref=f42e7]:
+            - link "Toolbar" [ref=f42e8] [cursor=pointer]:
+              - /url: "#toolbar"
+          - listitem [ref=f42e9]:
+            - link "Site navigation" [ref=f42e10] [cursor=pointer]:
+              - /url: "#navigation"
+          - listitem [ref=f42e11]:
+            - link "Main content" [ref=f42e12] [cursor=pointer]:
+              - /url: "#main"
+      - main [ref=f42e13]:
+        - generic [ref=f42e17]:
+          - status "Loading" [ref=f42e18]
+          - strong [ref=f42e22]: Loading booking engine
+  - iframe [ref=e364]:
+    

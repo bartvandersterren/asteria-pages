@@ -1,0 +1,28 @@
+[     128ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[    9458ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[   57151ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  156720ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[  595505ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:1467
+[  595505ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[  728160ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:1470
+[  728160ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[  743351ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:1470
+[  743351ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[  767637ms] [LOG] IO reviews isIntersecting: false top: 1638 @ :8
+[  767637ms] [LOG] IO footer isIntersecting: false top: 2012 @ :8
+[  767654ms] [LOG] IO reviews isIntersecting: true top: 145 @ :8
+[  767654ms] [LOG] IO footer isIntersecting: true top: 519 @ :8
+[  847038ms] [LOG] IO reviews isIntersecting: false top: 1638 @ :8
+[  847038ms] [LOG] IO footer isIntersecting: false top: 2012 @ :8
+[  940691ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:1470
+[  940691ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[  996805ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:1470
+[  996805ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[ 1066719ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:1464
+[ 1066719ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[ 1068603ms] [ERROR] Access to fetch at 'file:///api/google-reviews' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-extension, chrome-untrusted, data, http, https, isolated-app. @ file:///Users/bartvandersterren/Projects/asteria-pages/wellness-arr-c.html:1464
+[ 1068603ms] [ERROR] Failed to load resource: net::ERR_FAILED @ file:///api/google-reviews:0
+[ 8671628ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[ 8674894ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[ 8681740ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0
+[ 8687552ms] [ERROR] Failed to load resource: the server responded with a status of 500 () @ https://visit.asteria.nl/api/google-reviews:0

@@ -1,0 +1,297 @@
+- generic [active] [ref=e1]:
+  - banner "Announcement" [ref=e3]:
+    - generic [ref=e4]:
+      - paragraph [ref=e6]:
+        - text: Discover the new Pura Home diffuser.
+        - link "Shop now" [ref=e7] [cursor=pointer]:
+          - /url: /products/pura-home-v5
+      - button "Dismiss announcement" [ref=e8] [cursor=pointer]:
+        - img [ref=e9]
+  - banner [ref=e13]:
+    - generic [ref=e14]:
+      - link "Pura" [ref=e15] [cursor=pointer]:
+        - /url: /
+        - img "Pura" [ref=e16]
+      - navigation [ref=e24]:
+        - link "Smart Diffusers" [ref=e26] [cursor=pointer]:
+          - /url: /pages/diffusers
+        - link "Fragrances" [ref=e28] [cursor=pointer]:
+          - /url: /collections/fragrances
+        - link "Brands" [ref=e30] [cursor=pointer]:
+          - /url: /pages/brands
+        - link "Free Diffuser Offer" [ref=e31] [cursor=pointer]:
+          - /url: /pages/free-diffuser
+      - button "Open search" [ref=e33]:
+        - generic [ref=e35]:
+          - img [ref=e36]
+          - generic [ref=e40]: A relaxing scent for better sleep
+      - generic [ref=e41]:
+        - link "Wishlist" [ref=e42] [cursor=pointer]:
+          - /url: /account/lists
+          - img [ref=e43]
+        - link "Account" [ref=e45] [cursor=pointer]:
+          - /url: /account
+          - img [ref=e46]
+        - link "Cart" [ref=e48] [cursor=pointer]:
+          - /url: /cart
+          - img [ref=e49]
+  - generic [ref=e54]:
+    - paragraph [ref=e55]: Try Pura for 30 days, completely risk-free. Don't love it? We'll cover the return shipping.
+    - link "Get started" [ref=e56] [cursor=pointer]:
+      - /url: /pages/get-started
+  - main [ref=e57]:
+    - region "Hero banner" [ref=e59]:
+      - generic [ref=e61]:
+        - generic [ref=e67]:
+          - heading "Scent your space – effortlessly" [level=1] [ref=e68]:
+            - text: Scent your space –
+            - emphasis [ref=e69]: effortlessly
+          - paragraph [ref=e70]: Every space has a feeling. Find luxury fragrances and diffusers that match yours—at home or on the go.
+          - link "Get started" [ref=e72] [cursor=pointer]:
+            - /url: /pages/get-started
+        - generic [ref=e78]:
+          - heading "Smart fragrance for real life" [level=1] [ref=e79]:
+            - text: Smart fragrance
+            - text: for real life
+          - paragraph [ref=e80]: New Pura Home brings together refined design, improved performance, and thoughtful features
+          - link "Shop now" [ref=e82] [cursor=pointer]:
+            - /url: /products/pura-home-v5
+        - generic [ref=e88]:
+          - heading "Open the door to spring" [level=1] [ref=e89]
+          - paragraph [ref=e90]: Brighten up your home with the fresh, vibrant energy of the season
+          - link "Shop now" [ref=e92] [cursor=pointer]:
+            - /url: /collections/spring
+      - button "Previous slide" [ref=e93] [cursor=pointer]:
+        - img [ref=e94]
+      - button "Next slide" [ref=e96] [cursor=pointer]:
+        - img [ref=e97]
+      - generic [ref=e99]:
+        - button "Go to slide 1" [ref=e100] [cursor=pointer]
+        - button "Go to slide 2" [ref=e101] [cursor=pointer]
+        - button "Go to slide 3" [ref=e102] [cursor=pointer]
+    - region "Rich text content" [ref=e104]:
+      - generic [ref=e106]:
+        - img [ref=e107]
+        - heading "Our clean standards" [level=2] [ref=e108]
+        - paragraph [ref=e109]: 300+ clean, premium fragrances crafted to be safe for the whole family—including pets.
+        - button "Our safety standards" [ref=e111] [cursor=pointer]
+    - generic [ref=e114]:
+      - heading "What you’ll need" [level=2] [ref=e116]
+      - generic [ref=e117]:
+        - generic [ref=e118]:
+          - img "Pura 4 Square Transparent" [ref=e120]
+          - heading "Select diffuser" [level=4] [ref=e121]
+          - paragraph [ref=e122]: From a cozy nook to your morning commute, we've got a diffuser for it.
+        - generic [ref=e123]:
+          - img "Fragrance vials" [ref=e125]
+          - heading "Choose fragrances" [level=4] [ref=e126]
+          - paragraph [ref=e127]: Find your favorites with over 300 premium scents in the Marketplace.
+        - generic [ref=e128]:
+          - img "Pura mobile app" [ref=e130]
+          - heading "Download the app" [level=4] [ref=e131]
+          - paragraph [ref=e132]: Customize intensity, switch between fragrances, and set schedules and timers.
+        - img [ref=e134]
+        - img [ref=e137]
+      - link "Get started" [ref=e140] [cursor=pointer]:
+        - /url: /pages/get-started
+    - generic [ref=e144]:
+      - generic [ref=e146]:
+        - generic [ref=e147]:
+          - heading "Diffusers that fit every room" [level=2] [ref=e148]
+          - paragraph [ref=e149]: Thoughtfully designed smart diffusers that deliver just the right fragrance to any space.
+        - link "Get started" [ref=e151] [cursor=pointer]:
+          - /url: /pages/get-started
+      - generic [ref=e152]:
+        - generic [ref=e153]:
+          - button "View Home" [ref=e154] [cursor=pointer]:
+            - img "Pura home diffuser" [ref=e156]
+            - generic [ref=e157]:
+              - generic [ref=e158]: Medium rooms
+              - generic [ref=e159]: Home
+          - button "View Home Mini" [ref=e160] [cursor=pointer]:
+            - img "mini device" [ref=e162]
+            - generic [ref=e163]:
+              - generic [ref=e164]: Small rooms
+              - generic [ref=e165]: Home Mini
+          - button "View Home Plus" [ref=e166] [cursor=pointer]:
+            - img "plus device" [ref=e168]
+            - generic [ref=e169]:
+              - generic [ref=e170]: Large rooms
+              - generic [ref=e171]: Home Plus
+        - link "Compare all diffusers" [ref=e173] [cursor=pointer]:
+          - /url: /pages/diffusers
+      - generic [ref=e174]:
+        - generic:
+          - button "View Car" [ref=e175] [cursor=pointer]:
+            - img "pura car device" [ref=e177]
+            - generic [ref=e178]:
+              - generic [ref=e179]: Vehicles
+              - generic [ref=e180]: Car
+          - img "car device"
+    - generic [ref=e185]:
+      - heading "Why millions love Pura" [level=2] [ref=e187]
+      - generic [ref=e188]:
+        - generic [ref=e191]:
+          - paragraph [ref=e192]: Non-toxic fragrances
+          - paragraph [ref=e193]: Clean, premium ingredients crafted to be safe for the whole family—including pets.
+        - generic [ref=e196]:
+          - paragraph [ref=e197]: Smart scent control
+          - paragraph [ref=e198]: Schedule and automate your scent experience without wasting fragrance.
+        - generic [ref=e201]:
+          - paragraph [ref=e202]: Scent selection
+          - paragraph [ref=e203]: Discover your perfect scent for any mood or style with 300+ fragrances from iconic brands.
+    - generic [ref=e207]:
+      - img [ref=e208]
+      - generic [ref=e209]:
+        - heading "Scents from brands you love" [level=2] [ref=e211]
+        - generic [ref=e212]:
+          - link "thymes" [ref=e214] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Thymes
+            - img [ref=e215]
+          - link "disney" [ref=e224] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Disney
+            - img [ref=e225]
+          - link "capri-blue" [ref=e228] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Capri+Blue
+            - img [ref=e229]
+          - link "anthropologie" [ref=e232] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Anthropologie
+            - img [ref=e233]
+          - link "brooklyn-candle" [ref=e248] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Brooklyn+Candle+Studio
+            - img [ref=e249]
+          - link "nest" [ref=e271] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=NEST+New+York
+            - img [ref=e272]
+          - link "studio-mcgee" [ref=e285] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Studio+McGee
+            - img [ref=e286]
+          - link "moodcast" [ref=e300] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Moodcast
+            - img [ref=e301]
+          - link "lafco" [ref=e324] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=LAFCO
+            - img [ref=e325]
+          - generic [ref=e328]:
+            - link "Glasshouse Fragrances logo":
+              - /url: /collections/fragrances?brand=Glasshouse+Fragrances
+              - img "Glasshouse Fragrances logo"
+          - link "voluspa" [ref=e330] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Otherland
+            - img [ref=e331]
+          - link "paddywax" [ref=e336] [cursor=pointer]:
+            - /url: /collections/fragrances?brand=Tommy+Bahama
+            - img [ref=e337]
+        - link "Browse all brand partners" [ref=e342] [cursor=pointer]:
+          - /url: /pages/brands
+  - region "Newsletter signup" [ref=e344]:
+    - generic [ref=e346]:
+      - generic [ref=e347]:
+        - heading "Get 10% off your order" [level=2] [ref=e348]
+        - paragraph [ref=e349]: Sign up to receive updates, access to exclusive deals, and more.
+      - generic [ref=e351]:
+        - generic [ref=e352]:
+          - textbox "Email address" [ref=e353]:
+            - /placeholder: Enter email
+          - button "Sign up" [disabled]
+        - generic [ref=e354] [cursor=pointer]:
+          - checkbox "I agree to terms and conditions" [ref=e355]
+          - generic [ref=e357]:
+            - text: I agree to
+            - link "Terms and conditions" [ref=e358]:
+              - /url: /pages/terms-of-service
+  - contentinfo "Site footer" [ref=e360]:
+    - generic [ref=e363]:
+      - generic [ref=e364]:
+        - link "Home" [ref=e365] [cursor=pointer]:
+          - /url: /
+          - img "Pura" [ref=e366]
+        - generic [ref=e374]:
+          - paragraph [ref=e375]: About
+          - generic [ref=e376]:
+            - link "Social Impact" [ref=e377] [cursor=pointer]:
+              - /url: /pages/social-impact
+            - link "Careers" [ref=e378] [cursor=pointer]:
+              - /url: /pages/careers
+            - link "Blog" [ref=e379] [cursor=pointer]:
+              - /url: /blogs/pura
+            - link "Newsroom" [ref=e380] [cursor=pointer]:
+              - /url: /blogs/newsroom
+        - generic [ref=e381]:
+          - paragraph [ref=e382]: Learn
+          - generic [ref=e383]:
+            - link "Subscribe" [ref=e384] [cursor=pointer]:
+              - /url: /pages/subscriptions
+            - link "Fragrance 101" [ref=e385] [cursor=pointer]:
+              - /url: /pages/fragrance-101
+            - link "Pura Promise" [ref=e386] [cursor=pointer]:
+              - /url: /pages/the-pura-promise
+            - link "Puralast™" [ref=e387] [cursor=pointer]:
+              - /url: /pages/puralast
+            - link "Open Air Tech™" [ref=e388] [cursor=pointer]:
+              - /url: /pages/open-air-tech
+            - link "Rewards" [ref=e389] [cursor=pointer]:
+              - /url: /pages/rewards
+            - link "Refer a Friend" [ref=e390] [cursor=pointer]:
+              - /url: /pages/refer
+            - link "Wholesale" [ref=e391] [cursor=pointer]:
+              - /url: /pages/wholesale-1
+        - generic [ref=e392]:
+          - paragraph [ref=e393]: Help
+          - generic [ref=e394]:
+            - link "Find my order" [ref=e395] [cursor=pointer]:
+              - /url: /pages/order-lookup
+            - link "FAQ" [ref=e396] [cursor=pointer]:
+              - /url: /pages/faq
+            - link "Returns & Exchanges" [ref=e397] [cursor=pointer]:
+              - /url: https://returns.trypura.com
+            - link "Support" [ref=e398] [cursor=pointer]:
+              - /url: https://help.pura.com/
+            - link "Recycle" [ref=e399] [cursor=pointer]:
+              - /url: /pages/pura-recycling
+            - link "eGift Card" [ref=e400] [cursor=pointer]:
+              - /url: /products/gift-card
+            - link "Store Locator" [ref=e401] [cursor=pointer]:
+              - /url: /pages/store-locator
+        - generic [ref=e402]:
+          - paragraph [ref=e403]: Join us
+          - generic [ref=e404]:
+            - link "instagram" [ref=e405] [cursor=pointer]:
+              - /url: https://instagram.com/pura
+              - img [ref=e406]
+            - link "twitter" [ref=e410] [cursor=pointer]:
+              - /url: https://twitter.com/pura
+              - img [ref=e411]
+            - link "facebook" [ref=e413] [cursor=pointer]:
+              - /url: https://facebook.com/pura
+              - img [ref=e414]
+          - generic [ref=e416]:
+            - link "Download on the App Store" [ref=e417] [cursor=pointer]:
+              - /url: https://apps.apple.com/us/app/pura-smart-fragrance-dispenser/id1215372874
+              - img "Download on the App Store" [ref=e418]
+            - link "Get it on Google Play" [ref=e451] [cursor=pointer]:
+              - /url: https://play.google.com/store/apps/details?id=com.purascents.android&hl=en&gl=US
+              - img "Get it on Google Play" [ref=e452]
+      - generic [ref=e461]:
+        - paragraph [ref=e462]: © 2025 Pura Scents, Inc.
+        - generic [ref=e463]:
+          - link "Rewards Terms of Use" [ref=e464] [cursor=pointer]:
+            - /url: /pages/rewards-terms-of-use
+          - link "Tech Specs" [ref=e465] [cursor=pointer]:
+            - /url: /pages/tech-specs
+          - link "Terms of Service" [ref=e466] [cursor=pointer]:
+            - /url: /pages/terms-of-service
+          - link "Privacy Policy" [ref=e467] [cursor=pointer]:
+            - /url: /pages/privacy-policy
+          - link "Returns & Exchange Policy" [ref=e468] [cursor=pointer]:
+            - /url: /pages/returns-and-exchanges
+          - link "Shipping & Delivery" [ref=e469] [cursor=pointer]:
+            - /url: /pages/shipping
+          - link "Your California Privacy Rights" [ref=e470] [cursor=pointer]:
+            - /url: /pages/california-privacy-rights
+          - link "Discounted Diffuser Promo Policy" [ref=e471] [cursor=pointer]:
+            - /url: /pages/discounted-diffuser-terms-and-conditions
+          - link "Do Not Sell My Info" [ref=e472] [cursor=pointer]:
+            - /url: /pages/do-not-sell-my-info
+          - link "Pura 4 Cover Recall" [ref=e473] [cursor=pointer]:
+            - /url: /pages/productrecall
