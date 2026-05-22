@@ -1762,6 +1762,62 @@
   .ec-sub, .ec-success-sub { font-size: 13px; }
 }
 
+/* ══════════════════════════════════════════════════════════
+   USP BLOK
+══════════════════════════════════════════════════════════ */
+.usp-blok {
+  background: #f8f7f5;
+  padding: 100px 24px;
+}
+.usp-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.usp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+.usp-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.usp-icon {
+  width: 40px;
+  height: 40px;
+  color: #c23435;
+  flex-shrink: 0;
+}
+.usp-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.usp-titel {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.usp-tekst {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: #475569;
+  line-height: 1.7;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .usp-blok { padding: 64px 16px; }
+  .usp-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1859,6 +1915,49 @@
   <div class="hero__scroll" aria-hidden="true">
     <div class="hero__scroll-dot"></div>
     <div class="hero__scroll-track"></div>
+  </div>
+</section>
+
+
+<!-- ══ USP ════════════════════════════════════════════════ -->
+<section class="usp-blok" id="usp" aria-label="Waarom Hotel Asteria">
+  <div class="usp-inner">
+    <div class="usp-grid">
+
+      <div class="usp-item">
+        <div class="usp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+        </div>
+        <h3 class="usp-titel">Aan de rand van Venray</h3>
+        <p class="usp-tekst">Direct aan de A73, midden in Noord-Limburg. Op fietsafstand van de Maasduinen en de Limburgse Peel — gratis parkeren bij het hotel.</p>
+      </div>
+
+      <div class="usp-item">
+        <div class="usp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 18c0-2.5 2-4 4-4s3 1.5 5 1.5S15 14 17 14s4 1.5 4 4"/>
+            <path d="M12 2C9 2 7 4 7 7c0 2 1 3.5 2.5 4.5"/>
+            <path d="M12 2c3 0 5 2 5 5 0 2-1 3.5-2.5 4.5"/>
+          </svg>
+        </div>
+        <h3 class="usp-titel">Wellness op de Top Floor</h3>
+        <p class="usp-tekst">300 m² wellness met vier sauna's, stoomcabine, kruidenbad en relaxruimte. Ook beschikbaar voor dagbezoek.</p>
+      </div>
+
+      <div class="usp-item">
+        <div class="usp-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <h3 class="usp-titel">4,2 op Google</h3>
+        <p class="usp-tekst">2.219 gasten beoordeelden ons hotel. Sfeervolle brasserie, uitgebreid ontbijt en vriendelijk personeel — dat horen we steeds terug.</p>
+      </div>
+
+    </div>
   </div>
 </section>
 
