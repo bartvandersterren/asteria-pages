@@ -826,11 +826,41 @@
     line-height: 1.5;
   }
   .room-row__deltas .plus { color: #c23435; font-weight: 600; }
-  .room-row__chevron {
-    color: #cbd5e1;
-    font-size: 20px;
-    margin-left: 16px;
+  .room-row__meer {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #64748b;
+    white-space: nowrap;
     flex-shrink: 0;
+    margin-left: 16px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .room-row:hover .room-row__meer {
+    border-color: #94a3b8;
+    color: #334155;
+  }
+  .rooms__base-meer {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 11px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: #64748b;
+    margin-top: 10px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .rooms__base:hover .rooms__base-meer {
+    border-color: #94a3b8;
+    color: #334155;
   }
 
   /* ── Popup ── */
@@ -2393,25 +2423,21 @@
 .arr-card__more {
   display: block;
   width: 100%;
-  padding: 0;
+  padding: 9px 13px;
   margin-top: 6px;
   background: none;
-  border: none;
-  color: #94a3b8;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  color: #64748b;
   font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 400;
+  font-size: 11px;
+  font-weight: 500;
   cursor: pointer;
-  text-align: left;
-  transition: color 0.2s;
+  text-align: center;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s, color 0.2s;
 }
-.arr-card__more:hover { color: #475569; }
-.arr-card__hint {
-  font-size: 10px;
-  color: #b0bec5;
-  margin-bottom: 14px;
-  line-height: 1.4;
-}
+.arr-card__more:hover { border-color: #94a3b8; color: #334155; }
 
 /* Popup */
 .arr-popup-overlay {
@@ -2563,6 +2589,12 @@
   .arr-card:nth-child(1) { order: 3; } /* Weekend → laatste */
   .arr-card:nth-child(2) { order: 1; } /* Wellness → eerste */
   .arr-card:nth-child(3) { order: 2; } /* Asperge → tweede */
+
+  /* Foto-uitlijning op mobile */
+  .arr-card--featured .arr-card__photo img,
+  .arr-card--asperge .arr-card__photo img {
+    object-position: center top;
+  }
 
   .arr-popup__photo { height: 180px; }
 }
@@ -2803,6 +2835,7 @@
         <span class="rooms__base-badge">Standaard inbegrepen</span>
         <span class="rooms__base-name">Comfort Kamer</span>
         <p class="rooms__base-feats">~22 m² · tweepersoons bed · douche · zithoek · airco · WiFi</p>
+        <span class="rooms__base-meer" aria-hidden="true">Meer info →</span>
       </div>
     </div>
 
@@ -2817,7 +2850,7 @@
             <div class="room-row__name">Royale Kamer</div>
             <div class="room-row__deltas"><span class="plus">+</span> meer ruimte <span class="plus">+</span> ligbad</div>
           </div>
-          <span class="room-row__chevron">›</span>
+          <span class="room-row__meer" aria-hidden="true">Meer info →</span>
         </div>
       </div>
 
@@ -2829,7 +2862,7 @@
             <div class="room-row__name">Deluxe Kamer</div>
             <div class="room-row__deltas"><span class="plus">+</span> meer ruimte <span class="plus">+</span> privé infraroodsauna</div>
           </div>
-          <span class="room-row__chevron">›</span>
+          <span class="room-row__meer" aria-hidden="true">Meer info →</span>
         </div>
       </div>
 
@@ -2841,7 +2874,7 @@
             <div class="room-row__name">Junior Suite</div>
             <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> ruime zithoek <span class="plus">+</span> ligbad <span class="plus">+</span> koelkast</div>
           </div>
-          <span class="room-row__chevron">›</span>
+          <span class="room-row__meer" aria-hidden="true">Meer info →</span>
         </div>
       </div>
 
@@ -2853,7 +2886,7 @@
             <div class="room-row__name">Suite</div>
             <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> privé infraroodsauna <span class="plus">+</span> ruime zithoek <span class="plus">+</span> koelkast</div>
           </div>
-          <span class="room-row__chevron">›</span>
+          <span class="room-row__meer" aria-hidden="true">Meer info →</span>
         </div>
       </div>
 
@@ -2865,7 +2898,7 @@
             <div class="room-row__name">Bruidssuite</div>
             <div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> vrijstaand bad <span class="plus">+</span> inloopdouche <span class="plus">+</span> koelkast</div>
           </div>
-          <span class="room-row__chevron">›</span>
+          <span class="room-row__meer" aria-hidden="true">Meer info →</span>
         </div>
       </div>
 
@@ -2902,9 +2935,8 @@
           <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">2 overnachtingen in Comfort Kamer</span></div>
           <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">1× heerlijk 3-gangendiner</span></div>
           <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Late checkout tot 14:00</span></div>
-          <p class="arr-card__hint">Klik op 'Meer informatie' voor het volledige overzicht</p>
           <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND" target="_blank" rel="noopener">Boek direct</a>
-          <button class="arr-card__more" data-arr="weekend">Meer informatie</button>
+          <button class="arr-card__more" data-arr="weekend">Meer informatie →</button>
         </div>
       </div>
 
@@ -2930,14 +2962,13 @@
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Welkomstflesje Botega op de kamer</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Badjas &amp; slippers</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Toegang 300 m² wellness · Top Floor</span></div>
-          <p class="arr-card__hint">Klik op 'Meer informatie' voor het volledige overzicht</p>
           <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELLNESS" target="_blank" rel="noopener">Boek direct</a>
-          <button class="arr-card__more" data-arr="wellness">Meer informatie</button>
+          <button class="arr-card__more" data-arr="wellness">Meer informatie →</button>
         </div>
       </div>
 
       <!-- Asperge (kolom 3 op desktop) -->
-      <div class="arr-card">
+      <div class="arr-card arr-card--asperge">
         <div class="arr-card__photo">
           <img src="fotos/restaurant-sfeer.webp" alt="Asperge arrangement Hotel Asteria — Limburgse asperges" loading="lazy">
           <div class="arr-card__photo-overlay"></div>
@@ -2958,9 +2989,8 @@
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">3-gangen aspergemenü van de chef</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Gratis entree Museum De Locht</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">1 kg Limburgse asperges + recept mee naar huis</span></div>
-          <p class="arr-card__hint">Klik op 'Meer informatie' voor het volledige overzicht</p>
           <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ASPERGE" target="_blank" rel="noopener">Boek direct</a>
-          <button class="arr-card__more" data-arr="asperge">Meer informatie</button>
+          <button class="arr-card__more" data-arr="asperge">Meer informatie →</button>
         </div>
       </div>
 
