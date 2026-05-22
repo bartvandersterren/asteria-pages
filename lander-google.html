@@ -29,6 +29,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
 
+  <!-- A/B: USP variant toewijzing — zo vroeg mogelijk in <head> -->
+  <script>
+    (function() {
+      var param = new URLSearchParams(location.search).get('usp');
+      var valid = ['mosaic', 'stack'];
+      var variant;
+      if (param && valid.indexOf(param) !== -1) {
+        variant = param;
+        sessionStorage.setItem('usp_variant', variant);
+      } else {
+        variant = sessionStorage.getItem('usp_variant')
+          || (Math.random() < 0.5 ? 'mosaic' : 'stack');
+        sessionStorage.setItem('usp_variant', variant);
+      }
+      document.documentElement.dataset.uspVariant = variant;
+    })();
+  </script>
+
   <!-- Revinate Contact API -->
   <script type="text/javascript" src="//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1" defer></script>
 
