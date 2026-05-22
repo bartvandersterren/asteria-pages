@@ -37,7 +37,7 @@ Directe fork van `wellness-arr-c.html`. Geen template/build.py systeem.
 - Wellness-specifieke hero-copy en hero-foto (placeholder — wordt sessie 2)
 - Voucher code (WELLNESSARRA / WELLNESS124) uit booking popup
 - A/B price test logica (track() IIFE mag blijven, A/B split eruit)
-- Alle verwijzingen naar "wellness arrangement" in trust badges, CTAs, email capture
+- Alle verwijzingen naar "wellness arrangement" in trust badges en CTAs
 
 Na sessie 1 is de pagina kaal maar functioneel: hero + kamertypes + booking popup + email capture + footer.
 
@@ -79,7 +79,7 @@ Het bestaande kamertypes-blok is al grotendeels generiek. Aanpassingen:
 - "Boek uw verblijf" als standaard CTA-tekst
 
 ### Sessie 7 — Email capture + footer aanpassen
-- Email capture: headline en incentive aanpassen (geen wellness-belofte)
+- Email capture: offer blijft wellness-gefocust (intentioneel — werkt ook als upsell op algemene bezoekers)
 - Footer: controleer op wellness-verwijzingen, schoonmaken
 
 ### Sessie 8 — Polish
