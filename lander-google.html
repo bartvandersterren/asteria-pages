@@ -4334,6 +4334,8 @@
     function openPopup(key) {
       var d = ARR_DATA[key];
       if (!d) return;
+      var bbEl = key === 'logiebb' ? document.getElementById('bbPrice') : null;
+      var displayPrice = (bbEl && bbEl.textContent) ? bbEl.textContent : d.price;
       var badgeHtml = d.badge ? '<span class="arr-card__badge">' + d.badge + '</span>' : '';
       var featHtml = d.features.map(function(f) {
         return '<div class="arr-popup__feature"><span class="arr-popup__check">✓</span><span>' + f + '</span></div>';
@@ -4348,11 +4350,11 @@
         '<div class="arr-popup__body">' +
           '<p class="arr-card__eyebrow" style="margin-bottom:4px">' + d.eyebrow + '</p>' +
           '<h3 class="arr-popup__title">' + d.title + '</h3>' +
-          '<p class="arr-popup__price">' + d.price + ' <span style="font-weight:300;color:#94a3b8">— ' + d.priceNote + '</span></p>' +
+          '<p class="arr-popup__price">' + displayPrice + ' <span style="font-weight:300;color:#94a3b8">— ' + d.priceNote + '</span></p>' +
           '<p class="arr-popup__includes-label">Alles inbegrepen</p>' +
           featHtml +
           '<div class="arr-popup__note">' + d.note + '</div>' +
-          '<a class="arr-popup__cta" href="' + d.url + '" target="_blank" rel="noopener">Boek direct — ' + d.price + ' p.p.</a>' +
+          '<a class="arr-popup__cta" href="' + d.url + '" target="_blank" rel="noopener">Boek direct — ' + displayPrice + ' p.p.</a>' +
         '</div>';
 
       overlay.classList.add('is-open');
