@@ -2210,10 +2210,11 @@
   line-height: 1.6;
 }
 .arr__grid {
-  display: grid;
-  grid-template-columns: 1fr 1.12fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  align-items: stretch;
+  max-width: 800px;
+  margin: 0 auto;
 }
 .arr-card {
   background: #fff;
@@ -2222,7 +2223,7 @@
   box-shadow: 0 2px 16px rgba(0,0,0,0.06);
   transition: box-shadow 0.25s, transform 0.25s;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 .arr-card:hover {
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
@@ -2236,7 +2237,8 @@
   transform: translateY(-6px);
 }
 .arr-card__photo {
-  height: 220px;
+  width: 220px;
+  flex-shrink: 0;
   position: relative;
   overflow: hidden;
 }
@@ -2270,6 +2272,7 @@
   padding: 4px 12px;
   border-radius: 20px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .arr-card__season {
   background: rgba(255,255,255,0.18);
@@ -2290,26 +2293,17 @@
   flex: 1;
 }
 .arr-card__eyebrow {
-  font-family: 'Electrolize', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #94a3b8;
-  margin-bottom: 4px;
+  display: none;
 }
 .arr-card__title {
   font-family: 'Electrolize', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 .arr-card__tagline {
-  font-size: 12px;
-  color: #64748b;
-  font-weight: 300;
-  margin-bottom: 16px;
-  line-height: 1.5;
+  display: none;
 }
 .arr-card__price-row {
   display: flex;
@@ -2391,19 +2385,25 @@
 .arr-card__more {
   display: block;
   width: 100%;
-  padding: 9px;
-  margin-top: 8px;
-  background: transparent;
+  padding: 0;
+  margin-top: 6px;
+  background: none;
+  border: none;
   color: #94a3b8;
-  border: 1px solid #e2e0dc;
-  border-radius: 10px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 400;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  text-align: left;
+  transition: color 0.2s;
 }
-.arr-card__more:hover { border-color: #94a3b8; color: #475569; }
+.arr-card__more:hover { color: #475569; }
+.arr-card__hint {
+  font-size: 10px;
+  color: #b0bec5;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
 
 /* Popup */
 .arr-popup-overlay {
@@ -2531,11 +2531,22 @@
 .arr-popup__cta:hover { background: #a82d2e; }
 
 @media (max-width: 768px) {
-  .arr { padding: 64px 16px; }
-  .arr__grid { grid-template-columns: 1fr; gap: 14px; }
-  .arr-card__photo { height: 170px; }
-  .arr-card__title { font-size: 17px; }
+  .arr { padding: 56px 16px; }
+  .arr__grid { gap: 12px; }
+  .arr-card { border-radius: 16px; }
+  .arr-card__photo { width: 110px; min-height: 150px; border-radius: 16px 0 0 16px; }
+  .arr-card__body { padding: 12px 14px 12px 14px; }
+  .arr-card__title { font-size: 15px; margin-bottom: 2px; }
+  .arr-card__price { font-size: 20px; }
+  .arr-card__price-row { margin-bottom: 8px; }
+  .arr-card__divider { margin-bottom: 8px; }
+  .arr-card__includes-label { margin-bottom: 6px; }
+  .arr-card__feat-text { font-size: 11px; }
+  .arr-card__feature { margin-bottom: 6px; }
+  .arr-card__cta { padding: 9px; font-size: 12px; margin-top: 8px; }
   .arr-popup__photo { height: 180px; }
+  .arr-card__badge { font-size: 7px; padding: 3px 7px; letter-spacing: 1px; }
+  .arr-card__season { font-size: 7px; padding: 3px 7px; }
 }
 
   </style>
@@ -2853,34 +2864,7 @@
 
     <div class="arr__grid">
 
-      <!-- Weekend -->
-      <div class="arr-card">
-        <div class="arr-card__photo">
-          <img src="fotos/restaurant-diner.webp" alt="Weekend arrangement Hotel Asteria — diner" loading="lazy">
-          <div class="arr-card__photo-overlay"></div>
-          <div class="arr-card__photo-bottom"></div>
-        </div>
-        <div class="arr-card__body">
-          <p class="arr-card__eyebrow">Weekendje weg</p>
-          <h3 class="arr-card__title">Weekend</h3>
-          <p class="arr-card__tagline">Twee nachten ontspannen — goed eten, goed slapen</p>
-          <div class="arr-card__price-row">
-            <span class="arr-card__price">€ 166,–</span>
-            <span class="arr-card__price-unit">p.p. · 2 nachten</span>
-          </div>
-          <div class="arr-card__divider"></div>
-          <p class="arr-card__includes-label">Inbegrepen</p>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Welkomstglas huiswijn of speciaal bier</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">2 overnachtingen in Comfort Kamer</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">2× uitgebreid ontbijtbuffet</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">1× heerlijk 3-gangendiner</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Late checkout tot 14:00</span></div>
-          <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND" target="_blank" rel="noopener">Boek direct</a>
-          <button class="arr-card__more" data-arr="weekend">Meer informatie</button>
-        </div>
-      </div>
-
-      <!-- Wellness — FEATURED -->
+      <!-- Wellness — FEATURED (eerst) -->
       <div class="arr-card arr-card--featured">
         <div class="arr-card__photo">
           <img src="fotos/wellness-spa.webp" alt="Wellnessarrangement Hotel Asteria — spa Top Floor" loading="lazy">
@@ -2890,21 +2874,17 @@
           </div>
         </div>
         <div class="arr-card__body">
-          <p class="arr-card__eyebrow">Compleet verwend</p>
           <h3 class="arr-card__title">Wellness</h3>
-          <p class="arr-card__tagline">Spa, diner &amp; verwennerij — alles inbegrepen voor één avond</p>
           <div class="arr-card__price-row">
             <span class="arr-card__price">€ 139,50</span>
             <span class="arr-card__price-unit">p.p. · 1 nacht</span>
           </div>
           <div class="arr-card__divider"></div>
-          <p class="arr-card__includes-label">Inbegrepen</p>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Overnachting in Comfort Kamer</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Uitgebreid ontbijtbuffet</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">3-gangendiner</span></div>
+          <p class="arr-card__includes-label">Highlights</p>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Welkomstflesje Botega op de kamer</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Badjas &amp; slippers</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Toegang 300 m² wellness · Top Floor</span></div>
+          <p class="arr-card__hint">Klik op 'Meer informatie' voor het volledige overzicht</p>
           <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELLNESS" target="_blank" rel="noopener">Boek direct</a>
           <button class="arr-card__more" data-arr="wellness">Meer informatie</button>
         </div>
@@ -2920,23 +2900,43 @@
           </div>
         </div>
         <div class="arr-card__body">
-          <p class="arr-card__eyebrow">Limburgse smaak</p>
           <h3 class="arr-card__title">Asperge</h3>
-          <p class="arr-card__tagline">Seizoensarrangement — lokale beleving op het bord</p>
           <div class="arr-card__price-row">
             <span class="arr-card__price">€ 138,–</span>
             <span class="arr-card__price-unit">p.p. · 1 nacht</span>
           </div>
           <div class="arr-card__divider"></div>
-          <p class="arr-card__includes-label">Inbegrepen</p>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Overnachting in Comfort Kamer</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Welkomstglas huiswijn of speciaal bier</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Uitgebreid ontbijtbuffet</span></div>
+          <p class="arr-card__includes-label">Highlights</p>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">3-gangen aspergemenü van de chef</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Gratis entree Museum De Locht</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">1 kg Limburgse asperges + recept mee naar huis</span></div>
+          <p class="arr-card__hint">Klik op 'Meer informatie' voor het volledige overzicht</p>
           <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ASPERGE" target="_blank" rel="noopener">Boek direct</a>
           <button class="arr-card__more" data-arr="asperge">Meer informatie</button>
+        </div>
+      </div>
+
+      <!-- Weekend -->
+      <div class="arr-card">
+        <div class="arr-card__photo">
+          <img src="fotos/restaurant-diner.webp" alt="Weekend arrangement Hotel Asteria — diner" loading="lazy">
+          <div class="arr-card__photo-overlay"></div>
+          <div class="arr-card__photo-bottom"></div>
+        </div>
+        <div class="arr-card__body">
+          <h3 class="arr-card__title">Weekend</h3>
+          <div class="arr-card__price-row">
+            <span class="arr-card__price">€ 166,–</span>
+            <span class="arr-card__price-unit">p.p. · 2 nachten</span>
+          </div>
+          <div class="arr-card__divider"></div>
+          <p class="arr-card__includes-label">Highlights</p>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">2 overnachtingen in Comfort Kamer</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">1× heerlijk 3-gangendiner</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Late checkout tot 14:00</span></div>
+          <p class="arr-card__hint">Klik op 'Meer informatie' voor het volledige overzicht</p>
+          <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND" target="_blank" rel="noopener">Boek direct</a>
+          <button class="arr-card__more" data-arr="weekend">Meer informatie</button>
         </div>
       </div>
 
