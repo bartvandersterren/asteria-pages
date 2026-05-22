@@ -2940,7 +2940,7 @@
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Welkomstflesje Botega op de kamer</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Badjas &amp; slippers</span></div>
           <div class="arr-card__feature arr-card__feature--highlight"><div class="arr-card__dot arr-card__dot--highlight"></div><span class="arr-card__feat-text">Toegang 300 m² wellness · Top Floor</span></div>
-          <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELLNESS" target="_blank" rel="noopener">Boek direct</a>
+          <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=2026WELLNESS" target="_blank" rel="noopener">Boek direct</a>
           <button class="arr-card__more" data-arr="wellness">Meer informatie →</button>
         </div>
       </div>
@@ -4303,7 +4303,7 @@
           'Uitgebreid ontbijtbuffet'
         ],
         note: '+ € 2,– verblijfsbelasting p.p.p.n. &nbsp;·&nbsp; Gratis parkeren &nbsp;·&nbsp; Gratis WiFi',
-        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELLNESS'
+        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=2026WELLNESS'
       },
       asperge: {
         foto: 'fotos/restaurant-sfeer.webp',
@@ -4336,7 +4336,7 @@
       if (!d) return;
       var bbEl = key === 'logiebb' ? document.getElementById('bbPrice') : null;
       var bbRaw = bbEl ? bbEl.textContent.trim() : '';
-      var bbResolved = bbRaw && bbRaw !== 'Laden\u2026' && bbRaw !== 'Vraag prijs op';
+      var bbResolved = bbRaw && bbRaw !== 'Laden\u2026';
       var displayPrice = bbResolved ? bbRaw : d.price;
       var badgeHtml = d.badge ? '<span class="arr-card__badge">' + d.badge + '</span>' : '';
       var featHtml = d.features.map(function(f) {
@@ -4421,9 +4421,9 @@
 
   function showFallback() {
     var el = document.getElementById('bbPrice');
-    if (el) el.textContent = 'Vraag prijs op';
+    if (el) el.textContent = 'vanaf \u20AC\u00A0120,\u2013';
     var unitEl = document.getElementById('bbPriceUnit');
-    if (unitEl) unitEl.textContent = '1 nacht \u00B7 2 personen';
+    if (unitEl) unitEl.textContent = 'per kamer \u00B7 1 nacht';
   }
 
   function fetchBbPrice() {
