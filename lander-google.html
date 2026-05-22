@@ -2052,61 +2052,132 @@
 }
 
 /* ══════════════════════════════════════════════════════════
-   SFEER BLOK
+   BELEVING BLOK
 ══════════════════════════════════════════════════════════ */
-.sfeer-blok {
-  background: #fff;
-  padding: 100px 24px;
+.beleving {
+  padding: 72px 0 64px;
+  background: #f0efed;
 }
-.sfeer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
+.beleving__head {
+  padding: 0 28px;
+  margin-bottom: 36px;
 }
-.sfeer-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+.beleving__title {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 2rem;
+  line-height: 1.2;
+  color: #1a1a1a;
+  max-width: 340px;
 }
-.sfeer-item {
+.beleving__track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 0 28px 24px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  align-items: flex-start;
+}
+.beleving__track::-webkit-scrollbar { display: none; }
+.bel-item {
+  flex: 0 0 270px;
+  scroll-snap-align: start;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
-.sfeer-foto-wrap {
-  aspect-ratio: 3 / 4;
+.bel-item.flip { flex-direction: column-reverse; }
+.bel-photo {
+  position: relative;
+  border-radius: 18px;
   overflow: hidden;
-  border-radius: 12px;
+  height: 340px;
+  flex-shrink: 0;
 }
-.sfeer-foto-wrap img {
+.bel-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 400ms ease;
 }
-.sfeer-item:hover .sfeer-foto-wrap img {
-  transform: scale(1.03);
+.bel-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 52%);
+  pointer-events: none;
 }
-.sfeer-label {
-  font-family: 'Electrolize', sans-serif;
-  font-size: 0.8rem;
+.bel-photo__cat {
+  position: absolute;
+  top: 16px; left: 16px;
+  z-index: 2;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #64748b;
-  margin: 0;
+  font-weight: 700;
+  color: #fff;
 }
-@media (max-width: 768px) {
-  .sfeer-blok { padding: 64px 16px; }
-  .sfeer-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  .sfeer-foto-wrap {
-    aspect-ratio: 4 / 3;
-  }
+.bel-photo__overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px 20px 18px;
+  z-index: 2;
 }
-@media (prefers-reduced-motion: reduce) {
-  .sfeer-foto-wrap img { transition: none; }
+.bel-photo__name {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+.bel-photo__dist {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.65rem;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.bel-text {
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px 20px 22px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.bel-text p {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #555;
+  line-height: 1.65;
+}
+.beleving__hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 28px;
+  margin-top: 4px;
+}
+.beleving__hint span { font-size: 0.7rem; color: #999; }
+.beleving__dots { display: flex; gap: 6px; }
+.bel-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
+.bel-dot.active { background: #c23435; width: 18px; border-radius: 3px; }
+@media (min-width: 768px) {
+  .beleving__title { font-size: 2.4rem; }
+  .bel-item { flex: 0 0 310px; }
+  .bel-photo { height: 380px; }
 }
 
   </style>
@@ -2237,33 +2308,84 @@
 
 </section>
 
-<!-- ══ SFEER ══════════════════════════════════════════════ -->
-<section class="sfeer-blok" id="sfeer" aria-label="Hotel Asteria sfeer">
-  <div class="sfeer-inner">
-    <div class="sfeer-grid">
+<!-- ══ BELEVING ════════════════════════════════════════════ -->
+<section class="beleving" id="sfeer" aria-label="Omgeving Hotel Asteria Noord-Limburg">
+  <div class="beleving__head">
+    <h2 class="beleving__title">Ontdek de omgeving</h2>
+  </div>
 
-      <div class="sfeer-item">
-        <div class="sfeer-foto-wrap">
-          <img src="fotos/intro-lobby.webp" alt="Lobby Hotel Asteria Venray" loading="lazy">
+  <div class="beleving__track">
+
+    <!-- 1: foto boven, tekst onder -->
+    <div class="bel-item">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-maasduinen.webp" alt="Nationaal Park De Maasduinen Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Natuur</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Nationaal Park<br>De Maasduinen</div>
+          <div class="bel-photo__dist">10 min. rijden</div>
         </div>
-        <p class="sfeer-label">Hotel &amp; Verblijf</p>
       </div>
-
-      <div class="sfeer-item">
-        <div class="sfeer-foto-wrap">
-          <img src="fotos/card-wellness.webp" alt="Wellness Top Floor Hotel Asteria" loading="lazy">
-        </div>
-        <p class="sfeer-label">Wellness Top Floor</p>
+      <div class="bel-text">
+        <p>Uitgestrekte duinen, stille bossen en honderden kilometers fiets- en wandelpaden — direct achter het hotel.</p>
       </div>
-
-      <div class="sfeer-item">
-        <div class="sfeer-foto-wrap">
-          <img src="fotos/blok-natuur.webp" alt="Natuur rondom Hotel Asteria Venray" loading="lazy">
-        </div>
-        <p class="sfeer-label">Noord-Limburg</p>
-      </div>
-
     </div>
+
+    <!-- 2: tekst boven, foto onder -->
+    <div class="bel-item flip">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-kasteeltuinen.webp" alt="Kasteeltuinen Arcen Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Cultuur</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Kasteeltuinen<br>Arcen</div>
+          <div class="bel-photo__dist">20 min. rijden</div>
+        </div>
+      </div>
+      <div class="bel-text">
+        <p>Één van de mooiste tuinen van Nederland. Ideaal voor een middag vol kleur, rust en cultuur.</p>
+      </div>
+    </div>
+
+    <!-- 3: foto boven, tekst onder -->
+    <div class="bel-item">
+      <div class="bel-photo">
+        <img src="fotos/blok-natuur.webp" alt="Fietsen en wandelen in Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Actief</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Fietsen &amp;<br>wandelen</div>
+          <div class="bel-photo__dist">Start bij het hotel</div>
+        </div>
+      </div>
+      <div class="bel-text">
+        <p>Noord-Limburg heeft enkele van de mooiste fietsroutes van Nederland — door heuvels en langs de Maas.</p>
+      </div>
+    </div>
+
+    <!-- 4: tekst boven, foto onder -->
+    <div class="bel-item flip">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-hertogjan.webp" alt="Hertog Jan Brouwerij Arcen" loading="lazy">
+        <div class="bel-photo__cat">Culinair</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Hertog Jan<br>Brouwerij</div>
+          <div class="bel-photo__dist">15 min. rijden</div>
+        </div>
+      </div>
+      <div class="bel-text">
+        <p>Rondleiding bij de bekendste brouwerij van Limburg, met proeverij en een kijkje in het brouwproces.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="beleving__hint">
+    <div class="beleving__dots">
+      <div class="bel-dot active"></div>
+      <div class="bel-dot"></div>
+      <div class="bel-dot"></div>
+      <div class="bel-dot"></div>
+    </div>
+    <span>Swipe voor meer</span>
   </div>
 </section>
 
