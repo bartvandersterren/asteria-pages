@@ -3530,6 +3530,27 @@
     localStorage.setItem('asteria_lang', v);
   });
 })();
+
+  // ── USP accordion (mobile) ──────────────────────────────
+  (function() {
+    var triggers = document.querySelectorAll('.usp-item__trigger');
+    triggers.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = btn.closest('.usp-item');
+        var isOpen = item.classList.contains('is-open');
+        // sluit alle items
+        document.querySelectorAll('.usp-item').forEach(function(el) {
+          el.classList.remove('is-open');
+          el.querySelector('.usp-item__trigger').setAttribute('aria-expanded', 'false');
+        });
+        // open dit item als het gesloten was
+        if (!isOpen) {
+          item.classList.add('is-open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  })();
 </script>
 
 
