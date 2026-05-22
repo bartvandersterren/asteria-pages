@@ -2903,7 +2903,7 @@
           <p class="arr-card__tagline">Gewoon goed slapen — met een uitgebreid ontbijt de volgende ochtend</p>
           <div class="arr-card__price-row">
             <span class="arr-card__price" id="bbPrice">Laden&hellip;</span>
-            <span class="arr-card__price-unit" id="bbPriceUnit">p.p. · 1 nacht</span>
+            <span class="arr-card__price-unit" id="bbPriceUnit">per nacht</span>
           </div>
           <div class="arr-card__divider"></div>
           <p class="arr-card__includes-label">Highlights</p>
@@ -2930,7 +2930,7 @@
           <p class="arr-card__tagline">Spa, diner &amp; verwennerij — alles inbegrepen voor één avond</p>
           <div class="arr-card__price-row">
             <span class="arr-card__price">€ 139,50</span>
-            <span class="arr-card__price-unit">p.p. · 1 nacht</span>
+            <span class="arr-card__price-unit">per nacht</span>
           </div>
           <div class="arr-card__divider"></div>
           <p class="arr-card__includes-label">Highlights</p>
@@ -2957,7 +2957,7 @@
           <p class="arr-card__tagline">Seizoensarrangement — lokale beleving op het bord</p>
           <div class="arr-card__price-row">
             <span class="arr-card__price">€ 138,–</span>
-            <span class="arr-card__price-unit">p.p. · 1 nacht</span>
+            <span class="arr-card__price-unit">per nacht</span>
           </div>
           <div class="arr-card__divider"></div>
           <p class="arr-card__includes-label">Highlights</p>
@@ -4278,7 +4278,7 @@
         eyebrow: 'Lekker uitslapen',
         title: 'Logies & Ontbijt',
         price: 'Bekijk actuele prijs',
-        priceNote: 'per persoon · op basis van tweepersoonskamer · 1 nacht',
+        priceNote: 'per nacht · op basis van tweepersoonskamer',
         features: [
           'Comfort Kamer voor 2 personen',
           'Uitgebreid ontbijtbuffet inbegrepen',
@@ -4286,7 +4286,7 @@
           'Kies uw datum rechtstreeks in de booking engine'
         ],
         note: '+ € 2,– verblijfsbelasting p.p.p.n. &nbsp;·&nbsp; Gratis parkeren &nbsp;·&nbsp; Gratis WiFi',
-        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoute=rooms'
+        voucher: null
       },
       wellness: {
         foto: 'fotos/wellness-spa.webp',
@@ -4295,7 +4295,7 @@
         eyebrow: 'Compleet verwend',
         title: 'Wellnessarrangement',
         price: '€ 139,50',
-        priceNote: 'per persoon · op basis van tweepersoonskamer · 1 nacht',
+        priceNote: 'per nacht · op basis van tweepersoonskamer',
         features: [
           'Overnachting in Comfort Kamer',
           'Welkomstflesje Botega op de kamer',
@@ -4306,7 +4306,7 @@
           'Uitgebreid ontbijtbuffet'
         ],
         note: '+ € 2,– verblijfsbelasting p.p.p.n. &nbsp;·&nbsp; Gratis parkeren &nbsp;·&nbsp; Gratis WiFi',
-        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=2026WELLNESS'
+        voucher: '2026WELLNESS'
       },
       asperge: {
         foto: 'fotos/restaurant-sfeer.webp',
@@ -4315,7 +4315,7 @@
         eyebrow: 'Limburgse smaak',
         title: 'Asperge Arrangement',
         price: '€ 138,–',
-        priceNote: 'per persoon · op basis van tweepersoonskamer · 1 nacht · beschikbaar t/m 24 juni',
+        priceNote: 'per nacht · op basis van tweepersoonskamer · beschikbaar t/m 24 juni',
         features: [
           'Welkomstglas huiswijn of speciaal biertje',
           'Overnachting in Comfort Kamer',
@@ -4326,7 +4326,7 @@
           'Wandel- en fietsroutekaarten'
         ],
         note: '+ € 2,– verblijfsbelasting p.p.p.n. &nbsp;·&nbsp; Gratis parkeren &nbsp;·&nbsp; Gratis WiFi',
-        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ASPERGE'
+        voucher: 'ASPERGE'
       }
     };
 
@@ -4359,12 +4359,20 @@
           '<p class="arr-popup__includes-label">Alles inbegrepen</p>' +
           featHtml +
           '<div class="arr-popup__note">' + d.note + '</div>' +
-          '<a class="arr-popup__cta" href="' + d.url + '" target="_blank" rel="noopener">Boek direct — ' + displayPrice + ' p.p.</a>' +
+          '<button class="arr-popup__cta" data-voucher="' + (d.voucher || '') + '">Boek direct — ' + displayPrice + ' p.n.</button>' +
         '</div>';
 
       overlay.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       document.getElementById('arrPopupClose').addEventListener('click', closePopup);
+      var ctaBtn = inner.querySelector('.arr-popup__cta');
+      if (ctaBtn) {
+        ctaBtn.addEventListener('click', function() {
+          var voucher = ctaBtn.getAttribute('data-voucher') || null;
+          closePopup();
+          window.openBookingPopup(null, voucher || undefined);
+        });
+      }
     }
 
     function closePopup() {
@@ -4419,7 +4427,7 @@
     var el = document.getElementById('bbPrice');
     var unitEl = document.getElementById('bbPriceUnit');
     if (el) el.textContent = 'vanaf ' + formatEuro(price);
-    if (unitEl) unitEl.textContent = 'p.p. \u00B7 1 nacht';
+    if (unitEl) unitEl.textContent = 'per nacht';
   }
 
   function showFallback() {
