@@ -4335,7 +4335,9 @@
       var d = ARR_DATA[key];
       if (!d) return;
       var bbEl = key === 'logiebb' ? document.getElementById('bbPrice') : null;
-      var displayPrice = (bbEl && bbEl.textContent) ? bbEl.textContent : d.price;
+      var bbRaw = bbEl ? bbEl.textContent.trim() : '';
+      var bbResolved = bbRaw && bbRaw !== 'Laden\u2026' && bbRaw !== 'Vraag prijs op';
+      var displayPrice = bbResolved ? bbRaw : d.price;
       var badgeHtml = d.badge ? '<span class="arr-card__badge">' + d.badge + '</span>' : '';
       var featHtml = d.features.map(function(f) {
         return '<div class="arr-popup__feature"><span class="arr-popup__check">✓</span><span>' + f + '</span></div>';
