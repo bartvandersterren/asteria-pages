@@ -2,30 +2,41 @@
 
 ## Wat gedaan
 
-Plan `docs/superpowers/plans/2026-05-22-lander-google.md` volledig uitgevoerd via subagent-driven-development.
+### USP blok — lander-google.html (volledig afgerond)
 
-Tasks 2-8 allemaal afgerond en live op `visit.asteria.nl/lander-google`:
+Redesign van het USP-blok op basis van inspo (split-layout, Hears.com stijl).
 
-- **Task 2:** Hero generiek — foto `hero-buitenkant.webp`, copy "Hotel Asteria Venray", trust badges, sticky card generiek
-- **Task 3:** USP-blok toegevoegd (locatie / wellness / reviews) na hero, voor reviews
-- **Task 4:** Sfeerblok toegevoegd (intro-lobby, card-wellness, blok-natuur) tussen reviews en kamertypes
-- **Task 5:** Kamertypes copy generiek — em dashes, arrangement-framing, popup CTA "Boek deze kamer"
-- **Task 6:** Booking popup comments opgeschoond (was al grotendeels generiek)
-- **Task 7:** Email capture + footer geverifieerd — alles correct, geen wijzigingen nodig
-- **Task 8:** Polish — copy-review (em dashes, superlatieven), meta tags bijgewerkt, screenshots OK
+**Desktop:**
+- Split-layout: linker kolom = heading "WAAROM HOTEL ASTERIA?" + grote foto (aspect-ratio 4/5, border-radius 16px)
+- Rechter kolom: 3 gestapelde items met `border-left: 3px solid #c23435`
+- Hover op item → foto in linker kolom wisselt (fade-out/in 200ms) + `is-active` class
+- Niet-actieve items: titel grijs (#94a3b8), actief item: titel zwart
+
+**Mobile:**
+- Elk item = 100svh hoog
+- .usp-items-col = scroll-container met scroll-snap-type: y mandatory
+- Per item: foto (58svh) bovenaan, titel + tekst eronder met border-left accent
+- Heading-kolom verborgen op mobile
+
+**Items:**
+1. Locatie & bereik → fotos/hero-buitenkant.webp
+2. Wellness op de Top Floor → fotos/arr-c-wellness.webp
+3. Uitgebreid ontbijtbuffet → fotos/restaurant-ontbijt.webp
+
+**Positie in pagina:** na kamertypes, voor footer
 
 ## Wat open staat
 
-Niets — plan volledig afgerond. Pagina is live.
+### Inspo 1 — Sfeerblok redesign (volgende sessie)
+Inspo: slider met afwisselend "tekst boven / foto onder" en "foto boven / tekst onder".
+Inspo bestand: /Users/bartvandersterren/Downloads/inspo.rtfd/
+- Screenshot 12.30.49.png → referentie
+- TXT.rtf beschrijving: "Slider met afwisselend boven tekst onder foto en daarna boven foto onder tekst"
+Huidig sfeerblok: section.sfeer-blok in lander-google.html
 
-## Pre-existing issues (niet onze schuld)
+## Technische notities
 
-- `api/google-reviews` geeft 500 — Google Places API key niet geconfigureerd in Cloudflare dashboard
-- `calendar-icon.svg` 404 op asteria.nl — van asteria.nl's eigen server
-
-## Volgende sessie
-
-Geen directe vervolgstappen voor lander-google. Mogelijke volgende taken:
-- A/B testen opzetten voor de lander
-- Google Ads koppelen aan de URL
-- Conversion tracking verbeteren
+- lander-google.html ~regel 1765: USP CSS
+- lander-google.html ~regel 2301: USP HTML  
+- JS image-switcher: zoek op 'uspMainImg' in script-blok
+- Alles live op visit.asteria.nl/lander-google
