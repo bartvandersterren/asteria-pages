@@ -622,6 +622,19 @@
 
     .sticky-card__btn:hover { background: #a82c2c; }
     .sticky-card__btn:focus { outline: 2px solid #c23435; outline-offset: 2px; }
+  .sticky-card__cta-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .sticky-card__trust {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.55);
+    white-space: nowrap;
+  }
 
     /* ── Reduced motion ── */
     @media (prefers-reduced-motion: reduce) {
@@ -2148,11 +2161,14 @@
 
 <div class="sticky-card" id="stickyCard" role="complementary" aria-label="Snel boeken">
   <span class="sticky-card__name">Hotel Asteria Venray</span>
-  <button
-    class="sticky-card__btn"
-    onclick="window.openBookingPopup()"
-    data-track-cta="sticky_card"
-  >Boek uw verblijf &rarr;</button>
+  <div class="sticky-card__cta-wrap">
+    <button
+      class="sticky-card__btn"
+      onclick="window.openBookingPopup()"
+      data-track-cta="sticky-card"
+    >Boek uw verblijf &rarr;</button>
+    <span class="sticky-card__trust">&#10003; Laagste prijs &nbsp;&middot;&nbsp; &#10003; Gratis annuleren</span>
+  </div>
 </div>
 
 <!-- ══ HERO ══════════════════════════════════════════════════ -->
@@ -2174,7 +2190,8 @@
     <div class="hero__trust">
       <span>&#9733; 4,2/5 op Google (2.219 reviews)</span>
       <span>&#10003; Gratis parkeren</span>
-      <span>&#10003; Wellness op de Top Floor</span>
+      <span>&#10003; Gratis annuleren mogelijk</span>
+      <span>&#10003; Laagste prijs via offici&euml;le website</span>
     </div>
   </div>
 
