@@ -1,14 +1,29 @@
-# Session Notes — 2026-05-22 (update 4)
+# Session Notes — 2026-05-22 (update 5)
 
-## Eerder gedaan (update 3)
-- Sectievolgorde lander-google: Reviews → Waarom Asteria → Kamertypes → Omgeving
-- Mosaic leesbaarheid verbeterd
-- USP mobile A/B test live
+## Gedaan in deze sessie (update 5) — Arrangementen blok
 
-## Gedaan in deze sessie (update 4)
-- Content gaps lander-google geanalyseerd
-- Subagent-driven poging gedaan (nav, trust signals, vipStatus) — volledig teruggedraaid
-- Revert commit: 6b69146 — pagina staat terug op fa00c55
+### Arrangementen blok — lander-google.html (LIVE)
+
+Nieuw blok gebouwd via brainstorming + visuele companion (tier-mockup).
+
+**Positie:** na `#kamertypes`, vóór `#sfeer`
+
+**3 arrangementen:**
+- Weekend Aanbieding (€166,– p.p. · 2 nachten) → vouchercode WEEKEND
+- Wellnessarrangement (€139,50 p.p. · 1 nacht) → WELLNESS — featured, "Meest gekozen" badge
+- Asperge Arrangement (€138,– p.p. · 1 nacht) → ASPERGE — seizoensbadge "t/m 24 juni"
+
+**Desktop:** 3-koloms grid, `align-items: stretch`, foto 220px (gelijk), `margin-top: auto` op CTA. Wellness popt via rode box-shadow + badge.
+
+**Mobile:** verticale stack, foto 170px, grote kaarten.
+
+**Popup:** `data-arr` attribuut → JS IIFE rendert dynamisch uit `ARR_DATA` object. Sluit via ×, Escape, of klik op overlay.
+
+**Mews deeplinks:** `https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND/WELLNESS/ASPERGE`
+
+**Spec:** `docs/superpowers/specs/2026-05-22-arrangementen-blok-design.md`
+
+---
 
 ## Open voor volgende sessie
 
@@ -17,14 +32,17 @@
 - Houd: logo (links) + "Boek nu" knop (rechts)
 - Pas hero padding-top aan als nav smaller wordt
 
-### 2. Trust bar in hero (vervangt huidige .hero__trust badges)
+### 2. Trust bar in hero
 - Witte kaart-balk onderin de hero, volledig BINNEN de 100svh
 - Inhoud: Google-score (★ 4,2 · 2.219 reviews) + ✓ Gratis annuleren · ✓ Gratis parkeren · ✓ Laagste prijs
-- Stijl: wit, schaduw, border-radius — zie screenshot in sessie (hero-v2 stijl)
 - Hero blijft 100svh
 
-### 3. vipStatus fix (klein)
+### 3. vipStatus fix
 - Revinate hidden form: value="Wellness nieuwsbrief" → "Google Lander"
+
+### 4. Asperge kaart
+- Vervalt 24 juni 2026 — dan vervangen of verbergen
+- Geen asperge-specifieke foto beschikbaar, nu `restaurant-sfeer.webp`
 
 ## Wat NIET aanpassen
 - Sticky card: niet aanraken
