@@ -106,9 +106,8 @@
     .logo--mobile { display: none; flex-shrink: 0; align-items: center; text-decoration: none; }
     .logo--mobile img { width: 52px; display: block; }
     .nav-content { margin-left: auto; display: flex; align-items: center; }
-    .nav-bar .button.book-now { color: #fff; background-color: #c23435; border: solid 1px #c23435; border-radius: 10px; font-size: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 110px; height: 50px; margin-left: 10px; white-space: nowrap; flex-shrink: 0; }
+    .nav-bar .button.book-now { color: #fff; background-color: #c23435; border: solid 1px #c23435; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 110px; height: 50px; margin-left: 10px; white-space: nowrap; flex-shrink: 0; }
     .nav-bar .button.book-now:hover { background-color: #a82c2c; }
-    .menu-close, .language-nav-mobile, .drop-icon, .mobile-checkbox, .submenu { display: none; }
     .mobile-nav-buttons { display: none; }
 
     @media (max-width: 880px) {
@@ -118,6 +117,8 @@
       .nav-content { display: none; }
       .mobile-nav-buttons { display: flex !important; align-items: center; gap: 4px; float: right; color: #fff; margin: 0; }
       .mobile-nav-buttons .book-now {
+        display: inline-flex;
+        align-items: center;
         background: #c23435;
         color: #fff;
         border: none;
@@ -4228,17 +4229,6 @@
     }
     window.addEventListener('scroll', onScroll, { passive: true });
   }
-})();
-
-/* ── Taalwisselaar ── */
-(function() {
-  var sel = document.querySelector('.lang-nav');
-  if (!sel) return;
-  sel.value = 'nl';
-  sel.addEventListener('change', function() {
-    var v = sel.value;
-    localStorage.setItem('asteria_lang', v);
-  });
 })();
 
   // ── Arrangementen popup ─────────────────────────────────
