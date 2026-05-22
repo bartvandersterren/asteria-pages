@@ -3541,7 +3541,8 @@
         // sluit alle items
         document.querySelectorAll('.usp-item').forEach(function(el) {
           el.classList.remove('is-open');
-          el.querySelector('.usp-item__trigger').setAttribute('aria-expanded', 'false');
+          var t = el.querySelector('.usp-item__trigger');
+          if (t) t.setAttribute('aria-expanded', 'false');
         });
         // open dit item als het gesloten was
         if (!isOpen) {
