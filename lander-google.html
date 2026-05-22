@@ -2569,7 +2569,7 @@
   .arr-card__season { font-size: 7px; padding: 3px 7px; }
 
   /* Volgorde: Wellness eerst, Asperge tweede, Weekend laatste */
-  .arr-card:nth-child(1) { order: 3; } /* Weekend → laatste */
+  .arr-card:nth-child(1) { order: 3; } /* L&O → laatste */
   .arr-card:nth-child(2) { order: 1; } /* Wellness → eerste */
   .arr-card:nth-child(3) { order: 2; } /* Asperge → tweede */
 
@@ -2893,28 +2893,28 @@
 
     <div class="arr__grid">
 
-      <!-- Weekend (kolom 1 op desktop) -->
-      <div class="arr-card">
+      <!-- Logies & Ontbijt (kolom 1 op desktop) -->
+      <div class="arr-card arr-card--bb" id="arrBbCard">
         <div class="arr-card__photo">
-          <img src="fotos/restaurant-diner.webp" alt="Weekend arrangement Hotel Asteria — diner" loading="lazy">
+          <img src="fotos/kamer-comfort.webp" alt="Comfort Kamer Hotel Asteria" loading="lazy">
           <div class="arr-card__photo-overlay"></div>
           <div class="arr-card__photo-bottom"></div>
         </div>
         <div class="arr-card__body">
-          <p class="arr-card__eyebrow">Weekendje weg</p>
-          <h3 class="arr-card__title">Weekend</h3>
-          <p class="arr-card__tagline">Twee nachten ontspannen — goed eten, goed slapen</p>
+          <p class="arr-card__eyebrow">Lekker uitslapen</p>
+          <h3 class="arr-card__title">Logies &amp; Ontbijt</h3>
+          <p class="arr-card__tagline">Gewoon goed slapen — met een uitgebreid ontbijt de volgende ochtend</p>
           <div class="arr-card__price-row">
-            <span class="arr-card__price">€ 166,–</span>
-            <span class="arr-card__price-unit">p.p. · 2 nachten</span>
+            <span class="arr-card__price" id="bbPrice">Laden&hellip;</span>
+            <span class="arr-card__price-unit" id="bbPriceUnit">p.p. · 1 nacht</span>
           </div>
           <div class="arr-card__divider"></div>
           <p class="arr-card__includes-label">Highlights</p>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">2 overnachtingen in Comfort Kamer</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">1× heerlijk 3-gangendiner</span></div>
-          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Late checkout tot 14:00</span></div>
-          <a class="arr-card__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND" target="_blank" rel="noopener">Boek direct</a>
-          <button class="arr-card__more" data-arr="weekend">Meer informatie →</button>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Comfort Kamer voor 2 personen</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Uitgebreid ontbijtbuffet inbegrepen</span></div>
+          <div class="arr-card__feature"><div class="arr-card__dot"></div><span class="arr-card__feat-text">Gratis parkeren &amp; WiFi</span></div>
+          <a class="arr-card__cta" id="bbCta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoute=rooms" target="_blank" rel="noopener">Boek direct</a>
+          <button class="arr-card__more" data-arr="logiebb">Meer informatie →</button>
         </div>
       </div>
 
@@ -4268,23 +4268,22 @@
   // ── Arrangementen popup ─────────────────────────────────
   (function() {
     var ARR_DATA = {
-      weekend: {
-        foto: 'fotos/restaurant-diner.webp',
-        alt: 'Weekend arrangement — diner Hotel Asteria',
+      logiebb: {
+        foto: 'fotos/kamer-comfort.webp',
+        alt: 'Comfort Kamer Hotel Asteria — logies & ontbijt',
         badge: null,
-        eyebrow: 'Weekendje weg',
-        title: 'Weekend Aanbieding',
-        price: '€ 166,–',
-        priceNote: 'per persoon · op basis van tweepersoonskamer · 2 nachten',
+        eyebrow: 'Lekker uitslapen',
+        title: 'Logies & Ontbijt',
+        price: 'Bekijk actuele prijs',
+        priceNote: 'per persoon · op basis van tweepersoonskamer · 1 nacht',
         features: [
-          'Welkomstglas huiswijn of speciaal bier',
-          '2 overnachtingen in Comfort Kamer',
-          '2× uitgebreid ontbijtbuffet',
-          '1× heerlijk 3-gangendiner (dag van aankomst)',
-          'Late checkout op zondag tot 14:00 (op basis van beschikbaarheid)'
+          'Comfort Kamer voor 2 personen',
+          'Uitgebreid ontbijtbuffet inbegrepen',
+          'Gratis parkeren & WiFi',
+          'Kies uw datum rechtstreeks in de booking engine'
         ],
         note: '+ € 2,– verblijfsbelasting p.p.p.n. &nbsp;·&nbsp; Gratis parkeren &nbsp;·&nbsp; Gratis WiFi',
-        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND'
+        url: 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoute=rooms'
       },
       wellness: {
         foto: 'fotos/wellness-spa.webp',
@@ -4400,6 +4399,107 @@
   })();
 </script>
 
+<script>
+(function() {
+  var COMFORT_CATEGORY_ID = '98900f3b-e5e2-49c9-9776-af1d00ffc315';
+
+  function nextDate(offsetDays) {
+    var d = new Date();
+    d.setDate(d.getDate() + offsetDays);
+    return d;
+  }
+
+  function toYMD(d) {
+    var mm = d.getMonth() + 1;
+    var dd = d.getDate();
+    return d.getFullYear() + '-' + (mm < 10 ? '0' : '') + mm + '-' + (dd < 10 ? '0' : '') + dd;
+  }
+
+  function ceilHalf(price) {
+    // Afronden naar boven op €0,50 (bijv. 55.67 → 56.00, 55.25 → 55,50)
+    return Math.ceil(price * 2) / 2;
+  }
+
+  function formatEuro(amount) {
+    // €56,– of €55,50
+    var whole = Math.floor(amount);
+    var cents = Math.round((amount - whole) * 100);
+    if (cents === 0) return '\u20AC\u00A0' + whole + ',\u2013';
+    return '\u20AC\u00A0' + whole + ',' + (cents < 10 ? '0' : '') + cents;
+  }
+
+  function updateCard(pricePerPerson) {
+    var el = document.getElementById('bbPrice');
+    var unitEl = document.getElementById('bbPriceUnit');
+    if (el) el.textContent = 'vanaf ' + formatEuro(pricePerPerson);
+    if (unitEl) unitEl.textContent = 'p.p. \u00B7 1 nacht';
+  }
+
+  function fetchBbPrice() {
+    // Haal 30 nachten op → geeft per nacht pricing → toon de laagste beschikbare prijs
+    var checkin = nextDate(1);
+    var checkout = nextDate(31);
+
+    fetch('/mews/api/distributor/v1/hotels/getAvailability', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        Client: 'Asteria Pages 1.0.0',
+        ConfigurationId: '6dc9094c-76e3-4fd8-83a7-af1d00ffc556',
+        HotelId: '65a522c9-4828-413d-9ad8-af1d00ffb83f',
+        StartUtc: toYMD(checkin) + 'T12:00:00Z',
+        EndUtc: toYMD(checkout) + 'T12:00:00Z',
+        CategoryIds: [COMFORT_CATEGORY_ID]
+      })
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      var avails = data.RoomCategoryAvailabilities || [];
+      var comfort = avails.find(function(a) { return a.RoomCategoryId === COMFORT_CATEGORY_ID; });
+      if (!comfort) { showFallback(); return; }
+
+      // Probeer 2-persoons occupancy (index 1), anders 1-persoons (index 0)
+      var occList = comfort.RoomOccupancyAvailabilities || [];
+      var occ = occList.length > 1 ? occList[1] : occList[0];
+      if (!occ || !occ.Pricing || !occ.Pricing.length) { showFallback(); return; }
+
+      // Pricing is een array met één entry per nacht in de gevraagde periode.
+      // Zoek de laagste GrossValue over alle beschikbare nachten.
+      var lowestRoom = null;
+      occ.Pricing.forEach(function(p) {
+        var v = p.Price && p.Price.GrossValue;
+        if (v != null && (lowestRoom === null || v < lowestRoom)) {
+          lowestRoom = v;
+        }
+      });
+      if (lowestRoom === null) { showFallback(); return; }
+
+      // Bepaal of dit een kamerprijs of p.p.-prijs is:
+      // De Mews distributor API geeft typisch een kamerprijs (voor N personen).
+      // Voor 2-persoons occupancy: deel door 2 voor p.p.
+      // Voor 1-persoons occupancy (fallback): dat is al p.p.
+      var ppPrice = occList.length > 1 ? lowestRoom / 2 : lowestRoom;
+      ppPrice = ceilHalf(ppPrice);
+      updateCard(ppPrice);
+    })
+    .catch(function() { showFallback(); });
+  }
+
+  function showFallback() {
+    var el = document.getElementById('bbPrice');
+    if (el) el.textContent = 'Vraag prijs op';
+    var unitEl = document.getElementById('bbPriceUnit');
+    if (unitEl) unitEl.textContent = '1 nacht \u00B7 2 personen';
+  }
+
+  // Start fetch zodra DOM gereed is
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fetchBbPrice);
+  } else {
+    fetchBbPrice();
+  }
+})();
+</script>
 
 </body>
 </html>
