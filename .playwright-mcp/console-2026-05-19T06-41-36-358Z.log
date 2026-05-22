@@ -1,2 +1,0 @@
-[   85909ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://api.mews.com/api/bookingEngine/v1/services/getAvailability:0
-[  113471ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://api.mews.com/api/bookingEngine/v1/services/getPricing:0

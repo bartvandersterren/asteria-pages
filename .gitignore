@@ -8,3 +8,14 @@ node_modules/
 test-output/
 test-image-gen.js
 .superpowers/
+
+# Playwright MCP logs
+.playwright-mcp/
+
+# Losse screenshot-PNGs/JPGs in root (werkbestanden)
+/*.png
+/*.jpg
+/*.jpeg
+
+# Referentie-afbeeldingen (niet nodig in repo)
+/wellness-kaart-refs/
