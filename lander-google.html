@@ -1818,6 +1818,64 @@
   }
 }
 
+/* ══════════════════════════════════════════════════════════
+   SFEER BLOK
+══════════════════════════════════════════════════════════ */
+.sfeer-blok {
+  background: #fff;
+  padding: 100px 24px;
+}
+.sfeer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.sfeer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.sfeer-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sfeer-foto-wrap {
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.sfeer-foto-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms ease;
+}
+.sfeer-item:hover .sfeer-foto-wrap img {
+  transform: scale(1.03);
+}
+.sfeer-label {
+  font-family: 'Electrolize', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #64748b;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .sfeer-blok { padding: 64px 16px; }
+  .sfeer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .sfeer-foto-wrap {
+    aspect-ratio: 4 / 3;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sfeer-foto-wrap img { transition: none; }
+}
+
   </style>
 </head>
 <body>
@@ -1987,6 +2045,36 @@
     </div>
   </div>
 
+</section>
+
+<!-- ══ SFEER ══════════════════════════════════════════════ -->
+<section class="sfeer-blok" id="sfeer" aria-label="Hotel Asteria sfeer">
+  <div class="sfeer-inner">
+    <div class="sfeer-grid">
+
+      <div class="sfeer-item">
+        <div class="sfeer-foto-wrap">
+          <img src="fotos/intro-lobby.webp" alt="Lobby Hotel Asteria Venray" loading="lazy">
+        </div>
+        <p class="sfeer-label">Hotel &amp; Verblijf</p>
+      </div>
+
+      <div class="sfeer-item">
+        <div class="sfeer-foto-wrap">
+          <img src="fotos/card-wellness.webp" alt="Wellness Top Floor Hotel Asteria" loading="lazy">
+        </div>
+        <p class="sfeer-label">Wellness Top Floor</p>
+      </div>
+
+      <div class="sfeer-item">
+        <div class="sfeer-foto-wrap">
+          <img src="fotos/blok-natuur.webp" alt="Natuur rondom Hotel Asteria Venray" loading="lazy">
+        </div>
+        <p class="sfeer-label">Noord-Limburg</p>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- ══ KAMERTYPES ═══════════════════════════════════════ -->
