@@ -1913,7 +1913,7 @@
   .usp-mosaic__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 55%);
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.42) 55%, rgba(0,0,0,0.12) 100%);
   }
   .usp-mosaic__hero-content {
     position: absolute;
@@ -1922,25 +1922,26 @@
   }
   .usp-mosaic__kenmerk {
     font-family: 'Electrolize', sans-serif;
-    font-size: 8px;
+    font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: #c23435;
+    color: rgba(255,255,255,0.6);
     margin: 0 0 3px;
   }
   .usp-mosaic__hero-title {
     font-family: 'Electrolize', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     color: #fff;
     letter-spacing: 0.04em;
-    margin: 0 0 4px;
+    margin: 0 0 5px;
     line-height: 1.2;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.6);
   }
   .usp-mosaic__hero-text {
     font-family: 'Montserrat', sans-serif;
-    font-size: 9.5px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.75);
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.85);
     line-height: 1.5;
     margin: 0;
   }
@@ -1968,10 +1969,11 @@
   }
   .usp-mosaic__small-title {
     font-family: 'Electrolize', sans-serif;
-    font-size: 10px;
+    font-size: 13px;
     color: #fff;
     letter-spacing: 0.04em;
     margin: 0;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.7);
   }
 
   /* ── Variant D: Feature Stack ── */
@@ -2319,84 +2321,115 @@
 
 </section>
 
-<!-- ══ BELEVING ════════════════════════════════════════════ -->
-<section class="beleving" id="sfeer" aria-label="Omgeving Hotel Asteria Noord-Limburg">
-  <div class="beleving__head">
-    <h2 class="beleving__title">Ontdek de omgeving</h2>
-  </div>
+<!-- ══ USP ════════════════════════════════════════════════ -->
+<section class="usp-blok" id="usp" aria-label="Waarom Hotel Asteria">
+  <div class="usp-inner">
 
-  <div class="beleving__track">
+    <!-- Linker kolom: heading + grote wisselafbeelding -->
+    <div class="usp-heading-col">
+      <h2 class="usp-heading">Waarom Hotel <em>Asteria?</em></h2>
+      <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray" class="usp-main-img" id="uspMainImg" loading="lazy">
+    </div>
 
-    <!-- 1: foto boven, tekst onder -->
-    <div class="bel-item">
-      <div class="bel-photo">
-        <img src="fotos/omgeving-maasduinen.webp" alt="Nationaal Park De Maasduinen Noord-Limburg" loading="lazy">
-        <div class="bel-photo__cat">Natuur</div>
-        <div class="bel-photo__overlay">
-          <div class="bel-photo__name">Nationaal Park<br>De Maasduinen</div>
-          <div class="bel-photo__dist">10 min. rijden</div>
+    <!-- Rechter kolom: items -->
+    <div class="usp-items-col">
+
+      <!-- Item 1: Locatie -->
+      <div class="usp-item is-active" data-img="fotos/hero-buitenkant.webp">
+        <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray — buitenaanzicht" class="usp-item__img" loading="lazy">
+        <div class="usp-item__body">
+          <h3 class="usp-item__title">Locatie &amp; bereik</h3>
+          <p class="usp-item__text">Direct aan de A73, midden in Noord-Limburg. Gratis parkeren bij het hotel. Op fietsafstand van de Maasduinen.</p>
         </div>
       </div>
-      <div class="bel-text">
-        <p>Uitgestrekte duinen, stille bossen en honderden kilometers fiets- en wandelpaden — direct achter het hotel.</p>
-      </div>
-    </div>
 
-    <!-- 2: tekst boven, foto onder -->
-    <div class="bel-item flip">
-      <div class="bel-photo">
-        <img src="fotos/omgeving-kasteeltuinen.webp" alt="Kasteeltuinen Arcen Noord-Limburg" loading="lazy">
-        <div class="bel-photo__cat">Cultuur</div>
-        <div class="bel-photo__overlay">
-          <div class="bel-photo__name">Kasteeltuinen<br>Arcen</div>
-          <div class="bel-photo__dist">20 min. rijden</div>
+      <!-- Item 2: Wellness -->
+      <div class="usp-item" data-img="fotos/arr-c-wellness.webp">
+        <img src="fotos/arr-c-wellness.webp" alt="Wellness Top Floor Hotel Asteria" class="usp-item__img" loading="lazy">
+        <div class="usp-item__body">
+          <h3 class="usp-item__title">Wellness op de Top Floor</h3>
+          <p class="usp-item__text">300 m² met vier sauna&apos;s, stoomcabine, kruidenbad en relaxruimte. Inclusief bij arrangementen, ook beschikbaar voor dagbezoek.</p>
         </div>
       </div>
-      <div class="bel-text">
-        <p>Één van de mooiste tuinen van Nederland. Ideaal voor een middag vol kleur, rust en cultuur.</p>
-      </div>
-    </div>
 
-    <!-- 3: foto boven, tekst onder -->
-    <div class="bel-item">
-      <div class="bel-photo">
-        <img src="fotos/blok-natuur.webp" alt="Fietsen en wandelen in Noord-Limburg" loading="lazy">
-        <div class="bel-photo__cat">Actief</div>
-        <div class="bel-photo__overlay">
-          <div class="bel-photo__name">Fietsen &amp;<br>wandelen</div>
-          <div class="bel-photo__dist">Start bij het hotel</div>
+      <!-- Item 3: Ontbijt -->
+      <div class="usp-item" data-img="fotos/restaurant-ontbijt.webp">
+        <img src="fotos/restaurant-ontbijt.webp" alt="Ontbijtbuffet Hotel Asteria Venray" class="usp-item__img" loading="lazy">
+        <div class="usp-item__body">
+          <h3 class="usp-item__title">Uitgebreid ontbijtbuffet</h3>
+          <p class="usp-item__text">Elke ochtend vers en uitgebreid. Inbegrepen bij alle arrangementen. Ook &agrave; la carte beschikbaar.</p>
         </div>
       </div>
-      <div class="bel-text">
-        <p>Noord-Limburg heeft enkele van de mooiste fietsroutes van Nederland — door heuvels en langs de Maas.</p>
-      </div>
+
     </div>
 
-    <!-- 4: tekst boven, foto onder -->
-    <div class="bel-item flip">
-      <div class="bel-photo">
-        <img src="fotos/omgeving-hertogjan.webp" alt="Hertog Jan Brouwerij Arcen" loading="lazy">
-        <div class="bel-photo__cat">Culinair</div>
-        <div class="bel-photo__overlay">
-          <div class="bel-photo__name">Hertog Jan<br>Brouwerij</div>
-          <div class="bel-photo__dist">15 min. rijden</div>
+    <!-- Mobile Variant C: Magazine Mosaic -->
+    <div class="usp-mosaic" aria-hidden="true">
+      <p class="usp-mosaic__heading">Waarom Asteria</p>
+      <div class="usp-mosaic__hero">
+        <img src="fotos/arr-c-wellness.webp" alt="Wellness Top Floor Hotel Asteria" class="usp-mosaic__hero-img" loading="lazy">
+        <div class="usp-mosaic__overlay"></div>
+        <div class="usp-mosaic__hero-content">
+          <p class="usp-mosaic__kenmerk">Wellness</p>
+          <h3 class="usp-mosaic__hero-title">Top Floor<br>300 m²</h3>
+          <p class="usp-mosaic__hero-text">4 sauna's, stoomcabine, kruidenbad en relaxruimte. Inclusief bij arrangementen.</p>
         </div>
       </div>
-      <div class="bel-text">
-        <p>Rondleiding bij de bekendste brouwerij van Limburg, met proeverij en een kijkje in het brouwproces.</p>
+      <div class="usp-mosaic__row">
+        <div class="usp-mosaic__small">
+          <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray buitenaanzicht" class="usp-mosaic__small-img" loading="lazy">
+          <div class="usp-mosaic__overlay"></div>
+          <div class="usp-mosaic__small-content">
+            <p class="usp-mosaic__kenmerk">Locatie</p>
+            <h3 class="usp-mosaic__small-title">Aan de A73</h3>
+          </div>
+        </div>
+        <div class="usp-mosaic__small">
+          <img src="fotos/restaurant-ontbijt.webp" alt="Ontbijtbuffet Hotel Asteria Venray" class="usp-mosaic__small-img" loading="lazy">
+          <div class="usp-mosaic__overlay"></div>
+          <div class="usp-mosaic__small-content">
+            <p class="usp-mosaic__kenmerk">Ontbijt</p>
+            <h3 class="usp-mosaic__small-title">Uitgebreid buffet</h3>
+          </div>
+        </div>
       </div>
     </div>
 
-  </div>
-
-  <div class="beleving__hint">
-    <div class="beleving__dots">
-      <div class="bel-dot active"></div>
-      <div class="bel-dot"></div>
-      <div class="bel-dot"></div>
-      <div class="bel-dot"></div>
+    <!-- Mobile Variant D: Feature Stack -->
+    <div class="usp-stack" aria-hidden="true">
+      <p class="usp-stack__heading">Waarom Asteria</p>
+      <div class="usp-stack__card">
+        <div class="usp-stack__photo">
+          <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray — buitenaanzicht" loading="lazy">
+          <span class="usp-stack__photo-label">Locatie</span>
+        </div>
+        <div class="usp-stack__body">
+          <h3 class="usp-stack__title">Direct aan de A73</h3>
+          <p class="usp-stack__text">Gratis parkeren bij het hotel. Op fietsafstand van de Maasduinen. Midden in Noord-Limburg.</p>
+        </div>
+      </div>
+      <div class="usp-stack__card">
+        <div class="usp-stack__photo">
+          <img src="fotos/arr-c-wellness.webp" alt="Wellness Top Floor Hotel Asteria" loading="lazy">
+          <span class="usp-stack__photo-label">Wellness</span>
+        </div>
+        <div class="usp-stack__body">
+          <h3 class="usp-stack__title">Wellness op de Top Floor</h3>
+          <p class="usp-stack__text">300 m² met vier sauna's, stoomcabine, kruidenbad en relaxruimte. Inclusief bij arrangementen.</p>
+        </div>
+      </div>
+      <div class="usp-stack__card">
+        <div class="usp-stack__photo">
+          <img src="fotos/restaurant-ontbijt.webp" alt="Ontbijtbuffet Hotel Asteria Venray" loading="lazy">
+          <span class="usp-stack__photo-label">Ontbijt</span>
+        </div>
+        <div class="usp-stack__body">
+          <h3 class="usp-stack__title">Uitgebreid ontbijtbuffet</h3>
+          <p class="usp-stack__text">Elke ochtend vers en uitgebreid. Inbegrepen bij alle arrangementen. Ook à la carte beschikbaar.</p>
+        </div>
+      </div>
     </div>
-    <span>Swipe voor meer</span>
+
   </div>
 </section>
 
@@ -2554,115 +2587,84 @@
   </div>
 </div>
 
-<!-- ══ USP ════════════════════════════════════════════════ -->
-<section class="usp-blok" id="usp" aria-label="Waarom Hotel Asteria">
-  <div class="usp-inner">
+<!-- ══ BELEVING ════════════════════════════════════════════ -->
+<section class="beleving" id="sfeer" aria-label="Omgeving Hotel Asteria Noord-Limburg">
+  <div class="beleving__head">
+    <h2 class="beleving__title">Ontdek de omgeving</h2>
+  </div>
 
-    <!-- Linker kolom: heading + grote wisselafbeelding -->
-    <div class="usp-heading-col">
-      <h2 class="usp-heading">Waarom Hotel <em>Asteria?</em></h2>
-      <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray" class="usp-main-img" id="uspMainImg" loading="lazy">
-    </div>
+  <div class="beleving__track">
 
-    <!-- Rechter kolom: items -->
-    <div class="usp-items-col">
-
-      <!-- Item 1: Locatie -->
-      <div class="usp-item is-active" data-img="fotos/hero-buitenkant.webp">
-        <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray — buitenaanzicht" class="usp-item__img" loading="lazy">
-        <div class="usp-item__body">
-          <h3 class="usp-item__title">Locatie &amp; bereik</h3>
-          <p class="usp-item__text">Direct aan de A73, midden in Noord-Limburg. Gratis parkeren bij het hotel. Op fietsafstand van de Maasduinen.</p>
+    <!-- 1: foto boven, tekst onder -->
+    <div class="bel-item">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-maasduinen.webp" alt="Nationaal Park De Maasduinen Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Natuur</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Nationaal Park<br>De Maasduinen</div>
+          <div class="bel-photo__dist">10 min. rijden</div>
         </div>
       </div>
-
-      <!-- Item 2: Wellness -->
-      <div class="usp-item" data-img="fotos/arr-c-wellness.webp">
-        <img src="fotos/arr-c-wellness.webp" alt="Wellness Top Floor Hotel Asteria" class="usp-item__img" loading="lazy">
-        <div class="usp-item__body">
-          <h3 class="usp-item__title">Wellness op de Top Floor</h3>
-          <p class="usp-item__text">300 m² met vier sauna&apos;s, stoomcabine, kruidenbad en relaxruimte. Inclusief bij arrangementen, ook beschikbaar voor dagbezoek.</p>
-        </div>
-      </div>
-
-      <!-- Item 3: Ontbijt -->
-      <div class="usp-item" data-img="fotos/restaurant-ontbijt.webp">
-        <img src="fotos/restaurant-ontbijt.webp" alt="Ontbijtbuffet Hotel Asteria Venray" class="usp-item__img" loading="lazy">
-        <div class="usp-item__body">
-          <h3 class="usp-item__title">Uitgebreid ontbijtbuffet</h3>
-          <p class="usp-item__text">Elke ochtend vers en uitgebreid. Inbegrepen bij alle arrangementen. Ook &agrave; la carte beschikbaar.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Mobile Variant C: Magazine Mosaic -->
-    <div class="usp-mosaic" aria-hidden="true">
-      <p class="usp-mosaic__heading">Waarom Asteria</p>
-      <div class="usp-mosaic__hero">
-        <img src="fotos/arr-c-wellness.webp" alt="Wellness Top Floor Hotel Asteria" class="usp-mosaic__hero-img" loading="lazy">
-        <div class="usp-mosaic__overlay"></div>
-        <div class="usp-mosaic__hero-content">
-          <p class="usp-mosaic__kenmerk">Wellness</p>
-          <h3 class="usp-mosaic__hero-title">Top Floor<br>300 m²</h3>
-          <p class="usp-mosaic__hero-text">4 sauna's, stoomcabine, kruidenbad en relaxruimte. Inclusief bij arrangementen.</p>
-        </div>
-      </div>
-      <div class="usp-mosaic__row">
-        <div class="usp-mosaic__small">
-          <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray buitenaanzicht" class="usp-mosaic__small-img" loading="lazy">
-          <div class="usp-mosaic__overlay"></div>
-          <div class="usp-mosaic__small-content">
-            <p class="usp-mosaic__kenmerk">Locatie</p>
-            <h3 class="usp-mosaic__small-title">Aan de A73</h3>
-          </div>
-        </div>
-        <div class="usp-mosaic__small">
-          <img src="fotos/restaurant-ontbijt.webp" alt="Ontbijtbuffet Hotel Asteria Venray" class="usp-mosaic__small-img" loading="lazy">
-          <div class="usp-mosaic__overlay"></div>
-          <div class="usp-mosaic__small-content">
-            <p class="usp-mosaic__kenmerk">Ontbijt</p>
-            <h3 class="usp-mosaic__small-title">Uitgebreid buffet</h3>
-          </div>
-        </div>
+      <div class="bel-text">
+        <p>Uitgestrekte duinen, stille bossen en honderden kilometers fiets- en wandelpaden — direct achter het hotel.</p>
       </div>
     </div>
 
-    <!-- Mobile Variant D: Feature Stack -->
-    <div class="usp-stack" aria-hidden="true">
-      <p class="usp-stack__heading">Waarom Asteria</p>
-      <div class="usp-stack__card">
-        <div class="usp-stack__photo">
-          <img src="fotos/hero-buitenkant.webp" alt="Hotel Asteria Venray — buitenaanzicht" loading="lazy">
-          <span class="usp-stack__photo-label">Locatie</span>
-        </div>
-        <div class="usp-stack__body">
-          <h3 class="usp-stack__title">Direct aan de A73</h3>
-          <p class="usp-stack__text">Gratis parkeren bij het hotel. Op fietsafstand van de Maasduinen. Midden in Noord-Limburg.</p>
+    <!-- 2: tekst boven, foto onder -->
+    <div class="bel-item flip">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-kasteeltuinen.webp" alt="Kasteeltuinen Arcen Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Cultuur</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Kasteeltuinen<br>Arcen</div>
+          <div class="bel-photo__dist">20 min. rijden</div>
         </div>
       </div>
-      <div class="usp-stack__card">
-        <div class="usp-stack__photo">
-          <img src="fotos/arr-c-wellness.webp" alt="Wellness Top Floor Hotel Asteria" loading="lazy">
-          <span class="usp-stack__photo-label">Wellness</span>
-        </div>
-        <div class="usp-stack__body">
-          <h3 class="usp-stack__title">Wellness op de Top Floor</h3>
-          <p class="usp-stack__text">300 m² met vier sauna's, stoomcabine, kruidenbad en relaxruimte. Inclusief bij arrangementen.</p>
-        </div>
-      </div>
-      <div class="usp-stack__card">
-        <div class="usp-stack__photo">
-          <img src="fotos/restaurant-ontbijt.webp" alt="Ontbijtbuffet Hotel Asteria Venray" loading="lazy">
-          <span class="usp-stack__photo-label">Ontbijt</span>
-        </div>
-        <div class="usp-stack__body">
-          <h3 class="usp-stack__title">Uitgebreid ontbijtbuffet</h3>
-          <p class="usp-stack__text">Elke ochtend vers en uitgebreid. Inbegrepen bij alle arrangementen. Ook à la carte beschikbaar.</p>
-        </div>
+      <div class="bel-text">
+        <p>Één van de mooiste tuinen van Nederland. Ideaal voor een middag vol kleur, rust en cultuur.</p>
       </div>
     </div>
 
+    <!-- 3: foto boven, tekst onder -->
+    <div class="bel-item">
+      <div class="bel-photo">
+        <img src="fotos/blok-natuur.webp" alt="Fietsen en wandelen in Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Actief</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Fietsen &amp;<br>wandelen</div>
+          <div class="bel-photo__dist">Start bij het hotel</div>
+        </div>
+      </div>
+      <div class="bel-text">
+        <p>Noord-Limburg heeft enkele van de mooiste fietsroutes van Nederland — door heuvels en langs de Maas.</p>
+      </div>
+    </div>
+
+    <!-- 4: tekst boven, foto onder -->
+    <div class="bel-item flip">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-hertogjan.webp" alt="Hertog Jan Brouwerij Arcen" loading="lazy">
+        <div class="bel-photo__cat">Culinair</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Hertog Jan<br>Brouwerij</div>
+          <div class="bel-photo__dist">15 min. rijden</div>
+        </div>
+      </div>
+      <div class="bel-text">
+        <p>Rondleiding bij de bekendste brouwerij van Limburg, met proeverij en een kijkje in het brouwproces.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="beleving__hint">
+    <div class="beleving__dots">
+      <div class="bel-dot active"></div>
+      <div class="bel-dot"></div>
+      <div class="bel-dot"></div>
+      <div class="bel-dot"></div>
+    </div>
+    <span>Swipe voor meer</span>
   </div>
 </section>
 
