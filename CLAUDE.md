@@ -40,7 +40,9 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 - Mews IDs: distributorId/configId **6dc9094c-76e3-4fd8-83a7-af1d00ffc556** (gebruik dit overal) | enterpriseId 65a522c9-4828-413d-9ad8-af1d00ffb83f | serviceId 755424cc-3077-4320-b069-af1d00ffbe47
 - Oude ID bee2f902-... heeft geen online-tarievenconfiguratie — nooit gebruiken
 - Availability API: POST /mews/api/bookingEngine/v1/services/getAvailability → geeft per-nacht counts per categoryId over een periode (vereist session token)
+- **GOTCHA Mews API:** `/mews/api/distributor/v1/hotels/getAvailability` vereist ook een sessie — ook de initialisatie-endpoints. Geen publieke endpoint zonder sessie. Client-side price-fetch werkt daarom niet zonder eerst de widget te laden.
 - Deeplinks: mewsRoute=rates&mewsRoom=<categoryId> (kamer geselecteerd) of mewsRoute=rooms (alleen datums)
+- Wellness voucher code: **2026WELLNESS** (niet WELLNESS)
 
 ## Foto's
 

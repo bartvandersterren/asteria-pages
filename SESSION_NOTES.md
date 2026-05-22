@@ -1,27 +1,28 @@
-# Session Notes — 2026-05-22
+# Session Notes — 2026-05-22 (update)
 
 ## Wat gedaan
 
-### Arrangementen blok — lander-google.html (commits 0ad69a9, 557b72a, 6511df9)
+### Hero trust merge (lander-google.html)
+- `.hero__trust-bar` (witte absolute kaart onderaan) verwijderd
+- Nieuwe `.hero__trust-micro` strip direct onder CTA-knop (sterren + 4,2, Gratis annuleren, Laagste prijs)
+- Hero padding-bottom: 80px → 56px (desktop), 60px → 40px (mobile)
 
-1. **Desktop layout:** 3-koloms grid (Weekend | Wellness | Asperge), Wellness featured in het midden
-2. **Mobile layout:** Horizontale kaarten (foto links 110px, content rechts)
-3. **Features getrimd:** Alleen highlights op de kaart + hint-tekst "Klik op 'Meer informatie'..."
-4. **Mobile volgorde:** Wellness → Asperge → Weekend via CSS `order` (nth-child)
+### Logies & Ontbijt kaart (lander-google.html)
+- Weekend kaart vervangen door L&O (arr-card--bb, id=arrBbCard)
+- Foto: kamer-comfort.webp, CTA zonder voucher (mewsRoute=rooms)
+- ARR_DATA.logiebb — popup-schema: foto/features/note (niet photo/includes)
+- Popup-renderer: displayPrice — leest #bbPrice als geladen, anders d.price
+- Popup-guard checkt alleen op 'Laden…' (fallback is nu ook geldige prijs)
 
-### Andere wijzigingen (andere sessie, al gepusht)
-- vipStatus Revinate form → "Google Lander"
-- Nav → alleen logo + "Boek nu"
-- Hero trust bar → witte kaartbalk onderin hero
+### Wellness voucher
+- WELLNESS → 2026WELLNESS (kaart-CTA + ARR_DATA)
 
-## Open / volgende sessie
-
-- Visueel verifiëren op live URL zodra Cloudflare deploy klaar is
-- Popup "Meer informatie" testen op mobile
-
-## Technische notities
-
-- Desktop: `grid-template-columns: 1fr 1.12fr 1fr` + `height: 100%` op `.arr-card`
-- Mobile: `.arr-card { flex-direction: row }` + foto `width: 110px; min-height: 150px`
-- CSS order: Weekend `order:3`, Wellness `order:1`, Asperge `order:2` in `@media (max-width: 768px)`
-- Eyebrow + tagline verborgen op mobile (`display: none`)
+### Mews prijs-fetch — OPEN ISSUE
+- Client-side fetch naar /mews/api/distributor/v1/hotels/getAvailability werkt NIET: vereist sessie-token
+- CF function functions/api/bb-price.js gebouwd: leest KV-sessie, doet server-side Mews call
+- PROBLEEM: KV-sessie is leeg → geeft altijd { error: 'no session' }
+- FALLBACK actief: "vanaf € 120,– per kamer · 1 nacht"
+- Oplossingsrichtingen voor later:
+  - A: sessieharvesting (onderschep sessie als bezoeker booking popup opent)
+  - B: Mews vragen om server-side API key
+  - C: statische prijs accepteren (staat nu op €120)
