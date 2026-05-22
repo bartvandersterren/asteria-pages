@@ -2175,9 +2175,20 @@
 .bel-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
 .bel-dot.active { background: #c23435; width: 18px; border-radius: 3px; }
 @media (min-width: 768px) {
-  .beleving__title { font-size: 2.4rem; }
-  .bel-item { flex: 0 0 310px; }
+  .beleving__title { font-size: 2.4rem; text-align: center; max-width: 100%; }
+  .beleving__head { padding: 0; text-align: center; }
+  .beleving__track {
+    overflow-x: visible;
+    scroll-snap-type: none;
+    justify-content: center;
+    flex-wrap: nowrap;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px 0;
+  }
+  .bel-item { flex: 1 1 0; min-width: 0; }
   .bel-photo { height: 380px; }
+  .beleving__hint { display: none; }
 }
 
   </style>
