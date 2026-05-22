@@ -1,8 +1,24 @@
-# Session Notes — 2026-05-22
+# Session Notes — 2026-05-22 (update 2)
 
 ## Wat gedaan
 
-### USP blok — lander-google.html (volledig afgerond)
+### USP blok mobile A/B test — lander-google.html (volledig live)
+- Scroll-snap vervangen door Magazine Mosaic (C) + Feature Stack (D)
+- A/B test: sessionStorage + URL override (?usp=mosaic / ?usp=stack)
+- Desktop fixes: gelijke kolomhoogte, heading op één regel
+- Bug fixes: beide varianten toonden tegelijk → display:flex verplaatst naar activatie-selector
+
+### URLs
+- https://visit.asteria.nl/lander-google?usp=mosaic
+- https://visit.asteria.nl/lander-google?usp=stack
+
+### Open voor volgende sessie
+- Visuele QA op echte mobile device
+- Eventueel gradient/overlay mosaic mini-kaarten finetunen
+
+---
+
+### USP blok — lander-google.html (sessie eerder)
 
 Redesign van het USP-blok op basis van inspo (split-layout, Hears.com stijl).
 
