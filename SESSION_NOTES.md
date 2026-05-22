@@ -1,52 +1,36 @@
-# Session Notes — 2026-05-22 (update 5)
+# Session Notes — 2026-05-22 (update 6)
 
-## Gedaan in deze sessie (update 5) — Arrangementen blok
+## Gedaan in deze sessie (update 6) — Nav + Trust bar + vipStatus
 
-### Arrangementen blok — lander-google.html (LIVE)
+Alle 3 aanpassingen aan `lander-google.html` uitgevoerd via subagent-driven development.
 
-Nieuw blok gebouwd via brainstorming + visuele companion (tier-mockup).
+**Commits (gepusht naar main, nog niet live door Cloudflare-storing):**
+- `098807e` fix: vipStatus Revinate form — Google Lander ipv Wellness nieuwsbrief
+- `74e9700` feat: vereenvoudig nav — logo + boek-nu, geen menu of top-bar
+- `e40419a` fix: verwijder dode taalwisselaar JS + orphaned nav CSS
+- `c2c768e` feat: vervang hero trust badges door witte trust bar onderin hero
+- `2f27e8f` fix: voeg hero__trust-bar toe aan prefers-reduced-motion selector
 
-**Positie:** na `#kamertypes`, vóór `#sfeer`
+**Nav:** top-bar + menu-items weg, logo links + "Boek nu" rechts (desktop én mobile), hero padding-top 110→90px
 
-**3 arrangementen:**
-- Weekend Aanbieding (€166,– p.p. · 2 nachten) → vouchercode WEEKEND
-- Wellnessarrangement (€139,50 p.p. · 1 nacht) → WELLNESS — featured, "Meest gekozen" badge
-- Asperge Arrangement (€138,– p.p. · 1 nacht) → ASPERGE — seizoensbadge "t/m 24 juni"
+**Trust bar:** `.hero__trust` badges + scroll-indicator weg → witte kaart-balk (`position: absolute; bottom: 24px`) met ★4,2 · 2.219 reviews + ✓ Gratis annuleren + ✓ Gratis parkeren + ✓ Laagste prijs
 
-**Desktop:** 3-koloms grid, `align-items: stretch`, foto 220px (gelijk), `margin-top: auto` op CTA. Wellness popt via rode box-shadow + badge.
-
-**Mobile:** verticale stack, foto 170px, grote kaarten.
-
-**Popup:** `data-arr` attribuut → JS IIFE rendert dynamisch uit `ARR_DATA` object. Sluit via ×, Escape, of klik op overlay.
-
-**Mews deeplinks:** `https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WEEKEND/WELLNESS/ASPERGE`
-
-**Spec:** `docs/superpowers/specs/2026-05-22-arrangementen-blok-design.md`
-
----
+**vipStatus:** "Wellness nieuwsbrief" → "Google Lander"
 
 ## Open voor volgende sessie
 
-### 1. Nav vereenvoudigen
-- Verwijder menu-items (Kamers, Hotel, Restaurant, etc.) + top-bar (e-mail, telefoon, taalschakelaar)
-- Houd: logo (links) + "Boek nu" knop (rechts)
-- Pas hero padding-top aan als nav smaller wordt
+### 1. Visuele verificatie op live URL
+- Cloudflare-storing (2026-05-22 ~15:36 UTC) blokkeerde de deploy
+- Zodra hersteld deployt het automatisch van commit `2f27e8f`
+- Check: desktop 1280px + mobile 375px op visit.asteria.nl/lander-google
+- Als overlap hero-content en trust bar op mobile: `padding-bottom: 60px` → `100px` in `@media (max-width: 600px)`
 
-### 2. Trust bar in hero
-- Witte kaart-balk onderin de hero, volledig BINNEN de 100svh
-- Inhoud: Google-score (★ 4,2 · 2.219 reviews) + ✓ Gratis annuleren · ✓ Gratis parkeren · ✓ Laagste prijs
-- Hero blijft 100svh
+### 2. Asperge kaart
+- Vervalt 24 juni 2026 — dan verbergen of vervangen
 
-### 3. vipStatus fix
-- Revinate hidden form: value="Wellness nieuwsbrief" → "Google Lander"
-
-### 4. Asperge kaart
-- Vervalt 24 juni 2026 — dan vervangen of verbergen
-- Geen asperge-specifieke foto beschikbaar, nu `restaurant-sfeer.webp`
-
-## Wat NIET aanpassen
-- Sticky card: niet aanraken
-- Hero hoogte: 100svh
+## Lokale preview
+- Server: `wrangler pages dev . --port 8788` (PID was 16014, opnieuw starten als gestopt)
+- URL: http://localhost:8788/lander-google
 
 ## Referentie
 - Plan: docs/superpowers/plans/2026-05-22-lander-google-trust-nav.md
