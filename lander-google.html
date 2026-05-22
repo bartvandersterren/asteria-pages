@@ -84,71 +84,6 @@
     body { padding-bottom: 0; }
 
     /* ══════════════════════════════════════════════════════════
-       NAV
-    ══════════════════════════════════════════════════════════ */
-    .main-nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      background: #333;
-      box-shadow: 0 0 15px rgba(0,0,0,.5);
-      font-family: 'Montserrat', sans-serif;
-    }
-    .nav-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-      position: relative;
-      border-bottom: 1px solid rgba(105,93,93,0.5);
-    }
-    .top-bar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 10px 22px 13px;
-      font-size: .85em;
-      font-weight: 400;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    .top-bar .nav-icon { width: 14px; height: 14px; margin: 0 5px 0 8px; vertical-align: -2px; fill: none; stroke: #f2f2f2; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .mobile-nav-buttons .nav-icon { width: 18px; height: 18px; margin-right: 4px; vertical-align: -3px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .top-bar a { color: #f2f2f2; text-decoration: none; margin: 0 5px 0 0; }
-    .top-bar a:hover { color: #fff; }
-    .lang-nav { cursor: pointer; color: #f2f2f2; border: none; text-transform: uppercase; font-size: 12px; font-family: sans-serif; background: transparent; outline: none; -webkit-appearance: none; appearance: none; margin-left: 2px; }
-    .lang-nav option { color: #333; }
-    .lang-wrapper { display: inline-flex; align-items: center; }
-    .lang-arrow { color: #f2f2f2; font-size: 10px; margin-left: 2px; pointer-events: none; }
-    .row.nav-bar { display: flex; align-items: center; padding: 18px 22px; }
-    .nav-inner > .logo { position: absolute; left: 22px; top: 0; bottom: 0; z-index: 10; display: flex; align-items: center; text-decoration: none; }
-    .nav-inner > .logo img { width: 90px; display: block; }
-    .logo--mobile { display: none; flex-shrink: 0; align-items: center; text-decoration: none; }
-    .logo--mobile img { width: 52px; display: block; }
-    .nav-content { margin-left: auto; display: flex; align-items: center; }
-    .nav-content ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; }
-    .nav-content ul li { position: relative; }
-    .nav-bar a:not(.button):not(.logo) { color: #f2f2f2; text-decoration: none; margin: 0 10px; padding-bottom: 5px; border-bottom: 2px solid transparent; font-size: 14px; white-space: nowrap; display: block; }
-    .nav-bar a:not(.button):not(.logo):hover { color: #fff; border-bottom-color: #fff; }
-    .nav-bar .button.book-now { color: #fff; background-color: #c23435; border: solid 1px #c23435; border-radius: 10px; font-size: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 110px; height: 50px; margin-left: 10px; white-space: nowrap; flex-shrink: 0; }
-    .nav-bar .button.book-now:hover { background-color: #a82c2c; }
-    .menu-close, .language-nav-mobile, .drop-icon, .mobile-checkbox, .submenu { display: none; }
-    .mobile-nav-buttons { display: none; }
-
-    @media (max-width: 880px) {
-      .top-bar { display: none; }
-      .row.nav-bar { padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
-      .nav-inner > .logo { display: none; }
-      .logo--mobile { display: flex; padding: 12px 0; }
-      .nav-content { display: none; }
-      .mobile-nav-buttons { display: flex !important; align-items: center; gap: 4px; float: right; color: #fff; margin: 0; }
-      .mobile-nav-buttons .button { display: flex !important; align-items: center; gap: 6px; background: transparent; color: #fff; border: none; padding: 10px 12px; font-size: 13px; font-family: 'Montserrat', sans-serif; cursor: pointer; line-height: 25px; text-decoration: none; }
-      .main-nav ul { position: fixed; inset: 0; background: #444; text-align: center; padding: 20px 0; opacity: 0; display: none; transition: opacity 0.4s ease-in-out; overflow-y: scroll; z-index: 1200; list-style: none; margin: 0; }
-      .main-nav.show-mobile-nav ul:not(.submenu) { display: block; }
-      .main-nav.show-mobile-nav.delay ul { opacity: 1; }
-      .main-nav ul li { width: 100%; display: block; }
-      .main-nav ul li a { font-size: 20px; line-height: 40px; color: #f2f2f2; padding: 5px 0; display: block; border-bottom: none; text-decoration: none; }
-      .menu-close { display: block !important; color: #fff; font-size: 22px; padding: 16px; cursor: pointer; list-style: none; }
-    }
-
-    /* ══════════════════════════════════════════════════════════
        HERO
     ══════════════════════════════════════════════════════════ */
     .hero {
@@ -160,7 +95,7 @@
       justify-content: center;
       text-align: center;
       overflow: hidden;
-      padding-top: 110px;
+      padding-top: 40px;
       padding-bottom: 80px;
     }
     .hero__bg {
@@ -2220,50 +2155,6 @@
   >Boek uw verblijf &rarr;</button>
 </div>
 
-<!-- ══ NAV ═══════════════════════════════════════════════════ -->
-<nav class="main-nav" id="nav">
-  <div class="nav-inner">
-    <div class="top-bar">
-      <a href="mailto:info@asteria.nl"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 9 10-9"/></svg>info@asteria.nl</a>
-      <a href="tel:0031478511466"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>0478 511 466</a>
-      <span class="lang-wrapper">
-        <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
-        <select class="lang-nav">
-          <option value="nl" selected>nl</option>
-          <option value="en">en</option>
-          <option value="de">de</option>
-        </select>
-        <span class="lang-arrow">&#9662;</span>
-      </span>
-    </div>
-    <a class="logo" href="https://www.asteria.nl">
-      <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
-    </a>
-    <div class="row nav-bar">
-      <a class="logo logo--mobile" href="https://www.asteria.nl">
-        <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
-      </a>
-      <div class="nav-content">
-        <ul>
-          <li class="menu-close" id="menuClose">&#10005;</li>
-          <li><a href="https://www.asteria.nl/kamers">Kamers en Suites</a></li>
-          <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
-          <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
-          <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
-          <li><a href="https://www.asteria.nl/omgeving">Omgeving</a></li>
-          <li><a href="https://www.asteria.nl/contact">Contact</a></li>
-        </ul>
-        <button class="button book-now" onclick="window.openBookingPopup()">Boek nu</button>
-      </div>
-      <div class="mobile-nav-buttons">
-        <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Menu</span>
-        <a href="tel:0031478511466" class="button"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Bel</a>
-      </div>
-    </div>
-  </div>
-</nav>
-
-
 <!-- ══ HERO ══════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
   <div class="hero__bg"></div>
@@ -2978,24 +2869,6 @@
   });
 }());
 
-  /* ── Hamburger menu ── */
-  (function () {
-    var nav      = document.querySelector('.main-nav');
-    var btnOpen  = document.getElementById('menuOpen');
-    var btnClose = document.getElementById('menuClose');
-    if (btnOpen) {
-      btnOpen.addEventListener('click', function () {
-        nav.classList.add('show-mobile-nav');
-        setTimeout(function () { nav.classList.add('delay'); }, 10);
-      });
-    }
-    if (btnClose) {
-      btnClose.addEventListener('click', function () {
-        nav.classList.remove('delay');
-        setTimeout(function () { nav.classList.remove('show-mobile-nav'); }, 400);
-      });
-    }
-  }());
 
 
 
