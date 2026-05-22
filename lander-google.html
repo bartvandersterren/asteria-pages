@@ -2231,7 +2231,7 @@
   display: grid;
   grid-template-columns: 1fr 1.12fr 1fr;
   gap: 16px;
-  align-items: start;
+  align-items: stretch;
 }
 .arr-card {
   background: #fff;
@@ -2239,6 +2239,8 @@
   overflow: hidden;
   box-shadow: 0 2px 16px rgba(0,0,0,0.06);
   transition: box-shadow 0.25s, transform 0.25s;
+  display: flex;
+  flex-direction: column;
 }
 .arr-card:hover {
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
@@ -2304,6 +2306,9 @@
 }
 .arr-card__body {
   padding: 22px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 .arr-card__eyebrow {
   font-family: 'Electrolize', sans-serif;
@@ -2389,7 +2394,7 @@
   display: block;
   width: 100%;
   padding: 13px;
-  margin-top: 20px;
+  margin-top: auto;
   background: #c23435;
   color: #fff;
   border: none;
