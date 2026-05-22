@@ -146,7 +146,7 @@
       text-align: center;
       overflow: hidden;
       padding-top: 90px;
-      padding-bottom: 80px;
+      padding-bottom: 56px;
     }
     .hero__bg {
       position: absolute;
@@ -244,65 +244,48 @@
     .hero__cta:hover { background: #a82c2c; }
     .hero__cta:focus { outline: 2px solid #fff; outline-offset: 3px; }
 
-    /* ── Trust bar ── */
-    .hero__trust-bar {
-      position: absolute;
-      bottom: 24px;
-      left: 0;
-      right: 0;
-      z-index: 3;
-      display: flex;
-      justify-content: center;
-      padding: 0 20px;
-      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.9s both;
-    }
-    .hero__trust-card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.18), 0 1px 4px rgba(0,0,0,0.08);
+    /* ── Trust micro-strip ── */
+    .hero__trust-micro {
       display: flex;
       align-items: center;
+      justify-content: center;
       flex-wrap: wrap;
-      gap: 8px 20px;
-      padding: 14px 24px;
+      gap: 6px 16px;
+      margin-top: 18px;
       font-family: 'Montserrat', sans-serif;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
-      color: #1a1a1a;
-      max-width: 700px;
-      width: 100%;
-      justify-content: center;
+      color: rgba(255,255,255,0.60);
+      animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.75s both;
     }
-    .hero__trust-item {
+    .hero__trust-micro-stars {
+      color: #f59e0b;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      margin-right: 2px;
+    }
+    .hero__trust-micro-item {
       display: flex;
       align-items: center;
-      gap: 5px;
       white-space: nowrap;
-      color: #2a2a2a;
     }
-    .hero__trust-google { gap: 8px; }
-    .hero__trust-stars {
-      color: #f59e0b;
-      font-size: 11px;
-      letter-spacing: 1px;
-    }
-    .hero__trust-divider {
-      width: 1px;
-      height: 16px;
-      background: rgba(0,0,0,0.12);
+    .hero__trust-micro-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.28);
       flex-shrink: 0;
     }
     @media (max-width: 600px) {
-      .hero__trust-bar { bottom: 16px; padding: 0 12px; }
-      .hero__trust-card { padding: 12px 16px; font-size: 11px; gap: 6px 14px; }
-      .hero__trust-divider { display: none; }
+      .hero__trust-micro { font-size: 10px; gap: 4px 10px; margin-top: 14px; }
+      .hero__trust-micro-dot { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .hero__content *, .hero__trust-bar { animation: none; opacity: 1; transform: none; transition: none; }
+      .hero__content * { animation: none; opacity: 1; transform: none; transition: none; }
     }
     @media (max-width: 600px) {
-      .hero { min-height: 100svh; padding-bottom: 60px; }
+      .hero { min-height: 100svh; padding-bottom: 40px; }
       .hero__title { font-size: 36px; }
     }
 
@@ -2663,20 +2646,15 @@
       onclick="window.openBookingPopup()"
       data-track-cta="hero"
     >Boek uw verblijf</button>
-  </div>
-
-  <div class="hero__trust-bar" aria-label="Kwaliteitsgaranties">
-    <div class="hero__trust-card">
-      <span class="hero__trust-item hero__trust-google">
-        <span class="hero__trust-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <span>4,2 &nbsp;&middot;&nbsp; 2.219 Google reviews</span>
+    <div class="hero__trust-micro" aria-label="Kwaliteitsgaranties">
+      <span class="hero__trust-micro-item">
+        <span class="hero__trust-micro-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        4,2 &nbsp;&middot;&nbsp; 2.219 reviews
       </span>
-      <span class="hero__trust-divider" aria-hidden="true"></span>
-      <span class="hero__trust-item">&#10003;&nbsp; Gratis annuleren</span>
-      <span class="hero__trust-divider" aria-hidden="true"></span>
-      <span class="hero__trust-item">&#10003;&nbsp; Gratis parkeren</span>
-      <span class="hero__trust-divider" aria-hidden="true"></span>
-      <span class="hero__trust-item">&#10003;&nbsp; Laagste prijs</span>
+      <span class="hero__trust-micro-dot" aria-hidden="true"></span>
+      <span class="hero__trust-micro-item">&#10003;&nbsp; Gratis annuleren</span>
+      <span class="hero__trust-micro-dot" aria-hidden="true"></span>
+      <span class="hero__trust-micro-item">&#10003;&nbsp; Laagste prijs</span>
     </div>
   </div>
 </section>
