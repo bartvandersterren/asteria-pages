@@ -22,7 +22,8 @@
   <meta property="og:site_name" content="Hotel Asteria Venray">
 
   <!-- Preload hero image (LCP) -->
-  <link rel="preload" as="image" href="fotos/hero-buitenkant.webp" type="image/webp">
+  <link rel="preload" as="image" href="fotos/hero-buitenkant-mobile.webp" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
+  <link rel="preload" as="image" href="fotos/hero-buitenkant.webp" type="image/webp" media="(min-width: 769px)" fetchpriority="high">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -178,7 +179,10 @@
     .hero__bg {
       position: absolute;
       inset: 0;
-      background: #0d0c0b url('fotos/hero-buitenkant.webp') center center / cover no-repeat;
+      background: #0d0c0b url('fotos/hero-buitenkant-mobile.webp') center center / cover no-repeat;
+    }
+    @media (min-width: 769px) {
+      .hero__bg { background-image: url('fotos/hero-buitenkant.webp'); }
     }
     .hero__overlay {
       position: absolute;
