@@ -1,25 +1,34 @@
-# Session Notes — 2026-05-22
+# Session Notes — 2026-05-23
 
-## Wat gedaan
+## Wat onderzocht: bb-price / logies & ontbijt prijs
 
-- **hotel-venray.html** aangemaakt als nieuwe Google Ads lander (fork van lander-google.html)
-  - URL: visit.asteria.nl/hotel-venray
-  - lander-google.html blijft bestaan maar wordt niet meer bijgehouden
+### Probleem
+`/api/bb-price` geeft `{"error":"no session"}` — KV is leeg, sessie nooit geïnjecteerd.
 
-- **Arrangement "Boek direct"** gaat nu via booking popup flow (datum kiezen → kamer → Mews)
-  - arr-kaart CTA: `<button onclick="openBookingPopup(null, 'VOUCHER')">`
-  - arr-popup CTA: sluit popup → opent booking popup met voucher
-  - `buildBookingUrl` gebruikt `pendingVoucherCode` state variabele
-  - Vouchers: 2026WELLNESS (wellness), ASPERGE (asperge), null (L&O)
+### Bevindingen Mews API
+- **Booking Engine API** (`api/bookingEngine/v1`) = voor de browser-widget, heeft Cloudflare anti-scraping bescherming
+- Sessie tokens zijn client-side gegenereerd via Cloudflare challenge — niet na te bouwen zonder echte browser
+- Zelf gegenereerde sessie geeft `{"Message":"Invalid Client."}` — Cloudflare valideert de token
+- Met gecaptured echte sessie werkt `getPricing` WEL server-side:
+  - Endpoint: `POST https://api.mews.com/api/bookingEngine/v1/services/getPricing`
+  - Response: `CategoryPrices[].OccupancyPrices[].RateGroupPrices[].MinPrice.TotalAmount.GrossValue`
+  - Comfort kamer 2 personen: €151,85/nacht → €75,93 p.p.
+- **Connector API** = de juiste server-to-server API. Vereist ClientToken (certificeringsproces) + AccessToken. Bart heeft dit in gang gezet, duurt lang.
 
-- **Mobile arrangement kaarten**: layout verticaal (foto boven, tekst onder)
-  - flex-direction: column, foto 180px hoog, border-radius 16px 16px 0 0
+### Zapier optie geëvalueerd
+- Zapier heeft Mews integratie met "Search for Current Rate Prices" action
+- Mews al gekoppeld aan Zapier account
+- 4x/uur updates = 5.760 tasks/maand → ~$50-73/maand op Professional plan
+- **Conclusie: niet de moeite waard** voor een "vanaf prijs" op een landingspagina
+- Zapier geeft ook geen prijskalender — dat kan alleen de Connector API
 
-- **Prijs**: p.p. → per nacht in kaarten en popups
+### Beslissing
+1. **Nu:** Hardcode "vanaf €76,–" p.p. in hotel-venray.html en lander-google.html
+2. **Later (na Connector API credentials):** Real-time prijs + prijskalender bouwen
 
-- **Hero**: min-height: 100svh → 100vh (desktop was te klein)
-
-## Open / volgende sessie
-
-- Google Reviews proxy: functions/api/google-reviews.js geeft 500 → Place ID invullen + GOOGLE_PLACES_API_KEY in Cloudflare dashboard
-- lander-google.html is nu stale — alleen hotel-venray.html onderhouden
+### Volgende sessie: doe dit
+- Hardcode prijs in hotel-venray.html en lander-google.html
+- Vervang de fetch('/api/bb-price') logica door vaste tekst
+- Bevestig bedrag met Bart (live test gaf €76,– p.p.)
+- bb-price.js ongemoeid laten
+- Plan docs/superpowers/plans/2026-05-23-bb-price-fix.md NIET uitvoeren — wacht op Connector API
