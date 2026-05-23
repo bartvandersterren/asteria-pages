@@ -65,6 +65,15 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 
 - Op mobile heeft `body { background: #f0efed }` — secties ná de arr-c kaart (margin: 16px) krijgen 16px gap in body-kleur. Houd hier rekening mee bij nieuwe blokken.
 
+## Analytics (D1)
+
+- **Database:** `asteria-analytics` (D1, `d993796f-f35c-4997-8ead-ec368a1f0956`, regio WEUR)
+- **Binding:** `ASTERIA_D1` (gekoppeld aan production + preview via CF API)
+- **Events:** `page_view`, `cta_click`, `popup_open`, `step2_reached`, `mews_click`, `email_submit`, `email_success`
+- **Stats:** `curl https://visit.asteria.nl/api/stats?summary=1`
+- **D1 CLI gotcha:** gebruik altijd `--remote` flag bij `wrangler d1 execute`, anders zoekt wrangler naar een lokale wrangler.toml binding
+- **Binding toevoegen via API:** `PATCH /accounts/{id}/pages/projects/asteria-pages` met `deployment_configs.production/preview.d1_databases`
+
 ## Translations workflow (2026-05-20 — live)
 
 - **Bronbestand:** `wellness-arr-c.template.html` met `{{KEY}}` markers (~107 keys)
