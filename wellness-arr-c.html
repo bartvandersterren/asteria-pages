@@ -36,7 +36,10 @@
   <!-- Mews BookingEngine -->
   <script>
   (function(m,e,w,s){c=m.createElement(e);c.onload=function(){
-    window.mewsApi=Mews.D([s]);
+    Mews.D([s],function(api){
+      window.mewsApi=api;
+      if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
+    });
   };c.async=1;c.src=w;t=m.getElementsByTagName(e)[0];t.parentNode.insertBefore(c,t);
   })(document,'script','https://app.mews.com/distributor/distributor.min.js','6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
   </script>
@@ -4114,13 +4117,23 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 
   function launchMews(checkin, checkout, roomKey) {
     closeBookingPopup();
-    if (window.mewsApi) {
+    function doOpen() {
       window.mewsApi.setStartDate(checkin);
       window.mewsApi.setEndDate(checkout);
       window.mewsApi.setVoucherCode(VOUCHER);
       window.mewsApi.open();
+    }
+    if (window.mewsApi) {
+      doOpen();
     } else {
-      window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
+      window._mewsPending = doOpen;
+      // Fallback na 4 seconden als callback nooit vuurt
+      setTimeout(function() {
+        if (window._mewsPending) {
+          window._mewsPending = null;
+          window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
+        }
+      }, 4000);
     }
   }
 
