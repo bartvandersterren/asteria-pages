@@ -29,6 +29,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
 
+  <!-- Google Ads tracking -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-998609513"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-998609513');
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
   <!-- A/B: USP variant toewijzing — zo vroeg mogelijk in <head> -->
   <script>
     (function() {
@@ -46,6 +56,18 @@
       document.documentElement.dataset.uspVariant = variant;
     })();
   </script>
+
+  <!-- Mews BookingEngine widget -->
+  <script>
+  (function(m,e,w,s){c=m.createElement(e);c.onload=function(){
+    Mews.Distributor({configurationIds:[s]},function(api){
+      window.mewsApi=api;
+      if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
+    });
+  };c.async=1;c.src=w;t=m.getElementsByTagName(e)[0];t.parentNode.insertBefore(c,t);
+  })(document,'script','https://app.mews.com/distributor/distributor.min.js','6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
+  </script>
+  <!-- End Mews BookingEngine -->
 
   <!-- Revinate Contact API -->
   <script type="text/javascript" src="//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1" defer></script>
@@ -3859,6 +3881,27 @@
     });
   }
 
+  function launchMews(checkin, checkout, roomKey) {
+    closeBookingPopup();
+    function doOpen() {
+      window.mewsApi.setStartDate(checkin);
+      window.mewsApi.setEndDate(checkout);
+      if (pendingVoucherCode) window.mewsApi.setVoucherCode(pendingVoucherCode);
+      window.mewsApi.open();
+    }
+    if (window.mewsApi) {
+      doOpen();
+    } else {
+      window._mewsPending = doOpen;
+      setTimeout(function() {
+        if (window._mewsPending) {
+          window._mewsPending = null;
+          window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
+        }
+      }, 4000);
+    }
+  }
+
   function buildBookingUrl(checkin, checkout, roomKey) {
     var base = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
     var url = base;
@@ -3967,8 +4010,8 @@
     // Als er al een kamer geselecteerd is (via kamerpopup), sla stap 2 over
     if (selectedRoomKey) {
       if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
-      window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
-      closeBookingPopup();
+      if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: window.GA_ADS_LABEL });
+      launchMews(selectedDates[0], selectedDates[1], selectedRoomKey);
       return;
     }
 
@@ -4000,8 +4043,8 @@
   btnDirectBook.addEventListener('click', function () {
     if (selectedDates.length < 2) return;
     if (window.track) window.track('mews_click', { room_key: null });
-    window.open(buildBookingUrl(selectedDates[0], selectedDates[1], null), '_blank', 'noopener');
-    closeBookingPopup();
+    if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: window.GA_ADS_LABEL });
+    launchMews(selectedDates[0], selectedDates[1], null);
   });
 
   btnBack.addEventListener('click', function () {
@@ -4121,8 +4164,8 @@
   btnConfirm.addEventListener('click', function () {
     if (selectedDates.length < 2 || !selectedRoomKey) return;
     if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
-    window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
-    closeBookingPopup();
+    if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: window.GA_ADS_LABEL });
+    launchMews(selectedDates[0], selectedDates[1], selectedRoomKey);
   });
 
 }());
