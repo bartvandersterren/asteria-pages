@@ -33,10 +33,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
 
+  <!-- Revinate Contact API -->
+  <script type="text/javascript" src="//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1" defer></script>
+
+
   <!-- Mews BookingEngine -->
   <script>
   (function(m,e,w,s){c=m.createElement(e);c.onload=function(){
-    Mews.D([s],function(api){
+    Mews.Distributor({configurationIds:[s]},function(api){
       window.mewsApi=api;
       if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
     });
@@ -44,10 +48,6 @@
   })(document,'script','https://app.mews.com/distributor/distributor.min.js','6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
   </script>
   <!-- End Mews BookingEngine -->
-
-  <!-- Revinate Contact API -->
-  <script type="text/javascript" src="//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1" defer></script>
-
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -4115,28 +4115,6 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     return url;
   }
 
-  function launchMews(checkin, checkout, roomKey) {
-    closeBookingPopup();
-    function doOpen() {
-      window.mewsApi.setStartDate(checkin);
-      window.mewsApi.setEndDate(checkout);
-      window.mewsApi.setVoucherCode(VOUCHER);
-      window.mewsApi.open();
-    }
-    if (window.mewsApi) {
-      doOpen();
-    } else {
-      window._mewsPending = doOpen;
-      // Fallback na 4 seconden als callback nooit vuurt
-      setTimeout(function() {
-        if (window._mewsPending) {
-          window._mewsPending = null;
-          window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
-        }
-      }, 4000);
-    }
-  }
-
   function updateSummary() {
     if (selectedDates.length === 2) {
       var diff = Math.round((selectedDates[1] - selectedDates[0]) / 86400000);
@@ -4216,6 +4194,27 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   overlay.addEventListener('click', function (e) {
     if (e.target === overlay) closeBookingPopup();
   });
+
+  function launchMews(checkin, checkout, roomKey) {
+    closeBookingPopup();
+    function doOpen() {
+      window.mewsApi.setStartDate(checkin);
+      window.mewsApi.setEndDate(checkout);
+      window.mewsApi.setVoucherCode(VOUCHER);
+      window.mewsApi.open();
+    }
+    if (window.mewsApi) {
+      doOpen();
+    } else {
+      window._mewsPending = doOpen;
+      setTimeout(function() {
+        if (window._mewsPending) {
+          window._mewsPending = null;
+          window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
+        }
+      }, 4000);
+    }
+  }
 
   btnClose.addEventListener('click', closeBookingPopup);
 

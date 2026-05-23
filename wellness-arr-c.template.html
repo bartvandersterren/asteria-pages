@@ -36,6 +36,18 @@
   <!-- Revinate {{NAV_CONTACT}} API -->
   <script type="text/javascript" src="//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1" defer></script>
 
+
+  <!-- Mews BookingEngine -->
+  <script>
+  (function(m,e,w,s){c=m.createElement(e);c.onload=function(){
+    Mews.Distributor({configurationIds:[s]},function(api){
+      window.mewsApi=api;
+      if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
+    });
+  };c.async=1;c.src=w;t=m.getElementsByTagName(e)[0];t.parentNode.insertBefore(c,t);
+  })(document,'script','https://app.mews.com/distributor/distributor.min.js','6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
+  </script>
+  <!-- End Mews BookingEngine -->
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -3977,6 +3989,27 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     if (e.target === overlay) closeBookingPopup();
   });
 
+  function launchMews(checkin, checkout, roomKey) {
+    closeBookingPopup();
+    function doOpen() {
+      window.mewsApi.setStartDate(checkin);
+      window.mewsApi.setEndDate(checkout);
+      window.mewsApi.setVoucherCode(VOUCHER);
+      window.mewsApi.open();
+    }
+    if (window.mewsApi) {
+      doOpen();
+    } else {
+      window._mewsPending = doOpen;
+      setTimeout(function() {
+        if (window._mewsPending) {
+          window._mewsPending = null;
+          window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
+        }
+      }, 4000);
+    }
+  }
+
   btnClose.addEventListener('click', closeBookingPopup);
 
   btnToStep2.addEventListener('click', function () {
@@ -3985,8 +4018,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     // Als er al een kamer geselecteerd is (via kamerpopup), sla stap 2 over
     if (selectedRoomKey) {
       if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
-      window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
-      closeBookingPopup();
+      launchMews(selectedDates[0], selectedDates[1], selectedRoomKey);
       return;
     }
 
@@ -4018,8 +4050,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   btnDirectBook.addEventListener('click', function () {
     if (selectedDates.length < 2) return;
     if (window.track) window.track('mews_click', { room_key: null });
-    window.open(buildBookingUrl(selectedDates[0], selectedDates[1], null), '_blank', 'noopener');
-    closeBookingPopup();
+    launchMews(selectedDates[0], selectedDates[1], null);
   });
 
   btnBack.addEventListener('click', function () {
@@ -4139,8 +4170,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   btnConfirm.addEventListener('click', function () {
     if (selectedDates.length < 2 || !selectedRoomKey) return;
     if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
-    window.open(buildBookingUrl(selectedDates[0], selectedDates[1], selectedRoomKey), '_blank', 'noopener');
-    closeBookingPopup();
+    launchMews(selectedDates[0], selectedDates[1], selectedRoomKey);
   });
 
 }());
