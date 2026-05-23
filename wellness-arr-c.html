@@ -4118,9 +4118,6 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       window.mewsApi.setStartDate(checkin);
       window.mewsApi.setEndDate(checkout);
       window.mewsApi.setVoucherCode(VOUCHER);
-      if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
-        window.mewsApi.setRoomCategoryId(window.ROOMS[roomKey].mewsCategoryId);
-      }
       window.mewsApi.open();
     } else {
       window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
