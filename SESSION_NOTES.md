@@ -1,23 +1,15 @@
-# Session Notes — 2026-05-23 (fix sessie)
+# Session Notes — 2026-05-24
 
-## Wat gedaan
-- **Mews widget bug gefixt** — `Mews.D([id], callback)` was verkeerd: 2e param is `dataBaseUrl`, niet callback
-- Fix: `Mews.Distributor({configurationIds:[id]}, callback)` in zowel `wellness-arr-c.html` als template
-- Template bijgewerkt: Mews snippet in `<head>`, `launchMews()` functie, 3x `window.open` vervangen
-- `python3 build.py` uitgevoerd → NL/EN/DE opnieuw gebouwd
-- Live geverifieerd met Playwright: widget opent inline (iframe zichtbaar), geen deeplink fallback
+## Gedaan
+- Analytics no-track opt-out toegevoegd aan alle pagina's (hotel-venray, lander-google, wellness-arr-c + template + vertaalversies)
+  - Check: `if (localStorage.getItem('asteria_no_track')) return;` in track() functie
+  - Instellen op apparaat: `localStorage.setItem('asteria_no_track', '1')` in browser console op visit.asteria.nl
+- Stats opgehaald: 63 page_views, 31 popup_opens (50%), 24 mews_clicks (38%), 1 email signup
+  - Email signup: 23 mei 19:07, /hotel-venray, variant B, via Google
 
-## Verificatie bewezen
-- `window.mewsApi` is object met methods: `open, setStartDate, setEndDate, setVoucherCode, ...`
-- Popup opent, datums selecteerbaar, "boek direct" → Mews widget overlay verschijnt direct
-- Page title na widget open: "Hotel Asteria Venray - Nieuwe reservering"
-
-## Status
-- `wellness-arr-c` NL/EN/DE: Mews widget actief (alle 3 taalversies)
-- Commit: `a6eb6cc` — gepusht naar main
-
-## Open punten (deze sessie niet aangeraakt)
-- D1 analytics database nog niet aangemaakt
-- CF Access op /admin/* nog niet geconfigureerd
-- ASTERIA_D1 binding en Mews voucher WELLNESS124 handmatig in te stellen
-- Connector API voor live prijzen: wacht op Mews certificering
+## Volgende sessie
+- Mobiel analytics dashboard bouwen
+  - Bestaand bestand: admin/stats.html (inhoud onbekend — lezen vóór bouwen)
+  - Tonen: funnel (page_view → popup_open → mews_click + %), variant A/B breakdown, recente email signups
+  - Brand: #c23435, Electrolize + Montserrat, achtergrond #f0efed
+  - Route: /admin/stats — beschermd via Cloudflare Access
