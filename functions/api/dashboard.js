@@ -182,7 +182,7 @@ async function fetchAds(apiKey, adsStart, adsEnd) {
     ? Math.round((totals.revenue / totals.spend) * 100) / 100
     : null;
 
-  return { totals, campaigns };
+  return { totals, campaigns: campaigns.filter(c => c.spend > 0) };
 }
 
 async function fetchGA4(apiKey, ga4Start, ga4End) {
