@@ -3749,6 +3749,7 @@
   }
 
   function track(event, props) {
+    if (localStorage.getItem('asteria_no_track')) return;
     var payload = {
       session_id:    sid,
       event:         event,
