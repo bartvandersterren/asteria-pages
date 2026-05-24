@@ -146,6 +146,11 @@
     return m + ':' + (s < 10 ? '0' : '') + s;
   }
 
+  function esc(s) {
+    if (s === null || s === undefined) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
   // --- Section renderers ---
 
   function renderAds(ads) {
@@ -155,9 +160,9 @@
       return;
     }
     var t = ads.totals;
-    var rows = ads.campaigns.map(function (c) {
+    var rows = (ads.campaigns || []).map(function (c) {
       return '<tr>' +
-        '<td>' + c.name + '</td>' +
+        '<td>' + esc(c.name) + '</td>' +
         '<td>' + fmtEuro(c.spend) + '</td>' +
         '<td>' + fmt(c.clicks) + '</td>' +
         '<td>' + fmt(c.impressions) + '</td>' +
@@ -222,9 +227,9 @@
     var cards = ab.map(function (v) {
       var cls = v.variant === 'A' ? 'var-a' : (v.variant === 'B' ? 'var-b' : 'var-other');
       var tagCls = v.variant === 'A' ? 'ab-tag-a' : (v.variant === 'B' ? 'ab-tag-b' : 'ab-tag-other');
-      var isWinner = v.variant === winnerVariant && ab.length > 1;
+      var isWinner = v.variant === winnerVariant && ab.length > 1 && sorted[0].cvr > sorted[1].cvr;
       return '<div class="ab-card ' + cls + '">' +
-        '<div class="ab-name"><span class="ab-tag ' + tagCls + '">' + v.variant + '</span></div>' +
+        '<div class="ab-name"><span class="ab-tag ' + tagCls + '">' + esc(v.variant) + '</span></div>' +
         '<div class="ab-metrics">' +
           '<div><div class="ab-metric__label">Bezoekers</div><div class="ab-metric__value">' + fmt(v.page_views) + '</div></div>' +
           '<div><div class="ab-metric__label">Naar Mews</div><div class="ab-metric__value">' + fmt(v.mews_clicks) + '</div></div>' +
@@ -300,7 +305,10 @@
     fetch('/api/dashboard?period=' + period, {
       headers: { 'Authorization': 'Bearer ' + window.DASHBOARD_SECRET }
     })
-      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
       .then(function (data) {
         renderAds(data.ads);
         renderFunnel(data.funnel);
@@ -310,7 +318,7 @@
       })
       .catch(function (err) {
         ['ads-section','funnel-section','ab-section','cta-section','ga4-section'].forEach(function (id) {
-          document.getElementById(id).innerHTML += '<p style="color:#c23435;font-size:12px">Fout: ' + err.message + '</p>';
+          document.getElementById(id).innerHTML += '<p style="color:#c23435;font-size:12px">Fout: ' + esc(err.message) + '</p>';
         });
       });
   }
