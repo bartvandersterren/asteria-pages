@@ -104,6 +104,10 @@ async function fetchD1(db, d1Start, d1End) {
 async function fetchAds(apiKey, adsStart, adsEnd) {
   if (!apiKey) return null;
 
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(adsStart) || !/^\d{4}-\d{2}-\d{2}$/.test(adsEnd)) {
+    throw new Error('Invalid date format');
+  }
+
   const query = `
     SELECT
       campaign.name,
@@ -209,8 +213,15 @@ export async function onRequestGet({ env, request }) {
     return json({ error: 'D1 not configured' }, 503);
   }
 
+  const auth = request.headers.get('Authorization');
+  if (!auth || auth !== `Bearer ${env.DASHBOARD_SECRET}`) {
+    return json({ error: 'Unauthorized' }, 401);
+  }
+
   const url = new URL(request.url);
-  const period = url.searchParams.get('period') || 'yesterday';
+  const VALID_PERIODS = ['yesterday', '7d', '30d'];
+  const rawPeriod = url.searchParams.get('period') || 'yesterday';
+  const period = VALID_PERIODS.includes(rawPeriod) ? rawPeriod : 'yesterday';
   const { d1Start, d1End, adsStart, adsEnd, ga4Start, ga4End } = getDateRange(period);
 
   const [d1Result, adsResult, ga4Result] = await Promise.allSettled([
@@ -223,6 +234,11 @@ export async function onRequestGet({ env, request }) {
   const ads = adsResult.status === 'fulfilled' ? adsResult.value : null;
   const ga4 = ga4Result.status === 'fulfilled' ? ga4Result.value : null;
 
+  const errors = {};
+  if (d1Result.status === 'rejected') errors.d1 = d1Result.reason?.message || 'unknown';
+  if (adsResult.status === 'rejected') errors.ads = adsResult.reason?.message || 'unknown';
+  if (ga4Result.status === 'rejected') errors.ga4 = ga4Result.reason?.message || 'unknown';
+
   return json({
     period,
     funnel: d1?.funnel ?? null,
@@ -230,5 +246,6 @@ export async function onRequestGet({ env, request }) {
     cta: d1?.cta ?? null,
     ads,
     ga4,
+    ...(Object.keys(errors).length ? { errors } : {}),
   });
 }
