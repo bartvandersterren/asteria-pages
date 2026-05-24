@@ -28,6 +28,20 @@ function json(data, status = 200) {
 function getDateRange(period) {
   const now = new Date();
   const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const tomorrow = new Date(today.getTime() + 86400000);
+  const yesterday = new Date(today.getTime() - 86400000);
+  const fmt = d => d.toISOString().slice(0, 10);
+
+  if (period === 'today') {
+    return {
+      d1Start: today.toISOString(),
+      d1End: tomorrow.toISOString(),
+      adsStart: fmt(today),
+      adsEnd: fmt(today),
+      ga4Start: 'today',
+      ga4End: 'today',
+    };
+  }
 
   let startDay;
   if (period === '7d') {
@@ -38,24 +52,15 @@ function getDateRange(period) {
     startDay.setUTCDate(startDay.getUTCDate() - 30);
   } else {
     // yesterday (default)
-    startDay = new Date(today);
-    startDay.setUTCDate(startDay.getUTCDate() - 1);
+    startDay = new Date(yesterday);
   }
-
-  const endDay = today; // exclusive upper bound voor D1
-
-  const fmt = d => d.toISOString().slice(0, 10);
-  const yesterday = new Date(today);
-  yesterday.setUTCDate(yesterday.getUTCDate() - 1);
-
-  const ga4Map = { yesterday: 'yesterday', '7d': '7daysAgo', '30d': '30daysAgo' };
 
   return {
     d1Start: startDay.toISOString(),
-    d1End: endDay.toISOString(),
+    d1End: today.toISOString(),
     adsStart: fmt(startDay),
-    adsEnd: fmt(yesterday), // Google Ads BETWEEN is inclusief, dus t/m gisteren
-    ga4Start: ga4Map[period] || 'yesterday',
+    adsEnd: fmt(yesterday),
+    ga4Start: period === '7d' ? '7daysAgo' : period === '30d' ? '30daysAgo' : 'yesterday',
     ga4End: 'yesterday',
   };
 }
@@ -115,6 +120,7 @@ async function fetchAds(apiKey, adsStart, adsEnd) {
       metrics.clicks,
       metrics.cost_micros,
       metrics.conversions,
+      metrics.conversions_value,
       metrics.search_impression_share
     FROM campaign
     WHERE segments.date BETWEEN '${adsStart}' AND '${adsEnd}'
@@ -142,6 +148,7 @@ async function fetchAds(apiKey, adsStart, adsEnd) {
     const c = r.campaign || {};
     const spend = parseInt(m.costMicros || 0) / 1_000_000;
     const conversions = parseFloat(m.conversions || 0);
+    const conversionsValue = parseFloat(m.conversionsValue || 0);
     const impShare = m.searchImpressionShare;
     return {
       name: c.name || '?',
@@ -149,6 +156,7 @@ async function fetchAds(apiKey, adsStart, adsEnd) {
       clicks: parseInt(m.clicks || 0),
       impressions: parseInt(m.impressions || 0),
       conversions: Math.round(conversions * 10) / 10,
+      revenue: Math.round(conversionsValue * 100) / 100,
       cpa: conversions > 0 ? Math.round((spend / conversions) * 100) / 100 : null,
       impression_share: typeof impShare === 'number' ? Math.round(impShare * 1000) / 10 : null,
     };
@@ -160,13 +168,18 @@ async function fetchAds(apiKey, adsStart, adsEnd) {
       clicks: acc.clicks + c.clicks,
       impressions: acc.impressions + c.impressions,
       conversions: acc.conversions + c.conversions,
+      revenue: acc.revenue + c.revenue,
     }),
-    { spend: 0, clicks: 0, impressions: 0, conversions: 0 }
+    { spend: 0, clicks: 0, impressions: 0, conversions: 0, revenue: 0 }
   );
   totals.spend = Math.round(totals.spend * 100) / 100;
   totals.conversions = Math.round(totals.conversions * 10) / 10;
+  totals.revenue = Math.round(totals.revenue * 100) / 100;
   totals.cpa = totals.conversions > 0
     ? Math.round((totals.spend / totals.conversions) * 100) / 100
+    : null;
+  totals.roas = totals.spend > 0
+    ? Math.round((totals.revenue / totals.spend) * 100) / 100
     : null;
 
   return { totals, campaigns };
@@ -219,7 +232,7 @@ export async function onRequestGet({ env, request }) {
   }
 
   const url = new URL(request.url);
-  const VALID_PERIODS = ['yesterday', '7d', '30d'];
+  const VALID_PERIODS = ['today', 'yesterday', '7d', '30d'];
   const rawPeriod = url.searchParams.get('period') || 'yesterday';
   const period = VALID_PERIODS.includes(rawPeriod) ? rawPeriod : 'yesterday';
   const { d1Start, d1End, adsStart, adsEnd, ga4Start, ga4End } = getDateRange(period);

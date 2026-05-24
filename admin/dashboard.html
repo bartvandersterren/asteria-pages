@@ -45,7 +45,8 @@
     .funnel-bar-bg { flex: 1; background: #f3f4f6; border-radius: 4px; height: 8px; overflow: hidden; }
     .funnel-bar { height: 8px; border-radius: 4px; background: #c23435; transition: width .4s; }
     .funnel-num { width: 44px; font-size: 13px; font-weight: 700; text-align: right; }
-    .funnel-pct { width: 48px; font-size: 11px; font-weight: 700; color: #22c55e; text-align: right; }
+    .funnel-pct { width: 52px; font-size: 11px; font-weight: 700; color: #22c55e; text-align: right; }
+    .funnel-pct2 { width: 72px; font-size: 11px; font-weight: 600; color: #9ca3af; text-align: right; }
 
     /* A/B test kaarten */
     .ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -83,6 +84,7 @@
 <div class="top-bar">
   <h1>Asteria Dashboard</h1>
   <div class="period-toggle">
+    <button class="period-btn" data-period="today">Vandaag</button>
     <button class="period-btn active" data-period="yesterday">Gisteren</button>
     <button class="period-btn" data-period="7d">7 dagen</button>
     <button class="period-btn" data-period="30d">30 dagen</button>
@@ -173,10 +175,11 @@
     }).join('');
 
     el.innerHTML = '<div class="section-label">Google Ads</div>' +
-      '<div class="kpi-row kpi-row-3">' +
+      '<div class="kpi-row kpi-row-4">' +
         mkKpi('Spend', fmtEuro(t.spend), '') +
         mkKpi('Kliks', fmt(t.clicks), '') +
-        mkKpi('CPA', fmtEuro(t.cpa), t.conversions + ' conv.') +
+        mkKpi('Revenue', fmtEuro(t.revenue), '') +
+        mkKpi('ROAS', t.roas !== null && t.roas !== undefined ? t.roas + '×' : '—', fmtEuro(t.cpa) + ' CPA') +
       '</div>' +
       '<div class="table-card"><table>' +
         '<thead><tr><th>Campagne</th><th>Spend</th><th>Kliks</th><th>Impr.</th><th>Conv.</th><th>CPA</th><th>Imp. share</th></tr></thead>' +
@@ -191,22 +194,27 @@
       return;
     }
     var pv = funnel.page_view;
+    var po = funnel.popup_open;
     var steps = [
-      { label: 'Bezoekers', n: pv, color: '#6b7280' },
-      { label: 'Popup geopend', n: funnel.popup_open, color: '#c23435' },
-      { label: 'Stap 2 bereikt', n: funnel.step2_reached, color: '#c23435' },
-      { label: 'Naar Mews', n: funnel.mews_click, color: '#c23435' },
-      { label: 'Email signup', n: funnel.email_success, color: '#10b981' },
+      { label: 'Bezoekers',      n: pv,                   color: '#6b7280', pct2: null },
+      { label: 'Popup getoond',  n: po,                   color: '#c23435', pct2: null },
+      { label: 'Stap 2 bereikt', n: funnel.step2_reached, color: '#c23435', pct2: null },
+      { label: 'Naar Mews',      n: funnel.mews_click,    color: '#c23435', pct2: po > 0 ? pct(funnel.mews_click, po) : '—' },
+      { label: 'Email signup',   n: funnel.email_success,  color: '#10b981', pct2: null },
     ];
     var rows = steps.map(function (s, i) {
       var w = pv > 0 ? Math.round((s.n / pv) * 100) : 0;
       var pctStr = i === 0 ? '—' : pct(s.n, pv);
       var pctColor = i === 0 ? '#9ca3af' : (s.color === '#10b981' ? s.color : '#22c55e');
+      var pct2Html = s.pct2 !== null
+        ? '<div class="funnel-pct2">' + s.pct2 + ' v.popup</div>'
+        : '<div class="funnel-pct2"></div>';
       return '<div class="funnel-row">' +
         '<div class="funnel-label">' + s.label + '</div>' +
         '<div class="funnel-bar-bg"><div class="funnel-bar" style="width:' + w + '%;background:' + s.color + '"></div></div>' +
         '<div class="funnel-num">' + fmt(s.n) + '</div>' +
         '<div class="funnel-pct" style="color:' + pctColor + '">' + pctStr + '</div>' +
+        pct2Html +
         '</div>';
     }).join('');
 
