@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asteria Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f0efed; color: #1a1a1a; min-height: 100vh; }
+
+    .top-bar { background: #c23435; color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    .top-bar h1 { font-size: 16px; font-weight: 700; letter-spacing: .02em; }
+    .period-toggle { display: flex; gap: 4px; }
+    .period-btn { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; border: none; cursor: pointer; background: rgba(255,255,255,.2); color: #fff; transition: background .15s; }
+    .period-btn.active { background: #fff; color: #c23435; }
+    .period-btn:hover:not(.active) { background: rgba(255,255,255,.3); }
+
+    .content { max-width: 960px; margin: 0 auto; padding: 24px 20px; display: flex; flex-direction: column; gap: 28px; }
+
+    .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #9ca3af; margin-bottom: 10px; }
+
+    /* KPI kaarten */
+    .kpi-row { display: grid; gap: 10px; }
+    .kpi-row-3 { grid-template-columns: repeat(3, 1fr); }
+    .kpi-row-4 { grid-template-columns: repeat(4, 1fr); }
+    .kpi { background: #fff; border-radius: 10px; padding: 14px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .kpi__label { font-size: 10px; color: #9ca3af; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+    .kpi__value { font-size: 26px; font-weight: 700; line-height: 1.1; }
+    .kpi__value.sm { font-size: 22px; }
+    .kpi__sub { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+
+    /* Campagne tabel */
+    .table-card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-top: 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th { background: #f9fafb; padding: 9px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #6b7280; text-align: left; }
+    tbody td { padding: 10px 14px; border-top: 1px solid #f3f4f6; }
+    tbody tr:hover td { background: #fafafa; }
+    .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: #dcfce7; color: #16a34a; }
+
+    /* Funnel */
+    .funnel-card { background: #fff; border-radius: 10px; padding: 18px 20px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .funnel-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f3f4f6; }
+    .funnel-row:last-child { border-bottom: none; }
+    .funnel-label { width: 150px; font-size: 12px; color: #374151; flex-shrink: 0; }
+    .funnel-bar-bg { flex: 1; background: #f3f4f6; border-radius: 4px; height: 8px; overflow: hidden; }
+    .funnel-bar { height: 8px; border-radius: 4px; background: #c23435; transition: width .4s; }
+    .funnel-num { width: 44px; font-size: 13px; font-weight: 700; text-align: right; }
+    .funnel-pct { width: 48px; font-size: 11px; font-weight: 700; color: #22c55e; text-align: right; }
+
+    /* A/B test kaarten */
+    .ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .ab-card { background: #fff; border-radius: 10px; padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.08); position: relative; overflow: hidden; }
+    .ab-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .ab-card.var-a::before { background: #2563eb; }
+    .ab-card.var-b::before { background: #c23435; }
+    .ab-card.var-other::before { background: #9ca3af; }
+    .ab-name { font-size: 12px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .ab-tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    .ab-tag-a { background: #dbeafe; color: #1d4ed8; }
+    .ab-tag-b { background: #fee2e2; color: #c23435; }
+    .ab-tag-other { background: #f3f4f6; color: #6b7280; }
+    .ab-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .ab-metric__label { font-size: 9px; color: #9ca3af; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; }
+    .ab-metric__value { font-size: 18px; font-weight: 700; }
+    .ab-winner { font-size: 10px; color: #22c55e; font-weight: 700; }
+
+    /* Interacties */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .action-card { background: #fff; border-radius: 10px; padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+    .action-card__title { font-size: 12px; font-weight: 700; color: #374151; margin-bottom: 10px; }
+    .action-row { display: flex; justify-content: space-between; font-size: 13px; color: #6b7280; padding: 6px 0; border-bottom: 1px solid #f9fafb; }
+    .action-row:last-child { border-bottom: none; }
+    .action-row span:last-child { font-weight: 700; color: #1a1a1a; }
+
+    /* Status */
+    .loading { color: #9ca3af; font-size: 13px; padding: 20px 0; }
+    .unavailable { color: #9ca3af; font-style: italic; font-size: 12px; }
+    .footer-note { font-size: 11px; color: #9ca3af; text-align: center; padding: 8px; }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>Asteria Dashboard</h1>
+  <div class="period-toggle">
+    <button class="period-btn active" data-period="yesterday">Gisteren</button>
+    <button class="period-btn" data-period="7d">7 dagen</button>
+    <button class="period-btn" data-period="30d">30 dagen</button>
+  </div>
+</div>
+
+<div class="content">
+  <div id="ads-section">
+    <div class="section-label">Google Ads</div>
+    <p class="loading">Laden…</p>
+  </div>
+
+  <div id="funnel-section">
+    <div class="section-label">Funnel landingspagina</div>
+    <p class="loading">Laden…</p>
+  </div>
+
+  <div id="ab-section">
+    <div class="section-label">A/B tests</div>
+    <p class="loading">Laden…</p>
+  </div>
+
+  <div id="cta-section">
+    <div class="section-label">Interacties</div>
+    <p class="loading">Laden…</p>
+  </div>
+
+  <div id="ga4-section">
+    <div class="section-label">GA4 sessies</div>
+    <p class="loading">Laden…</p>
+  </div>
+
+  <p class="footer-note">Data wordt vers opgehaald bij laden · API-aanroepen verlopen server-side</p>
+</div>
+
+<script>
+(function () {
+  var currentPeriod = 'yesterday';
+
+  // --- Render helpers ---
+
+  function fmt(n) {
+    if (n === null || n === undefined) return '—';
+    return n.toLocaleString('nl-NL');
+  }
+
+  function fmtEuro(n) {
+    if (n === null || n === undefined) return '—';
+    return '€\u202f' + n.toFixed(2).replace('.', ',');
+  }
+
+  function pct(part, total) {
+    if (!total || total === 0) return '—';
+    return Math.round((part / total) * 1000) / 10 + '%';
+  }
+
+  function fmtDuration(seconds) {
+    if (!seconds) return '—';
+    var m = Math.floor(seconds / 60);
+    var s = Math.round(seconds % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  // --- Section renderers ---
+
+  function renderAds(ads) {
+    var el = document.getElementById('ads-section');
+    if (!ads) {
+      el.innerHTML = '<div class="section-label">Google Ads</div><p class="unavailable">Niet beschikbaar (controleer MATON_API_KEY)</p>';
+      return;
+    }
+    var t = ads.totals;
+    var rows = ads.campaigns.map(function (c) {
+      return '<tr>' +
+        '<td>' + c.name + '</td>' +
+        '<td>' + fmtEuro(c.spend) + '</td>' +
+        '<td>' + fmt(c.clicks) + '</td>' +
+        '<td>' + fmt(c.impressions) + '</td>' +
+        '<td>' + fmt(c.conversions) + '</td>' +
+        '<td>' + fmtEuro(c.cpa) + '</td>' +
+        '<td>' + (c.impression_share !== null ? '<span class="badge">' + c.impression_share + '%</span>' : '—') + '</td>' +
+        '</tr>';
+    }).join('');
+
+    el.innerHTML = '<div class="section-label">Google Ads</div>' +
+      '<div class="kpi-row kpi-row-3">' +
+        mkKpi('Spend', fmtEuro(t.spend), '') +
+        mkKpi('Kliks', fmt(t.clicks), '') +
+        mkKpi('CPA', fmtEuro(t.cpa), t.conversions + ' conv.') +
+      '</div>' +
+      '<div class="table-card"><table>' +
+        '<thead><tr><th>Campagne</th><th>Spend</th><th>Kliks</th><th>Impr.</th><th>Conv.</th><th>CPA</th><th>Imp. share</th></tr></thead>' +
+        '<tbody>' + rows + '</tbody>' +
+      '</table></div>';
+  }
+
+  function renderFunnel(funnel) {
+    var el = document.getElementById('funnel-section');
+    if (!funnel) {
+      el.innerHTML = '<div class="section-label">Funnel landingspagina</div><p class="unavailable">Niet beschikbaar</p>';
+      return;
+    }
+    var pv = funnel.page_view;
+    var steps = [
+      { label: 'Bezoekers', n: pv, color: '#6b7280' },
+      { label: 'Popup geopend', n: funnel.popup_open, color: '#c23435' },
+      { label: 'Stap 2 bereikt', n: funnel.step2_reached, color: '#c23435' },
+      { label: 'Naar Mews', n: funnel.mews_click, color: '#c23435' },
+      { label: 'Email signup', n: funnel.email_success, color: '#10b981' },
+    ];
+    var rows = steps.map(function (s, i) {
+      var w = pv > 0 ? Math.round((s.n / pv) * 100) : 0;
+      var pctStr = i === 0 ? '—' : pct(s.n, pv);
+      var pctColor = i === 0 ? '#9ca3af' : (s.color === '#10b981' ? s.color : '#22c55e');
+      return '<div class="funnel-row">' +
+        '<div class="funnel-label">' + s.label + '</div>' +
+        '<div class="funnel-bar-bg"><div class="funnel-bar" style="width:' + w + '%;background:' + s.color + '"></div></div>' +
+        '<div class="funnel-num">' + fmt(s.n) + '</div>' +
+        '<div class="funnel-pct" style="color:' + pctColor + '">' + pctStr + '</div>' +
+        '</div>';
+    }).join('');
+
+    el.innerHTML = '<div class="section-label">Funnel landingspagina</div>' +
+      '<div class="funnel-card">' + rows + '</div>';
+  }
+
+  function renderAB(ab) {
+    var el = document.getElementById('ab-section');
+    if (!ab || ab.length === 0) {
+      el.innerHTML = '<div class="section-label">A/B tests</div><p class="unavailable">Geen variant-data in deze periode</p>';
+      return;
+    }
+
+    var sorted = ab.slice().sort(function (a, b) { return b.cvr - a.cvr; });
+    var winnerVariant = sorted[0].variant;
+
+    var cards = ab.map(function (v) {
+      var cls = v.variant === 'A' ? 'var-a' : (v.variant === 'B' ? 'var-b' : 'var-other');
+      var tagCls = v.variant === 'A' ? 'ab-tag-a' : (v.variant === 'B' ? 'ab-tag-b' : 'ab-tag-other');
+      var isWinner = v.variant === winnerVariant && ab.length > 1;
+      return '<div class="ab-card ' + cls + '">' +
+        '<div class="ab-name"><span class="ab-tag ' + tagCls + '">' + v.variant + '</span></div>' +
+        '<div class="ab-metrics">' +
+          '<div><div class="ab-metric__label">Bezoekers</div><div class="ab-metric__value">' + fmt(v.page_views) + '</div></div>' +
+          '<div><div class="ab-metric__label">Naar Mews</div><div class="ab-metric__value">' + fmt(v.mews_clicks) + '</div></div>' +
+          '<div><div class="ab-metric__label">Conv.</div><div class="ab-metric__value">' + v.cvr + '%</div>' +
+            (isWinner ? '<div class="ab-winner">↑ hoogste</div>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    el.innerHTML = '<div class="section-label">A/B tests (variant_price)</div>' +
+      '<div class="ab-grid">' + cards + '</div>' +
+      '<p style="font-size:11px;color:#9ca3af;margin-top:8px">Conversieratio = mews_clicks / page_views per variant · "hoogste" is informatief, geen statistische significantie</p>';
+  }
+
+  function renderCTA(cta, funnel) {
+    var el = document.getElementById('cta-section');
+    if (!cta && !funnel) {
+      el.innerHTML = '<div class="section-label">Interacties</div><p class="unavailable">Niet beschikbaar</p>';
+      return;
+    }
+    var submitN = funnel ? funnel.email_submit : 0;
+    var successN = funnel ? funnel.email_success : 0;
+    var emailRatio = submitN > 0 ? Math.round((successN / submitN) * 100) + '%' : '—';
+
+    el.innerHTML = '<div class="section-label">Interacties</div>' +
+      '<div class="two-col">' +
+        '<div class="action-card">' +
+          '<div class="action-card__title">CTA kliks</div>' +
+          '<div class="action-row"><span>Totaal cta_click events</span><span>' + fmt(cta ? cta.cta_click : 0) + '</span></div>' +
+        '</div>' +
+        '<div class="action-card">' +
+          '<div class="action-card__title">Email signups</div>' +
+          '<div class="action-row"><span>Verstuurd (submit)</span><span>' + fmt(submitN) + '</span></div>' +
+          '<div class="action-row"><span>Bevestigd (success)</span><span>' + fmt(successN) + '</span></div>' +
+          '<div class="action-row"><span>Conversieratio</span><span style="color:#22c55e">' + emailRatio + '</span></div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function renderGA4(ga4) {
+    var el = document.getElementById('ga4-section');
+    if (!ga4) {
+      el.innerHTML = '<div class="section-label">GA4 sessies</div><p class="unavailable">Niet beschikbaar (controleer MATON_API_KEY)</p>';
+      return;
+    }
+    el.innerHTML = '<div class="section-label">GA4 sessies</div>' +
+      '<div class="kpi-row kpi-row-4">' +
+        mkKpi('Sessies', fmt(ga4.sessions), '', 'sm') +
+        mkKpi('Gebruikers', fmt(ga4.users), '', 'sm') +
+        mkKpi('Bounce rate', Math.round(ga4.bounce_rate * 100) + '%', '', 'sm') +
+        mkKpi('Gem. duur', fmtDuration(ga4.avg_session_duration), '', 'sm') +
+      '</div>';
+  }
+
+  function mkKpi(label, value, sub, size) {
+    return '<div class="kpi">' +
+      '<div class="kpi__label">' + label + '</div>' +
+      '<div class="kpi__value' + (size ? ' ' + size : '') + '">' + value + '</div>' +
+      (sub ? '<div class="kpi__sub">' + sub + '</div>' : '') +
+      '</div>';
+  }
+
+  // --- Data fetch ---
+
+  function load(period) {
+    ['ads-section','funnel-section','ab-section','cta-section','ga4-section'].forEach(function (id) {
+      var label = document.querySelector('#' + id + ' .section-label');
+      var labelHTML = label ? label.outerHTML : '';
+      document.getElementById(id).innerHTML = labelHTML + '<p class="loading">Laden\u2026</p>';
+    });
+
+    fetch('/api/dashboard?period=' + period, {
+      headers: { 'Authorization': 'Bearer ' + window.DASHBOARD_SECRET }
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        renderAds(data.ads);
+        renderFunnel(data.funnel);
+        renderAB(data.ab);
+        renderCTA(data.cta, data.funnel);
+        renderGA4(data.ga4);
+      })
+      .catch(function (err) {
+        ['ads-section','funnel-section','ab-section','cta-section','ga4-section'].forEach(function (id) {
+          document.getElementById(id).innerHTML += '<p style="color:#c23435;font-size:12px">Fout: ' + err.message + '</p>';
+        });
+      });
+  }
+
+  // --- Period toggle ---
+
+  document.querySelectorAll('.period-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.period-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentPeriod = btn.dataset.period;
+      load(currentPeriod);
+    });
+  });
+
+  // --- Init ---
+
+  // Get secret from localStorage or prompt
+  if (!window.DASHBOARD_SECRET) {
+    window.DASHBOARD_SECRET = localStorage.getItem('asteria_dashboard_secret');
+  }
+  if (!window.DASHBOARD_SECRET) {
+    window.DASHBOARD_SECRET = prompt('Dashboard toegangscode:');
+    if (window.DASHBOARD_SECRET) localStorage.setItem('asteria_dashboard_secret', window.DASHBOARD_SECRET);
+  }
+
+  load(currentPeriod);
+})();
+</script>
+
+</body>
+</html>
