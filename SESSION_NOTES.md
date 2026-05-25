@@ -1,20 +1,16 @@
 # Session Notes — 2026-05-25
 
 ## Gedaan
-- Dashboard redesign: `admin/dashboard.html` volledig gestyled (Stripe/Vercel look)
-  - Inter font, #f8fafc achtergrond, 1080px max-width
-  - Witte topbar met rode linkerborder + subtitle
-  - KPI kaarten: 32px font, gekleurde topborder (ads=blauw, ga4=paars)
-  - Section headers met horizontale lijn
-  - Funnel: genummerde stap-cirkels, 10px bars
-  - Campagne tabel: rechtsuitlijning, blauwe hover
-  - A/B kaarten: 4px border, 24px metrics, Hoogste CVR badge
-  - Skeleton loading animatie + rode error pill
-- Mobile fix: 2-koloms KPI grid op ≤640px, kleinere fonts, funnel kolom verborgen
-
-## Commits
-- `3dfa543` feat: redesign analytics dashboard
-- `ca614c1` fix: responsive KPI grid and layout for mobile
+- Besproken dat Cloudflare D1 events client-side zijn en dus niet 100% accuraat (ad blockers)
+- Mews Connector API als betrouwbaardere databron voor boekingen besproken (nog niet gebouwd)
+- Zapier-MCP geïnstalleerd: `claude mcp add --transport http --scope user "Zapier-MCP" https://mcp.zapier.com/api/v1/connect`
+  - Staat in user scope (~/.claude.json) — beschikbaar in alle projecten
 
 ## Open
-- Google Reviews API key nog steeds niet geconfigureerd in CF Pages dashboard
+- Mews Connector API integratie in dashboard (reserveringen, omzet, bezetting)
+  - Vereist Mews Connector API credentials (AccessToken via Operations API)
+  - Toe te voegen aan `functions/api/dashboard.js` als 4e databron naast D1/Ads/GA4
+
+## Volgende sessie oppakt
+- Na Zapier-MCP onboarding: bekijk welke Zapier skills relevant zijn
+- Beslissen of Mews dashboard-integratie prioriteit heeft
