@@ -96,6 +96,7 @@ async function fetchD1(db, d1Start, d1End) {
     funnel: {
       page_view: funnelMap['page_view'] || 0,
       popup_open: funnelMap['popup_open'] || 0,
+      email_popup_open: funnelMap['email_popup_open'] || 0,
       step2_reached: funnelMap['step2_reached'] || 0,
       mews_click: funnelMap['mews_click'] || 0,
       email_submit: funnelMap['email_submit'] || 0,

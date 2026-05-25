@@ -198,6 +198,7 @@
     var steps = [
       { label: 'Bezoekers',      n: pv,                   color: '#6b7280', pct2: null },
       { label: 'Popup getoond',  n: po,                   color: '#c23435', pct2: null },
+      { label: 'Email popup',    n: funnel.email_popup_open, color: '#6366f1', pct2: pv > 0 ? pct(funnel.email_popup_open, pv) : '—' },
       { label: 'Stap 2 bereikt', n: funnel.step2_reached, color: '#c23435', pct2: null },
       { label: 'Naar Mews',      n: funnel.mews_click,    color: '#c23435', pct2: po > 0 ? pct(funnel.mews_click, po) : '—' },
       { label: 'Email signup',   n: funnel.email_success,  color: '#10b981', pct2: null },
