@@ -104,6 +104,16 @@
 
     .footer-note { font-size: 11px; color: #94a3b8; text-align: center; padding: 8px; }
 
+    /* Mews sectie */
+    .kpi.kpi-mews::before { background: #10b981; }
+    .mews-breakdown { background: #fff; border-radius: 12px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-top: 12px; }
+    .mews-breakdown__title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #94a3b8; margin-bottom: 10px; }
+    .mews-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }
+    .mews-row:last-child { border-bottom: none; }
+    .mews-row__cat { color: #374151; font-weight: 500; }
+    .mews-row__meta { display: flex; gap: 16px; color: #64748b; }
+    .mews-row__meta span:last-child { font-weight: 700; color: #111827; font-variant-numeric: tabular-nums; }
+
     @media (max-width: 640px) {
       /* Topbar */
       .top-bar { padding: 10px 16px; gap: 8px; flex-wrap: wrap; }
@@ -154,6 +164,11 @@
   <div id="ads-section">
     <div class="section-header"><span class="section-label">Google Ads</span><div class="section-rule"></div></div>
     <div class="skeleton-wrap"><div class="skeleton-kpi-row"><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div></div><div class="skeleton skeleton-bar"></div></div>
+  </div>
+
+  <div id="mews-section">
+    <div class="section-header"><span class="section-label">Mews Boekingen</span><div class="section-rule"></div></div>
+    <div class="skeleton-wrap"><div class="skeleton-kpi-row"><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div></div></div>
   </div>
 
   <div id="funnel-section">
@@ -355,6 +370,39 @@
       '</div>';
   }
 
+  function renderMews(mews) {
+    var el = document.getElementById('mews-section');
+    if (!mews) {
+      el.innerHTML =
+        '<div class="section-header"><span class="section-label">Mews Boekingen</span><div class="section-rule"></div></div>' +
+        '<p class="unavailable">Geen Mews-data beschikbaar</p>';
+      return;
+    }
+    var t = mews.totals;
+    var kpis =
+      '<div class="kpi-row kpi-row-4">' +
+        mkKpi('Boekingen', fmt(t.count), null, null, 'kpi-mews') +
+        mkKpi('Omzet', fmtEuro(t.revenue), null, null, 'kpi-mews') +
+        mkKpi('Gem. waarde', fmtEuro(t.avg_value), null, null, 'kpi-mews') +
+        mkKpi('Kameravonden', fmt(t.nights), null, null, 'kpi-mews') +
+      '</div>';
+    var rows = (mews.by_category || []).map(function(r) {
+      return '<div class="mews-row">' +
+        '<span class="mews-row__cat">' + r.category + '</span>' +
+        '<div class="mews-row__meta">' +
+          '<span>' + r.count + ' boeking' + (r.count !== 1 ? 'en' : '') + '</span>' +
+          '<span>' + fmtEuro(r.revenue) + '</span>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+    var breakdown = rows
+      ? '<div class="mews-breakdown"><div class="mews-breakdown__title">Per kamertype</div>' + rows + '</div>'
+      : '';
+    el.innerHTML =
+      '<div class="section-header"><span class="section-label">Mews Boekingen</span><div class="section-rule"></div></div>' +
+      kpis + breakdown;
+  }
+
   function mkSection(label) {
     return '<div class="section-header"><span class="section-label">' + label + '</span><div class="section-rule"></div></div>';
   }
@@ -372,11 +420,12 @@
   var SKELETON_4 = '<div class="skeleton-wrap"><div class="skeleton-kpi-row"><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div></div><div class="skeleton skeleton-bar"></div></div>';
   var SKELETON_2 = '<div class="skeleton-wrap"><div class="skeleton-kpi-row"><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div></div></div>';
   var SKELETON_BAR = '<div class="skeleton-wrap"><div class="skeleton skeleton-bar"></div></div>';
-  var SECTION_SKELETONS = { 'ads-section': SKELETON_4, 'funnel-section': SKELETON_BAR, 'ab-section': SKELETON_2, 'cta-section': SKELETON_2, 'ga4-section': SKELETON_4 };
-  var SECTION_LABELS = { 'ads-section': 'Google Ads', 'funnel-section': 'Funnel landingspagina', 'ab-section': 'A/B tests', 'cta-section': 'Interacties', 'ga4-section': 'GA4 sessies' };
+  var SKELETON_MEWS = '<div class="skeleton-wrap"><div class="skeleton-kpi-row"><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div><div class="skeleton skeleton-kpi"></div></div></div>';
+  var SECTION_SKELETONS = { 'ads-section': SKELETON_4, 'funnel-section': SKELETON_BAR, 'ab-section': SKELETON_2, 'cta-section': SKELETON_2, 'ga4-section': SKELETON_4, 'mews-section': SKELETON_MEWS };
+  var SECTION_LABELS = { 'ads-section': 'Google Ads', 'funnel-section': 'Funnel landingspagina', 'ab-section': 'A/B tests', 'cta-section': 'Interacties', 'ga4-section': 'GA4 sessies', 'mews-section': 'Mews Boekingen' };
 
   function load(period) {
-    ['ads-section','funnel-section','ab-section','cta-section','ga4-section'].forEach(function (id) {
+    ['ads-section','mews-section','funnel-section','ab-section','cta-section','ga4-section'].forEach(function (id) {
       document.getElementById(id).innerHTML = mkSection(SECTION_LABELS[id]) + SECTION_SKELETONS[id];
     });
 
@@ -393,9 +442,10 @@
         renderAB(data.ab);
         renderCTA(data.cta, data.funnel);
         renderGA4(data.ga4);
+        renderMews(data.mews);
       })
       .catch(function (err) {
-        ['ads-section','funnel-section','ab-section','cta-section','ga4-section'].forEach(function (id) {
+        ['ads-section','mews-section','funnel-section','ab-section','cta-section','ga4-section'].forEach(function (id) {
           document.getElementById(id).innerHTML = mkSection(SECTION_LABELS[id]) + '<span class="error-pill">&#9888; Fout: ' + esc(err.message) + '</span>';
         });
       });
