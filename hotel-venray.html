@@ -4206,6 +4206,7 @@
     shown = true;
     sessionStorage.setItem('ec_shown', '1');
     overlay.classList.add('is-open');
+    if (window.track) window.track('email_popup_open');
     setTimeout(function () { emailInput && emailInput.focus(); }, 350);
   }
 
