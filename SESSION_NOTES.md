@@ -1,17 +1,20 @@
 # Session Notes — 2026-05-25
 
 ## Gedaan
+- Dashboard redesign: `admin/dashboard.html` volledig gestyled (Stripe/Vercel look)
+  - Inter font, #f8fafc achtergrond, 1080px max-width
+  - Witte topbar met rode linkerborder + subtitle
+  - KPI kaarten: 32px font, gekleurde topborder (ads=blauw, ga4=paars)
+  - Section headers met horizontale lijn
+  - Funnel: genummerde stap-cirkels, 10px bars
+  - Campagne tabel: rechtsuitlijning, blauwe hover
+  - A/B kaarten: 4px border, 24px metrics, Hoogste CVR badge
+  - Skeleton loading animatie + rode error pill
+- Mobile fix: 2-koloms KPI grid op ≤640px, kleinere fonts, funnel kolom verborgen
 
-- Analytics gisteren (24 mei) opgezocht via D1: 69 page views, 24 popup_open, 8 cta_click, 1 mews_click, 1 email_success
-- `email_popup_open` event toegevoegd aan hotel-venray.html, lander-google.html (alle 5 pagina's met email capture hadden dezelfde trigger)
-- Dashboard uitgebreid: email_popup_open in funnel rij (paars, tussen boekpopup en stap 2)
-- API: dashboard.js funnel object bevat nu ook email_popup_open
-
-## Gotcha ontdekt
-
-- D1 kolom heet `ts` (niet `created_at`) — stats API endpoint heeft geen datum-filter, altijd D1 direct bevragen via wrangler d1 execute --remote
+## Commits
+- `3dfa543` feat: redesign analytics dashboard
+- `ca614c1` fix: responsive KPI grid and layout for mobile
 
 ## Open
-
-- Historische email_popup_open data is 0 (event bestond niet voor 25-05-2026)
 - Google Reviews API key nog steeds niet geconfigureerd in CF Pages dashboard
