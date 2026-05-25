@@ -1,16 +1,23 @@
 # Session Notes — 2026-05-25
 
-## Gedaan
-- Besproken dat Cloudflare D1 events client-side zijn en dus niet 100% accuraat (ad blockers)
-- Mews Connector API als betrouwbaardere databron voor boekingen besproken (nog niet gebouwd)
-- Zapier-MCP geïnstalleerd: `claude mcp add --transport http --scope user "Zapier-MCP" https://mcp.zapier.com/api/v1/connect`
-  - Staat in user scope (~/.claude.json) — beschikbaar in alle projecten
+## Wat gedaan
+- Plan geschreven voor Mews boekingen in dashboard
+- Zapier MCP verkend: Mews-koppeling werkt maar reservation lookup via MCP bleek niet mogelijk (permission/context issue)
+- Geconcludeerd: fieldmapping verifiëren via "Test trigger" in Zapier UI
 
-## Open
-- Mews Connector API integratie in dashboard (reserveringen, omzet, bezetting)
-  - Vereist Mews Connector API credentials (AccessToken via Operations API)
-  - Toe te voegen aan `functions/api/dashboard.js` als 4e databron naast D1/Ads/GA4
+## Plan
+`docs/superpowers/plans/2026-05-25-mews-boekingen-dashboard.md`
 
-## Volgende sessie oppakt
-- Na Zapier-MCP onboarding: bekijk welke Zapier skills relevant zijn
-- Beslissen of Mews dashboard-integratie prioriteit heeft
+## Wat de volgende sessie oppakt
+Uitvoeren van het plan, Task 1 t/m 7:
+1. D1-tabel aanmaken (`mews_bookings`)
+2. Webhook endpoint (`functions/api/mews-webhook.js`)
+3. `dashboard.js` uitbreiden met `fetchMews()`
+4. `admin/dashboard.html` uitbreiden met Mews-sectie
+5. Cloudflare secret `MEWS_WEBHOOK_SECRET` instellen
+6. Zapier Zap inrichten (handmatig)
+7. End-to-end test via curl
+
+## Zapier veldmapping
+Exacte Mews veldnamen zijn onbekend — verifiëren via "Test trigger" in Zapier bij inrichten Zap.
+Zoek naar: Channel/Source/Origin (moet "Mews Booking Engine" bevatten), Space Category Name, Total Price, Nights.
