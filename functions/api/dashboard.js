@@ -222,6 +222,43 @@ async function fetchGA4(apiKey, ga4Start, ga4End) {
   };
 }
 
+async function fetchMews(db, d1Start, d1End) {
+  const result = await db.prepare(
+    `SELECT
+       room_category,
+       COUNT(*) as count,
+       COALESCE(SUM(total_price), 0) as revenue,
+       COALESCE(SUM(nights), 0) as nights_total
+     FROM mews_bookings
+     WHERE created_at >= ? AND created_at < ?
+     GROUP BY room_category
+     ORDER BY count DESC`
+  ).bind(d1Start, d1End).all();
+
+  const rows = result.results || [];
+  const totals = rows.reduce(
+    (acc, r) => ({
+      count: acc.count + r.count,
+      revenue: acc.revenue + (r.revenue || 0),
+      nights: acc.nights + (r.nights_total || 0),
+    }),
+    { count: 0, revenue: 0, nights: 0 }
+  );
+  totals.revenue = Math.round(totals.revenue * 100) / 100;
+  totals.avg_value = totals.count > 0
+    ? Math.round((totals.revenue / totals.count) * 100) / 100
+    : null;
+
+  return {
+    totals,
+    by_category: rows.map(r => ({
+      category: r.room_category || 'Onbekend',
+      count: r.count,
+      revenue: Math.round((r.revenue || 0) * 100) / 100,
+    })),
+  };
+}
+
 export async function onRequestGet({ env, request }) {
   if (!env.ASTERIA_D1) {
     return json({ error: 'D1 not configured' }, 503);
@@ -238,20 +275,23 @@ export async function onRequestGet({ env, request }) {
   const period = VALID_PERIODS.includes(rawPeriod) ? rawPeriod : 'yesterday';
   const { d1Start, d1End, adsStart, adsEnd, ga4Start, ga4End } = getDateRange(period);
 
-  const [d1Result, adsResult, ga4Result] = await Promise.allSettled([
+  const [d1Result, adsResult, ga4Result, mewsResult] = await Promise.allSettled([
     fetchD1(env.ASTERIA_D1, d1Start, d1End),
     fetchAds(env.MATON_API_KEY, adsStart, adsEnd),
     fetchGA4(env.MATON_API_KEY, ga4Start, ga4End),
+    fetchMews(env.ASTERIA_D1, d1Start, d1End),
   ]);
 
   const d1 = d1Result.status === 'fulfilled' ? d1Result.value : null;
   const ads = adsResult.status === 'fulfilled' ? adsResult.value : null;
   const ga4 = ga4Result.status === 'fulfilled' ? ga4Result.value : null;
+  const mews = mewsResult.status === 'fulfilled' ? mewsResult.value : null;
 
   const errors = {};
   if (d1Result.status === 'rejected') errors.d1 = d1Result.reason?.message || 'unknown';
   if (adsResult.status === 'rejected') errors.ads = adsResult.reason?.message || 'unknown';
   if (ga4Result.status === 'rejected') errors.ga4 = ga4Result.reason?.message || 'unknown';
+  if (mewsResult.status === 'rejected') errors.mews = mewsResult.reason?.message || 'unknown';
 
   return json({
     period,
@@ -260,6 +300,7 @@ export async function onRequestGet({ env, request }) {
     cta: d1?.cta ?? null,
     ads,
     ga4,
+    mews,
     ...(Object.keys(errors).length ? { errors } : {}),
   });
 }
