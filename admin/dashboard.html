@@ -103,6 +103,36 @@
     @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
     .footer-note { font-size: 11px; color: #94a3b8; text-align: center; padding: 8px; }
+
+    @media (max-width: 640px) {
+      /* Topbar */
+      .top-bar { padding: 10px 16px; gap: 8px; flex-wrap: wrap; }
+      .top-bar-brand p { display: none; }
+      .top-bar-brand h1 { font-size: 14px; }
+      .period-toggle { flex-wrap: wrap; gap: 4px; }
+      .period-btn { padding: 4px 10px; font-size: 11px; }
+
+      /* Layout */
+      .content { padding: 20px 14px; gap: 24px; }
+
+      /* KPI: 2 kolommen, kleinere font */
+      .kpi-row-4 { grid-template-columns: repeat(2, 1fr); }
+      .kpi-row-3 { grid-template-columns: repeat(2, 1fr); }
+      .kpi { padding: 14px 16px; }
+      .kpi__value { font-size: 22px; }
+      .kpi__value.sm { font-size: 22px; }
+
+      /* Funnel: label smaller, pct2 verbergen */
+      .funnel-label { width: 130px; font-size: 11px; }
+      .funnel-pct2 { display: none; }
+      .funnel-num { width: 38px; font-size: 12px; }
+
+      /* A/B grid: 1 kolom */
+      .ab-grid { grid-template-columns: 1fr; }
+
+      /* Interacties: 1 kolom */
+      .two-col { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
