@@ -1,29 +1,17 @@
-# Session Notes — 2026-05-24
+# Session Notes — 2026-05-25
 
-## Wat gedaan
+## Gedaan
 
-### Admin Dashboard gebouwd (visit.asteria.nl/admin/dashboard)
+- Analytics gisteren (24 mei) opgezocht via D1: 69 page views, 24 popup_open, 8 cta_click, 1 mews_click, 1 email_success
+- `email_popup_open` event toegevoegd aan hotel-venray.html, lander-google.html (alle 5 pagina's met email capture hadden dezelfde trigger)
+- Dashboard uitgebreid: email_popup_open in funnel rij (paars, tussen boekpopup en stap 2)
+- API: dashboard.js funnel object bevat nu ook email_popup_open
 
-Twee nieuwe bestanden:
-- `functions/api/dashboard.js` — Cloudflare Function die D1 + Maton Google Ads API + Maton GA4 API parallel aggregeert
-- `admin/dashboard.html` — Dashboard UI met 5 secties
+## Gotcha ontdekt
 
-### Features
-- **Google Ads:** spend, kliks, revenue, ROAS + campagne-tabel (0-spend gefilterd)
-- **Funnel:** bezoekers → popup → stap2 → Mews → email (% van bezoekers + % van popup voor Mews)
-- **A/B tests:** variant_price A vs B met CVR
-- **Interacties:** CTA kliks + email submit/success ratio
-- **GA4:** sessies, gebruikers, bounce rate, gem. duur
-- **Periode-toggle:** Vandaag / Gisteren / 7 dagen / 30 dagen
+- D1 kolom heet `ts` (niet `created_at`) — stats API endpoint heeft geen datum-filter, altijd D1 direct bevragen via wrangler d1 execute --remote
 
-### Secrets gezet via wrangler
-- `MATON_API_KEY` — Maton API key (Google Ads + GA4 proxy)
-- `DASHBOARD_SECRET` — `EVdVu33QbrfBYn2OY2_MpVqplVriKNTSzUugENsDlX0`
+## Open
 
-### Auth
-Dashboard endpoint vereist `Authorization: Bearer <DASHBOARD_SECRET>` header.
-HTML slaat token op in `localStorage('asteria_dashboard_secret')` — bij eerste bezoek prompt.
-
-## Open / volgende sessie
-- Geen open taken
-- Eventueel: time-series grafieken toevoegen (buiten huidige scope)
+- Historische email_popup_open data is 0 (event bestond niet voor 25-05-2026)
+- Google Reviews API key nog steeds niet geconfigureerd in CF Pages dashboard
