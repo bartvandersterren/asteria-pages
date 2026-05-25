@@ -98,3 +98,6 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 - **Bouwen:** `python3 build.py` → schrijft 3 HTML-outputbestanden
 - **Wijziging aanbrengen:** pas JSON aan → `python3 build.py` → commit template + JSONs + 3 HTMLs
 - `generate_translations.py` = eenmalig bootstrapscript, niet meer nodig voor dagelijks gebruik
+
+## Foto-index lezen
+- `foto-index.md` is te groot voor de Read tool (~60k tokens) — gebruik `Bash head -N foto-index.md` of grep om specifieke secties op te zoeken
