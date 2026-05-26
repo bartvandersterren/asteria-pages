@@ -1,23 +1,22 @@
-# Session Notes — 2026-05-25
+# Session Notes — 2026-05-26
 
 ## Wat gedaan
-- Plan geschreven voor Mews boekingen in dashboard
-- Zapier MCP verkend: Mews-koppeling werkt maar reservation lookup via MCP bleek niet mogelijk (permission/context issue)
-- Geconcludeerd: fieldmapping verifiëren via "Test trigger" in Zapier UI
+- Tracking audit plan geschreven voor hotel-venray.html
+- Task 1 ✅: D1 stats API werkt — 189 page_views, 71 popup_opens, 37 cta_clicks, 33 mews_clicks
+- Task 2 ✅: Playwright bevestigt page_view + cta_click(sticky_fab) + popup_open correct verstuurd
+
+## Wat open staat
+- Task 3: handmatig GA4 DebugView (https://visit.asteria.nl/hotel-venray?gtag_debug=1 + GA4 property 262565995 → Beheer → DebugView)
+- Task 4: data-track-cta toevoegen aan 5 CTAs in hotel-venray.html
+- Task 5: Playwright verificatie na de fix
+
+## Tracking gaps (gevonden, nog niet gefixed)
+5 CTAs missen data-track-cta in hotel-venray.html:
+- ~2651: nav desktop → data-track-cta="nav_desktop"
+- ~2654: nav mobile → data-track-cta="nav_mobile"
+- ~2944: arr-card L&O (id=bbCta) → data-track-cta="arr_logies"
+- ~2971: arr-card Wellness → data-track-cta="arr_wellness"
+- ~2998: arr-card Asperge → data-track-cta="arr_asperge"
 
 ## Plan
-`docs/superpowers/plans/2026-05-25-mews-boekingen-dashboard.md`
-
-## Wat de volgende sessie oppakt
-Uitvoeren van het plan, Task 1 t/m 7:
-1. D1-tabel aanmaken (`mews_bookings`)
-2. Webhook endpoint (`functions/api/mews-webhook.js`)
-3. `dashboard.js` uitbreiden met `fetchMews()`
-4. `admin/dashboard.html` uitbreiden met Mews-sectie
-5. Cloudflare secret `MEWS_WEBHOOK_SECRET` instellen
-6. Zapier Zap inrichten (handmatig)
-7. End-to-end test via curl
-
-## Zapier veldmapping
-Exacte Mews veldnamen zijn onbekend — verifiëren via "Test trigger" in Zapier bij inrichten Zap.
-Zoek naar: Channel/Source/Origin (moet "Mews Booking Engine" bevatten), Space Category Name, Total Price, Nights.
+docs/superpowers/plans/2026-05-26-tracking-audit-hotel-venray.md
