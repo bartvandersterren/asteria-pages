@@ -1743,6 +1743,21 @@
 }
 .ec-consent a { color: rgba(255,255,255,0.60); text-decoration: underline; text-decoration-color: rgba(255,255,255,0.25); }
 
+.ec-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.ec-perks li {
+  font-size: 14px;
+  color: rgba(255,255,255,0.88);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+}
+
 .ec-error {
   font-size: 11px;
   color: #ff8a8a;
@@ -3215,12 +3230,16 @@
 
         <!-- Scherm 1: form -->
         <div class="ec-form-state" id="ecFormState">
-          <h2 class="ec-title">Gratis badjas, handdoek<br>&amp; bubbels op de kamer</h2>
-          <p class="ec-sub">Meld u aan voor de nieuwsbrief en ontvang het pakket bij uw eerste verblijf.</p>
+          <h2 class="ec-title">Gratis welkomstpakket<br>bij uw verblijf</h2>
+          <ul class="ec-perks">
+            <li>&#x1F6C1; Badjas &amp; handdoek</li>
+            <li>&#x1F942; Fles bubbels op de kamer</li>
+          </ul>
+          <p class="ec-sub">Meld u aan en ontvang uw persoonlijke code per e-mail.</p>
           <p class="ec-error" id="ecError">Er ging iets mis. Probeer het opnieuw.</p>
           <div class="ec-form-row">
             <input class="ec-email-input" type="email" id="ecEmail" placeholder="uw e-mailadres" autocomplete="email">
-            <button class="ec-submit-btn" id="ecSubmit">Aanmelden</button>
+            <button class="ec-submit-btn" id="ecSubmit">Stuur mij de code &#x2192;</button>
           </div>
           <p class="ec-consent">Door u aan te melden gaat u akkoord met onze <a href="/privacyverklaring" target="_blank">privacyverklaring</a>. Afmelden kan altijd.</p>
         </div>
@@ -3233,8 +3252,8 @@
               <polyline points="2,4 12,13 22,4"/>
             </svg>
           </div>
-          <h2 class="ec-success-title">Check uw inbox</h2>
-          <p class="ec-success-sub">We hebben u een mail gestuurd. Open hem om uw aanmelding te bevestigen. Uw persoonlijke code staat daarin.</p>
+          <h2 class="ec-success-title">Bijna klaar!</h2>
+          <p class="ec-success-sub">Check uw inbox en bevestig uw aanmelding. Uw welkomstcode staat in diezelfde mail — vermeld hem bij het boeken.</p>
           <p class="ec-spam-note">Geen mail ontvangen? Check uw spamfolder.</p>
         </div>
 
@@ -4199,6 +4218,13 @@
   var shown = false;
   var submitting = false;
 
+  // ── Variant toewijzen vóór triggers ──────────────────
+  var variant = sessionStorage.getItem('ec_variant');
+  if (!variant) {
+    variant = Math.random() < 0.5 ? 'A' : 'B';
+    sessionStorage.setItem('ec_variant', variant);
+  }
+
   // ── Open / close ─────────────────────────────────────
   function openPopup() {
     if (shown) return;
@@ -4285,19 +4311,24 @@
   });
 
   // ── A/B split ────────────────────────────────────────
-  var variant = sessionStorage.getItem('ec_variant');
-  if (!variant) {
-    variant = Math.random() < 0.5 ? 'A' : 'B';
-    sessionStorage.setItem('ec_variant', variant);
-  }
-
-  // ── Variant A: timer 4 seconden ──────────────────────
+  // ── Variant A: timer 12 seconden + scroll 45% backup op mobile ──
   if (variant === 'A') {
-    setTimeout(openPopup, 4000);
+    setTimeout(openPopup, 12000);
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      function onScrollA() {
+        var scrolled = window.scrollY + window.innerHeight;
+        var total = document.documentElement.scrollHeight;
+        if (scrolled / total >= 0.45) {
+          window.removeEventListener('scroll', onScrollA);
+          openPopup();
+        }
+      }
+      window.addEventListener('scroll', onScrollA, { passive: true });
+    }
     return;
   }
 
-  // ── Variant B: exit intent (desktop) + scroll (mobile) ──
+  // ── Variant B: exit intent (desktop) + scroll 45% (mobile) ──
   var isMobile = window.matchMedia('(max-width: 768px)').matches;
 
   if (!isMobile) {
@@ -4309,11 +4340,11 @@
       }
     });
   } else {
-    // Scroll-depth: 70% van de pagina gescrold
+    // Scroll-depth: 45% van de pagina (was 70%)
     function onScroll() {
       var scrolled = window.scrollY + window.innerHeight;
       var total = document.documentElement.scrollHeight;
-      if (scrolled / total >= 0.70) {
+      if (scrolled / total >= 0.45) {
         window.removeEventListener('scroll', onScroll);
         openPopup();
       }
