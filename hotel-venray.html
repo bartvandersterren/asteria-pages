@@ -65,7 +65,26 @@
   <script>
   window.addEventListener('load', function() {
     (function(m,e,w,s){c=m.createElement(e);c.onload=function(){
-      Mews.Distributor({configurationIds:[s]},function(api){
+      Mews.Distributor({
+        configurationIds:[s],
+        onBookingFinished:function(res){
+          try{
+            var cnt=res?res.length:1;
+            var val=null;
+            if(res&&res.length){
+              val=res.reduce(function(s,r){
+                return s+(r.totalCost&&r.totalCost.value?r.totalCost.value:0);
+              },0);
+            }
+            var txId=res&&res[0]&&(res[0].reservationGroupId||res[0].id)||Date.now().toString(36);
+            if(window.track)window.track('booking_complete',{reservation_count:cnt,total_value:val,transaction_id:txId});
+            if(typeof gtag==='function'){
+              if(val){gtag('event','purchase',{send_to:'G-DPCP945DCG',value:val,currency:'EUR',transaction_id:txId});}
+              if(window.GA_ADS_LABEL){gtag('event','conversion',{send_to:window.GA_ADS_LABEL,value:val||0,currency:'EUR',transaction_id:txId});}
+            }
+          }catch(e){}
+        }
+      },function(api){
         window.mewsApi=api;
         if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
       });
