@@ -27,7 +27,7 @@ export async function onRequestGet({ env, request }) {
   try {
     if (summary) {
       // Samenvatting: counts per event + per variant
-      const [eventCounts, variantCounts] = await Promise.all([
+      const [eventCounts, variantCounts, bookingStats] = await Promise.all([
         env.ASTERIA_D1.prepare(
           `SELECT event, COUNT(*) as count FROM events GROUP BY event ORDER BY count DESC`
         ).all(),
@@ -38,10 +38,22 @@ export async function onRequestGet({ env, request }) {
            GROUP BY event, variant_price
            ORDER BY event, variant_price`
         ).all(),
+        env.ASTERIA_D1.prepare(
+          `SELECT
+             COUNT(*) as total_bookings,
+             SUM(total_price) as total_revenue,
+             AVG(total_price) as avg_value,
+             MAX(created_at) as last_booking
+           FROM mews_bookings`
+        ).all(),
       ]);
 
       return new Response(
-        JSON.stringify({ events: eventCounts.results, variants: variantCounts.results }),
+        JSON.stringify({
+          events: eventCounts.results,
+          variants: variantCounts.results,
+          bookings: bookingStats.results[0] || { total_bookings: 0, total_revenue: 0 },
+        }),
         { headers: { 'Content-Type': 'application/json' } }
       );
     }
