@@ -76,6 +76,7 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 
 ## Actieve campaign pagina's
 
+- `wellness-arrangement.html` → `visit.asteria.nl/wellness-arrangement` — wellness arrangement lander (3 talen via template)
 - `hotel-venray.html` → `visit.asteria.nl/hotel-venray` — branded Google Ads lander, meest up-to-date
 - `lander-google.html` → `visit.asteria.nl/lander-google` — actieve PMax campaign final URL (onderhoud nodig)
 - Beide hebben Mews inline widget + Google Ads + GA4 tracking
@@ -95,9 +96,12 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 
 - **Bronbestand:** `wellness-arr-c.template.html` met `{{KEY}}` markers (~107 keys)
 - **Vertalingen:** `translations/{nl,en,de}.json`
+- **Output:** `wellness-arrangement.html`, `wellness-arrangement-en.html`, `wellness-arrangement-de.html`
 - **Bouwen:** `python3 build.py` → schrijft 3 HTML-outputbestanden
 - **Wijziging aanbrengen:** pas JSON aan → `python3 build.py` → commit template + JSONs + 3 HTMLs
 - `generate_translations.py` = eenmalig bootstrapscript, niet meer nodig voor dagelijks gebruik
+- **GOTCHA `{{KEY}}` in CSS:** gebruik NOOIT template keys als onderdeel van CSS-waarden (bijv. `i{{HTML_LANG}}ine-flex`). Dit breekt op andere talen. Hardcode zulke waarden.
+- **Redirects:** `_redirects` in root — oude `/wellness-arr-c` URLs → 301 naar `/wellness-arrangement`
 
 ## Foto-index lezen
 - `foto-index.md` is te groot voor de Read tool (~60k tokens) — gebruik `Bash head -N foto-index.md` of grep om specifieke secties op te zoeken
