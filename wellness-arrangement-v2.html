@@ -3,36 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wellness Arrangement — Hotel Asteria Venray (v2)</title>
-  <meta name="description" content="Wellness arrangement met overnachting, drie-gangen diner en ontbijtbuffet bij Hotel Asteria Venray. Vier unieke sauna's op de Top Floor. Vanaf €139,50 p.p.">
+  <title>Wellnessarrangement — Hotel Asteria Venray</title>
+  <meta name="description" content="Overnacht met vrij gebruik van onze 300 m² wellness. Inclusief welkomstdrankje, 3-gangen diner en uitgebreid ontbijt. Vanaf €139,50 p.p.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="brand.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <style>
-    /* ── Reset & base ──────────────────────────────────────────── */
+    /* ── RESET ──────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Montserrat', sans-serif; color: #334155; background: #fff; }
-    img { max-width: 100%; display: block; }
-
-    /* ── Motion ────────────────────────────────────────────────── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .fade-up { transition: none; opacity: 1; transform: none; }
-    }
 
     /* ── NAV ────────────────────────────────────────────────────── */
     .main-nav {
@@ -41,7 +23,7 @@
       z-index: 1000;
       background: #333;
       box-shadow: 0 0 15px rgba(0,0,0,.5);
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--font-body);
     }
     .nav-inner {
       max-width: 1400px;
@@ -87,592 +69,838 @@
       .nav-inner > .logo { display: none; }
       .logo--mobile { display: flex; padding: 12px 0; }
       .nav-content { display: none; }
-      .mobile-nav-buttons {
-        display: flex !important;
-        align-items: center;
-        gap: 4px;
-        float: right;
-        color: #fff;
-        margin: 0;
-      }
-      .mobile-nav-buttons .button {
-        display: flex !important;
-        align-items: center;
-        gap: 6px;
-        background: transparent;
-        color: #fff;
-        border: none;
-        padding: 10px 12px;
-        font-size: 13px;
-        font-family: 'Montserrat', sans-serif;
-        cursor: pointer;
-        line-height: 25px;
-        text-decoration: none;
-      }
+      .mobile-nav-buttons { display: flex !important; align-items: center; gap: 4px; float: right; color: #fff; margin: 0; }
+      .mobile-nav-buttons .button { display: flex !important; align-items: center; gap: 6px; background: transparent; color: #fff; border: none; padding: 10px 12px; font-size: 13px; font-family: var(--font-body); cursor: pointer; line-height: 25px; text-decoration: none; }
       .mobile-nav-buttons .button i { font-size: 18px; }
-      .main-nav ul {
-        position: fixed;
-        inset: 0;
-        background: #444;
-        text-align: center;
-        padding: 20px 0;
-        opacity: 0;
-        display: none;
-        transition: opacity 0.4s ease-in-out;
-        overflow-y: scroll;
-        z-index: 1200;
-        list-style: none;
-        margin: 0;
-      }
+      .main-nav ul { position: fixed; inset: 0; background: #444; text-align: center; padding: 20px 0; opacity: 0; display: none; transition: opacity 0.4s ease-in-out; overflow-y: scroll; z-index: 1200; list-style: none; margin: 0; }
       .main-nav.show-mobile-nav ul:not(.submenu) { display: block; }
       .main-nav.show-mobile-nav.delay ul { opacity: 1; }
       .main-nav ul li { width: 100%; display: block; }
       .main-nav ul li a { font-size: 20px; line-height: 40px; color: #f2f2f2; padding: 5px 0; display: block; border-bottom: none; text-decoration: none; }
       .main-nav ul li a:hover { color: #fff; }
-      .menu-close {
-        display: block !important;
-        color: #fff;
-        font-size: 22px;
-        padding: 16px;
-        cursor: pointer;
-        list-style: none;
-      }
+      .menu-close { display: block !important; color: #fff; font-size: 22px; padding: 16px; cursor: pointer; list-style: none; }
     }
 
-    /* ── BLOK 1: HERO ───────────────────────────────────────────── */
+    /* ── HERO ────────────────────────────────────────────────────── */
     .hero {
       position: relative;
       height: 100vh;
+      min-height: 600px;
       display: flex;
       align-items: flex-end;
-      justify-content: center;
-      text-align: center;
       overflow: hidden;
     }
-    .hero__img {
+
+    .hero__bg {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
+      background: #0a0a0a url('fotos/wellness-spa.webp') center center / cover no-repeat;
     }
+
     .hero__overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.60) 100%);
+      background:
+        linear-gradient(to top,
+          rgba(0,0,0,0.84) 0%,
+          rgba(0,0,0,0.28) 38%,
+          rgba(0,0,0,0.04) 66%,
+          transparent 100%
+        ),
+        linear-gradient(to bottom,
+          rgba(0,0,0,0.30) 0%,
+          transparent 20%
+        );
     }
+
+    .hero__grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+    }
+
     .hero__content {
       position: relative;
-      z-index: 2;
-      padding: 0 24px 80px;
-      max-width: 760px;
+      z-index: 3;
       width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px 88px;
     }
+
+    .hero__eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.40);
+      margin-bottom: 20px;
+      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+    }
+
     .hero__title {
-      font-family: 'Electrolize', sans-serif;
-      font-size: 44px;
+      font-family: var(--font-heading);
+      font-size: clamp(52px, 7.5vw, 104px);
       font-weight: 400;
       text-transform: uppercase;
+      letter-spacing: 0.045em;
+      line-height: 0.94;
       color: #fff;
-      text-shadow: 0 2px 24px rgba(0,0,0,0.5);
-      letter-spacing: 0.06em;
-      margin-bottom: 16px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeUp 0.7s ease 0.1s forwards;
+      margin: 0 0 28px;
+      text-shadow: 0 4px 48px rgba(0,0,0,0.36);
+      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s both;
+      max-width: 680px;
     }
-    .hero__sub {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 18px;
-      color: #fff;
+
+    .hero__rule {
+      width: 40px;
+      height: 2px;
+      background: var(--color-red);
       margin-bottom: 28px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeUp 0.7s ease 0.3s forwards;
-    }
-    .hero__cta {
-      display: inline-block;
-      background: #c23435;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      text-decoration: none;
-      padding: 14px 32px;
-      border-radius: 4px;
-      transition: background 200ms ease;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeUp 0.7s ease 0.5s forwards;
-      min-height: 52px;
-      display: inline-flex;
-      align-items: center;
-    }
-    .hero__cta:hover { background: #a82c2c; }
-    .hero__cta:focus { outline: 2px solid #c23435; outline-offset: 3px; }
-
-    @keyframes heroFadeUp {
-      to { opacity: 1; transform: translateY(0); }
+      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.46s both;
     }
 
-    @media (max-width: 768px) {
-      .hero { height: 80vh; }
-      .hero__title { font-size: 28px; }
-      .hero__sub { font-size: 15px; }
-      .hero__content { padding: 0 20px 60px; }
+    .hero__sub {
+      font-family: var(--font-body);
+      font-size: clamp(13px, 1.1vw, 16px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.50);
+      line-height: 1.80;
+      max-width: 380px;
+      margin: 0 0 40px;
+      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.57s both;
     }
 
-    /* ── BLOK 2: USP + GOOGLE SCORE ────────────────────────────── */
-    .usp-bar {
-      background: #ffffff;
-      border-bottom: 1px solid #f1f5f9;
-      padding: 0;
-    }
-    .usp-bar__inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: stretch;
-    }
-    .usp-bar__item {
-      flex: 1;
+    .hero__cta-group {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 24px 28px;
-      border-right: 1px solid #f1f5f9;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 14px;
-      color: #334155;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.70s both;
     }
-    .usp-bar__item:last-of-type { border-right: none; }
-    .usp-bar__dash {
-      color: #c23435;
+
+    .hero__btn {
+      font-family: var(--font-body);
+      font-size: 11px;
       font-weight: 700;
-      flex-shrink: 0;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--color-red);
+      border: 1px solid var(--color-red);
+      border-radius: 2px;
+      padding: 16px 38px;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 28px rgba(194,52,53,0.45);
+      transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
     }
-    .usp-bar__score {
+    .hero__btn:hover {
+      background: #a82c2c;
+      border-color: #a82c2c;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 40px rgba(194,52,53,0.55);
+      color: #fff;
+    }
+
+    .hero__btn-ghost {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.50);
+      text-decoration: none;
+      padding: 16px 28px;
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 2px;
+      backdrop-filter: blur(6px);
+      transition: color 0.2s, border-color 0.2s;
+      display: inline-block;
+    }
+    .hero__btn-ghost:hover {
+      color: #fff;
+      border-color: rgba(255,255,255,0.45);
+    }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 36px;
+      right: 48px;
+      z-index: 3;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 32px;
-      border-left: 1px solid #f1f5f9;
-      gap: 2px;
-      flex-shrink: 0;
+      gap: 8px;
+      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 1.2s both;
     }
-    .usp-bar__score-num {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 28px;
-      color: #0f172a;
-      line-height: 1;
-    }
-    .usp-bar__stars {
-      color: #f59e0b;
-      font-size: 16px;
-      line-height: 1.2;
-    }
-    .usp-bar__reviews {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 12px;
-      color: #94a3b8;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 768px) {
-      .usp-bar__inner {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-      }
-      .usp-bar__item {
-        border-right: none;
-        border-bottom: 1px solid #f1f5f9;
-        padding: 18px 16px;
-        font-size: 13px;
-      }
-      .usp-bar__score {
-        border-left: none;
-        border-top: 1px solid #f1f5f9;
-        grid-column: 1 / -1;
-        flex-direction: row;
-        gap: 12px;
-        justify-content: center;
-        padding: 18px 16px;
-      }
-    }
-
-    /* ── BLOK 3: ARRANGEMENT ────────────────────────────────────── */
-    .arrangement {
+    .hero__scroll-track {
+      width: 1px;
+      height: 50px;
+      background: rgba(255,255,255,0.12);
       position: relative;
       overflow: hidden;
-      background: #f8fafc;
     }
-    .arrangement__img {
-      width: 100%;
-      height: 520px;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      /* Subtiel vignette via een mask-achtige pseudo, geen overlay */
-    }
-    .arrangement__vignette {
+    .hero__scroll-track::after {
+      content: '';
       position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.15) 100%);
-      pointer-events: none;
+      top: -100%;
+      left: 0; right: 0;
+      height: 100%;
+      background: rgba(255,255,255,0.38);
+      animation: scrollDown 2.4s ease-in-out infinite;
     }
-    .arrangement__card {
-      position: absolute;
-      right: 24px;
-      bottom: 24px;
-      width: 280px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 8px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.08);
-      padding: 28px;
-      transform: translateX(40px);
-      opacity: 0;
-      transition: transform 0.7s ease, opacity 0.7s ease, box-shadow 200ms ease;
-      cursor: pointer;
-    }
-    .arrangement__card.visible {
-      transform: translateX(0);
-      opacity: 1;
-    }
-    .arrangement__card:hover {
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 8px 16px rgba(0,0,0,0.08), 0 24px 56px rgba(0,0,0,0.12);
-      transform: translateX(0) translateY(-2px);
-    }
-    .arrangement__card:focus-within {
-      outline: 2px solid #c23435;
-      outline-offset: 3px;
-    }
-    .arrangement__card-label {
-      font-family: 'Electrolize', sans-serif;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      color: #94a3b8;
-      margin-bottom: 14px;
-      display: block;
-    }
-    .arrangement__list {
-      list-style: none;
-      margin: 0 0 20px;
-      padding: 0;
-    }
-    .arrangement__list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
-      color: #334155;
-      padding: 7px 0;
-      border-bottom: 1px solid #f8fafc;
-    }
-    .arrangement__list li:last-child { border-bottom: none; }
-    .arrangement__list-dash {
-      color: #c23435;
-      font-weight: 700;
-      flex-shrink: 0;
-      line-height: 1.5;
-    }
-    .arrangement__price-section {
-      margin-bottom: 16px;
-    }
-    .arrangement__from {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 12px;
-      color: #94a3b8;
-      display: block;
-      margin-bottom: 2px;
-    }
-    .arrangement__price {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 700;
-      font-size: 32px;
-      color: #0f172a;
-      line-height: 1;
-      display: block;
-    }
-    .arrangement__pp {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 12px;
-      color: #94a3b8;
-      display: block;
-      margin-top: 4px;
-    }
-    .arrangement__cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 48px;
-      background: #c23435;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
+    .hero__scroll-label {
+      font-family: var(--font-body);
+      font-size: 9px;
       font-weight: 600;
-      font-size: 14px;
-      text-decoration: none;
-      border-radius: 4px;
-      transition: background 200ms ease;
-      margin-bottom: 8px;
-    }
-    .arrangement__cta:hover { background: #a82c2c; }
-    .arrangement__cta:focus { outline: 2px solid #c23435; outline-offset: 3px; }
-    .arrangement__guarantee {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      color: #94a3b8;
-      text-align: center;
-      display: block;
-    }
-
-    @media (max-width: 768px) {
-      .arrangement__img { height: 380px; }
-      .arrangement__card {
-        position: static;
-        width: 100%;
-        border-radius: 0;
-        box-shadow: none;
-        border-top: 1px solid #f1f5f9;
-        transform: none;
-        opacity: 1;
-        transition: none;
-        padding: 28px 20px;
-      }
-      .arrangement__card.visible {
-        transform: none;
-      }
-      .arrangement__card:hover {
-        transform: none;
-        box-shadow: none;
-      }
-    }
-
-    /* ── BLOK 4: WELLNESS SFEER ─────────────────────────────────── */
-    .wellness {
-      background: #f8fafc;
-      padding: 92px 24px;
-    }
-    .wellness__inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .wellness__title {
-      font-family: 'Electrolize', sans-serif;
-      font-size: 28px;
-      font-weight: 400;
+      letter-spacing: 0.24em;
       text-transform: uppercase;
-      color: #0f172a;
-      margin-bottom: 16px;
-    }
-    .wellness__body {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 16px;
-      color: #475569;
-      max-width: 600px;
-      margin-bottom: 40px;
-      line-height: 1.7;
-    }
-    .wellness__grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .wellness__grid img {
-      width: 100%;
-      height: 280px;
-      object-fit: cover;
-      border-radius: 20px;
-      transition: box-shadow 200ms ease, transform 200ms ease;
-      cursor: pointer;
-    }
-    .wellness__grid img:hover {
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 8px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.08);
-      transform: translateY(-2px);
-    }
-    .wellness__grid img:focus {
-      outline: 2px solid #c23435;
-      outline-offset: 3px;
+      color: rgba(255,255,255,0.26);
+      writing-mode: vertical-lr;
     }
 
-    @media (max-width: 900px) {
-      .wellness__grid { grid-template-columns: repeat(2, 1fr); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollDown {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero__content *, .hero__scroll { animation: none; opacity: 1; transform: none; }
     }
     @media (max-width: 768px) {
-      .wellness__title { font-size: 22px; }
-      .wellness { padding: 69px 20px; }
+      .hero__content { padding: 0 24px 64px; }
+      .hero__scroll { right: 20px; bottom: 24px; }
     }
     @media (max-width: 480px) {
-      .wellness__grid { grid-template-columns: 1fr; }
+      .hero__cta-group { flex-direction: column; }
+      .hero__btn, .hero__btn-ghost { width: 100%; text-align: center; }
     }
 
-    /* ── BLOK 5: REVIEWS ────────────────────────────────────────── */
-    .reviews {
-      background: #ffffff;
-      padding: 92px 24px;
-    }
-    .reviews__inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .reviews__title {
-      font-family: 'Electrolize', sans-serif;
-      font-size: 26px;
-      font-weight: 400;
-      text-transform: uppercase;
-      color: #0f172a;
-      margin-bottom: 6px;
-    }
-    .reviews__score-line {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 14px;
-      color: #94a3b8;
-      margin-bottom: 40px;
-    }
-    .reviews__grid {
-      display: flex;
-      gap: 20px;
-    }
-    .review-card {
-      flex: 1;
+    /* ── ARRANGEMENT — sticky foto + interactieve lijst ────────── */
+    .arr {
       background: #fff;
-      border: 1px solid #f1f5f9;
-      border-radius: 12px;
-      padding: 28px;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 8px rgba(0,0,0,0.06), 0 16px 40px rgba(0,0,0,0.08);
-      cursor: pointer;
-      transition: box-shadow 200ms ease, transform 200ms ease;
     }
-    .review-card:hover {
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05), 0 8px 16px rgba(0,0,0,0.08), 0 24px 56px rgba(0,0,0,0.12);
-      transform: translateY(-2px);
+
+    .arr__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start; /* cruciaal: sticky werkt alleen met align-items: start */
     }
-    .review-card__stars {
-      color: #f59e0b;
-      font-size: 18px;
-      margin-bottom: 12px;
+
+    /* Foto-kolom — sticky op desktop, vult de viewport */
+    .arr__photo-col {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
     }
-    .review-card__quote {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 14px;
-      color: #334155;
-      line-height: 1.6;
-      margin-bottom: 14px;
+
+    /* Foto container — houdt de gestapelde crossfade-afbeeldingen */
+    .arr__photo {
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
-    .review-card__name {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 13px;
+
+    /* Alle foto's gestapeld — alleen de actieve heeft opacity: 1 */
+    .arr__photo-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1);
+      will-change: opacity;
+    }
+    .arr__photo-img.is-active {
+      opacity: 1;
+    }
+
+    .arr__content {
+      padding: 100px 72px 100px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh; /* genoeg scroll-ruimte voor de sticky foto */
+    }
+
+    .arr__eyebrow {
+      font-family: var(--font-body);
+      font-size: 10px;
       font-weight: 600;
-      color: #94a3b8;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 18px;
     }
 
-    @media (max-width: 768px) {
-      .reviews__grid { flex-direction: column; }
-      .reviews { padding: 69px 20px; }
-    }
-
-    /* ── BLOK 6: FOOTER CTA ─────────────────────────────────────── */
-    .footer-cta {
-      background: #f8fafc;
-      padding: 92px 24px;
-      text-align: center;
-    }
-    .footer-cta__title {
-      font-family: 'Electrolize', sans-serif;
-      font-size: 28px;
+    .arr__title {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 3vw, 50px);
       font-weight: 400;
       text-transform: uppercase;
-      color: #0f172a;
+      letter-spacing: 0.05em;
+      line-height: 1.05;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+
+    .arr__rule {
+      width: 36px;
+      height: 2px;
+      background: var(--color-red);
+      margin-bottom: 28px;
+    }
+
+    .arr__desc {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      color: #475569;
+      line-height: 1.75;
+      margin-bottom: 32px;
+      max-width: 380px;
+    }
+
+    .arr__includes {
+      list-style: none;
+      margin: 0 0 36px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .arr__includes li {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      color: #1a1a1a;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.4;
+    }
+    .arr__check {
+      width: 14px;
+      height: 14px;
+      color: var(--color-red);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .arr__price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .arr__from {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: #aaa;
+    }
+    .arr__price {
+      font-family: var(--font-heading);
+      font-size: 38px;
+      font-weight: 400;
+      color: #1a1a1a;
+      letter-spacing: 0.02em;
+    }
+    .arr__pp {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: #aaa;
+      font-weight: 300;
+    }
+
+    .arr__cta {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--color-red);
+      border: 1px solid var(--color-red);
+      border-radius: 2px;
+      padding: 16px 36px;
+      text-decoration: none;
+      display: inline-block;
+      align-self: flex-start;
+      box-shadow: 0 4px 20px rgba(194,52,53,0.30);
+      transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .arr__cta:hover {
+      background: #a82c2c;
+      border-color: #a82c2c;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(194,52,53,0.40);
+      color: #fff;
+    }
+
+    .arr__note {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: #bbb;
+      font-weight: 300;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .arr__inner {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+      /* Mobile: foto sticky bovenaan, lijst scrollt eronder langs */
+      .arr__photo-col {
+        position: sticky;
+        top: 60px; /* onder de mobile nav */
+        height: 62vw;
+        z-index: 5;
+      }
+      .arr__content { padding: 64px 32px 72px; min-height: auto; }
+    }
+    @media (max-width: 480px) {
+      .arr__photo-col { height: 72vw; top: 54px; }
+      .arr__content { padding: 48px 24px 56px; }
+      .arr__cta { width: 100%; text-align: center; align-self: stretch; }
+    }
+
+    /* ── WELLNESS SECTIE + ACCORDION ────────────────────────────── */
+    .wl {
+      background: var(--color-bg);
+      padding: 120px 24px 0;
+    }
+
+    .wl__intro {
+      max-width: 1400px;
+      margin: 0 auto 52px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: end;
+    }
+
+    .wl__eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #999;
       margin-bottom: 14px;
     }
-    .footer-cta__sub {
-      font-family: 'Montserrat', sans-serif;
+
+    .wl__heading {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .wl__desc {
+      font-family: var(--font-body);
+      font-size: 15px;
       font-weight: 300;
-      font-size: 16px;
       color: #475569;
-      margin-bottom: 32px;
-    }
-    .footer-cta__sub a {
-      color: #475569;
-      text-decoration: none;
-    }
-    .footer-cta__sub a:hover { color: #0f172a; }
-    .footer-cta__btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #c23435;
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      text-decoration: none;
-      padding: 16px 40px;
-      border-radius: 4px;
-      transition: background 200ms ease;
-      min-height: 52px;
-    }
-    .footer-cta__btn:hover { background: #a82c2c; }
-    .footer-cta__btn:focus { outline: 2px solid #c23435; outline-offset: 3px; }
-
-    @media (max-width: 768px) {
-      .footer-cta__title { font-size: 22px; }
-      .footer-cta { padding: 69px 20px; }
+      line-height: 1.75;
+      max-width: 420px;
+      margin: 0;
     }
 
-    /* ── MOBILE STICKY CTA ──────────────────────────────────────── */
-    .mobile-sticky-cta {
-      display: none;
-      position: fixed;
+    /* Accordion */
+    .acc-track {
+      display: flex;
+      height: 540px;
+      gap: 6px;
+      max-width: 1400px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .acc-panel {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      transition: flex 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+    }
+    .acc-panel:hover,
+    .acc-panel:focus-within,
+    .acc-panel.is-open { flex: 4.5; }
+
+    .acc-panel__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8,6,4,0.70);
+      transition: background 0.55s ease;
+    }
+    .acc-panel:hover .acc-panel__overlay,
+    .acc-panel.is-open .acc-panel__overlay { background: rgba(8,6,4,0.34); }
+
+    .acc-panel__label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg);
+      white-space: nowrap;
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.68);
+      z-index: 2;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .acc-panel:hover .acc-panel__label,
+    .acc-panel.is-open .acc-panel__label { opacity: 0; }
+
+    .acc-panel__content {
+      position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      z-index: 900;
-      background: #c23435;
-      height: 56px;
-      align-items: center;
-      justify-content: center;
+      padding: 0 48px 52px;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.3s ease 0.2s, transform 0.4s cubic-bezier(0.16,1,0.3,1) 0.15s;
     }
-    .mobile-sticky-cta a {
+    .acc-panel:hover .acc-panel__content,
+    .acc-panel.is-open .acc-panel__content { opacity: 1; transform: translateY(0); }
+
+    .acc-panel__title {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       color: #fff;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      justify-content: center;
+      margin: 0 0 12px;
+      line-height: 1.15;
     }
-    .mobile-sticky-cta a:focus { outline: 2px solid #fff; outline-offset: -3px; }
+
+    .acc-panel__text {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.75;
+      margin: 0;
+      max-width: 300px;
+    }
+
+    .acc-panel__rule {
+      width: 32px;
+      height: 2px;
+      background: var(--color-red);
+      margin-top: 20px;
+    }
+
+    .acc-panel__mobile-header { display: none; }
+
+    @media (max-width: 900px) {
+      .wl { padding: 80px 24px 0; }
+      .wl__intro { grid-template-columns: 1fr; gap: 16px; }
+      .acc-track { height: 420px; gap: 4px; }
+      .acc-panel__content { padding: 0 28px 36px; }
+      .acc-panel__title { font-size: 20px; }
+    }
+
+    @media (max-width: 640px) {
+      .wl { padding: 64px 16px 0; }
+      .acc-track { flex-direction: column; height: auto; gap: 4px; overflow: visible; }
+      .acc-panel { flex: none !important; height: 64px; transition: height 0.42s cubic-bezier(0.16, 1, 0.3, 1); }
+      .acc-panel.is-open { height: 240px; }
+      .acc-panel__overlay { background: rgba(8,6,4,0.70) !important; }
+      .acc-panel.is-open .acc-panel__overlay { background: rgba(8,6,4,0.40) !important; }
+      .acc-panel__label { display: none; }
+      .acc-panel__mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        height: 64px;
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        z-index: 4;
+        min-height: 44px;
+      }
+      .acc-panel__mobile-title {
+        font-family: var(--font-heading);
+        font-size: 12px;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: rgba(255,255,255,0.90);
+      }
+      .acc-panel__chevron {
+        color: rgba(255,255,255,0.65);
+        flex-shrink: 0;
+        transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+      }
+      .acc-panel.is-open .acc-panel__chevron { transform: rotate(90deg); color: var(--color-red); }
+      .acc-panel__content {
+        opacity: 0 !important;
+        transform: translateY(8px) !important;
+        transition: opacity 0.28s ease 0.12s, transform 0.35s cubic-bezier(0.16,1,0.3,1) 0.06s !important;
+        padding: 0 20px 24px;
+      }
+      .acc-panel.is-open .acc-panel__content { opacity: 1 !important; transform: translateY(0) !important; }
+      .acc-panel__title { font-size: 16px; }
+      .acc-panel__text { font-size: 13px; }
+      .acc-panel__rule { margin-top: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .acc-panel, .acc-panel__label, .acc-panel__content, .acc-panel__overlay, .acc-panel__chevron { transition: none !important; }
+    }
+
+    /* ── REVIEW ──────────────────────────────────────────────────── */
+    .review {
+      background: #fff;
+      padding: 120px 24px 128px;
+      text-align: center;
+    }
+    .review__inner { max-width: 640px; margin: 0 auto; }
+    .review__stars {
+      color: var(--color-gold);
+      font-size: 16px;
+      letter-spacing: 4px;
+      display: block;
+      margin-bottom: 32px;
+    }
+    .review__quote {
+      font-family: var(--font-body);
+      font-size: clamp(18px, 2vw, 23px);
+      font-weight: 300;
+      color: #1a1a1a;
+      line-height: 1.65;
+      margin-bottom: 32px;
+      font-style: italic;
+    }
+    .review__rule {
+      width: 36px;
+      height: 1px;
+      background: #d8d8d8;
+      margin: 0 auto 22px;
+    }
+    .review__author {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #aaa;
+    }
+    .review__google {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: #ccc;
+      font-weight: 300;
+      margin-top: 6px;
+    }
+
+    /* ── CTA SECTIE ──────────────────────────────────────────────── */
+    .cta {
+      position: relative;
+      padding: 140px 24px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta__bg {
+      position: absolute;
+      inset: 0;
+      background: #0a0806 url('fotos/wellness-sauna.webp') center 40% / cover no-repeat;
+    }
+    .cta__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(8,5,3,0.74);
+    }
+    .cta__content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .cta__eyebrow {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.36);
+      margin-bottom: 20px;
+      display: block;
+    }
+    .cta__title {
+      font-family: var(--font-heading);
+      font-size: clamp(32px, 4.5vw, 54px);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .cta__rule {
+      width: 36px;
+      height: 2px;
+      background: var(--color-red);
+      margin: 0 auto 28px;
+    }
+    .cta__sub {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.48);
+      line-height: 1.75;
+      margin-bottom: 40px;
+    }
+    .cta__btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--color-red);
+      border: 1px solid var(--color-red);
+      border-radius: 2px;
+      padding: 18px 48px;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 6px 32px rgba(194,52,53,0.45);
+      transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .cta__btn:hover {
+      background: #a82c2c;
+      border-color: #a82c2c;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 44px rgba(194,52,53,0.55);
+      color: #fff;
+    }
+    .cta__note {
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(255,255,255,0.26);
+      font-weight: 300;
+      margin-top: 18px;
+    }
+
+    /* ── SCROLL REVEAL ────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────── */
+    .footer {
+      background: var(--color-dark);
+      padding: 64px 24px 40px;
+    }
+    .footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 48px;
+    }
+    .footer__logo {
+      width: 68px;
+      margin-bottom: 18px;
+      opacity: 0.85;
+      filter: brightness(0) invert(1);
+    }
+    .footer__tagline {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.40);
+      line-height: 1.7;
+      max-width: 210px;
+    }
+    .footer__heading {
+      font-family: var(--font-heading);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.30);
+      margin-bottom: 16px;
+    }
+    .footer__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer__list a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.60);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer__list a:hover { color: #fff; }
+    .footer__bottom {
+      max-width: 1200px;
+      margin: 48px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer__copy, .footer__keurmerk {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.24);
+    }
 
     @media (max-width: 768px) {
-      .mobile-sticky-cta { display: flex; }
-      body { padding-bottom: 56px; }
+      .footer__inner { grid-template-columns: 1fr 1fr; gap: 36px; }
     }
-
-    /* ── SECTION SPACER (voor fixed nav) ────────────────────────── */
-    .nav-spacer {
-      height: 110px;
-    }
-    @media (max-width: 880px) {
-      .nav-spacer { height: 62px; }
+    @media (max-width: 480px) {
+      .footer__inner { grid-template-columns: 1fr; gap: 28px; }
+      .footer__bottom { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- NAV -->
 <nav class="main-nav" id="mainNav">
   <div class="nav-inner">
     <div class="top-bar">
@@ -689,11 +917,11 @@
       </span>
     </div>
     <a class="logo" href="https://www.asteria.nl">
-      <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria Venray">
+      <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
     </a>
     <div class="row nav-bar">
       <a class="logo logo--mobile" href="https://www.asteria.nl">
-        <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria Venray">
+        <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
       </a>
       <div class="nav-content">
         <ul>
@@ -701,12 +929,14 @@
           <li><a href="https://www.asteria.nl/kamers">Kamers en Suites</a></li>
           <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
           <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
-          <li><a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; Feesten</a></li>
           <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
           <li><a href="https://www.asteria.nl/omgeving">Omgeving</a></li>
           <li><a href="https://www.asteria.nl/contact">Contact</a></li>
         </ul>
-        <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS" class="button book-now" target="_blank" rel="noopener">Boek nu</a>
+        <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+           class="button book-now"
+           target="_blank" rel="noopener"
+           onclick="trackBookingClick()">Boek nu</a>
       </div>
       <div class="mobile-nav-buttons">
         <span class="menu-button button" id="menuOpen"><i class="fas fa-bars"></i> Menu</span>
@@ -716,250 +946,360 @@
   </div>
 </nav>
 
-<div class="nav-spacer"></div>
 
-<!-- BLOK 1: HERO -->
-<section class="hero">
-  <img
-    src="fotos/wellness-spa.webp"
-    alt="Spa-gang op de Top Floor van Hotel Asteria Venray"
-    class="hero__img"
-    loading="eager"
-  >
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero__bg"></div>
   <div class="hero__overlay"></div>
+  <div class="hero__grain"></div>
+
   <div class="hero__content">
-    <h1 class="hero__title">ONTSPAN. GENIET. HERSTEL.</h1>
-    <p class="hero__sub">Wellness arrangement met overnachting, diner en ontbijt &mdash; vanaf &euro;139,50 p.p.</p>
-    <a
-      href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
-      class="hero__cta"
-      target="_blank"
-      rel="noopener"
-    >Boek het arrangement</a>
+    <span class="hero__eyebrow">Hotel Asteria &nbsp;&middot;&nbsp; Venray, Noord-Limburg</span>
+    <h1 class="hero__title">Wellness<br>Arrangement</h1>
+    <div class="hero__rule" aria-hidden="true"></div>
+    <p class="hero__sub">300 m&sup2; wellness op de Top Floor. Sauna, dompelbad, stoombad &mdash; en daarna een 3-gangen diner.</p>
+    <div class="hero__cta-group">
+      <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+         class="hero__btn"
+         target="_blank" rel="noopener"
+         onclick="trackBookingClick()">Boek dit arrangement</a>
+      <a href="#arrangement" class="hero__btn-ghost">Wat is inbegrepen</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-label">scroll</span>
+    <div class="hero__scroll-track"></div>
   </div>
 </section>
 
-<!-- BLOK 2: USP + GOOGLE SCORE -->
-<div class="usp-bar">
-  <div class="usp-bar__inner fade-up">
-    <div class="usp-bar__item">
-      <span class="usp-bar__dash">&mdash;</span>
-      <span>4 sauna&rsquo;s en een stoombad op de Top Floor</span>
-    </div>
-    <div class="usp-bar__item">
-      <span class="usp-bar__dash">&mdash;</span>
-      <span>Drie-gangen diner inbegrepen</span>
-    </div>
-    <div class="usp-bar__item">
-      <span class="usp-bar__dash">&mdash;</span>
-      <span>Uitgebreid ontbijtbuffet</span>
-    </div>
-    <div class="usp-bar__score">
-      <span class="usp-bar__score-num">4,2</span>
-      <span class="usp-bar__stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-      <span class="usp-bar__reviews">2.219 Google-reviews</span>
-    </div>
-  </div>
-</div>
 
-<!-- BLOK 3: ARRANGEMENT -->
-<section class="arrangement" id="arrangement">
-  <img
-    src="fotos/wellness-spa.webp"
-    alt="Wellness spa-gang Hotel Asteria Venray — arrangement achtergrond"
-    class="arrangement__img"
-    loading="lazy"
-  >
-  <div class="arrangement__vignette"></div>
-  <div class="arrangement__card" id="arrangementCard">
-    <span class="arrangement__card-label">Wat krijgt u?</span>
-    <ul class="arrangement__list">
-      <li>
-        <span class="arrangement__list-dash">&mdash;</span>
-        <span>Overnachting in een comfortabele kamer</span>
-      </li>
-      <li>
-        <span class="arrangement__list-dash">&mdash;</span>
-        <span>Welkomstdrankje op de kamer (Botega)</span>
-      </li>
-      <li>
-        <span class="arrangement__list-dash">&mdash;</span>
-        <span>Badjas, slippers en handdoekpakket</span>
-      </li>
-      <li>
-        <span class="arrangement__list-dash">&mdash;</span>
-        <span>Vrije toegang tot de wellness (Top Floor)</span>
-      </li>
-      <li>
-        <span class="arrangement__list-dash">&mdash;</span>
-        <span>Drie-gangen diner</span>
-      </li>
-      <li>
-        <span class="arrangement__list-dash">&mdash;</span>
-        <span>Uitgebreid ontbijtbuffet</span>
-      </li>
-    </ul>
-    <div class="arrangement__price-section">
-      <span class="arrangement__from">Vanaf</span>
-      <span class="arrangement__price">&euro;139,50</span>
-      <span class="arrangement__pp">per persoon &middot; 2-persoonskamer</span>
+<!-- ARRANGEMENT -->
+<section class="arr" id="arrangement">
+  <div class="arr__inner">
+
+    <!-- Foto-kolom: sticky op desktop, sticky bovenaan op mobile -->
+    <div class="arr__photo-col">
+      <div class="arr__photo" aria-hidden="true">
+        <!-- Foto 1: kamer — actief bij start -->
+        <img class="arr__photo-img is-active"
+             data-photo-id="kamer"
+             src="fotos/kamer-comfort.webp"
+             alt="Comfortabele kamer bij Hotel Asteria Venray">
+        <!-- Foto 2: wellness -->
+        <img class="arr__photo-img"
+             data-photo-id="wellness"
+             src="fotos/wellness-spa.webp"
+             alt="Wellness spa bij Hotel Asteria Venray"
+             loading="lazy">
+        <!-- Foto 3: diner -->
+        <img class="arr__photo-img"
+             data-photo-id="diner"
+             src="fotos/restaurant-diner.webp"
+             alt="Restaurant en diner bij Hotel Asteria Venray"
+             loading="lazy">
+        <!-- Foto 4: buitenkant / parkeren -->
+        <img class="arr__photo-img"
+             data-photo-id="buiten"
+             src="fotos/hero-buitenkant.webp"
+             alt="Hotel Asteria Venray buitenzijde"
+             loading="lazy">
+      </div>
     </div>
-    <a
-      href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
-      class="arrangement__cta"
-      target="_blank"
-      rel="noopener"
-    >Boek het arrangement</a>
-    <span class="arrangement__guarantee">Beste prijs garantie</span>
-  </div>
-</section>
 
-<!-- BLOK 4: WELLNESS SFEER -->
-<section class="wellness">
-  <div class="wellness__inner">
-    <h2 class="wellness__title fade-up">De Wellness van Hotel Asteria</h2>
-    <p class="wellness__body fade-up" style="transition-delay: 0.1s;">
-      Vier unieke sauna&rsquo;s, een stoomcabine, kruidenbad en een rustige relaxruimte &mdash; allemaal op de Top Floor van het hotel, met uitzicht op het groen van Noord-Limburg.
-    </p>
-    <div class="wellness__grid">
-      <img
-        src="fotos/wellness-spa.webp"
-        alt="Spa-gang Hotel Asteria Venray"
-        loading="lazy"
-        class="fade-up"
-        style="transition-delay: 0.0s;"
-      >
-      <img
-        src="fotos/wellness-sauna.webp"
-        alt="Finse sauna Hotel Asteria"
-        loading="lazy"
-        class="fade-up"
-        style="transition-delay: 0.1s;"
-      >
-      <img
-        src="fotos/wellness-sauna2.webp"
-        alt="Himalaya zoutsteen sauna Hotel Asteria"
-        loading="lazy"
-        class="fade-up"
-        style="transition-delay: 0.2s;"
-      >
-      <img
-        src="fotos/card-wellness.webp"
-        alt="Wellness sfeer Hotel Asteria Venray"
-        loading="lazy"
-        class="fade-up"
-        style="transition-delay: 0.3s;"
-      >
-    </div>
-  </div>
-</section>
+    <div class="arr__content reveal">
+      <span class="arr__eyebrow">Wellnessarrangement</span>
+      <h2 class="arr__title">Alles al geregeld</h2>
+      <div class="arr__rule" aria-hidden="true"></div>
+      <p class="arr__desc">Van aankomst tot vertrek wordt u verwend. Geen keuzes, geen gedoe &mdash; gewoon genieten.</p>
 
-<!-- BLOK 5: REVIEWS -->
-<section class="reviews">
-  <div class="reviews__inner">
-    <h2 class="reviews__title fade-up">Wat onze gasten zeggen</h2>
-    <p class="reviews__score-line fade-up" style="transition-delay: 0.1s;">4,2 / 5 &middot; 2.219 Google-reviews</p>
-    <div class="reviews__grid">
+      <ul class="arr__includes" aria-label="Inbegrepen bij het arrangement">
+        <li data-photo="kamer">
+          <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
+          Overnachting in een comfortabele kamer
+        </li>
+        <li data-photo="kamer">
+          <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
+          Welkomstdrankje op de kamer (Botega)
+        </li>
+        <li data-photo="wellness">
+          <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
+          Badjas, slippers &amp; handdoekpakket
+        </li>
+        <li data-photo="wellness">
+          <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
+          Vrij gebruik van wellness (300 m&sup2;, Top Floor)
+        </li>
+        <li data-photo="diner">
+          <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
+          Heerlijk 3-gangen diner in het restaurant
+        </li>
+        <li data-photo="diner">
+          <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
+          Uitgebreid ontbijtbuffet de volgende ochtend
+        </li>
+        <li data-photo="buiten">
+          <svg class="arr__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 10 8 14 16 6"/></svg>
+          Gratis parkeren op eigen terrein
+        </li>
+      </ul>
 
-      <div class="review-card fade-up" style="transition-delay: 0.0s;">
-        <div class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-card__quote">&ldquo;Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!&rdquo;</p>
-        <span class="review-card__name">&mdash; Rob, Nederland</span>
+      <div class="arr__price-row">
+        <span class="arr__from">Vanaf</span>
+        <span class="arr__price">&euro;139,50</span>
+        <span class="arr__pp">per persoon</span>
       </div>
 
-      <div class="review-card fade-up" style="transition-delay: 0.15s;">
-        <div class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-card__quote">&ldquo;Alleen maar lof! Het diner was top en het ontbijt ook. Personeel heel vriendelijk.&rdquo;</p>
-        <span class="review-card__name">&mdash; Danielle, Nederland</span>
-      </div>
+      <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+         class="arr__cta"
+         target="_blank" rel="noopener"
+         onclick="trackBookingClick()">Boek dit arrangement</a>
 
-      <div class="review-card fade-up" style="transition-delay: 0.30s;">
-        <div class="review-card__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="review-card__quote">&ldquo;H&eacute;&eacute;rlijk verblijf. Kamers: 5/5 &middot; Service: 5/5 &middot; Locatie: 5/5&rdquo;</p>
-        <span class="review-card__name">&mdash; Cornelia, Nederland</span>
-      </div>
+      <p class="arr__note">Op basis van tweepersoonskamer &middot; Excl. verblijfsbelasting &euro;2,- p.p.p.n.</p>
+    </div>
 
+  </div>
+</section>
+
+
+<!-- WELLNESS -->
+<section class="wl" id="wellness">
+
+  <div class="wl__intro">
+    <div class="reveal">
+      <span class="wl__eyebrow">Top Floor &middot; 300 m&sup2;</span>
+      <h2 class="wl__heading">De Wellness</h2>
+    </div>
+    <p class="wl__desc reveal">Vier unieke sauna&apos;s, een stoombad, dompelbad en belevenisdouches. Alles wat u nodig hebt om echt te ontspannen.</p>
+  </div>
+
+  <div class="acc-track" role="list">
+
+    <div class="acc-panel"
+         style="background-image: url('fotos/wellness-sauna.webp')"
+         tabindex="0"
+         role="listitem"
+         aria-label="Finse sauna"
+         aria-expanded="false">
+      <div class="acc-panel__overlay"></div>
+      <span class="acc-panel__label" aria-hidden="true">Finse Sauna</span>
+      <div class="acc-panel__mobile-header" aria-hidden="true">
+        <span class="acc-panel__mobile-title">Finse Sauna</span>
+        <svg class="acc-panel__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="acc-panel__content">
+        <h3 class="acc-panel__title">Finse Sauna</h3>
+        <p class="acc-panel__text">Droge warmte tot 90&deg;C. De klassieke manier om spieren te ontspannen en het hoofd leeg te maken.</p>
+        <div class="acc-panel__rule" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="acc-panel"
+         style="background-image: url('fotos/wellness-sauna2.webp')"
+         tabindex="0"
+         role="listitem"
+         aria-label="Zoutsteen sauna"
+         aria-expanded="false">
+      <div class="acc-panel__overlay"></div>
+      <span class="acc-panel__label" aria-hidden="true">Zoutsteen Sauna</span>
+      <div class="acc-panel__mobile-header" aria-hidden="true">
+        <span class="acc-panel__mobile-title">Zoutsteen Sauna</span>
+        <svg class="acc-panel__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="acc-panel__content">
+        <h3 class="acc-panel__title">Zoutsteen Sauna</h3>
+        <p class="acc-panel__text">Himalayazout omringt u met een zachte roze gloed. Goed voor de luchtwegen en de huid.</p>
+        <div class="acc-panel__rule" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <div class="acc-panel"
+         style="background-image: url('fotos/card-wellness.webp')"
+         tabindex="0"
+         role="listitem"
+         aria-label="Stoombad en dompelbad"
+         aria-expanded="false">
+      <div class="acc-panel__overlay"></div>
+      <span class="acc-panel__label" aria-hidden="true">Stoombad &amp; Dompelbad</span>
+      <div class="acc-panel__mobile-header" aria-hidden="true">
+        <span class="acc-panel__mobile-title">Stoombad &amp; Dompelbad</span>
+        <svg class="acc-panel__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+      <div class="acc-panel__content">
+        <h3 class="acc-panel__title">Stoombad &amp; Dompelbad</h3>
+        <p class="acc-panel__text">Warme stoom opent de pori&euml;n. Het koude dompelbad sluit ze weer. Een klassieke afwisseling die het lichaam activeert.</p>
+        <div class="acc-panel__rule" aria-hidden="true"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- REVIEW -->
+<section class="review">
+  <div class="review__inner reveal">
+    <span class="review__stars" aria-label="5 van 5 sterren">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+    <blockquote class="review__quote">
+      &ldquo;Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!&rdquo;
+    </blockquote>
+    <div class="review__rule" aria-hidden="true"></div>
+    <p class="review__author">Rob &mdash; Nederland</p>
+    <p class="review__google">4,2 / 5 &middot; 2.219 beoordelingen op Google</p>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta__bg"></div>
+  <div class="cta__overlay"></div>
+  <div class="cta__content reveal">
+    <span class="cta__eyebrow">Direct boeken</span>
+    <h2 class="cta__title">Klaar om te ontspannen?</h2>
+    <div class="cta__rule" aria-hidden="true"></div>
+    <p class="cta__sub">Kies uw datum en boek direct online. Beste prijs gegarandeerd.</p>
+    <a href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
+       class="cta__btn"
+       target="_blank" rel="noopener"
+       onclick="trackBookingClick()">Boek nu &mdash; Vanaf &euro;139,50 p.p.</a>
+    <p class="cta__note">Of bel ons: 0478 511 466</p>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <img src="https://www.asteria.nl/images/logo-hotel-asteria.png"
+           alt="Hotel Asteria" class="footer__logo">
+      <p class="footer__tagline">Familiair hotel in het hart van Noord-Limburg. Aan de rand van Venray, omgeven door de Limburgse natuur.</p>
+    </div>
+    <div>
+      <p class="footer__heading">Navigatie</p>
+      <ul class="footer__list">
+        <li><a href="https://www.asteria.nl/kamers">Kamers &amp; Suites</a></li>
+        <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
+        <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
+        <li><a href="https://www.asteria.nl/omgeving">Omgeving</a></li>
+        <li><a href="https://www.asteria.nl/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer__heading">Contact</p>
+      <ul class="footer__list">
+        <li><a href="https://maps.google.com/?q=Maasheseweg+80a,+Venray" target="_blank" rel="noopener">Maasheseweg 80a, Venray</a></li>
+        <li><a href="tel:0031478511466">0478 511 466</a></li>
+        <li><a href="mailto:info@asteria.nl">info@asteria.nl</a></li>
+      </ul>
     </div>
   </div>
-</section>
-
-<!-- BLOK 6: FOOTER CTA -->
-<section class="footer-cta" id="footerCta">
-  <div class="fade-up">
-    <h2 class="footer-cta__title">Klaar voor een avond volledig voor uzelf?</h2>
-    <p class="footer-cta__sub">
-      Venray, Noord-Limburg &middot; <a href="tel:0031478511466">0478 511 466</a>
-    </p>
-    <a
-      href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
-      class="footer-cta__btn"
-      target="_blank"
-      rel="noopener"
-    >Boek het arrangement</a>
+  <div class="footer__bottom">
+    <span class="footer__copy">&copy; 2026 Hotel Asteria Venray</span>
+    <span class="footer__keurmerk">Drager Goed Hart Keurmerk</span>
   </div>
-</section>
+</footer>
 
-<!-- MOBILE STICKY CTA -->
-<div class="mobile-sticky-cta" id="mobileStickyCta">
-  <a
-    href="https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?&mewsVoucherCode=WELLNESS"
-    target="_blank"
-    rel="noopener"
-  >Boek het arrangement</a>
-</div>
 
 <script>
-  // ── IntersectionObserver: fade-up elementen ──────────────────
-  const fadeEls = document.querySelectorAll('.fade-up');
-  const observer = new IntersectionObserver((entries) => {
+  // ── Mobile nav ────────────────────────────────────────────────
+  const mainNav = document.querySelector('.main-nav');
+  const menuOpen = document.getElementById('menuOpen');
+  const menuClose = document.getElementById('menuClose');
+
+  function openMenu() {
+    mainNav.classList.add('show-mobile-nav');
+    requestAnimationFrame(() => setTimeout(() => mainNav.classList.add('delay'), 10));
+  }
+  function closeMenu() {
+    mainNav.classList.remove('delay');
+    setTimeout(() => mainNav.classList.remove('show-mobile-nav'), 400);
+  }
+  if (menuOpen) menuOpen.addEventListener('click', openMenu);
+  if (menuClose) menuClose.addEventListener('click', closeMenu);
+
+  // ── Accordion ─────────────────────────────────────────────────
+  const allPanels = document.querySelectorAll('.acc-panel');
+
+  function openPanel(panel) {
+    allPanels.forEach(p => {
+      p.classList.remove('is-open');
+      p.setAttribute('aria-expanded', 'false');
+    });
+    panel.classList.add('is-open');
+    panel.setAttribute('aria-expanded', 'true');
+  }
+
+  allPanels.forEach(panel => {
+    panel.addEventListener('click', () => {
+      const isOpen = panel.classList.contains('is-open');
+      allPanels.forEach(p => {
+        p.classList.remove('is-open');
+        p.setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        panel.classList.add('is-open');
+        panel.setAttribute('aria-expanded', 'true');
+      }
+    });
+    panel.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        panel.click();
+      }
+    });
+  });
+
+  if (window.innerWidth <= 640 && allPanels[0]) openPanel(allPanels[0]);
+
+  // ── Scroll reveal ─────────────────────────────────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12 });
-  fadeEls.forEach(el => observer.observe(el));
+  revealEls.forEach(el => revealObserver.observe(el));
 
-  // ── Arrangement card: slide-in from right ────────────────────
-  const cardEl = document.getElementById('arrangementCard');
-  if (cardEl) {
-    const cardObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          cardEl.classList.add('visible');
-          cardObserver.unobserve(cardEl);
-        }
-      });
-    }, { threshold: 0.1 });
-    cardObserver.observe(cardEl);
+  // ── Arrangement: foto wisselt op hover (desktop) / scroll (mobile) ─
+  const photoImgs  = document.querySelectorAll('.arr__photo-img');
+  const photoItems = document.querySelectorAll('.arr__includes li[data-photo]');
+
+  function switchPhoto(photoId) {
+    photoImgs.forEach(img => {
+      img.classList.toggle('is-active', img.dataset.photoId === photoId);
+    });
   }
 
-  // ── Mobile sticky CTA: verberg als footer-CTA zichtbaar is ───
-  const footerCta = document.getElementById('footerCta');
-  const mobileStickyCta = document.getElementById('mobileStickyCta');
-  if (footerCta && mobileStickyCta) {
-    const stickyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        mobileStickyCta.style.display = entry.isIntersecting ? 'none' : '';
-      });
-    }, { threshold: 0.1 });
-    stickyObserver.observe(footerCta);
-  }
+  const isDesktop = () => window.innerWidth > 960;
 
-  // ── Mobile hamburger menu ────────────────────────────────────
-  const menuOpen = document.getElementById('menuOpen');
-  const menuClose = document.getElementById('menuClose');
-  const nav = document.getElementById('mainNav');
-  if (menuOpen && menuClose && nav) {
-    menuOpen.addEventListener('click', () => {
-      nav.classList.add('show-mobile-nav');
-      setTimeout(() => nav.classList.add('delay'), 10);
+  // Desktop: foto wisselt op mouseenter
+  photoItems.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      if (isDesktop()) switchPhoto(item.dataset.photo);
     });
-    menuClose.addEventListener('click', () => {
-      nav.classList.remove('delay');
-      setTimeout(() => nav.classList.remove('show-mobile-nav'), 400);
+  });
+
+  // Mobile: foto wisselt als item midden-in-viewport scrollt
+  const photoScrollObserver = new IntersectionObserver((entries) => {
+    if (isDesktop()) return;
+    entries.forEach(entry => {
+      if (entry.isIntersecting) switchPhoto(entry.target.dataset.photo);
     });
+  }, {
+    rootMargin: '-35% 0px -35% 0px',
+    threshold: 0
+  });
+  photoItems.forEach(item => photoScrollObserver.observe(item));
+
+  // ── Analytics ─────────────────────────────────────────────────
+  function trackBookingClick() {
+    if (typeof gtag !== 'undefined') gtag('event', 'begin_checkout', { item_name: 'wellness-arrangement' });
+    if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
   }
 </script>
 

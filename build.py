@@ -13,9 +13,9 @@ import json, os, sys
 base = os.path.dirname(os.path.abspath(__file__))
 
 LANGS = {
-    'nl': ('wellness-arr-c.html',    'translations/nl.json'),
-    'en': ('wellness-arr-c-en.html', 'translations/en.json'),
-    'de': ('wellness-arr-c-de.html', 'translations/de.json'),
+    'nl': ('wellness-arrangement.html',    'translations/nl.json'),
+    'en': ('wellness-arrangement-en.html', 'translations/en.json'),
+    'de': ('wellness-arrangement-de.html', 'translations/de.json'),
 }
 
 def build(lang):
