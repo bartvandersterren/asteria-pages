@@ -1851,7 +1851,7 @@
   }
   .bk-sticky-footer {
     flex-shrink: 0;
-    padding: 0 24px 32px;
+    padding: 0 0 32px;
     background: #fff;
   }
   .bk-overlay.is-open .bk-modal {
@@ -3020,34 +3020,34 @@
       </div>
       <h2 class="bk-title">Wählen Sie Ihre Aufenthaltsdaten</h2>
       <div id="bkCalendar"></div>
-    </div>
-    <div class="bk-sticky-footer">
-      <div class="bk-summary" id="bkSummary" aria-live="polite">
-        <div class="bk-summary__field">
-          <span class="bk-summary__label">Ankunft</span>
-          <span class="bk-summary__value" id="bkAnkunft">&mdash;</span>
+      <div class="bk-sticky-footer">
+        <div class="bk-summary" id="bkSummary" aria-live="polite">
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">Ankunft</span>
+            <span class="bk-summary__value" id="bkAnkunft">&mdash;</span>
+          </div>
+          <div class="bk-summary__sep" aria-hidden="true"></div>
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">Abreise</span>
+            <span class="bk-summary__value" id="bkAbreise">&mdash;</span>
+          </div>
+          <div class="bk-summary__sep" aria-hidden="true"></div>
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">Nächte</span>
+            <span class="bk-summary__value" id="bkNächte">&mdash;</span>
+          </div>
         </div>
-        <div class="bk-summary__sep" aria-hidden="true"></div>
-        <div class="bk-summary__field">
-          <span class="bk-summary__label">Abreise</span>
-          <span class="bk-summary__value" id="bkAbreise">&mdash;</span>
+        <div class="bk-selected-room" id="bkSelectedRoom" hidden>
+          <div>
+            <span class="bk-selected-room__label">Ausgewähltes Zimmer</span>
+            <span class="bk-selected-room__name" id="bkSelectedRoomName"></span>
+          </div>
+          <button class="bk-selected-room__change" id="bkChangeRoom">ändern</button>
         </div>
-        <div class="bk-summary__sep" aria-hidden="true"></div>
-        <div class="bk-summary__field">
-          <span class="bk-summary__label">Nächte</span>
-          <span class="bk-summary__value" id="bkNächte">&mdash;</span>
+        <div class="bk-cta-row">
+          <button class="bk-btn-primary" id="bkToStep2" disabled>Weiter: Zimmer wählen &rarr;</button>
+          <button class="bk-btn-ghost" id="bkDirectBook" disabled>Oder direkt ohne Zimmerauswahl buchen</button>
         </div>
-      </div>
-      <div class="bk-selected-room" id="bkSelectedRoom" hidden>
-        <div>
-          <span class="bk-selected-room__label">Ausgewähltes Zimmer</span>
-          <span class="bk-selected-room__name" id="bkSelectedRoomName"></span>
-        </div>
-        <button class="bk-selected-room__change" id="bkChangeRoom">ändern</button>
-      </div>
-      <div class="bk-cta-row">
-        <button class="bk-btn-primary" id="bkToStep2" disabled>Weiter: Zimmer wählen &rarr;</button>
-        <button class="bk-btn-ghost" id="bkDirectBook" disabled>Oder direkt ohne Zimmerauswahl buchen</button>
       </div>
     </div>
 

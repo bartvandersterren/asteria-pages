@@ -1851,7 +1851,7 @@
   }
   .bk-sticky-footer {
     flex-shrink: 0;
-    padding: 0 24px 32px;
+    padding: 0 0 32px;
     background: #fff;
   }
   .bk-overlay.is-open .bk-modal {
@@ -3018,34 +3018,34 @@
       </div>
       <h2 class="bk-title">{{BK_TITLE_STEP1}}</h2>
       <div id="bkCalendar"></div>
-    </div>
-    <div class="bk-sticky-footer">
-      <div class="bk-summary" id="bkSummary" aria-live="polite">
-        <div class="bk-summary__field">
-          <span class="bk-summary__label">{{BK_LABEL_ARRIVAL}}</span>
-          <span class="bk-summary__value" id="bk{{BK_LABEL_ARRIVAL}}">&mdash;</span>
+      <div class="bk-sticky-footer">
+        <div class="bk-summary" id="bkSummary" aria-live="polite">
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">{{BK_LABEL_ARRIVAL}}</span>
+            <span class="bk-summary__value" id="bk{{BK_LABEL_ARRIVAL}}">&mdash;</span>
+          </div>
+          <div class="bk-summary__sep" aria-hidden="true"></div>
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">{{BK_LABEL_DEPARTURE}}</span>
+            <span class="bk-summary__value" id="bk{{BK_LABEL_DEPARTURE}}">&mdash;</span>
+          </div>
+          <div class="bk-summary__sep" aria-hidden="true"></div>
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">{{BK_LABEL_NIGHTS}}</span>
+            <span class="bk-summary__value" id="bk{{BK_LABEL_NIGHTS}}">&mdash;</span>
+          </div>
         </div>
-        <div class="bk-summary__sep" aria-hidden="true"></div>
-        <div class="bk-summary__field">
-          <span class="bk-summary__label">{{BK_LABEL_DEPARTURE}}</span>
-          <span class="bk-summary__value" id="bk{{BK_LABEL_DEPARTURE}}">&mdash;</span>
+        <div class="bk-selected-room" id="bkSelectedRoom" hidden>
+          <div>
+            <span class="bk-selected-room__label">{{BK_SELECTED_ROOM_LABEL}}</span>
+            <span class="bk-selected-room__name" id="bkSelectedRoomName"></span>
+          </div>
+          <button class="bk-selected-room__change" id="bkChangeRoom">{{BK_CHANGE_ROOM_BTN}}</button>
         </div>
-        <div class="bk-summary__sep" aria-hidden="true"></div>
-        <div class="bk-summary__field">
-          <span class="bk-summary__label">{{BK_LABEL_NIGHTS}}</span>
-          <span class="bk-summary__value" id="bk{{BK_LABEL_NIGHTS}}">&mdash;</span>
+        <div class="bk-cta-row">
+          <button class="bk-btn-primary" id="bkToStep2" disabled>{{BK_BTN_NEXT_STEP2_HTML}}</button>
+          <button class="bk-btn-ghost" id="bkDirectBook" disabled>{{BK_BTN_DIRECT_BOOK}}</button>
         </div>
-      </div>
-      <div class="bk-selected-room" id="bkSelectedRoom" hidden>
-        <div>
-          <span class="bk-selected-room__label">{{BK_SELECTED_ROOM_LABEL}}</span>
-          <span class="bk-selected-room__name" id="bkSelectedRoomName"></span>
-        </div>
-        <button class="bk-selected-room__change" id="bkChangeRoom">{{BK_CHANGE_ROOM_BTN}}</button>
-      </div>
-      <div class="bk-cta-row">
-        <button class="bk-btn-primary" id="bkToStep2" disabled>{{BK_BTN_NEXT_STEP2_HTML}}</button>
-        <button class="bk-btn-ghost" id="bkDirectBook" disabled>{{BK_BTN_DIRECT_BOOK}}</button>
       </div>
     </div>
 
