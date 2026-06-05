@@ -3856,7 +3856,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 /* ══ BOOKING POPUP ══════════════════════════════════════════ */
 (function () {
   var MEWS_BASE = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
-  var VOUCHER   = window.priceVariant === 'B' ? 'WELLNESS124' : 'WELLNESSARRA';
+  var VOUCHER   = window.priceVariant === 'B' ? 'WELLNESS2026' : '2026WELLNESS';
 
   var overlay   = document.getElementById('bookingPopup');
   var step1     = document.getElementById('bkStep1');
@@ -3911,7 +3911,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
         HotelId: '65a522c9-4828-413d-9ad8-af1d00ffb83f',
         StartUtc: toYMD(checkin) + 'T12:00:00Z',
         EndUtc: toYMD(checkout) + 'T12:00:00Z',
-        VoucherCode: 'WELLNESSARRA',
+        VoucherCode: VOUCHER,
         CategoryIds: categoryIds
       })
     })
