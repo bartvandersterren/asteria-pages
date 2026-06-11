@@ -81,6 +81,7 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 - `lander-google.html` → `visit.asteria.nl/lander-google` — actieve PMax campaign final URL (onderhoud nodig)
 - Beide hebben Mews inline widget + Google Ads + GA4 tracking
 - `hotel-venray.html` en `lander-google.html` zijn bijna identiek — wijzigingen vaak in beide nodig
+- `feedback.html` → `visit.asteria.nl/feedback` — feedback pagina (3 talen via template), D1 opslag + FormSubmit email
 
 ## Google Ads & GA4 tracking
 
@@ -94,11 +95,12 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 
 ## Translations workflow (2026-05-20 — live)
 
-- **Bronbestand:** `wellness-arr-c.template.html` met `{{KEY}}` markers (~107 keys)
-- **Vertalingen:** `translations/{nl,en,de}.json`
-- **Output:** `wellness-arrangement.html`, `wellness-arrangement-en.html`, `wellness-arrangement-de.html`
-- **Bouwen:** `python3 build.py` → schrijft 3 HTML-outputbestanden
-- **Wijziging aanbrengen:** pas JSON aan → `python3 build.py` → commit template + JSONs + 3 HTMLs
+- **Bouwen:** `python3 build.py` → bouwt alle templates (wellness + feedback)
+- **Selectief:** `python3 build.py feedback` of `python3 build.py wellness nl`
+- **Templates:**
+  - `wellness-arr-c.template.html` + `translations/{nl,en,de}.json` → wellness-arrangement HTMLs
+  - `feedback.template.html` + `translations/feedback-{nl,en,de}.json` → feedback HTMLs
+- **Wijziging aanbrengen:** pas JSON aan → `python3 build.py` → commit template + JSONs + HTMLs
 - `generate_translations.py` = eenmalig bootstrapscript, niet meer nodig voor dagelijks gebruik
 - **GOTCHA `{{KEY}}` in CSS:** gebruik NOOIT template keys als onderdeel van CSS-waarden (bijv. `i{{HTML_LANG}}ine-flex`). Dit breekt op andere talen. Hardcode zulke waarden.
 - **Redirects:** `_redirects` in root — oude `/wellness-arr-c` URLs → 301 naar `/wellness-arrangement`

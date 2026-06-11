@@ -1,15 +1,22 @@
-# Session Notes — 2026-06-05 (sessie 2)
+# Session Notes — 2026-06-11 — Feedback pagina
 
 ## Wat gedaan
 
-1. **Vouchercodes A/B test gefixt** — oude codes (WELLNESSARRA / WELLNESS124) vervangen door Mews-codes
-   - Variant A (€139,50) → `2026WELLNESS`
-   - Variant B (€124,50) → `WELLNESS2026`
-   - Availability-fetch gebruikt nu dynamische VOUCHER variabele i.p.v. hardcoded string
-2. **Prijslabel p.n. → p.p.p.n.** in alle 3 talen (NL/EN/DE) — ARR_C_PRICE_SUB
+- Feedback pagina gebouwd (NL/EN/DE) via template-systeem
+- D1 `feedback` tabel aangemaakt in `asteria-analytics`
+- Cloudflare Function `functions/api/feedback.js` (D1 insert + FormSubmit.co email)
+- `build.py` uitgebreid: multi-template support (`python3 build.py feedback`)
+- TripAdvisor link gefixt naar juiste hotel (g652276-d1726559)
+- Google review knop verwijderd (writereview endpoint afgeschaft, geen werkend alternatief)
+
+## Live URLs
+
+- `visit.asteria.nl/feedback` (NL)
+- `visit.asteria.nl/feedback-en` (EN)
+- `visit.asteria.nl/feedback-de` (DE)
 
 ## Wat open
 
-- Oude iteratie-bestanden opruimen (`wellness-arrangement-blok.html`, `-blok-b`, `-blok-c`, `-v2`)
-- `hotel-venray.html` en `lander-google.html` hebben mogelijk dezelfde p.p./p.n. en logo issues
-- Google Reviews API key nog niet geconfigureerd in Cloudflare (500 error)
+- Google review knop later weer toevoegen als werkende directe-review-URL gevonden
+- FormSubmit.co vereist eenmalige bevestiging via email op info@asteria.nl (eerste submit triggert dit)
+- Playwright end-to-end test (formulier submit, D1 check) nog niet uitgevoerd
