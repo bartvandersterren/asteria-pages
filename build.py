@@ -1,27 +1,42 @@
 #!/usr/bin/env python3
 """
-Genereer de 3 taalversies vanuit template + JSON-vertalingen.
+Genereer taalversies vanuit templates + JSON-vertalingen.
 
 Gebruik:
-  python3 build.py          # bouwt alle 3 talen
-  python3 build.py nl       # alleen NL
-  python3 build.py en de    # EN + DE
+  python3 build.py                    # bouwt alles
+  python3 build.py wellness           # alleen wellness template
+  python3 build.py feedback           # alleen feedback template
+  python3 build.py wellness nl        # wellness, alleen NL
 """
 
-import json, os, sys
+import json, os, re, sys
 
 base = os.path.dirname(os.path.abspath(__file__))
 
-LANGS = {
-    'nl': ('wellness-arrangement.html',    'translations/nl.json'),
-    'en': ('wellness-arrangement-en.html', 'translations/en.json'),
-    'de': ('wellness-arrangement-de.html', 'translations/de.json'),
+TEMPLATES = {
+    'wellness': {
+        'template': 'wellness-arr-c.template.html',
+        'langs': {
+            'nl': ('wellness-arrangement.html',    'translations/nl.json'),
+            'en': ('wellness-arrangement-en.html', 'translations/en.json'),
+            'de': ('wellness-arrangement-de.html', 'translations/de.json'),
+        },
+    },
+    'feedback': {
+        'template': 'feedback.template.html',
+        'langs': {
+            'nl': ('feedback.html',    'translations/feedback-nl.json'),
+            'en': ('feedback-en.html', 'translations/feedback-en.json'),
+            'de': ('feedback-de.html', 'translations/feedback-de.json'),
+        },
+    },
 }
 
-def build(lang):
-    output_file, json_file = LANGS[lang]
+def build(template_name, lang):
+    config = TEMPLATES[template_name]
+    output_file, json_file = config['langs'][lang]
 
-    template_path = os.path.join(base, 'wellness-arr-c.template.html')
+    template_path = os.path.join(base, config['template'])
     json_path     = os.path.join(base, json_file)
     output_path   = os.path.join(base, output_file)
 
@@ -35,22 +50,37 @@ def build(lang):
         html = html.replace('{{' + key + '}}', value)
 
     # Sanity check: no unreplaced markers
-    import re
     remaining = re.findall(r'\{\{[A-Z_]+\}\}', html)
     if remaining:
-        print(f'  WARNING [{lang}]: unreplaced markers: {remaining}')
+        print(f'  WARNING [{template_name}/{lang}]: unreplaced markers: {remaining}')
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(html)
 
-    print(f'  [{lang}] → {output_file}  ({len(html)} chars)')
+    print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
 
-langs_to_build = sys.argv[1:] if len(sys.argv) > 1 else list(LANGS.keys())
+# Parse args: optional template name + optional lang codes
+args = sys.argv[1:]
+templates_to_build = []
+langs_filter = []
 
-print(f'Building {langs_to_build}...')
-for lang in langs_to_build:
-    if lang not in LANGS:
-        print(f'Unknown lang: {lang}')
-        sys.exit(1)
-    build(lang)
+for arg in args:
+    if arg in TEMPLATES:
+        templates_to_build.append(arg)
+    else:
+        langs_filter.append(arg)
+
+if not templates_to_build:
+    templates_to_build = list(TEMPLATES.keys())
+
+for tpl in templates_to_build:
+    config = TEMPLATES[tpl]
+    langs = langs_filter if langs_filter else list(config['langs'].keys())
+    print(f'Building {tpl} [{", ".join(langs)}]...')
+    for lang in langs:
+        if lang not in config['langs']:
+            print(f'  Unknown lang for {tpl}: {lang}')
+            sys.exit(1)
+        build(tpl, lang)
+
 print('Done.')

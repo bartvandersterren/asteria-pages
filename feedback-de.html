@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feedback — Hotel Asteria Venray</title>
+  <meta name="description" content="Teilen Sie Ihre Erfahrung im Hotel Asteria Venray.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://visit.asteria.nl/feedback-de">
+  <link rel="icon" href="favicon.png">
+
+  <!-- OG -->
+  <meta property="og:title" content="Feedback — Hotel Asteria Venray">
+  <meta property="og:description" content="Teilen Sie Ihre Erfahrung im Hotel Asteria Venray.">
+  <meta property="og:url" content="https://visit.asteria.nl/feedback-de">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand.css">
+
+  <style>
+    body {
+      background: #f8f7f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .fb-lang {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+      font-size: 13px;
+      font-family: var(--font-body);
+      z-index: 10;
+    }
+    .fb-lang a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+    .fb-lang a:hover,
+    .fb-lang a.active {
+      color: var(--color-text);
+    }
+    .fb-lang a.active {
+      font-weight: 700;
+    }
+
+    .fb-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 40px;
+      text-align: center;
+    }
+
+    .fb-logo {
+      width: 64px;
+      height: auto;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .fb-heading {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: var(--heading-weight);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 0 8px;
+      color: var(--color-text-dark);
+    }
+
+    .fb-sub {
+      font-size: 15px;
+      color: var(--color-text-muted);
+      margin: 0 0 32px;
+      font-weight: 300;
+    }
+
+    /* Stars */
+    .fb-stars {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .fb-star {
+      cursor: pointer;
+      width: 48px;
+      height: 48px;
+      transition: transform 0.15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .fb-star:hover {
+      transform: scale(1.12);
+    }
+    .fb-star svg {
+      width: 100%;
+      height: 100%;
+    }
+    .fb-star .star-fill {
+      fill: #d4d4d4;
+      transition: fill 0.2s;
+    }
+    .fb-star.active .star-fill {
+      fill: var(--color-gold);
+    }
+
+    .fb-star-labels {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      min-height: 20px;
+    }
+    .fb-star-label {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      font-weight: 400;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .fb-star-label.visible {
+      opacity: 1;
+    }
+
+    /* States */
+    .fb-state {
+      display: none;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    .fb-state.active {
+      display: block;
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fb-state-heading {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: var(--heading-weight);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0 0 12px;
+      color: var(--color-text-dark);
+    }
+
+    .fb-state-text {
+      font-size: 15px;
+      color: var(--color-text-muted);
+      margin: 0 0 24px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* Positive state */
+    .fb-review-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .btn--fb {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 220px;
+      justify-content: center;
+    }
+
+    .fb-skip {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--font-body);
+      padding: 8px;
+      transition: color 0.2s;
+    }
+    .fb-skip:hover {
+      color: var(--color-text);
+    }
+
+    /* Negative state — form */
+    .fb-form {
+      text-align: left;
+    }
+
+    .fb-textarea {
+      background: var(--input-bg);
+      color: var(--input-color);
+      border: var(--input-border);
+      border-radius: var(--input-radius);
+      padding: var(--input-padding);
+      font-family: var(--input-font);
+      font-size: var(--input-size);
+      width: 100%;
+      min-height: 120px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 16px;
+    }
+    .fb-textarea:focus {
+      border-color: var(--color-red);
+    }
+
+    .fb-field {
+      margin-bottom: 12px;
+    }
+    .fb-label {
+      display: block;
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-bottom: 4px;
+      font-weight: 400;
+    }
+
+    .fb-form .input {
+      background: #fff;
+    }
+
+    .fb-submit-wrap {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .fb-submit {
+      font-family: var(--btn-font);
+      font-size: var(--btn-size);
+      font-weight: var(--btn-weight);
+      border-radius: var(--btn-radius);
+      padding: 14px 32px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      background-color: var(--btn-primary-bg);
+      color: var(--btn-primary-color);
+      border: var(--btn-primary-border);
+      width: 100%;
+    }
+    .fb-submit:hover {
+      background-color: var(--color-red-dark);
+      border-color: var(--color-red-dark);
+    }
+    .fb-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .fb-error {
+      color: var(--color-red);
+      font-size: 13px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Honeypot */
+    .fb-hp { position: absolute; left: -9999px; }
+
+    /* Thanks state */
+    .fb-checkmark {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      color: #22c55e;
+    }
+
+    .fb-back {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 14px;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .fb-back:hover {
+      color: var(--color-red);
+    }
+
+    /* Footer */
+    .fb-footer {
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .fb-card {
+        padding: 32px 24px;
+      }
+      .fb-heading {
+        font-size: 24px;
+      }
+      .fb-star {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .fb-state.active {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      .fb-star {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Taalswitch -->
+  <nav class="fb-lang" aria-label="Language">
+    <a href="/feedback" class="">NL</a>
+    <a href="/feedback-en" class="">EN</a>
+    <a href="/feedback-de" class="active">DE</a>
+  </nav>
+
+  <div class="fb-card">
+    <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria" class="fb-logo">
+
+    <h1 class="fb-heading">Wie war Ihr Aufenthalt?</h1>
+    <p class="fb-sub">Ihre Meinung hilft uns, besser zu werden.</p>
+
+    <!-- Sterren -->
+    <div class="fb-stars" role="radiogroup" aria-label="Rating">
+      <button class="fb-star" data-rating="1" aria-label="Schlecht" type="button">
+        <svg viewBox="0 0 24 24"><path class="star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </button>
+      <button class="fb-star" data-rating="2" aria-label="Mäßig" type="button">
+        <svg viewBox="0 0 24 24"><path class="star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </button>
+      <button class="fb-star" data-rating="3" aria-label="OK" type="button">
+        <svg viewBox="0 0 24 24"><path class="star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </button>
+      <button class="fb-star" data-rating="4" aria-label="Gut" type="button">
+        <svg viewBox="0 0 24 24"><path class="star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </button>
+      <button class="fb-star" data-rating="5" aria-label="Ausgezeichnet" type="button">
+        <svg viewBox="0 0 24 24"><path class="star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </button>
+    </div>
+    <div class="fb-star-labels">
+      <span class="fb-star-label" id="starLabel"></span>
+    </div>
+
+    <!-- State A: Positief (4-5 sterren) -->
+    <div class="fb-state" id="statePositive">
+      <h2 class="fb-state-heading">Schön zu hören!</h2>
+      <p class="fb-state-text">Möchten Sie Ihre Erfahrung auf TripAdvisor teilen? Das hilft anderen Gästen sehr.</p>
+      <div class="fb-review-links">
+        <a href="https://www.tripadvisor.nl/Hotel_Review-g652361-d629965-Reviews-Hotel_Asteria-Venray_Limburg_Province.html"
+           target="_blank" rel="noopener" class="btn btn--primary btn--fb" id="btnTripadvisor">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="13.5" r="2"/><circle cx="17.5" cy="13.5" r="2"/><path d="M24 9.5c-1.28 0-2.46.38-3.45 1.03A8.98 8.98 0 0012 6a8.98 8.98 0 00-8.55 4.53A5.49 5.49 0 000 9.5v1A5.5 5.5 0 005.5 16h.06A5.49 5.49 0 0012 20a5.49 5.49 0 006.44-4H18.5a5.5 5.5 0 005.5-5.5v-1zM6.5 17.5a4 4 0 110-8 4 4 0 010 8zm11 0a4 4 0 110-8 4 4 0 010 8z"/></svg>
+          Zu TripAdvisor
+        </a>
+        <a href="https://g.page/r/CQ0RLRNSNYdVEBM/review"
+           target="_blank" rel="noopener" class="btn btn--outline btn--fb" id="btnGoogle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A10.96 10.96 0 001 12c0 1.77.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Oder auf Google
+        </a>
+      </div>
+      <button class="fb-skip" type="button" id="btnNoThanks">Nein danke</button>
+    </div>
+
+    <!-- State B: Negatief (1-3 sterren) -->
+    <div class="fb-state" id="stateNegative">
+      <h2 class="fb-state-heading">Was hätten wir besser machen können?</h2>
+      <form class="fb-form" id="feedbackForm" novalidate>
+        <textarea class="fb-textarea" name="message" placeholder="Erzählen Sie uns, was wir verbessern können..." required></textarea>
+        <div class="fb-field">
+          <label class="fb-label" for="fbName">Name (optional)</label>
+          <input class="input" type="text" id="fbName" name="name" autocomplete="name">
+        </div>
+        <div class="fb-field">
+          <label class="fb-label" for="fbEmail">E-Mail (optional)</label>
+          <input class="input" type="email" id="fbEmail" name="email" autocomplete="email">
+        </div>
+        <!-- Honeypot -->
+        <div class="fb-hp" aria-hidden="true">
+          <input type="text" name="_hp" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="fb-submit-wrap">
+          <button class="fb-submit" type="submit">Feedback senden</button>
+          <p class="fb-error" id="fbError"></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- State C: Bedankt -->
+    <div class="fb-state" id="stateThanks">
+      <div class="fb-checkmark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+      </div>
+      <h2 class="fb-state-heading">Herzlichen Dank</h2>
+      <p class="fb-state-text">Ihr Feedback hilft uns, noch besser zu werden.</p>
+      <a href="https://www.asteria.nl" class="fb-back">Zu asteria.nl &rarr;</a>
+    </div>
+  </div>
+
+  <p class="fb-footer">&copy; Hotel Asteria Venray</p>
+
+  <!-- Analytics (lightweight — zelfde als andere pagina's) -->
+  <script>
+  (function(){
+    var sid = sessionStorage.getItem('sid');
+    if (!sid) { sid = Math.random().toString(36).slice(2); sessionStorage.setItem('sid', sid); }
+    window.track = function(event, extra) {
+      var payload = Object.assign({ session_id: sid, event: event, page: location.pathname, referrer: document.referrer }, extra || {});
+      try { navigator.sendBeacon('/api/track', JSON.stringify(payload)); } catch(e) {}
+    };
+    window.track('page_view');
+  })();
+  </script>
+
+  <script>
+  (function(){
+    var rating = 0;
+    var lang = document.documentElement.lang || 'nl';
+    var stars = document.querySelectorAll('.fb-star');
+    var labelEl = document.getElementById('starLabel');
+    var labels = [
+      'Schlecht',
+      'Mäßig',
+      'OK',
+      'Gut',
+      'Ausgezeichnet'
+    ];
+
+    function setStars(n) {
+      stars.forEach(function(s, i) {
+        s.classList.toggle('active', i < n);
+      });
+      labelEl.textContent = n > 0 ? labels[n - 1] : '';
+      labelEl.classList.toggle('visible', n > 0);
+    }
+
+    function showState(id) {
+      document.querySelectorAll('.fb-state').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      if (id) {
+        var el = document.getElementById(id);
+        el.classList.add('active');
+      }
+    }
+
+    // Star hover
+    stars.forEach(function(star) {
+      star.addEventListener('mouseenter', function() {
+        var r = parseInt(this.dataset.rating);
+        setStars(r);
+      });
+    });
+
+    document.querySelector('.fb-stars').addEventListener('mouseleave', function() {
+      setStars(rating);
+    });
+
+    // Star click
+    stars.forEach(function(star) {
+      star.addEventListener('click', function() {
+        var r = parseInt(this.dataset.rating);
+        if (r === rating) {
+          // Deselect
+          rating = 0;
+          setStars(0);
+          showState(null);
+          return;
+        }
+        rating = r;
+        setStars(r);
+        window.track('feedback_rating', { variant_price: String(r) });
+
+        if (r >= 4) {
+          showState('statePositive');
+        } else {
+          showState('stateNegative');
+          var ta = document.querySelector('.fb-textarea');
+          if (ta) setTimeout(function(){ ta.focus(); }, 300);
+        }
+      });
+    });
+
+    // No thanks → bedankt
+    document.getElementById('btnNoThanks').addEventListener('click', function() {
+      // Submit de positieve rating naar D1 (zonder bericht)
+      submitFeedback({ rating: rating });
+      showState('stateThanks');
+    });
+
+    // TripAdvisor/Google click tracking
+    document.getElementById('btnTripadvisor').addEventListener('click', function() {
+      window.track('feedback_tripadvisor');
+      submitFeedback({ rating: rating });
+    });
+    document.getElementById('btnGoogle').addEventListener('click', function() {
+      window.track('feedback_google');
+      submitFeedback({ rating: rating });
+    });
+
+    // Form submit
+    var form = document.getElementById('feedbackForm');
+    var submitBtn = form.querySelector('.fb-submit');
+    var errorEl = document.getElementById('fbError');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      errorEl.style.display = 'none';
+
+      var msg = form.querySelector('[name="message"]').value.trim();
+      if (!msg) {
+        errorEl.textContent = 'Erzählen Sie uns, was wir verbessern können...';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Wird gesendet...';
+
+      submitFeedback({
+        rating: rating,
+        message: msg,
+        name: form.querySelector('[name="name"]').value.trim(),
+        email: form.querySelector('[name="email"]').value.trim(),
+        _hp: form.querySelector('[name="_hp"]').value,
+      }, function(ok) {
+        if (ok) {
+          window.track('feedback_submit');
+          showState('stateThanks');
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Feedback senden';
+          errorEl.textContent = 'Er ging iets mis. Probeer het opnieuw.';
+          errorEl.style.display = 'block';
+        }
+      });
+    });
+
+    function submitFeedback(data, cb) {
+      data.lang = lang;
+      data.page_referrer = document.referrer;
+      fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(j) { if (cb) cb(j.success); })
+        .catch(function() { if (cb) cb(false); });
+    }
+  })();
+  </script>
+</body>
+</html>
