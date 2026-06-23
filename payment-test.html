@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Betaling — Hotel Asteria</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #c23435;
+      --red-dark: #a82b2c;
+      --charcoal: #292929;
+      --white: #ffffff;
+      --off: #f5f3f0;
+      --grey-100: #ebebeb;
+      --grey-200: #d0d0d0;
+      --grey-400: #999;
+      --grey-600: #555;
+      --font-head: 'Electrolize', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--off);
+      color: var(--charcoal);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .payment-card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      max-width: 480px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .payment-header {
+      background: var(--charcoal);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .payment-header img { height: 36px; }
+    .payment-header span {
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+
+    .payment-body { padding: 32px 28px; }
+
+    .booking-summary {
+      background: var(--off);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+    .booking-summary h3 {
+      font-family: var(--font-head);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--grey-400);
+      margin-bottom: 12px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: var(--grey-600);
+      margin-bottom: 6px;
+    }
+    .summary-row:last-child { margin-bottom: 0; }
+    .summary-total {
+      border-top: 1px solid var(--grey-200);
+      margin-top: 10px;
+      padding-top: 10px;
+      font-weight: 700;
+      color: var(--charcoal);
+      font-size: 16px;
+    }
+
+    /* Payment method tabs */
+    .method-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .method-tab {
+      flex: 1;
+      padding: 12px 8px;
+      border: 1.5px solid var(--grey-100);
+      border-radius: var(--radius);
+      background: var(--white);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--grey-400);
+      transition: all 0.2s;
+    }
+    .method-tab:hover { border-color: var(--grey-200); }
+    .method-tab.active {
+      border-color: var(--red);
+      color: var(--charcoal);
+      background: #fdf5f5;
+    }
+    .method-tab svg, .method-tab img { height: 22px; width: auto; }
+
+    /* Card form */
+    .card-form { display: none; }
+    .card-form.active { display: block; }
+
+    .field-group { margin-bottom: 18px; }
+    .field-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--grey-400);
+      margin-bottom: 6px;
+    }
+    .field-group input,
+    .secure-field {
+      width: 100%;
+      height: 48px;
+      border: 1.5px solid var(--grey-100);
+      border-radius: 8px;
+      padding: 0 14px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--charcoal);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .field-group input:focus,
+    .secure-field.focused {
+      border-color: var(--red);
+    }
+    .field-row {
+      display: flex;
+      gap: 12px;
+    }
+    .field-row .field-group { flex: 1; }
+
+    /* iDEAL */
+    .ideal-form { display: none; }
+    .ideal-form.active { display: block; }
+    .ideal-info {
+      text-align: center;
+      padding: 20px;
+      color: var(--grey-600);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .ideal-info svg { margin-bottom: 12px; }
+
+    /* Pay button */
+    .pay-btn {
+      width: 100%;
+      height: 52px;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .pay-btn:hover { background: var(--red-dark); }
+    .pay-btn:active { transform: scale(0.98); }
+    .pay-btn:disabled {
+      background: var(--grey-200);
+      cursor: not-allowed;
+      transform: none;
+    }
+    .pay-btn .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: none;
+    }
+    .pay-btn.loading .spinner { display: block; }
+    .pay-btn.loading .btn-text { display: none; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Status messages */
+    .status {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+    .status.error {
+      display: block;
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+    .status.success {
+      display: block;
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 11px;
+      color: var(--grey-400);
+    }
+    .secure-badge svg { width: 12px; height: 12px; }
+  </style>
+</head>
+<body>
+
+  <div class="payment-card">
+    <div class="payment-header">
+      <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+      <span>Veilig betalen</span>
+    </div>
+
+    <div class="payment-body">
+      <!-- Booking summary -->
+      <div class="booking-summary">
+        <h3>Uw reservering</h3>
+        <div class="summary-row">
+          <span>Royale Kamer — 1 nacht</span>
+          <span>7 jul 2026</span>
+        </div>
+        <div class="summary-row">
+          <span>Kamer met ontbijt, 2 personen</span>
+        </div>
+        <div class="summary-row summary-total">
+          <span>Totaal</span>
+          <span id="totalPrice">€ 189,30</span>
+        </div>
+      </div>
+
+      <!-- Payment method selector -->
+      <div class="method-tabs">
+        <button class="method-tab active" data-method="card" onclick="switchMethod('card')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <path d="M2 10h20"/>
+          </svg>
+          Creditcard
+        </button>
+        <button class="method-tab" data-method="ideal" onclick="switchMethod('ideal')">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none">
+            <rect x="3" y="3" width="18" height="18" rx="4" fill="#CC0066"/>
+            <text x="12" y="16" text-anchor="middle" fill="white" font-size="9" font-weight="bold" font-family="sans-serif">iDEAL</text>
+          </svg>
+          iDEAL
+        </button>
+        <button class="method-tab" data-method="applepay" onclick="switchMethod('applepay')">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+          </svg>
+          Apple Pay
+        </button>
+      </div>
+
+      <!-- Credit card form (PCI Proxy Secure Fields) -->
+      <div class="card-form active" id="cardForm">
+        <div class="field-group">
+          <label>Naam op kaart</label>
+          <input type="text" id="holderName" placeholder="J. de Vries" autocomplete="cc-name">
+        </div>
+        <div class="field-group">
+          <label>Kaartnummer</label>
+          <div id="cardNumberField" class="secure-field"></div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label>Vervaldatum</label>
+            <input type="text" id="expiry" placeholder="MM / JJ" maxlength="7" autocomplete="cc-exp" inputmode="numeric">
+          </div>
+          <div class="field-group">
+            <label>CVV</label>
+            <div id="cvvField" class="secure-field"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- iDEAL form -->
+      <div class="ideal-form" id="idealForm">
+        <div class="ideal-info">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#CC0066" stroke-width="1.5">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+          <p>U wordt doorgestuurd naar uw bank om de betaling via iDEAL af te ronden.</p>
+          <p style="margin-top: 8px; font-size: 12px; color: var(--grey-400);">Na betaling keert u automatisch terug.</p>
+        </div>
+      </div>
+
+      <!-- Apple Pay placeholder -->
+      <div class="ideal-form" id="applepayForm">
+        <div class="ideal-info">
+          <p>Apple Pay is beschikbaar op Safari met een Apple-apparaat.</p>
+          <p style="margin-top: 8px; font-size: 12px; color: var(--grey-400);">Klik op 'Betaal' om Apple Pay te starten.</p>
+        </div>
+      </div>
+
+      <button class="pay-btn" id="payBtn" onclick="handlePayment()">
+        <span class="spinner"></span>
+        <span class="btn-text">Betaal € 189,30</span>
+      </button>
+
+      <div class="status" id="statusMsg"></div>
+
+      <div class="secure-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0110 0v4"/>
+        </svg>
+        Beveiligd met PCI Proxy — uw gegevens worden versleuteld
+      </div>
+    </div>
+  </div>
+
+  <!-- PCI Proxy Secure Fields SDK (production) -->
+  <script src="https://pay.datatrans.com/upp/payment/js/secure-fields-2.0.0.min.js"></script>
+
+  <script>
+  (function() {
+    // ═══════════════════════════════════════
+    //  CONFIG
+    // ═══════════════════════════════════════
+    const MEWS_CLIENT = 'Asteria Booking 1.0.0';
+    const MERCHANT_ID = '3000013748'; // Mews PaymentGateway.PublicKey
+    const MEWS_API = 'https://api.mews.com/api/distributor/v1';
+
+    // Test reservation data (hardcoded for this prototype)
+    const RESERVATION = {
+      configurationId: '6dc9094c-76e3-4fd8-83a7-af1d00ffc556',
+      hotelId: '65a522c9-4828-413d-9ad8-af1d00ffb83f',
+      roomCategoryId: 'a8fd7310-0d61-422f-89e6-af1d00ffc315',
+      rateId: '287f9628-9fad-4235-8ceb-af2e00b8794f', // Non-refundable met ontbijt
+      startUtc: '2026-07-08T14:00:00Z',
+      endUtc: '2026-07-09T10:00:00Z',
+      adultCount: 2,
+      childCount: 0
+    };
+
+    let secureFields = null;
+    let currentMethod = 'card';
+    let cardValid = false;
+    let cvvValid = false;
+
+    // ═══════════════════════════════════════
+    //  SECURE FIELDS INIT
+    // ═══════════════════════════════════════
+    function initSecureFields() {
+      if (typeof SecureFields === 'undefined') {
+        console.warn('SecureFields SDK not loaded');
+        return;
+      }
+
+      secureFields = new SecureFields();
+
+      // Init with merchantId (Mews PublicKey) — no server-side auth needed
+      secureFields.initTokenize(MERCHANT_ID, {
+        cardNumber: {
+          placeholderElementId: 'cardNumberField',
+          inputType: 'tel'
+        },
+        cvv: {
+          placeholderElementId: 'cvvField',
+          inputType: 'tel'
+        }
+      }, {
+        styles: {
+          // Match our field styling
+          '*': 'font-family: Montserrat, sans-serif; font-size: 15px; color: #292929; padding: 0 14px; background: transparent; border: none; outline: none; height: 45px; line-height: 45px;',
+          '*::placeholder': 'color: #999;',
+          '*:focus': 'color: #292929;'
+        }
+      });
+
+      secureFields.on('ready', function() {
+        console.log('Secure Fields ready');
+        secureFields.setPlaceholder('cardNumber', '4242 4242 4242 4242');
+        secureFields.setPlaceholder('cvv', '123');
+      });
+
+      secureFields.on('change', function(event) {
+        if (event.fields) {
+          if (event.fields.cardNumber) {
+            cardValid = event.fields.cardNumber.valid;
+            document.getElementById('cardNumberField').classList.toggle('focused',
+              event.fields.cardNumber.active);
+          }
+          if (event.fields.cvv) {
+            cvvValid = event.fields.cvv.valid;
+            document.getElementById('cvvField').classList.toggle('focused',
+              event.fields.cvv.active);
+          }
+        }
+      });
+
+      secureFields.on('success', function(data) {
+        console.log('Tokenization success:', data);
+        if (data.transactionId) {
+          createReservationWithPayment(data.transactionId);
+        }
+      });
+
+      secureFields.on('error', function(data) {
+        console.error('Secure Fields error:', data);
+        showStatus('error', 'Er ging iets mis bij het verwerken van uw kaartgegevens. Probeer het opnieuw.');
+        setLoading(false);
+      });
+    }
+
+    // ═══════════════════════════════════════
+    //  PAYMENT HANDLERS
+    // ═══════════════════════════════════════
+    window.handlePayment = function() {
+      clearStatus();
+
+      if (currentMethod === 'card') {
+        handleCardPayment();
+      } else if (currentMethod === 'ideal') {
+        handleIdealPayment();
+      } else if (currentMethod === 'applepay') {
+        showStatus('error', 'Apple Pay is nog niet beschikbaar in dit prototype.');
+      }
+    };
+
+    function handleCardPayment() {
+      const holderName = document.getElementById('holderName').value.trim();
+      const expiry = document.getElementById('expiry').value.trim();
+
+      if (!holderName) {
+        showStatus('error', 'Vul de naam op de kaart in.');
+        return;
+      }
+      if (!expiry || !expiry.match(/^\d{2}\s*\/\s*\d{2}$/)) {
+        showStatus('error', 'Vul een geldige vervaldatum in (MM / JJ).');
+        return;
+      }
+
+      const parts = expiry.split('/').map(s => s.trim());
+      const expm = parseInt(parts[0], 10);
+      const expy = parseInt(parts[1], 10);
+
+      setLoading(true);
+
+      // Submit card data to PCI Proxy for tokenization
+      secureFields.submit({
+        expm: expm,
+        expy: expy
+      });
+    }
+
+    async function createReservationWithPayment(transactionId) {
+      const holderName = document.getElementById('holderName').value.trim();
+      const expiry = document.getElementById('expiry').value.trim();
+      const parts = expiry.split('/').map(s => s.trim());
+
+      try {
+        const response = await fetch(MEWS_API + '/reservationGroups/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            Client: MEWS_CLIENT,
+            ConfigurationId: RESERVATION.configurationId,
+            HotelId: RESERVATION.hotelId,
+            Customer: {
+              Email: 'bartvandersterren@vandersterrenhotels.nl',
+              FirstName: 'Test',
+              LastName: 'Payment Prototype',
+              Telephone: '+31478511466'
+            },
+            Reservations: [{
+              RoomCategoryId: RESERVATION.roomCategoryId,
+              StartUtc: RESERVATION.startUtc,
+              EndUtc: RESERVATION.endUtc,
+              RateId: RESERVATION.rateId,
+              AdultCount: RESERVATION.adultCount,
+              ChildCount: RESERVATION.childCount,
+              Notes: 'TEST payment prototype - mag geannuleerd worden'
+            }],
+            CreditCardData: {
+              PaymentGatewayData: transactionId,
+              Expiration: '20' + parts[1] + '-' + parts[0],
+              HolderName: holderName
+            }
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.Id) {
+          const resNum = data.Reservations?.[0]?.Number || '?';
+          const paymentReqId = data.PaymentRequestId;
+
+          let msg = 'Reservering ' + resNum + ' aangemaakt met creditcard!';
+          if (paymentReqId) {
+            msg += ' PaymentRequestId: ' + paymentReqId;
+          }
+          showStatus('success', msg);
+          console.log('Reservation created:', data);
+        } else {
+          showStatus('error', data.Message || 'Er ging iets mis bij het aanmaken van de reservering.');
+          console.error('Reservation error:', data);
+        }
+      } catch (err) {
+        showStatus('error', 'Netwerkfout: ' + err.message);
+        console.error(err);
+      }
+
+      setLoading(false);
+    }
+
+    async function handleIdealPayment() {
+      setLoading(true);
+
+      try {
+        // Stap 1: Maak reservering aan (zonder betaalgegevens) met non-refundable rate
+        const response = await fetch(MEWS_API + '/reservationGroups/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            Client: MEWS_CLIENT,
+            ConfigurationId: RESERVATION.configurationId,
+            HotelId: RESERVATION.hotelId,
+            Customer: {
+              Email: 'bartvandersterren@vandersterrenhotels.nl',
+              FirstName: 'Test',
+              LastName: 'iDEAL Prototype',
+              Telephone: '+31478511466'
+            },
+            Reservations: [{
+              RoomCategoryId: RESERVATION.roomCategoryId,
+              StartUtc: RESERVATION.startUtc,
+              EndUtc: RESERVATION.endUtc,
+              RateId: RESERVATION.rateId,
+              AdultCount: RESERVATION.adultCount,
+              ChildCount: RESERVATION.childCount,
+              Notes: 'TEST iDEAL prototype - mag geannuleerd worden'
+            }]
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.PaymentRequestId) {
+          // Stap 2: Redirect naar Mews betaalpagina (iDEAL beschikbaar)
+          const returnUrl = window.location.origin + '/payment-test?status=complete';
+          const encodedReturn = btoa(returnUrl);
+          const paymentUrl = 'https://app.mews.com/navigator/payment-requests/detail/'
+            + data.PaymentRequestId
+            + '?returnUrl=' + encodedReturn;
+
+          showStatus('success', 'Reservering ' + (data.Reservations?.[0]?.Number || '?') + ' aangemaakt. U wordt doorgestuurd naar iDEAL...');
+
+          setTimeout(function() {
+            window.location.href = paymentUrl;
+          }, 1500);
+        } else if (data.Id) {
+          showStatus('error', 'Reservering aangemaakt maar geen PaymentRequestId ontvangen. De geselecteerde rate vereist mogelijk geen betaling.');
+          setLoading(false);
+        } else {
+          showStatus('error', data.Message || 'Er ging iets mis.');
+          setLoading(false);
+        }
+      } catch (err) {
+        showStatus('error', 'Netwerkfout: ' + err.message);
+        setLoading(false);
+      }
+    }
+
+    // ═══════════════════════════════════════
+    //  UI HELPERS
+    // ═══════════════════════════════════════
+    window.switchMethod = function(method) {
+      currentMethod = method;
+      document.querySelectorAll('.method-tab').forEach(function(tab) {
+        tab.classList.toggle('active', tab.dataset.method === method);
+      });
+      document.getElementById('cardForm').classList.toggle('active', method === 'card');
+      document.getElementById('idealForm').classList.toggle('active', method === 'ideal');
+      document.getElementById('applepayForm').classList.toggle('active', method === 'applepay');
+      clearStatus();
+    };
+
+    function setLoading(loading) {
+      var btn = document.getElementById('payBtn');
+      btn.disabled = loading;
+      btn.classList.toggle('loading', loading);
+    }
+
+    function showStatus(type, message) {
+      var el = document.getElementById('statusMsg');
+      el.className = 'status ' + type;
+      el.textContent = message;
+    }
+
+    function clearStatus() {
+      var el = document.getElementById('statusMsg');
+      el.className = 'status';
+      el.textContent = '';
+    }
+
+    // Expiry field formatting (MM / JJ)
+    document.getElementById('expiry').addEventListener('input', function(e) {
+      var val = e.target.value.replace(/\D/g, '');
+      if (val.length >= 2) {
+        val = val.substring(0, 2) + ' / ' + val.substring(2, 4);
+      }
+      e.target.value = val;
+    });
+
+    // Check for return from iDEAL
+    if (window.location.search.includes('status=complete')) {
+      showStatus('success', 'U bent teruggekeerd van de betaalpagina. Controleer de status in Mews.');
+    }
+
+    // Init
+    initSecureFields();
+  })();
+  </script>
+
+</body>
+</html>
