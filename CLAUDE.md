@@ -31,18 +31,43 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 - Push naar main → Cloudflare deployt automatisch (geen extra stap)
 - git config: user.email = bart@vandersterrenhotels.nl, user.name = Bart van der Sterren
 
-## Booking engine
+## Mews Booking Engine API (2026-06-23 — getest en werkend)
 
-- Bestanden: boeken.html, boeken-stap1-3.html
-- Backend: functions/mews/[[path]].js (Mews proxy) + functions/api/session.js (KV session)
-- KV binding: ASTERIA_KV (gekoppeld aan Cloudflare Pages, namespace_id: 0b06387ff7724995b0e287df3f0c5cb0)
-- Session injecteren: POST https://visit.asteria.nl/api/session met {"session":"<token>","client":"Mews Distributor 5656.0.0"}
-- Mews IDs: distributorId/configId **6dc9094c-76e3-4fd8-83a7-af1d00ffc556** (gebruik dit overal) | enterpriseId 65a522c9-4828-413d-9ad8-af1d00ffb83f | serviceId 755424cc-3077-4320-b069-af1d00ffbe47
-- Oude ID bee2f902-... heeft geen online-tarievenconfiguratie — nooit gebruiken
-- Availability API: POST /mews/api/bookingEngine/v1/services/getAvailability → geeft per-nacht counts per categoryId over een periode (vereist session token)
-- **GOTCHA Mews API:** `/mews/api/distributor/v1/hotels/getAvailability` vereist ook een sessie — ook de initialisatie-endpoints. Geen publieke endpoint zonder sessie. Client-side price-fetch werkt daarom niet zonder eerst de widget te laden.
-- Deeplinks: mewsRoute=rates&mewsRoom=<categoryId> (kamer geselecteerd) of mewsRoute=rooms (alleen datums)
-- Wellness voucher code: **2026WELLNESS** (niet WELLNESS)
+- **Client:** `"Client": "Asteria Booking 1.0.0"` — geregistreerd bij Mews, geen API key nodig
+- **Base URL:** `https://api.mews.com/api/distributor/v1/...`
+- **Mews IDs:** configId **6dc9094c-76e3-4fd8-83a7-af1d00ffc556** | enterpriseId/HotelId `65a522c9-4828-413d-9ad8-af1d00ffb83f` | serviceId `755424cc-3077-4320-b069-af1d00ffbe47`
+- **Oude ID** bee2f902-... — nooit gebruiken
+- **Wellness voucher code:** **2026WELLNESS** (niet WELLNESS)
+
+### Geteste endpoints:
+- `/configuration/get` — hotel + kamers + rates (ConfigurationIds + PrimaryId)
+- `/hotels/getAvailability` — prijzen per rate/kamer (HotelId + datums + occupancy)
+- `/hotels/getPaymentConfiguration` — payment gateway info
+- `/reservations/getPricing` — prijsberekening voor specifieke selectie
+- `/reservationGroups/create` — reservering aanmaken (Customer + Reservations + optioneel CreditCardData)
+- `/vouchers/validate` — vouchercode checken (nog niet getest)
+
+### Pricing:
+- Geen custom prijzen via API — altijd bepaald door Mews via RateId + VoucherCode
+- Special offers: via Rates/VoucherCodes in Mews Operations instellen
+
+### Payments:
+- **PCI Proxy merchantId:** `3000013748` (= PaymentGateway.PublicKey)
+- **Creditcard:** eigen design via PCI Proxy Secure Fields SDK (`pay.datatrans.com/.../secure-fields-2.0.0.min.js`), `initTokenize(merchantId, fields)`, token als `CreditCardData.PaymentGatewayData`
+- **iDEAL/Google Pay/Apple Pay:** alleen via Mews hosted betaalpagina (redirect naar `app.mews.com/navigator/payment-requests/detail/{PaymentRequestId}?returnUrl={base64}`)
+- **Non-refundable rates** geven `PaymentRequestId` terug, flexibele rates niet
+- **Prototype:** `payment-test.html` — werkend bewijs creditcard + iDEAL flow
+
+### Legacy (niet meer nodig):
+- `functions/mews/[[path]].js` (proxy met gespoofde headers) — vervangen door directe API calls
+- `functions/api/session.js` (KV session hijack) — niet meer nodig
+- Deeplinks: `mewsRoute=rates&mewsRoom=<categoryId>` — nog in gebruik op bestaande pagina's
+
+## Booking engine bestanden
+
+- `boeken.html` — multi-step booking flow (nog op oude proxy, moet omgebouwd)
+- `boeken-stap1/2/3.html` — verouderd
+- `payment-test.html` — payment prototype (hardcoded testdata, niet voor productie)
 
 ## Foto's
 
