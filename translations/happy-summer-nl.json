@@ -50,7 +50,7 @@
   "ARR_C_F6_CAP": "Uitgebreid ontbijtbuffet",
   "ARR_C_F6_DESC": "Warme broodjes, charcuterie en meer",
   "ARR_C_PRICE_FROM": "Vanaf",
-  "ARR_C_PRICE_SUB": "p.p. &middot; 2-daags op basis van een Comfort Kamer",
+  "ARR_C_PRICE_SUB": "p.p. · op basis van een Comfort Kamer",
   "DINER_ARIA": "Drie-gangen diner, inbegrepen in het arrangement",
   "REVIEWS_ARIA": "Gastbeoordelingen",
   "REVIEWS_TOTAL_INIT": "2.219 beoordelingen",
@@ -141,5 +141,13 @@
   "OMG_IMG_ALT": "Zomers natuurlandschap in Noord-Limburg",
   "OMG_EYEBROW": "De omgeving",
   "OMG_TITLE": "De zomer ligt voor de deur",
-  "OMG_BODY": "Noord-Limburg op zijn mooist: wandel of fiets door Nationaal Park de Maasduinen en de Grote Peel. Huur een fiets bij het hotel en sluit de dag af op ons terras."
+  "OMG_BODY": "Noord-Limburg op zijn mooist: wandel of fiets door Nationaal Park de Maasduinen en de Grote Peel. Huur een fiets bij het hotel en sluit de dag af op ons terras.",
+  "ARR_C_DUR_ARIA": "Kies de duur van je verblijf",
+  "ARR_C_DUR_2": "2 dagen",
+  "ARR_C_DUR_3": "3 dagen",
+  "ARR_C_DUR_2_SUB": "1 overnachting · 1 diner",
+  "ARR_C_DUR_3_SUB": "2 overnachtingen · 2 diners",
+  "ARR_C_PRICE_2": "€120,50",
+  "ARR_C_PRICE_3": "€231,–",
+  "ARR_C_FINEPRINT": "* Prijs per persoon o.b.v. een tweepersoonskamer, exclusief €2,– verblijfsbelasting p.p.p.n. · Boekbaar van 20 juni t/m 30 september."
 }

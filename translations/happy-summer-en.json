@@ -50,7 +50,7 @@
   "ARR_C_F6_CAP": "Extensive breakfast buffet",
   "ARR_C_F6_DESC": "Fresh bread, charcuterie and more",
   "ARR_C_PRICE_FROM": "From",
-  "ARR_C_PRICE_SUB": "p.p. &middot; 2 days based on a Comfort Room",
+  "ARR_C_PRICE_SUB": "p.p. · based on a Comfort Room",
   "DINER_ARIA": "Three-course dinner, included in the package",
   "REVIEWS_ARIA": "Guest reviews",
   "REVIEWS_TOTAL_INIT": "2,219 reviews",
@@ -141,5 +141,13 @@
   "OMG_IMG_ALT": "Summer countryside in North Limburg",
   "OMG_EYEBROW": "The surroundings",
   "OMG_TITLE": "Summer on your doorstep",
-  "OMG_BODY": "North Limburg at its best: walk or cycle through De Maasduinen National Park and the Grote Peel. Rent a bike at the hotel and end the day on our terrace."
+  "OMG_BODY": "North Limburg at its best: walk or cycle through De Maasduinen National Park and the Grote Peel. Rent a bike at the hotel and end the day on our terrace.",
+  "ARR_C_DUR_ARIA": "Choose the length of your stay",
+  "ARR_C_DUR_2": "2 days",
+  "ARR_C_DUR_3": "3 days",
+  "ARR_C_DUR_2_SUB": "1 night · 1 dinner",
+  "ARR_C_DUR_3_SUB": "2 nights · 2 dinners",
+  "ARR_C_PRICE_2": "€120.50",
+  "ARR_C_PRICE_3": "€231",
+  "ARR_C_FINEPRINT": "* Price per person based on a double room, excluding €2 city tax per person per night. · Bookable 20 June to 30 September."
 }

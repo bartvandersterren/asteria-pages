@@ -530,9 +530,49 @@
     .arr-c__feature.is-active .arr-c__feature-check { opacity: 1; }
 
     /* Prijs */
-    .arr-c__price-row {
-      padding: 16px 0 18px;
+    .arr-c__duration {
+      display: flex;
+      gap: 6px;
+      padding: 16px 0 0;
       border-top: 1px solid #f1f5f9;
+    }
+    .arr-c__dur {
+      flex: 1;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      background: #f1f5f9;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 10px 8px;
+      cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s, box-shadow .2s;
+    }
+    .arr-c__dur:hover { background: #e7ebf0; }
+    .arr-c__dur.is-active {
+      background: #fff;
+      color: #c23435;
+      border-color: #c23435;
+      box-shadow: 0 1px 4px rgba(194,52,53,0.12);
+    }
+
+    .arr-c__price-row {
+      padding: 14px 0 4px;
+    }
+
+    .arr-c__dur-detail {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      color: #475569;
+      margin: 2px 0 0;
+    }
+    .arr-c__fineprint {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #94a3b8;
+      margin: 12px 0 0;
     }
 
     .arr-c__price-from {
@@ -2557,7 +2597,7 @@
 
 <div class="sticky-card" id="stickyCard" role="complementary" aria-label="Quick booking">
   <span class="sticky-card__name">Happy Summer Package</span>
-  <strong class="sticky-card__price">&euro;120,50</strong>
+  <strong class="sticky-card__price">€120.50</strong>
   <span class="sticky-card__price-sub">per person</span>
   <button
     class="sticky-card__btn"
@@ -2776,11 +2816,17 @@
     <!-- Prijs + CTA + trust: scrollt NIET mee, altijd zichtbaar onderaan -->
     <div class="arr-c__bottom">
 
+      <div class="arr-c__duration" role="group" aria-label="Choose the length of your stay">
+        <button type="button" class="arr-c__dur is-active" data-dur="2" data-price="€120.50" data-sub="1 night · 1 dinner" aria-pressed="true">2 days</button>
+        <button type="button" class="arr-c__dur" data-dur="3" data-price="€231" data-sub="2 nights · 2 dinners" aria-pressed="false">3 days</button>
+      </div>
+
       <div class="arr-c__price-row">
         <span class="arr-c__price-from">From</span>
-        <strong class="arr-c__price">&euro;120,50</strong>
-        <span class="arr-c__price-sub">p.p. &middot; 2 days based on a Comfort Room</span>
+        <strong class="arr-c__price" id="arrCPrice">€120.50</strong>
+        <span class="arr-c__price-sub">p.p. · based on a Comfort Room</span>
       </div>
+      <p class="arr-c__dur-detail" id="arrCDurDetail">1 night · 1 dinner</p>
 
       <button
         class="arr-c__cta"
@@ -2792,6 +2838,8 @@
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </button>
+
+      <p class="arr-c__fineprint">* Price per person based on a double room, excluding €2 city tax per person per night. · Bookable 20 June to 30 September.</p>
 
     </div><!-- /.arr-c__bottom -->
 
@@ -3374,6 +3422,31 @@
         }
       });
     });
+  }());
+
+
+  /* ── Duur-toggle: 2 vs 3 dagen ── */
+  (function () {
+    var btns        = document.querySelectorAll('.arr-c__dur');
+    var priceEl     = document.getElementById('arrCPrice');
+    var detailEl    = document.getElementById('arrCDurDetail');
+    var stickyPrice = document.querySelector('.sticky-card__price');
+    if (!btns.length) return;
+    function select(btn) {
+      btns.forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      if (priceEl)     priceEl.textContent     = btn.dataset.price;
+      if (detailEl)    detailEl.textContent    = btn.dataset.sub;
+      if (stickyPrice) stickyPrice.textContent = btn.dataset.price;
+      window.arrDuration = Number(btn.dataset.dur);
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { select(this); });
+    });
+    window.arrDuration = 2;
   }());
 
 

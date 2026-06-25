@@ -50,7 +50,7 @@
   "ARR_C_F6_CAP": "Ausgiebiges Frühstücksbuffet",
   "ARR_C_F6_DESC": "Frisches Brot, Aufschnitt und mehr",
   "ARR_C_PRICE_FROM": "Ab",
-  "ARR_C_PRICE_SUB": "p.P. &middot; 2 Tage auf Basis eines Comfort-Zimmers",
+  "ARR_C_PRICE_SUB": "p.P. · auf Basis eines Comfort-Zimmers",
   "DINER_ARIA": "Drei-Gänge-Dinner, im Arrangement enthalten",
   "REVIEWS_ARIA": "Gästebewertungen",
   "REVIEWS_TOTAL_INIT": "2.219 Bewertungen",
@@ -141,5 +141,13 @@
   "OMG_IMG_ALT": "Sommerliche Naturlandschaft in Nord-Limburg",
   "OMG_EYEBROW": "Die Umgebung",
   "OMG_TITLE": "Der Sommer liegt vor der Tür",
-  "OMG_BODY": "Nord-Limburg von seiner schönsten Seite: Wandern oder radeln Sie durch den Nationalpark De Maasduinen und das Moorgebiet De Grote Peel. Leihen Sie ein Fahrrad im Hotel und lassen Sie den Tag auf unserer Terrasse ausklingen."
+  "OMG_BODY": "Nord-Limburg von seiner schönsten Seite: Wandern oder radeln Sie durch den Nationalpark De Maasduinen und das Moorgebiet De Grote Peel. Leihen Sie ein Fahrrad im Hotel und lassen Sie den Tag auf unserer Terrasse ausklingen.",
+  "ARR_C_DUR_ARIA": "Wählen Sie die Dauer Ihres Aufenthalts",
+  "ARR_C_DUR_2": "2 Tage",
+  "ARR_C_DUR_3": "3 Tage",
+  "ARR_C_DUR_2_SUB": "1 Übernachtung · 1 Abendessen",
+  "ARR_C_DUR_3_SUB": "2 Übernachtungen · 2 Abendessen",
+  "ARR_C_PRICE_2": "€120,50",
+  "ARR_C_PRICE_3": "€231,–",
+  "ARR_C_FINEPRINT": "* Preis pro Person auf Basis eines Doppelzimmers, zzgl. €2,– Kurtaxe pro Person pro Nacht. · Buchbar vom 20. Juni bis 30. September."
 }
