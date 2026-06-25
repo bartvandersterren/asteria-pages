@@ -114,15 +114,6 @@
     html, body { overflow-x: hidden; max-width: 100%; }
     img { max-width: 100%; display: block; }
 
-    /* ── Omgeving-foto: bijgesneden band (boven/onder ingekort) ── */
-    .omg-section__photo img {
-      width: 100%;
-      height: clamp(240px, 36vw, 440px);
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-
     body { padding-bottom: 0; }
 
     /* ══════════════════════════════════════════════════════════
@@ -2901,21 +2892,17 @@
 </section>
 
 <!-- ══ OMGEVING / ZOMER ═══════════════════════════════════════ -->
-<section class="omg-section" id="omgeving" aria-label="De omgeving van Hotel Asteria in de zomer">
-  <div class="omg-section__inner">
+<section class="wp-section" id="omgeving" aria-label="De omgeving van Hotel Asteria in de zomer">
+  <div class="wp-section__inner">
 
-    <div class="omg-section__photo">
-      <img
-        src="fotos/blok-natuur.webp"
-        alt="Zomers natuurlandschap in Noord-Limburg"
-        loading="lazy"
-      >
+    <div class="wp-section__intro">
+      <span class="wp-intro__label">De omgeving</span>
+      <h2 class="wp-intro__title">De zomer ligt voor de deur</h2>
+      <p class="wp-intro__sub">Noord-Limburg op zijn mooist: wandel of fiets door Nationaal Park de Maasduinen en de Grote Peel. Huur een fiets bij het hotel en sluit de dag af op ons terras.</p>
     </div>
 
-    <div class="omg-section__text">
-      <span class="omg-section__eyebrow">De omgeving</span>
-      <h2 class="omg-section__title">De zomer ligt voor de deur</h2>
-      <p class="omg-section__body">Noord-Limburg op zijn mooist: wandel of fiets door Nationaal Park de Maasduinen en de Grote Peel. Huur een fiets bij het hotel en sluit de dag af op ons terras.</p>
+    <div class="wp-section__stage">
+      <img class="wp-section__img" src="fotos/omgeving-fietsers.webp" alt="Zomers natuurlandschap in Noord-Limburg" loading="lazy">
     </div>
 
   </div>

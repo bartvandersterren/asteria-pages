@@ -114,15 +114,6 @@
     html, body { overflow-x: hidden; max-width: 100%; }
     img { max-width: 100%; display: block; }
 
-    /* ── Omgeving-foto: bijgesneden band (boven/onder ingekort) ── */
-    .omg-section__photo img {
-      width: 100%;
-      height: clamp(240px, 36vw, 440px);
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-
     body { padding-bottom: 0; }
 
     /* ══════════════════════════════════════════════════════════
@@ -2882,21 +2873,17 @@
 </section>
 
 <!-- ══ OMGEVING / ZOMER ═══════════════════════════════════════ -->
-<section class="omg-section" id="omgeving" aria-label="{{OMG_ARIA}}">
-  <div class="omg-section__inner">
+<section class="wp-section" id="omgeving" aria-label="{{OMG_ARIA}}">
+  <div class="wp-section__inner">
 
-    <div class="omg-section__photo">
-      <img
-        src="fotos/blok-natuur.webp"
-        alt="{{OMG_IMG_ALT}}"
-        loading="lazy"
-      >
+    <div class="wp-section__intro">
+      <span class="wp-intro__label">{{OMG_EYEBROW}}</span>
+      <h2 class="wp-intro__title">{{OMG_TITLE}}</h2>
+      <p class="wp-intro__sub">{{OMG_BODY}}</p>
     </div>
 
-    <div class="omg-section__text">
-      <span class="omg-section__eyebrow">{{OMG_EYEBROW}}</span>
-      <h2 class="omg-section__title">{{OMG_TITLE}}</h2>
-      <p class="omg-section__body">{{OMG_BODY}}</p>
+    <div class="wp-section__stage">
+      <img class="wp-section__img" src="fotos/omgeving-fietsers.webp" alt="{{OMG_IMG_ALT}}" loading="lazy">
     </div>
 
   </div>
