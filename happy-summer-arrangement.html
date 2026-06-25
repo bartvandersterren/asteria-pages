@@ -1502,6 +1502,8 @@
     display: block;
     flex-shrink: 0;
   }
+  .room-popup__track { align-items: flex-start; }
+  video.room-popup__hero { aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
   .room-popup__dots {
     position: absolute;
     bottom: 10px;
@@ -3501,7 +3503,7 @@
 
   // Room data
   var ROOMS = {
-    'comfort': {
+    'comfort': { video: 'videos/comfort.mp4',
       badge: '<span class="room-row__badge badge--included">Standaard inbegrepen</span>',
       name: 'Comfort Kamer',
       imgs: ['fotos/kamer-comfort.webp'],
@@ -3511,7 +3513,7 @@
       shortDesc: '~22 m\u00b2 \u00b7 tweepersoons bed \u00b7 douche',
       mewsCategoryId: '98900f3b-e5e2-49c9-9776-af1d00ffc315'
     },
-    'royale': {
+    'royale': { video: 'videos/royale.mp4',
       badge: '<span class="room-row__badge badge--upgrade">Upgrade</span>',
       name: 'Royale Kamer',
       imgs: ['fotos/kamer-royale.webp', 'fotos/kamer-royale-2.webp', 'fotos/kamer-royale-3.webp'],
@@ -3521,7 +3523,7 @@
       shortDesc: 'Ruimer \u00b7 bad of douche \u00b7 koffiezetapparaat',
       mewsCategoryId: 'a8fd7310-0d61-422f-89e6-af1d00ffc315'
     },
-    'deluxe': {
+    'deluxe': { video: 'videos/deluxe.mp4',
       badge: '<span class="room-row__badge badge--sauna">+ Eigen sauna</span>',
       name: 'Deluxe Kamer',
       imgs: ['fotos/kamer-deluxe.webp', 'fotos/kamer-deluxe-2.webp', 'fotos/kamer-deluxe-3.webp'],
@@ -3541,7 +3543,7 @@
       shortDesc: 'Kingsize bed \u00b7 bad \u00b7 ruime zithoek',
       mewsCategoryId: '27ea8deb-ded5-4856-8fdd-af1d00ffc315'
     },
-    'suite': {
+    'suite': { video: 'videos/suite.mp4',
       badge: '<span class="room-row__badge badge--sauna">+ Eigen sauna</span>',
       name: 'Suite',
       imgs: ['fotos/kamer-suite.webp', 'fotos/kamer-suite-2.webp', 'fotos/kamer-suite-3.webp'],
@@ -3551,7 +3553,7 @@
       shortDesc: 'Kingsize bed \u00b7 eigen infraroodsauna \u00b7 ruime suite',
       mewsCategoryId: '4a642b66-68e6-444c-beeb-af1d00ffc315'
     },
-    'bruidssuite': {
+    'bruidssuite': { video: 'videos/bruidssuite.mp4',
       badge: '<span class="room-row__badge badge--premium">Premium</span>',
       name: 'Bruidssuite',
       imgs: ['fotos/kamer-bruidssuite.webp', 'fotos/kamer-bruidssuite-2.webp', 'fotos/kamer-bruidssuite-3.webp'],
@@ -3585,18 +3587,23 @@
     var r = ROOMS[key];
     if (!r) return;
     var imgs = r.imgs;
-    sliderLen = imgs.length;
+    var slides = [];
+    if (r.video) {
+      slides.push('<video class="room-popup__hero room-popup__video" src="' + r.video + '" muted loop playsinline autoplay preload="auto" poster="' + imgs[0] + '"></video>');
+    }
+    imgs.forEach(function (src) {
+      slides.push('<img class="room-popup__hero" src="' + src + '" alt="' + r.name + '" loading="lazy">');
+    });
+    sliderLen = slides.length;
     sliderIdx = 0;
 
-    var imgsHtml = imgs.map(function (src) {
-      return '<img class="room-popup__hero" src="' + src + '" alt="' + r.name + '" loading="lazy">';
-    }).join('');
+    var imgsHtml = slides.join('');
 
-    var dotsHtml = imgs.length > 1 ? '<div class="room-popup__dots">' +
-      imgs.map(function (_, i) { return '<button class="room-popup__dot' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '"></button>'; }).join('') +
+    var dotsHtml = slides.length > 1 ? '<div class="room-popup__dots">' +
+      slides.map(function (_, i) { return '<button class="room-popup__dot' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '"></button>'; }).join('') +
       '</div>' : '';
 
-    var arrowsHtml = imgs.length > 1 ?
+    var arrowsHtml = slides.length > 1 ?
       '<button class="room-popup__arrow room-popup__arrow--prev" aria-label="Vorige">\u2039</button>' +
       '<button class="room-popup__arrow room-popup__arrow--next" aria-label="Volgende">\u203A</button>' : '';
 
@@ -3637,9 +3644,13 @@
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
     document.getElementById('popupClose').addEventListener('click', closePopup);
+    var popupVideo = inner.querySelector('.room-popup__video');
+    if (popupVideo) { var pp = popupVideo.play(); if (pp && pp.catch) pp.catch(function () {}); }
   }
 
   function closePopup() {
+    var v = inner.querySelector('.room-popup__video');
+    if (v) { try { v.pause(); } catch (e) {} }
     overlay.classList.remove('is-open');
     document.body.style.overflow = '';
     window.selectedRoomId = null;
