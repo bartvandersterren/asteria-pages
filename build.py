@@ -30,6 +30,14 @@ TEMPLATES = {
             'de': ('feedback-de.html', 'translations/feedback-de.json'),
         },
     },
+    'happy-summer': {
+        'template': 'happy-summer.template.html',
+        'langs': {
+            'nl': ('happy-summer-arrangement.html',    'translations/happy-summer-nl.json'),
+            'en': ('happy-summer-arrangement-en.html', 'translations/happy-summer-en.json'),
+            'de': ('happy-summer-arrangement-de.html', 'translations/happy-summer-de.json'),
+        },
+    },
 }
 
 def build(template_name, lang):
