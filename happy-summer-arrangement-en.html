@@ -114,6 +114,15 @@
     html, body { overflow-x: hidden; max-width: 100%; }
     img { max-width: 100%; display: block; }
 
+    /* ── Omgeving-foto: bijgesneden band (boven/onder ingekort) ── */
+    .omg-section__photo img {
+      width: 100%;
+      height: clamp(240px, 36vw, 440px);
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
     body { padding-bottom: 0; }
 
     /* ══════════════════════════════════════════════════════════
