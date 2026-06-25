@@ -25,11 +25,38 @@ Beschikbare kennisdocumenten — altijd raadplegen bij een pagina-sessie:
 - **Primaire kleur:** `#c23435`
 - **Fonts:** Electrolize (headings) + Montserrat 300/400/700 (body)
 
+## Samenwerking
+
+- **Eigenaar:** Bart van der Sterren (@bartvandersterren)
+- **Medewerker:** Stijn (@MarketingParkhotel) — write access
+- **Branch protection:** `main` is beschermd — directe pushes niet toegestaan voor medewerkers
+- **Workflow:** altijd via feature branch + Pull Request naar `main`
+- **Deploy:** Cloudflare Pages deployt automatisch bij merge naar `main`
+
+### Eerste keer opzetten (voor Stijn)
+
+```bash
+git clone https://github.com/bartvandersterren/asteria-pages.git
+cd asteria-pages
+```
+
+### Werkwijze voor wijzigingen
+
+```bash
+git checkout main && git pull                  # altijd starten vanaf up-to-date main
+git checkout -b feature/beschrijving           # nieuwe branch voor je wijziging
+# ... wijzigingen maken ...
+git add <bestanden> && git commit -m "wat je deed"
+git push -u origin feature/beschrijving        # push branch naar GitHub
+gh pr create --title "Beschrijving" --base main  # of maak PR via github.com
+```
+
+Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
+
 ## Git workflow
 
-- GitHub token (bartvandersterren): zie ~/.claude/projects/.../memory/reference_github_token.md
 - Push naar main → Cloudflare deployt automatisch (geen extra stap)
-- git config: user.email = bart@vandersterrenhotels.nl, user.name = Bart van der Sterren
+- git config (Bart): user.email = bart@vandersterrenhotels.nl, user.name = Bart van der Sterren
 
 ## Mews Booking Engine API (2026-06-23 — getest en werkend)
 
