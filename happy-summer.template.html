@@ -199,7 +199,11 @@
     .hero__bg {
       position: absolute;
       inset: 0;
-      background: #0d0c0b url('fotos/hero-zomer.webp') center center / cover no-repeat;
+      background: #0d0c0b url('fotos/hero-zomer.webp') center 28% / cover no-repeat;
+    }
+    /* Desktop: minder hoge hero zodat de foto minder inzoomt en het koppel volledig zichtbaar blijft */
+    @media (min-width: 861px) {
+      .hero { min-height: 78vh; }
     }
     .hero__overlay {
       position: absolute;
@@ -2411,7 +2415,7 @@
   inset: -6px;
   background-image: url('fotos/hero-zomer.webp');
   background-size: cover;
-  background-position: center;
+  background-position: center 28%;
   filter: blur(5px);
 }
 .ec-modal-bg::after {
