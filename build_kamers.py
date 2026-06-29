@@ -880,7 +880,7 @@ def build_overview(lang):
     checklist = ''.join(f'<li>{x}</li>' for x in OVLIST[lang])
     alturls = ''.join(f'  <link rel="alternate" hreflang="{lg}" href="https://visit.asteria.nl/kamertypes{SUFFIX[lg]}">\n' for lg in ('nl','en','de'))
     OV_CSS = '''  <style>
-    .ov-hero { min-height: 100vh; }
+    .ov-hero { min-height: 85vh; }
     @media (max-width: 560px) { .ov-hero { min-height: 46vh; } }
     .ov-intro { text-align: center; max-width: 760px; margin: 0 auto; padding: 80px 0 10px; }
     .ov-intro .section-eyebrow { color: #c23435; }
