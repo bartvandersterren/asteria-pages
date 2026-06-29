@@ -556,6 +556,10 @@
       color: #6b6b6b;
     }
     .room-row__badge.current { background: #c23435; color: #fff; }
+    .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }
+    .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }
+    .room-row__badge.badge--sauna   { background:#c23435; color:#fff; }
+    .room-row__badge.badge--premium { background:#1e1e1e; color:#fff; }
     .room-row__desc { font-weight: 300; font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 12px; max-width: 52ch; }
     .room-row__feat { display: flex; flex-wrap: wrap; gap: 8px; }
     .room-row__feat span { font-size: 12px; color: #6b6b6b; background: #f6f5f3; padding: 5px 12px; border-radius: 20px; }
@@ -1453,7 +1457,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/kamer-comfort-a.webp" alt="Comfort kamer" loading="lazy">
         <div>
-          <h3 class="room-row__name">Comfort kamer <span class="room-row__badge">Voordelig</span></h3>
+          <h3 class="room-row__name">Comfort kamer <span class="room-row__badge badge--base">Voordelig</span></h3>
           <p class="room-row__desc">Een comfortabele kamer voor twee personen met alles wat u nodig hebt voor een ontspannen verblijf.</p>
           <div class="room-row__feat"><span>~22 m&sup2;</span><span>Twinbeds</span><span>Douche</span><span>Airco</span><span>WiFi</span></div>
         </div>
@@ -1466,7 +1470,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/room-comfort-3-1.webp" alt="Comfort kamer 3 personen" loading="lazy">
         <div>
-          <h3 class="room-row__name">Comfort kamer 3 personen <span class="room-row__badge">3 personen</span></h3>
+          <h3 class="room-row__name">Comfort kamer 3 personen <span class="room-row__badge badge--upgrade">3 personen</span></h3>
           <p class="room-row__desc">Extra ruimte voor families of vrienden — drie eenpersoonsbedden en alle gemakken.</p>
           <div class="room-row__feat"><span>~22 m&sup2;</span><span>3 bedden</span><span>Max. 3</span><span>Douche/bad</span></div>
         </div>
@@ -1479,7 +1483,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/room-mindervalide-1.webp" alt="Mindervalide kamer" loading="lazy">
         <div>
-          <h3 class="room-row__name">Mindervalide kamer <span class="room-row__badge">Aangepast</span></h3>
+          <h3 class="room-row__name">Mindervalide kamer <span class="room-row__badge badge--base">Aangepast</span></h3>
           <p class="room-row__desc">Ruime, aangepaste kamer voor gasten met beperkte mobiliteit, met rolstoeltoegankelijke badkamer.</p>
           <div class="room-row__feat"><span>~37 m&sup2;</span><span>Aangepast</span><span>Twinbeds</span><span>Bedbank</span></div>
         </div>
@@ -1504,7 +1508,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-deluxe-1.webp" alt="Deluxe kamer" loading="lazy">
         <div>
-          <h3 class="room-row__name">Deluxe kamer <span class="room-row__badge">+ Eigen sauna</span></h3>
+          <h3 class="room-row__name">Deluxe kamer <span class="room-row__badge badge--sauna">+ Eigen sauna</span></h3>
           <p class="room-row__desc">Een privé infraroodsauna op de kamer — wellness begint bij u aan de deur.</p>
           <div class="room-row__feat"><span>~25 m&sup2;</span><span>Infraroodsauna</span><span>Douche</span><span>Zithoek</span></div>
         </div>
@@ -1517,7 +1521,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior suite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Junior suite <span class="room-row__badge">Familie</span></h3>
+          <h3 class="room-row__name">Junior suite <span class="room-row__badge badge--upgrade">Familie</span></h3>
           <p class="room-row__desc">Kingsize bed, bad en een ruime zithoek met bedbank voor extra slaapgelegenheid.</p>
           <div class="room-row__feat"><span>~37 m&sup2;</span><span>Kingsize</span><span>Bedbank</span><span>Bad & douche</span></div>
         </div>
@@ -1530,7 +1534,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-suite-1.webp" alt="Suite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Suite <span class="room-row__badge">+ Eigen sauna</span></h3>
+          <h3 class="room-row__name">Suite <span class="room-row__badge badge--sauna">+ Eigen sauna</span></h3>
           <p class="room-row__desc">Onze meest ruime kamer met eigen infraroodsauna en royale zithoek.</p>
           <div class="room-row__feat"><span>~40 m&sup2;</span><span>Kingsize</span><span>Infraroodsauna</span><span>Bedbank</span></div>
         </div>
@@ -1543,7 +1547,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-bruidssuite-1.webp" alt="Bruidssuite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Bruidssuite <span class="room-row__badge">Premium</span></h3>
+          <h3 class="room-row__name">Bruidssuite <span class="room-row__badge badge--premium">Premium</span></h3>
           <p class="room-row__desc">Vrijstaand ligbad, ruime inloopdouche en de meest romantische sfeer van het hotel.</p>
           <div class="room-row__feat"><span>~36 m&sup2;</span><span>Kingsize</span><span>Ligbad</span><span>Inloopdouche</span></div>
         </div>
