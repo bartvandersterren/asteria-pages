@@ -184,6 +184,10 @@ UI.update({
  'ov_book':   {'nl':'Boek hier je verblijf','en':'Book your stay here','de':'Buchen Sie hier Ihren Aufenthalt'},
  'ov_eyebrow':{'nl':'Welkom in Noord-Limburg','en':'Welcome to North Limburg','de':'Willkommen in Nord-Limburg'},
  'ov_h':      {'nl':'Ontspannen overnachten in het hart van Limburg','en':'Relaxed stays in the heart of Limburg','de':'Entspannt übernachten im Herzen Limburgs'},
+ 'benefit_h': {'nl':'Direct boeken loont','en':'Booking direct pays off','de':'Direkt buchen lohnt sich'},
+ 'benefit1':  {'nl':'Beste prijsgarantie','en':'Best price guarantee','de':'Beste-Preis-Garantie'},
+ 'benefit2':  {'nl':'Spaar loyalty punten voor leuke beloningen','en':'Earn loyalty points for great rewards','de':'Sammeln Sie Treuepunkte für tolle Prämien'},
+ 'benefit3':  {'nl':'Free upgrade (indien beschikbaar)','en':'Free upgrade (if available)','de':'Gratis-Upgrade (nach Verfügbarkeit)'},
  'ov_p':      {'nl':'Hotel Asteria ligt op een steenworp van de A73, omringd door de bossen en velden van Noord-Limburg. Of u nu komt voor rust, romantiek of een zakelijk bezoek — bij ons vindt u een kamer die bij uw verblijf past, met de warme Limburgse gastvrijheid die Asteria kenmerkt.',
               'en':'Hotel Asteria sits just off the A73, surrounded by the woods and fields of North Limburg. Whether you come for rest, romance or business, you will find a room to suit your stay — with the warm Limburg hospitality that defines Asteria.',
               'de':'Hotel Asteria liegt nur einen Steinwurf von der A73 entfernt, umgeben von den Wäldern und Feldern Nord-Limburgs. Ob für Ruhe, Romantik oder eine Geschäftsreise — bei uns finden Sie ein Zimmer, das zu Ihrem Aufenthalt passt, mit der herzlichen limburgischen Gastfreundschaft, die Asteria auszeichnet.'},
@@ -934,6 +938,16 @@ def build_overview(lang):
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
     .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }
+    /* Voordelen van direct boeken */
+    .benefits { padding:74px 0; background:#fff; }
+    .benefits__head { text-align:center; max-width:620px; margin:0 auto 38px; }
+    .benefits__head h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,3vw,34px); }
+    .benefits__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .benefits__item { display:flex; flex-direction:column; align-items:center; text-align:center; gap:18px; padding:36px 26px; border:1px solid #ececec; border-radius:16px; }
+    .benefits__icon { width:58px; height:58px; flex-shrink:0; border-radius:50%; background:#fdf2f2; display:flex; align-items:center; justify-content:center; }
+    .benefits__icon svg { width:28px; height:28px; }
+    .benefits__item strong { font-family:'Montserrat',sans-serif; font-weight:600; font-size:15px; line-height:1.45; color:#1a1a1a; max-width:24ch; }
+    @media (max-width:760px) { .benefits { padding:54px 0; } .benefits__grid { grid-template-columns:1fr; gap:16px; } }
     .promo-section { position:relative; overflow:hidden; background:#e9e4dd; padding:84px 0 92px; }
     .promo-section::before { content:''; position:absolute; left:-190px; bottom:-210px; width:560px; height:560px; border-radius:50%; border:72px solid #f1ede7; opacity:.65; pointer-events:none; }
     .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }
@@ -1071,6 +1085,29 @@ def build_overview(lang):
 
     <div id="roomList">
 {build_types_list(None, lang)}
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIRECT BOEKEN ═════════════════════════════════════════ -->
+<section class="benefits">
+  <div class="wrap">
+    <div class="benefits__head">
+      <h2>{ui('benefit_h',lang)}</h2>
+    </div>
+    <div class="benefits__grid">
+      <div class="benefits__item">
+        <span class="benefits__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c23435" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.5v5.6c0 4.3-3 7.2-7 8.4-4-1.2-7-4.1-7-8.4V5.5z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <strong>{ui('benefit1',lang)}</strong>
+      </div>
+      <div class="benefits__item">
+        <span class="benefits__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c23435" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8L12 16.8l-5.2 2.7 1-5.8L3.6 9.6l5.8-.8z"/></svg></span>
+        <strong>{ui('benefit2',lang)}</strong>
+      </div>
+      <div class="benefits__item">
+        <span class="benefits__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#c23435" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V6M5 13l7-7 7 7"/></svg></span>
+        <strong>{ui('benefit3',lang)}</strong>
+      </div>
     </div>
   </div>
 </section>
