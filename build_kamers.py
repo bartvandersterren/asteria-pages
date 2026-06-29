@@ -897,7 +897,7 @@ def build_overview(lang):
         '        <span>Toegang gym</span>\n      </div>\n' + _extra_incl)
     alturls = ''.join(f'  <link rel="alternate" hreflang="{lg}" href="https://visit.asteria.nl/kamertypes{SUFFIX[lg]}">\n' for lg in ('nl','en','de'))
     OV_CSS = '''  <style>
-    .ov-hero { min-height: 85vh; }
+    .ov-hero { min-height: 88vh; }
     @media (max-width: 560px) { .ov-hero { min-height: 46vh; } }
     .ov-intro { text-align: center; max-width: 760px; margin: 0 auto; padding: 80px 0 10px; }
     .ov-intro .section-eyebrow { color: #c23435; }
