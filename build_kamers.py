@@ -1072,7 +1072,7 @@ def build_overview(lang):
 <section class="promo-section">
   <div class="promo">
     <div class="promo__inner">
-      <img class="promo__img" src="fotos/wellness-spa.webp" alt="{ui('promo_h',lang)}" loading="lazy">
+      <img class="promo__img" src="fotos/promo-bruidssuite.webp" alt="{ui('promo_h',lang)}" loading="lazy">
       <div class="promo__card">
         <span class="section-eyebrow">{ui('promo_eyebrow',lang)}</span>
         <h2>{ui('promo_h',lang)}</h2>
