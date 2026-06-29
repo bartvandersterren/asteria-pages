@@ -9,6 +9,8 @@
 
   <link rel="canonical" href="https://visit.asteria.nl/royale-kamer">
   <link rel="alternate" hreflang="nl" href="https://visit.asteria.nl/royale-kamer">
+  <link rel="alternate" hreflang="en" href="https://visit.asteria.nl/royale-kamer-en">
+  <link rel="alternate" hreflang="de" href="https://visit.asteria.nl/royale-kamer-de">
   <link rel="alternate" hreflang="x-default" href="https://visit.asteria.nl/royale-kamer">
 
   <meta property="og:type" content="website">
@@ -834,10 +836,10 @@
   <div class="wrap">
     <div class="slider" id="comfortSlider">
       <div class="slider__track" id="sliderTrack">
-        <div class="slider__slide"><img src="fotos/room-royale-1.webp" alt="Royale kamer van Hotel Asteria"></div>
-        <div class="slider__slide"><img src="fotos/room-royale-2.webp" alt="Royale kamer van Hotel Asteria" loading="lazy"></div>
-        <div class="slider__slide"><img src="fotos/room-royale-3.webp" alt="Royale kamer van Hotel Asteria" loading="lazy"></div>
-        <div class="slider__slide"><img src="fotos/room-royale-4.webp" alt="Royale kamer van Hotel Asteria" loading="lazy"></div>
+        <div class="slider__slide"><img src="fotos/room-royale-1.webp" alt="Royale kamer"></div>
+        <div class="slider__slide"><img src="fotos/room-royale-2.webp" alt="Royale kamer" loading="lazy"></div>
+        <div class="slider__slide"><img src="fotos/room-royale-3.webp" alt="Royale kamer" loading="lazy"></div>
+        <div class="slider__slide"><img src="fotos/room-royale-4.webp" alt="Royale kamer" loading="lazy"></div>
       </div>
       <button class="slider__arrow slider__arrow--prev" id="sliderPrev" aria-label="Vorige foto"><span>&#8249;</span></button>
       <button class="slider__arrow slider__arrow--next" id="sliderNext" aria-label="Volgende foto"><span>&#8250;</span></button>
@@ -1021,7 +1023,7 @@
         </div>
       </article>
       <article class="arr__card">
-        <img src="fotos/hero-zomer.webp" alt="Happy Summer Arrangement" loading="lazy">
+        <img src="fotos/hero-zomer.webp" alt="Happy Summer" loading="lazy">
         <div class="arr__body">
           <h3>Happy Summer</h3>
           <p>Een zomerse welkomstcocktail, ontbijtbuffet en elke avond een heerlijk drie-gangen diner. Zorgeloos genieten van de zomer.</p>
@@ -1039,7 +1041,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- ══ FAQ ═══════════════════════════════════════════════════ -->
 <section class="faq">
@@ -1119,6 +1120,7 @@
 </footer>
 
 
+<script>
 <script>
 /* ── Mews booking ── */
 (function () {
@@ -1237,9 +1239,8 @@
   if (!sel) return;
   sel.value = 'nl';
   sel.addEventListener('change', function () {
-    var v = sel.value;
-    if (v === 'en') window.location.href = 'https://www.asteria.nl/en/rooms/comfort-room';
-    else if (v === 'de') window.location.href = 'https://www.asteria.nl/de/zimmer/komfort-zimmer';
+    var urls = { 'nl': '/royale-kamer', 'en': '/royale-kamer-en', 'de': '/royale-kamer-de' };
+    if (urls[sel.value]) window.location.href = urls[sel.value];
   });
 }());
 
@@ -1275,6 +1276,7 @@
   if (s) s.min = today;
   if (e) e.min = today;
 }());
+</script>
 </script>
 
 </body>

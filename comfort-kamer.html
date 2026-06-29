@@ -12,8 +12,8 @@
 
   <!-- Hreflang -->
   <link rel="alternate" hreflang="nl" href="https://visit.asteria.nl/comfort-kamer">
-  <link rel="alternate" hreflang="en" href="https://www.asteria.nl/en/rooms/comfort-room">
-  <link rel="alternate" hreflang="de" href="https://www.asteria.nl/de/zimmer/komfort-zimmer">
+  <link rel="alternate" hreflang="en" href="https://visit.asteria.nl/comfort-kamer-en">
+  <link rel="alternate" hreflang="de" href="https://visit.asteria.nl/comfort-kamer-de">
   <link rel="alternate" hreflang="x-default" href="https://visit.asteria.nl/comfort-kamer">
 
   <!-- Open Graph -->
@@ -1238,9 +1238,8 @@
   if (!sel) return;
   sel.value = 'nl';
   sel.addEventListener('change', function () {
-    var v = sel.value;
-    if (v === 'en') window.location.href = 'https://www.asteria.nl/en/rooms/comfort-room';
-    else if (v === 'de') window.location.href = 'https://www.asteria.nl/de/zimmer/komfort-zimmer';
+    var urls = { 'nl': '/comfort-kamer', 'en': '/comfort-kamer-en', 'de': '/comfort-kamer-de' };
+    if (urls[sel.value]) window.location.href = urls[sel.value];
   });
 }());
 
