@@ -368,37 +368,95 @@
     .btn-primary:hover { background: #a82c2c; color: #fff; }
 
     /* ══════════════════════════════════════════════════════════
-       IN BEELD
+       IN BEELD — slider
     ══════════════════════════════════════════════════════════ */
-    .gallery { padding: 0 0 90px; }
-    .gallery__img {
-      width: 100%;
-      aspect-ratio: 16/8;
-      object-fit: cover;
+    :root { --overlap: 70px; }
+    .gallery { padding: 0; }
+    .slider {
+      position: relative;
       border-radius: 18px;
+      overflow: hidden;
+      background: #ececec;
     }
+    .slider__track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    .slider__slide { min-width: 100%; }
+    .slider__slide img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    .slider__arrow {
+      position: absolute;
+      top: calc(50% - var(--overlap) / 2);
+      transform: translateY(-50%);
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      color: #1a1a1a;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+      transition: background 0.2s, transform 0.2s;
+      z-index: 4;
+    }
+    .slider__arrow:hover { background: #fff; }
+    .slider__arrow--prev { left: 18px; }
+    .slider__arrow--next { right: 18px; }
+    .slider__arrow span { transform: translateY(-2px); }
+    .slider__dots {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: calc(var(--overlap) + 16px);
+      display: flex; justify-content: center; gap: 9px;
+      z-index: 4;
+    }
+    .slider__dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.55);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .slider__dot.is-active { background: #fff; transform: scale(1.25); }
 
     /* ══════════════════════════════════════════════════════════
-       INCLUSIEF-BALK
+       INCLUSIEF-BALK — overlappend, gecentreerd kader
     ══════════════════════════════════════════════════════════ */
-    .included {
+    .included { padding: 0 0 90px; }
+    .included__box {
+      position: relative;
+      z-index: 3;
+      max-width: 1040px;
+      margin: calc(-1 * var(--overlap)) auto 0;
       background: #242424;
       color: #fff;
-      padding: 70px 0;
+      border-radius: 18px;
+      padding: 54px 48px 50px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.22);
     }
-    .included__head { text-align: center; margin-bottom: 46px; }
+    .included__head { text-align: center; margin-bottom: 40px; }
     .included__head h2 {
       font-family: 'Electrolize', sans-serif;
       text-transform: uppercase;
       letter-spacing: 0.04em;
       font-weight: 400;
-      font-size: clamp(24px, 3vw, 32px);
+      font-size: clamp(22px, 2.6vw, 30px);
       color: #fff;
     }
     .included__grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 30px;
+      gap: 28px 16px;
     }
     .included__item { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; }
     .included__icon {
@@ -574,9 +632,12 @@
        RESPONSIVE
     ══════════════════════════════════════════════════════════ */
     @media (max-width: 980px) {
+      :root { --overlap: 54px; }
       .intro__grid { grid-template-columns: 1fr; gap: 36px; }
       .spec-card { position: static; }
-      .included__grid { grid-template-columns: repeat(3, 1fr); gap: 26px 16px; }
+      .included__box { padding: 44px 30px 40px; }
+      .included__grid { grid-template-columns: repeat(3, 1fr); gap: 30px 16px; }
+      .slider__arrow { width: 42px; height: 42px; font-size: 24px; }
       .arr__grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
       .room-row { grid-template-columns: 1fr; }
       .room-row__img { height: 220px; }
@@ -586,7 +647,11 @@
       .bookbar__btn { grid-column: 1 / -1; padding: 16px; }
     }
     @media (max-width: 560px) {
-      .included__grid { grid-template-columns: repeat(2, 1fr); }
+      :root { --overlap: 44px; }
+      .included__box { padding: 38px 22px 34px; }
+      .included__grid { grid-template-columns: repeat(2, 1fr); gap: 26px 12px; }
+      .slider__arrow--prev { left: 10px; }
+      .slider__arrow--next { right: 10px; }
       .bookbar__card { grid-template-columns: 1fr; }
       .bookbar__field { border-right: none; border-bottom: 1px solid #eee; }
       .room-row__actions { flex-direction: column; }
@@ -769,16 +834,27 @@
   </div>
 </section>
 
-<!-- ══ IN BEELD ══════════════════════════════════════════════ -->
+<!-- ══ IN BEELD — slider ═════════════════════════════════════ -->
 <section class="gallery">
   <div class="wrap">
-    <img class="gallery__img" src="fotos/kamer-comfort.webp" alt="Comfort kamer van Hotel Asteria — modern ingericht met twinbeds en zithoek" loading="lazy">
+    <div class="slider" id="comfortSlider">
+      <div class="slider__track" id="sliderTrack">
+        <div class="slider__slide"><img src="fotos/kamer-comfort-a.webp" alt="Comfort kamer van Hotel Asteria — ruime kamer met twinbeds en zithoek"></div>
+        <div class="slider__slide"><img src="fotos/kamer-comfort-b.webp" alt="Comfort kamer — zithoek met fauteuil en flatscreen-tv" loading="lazy"></div>
+        <div class="slider__slide"><img src="fotos/kamer-comfort-c.webp" alt="Comfort kamer — koffie- en theefaciliteiten op de kamer" loading="lazy"></div>
+        <div class="slider__slide"><img src="fotos/kamer-comfort-d.webp" alt="Comfort kamer — eigen badkamer met inloopdouche" loading="lazy"></div>
+      </div>
+      <button class="slider__arrow slider__arrow--prev" id="sliderPrev" aria-label="Vorige foto"><span>&#8249;</span></button>
+      <button class="slider__arrow slider__arrow--next" id="sliderNext" aria-label="Volgende foto"><span>&#8250;</span></button>
+      <div class="slider__dots" id="sliderDots"></div>
+    </div>
   </div>
 </section>
 
-<!-- ══ INCLUSIEF-BALK ════════════════════════════════════════ -->
+<!-- ══ INCLUSIEF-BALK — overlappend kader ════════════════════ -->
 <section class="included">
   <div class="wrap">
+    <div class="included__box">
     <div class="included__head">
       <h2>Al onze kamers zijn inclusief</h2>
     </div>
@@ -807,6 +883,7 @@
         <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8v8M18 8v8M4 10v4M20 10v4M6 12h12"/></svg></span>
         <span>Toegang gym</span>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -1056,6 +1133,49 @@
     if (window.track) window.track('mews_click', { room: roomKey || 'algemeen' });
     window.open(url + '?' + params.join('&'), '_blank');
   };
+}());
+
+/* ── Foto-slider ── */
+(function () {
+  var track = document.getElementById('sliderTrack');
+  if (!track) return;
+  var slides = track.children;
+  var total = slides.length;
+  var dotsWrap = document.getElementById('sliderDots');
+  var idx = 0;
+
+  for (var i = 0; i < total; i++) {
+    var dot = document.createElement('button');
+    dot.className = 'slider__dot' + (i === 0 ? ' is-active' : '');
+    dot.setAttribute('aria-label', 'Ga naar foto ' + (i + 1));
+    dot.dataset.idx = i;
+    dotsWrap.appendChild(dot);
+  }
+  var dots = dotsWrap.children;
+
+  function go(n) {
+    idx = (n + total) % total;
+    track.style.transform = 'translateX(' + (-idx * 100) + '%)';
+    for (var i = 0; i < total; i++) dots[i].classList.toggle('is-active', i === idx);
+  }
+
+  document.getElementById('sliderPrev').addEventListener('click', function () { go(idx - 1); });
+  document.getElementById('sliderNext').addEventListener('click', function () { go(idx + 1); });
+  dotsWrap.addEventListener('click', function (e) {
+    var b = e.target.closest('.slider__dot');
+    if (b) go(Number(b.dataset.idx));
+  });
+
+  // Swipe op touch
+  var x0 = null;
+  var sl = document.getElementById('comfortSlider');
+  sl.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  sl.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) go(idx + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
 }());
 
 /* ── Kamertypes filter ── */
