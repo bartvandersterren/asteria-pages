@@ -75,6 +75,36 @@ UI = {
  'menu':         {'nl':'Menu','en':'Menu','de':'Menü'},
  'bel':          {'nl':'Bel','en':'Call','de':'Anrufen'},
 }
+UI.update({
+ 'crumb_overview':{'nl':'Kamertypes','en':'Room types','de':'Zimmertypen'},
+ 'ov_hero':   {'nl':'Onze kamertypes','en':'Our room types','de':'Unsere Zimmertypen'},
+ 'ov_eyebrow':{'nl':'Welkom in Noord-Limburg','en':'Welcome to North Limburg','de':'Willkommen in Nord-Limburg'},
+ 'ov_h':      {'nl':'Ontspannen overnachten in het hart van Limburg','en':'Relaxed stays in the heart of Limburg','de':'Entspannt übernachten im Herzen Limburgs'},
+ 'ov_p':      {'nl':'Hotel Asteria ligt op een steenworp van de A73, omringd door de bossen en velden van Noord-Limburg. Of u nu komt voor rust, romantiek of een zakelijk bezoek — bij ons vindt u een kamer die bij uw verblijf past, met de warme Limburgse gastvrijheid die Asteria kenmerkt.',
+              'en':'Hotel Asteria sits just off the A73, surrounded by the woods and fields of North Limburg. Whether you come for rest, romance or business, you will find a room to suit your stay — with the warm Limburg hospitality that defines Asteria.',
+              'de':'Hotel Asteria liegt nur einen Steinwurf von der A73 entfernt, umgeben von den Wäldern und Feldern Nord-Limburgs. Ob für Ruhe, Romantik oder eine Geschäftsreise — bei uns finden Sie ein Zimmer, das zu Ihrem Aufenthalt passt, mit der herzlichen limburgischen Gastfreundschaft, die Asteria auszeichnet.'},
+ 'ov_sub_h':  {'nl':'Moderne kamers van alle gemakken voorzien','en':'Modern rooms with every comfort','de':'Moderne Zimmer mit allem Komfort'},
+ 'ov_sub_p':  {'nl':'Al onze kamers zijn modern en sfeervol ingericht en standaard voorzien van alle comfort. Van een comfortabele Comfort kamer tot de luxe Bruidssuite met vrijstaand ligbad — elke kamer is met zorg ingericht.',
+              'en':'All our rooms are modern and tastefully furnished and come with every comfort as standard. From a cosy Comfort room to the luxurious Bridal Suite with a freestanding bathtub — every room is appointed with care.',
+              'de':'Alle unsere Zimmer sind modern und stilvoll eingerichtet und standardmäßig mit allem Komfort ausgestattet. Vom gemütlichen Komfortzimmer bis zur luxuriösen Hochzeitssuite mit freistehender Badewanne — jedes Zimmer ist mit Sorgfalt gestaltet.'},
+ 'promo_eyebrow':{'nl':'Meer dan een overnachting','en':'More than a stay','de':'Mehr als eine Übernachtung'},
+ 'promo_h':   {'nl':'Maak van uw verblijf een complete ervaring','en':'Turn your stay into a complete experience','de':'Machen Sie Ihren Aufenthalt zu einem kompletten Erlebnis'},
+ 'promo_p':   {'nl':'Combineer uw kamer met onze wellness van 300 m² op de Top Floor, een heerlijk diner in de brasserie of een van onze arrangementen. Zo wordt een overnachting een moment om naar uit te kijken.',
+              'en':'Combine your room with our 300 m² wellness area on the Top Floor, a delicious dinner in the brasserie or one of our packages. That is how an overnight stay becomes something to look forward to.',
+              'de':'Kombinieren Sie Ihr Zimmer mit unserem 300 m² großen Wellnessbereich im Top Floor, einem köstlichen Abendessen in der Brasserie oder einem unserer Arrangements. So wird aus einer Übernachtung ein Moment, auf den man sich freut.'},
+ 'promo_btn1':{'nl':'Bekijk arrangementen','en':'View packages','de':'Arrangements ansehen'},
+ 'promo_btn2':{'nl':'Reserveer direct','en':'Book directly','de':'Direkt reservieren'},
+ 'ov_faq_q':  {'nl':'Welke kamertypes biedt Hotel Asteria?','en':'Which room types does Hotel Asteria offer?','de':'Welche Zimmertypen bietet Hotel Asteria?'},
+ 'ov_faq_a':  {'nl':'Hotel Asteria heeft Comfort kamers (ook voor 3 personen), een aangepaste kamer, Royale en Deluxe kamers, een Junior Suite, een Suite en een Bruidssuite. Op elke kameromschrijving vindt u de details, foto\'s en de actuele prijs.',
+              'en':'Hotel Asteria offers Comfort rooms (also for 3 guests), an accessible room, Royale and Deluxe rooms, a Junior Suite, a Suite and a Bridal Suite. Each room page shows the details, photos and current price.',
+              'de':'Hotel Asteria bietet Komfortzimmer (auch für 3 Personen), ein barrierefreies Zimmer, Royale und Deluxe Zimmer, eine Junior-Suite, eine Suite und eine Hochzeitssuite. Auf jeder Zimmerseite finden Sie die Details, Fotos und den aktuellen Preis.'},
+})
+OVLIST = {
+ 'nl':['Comfortabel bed','Moderne badkamer met douche','Gratis WiFi','Airconditioning','Koffie- en theefaciliteiten','Flatscreen-tv','Föhn','Toegang tot de fitnessruimte'],
+ 'en':['Comfortable bed','Modern bathroom with shower','Free WiFi','Air conditioning','Coffee and tea facilities','Flatscreen TV','Hairdryer','Access to the fitness room'],
+ 'de':['Bequemes Bett','Modernes Badezimmer mit Dusche','Kostenloses WLAN','Klimaanlage','Kaffee- und Teezubehör','Flachbild-TV','Föhn','Zugang zum Fitnessraum'],
+}
+
 def ui(k, lang): return UI[k][lang]
 
 def area(n, lang):  # "Circa 22 m²"
@@ -633,7 +663,7 @@ def build_page(r, lang):
 <div class="wrap">
   <nav class="crumb" aria-label="Kruimelpad">
     <a href="https://www.asteria.nl">Hotel Asteria</a> &nbsp;/&nbsp;
-    <a href="https://www.asteria.nl/kamers">{ui('crumb_rooms',lang)}</a> &nbsp;/&nbsp;
+    <a href="/kamertypes{suf}">{ui('crumb_rooms',lang)}</a> &nbsp;/&nbsp;
     <span>{name}</span>
   </nav>
 </div>
@@ -734,8 +764,222 @@ def build_page(r, lang):
 '''
     return page
 
+# ── Overzichtspagina /kamertypes ───────────────────────────────────────
+def build_overview(lang):
+    suf = SUFFIX[lang]
+    hero_img = 'fotos/room-suite-1.webp'
+    checklist = ''.join(f'<li>{x}</li>' for x in OVLIST[lang])
+    alturls = ''.join(f'  <link rel="alternate" hreflang="{lg}" href="https://visit.asteria.nl/kamertypes{SUFFIX[lg]}">\n' for lg in ('nl','en','de'))
+    OV_CSS = '''  <style>
+    .ov-hero { min-height: 64vh; }
+    .ov-intro { text-align: center; max-width: 760px; margin: 0 auto; padding: 80px 0 10px; }
+    .ov-intro .section-eyebrow { color: #c23435; }
+    .ov-intro h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(28px,3.6vw,42px); line-height:1.12; margin-bottom:22px; }
+    .ov-intro p { font-weight:300; font-size:16px; line-height:1.75; color:#475569; }
+    .ov-feat { max-width:900px; margin:50px auto 0; padding-bottom:80px; text-align:center; }
+    .ov-feat h3 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(22px,2.6vw,30px); margin-bottom:16px; }
+    .ov-feat p { font-weight:300; font-size:16px; line-height:1.7; color:#475569; max-width:640px; margin:0 auto 30px; }
+    .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
+    .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
+    .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }
+    .promo { position:relative; max-width:1100px; margin:0 auto; padding:0 24px; }
+    .promo__inner { position:relative; }
+    .promo__img { width:100%; height:460px; object-fit:cover; border-radius:18px; display:block; }
+    .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); background:#242424; color:#fff; padding:46px 42px; border-radius:16px; max-width:480px; }
+    .promo__card .section-eyebrow { color:#e8923a; }
+    .promo__card h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#fff; margin-bottom:16px; }
+    .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:rgba(255,255,255,.85); margin-bottom:26px; }
+    .promo__btns { display:flex; gap:12px; flex-wrap:wrap; }
+    .promo__btns .btn-primary { width:auto; padding:13px 24px; }
+    .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; border-radius:10px; padding:13px 24px; font-size:14px; font-family:'Montserrat',sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }
+    .promo__btns .btn-light:hover { background:#fff; color:#242424; }
+    @media (max-width: 860px) {
+      .ov-checklist { grid-template-columns:1fr; max-width:340px; gap:12px; }
+      .promo__img { height:340px; }
+      .promo__card { position:static; transform:none; max-width:none; margin-top:-60px; margin-left:16px; margin-right:16px; }
+    }
+  </style>'''
+    page = f'''<!DOCTYPE html>
+<html lang="{HTMLLANG[lang]}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{ui('ov_hero',lang)} | Hotel Asteria Venray</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{ui('ov_p',lang)}">
+
+  <link rel="canonical" href="https://visit.asteria.nl/kamertypes{suf}">
+{alturls}  <link rel="alternate" hreflang="x-default" href="https://visit.asteria.nl/kamertypes">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{ui('ov_hero',lang)} | Hotel Asteria Venray">
+  <meta property="og:description" content="{ui('ov_p',lang)}">
+  <meta property="og:image" content="https://visit.asteria.nl/{hero_img}">
+  <meta property="og:url" content="https://visit.asteria.nl/kamertypes{suf}">
+  <meta property="og:locale" content="{OGLOCALE[lang]}">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preload" as="image" href="{hero_img}" type="image/webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand.css">
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', {{ linker: {{ domains: ['asteria.nl', 'visit.asteria.nl'] }} }});
+    gtag('config', 'AW-998609513');
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+{STYLE}
+{OV_CSS}
+</head>
+<body>
+
+{nav_for(lang)}
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="hero ov-hero" id="hero">
+  <img class="hero__video" src="{hero_img}" alt="Hotel Asteria — {ui('ov_hero',lang)}">
+  <div class="hero__overlay"></div>
+  <div class="hero__inner">
+    <h1 class="hero__title">{ui('ov_hero',lang)}</h1>
+  </div>
+</section>
+
+<!-- ══ BOEKBALK ══════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="bookbar">
+    <div class="bookbar__card">
+      <div class="bookbar__field">
+        <span class="bookbar__label">{ui('gasten',lang)}</span>
+        <select class="bookbar__value" id="bbGuests">
+          <option value="2">{ui('pers2',lang)}</option>
+          <option value="1">{ui('pers1',lang)}</option>
+        </select>
+      </div>
+      <div class="bookbar__field">
+        <span class="bookbar__label">{ui('aankomst',lang)}</span>
+        <input class="bookbar__value" type="date" id="bbStart">
+      </div>
+      <div class="bookbar__field">
+        <span class="bookbar__label">{ui('vertrek',lang)}</span>
+        <input class="bookbar__value" type="date" id="bbEnd">
+      </div>
+      <button class="bookbar__btn" onclick="window.openBooking()" data-track-cta="bookbar">{ui('availability',lang)}</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ BREADCRUMB ════════════════════════════════════════════ -->
+<div class="wrap">
+  <nav class="crumb" aria-label="Kruimelpad">
+    <a href="https://www.asteria.nl">Hotel Asteria</a> &nbsp;/&nbsp;
+    <span>{ui('crumb_overview',lang)}</span>
+  </nav>
+</div>
+
+<!-- ══ INTRO ═════════════════════════════════════════════════ -->
+<section class="ov-intro">
+  <div class="wrap">
+    <span class="section-eyebrow">{ui('ov_eyebrow',lang)}</span>
+    <h2>{ui('ov_h',lang)}</h2>
+    <p>{ui('ov_p',lang)}</p>
+  </div>
+</section>
+
+<section class="ov-feat">
+  <div class="wrap">
+    <h3>{ui('ov_sub_h',lang)}</h3>
+    <p>{ui('ov_sub_p',lang)}</p>
+    <ul class="ov-checklist">{checklist}</ul>
+  </div>
+</section>
+
+<!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
+<section class="types" style="padding-top:0;">
+  <div class="wrap">
+    <div class="tabs">
+      <button class="tab is-active" data-cat="all">{ui('tab_all',lang)}</button>
+      <button class="tab" data-cat="standaard">{ui('tab_std',lang)}</button>
+      <button class="tab" data-cat="luxe">{ui('tab_lux',lang)}</button>
+    </div>
+
+    <div id="roomList">
+{build_types_list(None, lang)}
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROMO ═════════════════════════════════════════════════ -->
+<section class="section" style="padding:30px 0 90px;">
+  <div class="promo">
+    <div class="promo__inner">
+      <img class="promo__img" src="fotos/wellness-spa.webp" alt="{ui('promo_h',lang)}" loading="lazy">
+      <div class="promo__card">
+        <span class="section-eyebrow">{ui('promo_eyebrow',lang)}</span>
+        <h2>{ui('promo_h',lang)}</h2>
+        <p>{ui('promo_p',lang)}</p>
+        <div class="promo__btns">
+          <a class="btn-light" href="https://www.asteria.nl/arrangementen">{ui('promo_btn1',lang)}</a>
+          <a class="btn-primary" href="#" onclick="window.openBooking();return false;" data-track-cta="promo">{ui('promo_btn2',lang)}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ═══════════════════════════════════════════════════ -->
+<section class="faq">
+  <div class="wrap">
+    <div class="faq__head">
+      <h2>{ui('faq_h',lang)}</h2>
+    </div>
+    <div class="faq__list">
+      <details>
+        <summary>{ui('ov_faq_q',lang)}</summary>
+        <div class="faq__a">{ui('ov_faq_a',lang)}</div>
+      </details>
+{faq_items_overview(lang)}
+    </div>
+  </div>
+</section>
+
+{shell(FOOTER, lang)}
+
+<script>
+{scripts_for('kamertypes', lang)}
+</script>
+
+</body>
+</html>
+'''
+    return page
+
+def faq_items_overview(lang):
+    out = []
+    for q, a in FAQ[lang]:
+        if q == '__OCC__':
+            continue
+        out.append(f'''      <details>
+        <summary>{q}</summary>
+        <div class="faq__a">{a}</div>
+      </details>''')
+    return '\n'.join(out)
+
 # ── Schrijf pagina's ───────────────────────────────────────────────────
 written = []
+for lang in ('nl', 'en', 'de'):
+    out = os.path.join(BASE, 'kamertypes' + SUFFIX[lang] + '.html')
+    with open(out, 'w', encoding='utf-8') as f:
+        f.write(build_overview(lang))
+    written.append(os.path.basename(out))
 for r in ROOMS:
     for lang in ('nl', 'en', 'de'):
         if r['key'] == 'comfort' and lang == 'nl':
@@ -767,6 +1011,8 @@ comfort = comfort.replace('<link rel="alternate" hreflang="de" href="https://www
                           '<link rel="alternate" hreflang="de" href="https://visit.asteria.nl/comfort-kamer-de">')
 # taalwisselaar → eigen vertaalde pagina's
 comfort = _SW_RE.sub(lambda m: lang_switcher('comfort-kamer', 'nl'), comfort)
+comfort = comfort.replace('<a href="https://www.asteria.nl/kamers">Kamers en Suites</a>',
+                          '<a href="/kamertypes">Kamers en Suites</a>')
 with open(SRC, 'w', encoding='utf-8') as f:
     f.write(comfort)
 
