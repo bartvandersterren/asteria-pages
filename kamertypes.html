@@ -1228,7 +1228,8 @@
     .types .room-row { background:#fff; }
     .faq { background:#f6f5f3; }
     /* Boek-knop onder de hero-titel */
-    .hero__cta { display:inline-block; margin-top:14px; margin-bottom:52px; background:#c23435; color:#fff; border:none; border-radius:10px; font-family:'Montserrat',sans-serif; font-size:15px; letter-spacing:.01em; padding:16px 32px; text-decoration:none; cursor:pointer; transition:background .2s; }
+    .ov-hero .hero__title { margin-bottom:8px; }
+    .hero__cta { display:inline-block; margin-top:6px; margin-bottom:52px; background:#c23435; color:#fff; border:none; border-radius:10px; font-family:'Montserrat',sans-serif; font-size:15px; letter-spacing:.01em; padding:16px 32px; text-decoration:none; cursor:pointer; transition:background .2s; }
     .hero__cta:hover { background:#a82c2c; }
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
     .included { padding: 40px 0 60px; }
@@ -1243,10 +1244,12 @@
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
     .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }
-    .promo { position:relative; max-width:1100px; margin:0 auto; padding:0 24px; }
-    .promo__inner { position:relative; }
-    .promo__img { width:100%; height:460px; object-fit:cover; border-radius:18px; display:block; }
-    .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); background:#242424; color:#fff; padding:46px 42px; border-radius:16px; max-width:480px; }
+    .promo-section { position:relative; overflow:hidden; background:#e9e4dd; padding:84px 0 92px; }
+    .promo-section::before { content:''; position:absolute; left:-190px; bottom:-210px; width:560px; height:560px; border-radius:50%; border:72px solid #f1ede7; opacity:.65; pointer-events:none; }
+    .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }
+    .promo__inner { position:relative; min-height:430px; }
+    .promo__img { width:63%; height:430px; object-fit:cover; border-radius:18px; display:block; margin-left:auto; box-shadow:0 24px 50px rgba(0,0,0,.12); }
+    .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:50%; background:#242424; color:#fff; padding:54px 48px; border-radius:18px; box-shadow:0 30px 70px rgba(0,0,0,.22); }
     .promo__card .section-eyebrow { color:#e8923a; }
     .promo__card h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#fff; margin-bottom:16px; }
     .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:rgba(255,255,255,.85); margin-bottom:26px; }
@@ -1256,8 +1259,10 @@
     .promo__btns .btn-light:hover { background:#fff; color:#242424; }
     @media (max-width: 860px) {
       .ov-checklist { grid-template-columns:1fr; max-width:340px; gap:12px; }
-      .promo__img { height:340px; }
-      .promo__card { position:static; transform:none; max-width:none; margin-top:-60px; margin-left:16px; margin-right:16px; }
+      .promo__inner { min-height:0; }
+      .promo__img { width:100%; height:300px; }
+      .promo__card { position:static; transform:none; width:auto; margin:-56px 16px 0; padding:40px 30px; }
+      .promo-section::before { display:none; }
     }
   </style>
 </head>
@@ -1524,7 +1529,7 @@
 </section>
 
 <!-- ══ PROMO ═════════════════════════════════════════════════ -->
-<section class="section" style="padding:30px 0 90px;">
+<section class="promo-section">
   <div class="promo">
     <div class="promo__inner">
       <img class="promo__img" src="fotos/wellness-spa.webp" alt="Maak van uw verblijf een complete ervaring" loading="lazy">
