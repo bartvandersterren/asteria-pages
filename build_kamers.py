@@ -520,6 +520,14 @@ def slides_for(r):
         return r['customslides']
     return [f"fotos/room-{r['photoslug']}-{i}.webp" for i in range(1, r.get('slides', 4) + 1)]
 
+def badge_variant(b):
+    """Semantische kleurklasse voor de badge na de kamertitel (zoals op de arrangement-pagina's)."""
+    bl = b.lower()
+    if 'sauna' in bl:               return ' badge--sauna'
+    if 'premium' in bl:             return ' badge--premium'
+    if b in ('Voordelig', 'Aangepast'): return ' badge--base'
+    return ' badge--upgrade'
+
 def build_types_list(current_key, lang):
     suf = SUFFIX[lang]
     rows = []
@@ -534,7 +542,8 @@ def build_types_list(current_key, lang):
                        f' data-track-cta="types_{r["key"]}">{ui("reserve",lang)}</a>')
             rowcls = 'room-row is-current'
         else:
-            badge = f'<span class="room-row__badge">{tr(r["badge"],lang)}</span>'
+            variant = badge_variant(r["badge"]) if current_key is None else ''
+            badge = f'<span class="room-row__badge{variant}">{tr(r["badge"],lang)}</span>'
             actions = (f'<a class="btn-ghost" href="/{r["slug"]}{suf}">{ui("details",lang)}</a>\n'
                        f'          <a class="btn-primary" href="#" onclick="window.openBooking(\'{r["key"]}\');return false;"'
                        f' data-track-cta="types_{r["key"]}">{ui("reserve",lang)}</a>')
@@ -871,7 +880,8 @@ def build_overview(lang):
     checklist = ''.join(f'<li>{x}</li>' for x in OVLIST[lang])
     alturls = ''.join(f'  <link rel="alternate" hreflang="{lg}" href="https://visit.asteria.nl/kamertypes{SUFFIX[lg]}">\n' for lg in ('nl','en','de'))
     OV_CSS = '''  <style>
-    .ov-hero { min-height: 64vh; }
+    .ov-hero { min-height: 100vh; }
+    @media (max-width: 560px) { .ov-hero { min-height: 46vh; } }
     .ov-intro { text-align: center; max-width: 760px; margin: 0 auto; padding: 80px 0 10px; }
     .ov-intro .section-eyebrow { color: #c23435; }
     .ov-intro h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(28px,3.6vw,42px); line-height:1.12; margin-bottom:22px; }
@@ -886,6 +896,11 @@ def build_overview(lang):
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
     .included { padding: 40px 0 60px; }
     .included__box { margin: 0 auto; }
+    /* Gekleurde badge na de kamertitel (palet van de arrangement-pagina's) */
+    .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }
+    .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }
+    .room-row__badge.badge--sauna   { background:#c23435; color:#fff; }
+    .room-row__badge.badge--premium { background:#1e1e1e; color:#fff; }
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
     .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }
