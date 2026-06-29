@@ -206,7 +206,7 @@ def build_page(r):
     m2 = r['m2']; bed = r['bed']; bath = r['bath']
     # accordion
     acc = f'''        <div class="acc">
-          <details open>
+          <details>
             <summary>Kenmerken</summary>
             <div class="acc__body">
               <ul class="acc__list">
