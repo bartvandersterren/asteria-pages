@@ -935,9 +935,9 @@ def build_overview(lang):
     .promo-section { position:relative; overflow:hidden; background:#e9e4dd; padding:84px 0 92px; }
     .promo-section::before { content:''; position:absolute; left:-190px; bottom:-210px; width:560px; height:560px; border-radius:50%; border:72px solid #f1ede7; opacity:.65; pointer-events:none; }
     .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }
-    .promo__inner { position:relative; min-height:430px; }
-    .promo__img { width:63%; height:430px; object-fit:cover; border-radius:18px; display:block; margin-left:auto; box-shadow:0 24px 50px rgba(0,0,0,.12); }
-    .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:50%; background:#242424; color:#fff; padding:54px 48px; border-radius:18px; box-shadow:0 30px 70px rgba(0,0,0,.22); }
+    .promo__inner { position:relative; min-height:580px; }
+    .promo__img { width:62%; height:580px; object-fit:cover; border-radius:18px; display:block; margin-left:auto; box-shadow:0 24px 50px rgba(0,0,0,.12); }
+    .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#242424; color:#fff; padding:52px 46px; border-radius:18px; box-shadow:0 30px 70px rgba(0,0,0,.22); }
     .promo__card .section-eyebrow { color:#e8923a; }
     .promo__card h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#fff; margin-bottom:16px; }
     .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:rgba(255,255,255,.85); margin-bottom:26px; }
