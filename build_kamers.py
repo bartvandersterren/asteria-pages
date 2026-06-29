@@ -168,6 +168,7 @@ UI = {
 UI.update({
  'crumb_overview':{'nl':'Kamertypes','en':'Room types','de':'Zimmertypen'},
  'ov_hero':   {'nl':'Onze kamertypes','en':'Our room types','de':'Unsere Zimmertypen'},
+ 'ov_book':   {'nl':'Boek hier je verblijf','en':'Book your stay here','de':'Buchen Sie hier Ihren Aufenthalt'},
  'ov_eyebrow':{'nl':'Welkom in Noord-Limburg','en':'Welcome to North Limburg','de':'Willkommen in Nord-Limburg'},
  'ov_h':      {'nl':'Ontspannen overnachten in het hart van Limburg','en':'Relaxed stays in the heart of Limburg','de':'Entspannt übernachten im Herzen Limburgs'},
  'ov_p':      {'nl':'Hotel Asteria ligt op een steenworp van de A73, omringd door de bossen en velden van Noord-Limburg. Of u nu komt voor rust, romantiek of een zakelijk bezoek — bij ons vindt u een kamer die bij uw verblijf past, met de warme Limburgse gastvrijheid die Asteria kenmerkt.',
@@ -491,6 +492,7 @@ SHELL_TR = {
        ('>Gratis WiFi</span>','>Free WiFi</span>'),('>Föhn</span>','>Hairdryer</span>'),
        ('>Flatscreen-tv</span>','>Flatscreen TV</span>'),('>Koffie &amp; thee</span>','>Coffee &amp; tea</span>'),
        ('>Airco</span>','>Air conditioning</span>'),('>Toegang gym</span>','>Gym access</span>'),
+       ('>Comfortabel bed</span>','>Comfortable bed</span>'),('>Zithoek</span>','>Seating area</span>'),
        ('>Hotelarrangementen bij dit kamertype</h2>','>Hotel packages for this room type</h2>'),
        ('>Algemene voorwaarden</a>','>Terms & conditions</a>'),
        ('Onderdeel van Van der Sterren Hotels','Part of Van der Sterren Hotels')],
@@ -502,6 +504,7 @@ SHELL_TR = {
        ('>Gratis WiFi</span>','>Kostenloses WLAN</span>'),('>Föhn</span>','>Föhn</span>'),
        ('>Flatscreen-tv</span>','>Flachbild-TV</span>'),('>Koffie &amp; thee</span>','>Kaffee &amp; Tee</span>'),
        ('>Airco</span>','>Klimaanlage</span>'),('>Toegang gym</span>','>Fitnessraum</span>'),
+       ('>Comfortabel bed</span>','>Bequemes Bett</span>'),('>Zithoek</span>','>Sitzecke</span>'),
        ('>Hotelarrangementen bij dit kamertype</h2>','>Hotelarrangements für diesen Zimmertyp</h2>'),
        ('>Algemene voorwaarden</a>','>AGB</a>'),
        ('Onderdeel van Van der Sterren Hotels','Teil der Van der Sterren Hotels')],
@@ -878,6 +881,20 @@ def build_overview(lang):
     hero_img = 'fotos/room-bruidssuite-1.webp'
     hero_video = 'videos/bruidssuite.mp4'
     checklist = ''.join(f'<li>{x}</li>' for x in OVLIST[lang])
+    # Inbegrepen-blok: 2 extra items (comfortabel bed + zithoek) — alleen op het overzicht
+    _bed_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17v-4a2 2 0 012-2h16a2 2 0 012 2v4M4 17v2M20 17v2M2 15h20M6 11V8.5A1.5 1.5 0 017.5 7h2.5A1.5 1.5 0 0111.5 8.5V11"/></svg>'
+    _sofa_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11V8a2 2 0 012-2h10a2 2 0 012 2v3M3 13a2 2 0 012-2 2 2 0 012 2v1h10v-1a2 2 0 012-2 2 2 0 012 2v4H3zM6 18v2M18 18v2"/></svg>'
+    _extra_incl = (f'      <div class="included__item">\n'
+                   f'        <span class="included__icon">{_bed_svg}</span>\n'
+                   f'        <span>Comfortabel bed</span>\n'
+                   f'      </div>\n'
+                   f'      <div class="included__item">\n'
+                   f'        <span class="included__icon">{_sofa_svg}</span>\n'
+                   f'        <span>Zithoek</span>\n'
+                   f'      </div>')
+    included_ov = INCLUDED.replace(
+        '        <span>Toegang gym</span>\n      </div>',
+        '        <span>Toegang gym</span>\n      </div>\n' + _extra_incl)
     alturls = ''.join(f'  <link rel="alternate" hreflang="{lg}" href="https://visit.asteria.nl/kamertypes{SUFFIX[lg]}">\n' for lg in ('nl','en','de'))
     OV_CSS = '''  <style>
     .ov-hero { min-height: 85vh; }
@@ -893,9 +910,14 @@ def build_overview(lang):
     .types { background:#f6f5f3; }
     .types .room-row { background:#fff; }
     .faq { background:#f6f5f3; }
+    /* Boek-knop onder de hero-titel */
+    .hero__cta { display:inline-block; margin-top:24px; background:#c23435; color:#fff; border:none; border-radius:10px; font-family:'Montserrat',sans-serif; font-size:15px; letter-spacing:.01em; padding:16px 32px; text-decoration:none; cursor:pointer; transition:background .2s; }
+    .hero__cta:hover { background:#a82c2c; }
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
     .included { padding: 40px 0 60px; }
     .included__box { margin: 0 auto; }
+    .included__grid { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 620px) { .included__grid { grid-template-columns: repeat(2, 1fr); } }
     /* Gekleurde badge na de kamertitel (palet van de arrangement-pagina's) */
     .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }
     .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }
@@ -979,6 +1001,7 @@ def build_overview(lang):
   <div class="hero__overlay"></div>
   <div class="hero__inner">
     <h1 class="hero__title">{ui('ov_hero',lang)}</h1>
+    <a class="hero__cta" href="#" onclick="window.openBooking();return false;" data-track-cta="hero">{ui('ov_book',lang)}</a>
   </div>
 </section>
 
@@ -1023,7 +1046,7 @@ def build_overview(lang):
   </div>
 </section>
 
-{shell(INCLUDED, lang)}
+{shell(included_ov, lang)}
 
 <!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
 <section class="types" style="padding-top:40px;">
