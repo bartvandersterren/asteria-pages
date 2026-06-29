@@ -1214,7 +1214,8 @@
   }
   </style>
   <style>
-    .ov-hero { min-height: 64vh; }
+    .ov-hero { min-height: 100vh; }
+    @media (max-width: 560px) { .ov-hero { min-height: 46vh; } }
     .ov-intro { text-align: center; max-width: 760px; margin: 0 auto; padding: 80px 0 10px; }
     .ov-intro .section-eyebrow { color: #c23435; }
     .ov-intro h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(28px,3.6vw,42px); line-height:1.12; margin-bottom:22px; }
@@ -1229,6 +1230,11 @@
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
     .included { padding: 40px 0 60px; }
     .included__box { margin: 0 auto; }
+    /* Gekleurde badge na de kamertitel (palet van de arrangement-pagina's) */
+    .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }
+    .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }
+    .room-row__badge.badge--sauna   { background:#c23435; color:#fff; }
+    .room-row__badge.badge--premium { background:#1e1e1e; color:#fff; }
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
     .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }
@@ -1399,7 +1405,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/kamer-comfort-a.webp" alt="Comfort kamer" loading="lazy">
         <div>
-          <h3 class="room-row__name">Comfort kamer <span class="room-row__badge">Voordelig</span></h3>
+          <h3 class="room-row__name">Comfort kamer <span class="room-row__badge badge--base">Voordelig</span></h3>
           <p class="room-row__desc">Een comfortabele kamer voor twee personen met alles wat u nodig hebt voor een ontspannen verblijf.</p>
           <div class="room-row__feat"><span>~22 m&sup2;</span><span>Twinbeds</span><span>Douche</span><span>Airco</span><span>WiFi</span></div>
         </div>
@@ -1412,7 +1418,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/room-comfort-3-1.webp" alt="Comfort kamer 3 personen" loading="lazy">
         <div>
-          <h3 class="room-row__name">Comfort kamer 3 personen <span class="room-row__badge">3 personen</span></h3>
+          <h3 class="room-row__name">Comfort kamer 3 personen <span class="room-row__badge badge--upgrade">3 personen</span></h3>
           <p class="room-row__desc">Extra ruimte voor families of vrienden — drie eenpersoonsbedden en alle gemakken.</p>
           <div class="room-row__feat"><span>~22 m&sup2;</span><span>3 bedden</span><span>Max. 3</span><span>Douche/bad</span></div>
         </div>
@@ -1425,7 +1431,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/room-mindervalide-1.webp" alt="Mindervalide kamer" loading="lazy">
         <div>
-          <h3 class="room-row__name">Mindervalide kamer <span class="room-row__badge">Aangepast</span></h3>
+          <h3 class="room-row__name">Mindervalide kamer <span class="room-row__badge badge--base">Aangepast</span></h3>
           <p class="room-row__desc">Ruime, aangepaste kamer voor gasten met beperkte mobiliteit, met rolstoeltoegankelijke badkamer.</p>
           <div class="room-row__feat"><span>~37 m&sup2;</span><span>Aangepast</span><span>Twinbeds</span><span>Bedbank</span></div>
         </div>
@@ -1438,7 +1444,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/room-royale-1.webp" alt="Royale kamer" loading="lazy">
         <div>
-          <h3 class="room-row__name">Royale kamer <span class="room-row__badge">Ruimer</span></h3>
+          <h3 class="room-row__name">Royale kamer <span class="room-row__badge badge--upgrade">Ruimer</span></h3>
           <p class="room-row__desc">Ruimer dan de Comfort kamer, met een comfortabele zithoek en de keuze voor een bad.</p>
           <div class="room-row__feat"><span>~25 m&sup2;</span><span>Bad of douche</span><span>Zithoek</span><span>Airco</span></div>
         </div>
@@ -1451,7 +1457,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-deluxe-1.webp" alt="Deluxe kamer" loading="lazy">
         <div>
-          <h3 class="room-row__name">Deluxe kamer <span class="room-row__badge">+ Eigen sauna</span></h3>
+          <h3 class="room-row__name">Deluxe kamer <span class="room-row__badge badge--sauna">+ Eigen sauna</span></h3>
           <p class="room-row__desc">Een privé infraroodsauna op de kamer — wellness begint bij u aan de deur.</p>
           <div class="room-row__feat"><span>~25 m&sup2;</span><span>Infraroodsauna</span><span>Douche</span><span>Zithoek</span></div>
         </div>
@@ -1464,7 +1470,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior suite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Junior suite <span class="room-row__badge">Familie</span></h3>
+          <h3 class="room-row__name">Junior suite <span class="room-row__badge badge--upgrade">Familie</span></h3>
           <p class="room-row__desc">Kingsize bed, bad en een ruime zithoek met bedbank voor extra slaapgelegenheid.</p>
           <div class="room-row__feat"><span>~37 m&sup2;</span><span>Kingsize</span><span>Bedbank</span><span>Bad & douche</span></div>
         </div>
@@ -1477,7 +1483,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-suite-1.webp" alt="Suite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Suite <span class="room-row__badge">+ Eigen sauna</span></h3>
+          <h3 class="room-row__name">Suite <span class="room-row__badge badge--sauna">+ Eigen sauna</span></h3>
           <p class="room-row__desc">Onze meest ruime kamer met eigen infraroodsauna en royale zithoek.</p>
           <div class="room-row__feat"><span>~40 m&sup2;</span><span>Kingsize</span><span>Infraroodsauna</span><span>Bedbank</span></div>
         </div>
@@ -1490,7 +1496,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-bruidssuite-1.webp" alt="Bruidssuite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Bruidssuite <span class="room-row__badge">Premium</span></h3>
+          <h3 class="room-row__name">Bruidssuite <span class="room-row__badge badge--premium">Premium</span></h3>
           <p class="room-row__desc">Vrijstaand ligbad, ruime inloopdouche en de meest romantische sfeer van het hotel.</p>
           <div class="room-row__feat"><span>~36 m&sup2;</span><span>Kingsize</span><span>Ligbad</span><span>Inloopdouche</span></div>
         </div>
