@@ -27,6 +27,91 @@ FOOTER  = slice_between(html, '<!-- ══ FOOTER', '</footer>', include_end=Tru
 _si = html.index('/* ── Mews booking')
 SCRIPTS = html[html.rindex('<script>', 0, _si):html.index('</script>', _si) + len('</script>')]
 
+# ── Boekingsmodule overnemen van de arrangementpagina ──────────────────
+import json
+ARRSRC = open(os.path.join(BASE, 'happy-summer-arrangement.html'), encoding='utf-8').read()
+def _bt(a, b, inc_b=False):
+    i = ARRSRC.index(a); j = ARRSRC.index(b, i); return ARRSRC[i:j + (len(b) if inc_b else 0)]
+MEWS_HEAD  = _bt('<!-- Mews BookingEngine -->', '<!-- End Mews BookingEngine -->', True)
+_cs = ARRSRC.rindex('/*', 0, ARRSRC.index('.bk-overlay {'))
+_ce = ARRSRC.rindex('/*', 0, ARRSRC.index('.ec-overlay {'))
+BK_CSS     = ARRSRC[_cs:_ce].rstrip()
+BK_MARKUP  = _bt('<div class="bk-overlay"', '<!-- ══ DINER').rstrip()
+_dps = ARRSRC.rindex('(function', 0, ARRSRC.index('var MONTH_NAMES'))
+_dpe = ARRSRC.index('})();', ARRSRC.index('window.clearCustomCalendar')) + len('})();')
+DATEPICKER = ARRSRC[_dps:_dpe]
+BOOKING    = _bt('/* ══ BOOKING POPUP', '}());', True)
+# Voucher verwijderen (kamerboeking, geen arrangement)
+BOOKING = BOOKING.replace("var VOUCHER   = 'SUMMER';", "var VOUCHER   = null;")
+BOOKING = BOOKING.replace("var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER + '&mewsStart=' + toYMD(checkin)",
+                          "var url = MEWS_BASE + '?mewsStart=' + toYMD(checkin)")
+BOOKING = BOOKING.replace("      window.mewsApi.setVoucherCode(VOUCHER);\n", "")
+BOOKING = BOOKING.replace("        VoucherCode: VOUCHER,\n", "")
+
+CATEGORY = {'comfort':'98900f3b-e5e2-49c9-9776-af1d00ffc315','royale':'a8fd7310-0d61-422f-89e6-af1d00ffc315',
+            'deluxe':'c737de50-e41e-4c8d-a818-af1d00ffc315','junior-suite':'27ea8deb-ded5-4856-8fdd-af1d00ffc315',
+            'suite':'4a642b66-68e6-444c-beeb-af1d00ffc315','bruidssuite':'a9f18d18-561b-47a9-8ba7-b2a800cfd0e2'}
+BOOKABLE = ['comfort','royale','deluxe','junior-suite','suite','bruidssuite']
+
+BK_TR = {
+ 'en':[("var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',",
+        "var MONTH_NAMES = ['January','February','March','April','May','June',"),
+       ("'Juli','Augustus','September','Oktober','November','December'];",
+        "'July','August','September','October','November','December'];"),
+       ("var DAY_NAMES   = ['Ma','Di','Wo','Do','Vr','Za','Zo'];","var DAY_NAMES   = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];"),
+       ("var DAYS_NL = ['zo','ma','di','wo','do','vr','za'];","var DAYS_NL = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];"),
+       ("var MONTHS_NL = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];",
+        "var MONTHS_NL = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];"),
+       ("' nacht'", "' night'"),("' nachten'", "' nights'"),
+       ("Kies uw verblijfsdata","Choose your dates"),(">Aankomst</span>",">Arrival</span>"),
+       (">Vertrek</span>",">Departure</span>"),(">Nachten</span>",">Nights</span>"),
+       (">Geselecteerde kamer</span>",">Selected room</span>"),(">wijzig</button>",">change</button>"),
+       ("Volgende: kies kamer &rarr;","Next: choose room →"),("Volgende: kies kamer \\u2192","Next: choose room \\u2192"),
+       ("Of boek direct zonder kamerkeuze","Or book directly without choosing a room"),
+       (">Kies uw kamer</h2>",">Choose your room</h2>"),("Bekijk beschikbaarheid &rarr;","Check availability →"),
+       ("Bekijk beschikbaarheid \\u2192","Check availability \\u2192"),("&larr; Aanpassen","← Adjust"),
+       ("&larr; Terug","← Back"),("Laden\\u2026","Loading\\u2026"),("Kies een kamer","Choose a room"),
+       (">Vol<",">Full<"),(">meer info<",">more info<"),("Selecteer deze kamer","Select this room")],
+ 'de':[("var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',",
+        "var MONTH_NAMES = ['Januar','Februar','März','April','Mai','Juni',"),
+       ("'Juli','Augustus','September','Oktober','November','December'];",
+        "'Juli','August','September','Oktober','November','Dezember'];"),
+       ("var DAY_NAMES   = ['Ma','Di','Wo','Do','Vr','Za','Zo'];","var DAY_NAMES   = ['Mo','Di','Mi','Do','Fr','Sa','So'];"),
+       ("var DAYS_NL = ['zo','ma','di','wo','do','vr','za'];","var DAYS_NL = ['So','Mo','Di','Mi','Do','Fr','Sa'];"),
+       ("var MONTHS_NL = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];",
+        "var MONTHS_NL = ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'];"),
+       ("' nacht'", "' Nacht'"),("' nachten'", "' Nächte'"),
+       ("Kies uw verblijfsdata","Wählen Sie Ihre Daten"),(">Aankomst</span>",">Anreise</span>"),
+       (">Vertrek</span>",">Abreise</span>"),(">Nachten</span>",">Nächte</span>"),
+       (">Geselecteerde kamer</span>",">Ausgewähltes Zimmer</span>"),(">wijzig</button>",">ändern</button>"),
+       ("Volgende: kies kamer &rarr;","Weiter: Zimmer wählen →"),("Volgende: kies kamer \\u2192","Weiter: Zimmer wählen \\u2192"),
+       ("Of boek direct zonder kamerkeuze","Oder direkt ohne Zimmerwahl buchen"),
+       (">Kies uw kamer</h2>",">Wählen Sie Ihr Zimmer</h2>"),("Bekijk beschikbaarheid &rarr;","Verfügbarkeit prüfen →"),
+       ("Bekijk beschikbaarheid \\u2192","Verfügbarkeit prüfen \\u2192"),("&larr; Aanpassen","← Ändern"),
+       ("&larr; Terug","← Zurück"),("Laden\\u2026","Lädt\\u2026"),("Kies een kamer","Zimmer wählen"),
+       (">Vol<",">Belegt<"),(">meer info<",">mehr Infos<"),("Selecteer deze kamer","Dieses Zimmer wählen")],
+}
+def bk_localize(text, lang):
+    if lang == 'nl':
+        return text
+    for a, b in BK_TR[lang]:
+        text = text.replace(a, b)
+    return text
+
+def rooms_js(lang):
+    obj = {}
+    for k in BOOKABLE:
+        r = BYKEY[k]
+        obj[k] = {'name': NAME[k][lang], 'upgrade': '', 'mewsCategoryId': CATEGORY[k],
+                  'imgs': [slides_for(r)[0]], 'badge': '', 'desc': SHORT[k][lang],
+                  'features': FEAT[k][lang]}
+    return 'window.ROOMS = ' + json.dumps(obj, ensure_ascii=False) + ';'
+
+def booking_bundle(lang):
+    override = ("window.openBooking = function (k) { if (window.ROOMS && window.ROOMS[k]) "
+                "window.openBookingPopup(k); else window.openBookingPopup(); };")
+    return '\n'.join([rooms_js(lang), bk_localize(DATEPICKER, lang), bk_localize(BOOKING, lang), override])
+
 SUFFIX = {'nl': '', 'en': '-en', 'de': '-de'}
 HTMLLANG = {'nl': 'nl', 'en': 'en', 'de': 'de'}
 OGLOCALE = {'nl': 'nl_NL', 'en': 'en_US', 'de': 'de_DE'}
@@ -620,7 +705,12 @@ def build_page(r, lang):
     window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
   </script>
 
+{MEWS_HEAD}
+
 {STYLE}
+  <style>
+{BK_CSS}
+  </style>
 </head>
 <body>
 
@@ -753,10 +843,14 @@ def build_page(r, lang):
   <a class="btn-primary" href="#" onclick="window.openBooking('{r['key']}');return false;" data-track-cta="sticky">{ui('reserve',lang)}</a>
 </div>
 
+{bk_localize(BK_MARKUP, lang)}
+
 {shell(FOOTER, lang)}
 
-<script>
 {scripts_for(slug, lang)}
+
+<script>
+{booking_bundle(lang)}
 </script>
 
 </body>
@@ -837,7 +931,12 @@ def build_overview(lang):
     window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
   </script>
 
+{MEWS_HEAD}
+
 {STYLE}
+  <style>
+{BK_CSS}
+  </style>
 {OV_CSS}
 </head>
 <body>
@@ -951,10 +1050,14 @@ def build_overview(lang):
   </div>
 </section>
 
+{bk_localize(BK_MARKUP, lang)}
+
 {shell(FOOTER, lang)}
 
-<script>
 {scripts_for('kamertypes', lang)}
+
+<script>
+{booking_bundle(lang)}
 </script>
 
 </body>
@@ -1013,6 +1116,12 @@ comfort = comfort.replace('<link rel="alternate" hreflang="de" href="https://www
 comfort = _SW_RE.sub(lambda m: lang_switcher('comfort-kamer', 'nl'), comfort)
 comfort = comfort.replace('<a href="https://www.asteria.nl/kamers">Kamers en Suites</a>',
                           '<a href="/kamertypes">Kamers en Suites</a>')
+# Boekingsmodule in comfort-kamer.html injecteren (alleen als nog niet aanwezig)
+if 'id="bookingPopup"' not in comfort:
+    comfort = comfort.replace('  </script>\n\n  <style>', '  </script>\n\n' + MEWS_HEAD + '\n\n  <style>', 1)
+    comfort = comfort.replace('  </style>\n</head>', '  </style>\n  <style>\n' + BK_CSS + '\n  </style>\n</head>', 1)
+    comfort = comfort.replace('<!-- ══ FOOTER', BK_MARKUP + '\n\n<!-- ══ FOOTER', 1)
+    comfort = comfort.replace('\n</body>', '\n<script>\n' + booking_bundle('nl') + '\n</script>\n</body>', 1)
 with open(SRC, 'w', encoding='utf-8') as f:
     f.write(comfort)
 

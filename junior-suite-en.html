@@ -39,6 +39,38 @@
     window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
   </script>
 
+<!-- Mews BookingEngine -->
+  <script>
+  (function(m,e,w,s){c=m.createElement(e);c.onload=function(){
+    Mews.Distributor({
+      configurationIds:[s],
+      language:'nl-NL',
+      onBookingFinished:function(res){
+        try{
+          var cnt=res?res.length:1;
+          var val=null;
+          if(res&&res.length){
+            val=res.reduce(function(s,r){
+              return s+(r.totalCost&&r.totalCost.value?r.totalCost.value:0);
+            },0);
+          }
+          var txId=res&&res[0]&&(res[0].reservationGroupId||res[0].id)||Date.now().toString(36);
+          if(window.track)window.track('booking_complete',{reservation_count:cnt,total_value:val,transaction_id:txId});
+          if(typeof gtag==='function'){
+            if(val){gtag('event','purchase',{send_to:'G-DPCP945DCG',value:val,currency:'EUR',transaction_id:txId});}
+            if(window.GA_ADS_LABEL){gtag('event','conversion',{send_to:window.GA_ADS_LABEL,value:val||0,currency:'EUR',transaction_id:txId});}
+          }
+        }catch(e){}
+      }
+    },function(api){
+      window.mewsApi=api;
+      if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
+    });
+  };c.async=1;c.src=w;t=m.getElementsByTagName(e)[0];t.parentNode.insertBefore(c,t);
+  })(document,'script','https://app.mews.com/distributor/distributor.min.js','6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
+  </script>
+  <!-- End Mews BookingEngine -->
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { overflow-x: hidden; max-width: 100%; }
@@ -664,6 +696,523 @@
     }
   </style>
 
+  <style>
+/* ── Overlay ── */
+  .bk-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 1100;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .bk-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ── Modal ── */
+  .bk-modal {
+    position: relative;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 480px;
+    max-height: 92vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(40px);
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  #bkStep1 {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 1;
+    padding: 28px 24px 0;
+  }
+  #bkStep1 #bkCalendar {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .bk-sticky-footer {
+    flex-shrink: 0;
+    padding: 0 0 32px;
+    background: #fff;
+  }
+  .bk-overlay.is-open .bk-modal {
+    transform: translateY(0);
+  }
+
+  @media (min-width: 600px) {
+    .bk-overlay {
+      align-items: center;
+    }
+    .bk-modal {
+      border-radius: 20px;
+      max-height: 88vh;
+    }
+  }
+
+  /* ── Sluit & terug knoppen ── */
+  .bk-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #6b7280;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+  }
+  .bk-close:hover { color: #0f172a; }
+
+  .bk-back {
+    background: none;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .bk-back:hover { color: #0f172a; }
+
+  /* ── Stap indicator ── */
+  .bk-step-indicator {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .bk-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e5e7eb;
+  }
+  .bk-dot--active { background: #c23435; }
+
+  /* ── Custom Datepicker ── */
+  #bkCalendar { width: 100%; }
+
+  .cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cal-nav__prev,
+  .cal-nav__next {
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 2px 8px;
+    line-height: 1;
+    font-family: inherit;
+  }
+  .cal-nav__prev:hover:not([disabled]),
+  .cal-nav__next:hover:not([disabled]) { color: #1a1a1a; }
+  .cal-nav__prev[disabled] { color: #e5e7eb; cursor: default; }
+  .cal-nav__label {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    text-align: center;
+  }
+  .cal-grid-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  @media (min-width: 600px) {
+    .cal-grid-wrap { flex-direction: row; }
+    .cal-month { flex: 1; min-width: 0; }
+  }
+  .cal-month-label {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 13px;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 2px;
+  }
+  .cal-weekdays span {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-align: center;
+    padding: 4px 0;
+  }
+  .cal-day-empty { display: block; }
+  .cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .cal-day {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #1a1a1a;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+  }
+  .cal-day:hover:not(.is-disabled):not(.is-start):not(.is-end) {
+    background: #f3f4f6;
+  }
+  .cal-day.is-disabled {
+    color: #d1d5db;
+    cursor: default;
+    pointer-events: none;
+  }
+  .cal-day.is-today { border-color: #c23435; }
+  .cal-day.is-start,
+  .cal-day.is-end {
+    background: #c23435;
+    border-color: #c23435;
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+  .cal-day.is-in-range,
+  .cal-day.is-hover-range {
+    background: #fde8e8;
+    border-color: #fde8e8;
+    border-radius: 0;
+    color: #1a1a1a;
+  }
+
+  /* ── Titel ── */
+  .bk-title {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  /* ── Bevestigingsbalk ── */
+  .bk-summary {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: #f8f7f5;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin: 16px 0;
+  }
+  .bk-summary__field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .bk-summary__sep {
+    width: 1px;
+    height: 32px;
+    background: #e5e7eb;
+  }
+  .bk-summary__label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9ca3af;
+  }
+  .bk-summary__value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  /* ── CTA rij ── */
+  .bk-cta-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .bk-btn-primary {
+    background: #c23435;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: background 200ms ease;
+    width: 100%;
+  }
+  .bk-btn-primary:hover:not(:disabled) { background: #a82c2c; }
+  .bk-btn-primary:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+  }
+  .bk-btn-ghost {
+    background: none;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #6b7280;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 4px 0;
+    text-align: center;
+  }
+  .bk-btn-ghost:hover { color: #1a1a1a; }
+
+  /* ── Kamerkeuze cards (stap 2) ── */
+  .bk-rooms {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .bk-room-card {
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 200ms ease;
+  }
+  .bk-room-card.is-selected {
+    border-color: #c23435;
+    background: #fff8f8;
+  }
+  .bk-room-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  .bk-room-card__name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+    flex: 1;
+  }
+  .bk-room-card__upgrade {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+  .bk-room-card.is-selected .bk-room-card__upgrade { color: #c23435; }
+  .bk-room-card__toggle {
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 2px 4px;
+    flex-shrink: 0;
+  }
+  .bk-room-card__toggle:hover { color: #1a1a1a; }
+  .bk-room-card__details {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #6b7280;
+    padding: 0 14px 12px;
+    display: none;
+  }
+  .bk-room-card__details.is-open { display: block; }
+  .bk-room-card.is-unavailable {
+    opacity: 0.45;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+  .bk-room-card__vol {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    color: #c23435;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .bk-room-card__price {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2d2d2d;
+  }
+
+  /* ── Radio indicator ── */
+  .bk-room-card__radio {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 200ms;
+  }
+  .bk-room-card.is-selected .bk-room-card__radio {
+    border-color: #c23435;
+  }
+  .bk-room-card__radio::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background 200ms;
+  }
+  .bk-room-card.is-selected .bk-room-card__radio::after {
+    background: #c23435;
+  }
+
+  /* ── Stap animatie ── */
+  .bk-step[hidden] { display: none !important; }
+  #bkStep2, #bkStep3 {
+    padding: 28px 24px 32px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  /* ── Pre-geselecteerde kamer badge ── */
+  .bk-selected-room {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff8f8;
+    border: 1.5px solid #fca5a5;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .bk-selected-room__label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9ca3af;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .bk-selected-room__name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #c23435;
+  }
+  .bk-selected-room__change {
+    margin-left: auto;
+    background: none;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: #9ca3af;
+    text-decoration: underline;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+  }
+  .bk-selected-room__change:hover { color: #1a1a1a; }
+
+  /* ── Room detail sub-view (stap 3) ── */
+  .bk-room-detail__img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .bk-room-detail__name {
+    font-family: 'Electrolize', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin: 8px 0 10px;
+  }
+  .bk-room-detail__desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .bk-room-detail__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .bk-room-detail__feature {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bk-room-detail__feature::before {
+    content: '\2713';
+    color: #c23435;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── Button-variant resets voor omgezette CTAs ── */
+  button.hero__cta,
+  button.arr-c__cta,
+  button.diner__cta {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+  }
+  button.sticky-card__btn {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    width: 100%;
+  }
+  button.sticky-fab {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+  }
+  </style>
 </head>
 <body>
 
@@ -693,7 +1242,7 @@
       <div class="nav-content">
         <ul>
           <li class="menu-close" id="menuClose">&#10005;</li>
-          <li><a href="https://www.asteria.nl/kamers">Rooms & Suites</a></li>
+          <li><a href="/kamertypes">Rooms & Suites</a></li>
           <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
           <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
           <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
@@ -1081,6 +1630,72 @@
   <a class="btn-primary" href="#" onclick="window.openBooking('junior-suite');return false;" data-track-cta="sticky">Book</a>
 </div>
 
+<div class="bk-overlay" id="bookingPopup" role="dialog" aria-modal="true" aria-label="Verblijf boeken">
+  <div class="bk-modal" id="bookingModal">
+
+    <!-- Stap 1: Datum kiezen -->
+    <div class="bk-step" id="bkStep1">
+      <button class="bk-close" id="bkClose" aria-label="Sluiten">&times;</button>
+      <div class="bk-step-indicator" aria-hidden="true">
+        <span class="bk-dot bk-dot--active"></span>
+        <span class="bk-dot"></span>
+      </div>
+      <h2 class="bk-title">Choose your dates</h2>
+      <div id="bkCalendar"></div>
+      <div class="bk-sticky-footer">
+        <div class="bk-summary" id="bkSummary" aria-live="polite">
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">Arrival</span>
+            <span class="bk-summary__value" id="bkAankomst">&mdash;</span>
+          </div>
+          <div class="bk-summary__sep" aria-hidden="true"></div>
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">Departure</span>
+            <span class="bk-summary__value" id="bkVertrek">&mdash;</span>
+          </div>
+          <div class="bk-summary__sep" aria-hidden="true"></div>
+          <div class="bk-summary__field">
+            <span class="bk-summary__label">Nights</span>
+            <span class="bk-summary__value" id="bkNachten">&mdash;</span>
+          </div>
+        </div>
+        <div class="bk-selected-room" id="bkSelectedRoom" hidden>
+          <div>
+            <span class="bk-selected-room__label">Selected room</span>
+            <span class="bk-selected-room__name" id="bkSelectedRoomName"></span>
+          </div>
+          <button class="bk-selected-room__change" id="bkChangeRoom">change</button>
+        </div>
+        <div class="bk-cta-row">
+          <button class="bk-btn-primary" id="bkToStep2" disabled>Next: choose room →</button>
+          <button class="bk-btn-ghost" id="bkDirectBook" disabled>Or book directly without choosing a room</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stap 2: Kamer kiezen -->
+    <div class="bk-step" id="bkStep2" hidden>
+      <button class="bk-back" id="bkBack" aria-label="Terug naar datumkeuze">← Adjust</button>
+      <div class="bk-step-indicator" aria-hidden="true">
+        <span class="bk-dot"></span>
+        <span class="bk-dot bk-dot--active"></span>
+      </div>
+      <h2 class="bk-title">Choose your room</h2>
+      <div class="bk-rooms" id="bkRooms" role="radiogroup" aria-label="Kamertype kiezen"></div>
+      <div class="bk-cta-row">
+        <button class="bk-btn-primary" id="bkConfirm">Check availability →</button>
+      </div>
+    </div>
+
+    <!-- Stap 3: Kamerdetail sub-view -->
+    <div class="bk-step" id="bkStep3" hidden>
+      <button class="bk-back" id="bkBackToRooms" aria-label="Terug naar kamerkeuze">← Back</button>
+      <div id="bkRoomDetail"></div>
+    </div>
+
+  </div>
+</div>
+
 <!-- ══ FOOTER ════════════════════════════════════════════════ -->
 <footer class="footer">
   <div class="footer__inner">
@@ -1118,7 +1733,6 @@
 </footer>
 
 
-<script>
 <script>
 /* ── Mews booking ── */
 (function () {
@@ -1275,6 +1889,576 @@
   if (e) e.min = today;
 }());
 </script>
+
+<script>
+window.ROOMS = {"comfort": {"name": "Comfort room", "upgrade": "", "mewsCategoryId": "98900f3b-e5e2-49c9-9776-af1d00ffc315", "imgs": ["fotos/kamer-comfort-a.webp"], "badge": "", "desc": "A comfortable room for two with everything you need for a relaxing stay.", "features": ["~22 m&sup2;", "Twin beds", "Shower", "A/C", "WiFi"]}, "royale": {"name": "Royale room", "upgrade": "", "mewsCategoryId": "a8fd7310-0d61-422f-89e6-af1d00ffc315", "imgs": ["fotos/room-royale-1.webp"], "badge": "", "desc": "Larger than the Comfort room, with a comfortable seating area and the option of a bath.", "features": ["~25 m&sup2;", "Bath or shower", "Seating area", "A/C"]}, "deluxe": {"name": "Deluxe room", "upgrade": "", "mewsCategoryId": "c737de50-e41e-4c8d-a818-af1d00ffc315", "imgs": ["fotos/room-deluxe-1.webp"], "badge": "", "desc": "A private infrared sauna in the room — wellness starts at your door.", "features": ["~25 m&sup2;", "Infrared sauna", "Shower", "Seating area"]}, "junior-suite": {"name": "Junior Suite", "upgrade": "", "mewsCategoryId": "27ea8deb-ded5-4856-8fdd-af1d00ffc315", "imgs": ["fotos/kamer-junior-suite.webp"], "badge": "", "desc": "Kingsize bed, bath and a spacious seating area with a sofa bed for extra sleeping space.", "features": ["~37 m&sup2;", "Kingsize", "Sofa bed", "Bath & shower"]}, "suite": {"name": "Suite", "upgrade": "", "mewsCategoryId": "4a642b66-68e6-444c-beeb-af1d00ffc315", "imgs": ["fotos/room-suite-1.webp"], "badge": "", "desc": "Our most spacious room with a private infrared sauna and a generous seating area.", "features": ["~40 m&sup2;", "Kingsize", "Infrared sauna", "Sofa bed"]}, "bruidssuite": {"name": "Bridal Suite", "upgrade": "", "mewsCategoryId": "a9f18d18-561b-47a9-8ba7-b2a800cfd0e2", "imgs": ["fotos/room-bruidssuite-1.webp"], "badge": "", "desc": "Freestanding bathtub, spacious walk-in shower and the most romantic atmosphere in the hotel.", "features": ["~36 m&sup2;", "Kingsize", "Bathtub", "Walk-in shower"]}};
+(function() {
+  var MONTH_NAMES = ['January','February','March','April','May','June',
+                     'July','August','September','October','November','December'];
+  var DAY_NAMES   = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  var cal = {
+    viewYear: 0, viewMonth: 0,
+    selectedStart: null, selectedEnd: null,
+    hoverDate: null,
+    onDateChange: null
+  };
+
+  function todayMidnight() {
+    var d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  }
+
+  function isSameDay(a, b) {
+    return a && b &&
+      a.getFullYear() === b.getFullYear() &&
+      a.getMonth()    === b.getMonth()    &&
+      a.getDate()     === b.getDate();
+  }
+
+  function isBefore(a, b) { return !!a && !!b && a.getTime() < b.getTime(); }
+  function isAfter(a, b)  { return !!a && !!b && a.getTime() > b.getTime(); }
+
+  function formatISO(d) {
+    var m   = d.getMonth() + 1;
+    var day = d.getDate();
+    return d.getFullYear() + '-' + (m < 10 ? '0' + m : m) + '-' + (day < 10 ? '0' + day : day);
+  }
+
+  function firstWeekdayOfMonth(year, month) {
+    // 0 = maandag, 6 = zondag
+    var dow = new Date(year, month, 1).getDay(); // 0=zo,1=ma,...6=za
+    return dow === 0 ? 6 : dow - 1;
+  }
+
+  function daysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function renderMonth(year, month) {
+    var todayDate  = todayMidnight();
+    var daysCount  = daysInMonth(year, month);
+    var firstDay   = firstWeekdayOfMonth(year, month);
+    var start      = cal.selectedStart;
+    var end        = cal.selectedEnd;
+    var hover      = cal.hoverDate;
+
+    // Bepaal effectieve range voor in-range highlight
+    var rangeA = null, rangeB = null;
+    if (start && end) {
+      rangeA = isBefore(start, end) ? start : end;
+      rangeB = isBefore(start, end) ? end   : start;
+    } else if (start && hover && !isSameDay(hover, start)) {
+      rangeA = isBefore(start, hover) ? start : hover;
+      rangeB = isBefore(start, hover) ? hover : start;
+    }
+
+    var html = '<div class="cal-month">';
+    html += '<div class="cal-month-label">' + MONTH_NAMES[month] + ' ' + year + '</div>';
+    html += '<div class="cal-weekdays">';
+    for (var w = 0; w < 7; w++) {
+      html += '<span>' + DAY_NAMES[w] + '</span>';
+    }
+    html += '</div><div class="cal-days">';
+
+    // Lege cellen vóór de eerste dag
+    for (var e = 0; e < firstDay; e++) {
+      html += '<span class="cal-day-empty"></span>';
+    }
+
+    for (var day = 1; day <= daysCount; day++) {
+      var date     = new Date(year, month, day);
+      var iso      = formatISO(date);
+      var disabled = isBefore(date, todayDate);
+      var classes  = ['cal-day'];
+
+      if (disabled)                          classes.push('is-disabled');
+      if (isSameDay(date, todayDate) && !disabled) classes.push('is-today');
+      if (isSameDay(date, start))            classes.push('is-start');
+      if (isSameDay(date, end))              classes.push('is-end');
+
+      if (rangeA && rangeB && isAfter(date, rangeA) && isBefore(date, rangeB)) {
+        classes.push(cal.selectedEnd ? 'is-in-range' : 'is-hover-range');
+      }
+
+      var attrs = disabled ? ' disabled aria-disabled="true"' : '';
+      html += '<button class="' + classes.join(' ') + '" data-date="' + iso + '"' + attrs + '>' + day + '</button>';
+    }
+
+    html += '</div></div>';
+    return html;
+  }
+
+  function render() {
+    var container = document.getElementById('bkCalendar');
+    if (!container) return;
+
+    var y1 = cal.viewYear, m1 = cal.viewMonth;
+    var y2 = y1, m2 = m1 + 1;
+    if (m2 > 11) { m2 = 0; y2++; }
+
+    var todayDate    = todayMidnight();
+    var prevDisabled = (y1 < todayDate.getFullYear()) ||
+                       (y1 === todayDate.getFullYear() && m1 <= todayDate.getMonth());
+
+    var html = '<div class="cal-nav">';
+    html += '<button class="cal-nav__prev"' + (prevDisabled ? ' disabled' : '') + '>&#8249;</button>';
+    html += '<span class="cal-nav__label">' + MONTH_NAMES[m1] + ' \u2014 ' + MONTH_NAMES[m2] + ' ' + y2 + '</span>';
+    html += '<button class="cal-nav__next">&#8250;</button>';
+    html += '</div>';
+    html += '<div class="cal-grid-wrap">';
+    html += renderMonth(y1, m1);
+    html += renderMonth(y2, m2);
+    html += '</div>';
+
+    container.innerHTML = html;
+    attachListeners(container);
+  }
+
+  function attachListeners(container) {
+    var btnPrev = container.querySelector('.cal-nav__prev');
+    var btnNext = container.querySelector('.cal-nav__next');
+
+    btnPrev.addEventListener('click', function() {
+      cal.viewMonth--;
+      if (cal.viewMonth < 0) { cal.viewMonth = 11; cal.viewYear--; }
+      render();
+    });
+    btnNext.addEventListener('click', function() {
+      cal.viewMonth++;
+      if (cal.viewMonth > 11) { cal.viewMonth = 0; cal.viewYear++; }
+      render();
+    });
+
+    container.querySelectorAll('.cal-day:not([disabled])').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var date = new Date(btn.dataset.date + 'T00:00:00');
+        if (!cal.selectedStart || (cal.selectedStart && cal.selectedEnd)) {
+          cal.selectedStart = date;
+          cal.selectedEnd   = null;
+        } else {
+          if (isSameDay(date, cal.selectedStart)) {
+            cal.selectedStart = null;
+          } else if (isBefore(date, cal.selectedStart)) {
+            cal.selectedEnd   = cal.selectedStart;
+            cal.selectedStart = date;
+          } else {
+            cal.selectedEnd = date;
+          }
+        }
+        cal.hoverDate = null;
+        render();
+        if (cal.onDateChange) {
+          cal.onDateChange(cal.selectedStart, cal.selectedEnd);
+        }
+      });
+
+      btn.addEventListener('mouseenter', function() {
+        if (cal.selectedStart && !cal.selectedEnd) {
+          var newHover = new Date(btn.dataset.date + 'T00:00:00');
+          if (!cal.hoverDate || !isSameDay(newHover, cal.hoverDate)) {
+            cal.hoverDate = newHover;
+            render();
+          }
+        }
+      });
+    });
+
+    container.addEventListener('mouseleave', function() {
+      if (cal.hoverDate) {
+        cal.hoverDate = null;
+        render();
+      }
+    });
+  }
+
+  window.initCustomCalendar = function(onDateChange) {
+    var t = todayMidnight();
+    cal.viewYear      = t.getFullYear();
+    cal.viewMonth     = t.getMonth();
+    cal.selectedStart = null;
+    cal.selectedEnd   = null;
+    cal.hoverDate     = null;
+    cal.onDateChange  = onDateChange || null;
+    render();
+  };
+
+  window.clearCustomCalendar = function() {
+    var t = todayMidnight();
+    cal.viewYear      = t.getFullYear();
+    cal.viewMonth     = t.getMonth();
+    cal.selectedStart = null;
+    cal.selectedEnd   = null;
+    cal.hoverDate     = null;
+    render();
+  };
+})();
+/* ══ BOOKING POPUP ══════════════════════════════════════════ */
+(function () {
+  var MEWS_BASE = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
+  var VOUCHER   = null;
+
+  var overlay   = document.getElementById('bookingPopup');
+  var step1     = document.getElementById('bkStep1');
+  var step2     = document.getElementById('bkStep2');
+  var step3     = document.getElementById('bkStep3');
+  var btnClose  = document.getElementById('bkClose');
+  var btnBack   = document.getElementById('bkBack');
+  var btnBackToRooms = document.getElementById('bkBackToRooms');
+  var btnToStep2    = document.getElementById('bkToStep2');
+  var btnDirectBook = document.getElementById('bkDirectBook');
+  var btnConfirm    = document.getElementById('bkConfirm');
+  var elAankomst = document.getElementById('bkAankomst');
+  var elVertrek  = document.getElementById('bkVertrek');
+  var elNachten  = document.getElementById('bkNachten');
+  var elRooms    = document.getElementById('bkRooms');
+  var elSelectedRoom     = document.getElementById('bkSelectedRoom');
+  var elSelectedRoomName = document.getElementById('bkSelectedRoomName');
+  var btnChangeRoom      = document.getElementById('bkChangeRoom');
+
+  var selectedDates = [];   // [Date aankomst, Date vertrek]
+  var selectedRoomKey = null; // kamersleutel voor stap 2
+  var availabilityResult  = null;   // gevuld door fetchAvailability
+  var availabilityLoading = false;  // true terwijl fetch loopt
+
+  var DAYS_NL = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var MONTHS_NL = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function formatDate(d) {
+    return DAYS_NL[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS_NL[d.getMonth()];
+  }
+
+  function toYMD(d) {
+    var mm = d.getMonth() + 1;
+    var dd = d.getDate();
+    return d.getFullYear() + '-' + (mm < 10 ? '0' : '') + mm + '-' + (dd < 10 ? '0' : '') + dd;
+  }
+
+  var availabilityCache = {}; // key: "YYYY-MM-DD|YYYY-MM-DD" -> { categoryId: { available, lowestPrice } }
+
+  function fetchAvailability(checkin, checkout, callback) {
+    var cacheKey = toYMD(checkin) + '|' + toYMD(checkout);
+    if (availabilityCache[cacheKey]) { callback(null, availabilityCache[cacheKey]); return; }
+
+    var categoryIds = Object.values(window.ROOMS).map(function (r) { return r.mewsCategoryId; });
+
+    fetch('/mews/api/distributor/v1/hotels/getAvailability', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        Client: 'Asteria Pages 1.0.0',
+        ConfigurationId: '6dc9094c-76e3-4fd8-83a7-af1d00ffc556',
+        HotelId: '65a522c9-4828-413d-9ad8-af1d00ffb83f',
+        StartUtc: toYMD(checkin) + 'T12:00:00Z',
+        EndUtc: toYMD(checkout) + 'T12:00:00Z',
+        CategoryIds: categoryIds
+      })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      var result = {};
+      var avails = data.RoomCategoryAvailabilities || [];
+      avails.forEach(function (a) {
+        var lowestPrice = null;
+        if (a.RoomOccupancyAvailabilities && a.RoomOccupancyAvailabilities.length) {
+          var firstOcc = a.RoomOccupancyAvailabilities[0];
+          if (firstOcc.Pricing && firstOcc.Pricing.length) {
+            var pricing = firstOcc.Pricing[0];
+            if (pricing.Price && pricing.Price.GrossValue != null) {
+              lowestPrice = pricing.Price.GrossValue;
+            }
+          }
+        }
+        result[a.RoomCategoryId] = {
+          available: a.AvailableRoomCount > 0,
+          lowestPrice: lowestPrice
+        };
+      });
+      availabilityCache[cacheKey] = result;
+      callback(null, result);
+    })
+    .catch(function (err) {
+      callback(err, null);
+    });
+  }
+
+  function buildBookingUrl(checkin, checkout, roomKey) {
+    var url = MEWS_BASE + '?mewsStart=' + toYMD(checkin)
+      + '&mewsEnd='   + toYMD(checkout);
+    if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
+      var catId = window.ROOMS[roomKey].mewsCategoryId;
+      url += '&mewsRoute=rates&mewsRoom=' + catId;
+    } else {
+      url += '&mewsRoute=rooms';
+    }
+    return url;
+  }
+
+  function updateSummary() {
+    if (selectedDates.length === 2) {
+      var diff = Math.round((selectedDates[1] - selectedDates[0]) / 86400000);
+      elAankomst.textContent = formatDate(selectedDates[0]);
+      elVertrek.textContent  = formatDate(selectedDates[1]);
+      elNachten.textContent  = diff + (diff === 1 ? ' night' : ' nights');
+      btnToStep2.disabled    = false;
+      btnDirectBook.disabled = false;
+
+      // Start availability fetch alvast op achtergrond
+      availabilityResult  = null;
+      availabilityLoading = true;
+      fetchAvailability(selectedDates[0], selectedDates[1], function (err, result) {
+        availabilityLoading = false;
+        availabilityResult  = err ? null : result;
+      });
+    } else {
+      elAankomst.textContent = '\u2014';
+      elVertrek.textContent  = '\u2014';
+      elNachten.textContent  = '\u2014';
+      btnToStep2.disabled    = true;
+      btnDirectBook.disabled = true;
+      availabilityResult  = null;
+      availabilityLoading = false;
+    }
+  }
+
+  function openBookingPopup(preselectedRoomKey) {
+    selectedRoomKey = preselectedRoomKey || null;
+    selectedDates   = [];
+    availabilityResult  = null;
+    availabilityLoading = false;
+    updateSummary();
+
+    // Altijd stap 1 tonen bij openen
+    step1.hidden = false;
+    step2.hidden = true;
+    step3.hidden = true;
+
+    // Pre-selectie UI
+    var modal = document.getElementById('bookingModal');
+    if (selectedRoomKey && window.ROOMS && window.ROOMS[selectedRoomKey]) {
+      modal.classList.add('has-preselected');
+      elSelectedRoomName.textContent = window.ROOMS[selectedRoomKey].name;
+      elSelectedRoom.hidden = false;
+      btnToStep2.textContent = 'Check availability \u2192';
+      btnDirectBook.hidden = true;
+    } else {
+      modal.classList.remove('has-preselected');
+      elSelectedRoom.hidden = true;
+      btnToStep2.textContent = 'Next: choose room \u2192';
+      btnDirectBook.hidden = false;
+    }
+
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    if (window.track) window.track('popup_open');
+
+    // Custom datepicker — wordt ingevuld in Task 3
+    if (window.initCustomCalendar) {
+      window.initCustomCalendar(function(start, end) {
+        selectedDates = start && end ? [start, end] : [];
+        updateSummary();
+      });
+    }
+  }
+
+  function closeBookingPopup() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+    btnDirectBook.hidden = false;
+    document.getElementById('bookingModal').classList.remove('has-preselected');
+    if (window.clearCustomCalendar) window.clearCustomCalendar();
+  }
+
+  // Sluit via overlay klik (buiten modal)
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeBookingPopup();
+  });
+
+  function launchMews(checkin, checkout, roomKey) {
+    closeBookingPopup();
+    function doOpen() {
+      window.mewsApi.setStartDate(checkin);
+      window.mewsApi.setEndDate(checkout);
+      window.mewsApi.open();
+    }
+    if (window.mewsApi) {
+      doOpen();
+    } else {
+      window._mewsPending = doOpen;
+      setTimeout(function() {
+        if (window._mewsPending) {
+          window._mewsPending = null;
+          window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
+        }
+      }, 4000);
+    }
+  }
+
+  btnClose.addEventListener('click', closeBookingPopup);
+
+  btnToStep2.addEventListener('click', function () {
+    if (selectedDates.length < 2) return;
+
+    // Als er al een kamer geselecteerd is (via kamerpopup), sla stap 2 over
+    if (selectedRoomKey) {
+      if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
+      launchMews(selectedDates[0], selectedDates[1], selectedRoomKey);
+      return;
+    }
+
+    // Wacht op availability als nog bezig
+    if (availabilityLoading) {
+      btnToStep2.textContent = 'Loading\u2026';
+      btnToStep2.disabled = true;
+      var poll = setInterval(function () {
+        if (!availabilityLoading) {
+          clearInterval(poll);
+          btnToStep2.textContent = 'Choose a room';
+          btnToStep2.disabled = false;
+          step1.hidden = true;
+          step2.hidden = false;
+          if (window.track) window.track('step2_reached');
+          renderRoomCards(availabilityResult);
+        }
+      }, 100);
+      return;
+    }
+
+    // Availability beschikbaar (of gefaald — dan renderen zonder data)
+    if (window.track) window.track('step2_reached');
+    step1.hidden = true;
+    step2.hidden = false;
+    renderRoomCards(availabilityResult);
+  });
+
+  btnDirectBook.addEventListener('click', function () {
+    if (selectedDates.length < 2) return;
+    if (window.track) window.track('mews_click', { room_key: null });
+    launchMews(selectedDates[0], selectedDates[1], null);
+  });
+
+  btnBack.addEventListener('click', function () {
+    step1.hidden = false;
+    step2.hidden = true;
+  });
+
+  btnBackToRooms.addEventListener('click', function () {
+    step3.hidden = true;
+    step2.hidden = false;
+  });
+
+  btnChangeRoom.addEventListener('click', function () {
+    selectedRoomKey = null;
+    var modal = document.getElementById('bookingModal');
+    modal.classList.remove('has-preselected');
+    elSelectedRoom.hidden = true;
+    btnToStep2.textContent = 'Next: choose room \u2192';
+    btnDirectBook.hidden = false;
+  });
+
+  // Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeBookingPopup();
+  });
+
+  // Exporteer openBookingPopup zodat andere scripts het kunnen aanroepen
+  window.openBookingPopup = openBookingPopup;
+
+  function renderRoomCards(availability) {
+    var ROOM_KEYS = ['comfort', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];
+    selectedRoomKey = null;
+    var firstAvailableKey = null;
+
+    elRooms.innerHTML = ROOM_KEYS.map(function (key) {
+      var r = window.ROOMS[key];
+      var avail = availability && r.mewsCategoryId && availability[r.mewsCategoryId];
+      var isAvailable = !availability || !avail || avail.available; // bij null data: alles beschikbaar tonen
+      var lowestPrice = avail && avail.lowestPrice;
+      var priceLabel  = lowestPrice ? '\u20ac\u00a0' + Math.round(lowestPrice) : '';
+      var volLabel    = availability && avail && !avail.available ? '<span class="bk-room-card__vol">Full</span>' : '';
+
+      if (isAvailable && !firstAvailableKey) firstAvailableKey = key;
+
+      return '<div class="bk-room-card' + (!isAvailable ? ' is-unavailable' : '') + '" data-key="' + key + '" role="radio" aria-checked="false" tabindex="' + (isAvailable ? '0' : '-1') + '">' +
+        '<div class="bk-room-card__header">' +
+          '<div class="bk-room-card__radio"></div>' +
+          '<span class="bk-room-card__name">' + r.name + '</span>' +
+          '<span class="bk-room-card__upgrade">' + r.upgrade + '</span>' +
+          (priceLabel ? '<span class="bk-room-card__price">' + priceLabel + '</span>' : '') +
+          volLabel +
+          '<button class="bk-room-card__toggle" data-key="' + key + '" tabindex="-1">more info</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    // Selecteer eerste beschikbare kamer
+    if (firstAvailableKey) {
+      var firstCard = elRooms.querySelector('[data-key="' + firstAvailableKey + '"]');
+      if (firstCard) { firstCard.classList.add('is-selected'); firstCard.setAttribute('aria-checked', 'true'); }
+      selectedRoomKey = firstAvailableKey;
+    }
+
+    // Klik op card -> selecteer (alleen beschikbare kamers)
+    elRooms.querySelectorAll('.bk-room-card:not(.is-unavailable)').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.classList.contains('bk-room-card__toggle')) return;
+        elRooms.querySelectorAll('.bk-room-card').forEach(function (c) {
+          c.classList.remove('is-selected');
+          c.setAttribute('aria-checked', 'false');
+        });
+        card.classList.add('is-selected');
+        card.setAttribute('aria-checked', 'true');
+        selectedRoomKey = card.getAttribute('data-key');
+      });
+    });
+
+    // "Meer info" → room detail sub-view
+    elRooms.querySelectorAll('.bk-room-card__toggle').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        goToRoomDetail(btn.getAttribute('data-key'));
+      });
+    });
+  }
+
+  function goToRoomDetail(key) {
+    var r = window.ROOMS && window.ROOMS[key];
+    if (!r) return;
+    var detailEl = document.getElementById('bkRoomDetail');
+    detailEl.innerHTML =
+      '<img class="bk-room-detail__img" src="' + r.imgs[0] + '" alt="' + r.name + '" loading="lazy">' +
+      r.badge +
+      '<h3 class="bk-room-detail__name">' + r.name + '</h3>' +
+      '<p class="bk-room-detail__desc">' + r.desc + '</p>' +
+      '<ul class="bk-room-detail__features">' +
+        r.features.map(function (f) { return '<li class="bk-room-detail__feature">' + f + '</li>'; }).join('') +
+      '</ul>' +
+      '<button class="bk-btn-primary" data-select-key="' + key + '">Select this room</button>';
+
+    detailEl.querySelector('[data-select-key]').addEventListener('click', function () {
+      var k = this.dataset.selectKey;
+      selectedRoomKey = k;
+      step3.hidden = true;
+      step2.hidden = false;
+      elRooms.querySelectorAll('.bk-room-card').forEach(function (c) {
+        var isThis = c.getAttribute('data-key') === k;
+        c.classList.toggle('is-selected', isThis);
+        c.setAttribute('aria-checked', isThis ? 'true' : 'false');
+      });
+    });
+
+    step2.hidden = true;
+    step3.hidden = false;
+  }
+
+  btnConfirm.addEventListener('click', function () {
+    if (selectedDates.length < 2 || !selectedRoomKey) return;
+    if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
+    launchMews(selectedDates[0], selectedDates[1], selectedRoomKey);
+  });
+
+}());
+window.openBooking = function (k) { if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };
 </script>
 
 </body>
