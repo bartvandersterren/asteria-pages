@@ -16,14 +16,16 @@ with open(SRC, encoding='utf-8') as f:
 
 # Gekleurde badges achter de kamertitels (palet van de arrangement-pagina's) —
 # geïnjecteerd in de gedeelde shell zodat zowel het overzicht als de
-# detailpagina's de kleuren krijgen.
-html = html.replace(
-    '    .room-row__badge.current { background: #c23435; color: #fff; }',
-    '    .room-row__badge.current { background: #c23435; color: #fff; }\n'
-    '    .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }\n'
-    '    .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }\n'
-    '    .room-row__badge.badge--sauna   { background:#c23435; color:#fff; }\n'
-    '    .room-row__badge.badge--premium { background:#1e1e1e; color:#fff; }')
+# detailpagina's de kleuren krijgen. Idempotent: comfort-kamer.html bevat de
+# regels al permanent, dus alleen toevoegen als ze ontbreken (voorkomt duplicaat).
+if 'badge--base' not in html:
+    html = html.replace(
+        '    .room-row__badge.current { background: #c23435; color: #fff; }',
+        '    .room-row__badge.current { background: #c23435; color: #fff; }\n'
+        '    .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }\n'
+        '    .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }\n'
+        '    .room-row__badge.badge--sauna   { background:#c23435; color:#fff; }\n'
+        '    .room-row__badge.badge--premium { background:#1e1e1e; color:#fff; }')
 
 def slice_between(text, start_marker, end_marker, include_end=False):
     i = text.index(start_marker)
