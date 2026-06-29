@@ -48,10 +48,15 @@ BOOKING = BOOKING.replace("var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER +
 BOOKING = BOOKING.replace("      window.mewsApi.setVoucherCode(VOUCHER);\n", "")
 BOOKING = BOOKING.replace("        VoucherCode: VOUCHER,\n", "")
 
-CATEGORY = {'comfort':'98900f3b-e5e2-49c9-9776-af1d00ffc315','royale':'a8fd7310-0d61-422f-89e6-af1d00ffc315',
+CATEGORY = {'comfort':'98900f3b-e5e2-49c9-9776-af1d00ffc315','comfort-3':'85ca19d7-eea5-41c8-8b93-af1d00ffc315',
+            'mindervalide':'fa5b6540-7234-49ce-beb1-af1d00ffc315','royale':'a8fd7310-0d61-422f-89e6-af1d00ffc315',
             'deluxe':'c737de50-e41e-4c8d-a818-af1d00ffc315','junior-suite':'27ea8deb-ded5-4856-8fdd-af1d00ffc315',
             'suite':'4a642b66-68e6-444c-beeb-af1d00ffc315','bruidssuite':'a9f18d18-561b-47a9-8ba7-b2a800cfd0e2'}
-BOOKABLE = ['comfort','royale','deluxe','junior-suite','suite','bruidssuite']
+BOOKABLE = ['comfort','comfort-3','mindervalide','royale','deluxe','junior-suite','suite','bruidssuite']
+# Kamerkeuze-stap toont nu alle 8 kamers (i.p.v. de hardgecodeerde 6)
+BOOKING = BOOKING.replace(
+    "var ROOM_KEYS = ['comfort', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];",
+    "var ROOM_KEYS = ['comfort', 'comfort-3', 'mindervalide', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];")
 
 BK_TR = {
  'en':[("var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',",
@@ -1116,12 +1121,17 @@ comfort = comfort.replace('<link rel="alternate" hreflang="de" href="https://www
 comfort = _SW_RE.sub(lambda m: lang_switcher('comfort-kamer', 'nl'), comfort)
 comfort = comfort.replace('<a href="https://www.asteria.nl/kamers">Kamers en Suites</a>',
                           '<a href="/kamertypes">Kamers en Suites</a>')
-# Boekingsmodule in comfort-kamer.html injecteren (alleen als nog niet aanwezig)
-if 'id="bookingPopup"' not in comfort:
-    comfort = comfort.replace('  </script>\n\n  <style>', '  </script>\n\n' + MEWS_HEAD + '\n\n  <style>', 1)
-    comfort = comfort.replace('  </style>\n</head>', '  </style>\n  <style>\n' + BK_CSS + '\n  </style>\n</head>', 1)
-    comfort = comfort.replace('<!-- ══ FOOTER', BK_MARKUP + '\n\n<!-- ══ FOOTER', 1)
-    comfort = comfort.replace('\n</body>', '\n<script>\n' + booking_bundle('nl') + '\n</script>\n</body>', 1)
+# Boekingsmodule in comfort-kamer.html injecteren (idempotent via markers)
+for _tag in ('BK-HEAD', 'BK-CSS', 'BK-MARKUP', 'BK-JS'):
+    comfort = re.sub('\\n?<!--' + _tag + '-->.*?<!--/' + _tag + '-->', '', comfort, flags=re.S)
+comfort = comfort.replace('  </script>\n\n  <style>',
+    '  </script>\n\n<!--BK-HEAD-->\n' + MEWS_HEAD + '\n<!--/BK-HEAD-->\n\n  <style>', 1)
+comfort = comfort.replace('  </style>\n</head>',
+    '  </style>\n<!--BK-CSS--><style>\n' + BK_CSS + '\n  </style><!--/BK-CSS-->\n</head>', 1)
+comfort = comfort.replace('<!-- ══ FOOTER',
+    '<!--BK-MARKUP-->\n' + BK_MARKUP + '\n<!--/BK-MARKUP-->\n\n<!-- ══ FOOTER', 1)
+comfort = comfort.replace('\n</body>',
+    '\n<!--BK-JS--><script>\n' + booking_bundle('nl') + '\n</script><!--/BK-JS-->\n</body>', 1)
 with open(SRC, 'w', encoding='utf-8') as f:
     f.write(comfort)
 
