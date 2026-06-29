@@ -866,7 +866,8 @@ def build_page(r, lang):
 # ── Overzichtspagina /kamertypes ───────────────────────────────────────
 def build_overview(lang):
     suf = SUFFIX[lang]
-    hero_img = 'fotos/room-suite-1.webp'
+    hero_img = 'fotos/room-bruidssuite-1.webp'
+    hero_video = 'videos/bruidssuite.mp4'
     checklist = ''.join(f'<li>{x}</li>' for x in OVLIST[lang])
     alturls = ''.join(f'  <link rel="alternate" hreflang="{lg}" href="https://visit.asteria.nl/kamertypes{SUFFIX[lg]}">\n' for lg in ('nl','en','de'))
     OV_CSS = '''  <style>
@@ -957,7 +958,9 @@ def build_overview(lang):
 
 <!-- ══ HERO ══════════════════════════════════════════════════ -->
 <section class="hero ov-hero" id="hero">
-  <img class="hero__video" src="{hero_img}" alt="Hotel Asteria — {ui('ov_hero',lang)}">
+  <video class="hero__video" autoplay muted loop playsinline poster="{hero_img}">
+    <source src="{hero_video}" type="video/mp4">
+  </video>
   <div class="hero__overlay"></div>
   <div class="hero__inner">
     <h1 class="hero__title">{ui('ov_hero',lang)}</h1>
