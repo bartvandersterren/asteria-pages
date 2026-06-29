@@ -1227,9 +1227,14 @@
     .types { background:#f6f5f3; }
     .types .room-row { background:#fff; }
     .faq { background:#f6f5f3; }
+    /* Boek-knop onder de hero-titel */
+    .hero__cta { display:inline-block; margin-top:24px; background:#c23435; color:#fff; border:none; border-radius:10px; font-family:'Montserrat',sans-serif; font-size:15px; letter-spacing:.01em; padding:16px 32px; text-decoration:none; cursor:pointer; transition:background .2s; }
+    .hero__cta:hover { background:#a82c2c; }
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
     .included { padding: 40px 0 60px; }
     .included__box { margin: 0 auto; }
+    .included__grid { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 620px) { .included__grid { grid-template-columns: repeat(2, 1fr); } }
     /* Gekleurde badge na de kamertitel (palet van de arrangement-pagina's) */
     .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }
     .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }
@@ -1310,6 +1315,7 @@
   <div class="hero__overlay"></div>
   <div class="hero__inner">
     <h1 class="hero__title">Onze kamertypes</h1>
+    <a class="hero__cta" href="#" onclick="window.openBooking();return false;" data-track-cta="hero">Boek hier je verblijf</a>
   </div>
 </section>
 
@@ -1385,6 +1391,14 @@
       <div class="included__item">
         <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8v8M18 8v8M4 10v4M20 10v4M6 12h12"/></svg></span>
         <span>Toegang gym</span>
+      </div>
+      <div class="included__item">
+        <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17v-4a2 2 0 012-2h16a2 2 0 012 2v4M4 17v2M20 17v2M2 15h20M6 11V8.5A1.5 1.5 0 017.5 7h2.5A1.5 1.5 0 0111.5 8.5V11"/></svg></span>
+        <span>Comfortabel bed</span>
+      </div>
+      <div class="included__item">
+        <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11V8a2 2 0 012-2h10a2 2 0 012 2v3M3 13a2 2 0 012-2 2 2 0 012 2v1h10v-1a2 2 0 012-2 2 2 0 012 2v4H3zM6 18v2M18 18v2"/></svg></span>
+        <span>Zithoek</span>
       </div>
     </div>
     </div>
