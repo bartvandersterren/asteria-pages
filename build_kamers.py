@@ -883,7 +883,7 @@ def build_overview(lang):
     .types .room-row { background:#fff; }
     .faq { background:#f6f5f3; }
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
-    .included { padding: 40px 0 10px; }
+    .included { padding: 40px 0 60px; }
     .included__box { margin: 0 auto; }
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
@@ -1008,7 +1008,7 @@ def build_overview(lang):
 {shell(INCLUDED, lang)}
 
 <!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
-<section class="types" style="padding-top:60px;">
+<section class="types" style="padding-top:40px;">
   <div class="wrap">
     <div class="tabs">
       <button class="tab is-active" data-cat="all">{ui('tab_all',lang)}</button>
