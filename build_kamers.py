@@ -911,7 +911,7 @@ def build_overview(lang):
     .types .room-row { background:#fff; }
     .faq { background:#f6f5f3; }
     /* Boek-knop onder de hero-titel */
-    .hero__cta { display:inline-block; margin-top:24px; background:#c23435; color:#fff; border:none; border-radius:10px; font-family:'Montserrat',sans-serif; font-size:15px; letter-spacing:.01em; padding:16px 32px; text-decoration:none; cursor:pointer; transition:background .2s; }
+    .hero__cta { display:inline-block; margin-top:14px; margin-bottom:52px; background:#c23435; color:#fff; border:none; border-radius:10px; font-family:'Montserrat',sans-serif; font-size:15px; letter-spacing:.01em; padding:16px 32px; text-decoration:none; cursor:pointer; transition:background .2s; }
     .hero__cta:hover { background:#a82c2c; }
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
     .included { padding: 40px 0 60px; }
