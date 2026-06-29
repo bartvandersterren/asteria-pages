@@ -14,6 +14,17 @@ SRC = os.path.join(BASE, 'comfort-kamer.html')
 with open(SRC, encoding='utf-8') as f:
     html = f.read()
 
+# Gekleurde badges achter de kamertitels (palet van de arrangement-pagina's) —
+# geïnjecteerd in de gedeelde shell zodat zowel het overzicht als de
+# detailpagina's de kleuren krijgen.
+html = html.replace(
+    '    .room-row__badge.current { background: #c23435; color: #fff; }',
+    '    .room-row__badge.current { background: #c23435; color: #fff; }\n'
+    '    .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }\n'
+    '    .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }\n'
+    '    .room-row__badge.badge--sauna   { background:#c23435; color:#fff; }\n'
+    '    .room-row__badge.badge--premium { background:#1e1e1e; color:#fff; }')
+
 def slice_between(text, start_marker, end_marker, include_end=False):
     i = text.index(start_marker)
     j = text.index(end_marker, i)
@@ -545,8 +556,7 @@ def build_types_list(current_key, lang):
                        f' data-track-cta="types_{r["key"]}">{ui("reserve",lang)}</a>')
             rowcls = 'room-row is-current'
         else:
-            variant = badge_variant(r["badge"]) if current_key is None else ''
-            badge = f'<span class="room-row__badge{variant}">{tr(r["badge"],lang)}</span>'
+            badge = f'<span class="room-row__badge{badge_variant(r["badge"])}">{tr(r["badge"],lang)}</span>'
             actions = (f'<a class="btn-ghost" href="/{r["slug"]}{suf}">{ui("details",lang)}</a>\n'
                        f'          <a class="btn-primary" href="#" onclick="window.openBooking(\'{r["key"]}\');return false;"'
                        f' data-track-cta="types_{r["key"]}">{ui("reserve",lang)}</a>')
@@ -919,11 +929,6 @@ def build_overview(lang):
     .included__box { margin: 0 auto; }
     .included__grid { grid-template-columns: repeat(4, 1fr); }
     @media (max-width: 620px) { .included__grid { grid-template-columns: repeat(2, 1fr); } }
-    /* Gekleurde badge na de kamertitel (palet van de arrangement-pagina's) */
-    .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }
-    .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }
-    .room-row__badge.badge--sauna   { background:#c23435; color:#fff; }
-    .room-row__badge.badge--premium { background:#1e1e1e; color:#fff; }
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
     .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }

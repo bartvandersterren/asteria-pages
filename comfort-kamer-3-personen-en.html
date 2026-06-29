@@ -556,6 +556,10 @@
       color: #6b6b6b;
     }
     .room-row__badge.current { background: #c23435; color: #fff; }
+    .room-row__badge.badge--base    { background:#f1f5f9; color:#64748b; }
+    .room-row__badge.badge--upgrade { background:#fff7ed; color:#c2450a; border:1px solid #fed7aa; }
+    .room-row__badge.badge--sauna   { background:#c23435; color:#fff; }
+    .room-row__badge.badge--premium { background:#1e1e1e; color:#fff; }
     .room-row__desc { font-weight: 300; font-size: 15px; line-height: 1.6; color: #475569; margin-bottom: 12px; max-width: 52ch; }
     .room-row__feat { display: flex; flex-wrap: wrap; gap: 8px; }
     .room-row__feat span { font-size: 12px; color: #6b6b6b; background: #f6f5f3; padding: 5px 12px; border-radius: 20px; }
@@ -1453,7 +1457,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/kamer-comfort-a.webp" alt="Comfort room" loading="lazy">
         <div>
-          <h3 class="room-row__name">Comfort room <span class="room-row__badge">Great value</span></h3>
+          <h3 class="room-row__name">Comfort room <span class="room-row__badge badge--base">Great value</span></h3>
           <p class="room-row__desc">A comfortable room for two with everything you need for a relaxing stay.</p>
           <div class="room-row__feat"><span>~22 m&sup2;</span><span>Twin beds</span><span>Shower</span><span>A/C</span><span>WiFi</span></div>
         </div>
@@ -1478,7 +1482,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/room-mindervalide-1.webp" alt="Accessible room" loading="lazy">
         <div>
-          <h3 class="room-row__name">Accessible room <span class="room-row__badge">Accessible</span></h3>
+          <h3 class="room-row__name">Accessible room <span class="room-row__badge badge--base">Accessible</span></h3>
           <p class="room-row__desc">Spacious, accessible room for guests with limited mobility, with a wheelchair-friendly bathroom.</p>
           <div class="room-row__feat"><span>~37 m&sup2;</span><span>Accessible</span><span>Twin beds</span><span>Sofa bed</span></div>
         </div>
@@ -1491,7 +1495,7 @@
       <article class="room-row" data-cat="standaard">
         <img class="room-row__img" src="fotos/room-royale-1.webp" alt="Royale room" loading="lazy">
         <div>
-          <h3 class="room-row__name">Royale room <span class="room-row__badge">More space</span></h3>
+          <h3 class="room-row__name">Royale room <span class="room-row__badge badge--upgrade">More space</span></h3>
           <p class="room-row__desc">Larger than the Comfort room, with a comfortable seating area and the option of a bath.</p>
           <div class="room-row__feat"><span>~25 m&sup2;</span><span>Bath or shower</span><span>Seating area</span><span>A/C</span></div>
         </div>
@@ -1504,7 +1508,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-deluxe-1.webp" alt="Deluxe room" loading="lazy">
         <div>
-          <h3 class="room-row__name">Deluxe room <span class="room-row__badge">+ Private sauna</span></h3>
+          <h3 class="room-row__name">Deluxe room <span class="room-row__badge badge--sauna">+ Private sauna</span></h3>
           <p class="room-row__desc">A private infrared sauna in the room — wellness starts at your door.</p>
           <div class="room-row__feat"><span>~25 m&sup2;</span><span>Infrared sauna</span><span>Shower</span><span>Seating area</span></div>
         </div>
@@ -1517,7 +1521,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior Suite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Junior Suite <span class="room-row__badge">Family</span></h3>
+          <h3 class="room-row__name">Junior Suite <span class="room-row__badge badge--upgrade">Family</span></h3>
           <p class="room-row__desc">Kingsize bed, bath and a spacious seating area with a sofa bed for extra sleeping space.</p>
           <div class="room-row__feat"><span>~37 m&sup2;</span><span>Kingsize</span><span>Sofa bed</span><span>Bath & shower</span></div>
         </div>
@@ -1530,7 +1534,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-suite-1.webp" alt="Suite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Suite <span class="room-row__badge">+ Private sauna</span></h3>
+          <h3 class="room-row__name">Suite <span class="room-row__badge badge--sauna">+ Private sauna</span></h3>
           <p class="room-row__desc">Our most spacious room with a private infrared sauna and a generous seating area.</p>
           <div class="room-row__feat"><span>~40 m&sup2;</span><span>Kingsize</span><span>Infrared sauna</span><span>Sofa bed</span></div>
         </div>
@@ -1543,7 +1547,7 @@
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-bruidssuite-1.webp" alt="Bridal Suite" loading="lazy">
         <div>
-          <h3 class="room-row__name">Bridal Suite <span class="room-row__badge">Premium</span></h3>
+          <h3 class="room-row__name">Bridal Suite <span class="room-row__badge badge--premium">Premium</span></h3>
           <p class="room-row__desc">Freestanding bathtub, spacious walk-in shower and the most romantic atmosphere in the hotel.</p>
           <div class="room-row__feat"><span>~36 m&sup2;</span><span>Kingsize</span><span>Bathtub</span><span>Walk-in shower</span></div>
         </div>
