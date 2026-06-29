@@ -878,6 +878,13 @@ def build_overview(lang):
     .ov-feat { max-width:900px; margin:50px auto 0; padding-bottom:80px; text-align:center; }
     .ov-feat h3 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(22px,2.6vw,30px); margin-bottom:16px; }
     .ov-feat p { font-weight:300; font-size:16px; line-height:1.7; color:#475569; max-width:640px; margin:0 auto 30px; }
+    /* Achtergrond-ritmiek: alternerende cream-banden (wit / #f6f5f3) */
+    .types { background:#f6f5f3; }
+    .types .room-row { background:#fff; }
+    .faq { background:#f6f5f3; }
+    /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
+    .included { padding: 40px 0 60px; }
+    .included__box { margin: 0 auto; }
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
     .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }
@@ -998,16 +1005,10 @@ def build_overview(lang):
   </div>
 </section>
 
-<section class="ov-feat">
-  <div class="wrap">
-    <h3>{ui('ov_sub_h',lang)}</h3>
-    <p>{ui('ov_sub_p',lang)}</p>
-    <ul class="ov-checklist">{checklist}</ul>
-  </div>
-</section>
+{shell(INCLUDED, lang)}
 
 <!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
-<section class="types" style="padding-top:0;">
+<section class="types" style="padding-top:40px;">
   <div class="wrap">
     <div class="tabs">
       <button class="tab is-active" data-cat="all">{ui('tab_all',lang)}</button>

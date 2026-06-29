@@ -1222,6 +1222,13 @@
     .ov-feat { max-width:900px; margin:50px auto 0; padding-bottom:80px; text-align:center; }
     .ov-feat h3 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(22px,2.6vw,30px); margin-bottom:16px; }
     .ov-feat p { font-weight:300; font-size:16px; line-height:1.7; color:#475569; max-width:640px; margin:0 auto 30px; }
+    /* Achtergrond-ritmiek: alternerende cream-banden (wit / #f6f5f3) */
+    .types { background:#f6f5f3; }
+    .types .room-row { background:#fff; }
+    .faq { background:#f6f5f3; }
+    /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
+    .included { padding: 40px 0 60px; }
+    .included__box { margin: 0 auto; }
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
     .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }
@@ -1339,16 +1346,46 @@
   </div>
 </section>
 
-<section class="ov-feat">
+<!-- ══ INCLUSIEF-BALK — overlappend kader ════════════════════ -->
+<section class="included">
   <div class="wrap">
-    <h3>Modern rooms with every comfort</h3>
-    <p>All our rooms are modern and tastefully furnished and come with every comfort as standard. From a cosy Comfort room to the luxurious Bridal Suite with a freestanding bathtub — every room is appointed with care.</p>
-    <ul class="ov-checklist"><li>Comfortable bed</li><li>Modern bathroom with shower</li><li>Free WiFi</li><li>Air conditioning</li><li>Coffee and tea facilities</li><li>Flatscreen TV</li><li>Hairdryer</li><li>Access to the fitness room</li></ul>
+    <div class="included__box">
+    <div class="included__head">
+      <h2>All our rooms include</h2>
+    </div>
+    <div class="included__grid">
+      <div class="included__item">
+        <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5a10 10 0 0114 0M8.5 16a5 5 0 017 0"/><circle cx="12" cy="19.5" r="1" fill="#fff" stroke="none"/></svg></span>
+        <span>Free WiFi</span>
+      </div>
+      <div class="included__item">
+        <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="5"/><path d="M8 14v6M13 9h6M16 6v6"/></svg></span>
+        <span>Hairdryer</span>
+      </div>
+      <div class="included__item">
+        <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M8 21h8"/></svg></span>
+        <span>Flatscreen TV</span>
+      </div>
+      <div class="included__item">
+        <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v4a4 4 0 01-4 4H8a4 4 0 01-4-4zM17 10h2a2 2 0 010 4h-2M7 5c0-1 .5-1.5.5-2.5M11 5c0-1 .5-1.5.5-2.5"/></svg></span>
+        <span>Coffee &amp; tea</span>
+      </div>
+      <div class="included__item">
+        <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a4 4 0 018 0v8a4 4 0 008 0M3 8h6M15 16h6"/></svg></span>
+        <span>Air conditioning</span>
+      </div>
+      <div class="included__item">
+        <span class="included__icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8v8M18 8v8M4 10v4M20 10v4M6 12h12"/></svg></span>
+        <span>Gym access</span>
+      </div>
+    </div>
+    </div>
   </div>
 </section>
 
+
 <!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
-<section class="types" style="padding-top:0;">
+<section class="types" style="padding-top:40px;">
   <div class="wrap">
     <div class="tabs">
       <button class="tab is-active" data-cat="all">All</button>
