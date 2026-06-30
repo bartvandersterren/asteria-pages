@@ -954,7 +954,7 @@ def build_overview(lang):
     hero_video = 'videos/bruidssuite.mp4'
     checklist = ''.join(f'<li>{x}</li>' for x in OVLIST[lang])
     # Inbegrepen-blok: 2 extra items (comfortabel bed + zithoek) — alleen op het overzicht
-    _bed_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="8" rx="1.6"/><rect x="5.2" y="6.4" width="5.7" height="4.2" rx="1"/><rect x="13.1" y="6.4" width="5.7" height="4.2" rx="1"/><path d="M2 13.5a2 2 0 0 1 2 1.6h16a2 2 0 0 1 2-1.6"/><path d="M2 15.1v3.4M22 15.1v3.4M2 16.4h20"/><path d="M4.5 18.5v1.2M19.5 18.5v1.2"/></svg>'
+    _bed_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17v-4a2 2 0 012-2h16a2 2 0 012 2v4M4 17v2M20 17v2M2 15h20M6 11V8.5A1.5 1.5 0 017.5 7h2.5A1.5 1.5 0 0111.5 8.5V11"/></svg>'
     _sofa_svg = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11V8a2 2 0 012-2h10a2 2 0 012 2v3M3 13a2 2 0 012-2 2 2 0 012 2v1h10v-1a2 2 0 012-2 2 2 0 012 2v4H3zM6 18v2M18 18v2"/></svg>'
     _extra_incl = (f'      <div class="included__item">\n'
                    f'        <span class="included__icon">{_bed_svg}</span>\n'
