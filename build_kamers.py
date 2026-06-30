@@ -91,7 +91,11 @@ BK_MARKUP = BK_MARKUP.replace(
     '<div class="bk-summary" id="bkSummary"', 1)
 BK_CSS += ('\n  .bk-guests { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; margin-bottom: 12px; background: #f6f5f3; border-radius: 10px; }\n'
            '  .bk-guests__label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b6b6b; }\n'
-           '  .bk-guests__select { font-family: Montserrat, sans-serif; font-size: 15px; border: 1px solid #d8d8d8; border-radius: 8px; padding: 8px 14px; background: #fff; cursor: pointer; color: #1a1a1a; }\n')
+           '  .bk-guests__select { font-family: Montserrat, sans-serif; font-size: 15px; border: 1px solid #d8d8d8; border-radius: 8px; padding: 8px 14px; background: #fff; cursor: pointer; color: #1a1a1a; }\n'
+           # Fix: hele stap scrollt i.p.v. losse kalender-scroll (anders klipt de 6e week, bv. 31 aug)\n'
+           '  #bkStep1 { overflow-y: auto; }\n'
+           '  #bkStep1 #bkCalendar { flex: none; overflow-y: visible; }\n'
+           '  .bk-sticky-footer { position: sticky; bottom: 0; }\n')
 
 def guest_opts(lang):
     sing = {'nl': 'persoon', 'en': 'guest', 'de': 'Person'}[lang]
