@@ -212,7 +212,7 @@ BK_CSS += ('\n  .promo__card.care-card { background: #fff; color: #1a1a1a; }\n'
            '  @media (max-width: 860px) { .promo--flip .promo__card { margin: -34px 0 0; } }\n'
            # Eén groot, heel licht Asteria-merkteken over de volledige breedte, loopt over meerdere blokken heen
            '  .pagewm { position: relative; }\n'
-           '  .pagewm::before { content: \'\'; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; aspect-ratio: 598 / 925; background: url(fotos/pattern-asteria-1.webp) no-repeat center / contain; opacity: .12; pointer-events: none; z-index: 2; }\n')
+           '  .pagewm::before { content: \'\'; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; aspect-ratio: 598 / 925; background: url(fotos/pattern-asteria-1.webp) no-repeat center / contain; opacity: .08; pointer-events: none; z-index: 2; }\n')
 
 IC_MAIL ='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>'
 IC_PHONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>'
