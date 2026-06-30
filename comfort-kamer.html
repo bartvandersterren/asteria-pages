@@ -1472,10 +1472,7 @@
   .promo--flip .promo__img { margin-left: 0; margin-right: auto; }
   .promo--flip .promo__card { left: auto; right: 0; }
   @media (max-width: 860px) { .promo--flip .promo__card { margin: -34px 0 0; } }
-  .faq { position: relative; overflow: hidden; }
-  .faq .wrap { position: relative; z-index: 1; }
-  .faq::after { content: ''; position: absolute; top: 36px; right: -10px; width: 270px; height: 418px; background: url(fotos/pattern-asteria-1.webp) center/contain no-repeat; opacity: .42; pointer-events: none; }
-  @media (max-width: 700px) { .faq::after { width: 180px; height: 278px; right: -46px; opacity: .3; } }
+  body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .7; background: url(fotos/pattern-tile.webp) repeat; background-size: 300px auto; }
 
   </style><!--/BK-CSS-->
 </head>
