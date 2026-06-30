@@ -1466,7 +1466,10 @@
   .promo--flip .promo__img { margin-left: 0; margin-right: auto; }
   .promo--flip .promo__card { left: auto; right: 0; }
   @media (max-width: 860px) { .promo--flip .promo__card { margin: -34px 0 0; } }
-  body::after { content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .7; background: url(fotos/pattern-tile.webp) repeat; background-size: 300px auto; }
+  .faq { position: relative; overflow: hidden; }
+  .faq .wrap { position: relative; z-index: 1; }
+  .faq::before { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 1500px; max-width: 150%; height: 880px; background: url(fotos/pattern-asteria-1.webp) center/contain no-repeat; opacity: .5; pointer-events: none; }
+  @media (max-width: 700px) { .faq::before { width: 760px; height: 520px; opacity: .4; } }
 
   </style>
 </head>
