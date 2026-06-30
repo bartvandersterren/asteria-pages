@@ -183,7 +183,7 @@ BK_CSS += '\n' + REVIEWS_CSS + '\n  .reviews { background: #fff; }\n'
 BK_CSS += ('\n  .promo-section { position:relative; background:#f6f5f3; padding:80px 0; }\n'
            '  .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }\n'
            '  .promo__inner { position:relative; min-height:540px; }\n'
-           '  .promo__img { width:100%; height:540px; object-fit:cover; border-radius:20px; display:block; }\n'
+           '  .promo__img { width:100vw; max-width:100vw; margin-left:calc(50% - 50vw); height:540px; object-fit:cover; display:block; }\n'
            '  .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#fff; color:#1a1a1a; padding:50px 44px; border-radius:20px; box-shadow:0 18px 50px rgba(0,0,0,.10); }\n'
            '  .promo__card .section-eyebrow { color:#c23435; }\n'
            '  .promo__card h2 { font-family:Electrolize,sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#1a1a1a; margin-bottom:16px; }\n'
@@ -194,7 +194,7 @@ BK_CSS += ('\n  .promo-section { position:relative; background:#f6f5f3; padding:
            '  .promo__btns .btn-light:hover { background:#c23435; color:#fff; }\n'
            '  @media (max-width: 860px) {\n'
            '    .promo__inner { min-height:0; }\n'
-           '    .promo__img { width:100%; height:300px; }\n'
+           '    .promo__img { height:300px; }\n'
            '    .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:38px 28px; }\n'
            '  }\n')
 
@@ -207,7 +207,7 @@ BK_CSS += ('\n  .promo__card.care-card { background: #fff; color: #1a1a1a; }\n'
            '  .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }\n'
            '  .care-contact__icon svg { width: 18px; height: 18px; }\n'
            # Gespiegelde variant: foto links, tekstkader rechts (kamertypes)
-           '  .promo--flip .promo__img { margin-left: 0; margin-right: auto; }\n'
+           '  .promo--flip .promo__img { margin-left: calc(50% - 50vw); margin-right: auto; }\n'
            '  .promo--flip .promo__card { left: auto; right: 0; }\n'
            '  @media (max-width: 860px) { .promo--flip .promo__card { margin: -34px 0 0; } }\n'
            # Eén groot, heel licht Asteria-merkteken over de volledige breedte, loopt over meerdere blokken heen
