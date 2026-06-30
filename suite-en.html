@@ -1438,34 +1438,38 @@
     }
   .reviews { background: #fff; }
 
-  .promo-section { position:relative; overflow:hidden; background:#e9e4dd; padding:84px 0 92px; }
-  .promo-section::before { content:''; position:absolute; left:-190px; bottom:-210px; width:560px; height:560px; border-radius:50%; border:72px solid #f1ede7; opacity:.65; pointer-events:none; }
+  .promo-section { position:relative; background:#f6f5f3; padding:80px 0; }
   .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }
-  .promo__inner { position:relative; min-height:560px; }
-  .promo__img { width:62%; height:560px; object-fit:cover; border-radius:18px; display:block; margin-left:auto; box-shadow:0 24px 50px rgba(0,0,0,.12); }
-  .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#242424; color:#fff; padding:52px 46px; border-radius:18px; box-shadow:0 30px 70px rgba(0,0,0,.22); }
-  .promo__card .section-eyebrow { color:#e8923a; }
-  .promo__card h2 { font-family:Electrolize,sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#fff; margin-bottom:16px; }
-  .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:rgba(255,255,255,.85); margin-bottom:26px; }
+  .promo__inner { position:relative; min-height:540px; }
+  .promo__img { width:62%; height:540px; object-fit:cover; border-radius:20px; display:block; margin-left:auto; }
+  .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#fff; color:#1a1a1a; padding:50px 44px; border-radius:20px; box-shadow:0 18px 50px rgba(0,0,0,.10); }
+  .promo__card .section-eyebrow { color:#c23435; }
+  .promo__card h2 { font-family:Electrolize,sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#1a1a1a; margin-bottom:16px; }
+  .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:#475569; margin-bottom:26px; }
   .promo__btns { display:flex; gap:12px; flex-wrap:wrap; }
-  .promo__btns .btn-primary { width:auto; padding:13px 24px; }
-  .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; border-radius:10px; padding:13px 24px; font-size:14px; font-family:Montserrat,sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }
-  .promo__btns .btn-light:hover { background:#fff; color:#242424; }
+  .promo__btns .btn-primary { width:auto; padding:13px 26px; }
+  .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid #c23435; color:#c23435; background:transparent; border-radius:8px; padding:13px 26px; font-size:14px; font-family:Montserrat,sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }
+  .promo__btns .btn-light:hover { background:#c23435; color:#fff; }
   @media (max-width: 860px) {
     .promo__inner { min-height:0; }
     .promo__img { width:100%; height:300px; }
-    .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:40px 30px; }
-    .promo-section::before { display:none; }
+    .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:38px 28px; }
   }
 
-  .care-card { background: #f6f2e9; color: #1a1a1a; }
-  .care-card h2 { color: #1a1a1a; }
-  .care-card p { color: #4a4a45; margin-bottom: 30px; }
+  .promo__card.care-card { background: #fff; color: #1a1a1a; }
+  .promo__card.care-card p { margin-bottom: 30px; }
   .care-contact { display: flex; flex-direction: column; gap: 14px; }
   .care-contact__row { display: flex; align-items: center; gap: 13px; color: #c23435; font-size: 15px; font-weight: 500; text-decoration: none; transition: color .2s; }
   .care-contact__row:hover { color: #a82c2c; }
   .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }
   .care-contact__icon svg { width: 18px; height: 18px; }
+  .promo--flip .promo__img { margin-left: 0; margin-right: auto; }
+  .promo--flip .promo__card { left: auto; right: 0; }
+  @media (max-width: 860px) { .promo--flip .promo__card { margin: -34px 0 0; } }
+  .faq { position: relative; overflow: hidden; }
+  .faq .wrap { position: relative; z-index: 1; }
+  .faq::after { content: ''; position: absolute; top: 36px; right: -10px; width: 270px; height: 418px; background: url(fotos/pattern-asteria-1.webp) center/contain no-repeat; opacity: .42; pointer-events: none; }
+  @media (max-width: 700px) { .faq::after { width: 180px; height: 278px; right: -46px; opacity: .3; } }
 
   </style>
 </head>
