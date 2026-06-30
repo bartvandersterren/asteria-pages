@@ -98,6 +98,12 @@ BOOKING = BOOKING.replace(
     "    if (window.initCustomCalendar) {\n      window.initCustomCalendar(function(start, end) {\n        selectedDates = start && end ? [start, end] : [];\n        updateSummary();\n      });\n    }",
     "    if (window.initCustomCalendar) {\n      var _pf = window._bkPrefill || {};\n      window.initCustomCalendar(function(start, end) {\n        selectedDates = start && end ? [start, end] : [];\n        updateSummary();\n      }, _pf.start, _pf.end);\n      window._bkPrefill = null;\n    }")
 
+# Telefoon: hover-preview uitschakelen op touch (anders herrendert mouseenter de knop
+# weg vóór de click → 2e datum vereiste 2 taps i.p.v. 1)
+DATEPICKER = DATEPICKER.replace(
+    "      btn.addEventListener('mouseenter', function() {\n        if (cal.selectedStart && !cal.selectedEnd) {",
+    "      btn.addEventListener('mouseenter', function() {\n        if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;\n        if (cal.selectedStart && !cal.selectedEnd) {")
+
 # Personenkiezer (1–8) in de popup
 _guest_opts_pop = ''.join('<option value="%d"%s>%d</option>' % (n, ' selected' if n == 2 else '', n) for n in range(1, 9))
 BK_MARKUP = BK_MARKUP.replace(
@@ -112,10 +118,17 @@ BK_CSS += ('\n  .bk-guests { display: flex; align-items: center; justify-content
            '  #bkStep1 { overflow-y: auto; padding-top: 18px; }\n'
            '  #bkStep1 #bkCalendar { flex: none; overflow-y: visible; }\n'
            '  .bk-sticky-footer { position: sticky; bottom: 0; padding-bottom: 22px; }\n'
-           # Compacte kalender zodat ook 6-weken-maanden (bv. aug) passen zonder scroll
+           # Telefoon: 2 maanden gestapeld (scroll mag). Desktop: compacter + ruimere modal zodat 2 maanden naast elkaar passen zonder scroll
            '  .cal-days { grid-auto-rows: 38px; }\n'
            '  .cal-day { aspect-ratio: auto; width: 34px; height: 34px; margin: 0 auto; }\n'
-           '  @media (min-width: 600px) { .cal-days { grid-auto-rows: 32px; } .cal-day { width: 30px; height: 30px; } }\n')
+           '  @media (min-width: 600px) {\n'
+           '    .bk-modal { max-height: 94vh; }\n'
+           '    #bkStep1 { padding-top: 14px; }\n'
+           '    .bk-guests { margin-top: 14px; }\n'
+           '    .bk-sticky-footer { padding-bottom: 16px; }\n'
+           '    .cal-days { grid-auto-rows: 28px; }\n'
+           '    .cal-day { width: 26px; height: 26px; }\n'
+           '  }\n')
 
 def guest_opts(lang):
     sing = {'nl': 'persoon', 'en': 'guest', 'de': 'Person'}[lang]
