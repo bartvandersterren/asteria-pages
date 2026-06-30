@@ -90,6 +90,14 @@ BOOKING = BOOKING.replace(
     "      window.mewsApi.setEndDate(checkout);\n      window.mewsApi.open();",
     "      window.mewsApi.setEndDate(checkout);\n      if (window.mewsApi.setAdultCount) window.mewsApi.setAdultCount(bkGuestCount());\n      window.mewsApi.open();")
 
+# Datums uit de boekbalk voorvullen in de popup-kalender
+DATEPICKER = DATEPICKER.replace(
+    "  window.initCustomCalendar = function(onDateChange) {\n    var t = todayMidnight();\n    cal.viewYear      = t.getFullYear();\n    cal.viewMonth     = t.getMonth();\n    cal.selectedStart = null;\n    cal.selectedEnd   = null;\n    cal.hoverDate     = null;\n    cal.onDateChange  = onDateChange || null;\n    render();\n  };",
+    "  window.initCustomCalendar = function(onDateChange, initStart, initEnd) {\n    var t = todayMidnight();\n    cal.selectedStart = initStart || null;\n    cal.selectedEnd   = initEnd || null;\n    var base = initStart || t;\n    cal.viewYear      = base.getFullYear();\n    cal.viewMonth     = base.getMonth();\n    cal.hoverDate     = null;\n    cal.onDateChange  = onDateChange || null;\n    render();\n    if (cal.onDateChange && cal.selectedStart && cal.selectedEnd) cal.onDateChange(cal.selectedStart, cal.selectedEnd);\n  };")
+BOOKING = BOOKING.replace(
+    "    if (window.initCustomCalendar) {\n      window.initCustomCalendar(function(start, end) {\n        selectedDates = start && end ? [start, end] : [];\n        updateSummary();\n      });\n    }",
+    "    if (window.initCustomCalendar) {\n      var _pf = window._bkPrefill || {};\n      window.initCustomCalendar(function(start, end) {\n        selectedDates = start && end ? [start, end] : [];\n        updateSummary();\n      }, _pf.start, _pf.end);\n      window._bkPrefill = null;\n    }")
+
 # Personenkiezer (1–8) in de popup
 _guest_opts_pop = ''.join('<option value="%d"%s>%d</option>' % (n, ' selected' if n == 2 else '', n) for n in range(1, 9))
 BK_MARKUP = BK_MARKUP.replace(
@@ -101,9 +109,13 @@ BK_CSS += ('\n  .bk-guests { display: flex; align-items: center; justify-content
            '  .bk-guests__label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b6b6b; }\n'
            '  .bk-guests__select { font-family: Montserrat, sans-serif; font-size: 15px; border: 1px solid #d8d8d8; border-radius: 8px; padding: 8px 14px; background: #fff; cursor: pointer; color: #1a1a1a; }\n'
            # Fix: hele stap scrollt i.p.v. losse kalender-scroll (anders klipt de 6e week, bv. 31 aug)\n'
-           '  #bkStep1 { overflow-y: auto; }\n'
+           '  #bkStep1 { overflow-y: auto; padding-top: 18px; }\n'
            '  #bkStep1 #bkCalendar { flex: none; overflow-y: visible; }\n'
-           '  .bk-sticky-footer { position: sticky; bottom: 0; }\n')
+           '  .bk-sticky-footer { position: sticky; bottom: 0; padding-bottom: 22px; }\n'
+           # Compacte kalender zodat ook 6-weken-maanden (bv. aug) passen zonder scroll
+           '  .cal-days { grid-auto-rows: 38px; }\n'
+           '  .cal-day { aspect-ratio: auto; width: 34px; height: 34px; margin: 0 auto; }\n'
+           '  @media (min-width: 600px) { .cal-days { grid-auto-rows: 32px; } .cal-day { width: 30px; height: 30px; } }\n')
 
 def guest_opts(lang):
     sing = {'nl': 'persoon', 'en': 'guest', 'de': 'Person'}[lang]
@@ -173,6 +185,9 @@ def booking_bundle(lang):
     override = ("window.openBooking = function (k) { "
                 "var bb = document.getElementById('bbGuests'), bk = document.getElementById('bkGuests'); "
                 "if (bb && bk) bk.value = bb.value; "
+                "var s = document.getElementById('bbStart'), e = document.getElementById('bbEnd'); "
+                "var ps = s && s.value ? new Date(s.value + 'T00:00:00') : null, pe = e && e.value ? new Date(e.value + 'T00:00:00') : null; "
+                "window._bkPrefill = (ps && pe && pe > ps) ? { start: ps, end: pe } : null; "
                 "if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };")
     return '\n'.join([rooms_js(lang), bk_localize(DATEPICKER, lang), bk_localize(BOOKING, lang), override])
 
