@@ -179,43 +179,50 @@ BK_CSS += ('\n  .hero__title { font-size: clamp(30px, 4.6vw, 50px); }\n'
 # Reviews-slider CSS (en wat marge t.o.v. omringende secties)
 BK_CSS += '\n' + REVIEWS_CSS + '\n  .reviews { background: #fff; }\n'
 
-# Promo/care-CTA blok (foto met overlappend tekstkader) — ook op detailpagina's
-BK_CSS += ('\n  .promo-section { position:relative; overflow:hidden; background:#e9e4dd; padding:84px 0 92px; }\n'
-           '  .promo-section::before { content:\'\'; position:absolute; left:-190px; bottom:-210px; width:560px; height:560px; border-radius:50%; border:72px solid #f1ede7; opacity:.65; pointer-events:none; }\n'
+# Promo/care-CTA blok (foto met overlappend tekstkader) — brand-consistent: licht, geen ornament
+BK_CSS += ('\n  .promo-section { position:relative; background:#f6f5f3; padding:80px 0; }\n'
            '  .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }\n'
-           '  .promo__inner { position:relative; min-height:560px; }\n'
-           '  .promo__img { width:62%; height:560px; object-fit:cover; border-radius:18px; display:block; margin-left:auto; box-shadow:0 24px 50px rgba(0,0,0,.12); }\n'
-           '  .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#242424; color:#fff; padding:52px 46px; border-radius:18px; box-shadow:0 30px 70px rgba(0,0,0,.22); }\n'
-           '  .promo__card .section-eyebrow { color:#e8923a; }\n'
-           '  .promo__card h2 { font-family:Electrolize,sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#fff; margin-bottom:16px; }\n'
-           '  .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:rgba(255,255,255,.85); margin-bottom:26px; }\n'
+           '  .promo__inner { position:relative; min-height:540px; }\n'
+           '  .promo__img { width:62%; height:540px; object-fit:cover; border-radius:20px; display:block; margin-left:auto; }\n'
+           '  .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#fff; color:#1a1a1a; padding:50px 44px; border-radius:20px; box-shadow:0 18px 50px rgba(0,0,0,.10); }\n'
+           '  .promo__card .section-eyebrow { color:#c23435; }\n'
+           '  .promo__card h2 { font-family:Electrolize,sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#1a1a1a; margin-bottom:16px; }\n'
+           '  .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:#475569; margin-bottom:26px; }\n'
            '  .promo__btns { display:flex; gap:12px; flex-wrap:wrap; }\n'
-           '  .promo__btns .btn-primary { width:auto; padding:13px 24px; }\n'
-           '  .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; border-radius:10px; padding:13px 24px; font-size:14px; font-family:Montserrat,sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }\n'
-           '  .promo__btns .btn-light:hover { background:#fff; color:#242424; }\n'
+           '  .promo__btns .btn-primary { width:auto; padding:13px 26px; }\n'
+           '  .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid #c23435; color:#c23435; background:transparent; border-radius:8px; padding:13px 26px; font-size:14px; font-family:Montserrat,sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }\n'
+           '  .promo__btns .btn-light:hover { background:#c23435; color:#fff; }\n'
            '  @media (max-width: 860px) {\n'
            '    .promo__inner { min-height:0; }\n'
            '    .promo__img { width:100%; height:300px; }\n'
-           '    .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:40px 30px; }\n'
-           '    .promo-section::before { display:none; }\n'
+           '    .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:38px 28px; }\n'
            '  }\n')
 
 # Contact-kaart (cream) variant van het promo-blok
-BK_CSS += ('\n  .care-card { background: #f6f2e9; color: #1a1a1a; }\n'
-           '  .care-card h2 { color: #1a1a1a; }\n'
-           '  .care-card p { color: #4a4a45; margin-bottom: 30px; }\n'
+BK_CSS += ('\n  .promo__card.care-card { background: #fff; color: #1a1a1a; }\n'
+           '  .promo__card.care-card p { margin-bottom: 30px; }\n'
            '  .care-contact { display: flex; flex-direction: column; gap: 14px; }\n'
            '  .care-contact__row { display: flex; align-items: center; gap: 13px; color: #c23435; font-size: 15px; font-weight: 500; text-decoration: none; transition: color .2s; }\n'
            '  .care-contact__row:hover { color: #a82c2c; }\n'
            '  .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }\n'
-           '  .care-contact__icon svg { width: 18px; height: 18px; }\n')
+           '  .care-contact__icon svg { width: 18px; height: 18px; }\n'
+           # Gespiegelde variant: foto links, tekstkader rechts (kamertypes)
+           '  .promo--flip .promo__img { margin-left: 0; margin-right: auto; }\n'
+           '  .promo--flip .promo__card { left: auto; right: 0; }\n'
+           '  @media (max-width: 860px) { .promo--flip .promo__card { margin: -34px 0 0; } }\n'
+           # Subtiel Asteria-merkteken als achtergrondpatroon in de FAQ-sectie
+           '  .faq { position: relative; overflow: hidden; }\n'
+           '  .faq .wrap { position: relative; z-index: 1; }\n'
+           '  .faq::after { content: \'\'; position: absolute; top: 36px; right: -10px; width: 270px; height: 418px; background: url(fotos/pattern-asteria-1.webp) center/contain no-repeat; opacity: .42; pointer-events: none; }\n'
+           '  @media (max-width: 700px) { .faq::after { width: 180px; height: 278px; right: -46px; opacity: .3; } }\n')
 
 IC_MAIL ='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>'
 IC_PHONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>'
 
-def care_block(lang):
+def care_block(lang, flip=False):
+    flipcls = ' promo--flip' if flip else ''
     return f'''<!-- ══ CONTACT-CTA ═══════════════════════════════════════════ -->
-<section class="promo-section care-section">
+<section class="promo-section care-section{flipcls}">
   <div class="promo">
     <div class="promo__inner">
       <img class="promo__img" src="fotos/care-receptie.webp" alt="{ui('care_h',lang)}" loading="lazy">
@@ -1177,26 +1184,9 @@ def build_overview(lang):
     .ov-checklist { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 40px; max-width:680px; margin:0 auto; text-align:left; }
     .ov-checklist li { position:relative; padding-left:30px; font-weight:300; font-size:15px; color:#1a1a1a; }
     .ov-checklist li::before { content:''; position:absolute; left:2px; top:5px; width:14px; height:9px; border-left:2px solid #c23435; border-bottom:2px solid #c23435; transform:rotate(-45deg); }
-    .promo-section { position:relative; overflow:hidden; background:#e9e4dd; padding:84px 0 92px; }
-    .promo-section::before { content:''; position:absolute; left:-190px; bottom:-210px; width:560px; height:560px; border-radius:50%; border:72px solid #f1ede7; opacity:.65; pointer-events:none; }
-    .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }
-    .promo__inner { position:relative; min-height:580px; }
-    .promo__img { width:62%; height:580px; object-fit:cover; border-radius:18px; display:block; margin-left:auto; box-shadow:0 24px 50px rgba(0,0,0,.12); }
-    .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#242424; color:#fff; padding:52px 46px; border-radius:18px; box-shadow:0 30px 70px rgba(0,0,0,.22); }
-    .promo__card .section-eyebrow { color:#e8923a; }
-    .promo__card h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#fff; margin-bottom:16px; }
-    .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:rgba(255,255,255,.85); margin-bottom:26px; }
-    .promo__btns { display:flex; gap:12px; flex-wrap:wrap; }
-    .promo__btns .btn-primary { width:auto; padding:13px 24px; }
-    .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; border-radius:10px; padding:13px 24px; font-size:14px; font-family:'Montserrat',sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }
-    .promo__btns .btn-light:hover { background:#fff; color:#242424; }
     @media (max-width: 860px) {
       .ov-intro__grid { grid-template-columns:1fr; gap:30px; }
       .ov-checklist { grid-template-columns:1fr; max-width:340px; gap:12px; }
-      .promo__inner { min-height:0; }
-      .promo__img { width:100%; height:300px; }
-      .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:40px 30px; }
-      .promo-section::before { display:none; }
     }
   </style>'''
     page = f'''<!DOCTYPE html>
@@ -1376,7 +1366,7 @@ def build_overview(lang):
   </div>
 </section>
 
-{care_block(lang)}
+{care_block(lang, flip=True)}
 
 {bk_localize(BK_MARKUP, lang)}
 
