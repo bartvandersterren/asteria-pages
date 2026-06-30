@@ -653,11 +653,37 @@ _SW_RE = re.compile(r'/\* ── Taalwisselaar ── \*/\n\(function \(\) \{.*?
 def scripts_for(slug, lang):
     return _SW_RE.sub(lambda m: lang_switcher(slug, lang), SCRIPTS)
 
+NAV_LINKS = {
+ 'en': {
+   'href="/kamertypes"':                       'href="/kamertypes-en"',
+   'href="https://www.asteria.nl/kamers"':     'href="https://visit.asteria.nl/kamertypes-en"',
+   'href="https://www.asteria.nl/hotel"':      'href="https://www.asteria.nl/en/hotel"',
+   'href="https://www.asteria.nl/restaurant"': 'href="https://www.asteria.nl/en/restaurant"',
+   'href="https://www.asteria.nl/wellness"':   'href="https://www.asteria.nl/en/wellness"',
+   'href="https://www.asteria.nl/omgeving"':   'href="https://www.asteria.nl/en/location"',
+   'href="https://www.asteria.nl/contact"':    'href="https://www.asteria.nl/en/contact"',
+   'href="https://www.asteria.nl"':            'href="https://www.asteria.nl/en"',
+ },
+ 'de': {
+   'href="/kamertypes"':                       'href="/kamertypes-de"',
+   'href="https://www.asteria.nl/kamers"':     'href="https://visit.asteria.nl/kamertypes-de"',
+   'href="https://www.asteria.nl/hotel"':      'href="https://www.asteria.nl/de/hotel"',
+   'href="https://www.asteria.nl/restaurant"': 'href="https://www.asteria.nl/de/restaurant"',
+   'href="https://www.asteria.nl/wellness"':   'href="https://www.asteria.nl/de/wellness"',
+   'href="https://www.asteria.nl/omgeving"':   'href="https://www.asteria.nl/de/standort"',
+   'href="https://www.asteria.nl/contact"':    'href="https://www.asteria.nl/de/kontakt"',
+   'href="https://www.asteria.nl"':            'href="https://www.asteria.nl/de"',
+ },
+}
+
 def nav_for(lang):
     block = shell(NAV, lang)
     # juiste taaloptie geselecteerd
     block = block.replace('<option value="nl" selected>nl</option>', '<option value="nl">nl</option>')
     block = block.replace(f'<option value="{lang}">{lang}</option>', f'<option value="{lang}" selected>{lang}</option>')
+    # nav-links naar de juiste taalvariant (langste hrefs eerst i.v.m. prefix-overlap)
+    for old, new in sorted(NAV_LINKS.get(lang, {}).items(), key=lambda kv: -len(kv[0])):
+        block = block.replace(old, new)
     return block
 
 def arr_for(lang):
