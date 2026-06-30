@@ -210,11 +210,9 @@ BK_CSS += ('\n  .promo__card.care-card { background: #fff; color: #1a1a1a; }\n'
            '  .promo--flip .promo__img { margin-left: 0; margin-right: auto; }\n'
            '  .promo--flip .promo__card { left: auto; right: 0; }\n'
            '  @media (max-width: 860px) { .promo--flip .promo__card { margin: -34px 0 0; } }\n'
-           # Eén groot, licht Asteria-merkteken als watermerk over de volledige breedte (FAQ-sectie)
-           '  .faq { position: relative; overflow: hidden; }\n'
-           '  .faq .wrap { position: relative; z-index: 1; }\n'
-           '  .faq::before { content: \'\'; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 1500px; max-width: 150%; height: 880px; background: url(fotos/pattern-asteria-1.webp) center/contain no-repeat; opacity: .5; pointer-events: none; }\n'
-           '  @media (max-width: 700px) { .faq::before { width: 760px; height: 520px; opacity: .4; } }\n')
+           # Eén groot, heel licht Asteria-merkteken over de volledige breedte, loopt over meerdere blokken heen
+           '  .pagewm { position: relative; }\n'
+           '  .pagewm::before { content: \'\'; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; aspect-ratio: 598 / 925; background: url(fotos/pattern-asteria-1.webp) no-repeat center / contain; opacity: .2; pointer-events: none; z-index: 2; }\n')
 
 IC_MAIL ='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>'
 IC_PHONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>'
@@ -1088,6 +1086,7 @@ def build_page(r, lang):
 
 {rev_localize(REVIEWS_MARKUP, lang)}
 
+<div class="pagewm">
 <!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
 <section class="types">
   <div class="wrap">
@@ -1110,6 +1109,8 @@ def build_page(r, lang):
 
 {arr_for(lang)}
 {faq_for(r, lang)}
+</div>
+
 {care_block(lang)}
 
 <!-- ══ STICKY MOBILE CTA ═════════════════════════════════════ -->
@@ -1317,6 +1318,7 @@ def build_overview(lang):
 
 {shell(included_ov, lang)}
 
+<div class="pagewm">
 <!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
 <section class="types" style="padding-top:40px;">
   <div class="wrap">
@@ -1365,6 +1367,7 @@ def build_overview(lang):
     </div>
   </div>
 </section>
+</div>
 
 {care_block(lang, flip=True)}
 
@@ -1445,10 +1448,10 @@ if 'social-proof' not in comfort:
         '<a class="btn-primary" href="#" onclick="window.openBooking(\'comfort\');return false;" data-track-cta="intro_reserve">Reserveren direct</a>\n        ' + social_proof('comfort', 'nl'), 1)
 # Reviews-slider onder de inclusief-balk (comfort NL)
 if 'reviews__track' not in comfort:
-    comfort = comfort.replace('<!-- ══ KAMERTYPES', REVIEWS_MARKUP + '\n\n<!-- ══ KAMERTYPES', 1)
-# Care-CTA onder de FAQ (comfort NL)
+    comfort = comfort.replace('<!-- ══ KAMERTYPES', REVIEWS_MARKUP + '\n\n<div class="pagewm">\n<!-- ══ KAMERTYPES', 1)
+# Care-CTA onder de FAQ (comfort NL); sluit eerst de watermerk-wrapper
 if 'care-section' not in comfort:
-    comfort = comfort.replace('<!-- ══ STICKY', care_block('nl') + '\n\n<!-- ══ STICKY', 1)
+    comfort = comfort.replace('<!-- ══ STICKY', '</div>\n\n' + care_block('nl') + '\n\n<!-- ══ STICKY', 1)
 # Boekingsmodule in comfort-kamer.html injecteren (idempotent via markers)
 for _tag in ('BK-HEAD', 'BK-CSS', 'BK-MARKUP', 'BK-JS'):
     comfort = re.sub('\\n?<!--' + _tag + '-->.*?<!--/' + _tag + '-->', '', comfort, flags=re.S)
