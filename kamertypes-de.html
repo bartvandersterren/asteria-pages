@@ -1233,11 +1233,29 @@
     .cal-day { width: 26px; height: 26px; }
   }
 
+  .social-proof { display: flex; align-items: center; gap: 9px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #e6e2d8; }
+  .social-proof__icon { color: #e8923a; flex-shrink: 0; display: flex; }
+  .social-proof__icon svg { width: 16px; height: 16px; }
+  .social-proof__text { font-size: 13px; font-weight: 300; color: #8a8a85; line-height: 1.4; }
+  .social-proof__text b { color: #5a5a55; font-weight: 600; }
+
+  .hero__title { font-size: clamp(30px, 4.6vw, 50px); }
+  .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+  .hero__btn { display: inline-block; font-family: Montserrat, sans-serif; font-size: 14px; padding: 12px 24px; border-radius: 10px; text-decoration: none; cursor: pointer; transition: background .2s, color .2s; }
+  .hero__btn--primary { background: #c23435; color: #fff; border: 1px solid #c23435; }
+  .hero__btn--primary:hover { background: #a82c2c; color: #fff; }
+  .hero__btn--outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.75); }
+  .hero__btn--outline:hover { background: #fff; color: #1a1a1a; }
+  #roomList { scroll-margin-top: 96px; }
+
   </style>
   <style>
     .ov-hero { min-height: 88vh; }
     @media (max-width: 560px) { .ov-hero { min-height: 46vh; } }
-    .ov-intro { text-align: center; max-width: 760px; margin: 0 auto; padding: 80px 0 10px; }
+    .ov-intro { padding: 80px 0 10px; }
+    .ov-intro__grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; align-items: center; max-width: 1080px; margin: 0 auto; }
+    .ov-intro__text { text-align: left; }
+    .usp-card { position: static; }
     .ov-intro .section-eyebrow { color: #c23435; }
     .ov-intro h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(28px,3.6vw,42px); line-height:1.12; margin-bottom:22px; }
     .ov-intro p { font-weight:300; font-size:16px; line-height:1.75; color:#475569; }
@@ -1252,6 +1270,7 @@
     .ov-hero .hero__title { margin-bottom:8px; }
     .hero__cta { display:inline-block; margin-top:6px; margin-bottom:52px; background:#c23435; color:#fff; border:none; border-radius:10px; font-family:'Montserrat',sans-serif; font-size:15px; letter-spacing:.01em; padding:16px 32px; text-decoration:none; cursor:pointer; transition:background .2s; }
     .hero__cta:hover { background:#a82c2c; }
+    .ov-hero .hero__btns { margin-bottom: 48px; }
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
     .included { padding: 40px 0 60px; }
     .included__box { margin: 0 auto; }
@@ -1274,6 +1293,7 @@
     .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; border-radius:10px; padding:13px 24px; font-size:14px; font-family:'Montserrat',sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }
     .promo__btns .btn-light:hover { background:#fff; color:#242424; }
     @media (max-width: 860px) {
+      .ov-intro__grid { grid-template-columns:1fr; gap:30px; }
       .ov-checklist { grid-template-columns:1fr; max-width:340px; gap:12px; }
       .promo__inner { min-height:0; }
       .promo__img { width:100%; height:300px; }
@@ -1336,7 +1356,10 @@
   <div class="hero__overlay"></div>
   <div class="hero__inner">
     <h1 class="hero__title">Unsere Zimmertypen</h1>
-    <a class="hero__cta" href="#" onclick="window.openBooking();return false;" data-track-cta="hero">Buchen Sie hier Ihren Aufenthalt</a>
+    <div class="hero__btns">
+      <a class="hero__btn hero__btn--primary" href="#" onclick="window.openBooking();return false;" data-track-cta="hero">Buchen Sie hier Ihren Aufenthalt</a>
+      <a class="hero__btn hero__btn--outline" href="#roomList">Zimmer ansehen</a>
+    </div>
   </div>
 </section>
 
@@ -1381,9 +1404,30 @@
 <!-- ══ INTRO ═════════════════════════════════════════════════ -->
 <section class="ov-intro">
   <div class="wrap">
-    <span class="section-eyebrow">Willkommen in Nord-Limburg</span>
-    <h2>Entspannt übernachten im Herzen Limburgs</h2>
-    <p>Hotel Asteria liegt nur einen Steinwurf von der A73 entfernt, umgeben von den Wäldern und Feldern Nord-Limburgs. Ob für Ruhe, Romantik oder eine Geschäftsreise — bei uns finden Sie ein Zimmer, das zu Ihrem Aufenthalt passt, mit der herzlichen limburgischen Gastfreundschaft, die Asteria auszeichnet.</p>
+    <div class="ov-intro__grid">
+      <div class="ov-intro__text">
+        <span class="section-eyebrow">Willkommen in Nord-Limburg</span>
+        <h2>Entspannt übernachten im Herzen Limburgs</h2>
+        <p>Hotel Asteria liegt nur einen Steinwurf von der A73 entfernt, umgeben von den Wäldern und Feldern Nord-Limburgs. Ob für Ruhe, Romantik oder eine Geschäftsreise — bei uns finden Sie ein Zimmer, das zu Ihrem Aufenthalt passt, mit der herzlichen limburgischen Gastfreundschaft, die Asteria auszeichnet.</p>
+      </div>
+      <aside class="spec-card usp-card">
+        <ul class="spec-card__list">
+          <li class="spec-card__item">
+            <span class="spec-card__icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <span class="spec-card__txt"><strong>Beste-Preis-Garantie</strong><span>Immer der niedrigste Preis</span></span>
+          </li>
+          <li class="spec-card__item">
+            <span class="spec-card__icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <span class="spec-card__txt"><strong>Treuepunkte sammeln</strong><span>Bei jeder Direktbuchung</span></span>
+          </li>
+          <li class="spec-card__item">
+            <span class="spec-card__icon"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+            <span class="spec-card__txt"><strong>Kostenloses Upgrade</strong><span>Je nach Verfügbarkeit</span></span>
+          </li>
+        </ul>
+        <a class="btn-primary" href="#" onclick="window.openBooking();return false;" data-track-cta="ov_usp">Direkt reservieren</a>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -2444,6 +2488,7 @@ window.ROOMS = {"comfort": {"name": "Komfortzimmer", "upgrade": "", "mewsCategor
 
 }());
 window.openBooking = function (k) { var bb = document.getElementById('bbGuests'), bk = document.getElementById('bkGuests'); if (bb && bk) bk.value = bb.value; var s = document.getElementById('bbStart'), e = document.getElementById('bbEnd'); var ps = s && s.value ? new Date(s.value + 'T00:00:00') : null, pe = e && e.value ? new Date(e.value + 'T00:00:00') : null; window._bkPrefill = (ps && pe && pe > ps) ? { start: ps, end: pe } : null; if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };
+(function(){var d=new Date(),s=new Date(d.getFullYear(),0,0),day=Math.floor((d-s)/86400000);document.querySelectorAll('.sp-count').forEach(function(el){var b=parseInt(el.getAttribute('data-base'),10)||5;el.textContent=b+(day%3);});}());
 </script>
 
 </body>
