@@ -982,9 +982,9 @@ def build_overview(lang):
     .promo__btns .btn-light:hover { background:#fff; color:#242424; }
     @media (max-width: 860px) {
       .ov-checklist { grid-template-columns:1fr; max-width:340px; gap:12px; }
-      .promo__inner { min-height:0; display:flex; flex-direction:column-reverse; }
-      .promo__img { width:100%; height:300px; margin-top:-48px; }
-      .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:0 16px; padding:40px 30px; }
+      .promo__inner { min-height:0; }
+      .promo__img { width:100%; height:300px; }
+      .promo__card { position:static; transform:none; width:auto; margin:-56px 16px 0; padding:40px 30px; }
       .promo-section::before { display:none; }
     }
   </style>'''
