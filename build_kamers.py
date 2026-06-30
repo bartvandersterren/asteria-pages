@@ -182,9 +182,9 @@ BK_CSS += '\n' + REVIEWS_CSS + '\n  .reviews { background: #fff; }\n'
 # Promo/care-CTA blok (foto met overlappend tekstkader) — brand-consistent: licht, geen ornament
 BK_CSS += ('\n  .promo-section { position:relative; background:#f6f5f3; padding:80px 0; }\n'
            '  .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }\n'
-           '  .promo__inner { position:relative; min-height:540px; }\n'
-           '  .promo__img { width:62%; height:540px; object-fit:cover; border-radius:20px; display:block; margin-left:auto; }\n'
-           '  .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#fff; color:#1a1a1a; padding:50px 44px; border-radius:20px; box-shadow:0 18px 50px rgba(0,0,0,.10); }\n'
+           '  .promo__inner { position:relative; }\n'
+           '  .promo__img { width:100%; height:480px; object-fit:cover; border-radius:18px; display:block; }\n'
+           '  .promo__card { position:relative; z-index:3; max-width:880px; margin:calc(-1 * var(--overlap, 70px)) auto 0; background:#fff; color:#1a1a1a; padding:50px 48px; border-radius:18px; box-shadow:0 18px 50px rgba(0,0,0,.10); }\n'
            '  .promo__card .section-eyebrow { color:#c23435; }\n'
            '  .promo__card h2 { font-family:Electrolize,sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#1a1a1a; margin-bottom:16px; }\n'
            '  .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:#475569; margin-bottom:26px; }\n'
@@ -193,9 +193,13 @@ BK_CSS += ('\n  .promo-section { position:relative; background:#f6f5f3; padding:
            '  .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid #c23435; color:#c23435; background:transparent; border-radius:8px; padding:13px 26px; font-size:14px; font-family:Montserrat,sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }\n'
            '  .promo__btns .btn-light:hover { background:#c23435; color:#fff; }\n'
            '  @media (max-width: 860px) {\n'
-           '    .promo__inner { min-height:0; }\n'
-           '    .promo__img { width:100%; height:300px; }\n'
-           '    .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:38px 28px; }\n'
+           '    .promo__img { height:300px; }\n'
+           '    .promo__card { padding:38px 28px; }\n'
+           '  }\n'
+           '  @media (max-width: 560px) {\n'
+           '    .promo { padding:0; }\n'
+           '    .promo__img { border-radius:0; }\n'
+           '    .promo__card { margin-left:16px; margin-right:16px; }\n'
            '  }\n')
 
 # Contact-kaart (cream) variant van het promo-blok
@@ -206,10 +210,7 @@ BK_CSS += ('\n  .promo__card.care-card { background: #fff; color: #1a1a1a; }\n'
            '  .care-contact__row:hover { color: #a82c2c; }\n'
            '  .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }\n'
            '  .care-contact__icon svg { width: 18px; height: 18px; }\n'
-           # Gespiegelde variant: foto links, tekstkader rechts (kamertypes)
-           '  .promo--flip .promo__img { margin-left: 0; margin-right: auto; }\n'
-           '  .promo--flip .promo__card { left: auto; right: 0; }\n'
-           '  @media (max-width: 860px) { .promo--flip .promo__card { margin: -34px 0 0; } }\n'
+           # promo--flip is niet meer nodig: de kaart is altijd gecentreerd over de onderkant van de foto
            # Eén groot, heel licht Asteria-merkteken over de volledige breedte, loopt over meerdere blokken heen
            '  .pagewm { position: relative; }\n'
            '  .pagewm::before { content: \'\'; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; aspect-ratio: 598 / 925; background: url(fotos/pattern-asteria-1.webp) no-repeat center / contain; opacity: .08; pointer-events: none; z-index: 2; }\n')
