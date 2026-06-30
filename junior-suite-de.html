@@ -1458,6 +1458,15 @@
     .promo-section::before { display:none; }
   }
 
+  .care-card { background: #f6f2e9; color: #1a1a1a; }
+  .care-card h2 { color: #1a1a1a; }
+  .care-card p { color: #4a4a45; margin-bottom: 30px; }
+  .care-contact { display: flex; flex-direction: column; gap: 14px; }
+  .care-contact__row { display: flex; align-items: center; gap: 13px; color: #c23435; font-size: 15px; font-weight: 500; text-decoration: none; transition: color .2s; }
+  .care-contact__row:hover { color: #a82c2c; }
+  .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }
+  .care-contact__icon svg { width: 18px; height: 18px; }
+
   </style>
 </head>
 <body>
@@ -1904,18 +1913,17 @@
   </div>
 </section>
 
-<!-- ══ CARE-CTA ══════════════════════════════════════════════ -->
+<!-- ══ CONTACT-CTA ═══════════════════════════════════════════ -->
 <section class="promo-section care-section">
   <div class="promo">
     <div class="promo__inner">
-      <img class="promo__img" src="fotos/care-receptie.webp" alt="Alles für einen sorglosen Aufenthalt" loading="lazy">
-      <div class="promo__card">
-        <span class="section-eyebrow">Alles für einen sorglosen Aufenthalt</span>
-        <h2>Vom frühen Check-in bis zum späten Check-out</h2>
-        <p>Möchten Sie früher anreisen oder etwas länger bleiben? Mit unserem Early Check-in oder Late Check-out holen Sie das Beste aus Ihrem Aufenthalt heraus. Und mit großzügigen Parkmöglichkeiten, einem abschließbaren Fahrradraum und unserem 300 m² großen Wellnessbereich im Top Floor ist Ihr Komfort komplett.</p>
-        <div class="promo__btns">
-          <a class="btn-light" href="https://www.asteria.nl/arrangementen">Arrangements ansehen</a>
-          <a class="btn-primary" href="#" onclick="window.openBooking();return false;" data-track-cta="care">Direkt reservieren</a>
+      <img class="promo__img" src="fotos/care-receptie.webp" alt="Möchten Sie mehr erfahren?" loading="lazy">
+      <div class="promo__card care-card">
+        <h2>Möchten Sie mehr erfahren?</h2>
+        <p>Haben Sie eine Frage zu Ihrem Aufenthalt, einen besonderen Wunsch oder buchen Sie lieber telefonisch? Unsere Rezeption hilft Ihnen gerne persönlich weiter.</p>
+        <div class="care-contact">
+          <a class="care-contact__row" href="mailto:info@asteria.nl"><span class="care-contact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg></span>info@asteria.nl</a>
+          <a class="care-contact__row" href="tel:0031478511466"><span class="care-contact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg></span>0478 511 466</a>
         </div>
       </div>
     </div>
