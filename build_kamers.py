@@ -120,7 +120,8 @@ BK_TR = {
        (">Kies uw kamer</h2>",">Choose your room</h2>"),("Bekijk beschikbaarheid &rarr;","Check availability →"),
        ("Bekijk beschikbaarheid \\u2192","Check availability \\u2192"),("&larr; Aanpassen","← Adjust"),
        ("&larr; Terug","← Back"),("Laden\\u2026","Loading\\u2026"),("Kies een kamer","Choose a room"),
-       (">Vol<",">Full<"),(">meer info<",">more info<"),("Selecteer deze kamer","Select this room")],
+       (">Vol<",">Full<"),(">meer info<",">more info<"),("Selecteer deze kamer","Select this room"),
+       (">Personen</span>",">Guests</span>")],
  'de':[("var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',",
         "var MONTH_NAMES = ['Januar','Februar','März','April','Mai','Juni',"),
        ("'Juli','Augustus','September','Oktober','November','December'];",
@@ -157,8 +158,10 @@ def rooms_js(lang):
     return 'window.ROOMS = ' + json.dumps(obj, ensure_ascii=False) + ';'
 
 def booking_bundle(lang):
-    override = ("window.openBooking = function (k) { if (window.ROOMS && window.ROOMS[k]) "
-                "window.openBookingPopup(k); else window.openBookingPopup(); };")
+    override = ("window.openBooking = function (k) { "
+                "var bb = document.getElementById('bbGuests'), bk = document.getElementById('bkGuests'); "
+                "if (bb && bk) bk.value = bb.value; "
+                "if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };")
     return '\n'.join([rooms_js(lang), bk_localize(DATEPICKER, lang), bk_localize(BOOKING, lang), override])
 
 SUFFIX = {'nl': '', 'en': '-en', 'de': '-de'}
@@ -792,8 +795,7 @@ def build_page(r, lang):
       <div class="bookbar__field">
         <span class="bookbar__label">{ui('gasten',lang)}</span>
         <select class="bookbar__value" id="bbGuests">
-          <option value="2">{ui('pers2',lang)}</option>
-          <option value="1">{ui('pers1',lang)}</option>
+          {guest_opts(lang)}
         </select>
       </div>
       <div class="bookbar__field">
@@ -1055,8 +1057,7 @@ def build_overview(lang):
       <div class="bookbar__field">
         <span class="bookbar__label">{ui('gasten',lang)}</span>
         <select class="bookbar__value" id="bbGuests">
-          <option value="2">{ui('pers2',lang)}</option>
-          <option value="1">{ui('pers1',lang)}</option>
+          {guest_opts(lang)}
         </select>
       </div>
       <div class="bookbar__field">
@@ -1206,6 +1207,10 @@ comfort = comfort.replace('<link rel="alternate" hreflang="de" href="https://www
 comfort = _SW_RE.sub(lambda m: lang_switcher('comfort-kamer', 'nl'), comfort)
 comfort = comfort.replace('<a href="https://www.asteria.nl/kamers">Kamers en Suites</a>',
                           '<a href="/kamertypes">Kamers en Suites</a>')
+# Boekbalk comfort: 1–8 personen
+comfort = comfort.replace(
+    '          <option value="2">2 personen</option>\n          <option value="1">1 persoon</option>',
+    '          ' + guest_opts('nl'))
 # Boekingsmodule in comfort-kamer.html injecteren (idempotent via markers)
 for _tag in ('BK-HEAD', 'BK-CSS', 'BK-MARKUP', 'BK-JS'):
     comfort = re.sub('\\n?<!--' + _tag + '-->.*?<!--/' + _tag + '-->', '', comfort, flags=re.S)

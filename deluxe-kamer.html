@@ -1216,6 +1216,10 @@
     font-family: inherit;
     border: none;
   }
+  .bk-guests { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; margin-bottom: 12px; background: #f6f5f3; border-radius: 10px; }
+  .bk-guests__label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b6b6b; }
+  .bk-guests__select { font-family: Montserrat, sans-serif; font-size: 15px; border: 1px solid #d8d8d8; border-radius: 8px; padding: 8px 14px; background: #fff; cursor: pointer; color: #1a1a1a; }
+
   </style>
 </head>
 <body>
@@ -1282,8 +1286,14 @@
       <div class="bookbar__field">
         <span class="bookbar__label">Gasten</span>
         <select class="bookbar__value" id="bbGuests">
-          <option value="2">2 personen</option>
           <option value="1">1 persoon</option>
+          <option value="2" selected>2 personen</option>
+          <option value="3">3 personen</option>
+          <option value="4">4 personen</option>
+          <option value="5">5 personen</option>
+          <option value="6">6 personen</option>
+          <option value="7">7 personen</option>
+          <option value="8">8 personen</option>
         </select>
       </div>
       <div class="bookbar__field">
@@ -1650,6 +1660,10 @@
       <h2 class="bk-title">Kies uw verblijfsdata</h2>
       <div id="bkCalendar"></div>
       <div class="bk-sticky-footer">
+        <div class="bk-guests">
+          <span class="bk-guests__label">Personen</span>
+          <select class="bk-guests__select" id="bkGuests"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option></select>
+        </div>
         <div class="bk-summary" id="bkSummary" aria-live="polite">
           <div class="bk-summary__field">
             <span class="bk-summary__label">Aankomst</span>
@@ -2141,6 +2155,8 @@ window.ROOMS = {"comfort": {"name": "Comfort kamer", "upgrade": "", "mewsCategor
     return d.getFullYear() + '-' + (mm < 10 ? '0' : '') + mm + '-' + (dd < 10 ? '0' : '') + dd;
   }
 
+  function bkGuestCount() { var g = document.getElementById('bkGuests'); var n = g ? parseInt(g.value, 10) : 2; return (n >= 1 && n <= 8) ? n : 2; }
+
   var availabilityCache = {}; // key: "YYYY-MM-DD|YYYY-MM-DD" -> { categoryId: { available, lowestPrice } }
 
   function fetchAvailability(checkin, checkout, callback) {
@@ -2191,7 +2207,7 @@ window.ROOMS = {"comfort": {"name": "Comfort kamer", "upgrade": "", "mewsCategor
 
   function buildBookingUrl(checkin, checkout, roomKey) {
     var url = MEWS_BASE + '?mewsStart=' + toYMD(checkin)
-      + '&mewsEnd='   + toYMD(checkout);
+      + '&mewsEnd='   + toYMD(checkout) + '&mewsAdultCount=' + bkGuestCount();
     if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
       var catId = window.ROOMS[roomKey].mewsCategoryId;
       url += '&mewsRoute=rates&mewsRoom=' + catId;
@@ -2286,6 +2302,7 @@ window.ROOMS = {"comfort": {"name": "Comfort kamer", "upgrade": "", "mewsCategor
     function doOpen() {
       window.mewsApi.setStartDate(checkin);
       window.mewsApi.setEndDate(checkout);
+      if (window.mewsApi.setAdultCount) window.mewsApi.setAdultCount(bkGuestCount());
       window.mewsApi.open();
     }
     if (window.mewsApi) {
@@ -2465,7 +2482,7 @@ window.ROOMS = {"comfort": {"name": "Comfort kamer", "upgrade": "", "mewsCategor
   });
 
 }());
-window.openBooking = function (k) { if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };
+window.openBooking = function (k) { var bb = document.getElementById('bbGuests'), bk = document.getElementById('bkGuests'); if (bb && bk) bk.value = bb.value; if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };
 </script>
 
 </body>
