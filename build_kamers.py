@@ -71,6 +71,37 @@ BOOKING = BOOKING.replace(
     "var ROOM_KEYS = ['comfort', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];",
     "var ROOM_KEYS = ['comfort', 'comfort-3', 'mindervalide', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];")
 
+# Aantal personen (1–8) doorgeven aan Mews
+BOOKING = BOOKING.replace(
+    "  function toYMD(d) {\n    var mm = d.getMonth() + 1;\n    var dd = d.getDate();\n    return d.getFullYear() + '-' + (mm < 10 ? '0' : '') + mm + '-' + (dd < 10 ? '0' : '') + dd;\n  }\n",
+    "  function toYMD(d) {\n    var mm = d.getMonth() + 1;\n    var dd = d.getDate();\n    return d.getFullYear() + '-' + (mm < 10 ? '0' : '') + mm + '-' + (dd < 10 ? '0' : '') + dd;\n  }\n\n  function bkGuestCount() { var g = document.getElementById('bkGuests'); var n = g ? parseInt(g.value, 10) : 2; return (n >= 1 && n <= 8) ? n : 2; }\n")
+BOOKING = BOOKING.replace(
+    "      + '&mewsEnd='   + toYMD(checkout);",
+    "      + '&mewsEnd='   + toYMD(checkout) + '&mewsAdultCount=' + bkGuestCount();")
+BOOKING = BOOKING.replace(
+    "      window.mewsApi.setEndDate(checkout);\n      window.mewsApi.open();",
+    "      window.mewsApi.setEndDate(checkout);\n      if (window.mewsApi.setAdultCount) window.mewsApi.setAdultCount(bkGuestCount());\n      window.mewsApi.open();")
+
+# Personenkiezer (1–8) in de popup
+_guest_opts_pop = ''.join('<option value="%d"%s>%d</option>' % (n, ' selected' if n == 2 else '', n) for n in range(1, 9))
+BK_MARKUP = BK_MARKUP.replace(
+    '<div class="bk-summary" id="bkSummary"',
+    '<div class="bk-guests">\n          <span class="bk-guests__label">Personen</span>\n          '
+    '<select class="bk-guests__select" id="bkGuests">' + _guest_opts_pop + '</select>\n        </div>\n        '
+    '<div class="bk-summary" id="bkSummary"', 1)
+BK_CSS += ('\n  .bk-guests { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; margin-bottom: 12px; background: #f6f5f3; border-radius: 10px; }\n'
+           '  .bk-guests__label { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b6b6b; }\n'
+           '  .bk-guests__select { font-family: Montserrat, sans-serif; font-size: 15px; border: 1px solid #d8d8d8; border-radius: 8px; padding: 8px 14px; background: #fff; cursor: pointer; color: #1a1a1a; }\n')
+
+def guest_opts(lang):
+    sing = {'nl': 'persoon', 'en': 'guest', 'de': 'Person'}[lang]
+    plur = {'nl': 'personen', 'en': 'guests', 'de': 'Personen'}[lang]
+    out = []
+    for n in range(1, 9):
+        lbl = f'{n} {sing if n == 1 else plur}'
+        out.append(f'<option value="{n}"{" selected" if n == 2 else ""}>{lbl}</option>')
+    return '\n          '.join(out)
+
 BK_TR = {
  'en':[("var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',",
         "var MONTH_NAMES = ['January','February','March','April','May','June',"),
@@ -949,9 +980,9 @@ def build_overview(lang):
     .promo__btns .btn-light:hover { background:#fff; color:#242424; }
     @media (max-width: 860px) {
       .ov-checklist { grid-template-columns:1fr; max-width:340px; gap:12px; }
-      .promo__inner { min-height:0; }
-      .promo__img { width:100%; height:300px; }
-      .promo__card { position:static; transform:none; width:auto; margin:-56px 16px 0; padding:40px 30px; }
+      .promo__inner { min-height:0; display:flex; flex-direction:column-reverse; }
+      .promo__img { width:100%; height:300px; margin-top:-48px; }
+      .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:0 16px; padding:40px 30px; }
       .promo-section::before { display:none; }
     }
   </style>'''
