@@ -69,6 +69,35 @@ BOOKING = BOOKING.replace("var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER +
 BOOKING = BOOKING.replace("      window.mewsApi.setVoucherCode(VOUCHER);\n", "")
 BOOKING = BOOKING.replace("        VoucherCode: VOUCHER,\n", "")
 
+# Reviews-slider overnemen van de arrangementpagina
+_rcs = ARRSRC.rindex('/*', 0, ARRSRC.index('.reviews {'))
+_rce = ARRSRC.rindex('/*', 0, ARRSRC.index('.footer {'))
+REVIEWS_CSS = ARRSRC[_rcs:_rce].rstrip()
+REVIEWS_MARKUP = _bt('<!-- ══ REVIEWS', '<!-- ══ OMGEVING').rstrip()
+REVIEWS_JS = _bt('/* ── Reviews marquee ── */', '}());', True)
+REVIEWS_JS = REVIEWS_JS.replace(
+    "var track = document.getElementById('reviewsTrack');",
+    "var track = document.getElementById('reviewsTrack');\n    if (!track) return;")
+REV_TR = {
+ 'en': [('>2.219 beoordelingen</span>', '>2,219 reviews</span>'),
+        ('Reviews worden geladen&hellip;', 'Loading reviews&hellip;'),
+        ('>4,2</span>', '>4.2</span>'),
+        ("toLocaleString('nl-NL')", "toLocaleString('en-US')"),
+        ("'2.219') + ' beoordelingen'", "'2,219') + ' reviews'"),
+        ("data.rating.toFixed(1).replace('.', ',')", "data.rating.toFixed(1)"),
+        ("'4,2';", "'4.2';")],
+ 'de': [('>2.219 beoordelingen</span>', '>2.219 Bewertungen</span>'),
+        ('Reviews worden geladen&hellip;', 'Bewertungen werden geladen&hellip;'),
+        ("toLocaleString('nl-NL')", "toLocaleString('de-DE')"),
+        ("'2.219') + ' beoordelingen'", "'2.219') + ' Bewertungen'")],
+}
+def rev_localize(text, lang):
+    if lang == 'nl':
+        return text
+    for a, b in REV_TR[lang]:
+        text = text.replace(a, b)
+    return text
+
 CATEGORY = {'comfort':'98900f3b-e5e2-49c9-9776-af1d00ffc315','comfort-3':'85ca19d7-eea5-41c8-8b93-af1d00ffc315',
             'mindervalide':'fa5b6540-7234-49ce-beb1-af1d00ffc315','royale':'a8fd7310-0d61-422f-89e6-af1d00ffc315',
             'deluxe':'c737de50-e41e-4c8d-a818-af1d00ffc315','junior-suite':'27ea8deb-ded5-4856-8fdd-af1d00ffc315',
@@ -146,6 +175,49 @@ BK_CSS += ('\n  .hero__title { font-size: clamp(30px, 4.6vw, 50px); }\n'
            '  .hero__btn--outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.75); }\n'
            '  .hero__btn--outline:hover { background: #fff; color: #1a1a1a; }\n'
            '  #roomList { scroll-margin-top: 96px; }\n')
+
+# Reviews-slider CSS (en wat marge t.o.v. omringende secties)
+BK_CSS += '\n' + REVIEWS_CSS + '\n  .reviews { background: #fff; }\n'
+
+# Promo/care-CTA blok (foto met overlappend tekstkader) — ook op detailpagina's
+BK_CSS += ('\n  .promo-section { position:relative; overflow:hidden; background:#e9e4dd; padding:84px 0 92px; }\n'
+           '  .promo-section::before { content:\'\'; position:absolute; left:-190px; bottom:-210px; width:560px; height:560px; border-radius:50%; border:72px solid #f1ede7; opacity:.65; pointer-events:none; }\n'
+           '  .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }\n'
+           '  .promo__inner { position:relative; min-height:560px; }\n'
+           '  .promo__img { width:62%; height:560px; object-fit:cover; border-radius:18px; display:block; margin-left:auto; box-shadow:0 24px 50px rgba(0,0,0,.12); }\n'
+           '  .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#242424; color:#fff; padding:52px 46px; border-radius:18px; box-shadow:0 30px 70px rgba(0,0,0,.22); }\n'
+           '  .promo__card .section-eyebrow { color:#e8923a; }\n'
+           '  .promo__card h2 { font-family:Electrolize,sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#fff; margin-bottom:16px; }\n'
+           '  .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:rgba(255,255,255,.85); margin-bottom:26px; }\n'
+           '  .promo__btns { display:flex; gap:12px; flex-wrap:wrap; }\n'
+           '  .promo__btns .btn-primary { width:auto; padding:13px 24px; }\n'
+           '  .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; border-radius:10px; padding:13px 24px; font-size:14px; font-family:Montserrat,sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }\n'
+           '  .promo__btns .btn-light:hover { background:#fff; color:#242424; }\n'
+           '  @media (max-width: 860px) {\n'
+           '    .promo__inner { min-height:0; }\n'
+           '    .promo__img { width:100%; height:300px; }\n'
+           '    .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:40px 30px; }\n'
+           '    .promo-section::before { display:none; }\n'
+           '  }\n')
+
+def care_block(lang):
+    return f'''<!-- ══ CARE-CTA ══════════════════════════════════════════════ -->
+<section class="promo-section care-section">
+  <div class="promo">
+    <div class="promo__inner">
+      <img class="promo__img" src="fotos/care-receptie.webp" alt="{ui('care_eyebrow',lang)}" loading="lazy">
+      <div class="promo__card">
+        <span class="section-eyebrow">{ui('care_eyebrow',lang)}</span>
+        <h2>{ui('care_h',lang)}</h2>
+        <p>{ui('care_p',lang)}</p>
+        <div class="promo__btns">
+          <a class="btn-light" href="https://www.asteria.nl/arrangementen">{ui('promo_btn1',lang)}</a>
+          <a class="btn-primary" href="#" onclick="window.openBooking();return false;" data-track-cta="care">{ui('promo_btn2',lang)}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>'''
 
 SP_BASE = {'comfort': 7, 'comfort-3': 5, 'mindervalide': 3, 'royale': 6, 'deluxe': 5, 'junior-suite': 4, 'suite': 4, 'bruidssuite': 3}
 SP_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12z"/></svg>'
@@ -240,7 +312,7 @@ def booking_bundle(lang):
                 "var ps = s && s.value ? new Date(s.value + 'T00:00:00') : null, pe = e && e.value ? new Date(e.value + 'T00:00:00') : null; "
                 "window._bkPrefill = (ps && pe && pe > ps) ? { start: ps, end: pe } : null; "
                 "if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };")
-    return '\n'.join([rooms_js(lang), bk_localize(DATEPICKER, lang), bk_localize(BOOKING, lang), override, SP_JS])
+    return '\n'.join([rooms_js(lang), bk_localize(DATEPICKER, lang), bk_localize(BOOKING, lang), override, SP_JS, rev_localize(REVIEWS_JS, lang)])
 
 SUFFIX = {'nl': '', 'en': '-en', 'de': '-de'}
 HTMLLANG = {'nl': 'nl', 'en': 'en', 'de': 'de'}
@@ -300,6 +372,11 @@ UI.update({
  'usp2_s':{'nl':'Bij elke directe boeking','en':'With every direct booking','de':'Bei jeder Direktbuchung'},
  'usp3_t':{'nl':'Gratis upgrade','en':'Free upgrade','de':'Kostenloses Upgrade'},
  'usp3_s':{'nl':'Indien beschikbaar','en':'Subject to availability','de':'Je nach Verfügbarkeit'},
+ 'care_eyebrow':{'nl':'Alles voor een zorgeloos verblijf','en':'Everything for a carefree stay','de':'Alles für einen sorglosen Aufenthalt'},
+ 'care_h':{'nl':'Van vroeg inchecken tot laat uitchecken','en':'From early check-in to late check-out','de':'Vom frühen Check-in bis zum späten Check-out'},
+ 'care_p':{'nl':'Wilt u eerder aankomen of juist nog wat langer blijven? Met onze early check-in of late check-out haalt u alles uit uw verblijf. En met ruime parkeergelegenheid, een afgesloten fietsenstalling en onze wellness van 300 m² op de Top Floor is uw comfort compleet.',
+           'en':'Would you like to arrive earlier or stay a little longer? With our early check-in or late check-out you get the most out of your stay. And with ample parking, a secure bicycle storage and our 300 m² wellness area on the Top Floor, your comfort is complete.',
+           'de':'Möchten Sie früher anreisen oder etwas länger bleiben? Mit unserem Early Check-in oder Late Check-out holen Sie das Beste aus Ihrem Aufenthalt heraus. Und mit großzügigen Parkmöglichkeiten, einem abschließbaren Fahrradraum und unserem 300 m² großen Wellnessbereich im Top Floor ist Ihr Komfort komplett.'},
  'crumb_overview':{'nl':'Kamertypes','en':'Room types','de':'Zimmertypen'},
  'ov_hero':   {'nl':'Onze kamertypes','en':'Our room types','de':'Unsere Zimmertypen'},
  'ov_book':   {'nl':'Boek hier je verblijf','en':'Book your stay here','de':'Buchen Sie hier Ihren Aufenthalt'},
@@ -991,6 +1068,8 @@ def build_page(r, lang):
 
 {shell(INCLUDED, lang)}
 
+{rev_localize(REVIEWS_MARKUP, lang)}
+
 <!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
 <section class="types">
   <div class="wrap">
@@ -1013,6 +1092,8 @@ def build_page(r, lang):
 
 {arr_for(lang)}
 {faq_for(r, lang)}
+{care_block(lang)}
+
 <!-- ══ STICKY MOBILE CTA ═════════════════════════════════════ -->
 <div class="sticky-cta">
   <div class="sticky-cta__price">{name}<b>{ui('sticky_from',lang)} &euro;{price}</b></div>
@@ -1284,6 +1365,8 @@ def build_overview(lang):
   </div>
 </section>
 
+{care_block(lang)}
+
 {bk_localize(BK_MARKUP, lang)}
 
 {shell(FOOTER, lang)}
@@ -1359,6 +1442,12 @@ if 'social-proof' not in comfort:
     comfort = comfort.replace(
         '<a class="btn-primary" href="#" onclick="window.openBooking(\'comfort\');return false;" data-track-cta="intro_reserve">Reserveren direct</a>',
         '<a class="btn-primary" href="#" onclick="window.openBooking(\'comfort\');return false;" data-track-cta="intro_reserve">Reserveren direct</a>\n        ' + social_proof('comfort', 'nl'), 1)
+# Reviews-slider onder de inclusief-balk (comfort NL)
+if 'reviews__track' not in comfort:
+    comfort = comfort.replace('<!-- ══ KAMERTYPES', REVIEWS_MARKUP + '\n\n<!-- ══ KAMERTYPES', 1)
+# Care-CTA onder de FAQ (comfort NL)
+if 'care-section' not in comfort:
+    comfort = comfort.replace('<!-- ══ STICKY', care_block('nl') + '\n\n<!-- ══ STICKY', 1)
 # Boekingsmodule in comfort-kamer.html injecteren (idempotent via markers)
 for _tag in ('BK-HEAD', 'BK-CSS', 'BK-MARKUP', 'BK-JS'):
     comfort = re.sub('\\n?<!--' + _tag + '-->.*?<!--/' + _tag + '-->', '', comfort, flags=re.S)

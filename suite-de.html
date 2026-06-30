@@ -1248,6 +1248,216 @@
   .hero__btn--outline:hover { background: #fff; color: #1a1a1a; }
   #roomList { scroll-margin-top: 96px; }
 
+/* ══════════════════════════════════════════════════════════
+       REVIEWS
+    ══════════════════════════════════════════════════════════ */
+    .reviews {
+      background: #f8f7f5;
+      padding: 56px 0 64px;
+      overflow: hidden;
+    }
+    .reviews__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 0 40px;
+      max-width: 1100px;
+      margin: 0 auto 36px;
+    }
+    .reviews__score-block {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .reviews__score {
+      font-family: 'Electrolize', sans-serif;
+      font-size: 44px;
+      font-weight: 400;
+      color: #0f172a;
+      line-height: 1;
+    }
+    .reviews__score-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .reviews__stars { color: #f59e0b; font-size: 15px; letter-spacing: 2px; }
+    .reviews__total {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    /* Live badge */
+    .reviews__live-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid #e8e6e3;
+      border-radius: 100px;
+      padding: 6px 12px 6px 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: #64748b;
+    }
+    .reviews__google-g {
+      width: 16px; height: 16px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.5 0 6.3 1.2 8.4 3.1l6.3-6.3C34.8 3 29.8 1 24 1 14.8 1 6.9 6.6 3.1 14.6l7.4 5.7C12.4 13.5 17.7 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.3-4.7 6.9l7.3 5.7c4.3-4 6.8-9.9 6.8-16.6z'/%3E%3Cpath fill='%23FBBC05' d='M10.5 28.6A14.7 14.7 0 0 1 9.5 24c0-1.6.3-3.1.7-4.6L2.8 13.7A23.9 23.9 0 0 0 1 24c0 3.8.9 7.4 2.5 10.6l7-5.4-.1-.6z'/%3E%3Cpath fill='%2334A853' d='M24 47c5.8 0 10.7-1.9 14.3-5.2l-7.3-5.7c-2 1.3-4.4 2.1-7 2.1-6.3 0-11.6-4-13.5-9.6l-7.4 5.7C6.8 41.4 14.8 47 24 47z'/%3E%3C/svg%3E") center / contain no-repeat;
+      flex-shrink: 0;
+    }
+    .reviews__live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 0 0 rgba(34,197,94,0.4);
+      animation: livePulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes livePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50%       { box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+    }
+
+    /* Marquee */
+    .reviews__marquee-wrap {
+      position: relative;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    }
+    .reviews__track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      animation: marqueeScroll 40s linear infinite;
+    }
+    .reviews__track:hover { animation-play-state: paused; }
+    @keyframes marqueeScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Kaart */
+    .review-card {
+      width: 264px;
+      flex-shrink: 0;
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.04);
+      cursor: default;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      position: relative;
+    }
+    .review-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+      transform: translateY(-2px);
+    }
+    .review-card__google-g {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 14px; height: 14px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.5 0 6.3 1.2 8.4 3.1l6.3-6.3C34.8 3 29.8 1 24 1 14.8 1 6.9 6.6 3.1 14.6l7.4 5.7C12.4 13.5 17.7 9.5 24 9.5z'/%3E%3Cpath fill='%234285F4' d='M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.9-2.2 5.3-4.7 6.9l7.3 5.7c4.3-4 6.8-9.9 6.8-16.6z'/%3E%3Cpath fill='%23FBBC05' d='M10.5 28.6A14.7 14.7 0 0 1 9.5 24c0-1.6.3-3.1.7-4.6L2.8 13.7A23.9 23.9 0 0 0 1 24c0 3.8.9 7.4 2.5 10.6l7-5.4-.1-.6z'/%3E%3Cpath fill='%2334A853' d='M24 47c5.8 0 10.7-1.9 14.3-5.2l-7.3-5.7c-2 1.3-4.4 2.1-7 2.1-6.3 0-11.6-4-13.5-9.6l-7.4 5.7C6.8 41.4 14.8 47 24 47z'/%3E%3C/svg%3E") center / contain no-repeat;
+      opacity: 0.35;
+    }
+    .review-card__top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-right: 20px;
+    }
+    .review-card__avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      object-fit: cover;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+    }
+    .review-card__meta { flex: 1; min-width: 0; }
+    .review-card__name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .review-card__date {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      color: #b0bec5;
+      margin-top: 1px;
+    }
+    .review-card__stars {
+      color: #f59e0b;
+      font-size: 11px;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .review-card__text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: #546e7a;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .reviews__loading {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      color: #94a3b8;
+      padding: 40px;
+    }
+    @media (max-width: 600px) {
+      .reviews { padding: 44px 0 52px; }
+      .reviews__header {
+        padding: 0 20px;
+        margin-bottom: 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .reviews__score { font-size: 38px; }
+      .reviews__live-badge { align-self: flex-start; }
+      .review-card { width: 220px; }
+      .reviews__track { gap: 10px; }
+    }
+  .reviews { background: #fff; }
+
+  .promo-section { position:relative; overflow:hidden; background:#e9e4dd; padding:84px 0 92px; }
+  .promo-section::before { content:''; position:absolute; left:-190px; bottom:-210px; width:560px; height:560px; border-radius:50%; border:72px solid #f1ede7; opacity:.65; pointer-events:none; }
+  .promo { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px; }
+  .promo__inner { position:relative; min-height:560px; }
+  .promo__img { width:62%; height:560px; object-fit:cover; border-radius:18px; display:block; margin-left:auto; box-shadow:0 24px 50px rgba(0,0,0,.12); }
+  .promo__card { position:absolute; left:0; top:50%; transform:translateY(-50%); width:47%; background:#242424; color:#fff; padding:52px 46px; border-radius:18px; box-shadow:0 30px 70px rgba(0,0,0,.22); }
+  .promo__card .section-eyebrow { color:#e8923a; }
+  .promo__card h2 { font-family:Electrolize,sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(24px,2.8vw,32px); color:#fff; margin-bottom:16px; }
+  .promo__card p { font-weight:300; font-size:15px; line-height:1.7; color:rgba(255,255,255,.85); margin-bottom:26px; }
+  .promo__btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .promo__btns .btn-primary { width:auto; padding:13px 24px; }
+  .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; border-radius:10px; padding:13px 24px; font-size:14px; font-family:Montserrat,sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }
+  .promo__btns .btn-light:hover { background:#fff; color:#242424; }
+  @media (max-width: 860px) {
+    .promo__inner { min-height:0; }
+    .promo__img { width:100%; height:300px; }
+    .promo__card { position:relative; z-index:2; transform:none; width:auto; margin:-34px 0 0; padding:40px 30px; }
+    .promo-section::before { display:none; }
+  }
+
   </style>
 </head>
 <body>
@@ -1481,6 +1691,33 @@
 </section>
 
 
+<!-- ══ REVIEWS ══════════════════════════════════════════════ -->
+<section class="reviews" id="reviews" aria-label="Gastbeoordelingen">
+
+  <div class="reviews__header">
+    <div class="reviews__score-block">
+      <span class="reviews__score" id="reviewsScore">4,2</span>
+      <div class="reviews__score-meta">
+        <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="reviews__total" id="reviewsTotal">2.219 Bewertungen</span>
+      </div>
+    </div>
+    <div class="reviews__live-badge" aria-label="Live Google Reviews">
+      <div class="reviews__google-g" aria-hidden="true"></div>
+      Google Reviews
+      <div class="reviews__live-dot" aria-hidden="true"></div>
+      Live
+    </div>
+  </div>
+
+  <div class="reviews__marquee-wrap">
+    <div class="reviews__track" id="reviewsTrack">
+      <p class="reviews__loading">Bewertungen werden geladen&hellip;</p>
+    </div>
+  </div>
+
+</section>
+
 <!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
 <section class="types">
   <div class="wrap">
@@ -1668,6 +1905,24 @@
         <summary>Kann ich meine Reservierung kostenlos stornieren?</summary>
         <div class="faq__a">Das hängt vom gewählten Tarif ab. Bei einem flexiblen Tarif können Sie kostenlos stornieren, bei einem günstigeren, nicht erstattbaren Tarif nicht. Die Bedingungen sehen Sie während der Buchung.</div>
       </details>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CARE-CTA ══════════════════════════════════════════════ -->
+<section class="promo-section care-section">
+  <div class="promo">
+    <div class="promo__inner">
+      <img class="promo__img" src="fotos/care-receptie.webp" alt="Alles für einen sorglosen Aufenthalt" loading="lazy">
+      <div class="promo__card">
+        <span class="section-eyebrow">Alles für einen sorglosen Aufenthalt</span>
+        <h2>Vom frühen Check-in bis zum späten Check-out</h2>
+        <p>Möchten Sie früher anreisen oder etwas länger bleiben? Mit unserem Early Check-in oder Late Check-out holen Sie das Beste aus Ihrem Aufenthalt heraus. Und mit großzügigen Parkmöglichkeiten, einem abschließbaren Fahrradraum und unserem 300 m² großen Wellnessbereich im Top Floor ist Ihr Komfort komplett.</p>
+        <div class="promo__btns">
+          <a class="btn-light" href="https://www.asteria.nl/arrangementen">Arrangements ansehen</a>
+          <a class="btn-primary" href="#" onclick="window.openBooking();return false;" data-track-cta="care">Direkt reservieren</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2520,6 +2775,68 @@ window.ROOMS = {"comfort": {"name": "Komfortzimmer", "upgrade": "", "mewsCategor
 }());
 window.openBooking = function (k) { var bb = document.getElementById('bbGuests'), bk = document.getElementById('bkGuests'); if (bb && bk) bk.value = bb.value; var s = document.getElementById('bbStart'), e = document.getElementById('bbEnd'); var ps = s && s.value ? new Date(s.value + 'T00:00:00') : null, pe = e && e.value ? new Date(e.value + 'T00:00:00') : null; window._bkPrefill = (ps && pe && pe > ps) ? { start: ps, end: pe } : null; if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };
 (function(){var d=new Date(),s=new Date(d.getFullYear(),0,0),day=Math.floor((d-s)/86400000);document.querySelectorAll('.sp-count').forEach(function(el){var b=parseInt(el.getAttribute('data-base'),10)||5;el.textContent=b+(day%3);});}());
+/* ── Reviews marquee ── */
+  (function () {
+    var track = document.getElementById('reviewsTrack');
+    if (!track) return;
+    var score = document.getElementById('reviewsScore');
+    var total = document.getElementById('reviewsTotal');
+
+    var colors = ['#c23435','#1e88e5','#43a047','#8e24aa','#fb8c00'];
+    function colorFor(name) {
+      return colors[(name.charCodeAt(0) || 0) % colors.length];
+    }
+    function starsHtml(n) {
+      var full = Math.round(n);
+      return '&#9733;'.repeat(full) + (full < 5 ? '&#9734;'.repeat(5 - full) : '');
+    }
+    function cardHtml(r, isStatic) {
+      var initials = r.author.split(' ').map(function (w) { return w[0]; }).slice(0, 2).join('');
+      var avatarHtml = (!isStatic && r.avatar)
+        ? '<img class="review-card__avatar" src="' + r.avatar + '" alt="" loading="lazy">'
+        : '<div class="review-card__avatar" style="background:' + colorFor(r.author) + '">' + initials + '</div>';
+      return '<article class="review-card">'
+        + '<div class="review-card__google-g" aria-hidden="true"></div>'
+        + '<div class="review-card__top">'
+        + avatarHtml
+        + '<div class="review-card__meta">'
+        + '<span class="review-card__name">' + r.author + '</span>'
+        + '<span class="review-card__date">' + r.time + '</span>'
+        + '</div>'
+        + '</div>'
+        + '<div class="review-card__stars">' + starsHtml(r.rating) + '</div>'
+        + '<p class="review-card__text">' + r.text + '</p>'
+        + '</article>';
+    }
+
+    function renderMarquee(reviews, isStatic) {
+      // Dupliceer voor naadloze loop
+      var html = reviews.map(function (r) { return cardHtml(r, isStatic); }).join('');
+      track.innerHTML = html + html;
+    }
+
+    var fallback = [
+      { author: 'Rob', time: '24 december 2025', rating: 5, text: 'Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!' },
+      { author: 'Danielle', time: '14 augustus 2025', rating: 5, text: 'We hebben 2 heerlijke dagen Venray gehad met 1 overnachting, diner, ontbijt en late check out. Het diner was top en het ontbijt ook. Personeel heel vriendelijk. Wij komen hier zeker nog eens terug.' },
+      { author: 'Cornelia O.', time: '10 juni 2024', rating: 5, text: 'Was super goed fijne bedden. Koffie apparaat op je kamer. Top hotel.' },
+      { author: 'Judith B.', time: '3 februari 2025', rating: 5, text: 'Geweldig verblijf! Heerlijk gegeten en de omgeving is prachtig voor een fietstocht. Echt genieten.' },
+      { author: 'Martin V.', time: '18 november 2024', rating: 4, text: 'Mooie locatie, vriendelijk personeel. Diner was uitstekend verzorgd.' }
+    ];
+
+    fetch('/api/google-reviews')
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (data.error) throw new Error(data.error);
+        if (score) score.textContent = data.rating ? data.rating.toFixed(1).replace('.', ',') : '4,2';
+        if (total) total.textContent = (data.total ? data.total.toLocaleString('de-DE') : '2.219') + ' Bewertungen';
+        var reviews = (data.reviews || []).slice(0, 8);
+        if (!reviews.length) throw new Error('geen reviews');
+        renderMarquee(reviews, false);
+      })
+      .catch(function () {
+        renderMarquee(fallback, true);
+      });
+  }());
 </script>
 
 </body>
