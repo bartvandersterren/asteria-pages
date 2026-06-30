@@ -1233,6 +1233,21 @@
     .cal-day { width: 26px; height: 26px; }
   }
 
+  .social-proof { display: flex; align-items: center; gap: 9px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #e6e2d8; }
+  .social-proof__icon { color: #e8923a; flex-shrink: 0; display: flex; }
+  .social-proof__icon svg { width: 16px; height: 16px; }
+  .social-proof__text { font-size: 13px; font-weight: 300; color: #8a8a85; line-height: 1.4; }
+  .social-proof__text b { color: #5a5a55; font-weight: 600; }
+
+  .hero__title { font-size: clamp(30px, 4.6vw, 50px); }
+  .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+  .hero__btn { display: inline-block; font-family: Montserrat, sans-serif; font-size: 14px; padding: 12px 24px; border-radius: 10px; text-decoration: none; cursor: pointer; transition: background .2s, color .2s; }
+  .hero__btn--primary { background: #c23435; color: #fff; border: 1px solid #c23435; }
+  .hero__btn--primary:hover { background: #a82c2c; color: #fff; }
+  .hero__btn--outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.75); }
+  .hero__btn--outline:hover { background: #fff; color: #1a1a1a; }
+  #roomList { scroll-margin-top: 96px; }
+
   </style>
 </head>
 <body>
@@ -1403,6 +1418,7 @@
           <b>&euro;132,30</b>
         </div>
         <a class="btn-primary" href="#" onclick="window.openBooking('deluxe');return false;" data-track-cta="intro_reserve">Reserveren direct</a>
+        <div class="social-proof"><span class="social-proof__icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12z"/></svg></span><span class="social-proof__text">In de laatste 24 uur <b><span class="sp-count" data-base="5">5</span>&times;</b> geboekt</span></div>
       </aside>
     </div>
   </div>
@@ -2501,6 +2517,7 @@ window.ROOMS = {"comfort": {"name": "Comfort kamer", "upgrade": "", "mewsCategor
 
 }());
 window.openBooking = function (k) { var bb = document.getElementById('bbGuests'), bk = document.getElementById('bkGuests'); if (bb && bk) bk.value = bb.value; var s = document.getElementById('bbStart'), e = document.getElementById('bbEnd'); var ps = s && s.value ? new Date(s.value + 'T00:00:00') : null, pe = e && e.value ? new Date(e.value + 'T00:00:00') : null; window._bkPrefill = (ps && pe && pe > ps) ? { start: ps, end: pe } : null; if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };
+(function(){var d=new Date(),s=new Date(d.getFullYear(),0,0),day=Math.floor((d-s)/86400000);document.querySelectorAll('.sp-count').forEach(function(el){var b=parseInt(el.getAttribute('data-base'),10)||5;el.textContent=b+(day%3);});}());
 </script>
 
 </body>

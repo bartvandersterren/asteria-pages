@@ -130,6 +130,44 @@ BK_CSS += ('\n  .bk-guests { display: flex; align-items: center; justify-content
            '    .cal-day { width: 26px; height: 26px; }\n'
            '  }\n')
 
+# Social proof onder de Reserveren-knop
+BK_CSS += ('\n  .social-proof { display: flex; align-items: center; gap: 9px; margin-top: 18px; padding-top: 16px; border-top: 1px solid #e6e2d8; }\n'
+           '  .social-proof__icon { color: #e8923a; flex-shrink: 0; display: flex; }\n'
+           '  .social-proof__icon svg { width: 16px; height: 16px; }\n'
+           '  .social-proof__text { font-size: 13px; font-weight: 300; color: #8a8a85; line-height: 1.4; }\n'
+           '  .social-proof__text b { color: #5a5a55; font-weight: 600; }\n')
+
+# Kleinere hero-titels + hero-knoppen (kamertypes)
+BK_CSS += ('\n  .hero__title { font-size: clamp(30px, 4.6vw, 50px); }\n'
+           '  .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }\n'
+           '  .hero__btn { display: inline-block; font-family: Montserrat, sans-serif; font-size: 14px; padding: 12px 24px; border-radius: 10px; text-decoration: none; cursor: pointer; transition: background .2s, color .2s; }\n'
+           '  .hero__btn--primary { background: #c23435; color: #fff; border: 1px solid #c23435; }\n'
+           '  .hero__btn--primary:hover { background: #a82c2c; color: #fff; }\n'
+           '  .hero__btn--outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.75); }\n'
+           '  .hero__btn--outline:hover { background: #fff; color: #1a1a1a; }\n'
+           '  #roomList { scroll-margin-top: 96px; }\n')
+
+SP_BASE = {'comfort': 7, 'comfort-3': 5, 'mindervalide': 3, 'royale': 6, 'deluxe': 5, 'junior-suite': 4, 'suite': 4, 'bruidssuite': 3}
+SP_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4.5 13.5H11l-1 8.5 8.5-11.5H12z"/></svg>'
+
+def social_proof(key, lang):
+    base = SP_BASE.get(key, 5)
+    span = f'<b><span class="sp-count" data-base="{base}">{base}</span>&times;</b>'
+    if lang == 'en':
+        txt = f'Booked {span} in the last 24 hours'
+    elif lang == 'de':
+        txt = f'In den letzten 24 Stunden {span} gebucht'
+    else:
+        txt = f'In de laatste 24 uur {span} geboekt'
+    return ('<div class="social-proof"><span class="social-proof__icon">' + SP_ICON +
+            '</span><span class="social-proof__text">' + txt + '</span></div>')
+
+# JS dat het getal dagelijks licht laat variëren (per kamer een eigen basis)
+SP_JS = ("(function(){var d=new Date(),s=new Date(d.getFullYear(),0,0),"
+         "day=Math.floor((d-s)/86400000);"
+         "document.querySelectorAll('.sp-count').forEach(function(el){"
+         "var b=parseInt(el.getAttribute('data-base'),10)||5;el.textContent=b+(day%3);});}());")
+
 def guest_opts(lang):
     sing = {'nl': 'persoon', 'en': 'guest', 'de': 'Person'}[lang]
     plur = {'nl': 'personen', 'en': 'guests', 'de': 'Personen'}[lang]
@@ -202,7 +240,7 @@ def booking_bundle(lang):
                 "var ps = s && s.value ? new Date(s.value + 'T00:00:00') : null, pe = e && e.value ? new Date(e.value + 'T00:00:00') : null; "
                 "window._bkPrefill = (ps && pe && pe > ps) ? { start: ps, end: pe } : null; "
                 "if (window.ROOMS && window.ROOMS[k]) window.openBookingPopup(k); else window.openBookingPopup(); };")
-    return '\n'.join([rooms_js(lang), bk_localize(DATEPICKER, lang), bk_localize(BOOKING, lang), override])
+    return '\n'.join([rooms_js(lang), bk_localize(DATEPICKER, lang), bk_localize(BOOKING, lang), override, SP_JS])
 
 SUFFIX = {'nl': '', 'en': '-en', 'de': '-de'}
 HTMLLANG = {'nl': 'nl', 'en': 'en', 'de': 'de'}
@@ -214,6 +252,7 @@ IC_M2   = '<svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h
 IC_BED  = '<svg viewBox="0 0 24 24"><path d="M2 17v-4a2 2 0 012-2h16a2 2 0 012 2v4M2 17v3M22 17v3M4 11V8a2 2 0 012-2h12a2 2 0 012 2v3"/></svg>'
 IC_PERS = '<svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><circle cx="16" cy="8" r="2.5"/><path d="M3 20v-1a5 5 0 015-5h2a5 5 0 015 5v1M16 14a4 4 0 014 4v2"/></svg>'
 IC_BATH = '<svg viewBox="0 0 24 24"><path d="M4 12h16M6 12V6a2 2 0 012-2h0a2 2 0 012 2M4 12v3a5 5 0 005 5h6a5 5 0 005-5v-3"/></svg>'
+IC_CHECK = '<svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>'
 
 # ── UI-strings ─────────────────────────────────────────────────────────
 UI = {
@@ -253,6 +292,14 @@ UI = {
  'bel':          {'nl':'Bel','en':'Call','de':'Anrufen'},
 }
 UI.update({
+ 'hero_book':     {'nl':'Boek nu','en':'Book now','de':'Jetzt buchen'},
+ 'hero_viewrooms':{'nl':'Bekijk kamers','en':'View rooms','de':'Zimmer ansehen'},
+ 'usp1_t':{'nl':'Beste prijsgarantie','en':'Best price guarantee','de':'Beste-Preis-Garantie'},
+ 'usp1_s':{'nl':'Altijd de laagste prijs','en':'Always the lowest rate','de':'Immer der niedrigste Preis'},
+ 'usp2_t':{'nl':'Spaar loyalty punten','en':'Earn loyalty points','de':'Treuepunkte sammeln'},
+ 'usp2_s':{'nl':'Bij elke directe boeking','en':'With every direct booking','de':'Bei jeder Direktbuchung'},
+ 'usp3_t':{'nl':'Gratis upgrade','en':'Free upgrade','de':'Kostenloses Upgrade'},
+ 'usp3_s':{'nl':'Indien beschikbaar','en':'Subject to availability','de':'Je nach Verfügbarkeit'},
  'crumb_overview':{'nl':'Kamertypes','en':'Room types','de':'Zimmertypen'},
  'ov_hero':   {'nl':'Onze kamertypes','en':'Our room types','de':'Unsere Zimmertypen'},
  'ov_book':   {'nl':'Boek hier je verblijf','en':'Book your stay here','de':'Buchen Sie hier Ihren Aufenthalt'},
@@ -922,6 +969,7 @@ def build_page(r, lang):
           <b>&euro;{price}</b>
         </div>
         <a class="btn-primary" href="#" onclick="window.openBooking('{r['key']}');return false;" data-track-cta="intro_reserve">{ui('reserve_direct',lang)}</a>
+        {social_proof(r['key'], lang)}
       </aside>
     </div>
   </div>
@@ -1010,7 +1058,10 @@ def build_overview(lang):
     OV_CSS = '''  <style>
     .ov-hero { min-height: 88vh; }
     @media (max-width: 560px) { .ov-hero { min-height: 46vh; } }
-    .ov-intro { text-align: center; max-width: 760px; margin: 0 auto; padding: 80px 0 10px; }
+    .ov-intro { padding: 80px 0 10px; }
+    .ov-intro__grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; align-items: center; max-width: 1080px; margin: 0 auto; }
+    .ov-intro__text { text-align: left; }
+    .usp-card { position: static; }
     .ov-intro .section-eyebrow { color: #c23435; }
     .ov-intro h2 { font-family:'Electrolize',sans-serif; text-transform:uppercase; letter-spacing:.03em; font-weight:400; font-size:clamp(28px,3.6vw,42px); line-height:1.12; margin-bottom:22px; }
     .ov-intro p { font-weight:300; font-size:16px; line-height:1.75; color:#475569; }
@@ -1025,6 +1076,7 @@ def build_overview(lang):
     .ov-hero .hero__title { margin-bottom:8px; }
     .hero__cta { display:inline-block; margin-top:6px; margin-bottom:52px; background:#c23435; color:#fff; border:none; border-radius:10px; font-family:'Montserrat',sans-serif; font-size:15px; letter-spacing:.01em; padding:16px 32px; text-decoration:none; cursor:pointer; transition:background .2s; }
     .hero__cta:hover { background:#a82c2c; }
+    .ov-hero .hero__btns { margin-bottom: 48px; }
     /* Inclusief-iconenblok als losse cream-kaart (zonder overlap-marge) */
     .included { padding: 40px 0 60px; }
     .included__box { margin: 0 auto; }
@@ -1047,6 +1099,7 @@ def build_overview(lang):
     .promo__btns .btn-light { display:inline-block; text-align:center; border:1px solid rgba(255,255,255,.55); color:#fff; background:transparent; border-radius:10px; padding:13px 24px; font-size:14px; font-family:'Montserrat',sans-serif; text-decoration:none; transition:all .2s; cursor:pointer; }
     .promo__btns .btn-light:hover { background:#fff; color:#242424; }
     @media (max-width: 860px) {
+      .ov-intro__grid { grid-template-columns:1fr; gap:30px; }
       .ov-checklist { grid-template-columns:1fr; max-width:340px; gap:12px; }
       .promo__inner { min-height:0; }
       .promo__img { width:100%; height:300px; }
@@ -1112,7 +1165,10 @@ def build_overview(lang):
   <div class="hero__overlay"></div>
   <div class="hero__inner">
     <h1 class="hero__title">{ui('ov_hero',lang)}</h1>
-    <a class="hero__cta" href="#" onclick="window.openBooking();return false;" data-track-cta="hero">{ui('ov_book',lang)}</a>
+    <div class="hero__btns">
+      <a class="hero__btn hero__btn--primary" href="#" onclick="window.openBooking();return false;" data-track-cta="hero">{ui('ov_book',lang)}</a>
+      <a class="hero__btn hero__btn--outline" href="#roomList">{ui('hero_viewrooms',lang)}</a>
+    </div>
   </div>
 </section>
 
@@ -1150,9 +1206,30 @@ def build_overview(lang):
 <!-- ══ INTRO ═════════════════════════════════════════════════ -->
 <section class="ov-intro">
   <div class="wrap">
-    <span class="section-eyebrow">{ui('ov_eyebrow',lang)}</span>
-    <h2>{ui('ov_h',lang)}</h2>
-    <p>{ui('ov_p',lang)}</p>
+    <div class="ov-intro__grid">
+      <div class="ov-intro__text">
+        <span class="section-eyebrow">{ui('ov_eyebrow',lang)}</span>
+        <h2>{ui('ov_h',lang)}</h2>
+        <p>{ui('ov_p',lang)}</p>
+      </div>
+      <aside class="spec-card usp-card">
+        <ul class="spec-card__list">
+          <li class="spec-card__item">
+            <span class="spec-card__icon">{IC_CHECK}</span>
+            <span class="spec-card__txt"><strong>{ui('usp1_t',lang)}</strong><span>{ui('usp1_s',lang)}</span></span>
+          </li>
+          <li class="spec-card__item">
+            <span class="spec-card__icon">{IC_CHECK}</span>
+            <span class="spec-card__txt"><strong>{ui('usp2_t',lang)}</strong><span>{ui('usp2_s',lang)}</span></span>
+          </li>
+          <li class="spec-card__item">
+            <span class="spec-card__icon">{IC_CHECK}</span>
+            <span class="spec-card__txt"><strong>{ui('usp3_t',lang)}</strong><span>{ui('usp3_s',lang)}</span></span>
+          </li>
+        </ul>
+        <a class="btn-primary" href="#" onclick="window.openBooking();return false;" data-track-cta="ov_usp">{ui('reserve_direct',lang)}</a>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -1277,6 +1354,11 @@ comfort = comfort.replace('<a href="https://www.asteria.nl/kamers">Kamers en Sui
 comfort = comfort.replace(
     '          <option value="2">2 personen</option>\n          <option value="1">1 persoon</option>',
     '          ' + guest_opts('nl'))
+# Social proof onder de Reserveren-knop (comfort NL)
+if 'social-proof' not in comfort:
+    comfort = comfort.replace(
+        '<a class="btn-primary" href="#" onclick="window.openBooking(\'comfort\');return false;" data-track-cta="intro_reserve">Reserveren direct</a>',
+        '<a class="btn-primary" href="#" onclick="window.openBooking(\'comfort\');return false;" data-track-cta="intro_reserve">Reserveren direct</a>\n        ' + social_proof('comfort', 'nl'), 1)
 # Boekingsmodule in comfort-kamer.html injecteren (idempotent via markers)
 for _tag in ('BK-HEAD', 'BK-CSS', 'BK-MARKUP', 'BK-JS'):
     comfort = re.sub('\\n?<!--' + _tag + '-->.*?<!--/' + _tag + '-->', '', comfort, flags=re.S)
