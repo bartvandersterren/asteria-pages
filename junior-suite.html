@@ -1224,7 +1224,14 @@
   .bk-sticky-footer { position: sticky; bottom: 0; padding-bottom: 22px; }
   .cal-days { grid-auto-rows: 38px; }
   .cal-day { aspect-ratio: auto; width: 34px; height: 34px; margin: 0 auto; }
-  @media (min-width: 600px) { .cal-days { grid-auto-rows: 32px; } .cal-day { width: 30px; height: 30px; } }
+  @media (min-width: 600px) {
+    .bk-modal { max-height: 94vh; }
+    #bkStep1 { padding-top: 14px; }
+    .bk-guests { margin-top: 14px; }
+    .bk-sticky-footer { padding-bottom: 16px; }
+    .cal-days { grid-auto-rows: 28px; }
+    .cal-day { width: 26px; height: 26px; }
+  }
 
   </style>
 </head>
@@ -2078,6 +2085,7 @@ window.ROOMS = {"comfort": {"name": "Comfort kamer", "upgrade": "", "mewsCategor
       });
 
       btn.addEventListener('mouseenter', function() {
+        if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
         if (cal.selectedStart && !cal.selectedEnd) {
           var newHover = new Date(btn.dataset.date + 'T00:00:00');
           if (!cal.hoverDate || !isSameDay(newHover, cal.hoverDate)) {
