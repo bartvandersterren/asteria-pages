@@ -200,19 +200,31 @@ BK_CSS += ('\n  .promo-section { position:relative; overflow:hidden; background:
            '    .promo-section::before { display:none; }\n'
            '  }\n')
 
+# Contact-kaart (cream) variant van het promo-blok
+BK_CSS += ('\n  .care-card { background: #f6f2e9; color: #1a1a1a; }\n'
+           '  .care-card h2 { color: #1a1a1a; }\n'
+           '  .care-card p { color: #4a4a45; margin-bottom: 30px; }\n'
+           '  .care-contact { display: flex; flex-direction: column; gap: 14px; }\n'
+           '  .care-contact__row { display: flex; align-items: center; gap: 13px; color: #c23435; font-size: 15px; font-weight: 500; text-decoration: none; transition: color .2s; }\n'
+           '  .care-contact__row:hover { color: #a82c2c; }\n'
+           '  .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }\n'
+           '  .care-contact__icon svg { width: 18px; height: 18px; }\n')
+
+IC_MAIL ='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>'
+IC_PHONE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>'
+
 def care_block(lang):
-    return f'''<!-- ══ CARE-CTA ══════════════════════════════════════════════ -->
+    return f'''<!-- ══ CONTACT-CTA ═══════════════════════════════════════════ -->
 <section class="promo-section care-section">
   <div class="promo">
     <div class="promo__inner">
-      <img class="promo__img" src="fotos/care-receptie.webp" alt="{ui('care_eyebrow',lang)}" loading="lazy">
-      <div class="promo__card">
-        <span class="section-eyebrow">{ui('care_eyebrow',lang)}</span>
+      <img class="promo__img" src="fotos/care-receptie.webp" alt="{ui('care_h',lang)}" loading="lazy">
+      <div class="promo__card care-card">
         <h2>{ui('care_h',lang)}</h2>
         <p>{ui('care_p',lang)}</p>
-        <div class="promo__btns">
-          <a class="btn-light" href="https://www.asteria.nl/arrangementen">{ui('promo_btn1',lang)}</a>
-          <a class="btn-primary" href="#" onclick="window.openBooking();return false;" data-track-cta="care">{ui('promo_btn2',lang)}</a>
+        <div class="care-contact">
+          <a class="care-contact__row" href="mailto:info@asteria.nl"><span class="care-contact__icon">{IC_MAIL}</span>info@asteria.nl</a>
+          <a class="care-contact__row" href="tel:0031478511466"><span class="care-contact__icon">{IC_PHONE}</span>0478 511 466</a>
         </div>
       </div>
     </div>
@@ -372,11 +384,10 @@ UI.update({
  'usp2_s':{'nl':'Bij elke directe boeking','en':'With every direct booking','de':'Bei jeder Direktbuchung'},
  'usp3_t':{'nl':'Gratis upgrade','en':'Free upgrade','de':'Kostenloses Upgrade'},
  'usp3_s':{'nl':'Indien beschikbaar','en':'Subject to availability','de':'Je nach Verfügbarkeit'},
- 'care_eyebrow':{'nl':'Alles voor een zorgeloos verblijf','en':'Everything for a carefree stay','de':'Alles für einen sorglosen Aufenthalt'},
- 'care_h':{'nl':'Van vroeg inchecken tot laat uitchecken','en':'From early check-in to late check-out','de':'Vom frühen Check-in bis zum späten Check-out'},
- 'care_p':{'nl':'Wilt u eerder aankomen of juist nog wat langer blijven? Met onze early check-in of late check-out haalt u alles uit uw verblijf. En met ruime parkeergelegenheid, een afgesloten fietsenstalling en onze wellness van 300 m² op de Top Floor is uw comfort compleet.',
-           'en':'Would you like to arrive earlier or stay a little longer? With our early check-in or late check-out you get the most out of your stay. And with ample parking, a secure bicycle storage and our 300 m² wellness area on the Top Floor, your comfort is complete.',
-           'de':'Möchten Sie früher anreisen oder etwas länger bleiben? Mit unserem Early Check-in oder Late Check-out holen Sie das Beste aus Ihrem Aufenthalt heraus. Und mit großzügigen Parkmöglichkeiten, einem abschließbaren Fahrradraum und unserem 300 m² großen Wellnessbereich im Top Floor ist Ihr Komfort komplett.'},
+ 'care_h':{'nl':'Wilt u meer weten?','en':'Want to know more?','de':'Möchten Sie mehr erfahren?'},
+ 'care_p':{'nl':'Heeft u een vraag over uw verblijf, een speciale wens of boekt u liever telefonisch? Onze receptie helpt u graag persoonlijk verder.',
+           'en':'Have a question about your stay, a special request, or would you rather book by phone? Our front desk is happy to help you personally.',
+           'de':'Haben Sie eine Frage zu Ihrem Aufenthalt, einen besonderen Wunsch oder buchen Sie lieber telefonisch? Unsere Rezeption hilft Ihnen gerne persönlich weiter.'},
  'crumb_overview':{'nl':'Kamertypes','en':'Room types','de':'Zimmertypen'},
  'ov_hero':   {'nl':'Onze kamertypes','en':'Our room types','de':'Unsere Zimmertypen'},
  'ov_book':   {'nl':'Boek hier je verblijf','en':'Book your stay here','de':'Buchen Sie hier Ihren Aufenthalt'},
