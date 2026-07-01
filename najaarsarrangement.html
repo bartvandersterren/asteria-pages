@@ -3522,19 +3522,12 @@
 
 /* ── Kamertypes — A/B toggle + popup ── */
 (function () {
-  // A/B toggle: ?rooms=compact | ?rooms=thumb | random 50/50
+  // Altijd de mini-thumbnail variant (kleine kamerfoto bij elk kamertype),
+  // tenzij expliciet ?rooms=compact in de URL staat.
   var section = document.querySelector('.rooms');
   if (section) {
-    var params = new URLSearchParams(window.location.search);
-    var variant = params.get('rooms');
-    if (variant !== 'compact' && variant !== 'thumb') {
-      variant = sessionStorage.getItem('rooms-variant');
-      if (!variant) {
-        variant = Math.random() < 0.5 ? 'compact' : 'thumb';
-        sessionStorage.setItem('rooms-variant', variant);
-      }
-    }
-    if (variant === 'thumb') {
+    var variant = new URLSearchParams(window.location.search).get('rooms');
+    if (variant !== 'compact') {
       section.classList.add('rooms--thumb');
     }
   }
