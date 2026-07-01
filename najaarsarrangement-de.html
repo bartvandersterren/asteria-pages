@@ -3765,7 +3765,7 @@
   }
 
   function buildBookingUrl(checkin, checkout, roomKey) {
-    var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER + '&mewsStart=' + toYMD(checkin)
+    var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER + '&language=de-DE' + '&mewsStart=' + toYMD(checkin)
       + '&mewsEnd='   + toYMD(checkout);
     if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
       var catId = window.ROOMS[roomKey].mewsCategoryId;
@@ -3947,7 +3947,7 @@
   // Najaararrangement: boeking loopt direct via de Mews-distributor met de NAJAAR2D-voucher
   // (bee2f902 = de distributor-config waar het najaararrangement + voucher op staan).
   // De custom in-page boekingsflow hierboven blijft ongebruikt.
-  var NAJAAR_BOOKING_URL = 'https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?mewsVoucherCode=NAJAAR2D';
+  var NAJAAR_BOOKING_URL = 'https://app.mews.com/distributor/bee2f902-f30f-4977-b9f7-af5d00e4ab76?mewsVoucherCode=NAJAAR2D&language=de-DE';
   window.openBookingPopup = function (preselectedRoomKey) {
     if (window.track) window.track('mews_click', { room_key: preselectedRoomKey || 'arrangement' });
     if (typeof gtag === 'function' && window.GA_ADS_LABEL) {

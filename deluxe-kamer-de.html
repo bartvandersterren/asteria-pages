@@ -2075,7 +2075,7 @@
     var url = MEWS_BASE;
     var start = document.getElementById('bbStart');
     var end   = document.getElementById('bbEnd');
-    var params = [];
+    var params = ['language=de-DE'];
     if (start && start.value) params.push('mewsStart=' + start.value);
     if (end && end.value)     params.push('mewsEnd=' + end.value);
     if (roomKey && CATEGORY[roomKey]) {
@@ -2513,7 +2513,7 @@ window.ROOMS = {"comfort": {"name": "Komfortzimmer", "upgrade": "", "mewsCategor
   }
 
   function buildBookingUrl(checkin, checkout, roomKey) {
-    var url = MEWS_BASE + '?mewsStart=' + toYMD(checkin)
+    var url = MEWS_BASE + '?mewsStart=' + toYMD(checkin) + '&language=de-DE'
       + '&mewsEnd='   + toYMD(checkout) + '&mewsAdultCount=' + bkGuestCount();
     if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
       var catId = window.ROOMS[roomKey].mewsCategoryId;
