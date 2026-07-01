@@ -271,6 +271,7 @@
   .room-popup__slider { position: relative; width: 100%; overflow: hidden; border-radius: 16px 16px 0 0; }
   .room-popup__track { display: flex; transition: transform 0.3s ease; align-items: flex-start; }
   .room-popup__hero { width: 100%; height: auto; display: block; flex-shrink: 0; }
+  video.room-popup__hero { aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
   .room-popup__dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
   .room-popup__dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; padding: 0; cursor: pointer; transition: background 0.2s; }
   .room-popup__dot.is-active { background: #fff; }
@@ -784,7 +785,9 @@
   function openPopup(key) {
     var r = ROOMS[key];
     if (!r) return;
-    var slides = r.imgs.map(function (src) { return '<img class="room-popup__hero" src="' + src + '" alt="' + r.name + '" loading="lazy">'; });
+    var slides = [];
+    if (r.video) slides.push('<video class="room-popup__hero room-popup__video" src="' + r.video + '" muted loop playsinline autoplay preload="auto" poster="' + r.imgs[0] + '"></video>');
+    r.imgs.forEach(function (src) { slides.push('<img class="room-popup__hero" src="' + src + '" alt="' + r.name + '" loading="lazy">'); });
     sliderLen = slides.length; sliderIdx = 0;
     var dotsHtml = slides.length > 1 ? '<div class="room-popup__dots">' + slides.map(function (_, i) { return '<button class="room-popup__dot' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '"></button>'; }).join('') + '</div>' : '';
     var arrowsHtml = slides.length > 1 ? '<button class="room-popup__arrow room-popup__arrow--prev" aria-label="{{ROOM_POPUP_PREV_ARIA}}">‹</button><button class="room-popup__arrow room-popup__arrow--next" aria-label="{{ROOM_POPUP_NEXT_ARIA}}">›</button>' : '';
@@ -810,6 +813,8 @@
     document.getElementById('popupClose').addEventListener('click', closePopup);
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+    var vid = inner.querySelector('.room-popup__video');
+    if (vid) { var pp = vid.play(); if (pp && pp.catch) pp.catch(function () {}); }
   }
   overlay.addEventListener('click', function (e) { if (e.target === overlay) closePopup(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePopup(); });
