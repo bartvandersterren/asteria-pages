@@ -210,6 +210,12 @@ BK_CSS += ('\n  .promo__card.care-card { background: #fff; color: #1a1a1a; }\n'
            '  .care-contact__row:hover { color: #a82c2c; }\n'
            '  .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }\n'
            '  .care-contact__icon svg { width: 18px; height: 18px; }\n'
+           # Maashof-stijl op desktop: grote foto rechts, contactkaart overlappend links (mobiel blijft gestapeld met overlap)
+           '  @media (min-width: 861px) {\n'
+           '    .care-section .promo__inner { position: relative; min-height: 560px; }\n'
+           '    .care-section .promo__img { width: 65%; height: 560px; margin-left: auto; }\n'
+           '    .care-section .promo__card { position: absolute; left: 0; top: 50%; transform: translateY(-50%); margin: 0; width: 46%; max-width: 500px; padding: 48px 46px; }\n'
+           '  }\n'
            # promo--flip is niet meer nodig: de kaart is altijd gecentreerd over de onderkant van de foto
            # Eén groot, heel licht Asteria-merkteken over de volledige breedte, loopt over meerdere blokken heen
            '  .pagewm { position: relative; }\n'

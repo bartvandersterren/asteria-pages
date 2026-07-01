@@ -1467,6 +1467,12 @@
   .care-contact__row:hover { color: #a82c2c; }
   .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }
   .care-contact__icon svg { width: 18px; height: 18px; }
+  /* Maashof-stijl op desktop: grote foto rechts, contactkaart overlappend links */
+  @media (min-width: 861px) {
+    .care-section .promo__inner { position: relative; min-height: 560px; }
+    .care-section .promo__img { width: 65%; height: 560px; margin-left: auto; }
+    .care-section .promo__card { position: absolute; left: 0; top: 50%; transform: translateY(-50%); margin: 0; width: 46%; max-width: 500px; padding: 48px 46px; }
+  }
   .pagewm { position: relative; }
   .pagewm::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 100%; aspect-ratio: 598 / 925; background: url(fotos/pattern-asteria-1.webp) no-repeat center / contain; opacity: .08; pointer-events: none; z-index: 2; }
 
