@@ -34,6 +34,11 @@ const CONFIG = {
   logo:  'https://www.asteria.nl/images/logo-hotel-asteria.png',
   photo: '/fotos/popup-welkomstpakket.webp',
 
+  // Kras-patroon (handgetekende marker-scribble)
+  scribbleImg:   '/fotos/scratch-scribble.png',
+  scribbleScale: 0.78,   // breedte t.o.v. de kaart (0–1)
+  scribbleAlpha: 0.9,    // dekking van de scribble
+
   // Scherm 1 — kraskaart
   heading:   'Probeer je geluk',
   sub:       'Kras het vak open en ontdek wat je wint',
@@ -67,6 +72,7 @@ const CONFIG = {
     coverTop:   '#ecd681',   // kraslaag — goudfoil (lichte tint)
     coverBottom:'#c8a63d',   // kraslaag — goudfoil (donkere tint)
     coverInk:   'rgba(255,255,255,0.72)', // tekst op de kraslaag
+    scribble:   '#a24e2e',   // kleur van de marker-scribble  ← pas aan naar wens
     heading:    '#1a1a1a'
   },
 
@@ -227,6 +233,29 @@ const CONFIG = {
   const ctx = canvas.getContext('2d');
   let revealed = false;
 
+  // Scribble-patroon preloaden + hertekenen zodra geladen
+  const scribbleImage = new Image();
+  scribbleImage.src = C.scribbleImg;
+  scribbleImage.onload = () => { if (!revealed) drawCover(); };
+
+  function drawScribble(w, h) {
+    if (!scribbleImage.complete || !scribbleImage.naturalWidth) return;
+    const iw = scribbleImage.naturalWidth, ih = scribbleImage.naturalHeight;
+    const tw = w * C.scribbleScale, th = tw * (ih / iw);
+    const off = document.createElement('canvas');
+    off.width = Math.max(1, Math.round(tw));
+    off.height = Math.max(1, Math.round(th));
+    const octx = off.getContext('2d');
+    octx.drawImage(scribbleImage, 0, 0, off.width, off.height);
+    octx.globalCompositeOperation = 'source-in';       // herkleur, behoud textuur/alpha
+    octx.fillStyle = col.scribble;
+    octx.fillRect(0, 0, off.width, off.height);
+    ctx.save();
+    ctx.globalAlpha = C.scribbleAlpha;
+    ctx.drawImage(off, (w - tw) / 2, (h - th) / 2, tw, th);
+    ctx.restore();
+  }
+
   function drawCover() {
     const rect = canvas.getBoundingClientRect();
     if (!rect.width) return;
@@ -269,21 +298,8 @@ const CONFIG = {
     ctx.fillStyle = sh;
     ctx.fillRect(0, 0, w, h);
 
-    // 4) donkere zigzag-krabbel (achter de tekst)
-    ctx.save();
-    ctx.strokeStyle = 'rgba(74,58,38,0.34)';
-    ctx.lineWidth = Math.max(11, h * 0.055);
-    ctx.lineCap = 'square';
-    ctx.lineJoin = 'miter';
-    const zx0 = w * 0.20, zx1 = w * 0.80, top = h * 0.30, bot = h * 0.70, steps = 6;
-    ctx.beginPath();
-    for (let s = 0; s <= steps; s++) {
-      const x = zx0 + (zx1 - zx0) * (s / steps);
-      const y = (s % 2 === 0) ? bot : top;
-      s === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-    ctx.restore();
+    // 4) handgetekende marker-scribble (getint via CONFIG-kleur)
+    drawScribble(w, h);
 
     // 5) donkere vignette (randen)
     const vg = ctx.createRadialGradient(w*0.5, h*0.5, Math.min(w, h)*0.35, w*0.5, h*0.5, Math.max(w, h)*0.72);
