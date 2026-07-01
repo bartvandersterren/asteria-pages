@@ -78,6 +78,12 @@ def add_mews_language(html, lang):
     html = html.replace(
         "var params = [];",
         "var params = ['language=" + code + "'];")
+    # 5. Inline Mews-widget: de Distributor-config negeert 'language:', dus taal
+    #    via de API-methode zetten zodra de widget klaar is (dit is wat de
+    #    boekingsmodule daadwerkelijk in de juiste taal opent).
+    html = html.replace(
+        "window.mewsApi=api;",
+        "window.mewsApi=api;if(api.setLanguageCode)api.setLanguageCode('" + code + "');")
     return html
 
 

@@ -63,7 +63,7 @@
         }catch(e){}
       }
     },function(api){
-      window.mewsApi=api;
+      window.mewsApi=api;if(api.setLanguageCode)api.setLanguageCode('en-US');
       if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
     });
   };c.async=1;c.src=w;t=m.getElementsByTagName(e)[0];t.parentNode.insertBefore(c,t);
