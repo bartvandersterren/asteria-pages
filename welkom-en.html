@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria — Welkomstflow landingspagina (bedankt na inschrijving)
+  ---------------------------------------------------------------------
+  Deze pagina wordt gebouwd via build.py uit dit template + translations/welkom-{nl,en,de}.json
+      python3 build.py welkom            # alle talen
+      python3 build.py welkom nl         # alleen NL
+  Output: welkom.html / welkom-en.html / welkom-de.html
+  Live:   visit.asteria.nl/welkom  ·  /welkom-en  ·  /welkom-de
+
+  Chrome (nav, footer, cookie-banner, taalwissel) 1-op-1 uit happy-summer.template.html.
+  Foto's staan lokaal in ./fotos/ (zelfde als happy-summer).
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Hotel Asteria</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="Lovely to have you with us. Discover Hotel Asteria in Venray and claim your welcome gift with code 'WELKOM'.">
+
+  <link rel="canonical" href="https://visit.asteria.nl/welkom-en">
+  <link rel="alternate" hreflang="nl" href="https://visit.asteria.nl/welkom">
+  <link rel="alternate" hreflang="en" href="https://visit.asteria.nl/welkom-en">
+  <link rel="alternate" hreflang="de" href="https://visit.asteria.nl/welkom-de">
+  <link rel="alternate" hreflang="x-default" href="https://visit.asteria.nl/welkom">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Welcome to Hotel Asteria">
+  <meta property="og:description" content="Lovely to have you with us. Discover Hotel Asteria in Venray and claim your welcome gift with code 'WELKOM'.">
+  <meta property="og:image" content="https://visit.asteria.nl/fotos/hero-buitenkant.webp">
+  <meta property="og:url" content="https://visit.asteria.nl/welkom-en">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+  <meta name="robots" content="noindex, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="brand.css">
+
+  <style>
+  /* ============================================================
+     ASTERIA WELKOMSTFLOW LANDER — pagina-laag (tokens uit brand.css)
+     ============================================================ */
+  .awf {
+    --crimson: #c23435;
+    --crimson-dark: #a82c2c;
+    --amber: #e8923a;
+    --charcoal: #1e1e1e;
+    --dark: #242424;
+    --warm-white: #f8f6f3;
+    --light-grey: #f0eeeb;
+    --gold: #dcbe1f;
+    --text: #1a1a1a;
+    --text-soft: #4a4a4a;
+    --text-muted: #6b6b6b;
+
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    background: var(--warm-white);
+  }
+  .awf *, .awf *::before, .awf *::after { box-sizing: border-box; }
+
+  .awf h1, .awf h2, .awf h3 {
+    font-family: 'Electrolize', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    line-height: 1.18;
+  }
+  .awf h1 { font-size: 44px; }
+  .awf h2 { font-size: 34px; }
+  .awf h3 { font-size: 20px; letter-spacing: 0.04em; }
+  .awf p { margin: 0 0 16px 0; }
+  .awf .accent { color: var(--crimson); }
+
+  .awf .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  .awf .section { padding: 104px 0; }
+
+  @media (max-width: 768px) {
+    .awf h1 { font-size: 32px; }
+    .awf h2 { font-size: 26px; }
+    .awf h3 { font-size: 18px; }
+    .awf .section { padding: 64px 0; }
+    .awf .container { padding: 0 20px; }
+  }
+
+  /* ---------- Buttons ---------- */
+  .awf .btn {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 15px 34px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .awf .btn-primary { background: var(--crimson); color: #fff; border-color: var(--crimson); }
+  .awf .btn-primary:hover { background: var(--crimson-dark); border-color: var(--crimson-dark); }
+
+  /* ---------- HERO (editorial split) ---------- */
+  .awf .hero { background: var(--warm-white); padding: 0; }
+  .awf .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    align-items: stretch;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 620px;
+  }
+  .awf .hero-content {
+    padding: 150px 56px 96px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+  }
+  .awf .hero-content h1 { font-size: 50px; line-height: 1.1; margin: 0 0 24px 0; }
+  .awf .hero-content .rule { width: 54px; height: 3px; background: var(--crimson); margin: 0 0 24px 0; border: none; }
+  .awf .hero-content .lead {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-soft);
+    margin-bottom: 36px;
+    max-width: 470px;
+  }
+  .awf .hero-image {
+    background-image: url('fotos/hero-buitenkant.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 480px;
+  }
+  @media (max-width: 900px) {
+    .awf .hero-inner { grid-template-columns: 1fr; min-height: 0; }
+    .awf .hero-content { padding: 96px 24px 48px; order: 2; max-width: none; }
+    .awf .hero-content h1 { font-size: 34px; }
+    .awf .hero-content .lead { font-size: 16px; margin-bottom: 28px; }
+    .awf .hero-image { order: 1; min-height: 300px; }
+  }
+
+  /* ---------- CODE-BANNER ---------- */
+  .awf .code-banner { background: var(--charcoal); color: #fff; padding: 52px 32px; }
+  .awf .code-banner-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 48px;
+  }
+  .awf .code-block { text-align: center; border-right: 1px solid rgba(255,255,255,0.18); padding-right: 48px; }
+  .awf .code-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: rgba(255,255,255,0.55); margin-bottom: 12px; }
+  .awf .code-value {
+    font-family: 'Electrolize', sans-serif; font-size: 40px; color: #fff;
+    letter-spacing: 0.14em; line-height: 1;
+    border: 1px dashed rgba(255,255,255,0.4); padding: 12px 20px; display: inline-block;
+  }
+  .awf .code-text h3 { color: #fff; margin: 0 0 8px 0; }
+  .awf .code-text p { color: rgba(255,255,255,0.78); font-size: 15px; margin: 0; line-height: 1.6; }
+  @media (max-width: 700px) {
+    .awf .code-banner { padding: 40px 22px; }
+    .awf .code-banner-inner { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+    .awf .code-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.18); padding-right: 0; padding-bottom: 24px; }
+    .awf .code-value { font-size: 34px; }
+  }
+
+  /* ---------- INTRO BRAND ---------- */
+  .awf .intro { background: var(--warm-white); }
+  .awf .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .awf .intro-image img { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .awf .intro-content .liner {
+    font-family: 'Electrolize', sans-serif; font-size: 17px; color: var(--crimson);
+    text-transform: none; letter-spacing: 0.01em; margin-top: 24px;
+  }
+  @media (max-width: 768px) {
+    .awf .intro-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ---------- DRIE REDENEN ---------- */
+  .awf .reasons { background: var(--light-grey); }
+  .awf .reasons-head { text-align: center; margin-bottom: 56px; }
+  .awf .reasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .awf .reason-card { background: #fff; padding: 40px 30px; text-align: center; border-radius: 12px; }
+  .awf .reason-card .num {
+    font-family: 'Electrolize', sans-serif; font-size: 34px; color: var(--crimson);
+    display: block; margin-bottom: 14px; line-height: 1;
+  }
+  .awf .reason-card h3 { margin-bottom: 12px; }
+  .awf .reason-card p { color: var(--text-soft); font-size: 15px; margin: 0; }
+  @media (max-width: 768px) {
+    .awf .reasons-grid {
+      display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+      gap: 16px; padding: 0 20px 20px; margin: 0 -20px; -webkit-overflow-scrolling: touch;
+    }
+    .awf .reason-card { flex: 0 0 78%; scroll-snap-align: start; min-width: 240px; }
+  }
+
+  /* ---------- FACILITEITEN ---------- */
+  .awf .facilities { background: var(--warm-white); }
+  .awf .facilities-head { text-align: center; margin-bottom: 56px; }
+  .awf .facilities-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .awf .facility-card {
+    position: relative; overflow: hidden; display: block; text-decoration: none;
+    color: #fff; background: var(--charcoal); aspect-ratio: 4 / 3; border-radius: 16px;
+  }
+  .awf .facility-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .awf .facility-card::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(20,20,20,0.86) 0%, rgba(20,20,20,0.15) 62%, rgba(20,20,20,0) 100%);
+  }
+  .awf .facility-card:hover img { transform: scale(1.04); }
+  .awf .facility-card .facility-content { position: absolute; left: 30px; right: 30px; bottom: 28px; z-index: 2; }
+  .awf .facility-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.85); display: block; margin-bottom: 8px; }
+  .awf .facility-card h3 { color: #fff; margin-bottom: 8px; }
+  .awf .facility-card p { color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.55; margin: 0; max-width: 340px; }
+  @media (max-width: 768px) {
+    .awf .facilities-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .awf .facility-card { aspect-ratio: 3 / 4; border-radius: 12px; }
+    .awf .facility-card .facility-content { left: 14px; right: 14px; bottom: 14px; }
+    .awf .facility-card h3 { font-size: 15px; }
+    .awf .facility-card p { display: none; }
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .awf .reviews { background: var(--light-grey); }
+  .awf .reviews-head { text-align: center; margin-bottom: 52px; }
+  .awf .reviews-score { font-family: 'Electrolize', sans-serif; font-size: 54px; color: var(--text); line-height: 1; }
+  .awf .reviews-stars { color: var(--gold); font-size: 20px; letter-spacing: 3px; margin: 8px 0 6px; }
+  .awf .reviews-score-label { font-size: 13px; letter-spacing: 0.04em; color: var(--text-muted); }
+  .awf .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .awf .review-card { background: #fff; border-radius: 12px; padding: 30px 26px; }
+  .awf .review-card .review-stars { color: var(--gold); font-size: 15px; letter-spacing: 2px; margin-bottom: 10px; }
+  .awf .review-card .review-title { font-family: 'Electrolize', sans-serif; font-size: 16px; text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 12px 0; }
+  .awf .review-card .review-quote { font-size: 15px; color: var(--text-soft); font-style: italic; margin: 0 0 18px 0; line-height: 1.6; }
+  .awf .review-card .review-name { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 700; margin: 0; }
+  .awf .review-card .review-meta { font-size: 11px; color: #9a9a9a; margin: 3px 0 0; }
+  @media (max-width: 768px) {
+    .awf .reviews-grid {
+      display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+      gap: 16px; padding: 0 20px 20px; margin: 0 -20px; -webkit-overflow-scrolling: touch;
+    }
+    .awf .review-card { flex: 0 0 82%; scroll-snap-align: start; min-width: 260px; }
+    .awf .reviews-score { font-size: 44px; }
+  }
+
+  /* ---------- WAT JE MAG VERWACHTEN ---------- */
+  .awf .upcoming { background: var(--warm-white); }
+  .awf .upcoming-head { text-align: center; margin-bottom: 52px; }
+  .awf .eyebrow { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; color: var(--crimson); display: inline-block; margin-bottom: 14px; }
+  .awf .upcoming-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 940px; margin: 0 auto; }
+  .awf .upcoming-card { text-align: center; padding: 20px 18px; }
+  .awf .upcoming-card .phase-number {
+    width: 46px; height: 46px; border: 2px solid var(--crimson); border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Electrolize', sans-serif; color: var(--crimson); font-size: 18px; margin-bottom: 18px;
+  }
+  .awf .upcoming-card h3 { font-size: 17px; margin-bottom: 8px; }
+  .awf .upcoming-card p { font-size: 14px; color: var(--text-muted); margin: 0; }
+  @media (max-width: 768px) {
+    .awf .upcoming-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .awf .upcoming-card { padding: 12px 6px; }
+    .awf .upcoming-card .phase-number { width: 36px; height: 36px; font-size: 15px; margin-bottom: 12px; }
+    .awf .upcoming-card h3 { font-size: 13px; }
+    .awf .upcoming-card p { font-size: 12px; line-height: 1.45; }
+  }
+
+  /* ---------- FINAL CTA ---------- */
+  .awf .final-cta { background: var(--charcoal); color: #fff; text-align: center; padding: 96px 32px; }
+  .awf .final-cta-inner { max-width: 640px; margin: 0 auto; }
+  .awf .final-cta h2 { color: #fff; margin-bottom: 16px; }
+  .awf .final-cta .lead { color: rgba(255,255,255,0.82); font-size: 17px; font-weight: 300; margin-bottom: 32px; }
+  .awf .final-cta .small-note { margin-top: 22px; font-size: 13px; color: rgba(255,255,255,0.55); }
+  @media (max-width: 768px) { .awf .final-cta { padding: 64px 20px; } }
+
+  /* ============================================================
+     NAV (uit happy-summer.template.html)
+     ============================================================ */
+  .main-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: #333; box-shadow: 0 0 15px rgba(0,0,0,.5); font-family: 'Montserrat', sans-serif; }
+  .nav-inner { max-width: 1400px; margin: 0 auto; position: relative; border-bottom: 1px solid rgba(105,93,93,0.5); }
+  .top-bar { display: flex; justify-content: flex-end; align-items: center; padding: 10px 22px 13px; font-size: .85em; font-weight: 400; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .top-bar .nav-icon { width: 14px; height: 14px; margin: 0 5px 0 8px; vertical-align: -2px; fill: none; stroke: #f2f2f2; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .mobile-nav-buttons .nav-icon { width: 18px; height: 18px; margin-right: 4px; vertical-align: -3px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .top-bar a { color: #f2f2f2; text-decoration: none; margin: 0 5px 0 0; }
+  .top-bar a:hover { color: #fff; }
+  .lang-nav { cursor: pointer; color: #f2f2f2; border: none; text-transform: uppercase; font-size: 12px; font-family: sans-serif; background: transparent; outline: none; -webkit-appearance: none; appearance: none; margin-left: 2px; }
+  .lang-nav option { color: #333; }
+  .lang-wrapper { display: inline-flex; align-items: center; }
+  .lang-arrow { color: #f2f2f2; font-size: 10px; margin-left: 2px; pointer-events: none; }
+  .row.nav-bar { display: flex; align-items: center; padding: 18px 22px; }
+  .nav-inner > .logo { position: absolute; left: 22px; top: 0; bottom: 0; z-index: 10; display: flex; align-items: center; text-decoration: none; }
+  .nav-inner > .logo img { width: 90px; display: block; }
+  .logo--mobile { display: none; flex-shrink: 0; align-items: center; text-decoration: none; }
+  .logo--mobile img { width: 52px; display: block; }
+  .nav-content { margin-left: auto; display: flex; align-items: center; }
+  .nav-content ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; }
+  .nav-content ul li { position: relative; }
+  .nav-bar a:not(.button):not(.logo) { color: #f2f2f2; text-decoration: none; margin: 0 10px; padding-bottom: 5px; border-bottom: 2px solid transparent; font-size: 14px; white-space: nowrap; display: block; }
+  .nav-bar a:not(.button):not(.logo):hover { color: #fff; border-bottom-color: #fff; }
+  .nav-bar .button.book-now { color: #fff; background-color: #c23435; border: solid 1px #c23435; border-radius: 10px; font-size: 15px; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 110px; height: 50px; margin-left: 10px; white-space: nowrap; flex-shrink: 0; }
+  .nav-bar .button.book-now:hover { background-color: #a82c2c; }
+  .menu-close, .language-nav-mobile, .drop-icon, .mobile-checkbox, .submenu { display: none; }
+  .mobile-nav-buttons { display: none; }
+  @media (max-width: 880px) {
+    .top-bar { display: none; }
+    .row.nav-bar { padding: 0 16px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-inner > .logo { display: none; }
+    .logo--mobile { display: flex; padding: 12px 0; }
+    .nav-content { display: none; }
+    .mobile-nav-buttons { display: flex !important; align-items: center; gap: 4px; float: right; color: #fff; margin: 0; }
+    .mobile-nav-buttons .button { display: flex !important; align-items: center; gap: 6px; background: transparent; color: #fff; border: none; padding: 10px 12px; font-size: 13px; font-family: 'Montserrat', sans-serif; cursor: pointer; line-height: 25px; text-decoration: none; }
+    .main-nav ul { position: fixed; inset: 0; background: #444; text-align: center; padding: 20px 0; opacity: 0; display: none; transition: opacity 0.4s ease-in-out; overflow-y: scroll; z-index: 1200; list-style: none; margin: 0; }
+    .main-nav.show-mobile-nav ul:not(.submenu) { display: block; }
+    .main-nav.show-mobile-nav.delay ul { opacity: 1; }
+    .main-nav ul li { width: 100%; display: block; }
+    .main-nav ul li a { font-size: 20px; line-height: 40px; color: #f2f2f2; padding: 5px 0; display: block; border-bottom: none; text-decoration: none; }
+    .menu-close { display: block !important; color: #fff; font-size: 22px; padding: 16px; cursor: pointer; list-style: none; }
+  }
+
+  /* ============================================================
+     FOOTER (uit happy-summer.template.html)
+     ============================================================ */
+  .footer { background: #1a1a1a; color: rgba(255,255,255,0.6); font-family: 'Montserrat', sans-serif; font-size: 14px; padding: 60px 24px 40px; text-align: center; }
+  .footer__inner { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .footer__logo img { width: 60px; opacity: 0.8; }
+  .footer__name { font-family: 'Electrolize', sans-serif; font-size: 16px; color: #fff; margin-bottom: 4px; }
+  .footer__info { line-height: 1.8; }
+  .footer__info a { color: rgba(255,255,255,0.6); text-decoration: none; }
+  .footer__info a:hover { color: #fff; }
+  .footer__social { display: flex; gap: 16px; }
+  .footer__social a { color: rgba(255,255,255,0.5); transition: color 0.2s; }
+  .footer__social a:hover { color: #fff; }
+  .footer__links { display: flex; gap: 20px; font-size: 13px; }
+  .footer__links a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer__links a:hover { color: #fff; }
+  .footer__copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+
+  /* ============================================================
+     COOKIE BANNER
+     ============================================================ */
+  .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; z-index: 1500; background: rgba(30,30,30,0.97); color: rgba(255,255,255,0.85); font-family: 'Montserrat', sans-serif; font-size: 13px; padding: 16px 22px; display: none; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; }
+  .cookie-banner.show { display: flex; }
+  .cookie-banner a { color: #fff; text-decoration: underline; }
+  .cookie-banner button { background: #c23435; color: #fff; border: none; border-radius: 8px; padding: 10px 22px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .cookie-banner button:hover { background: #a82c2c; }
+  </style>
+</head>
+<body>
+
+
+
+<!-- ══ NAV ═══════════════════════════════════════════════════ -->
+<nav class="main-nav" id="nav">
+  <div class="nav-inner">
+    <div class="top-bar">
+      <a href="mailto:info@asteria.nl"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 4l10 9 10-9"/></svg>info@asteria.nl</a>
+      <a href="tel:0031478511466"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>0478 511 466</a>
+      <span class="lang-wrapper">
+        <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+        <select class="lang-nav">
+          <option value="nl">nl</option>
+          <option value="en" selected>en</option>
+          <option value="de">de</option>
+        </select>
+        <span class="lang-arrow">&#9662;</span>
+      </span>
+    </div>
+    <a class="logo" href="https://www.asteria.nl">
+      <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+    </a>
+    <div class="row nav-bar">
+      <a class="logo logo--mobile" href="https://www.asteria.nl">
+        <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria">
+      </a>
+      <div class="nav-content">
+        <ul>
+          <li class="menu-close" id="menuClose">&#10005;</li>
+          <li><a href="https://www.asteria.nl/kamers">Rooms and Suites</a></li>
+          <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
+          <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
+          <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
+          <li><a href="https://www.asteria.nl/omgeving">Surroundings</a></li>
+          <li><a href="https://www.asteria.nl/contact">Contact</a></li>
+        </ul>
+        <a class="button book-now" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELKOM&amp;mewsRoute=rooms" target="_blank" rel="noopener">Book now</a>
+      </div>
+      <div class="mobile-nav-buttons">
+        <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Menu</span>
+        <a href="tel:0031478511466" class="button"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Call</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="awf">
+
+  <!-- ══ HERO ═══════════════════════════════════════════════ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <h1>Lovely to <span class="accent">have you here</span>.</h1>
+        <div class="rule"></div>
+        <p class="lead">Tucked away in the wooded surroundings of Venray, in the heart of Noord-Limburg. Take your time, enjoy, and feel at home at Asteria. We look forward to welcoming you in person.</p>
+        <div>
+          <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELKOM&amp;mewsRoute=rooms" target="_blank" rel="noopener" class="btn btn-primary">View rooms and suites</a>
+        </div>
+      </div>
+      <div class="hero-image" role="img" aria-label="Hotel Asteria Venray"></div>
+    </div>
+  </section>
+
+  <!-- ══ CODE-BANNER ════════════════════════════════════════ -->
+  <section class="code-banner">
+    <div class="code-banner-inner">
+      <div class="code-block">
+        <div class="code-label">Your welcome code</div>
+        <div class="code-value">WELKOM</div>
+      </div>
+      <div class="code-text">
+        <h3>Your welcome gift is ready</h3>
+        <p>A bottle of bubbles and a wellness package with bathrobe and towel in your room, on your first stay.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ INTRO BRAND ════════════════════════════════════════ -->
+  <section class="section intro">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="intro-image">
+          <img src="fotos/intro-lobby.webp" alt="De sfeervolle lobby van Hotel Asteria" loading="lazy">
+        </div>
+        <div class="intro-content">
+          <h2>More than <span class="accent">a hotel</span></h2>
+          <p>At Asteria, hospitality comes first. A warm welcome, personal attention and taking the time for what suits you. Limburg hospitality the way it should be.</p>
+          <p>An easygoing place in the wooded surroundings of Venray, where you feel completely at ease. From a coffee with vlaai to a lovingly prepared dinner in our brasserie.</p>
+          <p class="liner">Take your time. Enjoy. Feel at home at Asteria.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ DRIE REDENEN ═══════════════════════════════════════ -->
+  <section class="section reasons">
+    <div class="container">
+      <div class="reasons-head">
+        <h2>Three reasons to <span class="accent">feel at home</span></h2>
+      </div>
+      <div class="reasons-grid">
+        <div class="reason-card">
+          <span class="num">01</span>
+          <h3>Warm and personal</h3>
+          <p>A heartfelt welcome and a team that remembers you. Personal attention is in our DNA.</p>
+        </div>
+        <div class="reason-card">
+          <span class="num">02</span>
+          <h3>Everything under one roof</h3>
+          <p>Comfortable rooms, a cosy brasserie and a complete wellness. No need to step outside.</p>
+        </div>
+        <div class="reason-card">
+          <span class="num">03</span>
+          <h3>Peace in the green</h3>
+          <p>The wooded surroundings of Venray start at our doorstep, and yet the town centre is just minutes away.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FACILITEITEN ═══════════════════════════════════════ -->
+  <section class="section facilities">
+    <div class="container">
+      <div class="facilities-head">
+        <h2>A short introduction</h2>
+      </div>
+      <div class="facilities-grid">
+        <a class="facility-card" href="https://www.asteria.nl/kamers">
+          <img src="fotos/card-kamer.webp" alt="Hotelkamer Hotel Asteria" loading="lazy">
+          <div class="facility-content">
+            <span class="label">Rooms and Suites</span>
+            <h3>Wake up rested, in complete calm</h3>
+            <p>Comfortable rooms and spacious suites, arranged for your comfort.</p>
+          </div>
+        </a>
+        <a class="facility-card" href="https://www.asteria.nl/restaurant">
+          <img src="fotos/card-restaurant.webp" alt="Brasserie en restaurant Hotel Asteria" loading="lazy">
+          <div class="facility-content">
+            <span class="label">Brasserie and Restaurant</span>
+            <h3>From coffee with vlaai to a fine dinner</h3>
+            <p>Dishes prepared with passion in a cosy, homely atmosphere.</p>
+          </div>
+        </a>
+        <a class="facility-card" href="https://www.asteria.nl/wellness">
+          <img src="fotos/card-wellness.webp" alt="Wellness Hotel Asteria" loading="lazy">
+          <div class="facility-content">
+            <span class="label">Wellness</span>
+            <h3>Unwind completely</h3>
+            <p>Saunas, a plunge pool and relaxing lounges, all under one roof.</p>
+          </div>
+        </a>
+        <a class="facility-card" href="https://www.asteria.nl/omgeving">
+          <img src="fotos/omgeving-maasduinen.webp" alt="De Maasduinen bij Venray" loading="lazy">
+          <div class="facility-content">
+            <span class="label">Surroundings</span>
+            <h3>The Maasduinen, right on our doorstep</h3>
+            <p>Walk and cycle through the wooded nature of Noord-Limburg.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ REVIEWS ════════════════════════════════════════════ -->
+  <section class="section reviews">
+    <div class="container">
+      <div class="reviews-head">
+        <div class="reviews-score">4,2</div>
+        <div class="reviews-stars">★★★★☆</div>
+        <div class="reviews-score-label">Based on 2,219 guest reviews on Google</div>
+        <h2 style="margin-top:22px;">What our <span class="accent">guests</span> say</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-title">A wonderful weekend</p>
+          <p class="review-quote">Two lovely days with dinner, breakfast and a late check-out. A drink on the terrace, the room neat and clean, the staff friendly. We will certainly come back.</p>
+          <p class="review-name">Danielle</p>
+          <p class="review-meta">14-08-2025 via google.com</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-title">Perfect location</p>
+          <p class="review-quote">The location is perfect: close to the motorway and yet near the town. The breakfast was very good, and the staff always helpful and friendly.</p>
+          <p class="review-name">Eddy</p>
+          <p class="review-meta">12-06-2025 via google.com</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-title">Warm and welcoming</p>
+          <p class="review-quote">We felt welcome right away. A lovely dinner in the brasserie and a nice, clean room. Exactly what we were looking for.</p>
+          <p class="review-name">The Janssen family</p>
+          <p class="review-meta">via google.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ WAT JE MAG VERWACHTEN ══════════════════════════════ -->
+  <section class="section upcoming">
+    <div class="container">
+      <div class="upcoming-head">
+        <span class="eyebrow">In your inbox</span>
+        <h2>What to expect from us</h2>
+      </div>
+      <div class="upcoming-grid">
+        <div class="upcoming-card">
+          <div class="phase-number">1</div>
+          <h3>Welcome</h3>
+          <p>You have just received your welcome code and a first introduction to Hotel Asteria.</p>
+        </div>
+        <div class="upcoming-card">
+          <div class="phase-number">2</div>
+          <h3>Our story</h3>
+          <p>A look behind the scenes. How we see Asteria, and what makes us who we are.</p>
+        </div>
+        <div class="upcoming-card">
+          <div class="phase-number">3</div>
+          <h3>A reminder</h3>
+          <p>A short reminder of your welcome gift, along with the stories of our guests.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FINAL CTA ══════════════════════════════════════════ -->
+  <section class="final-cta">
+    <div class="final-cta-inner">
+      <h2>Your welcome gift is ready</h2>
+      <p class="lead">A bottle of bubbles and a wellness package with bathrobe and towel in your room, on your first stay with code 'WELKOM'.</p>
+      <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELKOM&amp;mewsRoute=rooms" target="_blank" rel="noopener" class="btn btn-primary">Book with code 'WELKOM'</a>
+      <p class="small-note">Free cancellation up to 24 hours before arrival.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__logo">
+      <a href="https://www.asteria.nl">
+        <img src="https://www.asteria.nl/images/logo-hotel-asteria.png" alt="Hotel Asteria" loading="lazy">
+      </a>
+    </div>
+    <div class="footer__info">
+      <p class="footer__name">Hotel Asteria</p>
+      Maasheseweg 80a &nbsp;&middot;&nbsp; 5804 AD Venray<br>
+      <a href="tel:0031478511466">0478 511 466</a> &nbsp;&middot;&nbsp;
+      <a href="mailto:info@asteria.nl">info@asteria.nl</a><br>
+      <a href="https://www.asteria.nl" target="_blank" rel="noopener">www.asteria.nl</a>
+    </div>
+    <div class="footer__social">
+      <a href="https://www.facebook.com/AsteriaVenray" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/hotelasteriavenray" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/company/hotel-asteria-venray" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z"/></svg>
+      </a>
+    </div>
+    <div class="footer__links">
+      <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://www.asteria.nl/algemene-voorwaarden" target="_blank" rel="noopener">Terms &amp; conditions</a>
+    </div>
+    <div class="footer__copy">
+      &copy; 2026 Hotel Asteria &nbsp;&middot;&nbsp; Part of Van der Sterren Hotels
+    </div>
+  </div>
+</footer>
+
+<!-- ══ COOKIE BANNER ═════════════════════════════════════════ -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie notice">
+  <span>This website uses cookies for an optimal experience. <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">More info</a></span>
+  <button id="cookieAccept">Accept</button>
+</div>
+
+<script>
+/* ── Hamburger menu ── */
+(function () {
+  var nav = document.querySelector('.main-nav');
+  var btnOpen = document.getElementById('menuOpen');
+  var btnClose = document.getElementById('menuClose');
+  if (btnOpen) btnOpen.addEventListener('click', function () {
+    nav.classList.add('show-mobile-nav');
+    setTimeout(function () { nav.classList.add('delay'); }, 10);
+  });
+  if (btnClose) btnClose.addEventListener('click', function () {
+    nav.classList.remove('delay');
+    setTimeout(function () { nav.classList.remove('show-mobile-nav'); }, 400);
+  });
+}());
+
+/* ── Taalwisselaar ── */
+(function () {
+  var sel = document.querySelector('.lang-nav');
+  if (!sel) return;
+  sel.value = 'en';
+  sel.addEventListener('change', function () {
+    var v = sel.value;
+    localStorage.setItem('asteria_lang', v);
+    if (v === 'nl') window.location.replace('/welkom');
+    else if (v === 'de') window.location.replace('/welkom-de');
+  });
+}());
+
+/* ── Cookie banner ── */
+(function () {
+  var banner = document.getElementById('cookieBanner');
+  var accept = document.getElementById('cookieAccept');
+  if (!banner) return;
+  try { if (!localStorage.getItem('cookie-consent')) banner.classList.add('show'); } catch (e) { banner.classList.add('show'); }
+  if (accept) accept.addEventListener('click', function () {
+    try { localStorage.setItem('cookie-consent', '1'); } catch (e) {}
+    banner.classList.remove('show');
+  });
+}());
+</script>
+
+</body>
+</html>

@@ -38,6 +38,14 @@ TEMPLATES = {
             'de': ('happy-summer-arrangement-de.html', 'translations/happy-summer-de.json'),
         },
     },
+    'welkom': {
+        'template': 'welkom.template.html',
+        'langs': {
+            'nl': ('welkom.html',    'translations/welkom-nl.json'),
+            'en': ('welkom-en.html', 'translations/welkom-en.json'),
+            'de': ('welkom-de.html', 'translations/welkom-de.json'),
+        },
+    },
 }
 
 def build(template_name, lang):
