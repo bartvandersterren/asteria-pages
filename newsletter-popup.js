@@ -27,7 +27,7 @@
       overlayAria: 'Nieuwsbrief aanmelden',
       closeAria: 'Sluiten',
       title: 'Gratis welkomstcadeau<br>bij je verblijf',
-      perks: ['Badjas &amp; badhanddoeken', 'Fles bubbels op de kamer'],
+      perks: ['Flesje bubbels op de kamer', 'Badjas &amp; badhanddoeken'],
       terms: 'Niet in combinatie met arrangementen. Geldig bij je eerste verblijf.',
       label: 'E-mailadres',
       placeholder: 'jouw@email.nl',
@@ -44,7 +44,7 @@
       overlayAria: 'Newsletter sign-up',
       closeAria: 'Close',
       title: 'Free welcome gift<br>with your stay',
-      perks: ['Bathrobe &amp; towels', 'Bottle of bubbles in your room'],
+      perks: ['Bottle of bubbles in your room', 'Bathrobe &amp; towels'],
       terms: 'Not valid in combination with packages. Valid on your first stay.',
       label: 'Email address',
       placeholder: 'you@email.com',
@@ -61,7 +61,7 @@
       overlayAria: 'Newsletter anmelden',
       closeAria: 'Schließen',
       title: 'Gratis Willkommensgeschenk<br>bei Ihrem Aufenthalt',
-      perks: ['Bademantel &amp; Handtücher', 'Flasche Sekt auf dem Zimmer'],
+      perks: ['Flasche Sekt auf dem Zimmer', 'Bademantel &amp; Handtücher'],
       terms: 'Nicht mit Arrangements kombinierbar. Gültig bei Ihrem ersten Aufenthalt.',
       label: 'E-Mail-Adresse',
       placeholder: 'ihre@email.de',
@@ -80,15 +80,15 @@
   var CSS = ''
     + '.ec-overlay{position:fixed;inset:0;background:rgba(20,20,20,0.62);z-index:1200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s ease;overflow-y:auto;font-family:"Montserrat",sans-serif;}'
     + '.ec-overlay.is-open{opacity:1;pointer-events:auto;}'
-    + '.ec-modal{display:flex;width:100%;max-width:720px;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.45);position:relative;transform:translateY(12px);transition:transform .3s ease;max-height:92vh;}'
+    + '.ec-modal{display:flex;width:100%;max-width:860px;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.45);position:relative;transform:translateY(12px);transition:transform .3s ease;max-height:92vh;}'
     + '.ec-overlay.is-open .ec-modal{transform:translateY(0);}'
-    + '.ec-photo{flex:0 0 42%;background-image:url("/fotos/popup-welkomstpakket.webp");background-size:cover;background-position:center;min-height:440px;}'
-    + '.ec-panel{flex:1 1 auto;position:relative;padding:44px 44px 36px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}'
+    + '.ec-photo{flex:0 0 44%;background-image:url("/fotos/popup-welkomstpakket.webp");background-size:cover;background-position:center;min-height:520px;}'
+    + '.ec-panel{flex:1 1 auto;position:relative;padding:52px 52px 44px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}'
     + '.ec-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.85);border:none;color:#333;font-size:18px;font-weight:400;line-height:1;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:inherit;}'
     + '.ec-close:hover{background:#fff;}'
-    + '.ec-title{font-family:"Montserrat",sans-serif;font-weight:600;font-size:26px;color:#1a1a1a;line-height:1.22;margin:0 0 18px;letter-spacing:-0.2px;}'
+    + '.ec-title{font-family:"Montserrat",sans-serif;font-weight:600;font-size:29px;color:#1a1a1a;line-height:1.22;margin:0 0 20px;letter-spacing:-0.2px;}'
     + '.ec-perks{list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:8px;}'
-    + '.ec-perks li{position:relative;padding-left:26px;font-size:15px;color:#333;font-family:"Montserrat",sans-serif;font-weight:400;line-height:1.4;}'
+    + '.ec-perks li{position:relative;padding-left:28px;font-size:16px;color:#333;font-family:"Montserrat",sans-serif;font-weight:400;line-height:1.4;}'
     + '.ec-perks li::before{content:"";position:absolute;left:0;top:3px;width:15px;height:15px;background-image:url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23c23435\' stroke-width=\'3\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'20 6 9 17 4 12\'/></svg>");background-size:contain;background-repeat:no-repeat;}'
     + '.ec-terms{font-family:"Montserrat",sans-serif;font-weight:300;font-size:11px;color:#9a9a9a;line-height:1.5;margin:0 0 24px;}'
     + '.ec-label{display:block;font-family:"Montserrat",sans-serif;font-weight:700;font-size:12px;color:#1a1a1a;margin:0 0 8px;}'
