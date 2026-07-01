@@ -300,25 +300,45 @@ const CONFIG = {
 
   // ── Scratch-tracking via raster (geen getImageData → geen CORS-issues) ──
   const COLS = 26, ROWS = 30, cells = new Uint8Array(COLS * ROWS);
-  let scratchedCount = 0, drawing = false;
+  const BRUSH = 24;
+  let scratchedCount = 0, drawing = false, lastX = null, lastY = null;
 
-  function scratchAt(x, y) {
+  // Markeer 1 punt in het voortgangsraster
+  function markPoint(x, y) {
     const rect = canvas.getBoundingClientRect();
-    const brush = 26;
-    // wissen
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(x, y, brush, 0, Math.PI * 2);
-    ctx.fill();
-    // raster markeren
     const cw = rect.width / COLS, ch = rect.height / ROWS;
     for (let c = 0; c < COLS; c++) {
       for (let r = 0; r < ROWS; r++) {
         const i = r * COLS + c;
         if (cells[i]) continue;
         const cx = (c + 0.5) * cw, cy = (r + 0.5) * ch;
-        if (Math.hypot(cx - x, cy - y) <= brush) { cells[i] = 1; scratchedCount++; }
+        if (Math.hypot(cx - x, cy - y) <= BRUSH) { cells[i] = 1; scratchedCount++; }
       }
+    }
+  }
+
+  // Wis een doorlopende streep van (x0,y0) naar (x1,y1) — in één keer volledig
+  function scratchLine(x0, y0, x1, y1) {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'rgba(0,0,0,1)';
+    ctx.fillStyle = 'rgba(0,0,0,1)';
+    ctx.lineWidth = BRUSH * 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(x1, y1, BRUSH, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Voortgang markeren langs de streep
+    const dist = Math.hypot(x1 - x0, y1 - y0);
+    const steps = Math.max(1, Math.round(dist / (BRUSH * 0.6)));
+    for (let s = 0; s <= steps; s++) {
+      markPoint(x0 + (x1 - x0) * (s / steps), y0 + (y1 - y0) * (s / steps));
     }
     if (!revealed && scratchedCount / (COLS * ROWS) >= C.scratchThreshold) reveal();
   }
@@ -329,10 +349,19 @@ const CONFIG = {
     return { x: p.clientX - rect.left, y: p.clientY - rect.top };
   }
 
-  canvas.addEventListener('pointerdown', (e) => { e.preventDefault(); drawing = true; canvas.setPointerCapture(e.pointerId); const p = posFromEvent(e); scratchAt(p.x, p.y); });
-  canvas.addEventListener('pointermove', (e) => { if (!drawing) return; e.preventDefault(); const p = posFromEvent(e); scratchAt(p.x, p.y); });
-  canvas.addEventListener('pointerup', () => { drawing = false; });
-  canvas.addEventListener('pointercancel', () => { drawing = false; });
+  canvas.addEventListener('pointerdown', (e) => {
+    e.preventDefault(); drawing = true; canvas.setPointerCapture(e.pointerId);
+    const p = posFromEvent(e); lastX = p.x; lastY = p.y;
+    scratchLine(p.x, p.y, p.x, p.y);
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if (!drawing) return; e.preventDefault();
+    const p = posFromEvent(e);
+    scratchLine(lastX, lastY, p.x, p.y);
+    lastX = p.x; lastY = p.y;
+  });
+  canvas.addEventListener('pointerup', () => { drawing = false; lastX = lastY = null; });
+  canvas.addEventListener('pointercancel', () => { drawing = false; lastX = lastY = null; });
 
   function reveal() {
     revealed = true;
