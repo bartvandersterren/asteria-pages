@@ -31,7 +31,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Welkom bij Hotel Asteria">
   <meta property="og:description" content="Fijn dat je erbij bent. Je welkomstgeschenk staat klaar bij Hotel Asteria in Venray, met code 'WELKOM'.">
-  <meta property="og:image" content="https://visit.asteria.nl/fotos/hero-buitenkant.webp">
+  <meta property="og:image" content="https://visit.asteria.nl/fotos/hero-welkom.webp">
   <meta property="og:url" content="https://visit.asteria.nl/welkom">
   <meta property="og:locale" content="nl_NL">
   <meta property="og:site_name" content="Hotel Asteria Venray">
@@ -40,7 +40,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
-  <link rel="preload" as="image" href="fotos/hero-buitenkant.webp" type="image/webp">
+  <link rel="preload" as="image" href="fotos/hero-welkom.webp" type="image/webp">
 
   <script type="application/ld+json">
   {
@@ -51,7 +51,7 @@
     "address": { "@type": "PostalAddress", "streetAddress": "Maasheseweg 80a", "postalCode": "5804 AD", "addressLocality": "Venray", "addressCountry": "NL" },
     "telephone": "+31478511466",
     "email": "info@asteria.nl",
-    "image": "https://visit.asteria.nl/fotos/hero-buitenkant.webp",
+    "image": "https://visit.asteria.nl/fotos/hero-welkom.webp",
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "2219", "bestRating": "5" }
   }
   </script>
@@ -66,7 +66,7 @@
      HERO  (verbatim uit happy-summer.template.html)
      ============================================================ */
   .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; padding-top: 110px; padding-bottom: 80px; }
-  .hero__bg { position: absolute; inset: 0; background: #0d0c0b url('fotos/hero-buitenkant.webp') center 40% / cover no-repeat; }
+  .hero__bg { position: absolute; inset: 0; background: #0d0c0b url('fotos/hero-welkom.webp') center 42% / cover no-repeat; }
   .hero__overlay { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 85% at 50% 44%, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.82) 100%), linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 25%, transparent 45%), linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, transparent 18%); }
   .hero__grain { position: absolute; inset: 0; pointer-events: none; opacity: 0.18; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E"); mix-blend-mode: overlay; }
   .hero__content { position: relative; z-index: 3; max-width: 780px; padding: 0 28px; color: #fff; }
@@ -184,17 +184,37 @@
   @media (max-width: 600px) { .reviews { padding: 44px 0 52px; } .reviews__header { padding: 0 20px; margin-bottom: 24px; flex-direction: column; align-items: flex-start; gap: 12px; } .reviews__score { font-size: 38px; } .reviews__live-badge { align-self: flex-start; } .review-card { width: 220px; } .reviews__track { gap: 10px; } }
 
   /* ============================================================
-     OMGEVING  (verbatim subset uit happy-summer .wp-section)
+     OMGEVING — "Ontdek de omgeving" (uit lander-google.html)
      ============================================================ */
-  .wp-section { background: #f8f7f5; padding: 100px 40px 120px; }
-  .wp-section__inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 260px 1fr; gap: 72px; align-items: start; }
-  .wp-section__intro { position: sticky; top: 120px; }
-  .wp-intro__label { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #c23435; margin-bottom: 20px; }
-  .wp-intro__title { font-family: 'Electrolize', sans-serif; font-size: 44px; font-weight: 400; color: #0f172a; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.05; margin-bottom: 24px; }
-  .wp-intro__sub { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 300; color: #475569; line-height: 1.7; }
-  .wp-section__stage { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.10); }
-  .wp-section__img { width: 100%; height: auto; display: block; }
-  @media (max-width: 899px) { .wp-section { padding: 64px 16px 64px; } .wp-section__inner { grid-template-columns: 1fr; gap: 28px; } .wp-section__intro { position: static; } .wp-intro__title { font-size: 32px; } }
+  .beleving { padding: 72px 0 64px; background: #f0efed; }
+  .beleving__head { padding: 0 28px; margin-bottom: 36px; }
+  .beleving__title { font-family: 'Electrolize', sans-serif; font-size: 2rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em; color: #1a1a1a; max-width: 340px; }
+  .beleving__track { display: flex; gap: 14px; overflow-x: auto; padding: 0 28px 24px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; align-items: flex-start; }
+  .beleving__track::-webkit-scrollbar { display: none; }
+  .bel-item { flex: 0 0 270px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; }
+  .bel-item.flip { flex-direction: column-reverse; }
+  .bel-photo { position: relative; border-radius: 18px; overflow: hidden; height: 340px; flex-shrink: 0; }
+  .bel-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bel-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 52%); pointer-events: none; }
+  .bel-photo__cat { position: absolute; top: 16px; left: 16px; z-index: 2; background: rgba(255,255,255,0.2); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 5px 12px; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; color: #fff; }
+  .bel-photo__overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 20px 18px; z-index: 2; }
+  .bel-photo__name { font-family: 'Electrolize', sans-serif; font-size: 1rem; color: #fff; line-height: 1.25; margin-bottom: 8px; }
+  .bel-photo__dist { display: inline-flex; align-items: center; background: rgba(255,255,255,0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 4px 10px; font-size: 0.65rem; color: #fff; font-weight: 600; letter-spacing: 0.04em; }
+  .bel-text { background: #fff; border-radius: 18px; padding: 20px 20px 22px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+  .bel-text p { font-size: 0.8rem; font-weight: 300; color: #555; line-height: 1.65; margin: 0; }
+  .beleving__hint { display: flex; align-items: center; gap: 10px; padding: 0 28px; margin-top: 4px; }
+  .beleving__hint span { font-size: 0.7rem; color: #999; }
+  .beleving__dots { display: flex; gap: 6px; }
+  .bel-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
+  .bel-dot.active { background: #c23435; width: 18px; border-radius: 3px; }
+  @media (min-width: 768px) {
+    .beleving__title { font-size: 2.4rem; text-align: center; max-width: 100%; }
+    .beleving__head { padding: 0; text-align: center; }
+    .beleving__track { overflow-x: visible; scroll-snap-type: none; justify-content: center; flex-wrap: nowrap; max-width: 1280px; margin: 0 auto; padding: 0 40px 0; }
+    .bel-item { flex: 1 1 0; min-width: 0; }
+    .bel-photo { height: 380px; }
+    .beleving__hint { display: none; }
+  }
 
   /* ============================================================
      KAMERTYPES  (verbatim uit happy-summer; rijen = links)
@@ -242,6 +262,33 @@
     .room-row__body { padding: 14px 0; }
     .rooms__list { gap: 0; }
   }
+
+  /* ── Kamerpopup (verbatim uit happy-summer) ── */
+  .room-popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1100; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+  .room-popup-overlay.is-open { opacity: 1; pointer-events: auto; }
+  .room-popup { background: #fff; border-radius: 16px; max-width: 640px; width: 100%; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.25s cubic-bezier(0.16,1,0.3,1); }
+  .room-popup-overlay.is-open .room-popup { transform: translateY(0); }
+  .room-popup__slider { position: relative; width: 100%; overflow: hidden; border-radius: 16px 16px 0 0; }
+  .room-popup__track { display: flex; transition: transform 0.3s ease; align-items: flex-start; }
+  .room-popup__hero { width: 100%; height: auto; display: block; flex-shrink: 0; }
+  .room-popup__dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+  .room-popup__dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; padding: 0; cursor: pointer; transition: background 0.2s; }
+  .room-popup__dot.is-active { background: #fff; }
+  .room-popup__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.35); color: #fff; border: none; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; z-index: 2; transition: background 0.2s; }
+  .room-popup__arrow:hover { background: rgba(0,0,0,0.55); }
+  .room-popup__arrow--prev { left: 8px; }
+  .room-popup__arrow--next { right: 8px; }
+  .room-popup__body { padding: 24px 28px 28px; }
+  .room-popup__close { float: right; background: none; border: none; font-size: 22px; cursor: pointer; color: #94a3b8; line-height: 1; padding: 0; margin: -4px -4px 0 0; }
+  .room-popup__close:hover { color: #0f172a; }
+  .room-popup__name { font-family: 'Electrolize', sans-serif; font-size: 20px; text-transform: uppercase; letter-spacing: 0.08em; color: #0f172a; margin: 8px 0 6px; }
+  .room-popup__desc { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 300; color: #64748b; line-height: 1.6; margin-bottom: 16px; }
+  .room-popup__features { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 20px; padding: 0; }
+  .room-popup__feature { font-family: 'Montserrat', sans-serif; font-size: 12px; color: #475569; display: flex; align-items: center; gap: 5px; }
+  .room-popup__feature::before { content: '\2713'; color: #c23435; font-weight: 700; }
+  .room-popup__cta { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; background: #c23435; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; text-decoration: none; border-radius: 4px; transition: background 200ms ease; }
+  .room-popup__cta:hover { background: #a82c2c; }
+  @media (max-width: 768px) { .room-popup__body { padding: 18px 20px 22px; } }
 
   /* ============================================================
      DINER / CROSS-SELL CTA  (verbatim uit happy-summer)
@@ -443,7 +490,7 @@
 <!-- ══ WELKOMSTGESCHENK-KAART (arr-c) ════════════════════════ -->
 <section class="arr-c" id="arrangement" aria-label="Je welkomstgeschenk, wat krijg je">
   <div class="arr-c__photos" aria-hidden="true">
-    <div class="arr-c__photo is-active" data-key="bubbels" style="background-image:url('fotos/arr-c-drankje.webp')"></div>
+    <div class="arr-c__photo is-active" data-key="bubbels" style="background-image:url('fotos/arr-c-welkom-bubbels.webp')"></div>
     <div class="arr-c__photo" data-key="badjas" style="background-image:url('fotos/arr-c-badjas.webp')"></div>
     <div class="arr-c__photo" data-key="badlaken" style="background-image:url('fotos/arr-c-wellness.webp')"></div>
     <span class="arr-c__photo-caption" id="arrCCaption">Fles bubbels</span>
@@ -515,17 +562,67 @@
   </div>
 </section>
 
-<!-- ══ OMGEVING ══════════════════════════════════════════════ -->
-<section class="wp-section" id="omgeving" aria-label="De omgeving van Hotel Asteria">
-  <div class="wp-section__inner">
-    <div class="wp-section__intro">
-      <span class="wp-intro__label">De omgeving</span>
-      <h2 class="wp-intro__title">De natuur ligt<br>voor de deur</h2>
-      <p class="wp-intro__sub">Noord-Limburg op zijn mooist. Wandel of fiets door de Maasduinen en de bossen rondom Venray, en kom aan het eind van de dag heerlijk thuis bij Asteria.</p>
+<!-- ══ OMGEVING — Ontdek de omgeving ═════════════════════════ -->
+<section class="beleving" id="omgeving" aria-label="De omgeving van Hotel Asteria">
+  <div class="beleving__head">
+    <h2 class="beleving__title">Ontdek de omgeving</h2>
+  </div>
+  <div class="beleving__track">
+
+    <div class="bel-item">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-maasduinen.webp" alt="Nationaal Park De Maasduinen Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Natuur</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Nationaal Park<br>De Maasduinen</div>
+          <div class="bel-photo__dist">10 min. rijden</div>
+        </div>
+      </div>
+      <div class="bel-text"><p>Uitgestrekte duinen, stille bossen en honderden kilometers fiets- en wandelpaden, direct achter het hotel.</p></div>
     </div>
-    <div class="wp-section__stage">
-      <img class="wp-section__img" src="fotos/omgeving-fietsers.webp" alt="Fietsers in de omgeving van Hotel Asteria" loading="lazy">
+
+    <div class="bel-item flip">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-kasteeltuinen.webp" alt="Kasteeltuinen Arcen Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Cultuur</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Kasteeltuinen<br>Arcen</div>
+          <div class="bel-photo__dist">20 min. rijden</div>
+        </div>
+      </div>
+      <div class="bel-text"><p>Één van de mooiste tuinen van Nederland. Ideaal voor een middag vol kleur, rust en cultuur.</p></div>
     </div>
+
+    <div class="bel-item">
+      <div class="bel-photo">
+        <img src="fotos/blok-natuur.webp" alt="Fietsen en wandelen in Noord-Limburg" loading="lazy">
+        <div class="bel-photo__cat">Actief</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Fietsen &amp;<br>wandelen</div>
+          <div class="bel-photo__dist">Start bij het hotel</div>
+        </div>
+      </div>
+      <div class="bel-text"><p>Noord-Limburg heeft enkele van de mooiste fietsroutes van Nederland, door heuvels en langs de Maas.</p></div>
+    </div>
+
+    <div class="bel-item flip">
+      <div class="bel-photo">
+        <img src="fotos/omgeving-hertogjan.webp" alt="Hertog Jan Brouwerij Arcen" loading="lazy">
+        <div class="bel-photo__cat">Culinair</div>
+        <div class="bel-photo__overlay">
+          <div class="bel-photo__name">Hertog Jan<br>Brouwerij</div>
+          <div class="bel-photo__dist">15 min. rijden</div>
+        </div>
+      </div>
+      <div class="bel-text"><p>Rondleiding bij de bekendste brouwerij van Limburg, met proeverij en een kijkje in het brouwproces.</p></div>
+    </div>
+
+  </div>
+  <div class="beleving__hint">
+    <div class="beleving__dots">
+      <div class="bel-dot active"></div><div class="bel-dot"></div><div class="bel-dot"></div><div class="bel-dot"></div>
+    </div>
+    <span>Swipe voor meer</span>
   </div>
 </section>
 
@@ -536,39 +633,44 @@
     <h2 class="rooms__title">Welke kamer past bij jou?</h2>
     <p class="rooms__sub">Upgrade voor meer comfort of privacy</p>
 
-    <a class="rooms__base" href="https://www.asteria.nl/kamers/comfort-kamer" target="_blank" rel="noopener">
+    <div class="rooms__base" data-room="comfort" role="button" tabindex="0" style="cursor:pointer">
       <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="Comfort Kamer" loading="lazy">
       <div class="rooms__base-body">
         <span class="rooms__base-badge">Standaard kamer</span>
         <span class="rooms__base-name">Comfort Kamer</span>
         <p class="rooms__base-feats">~22 m² · tweepersoons bed · douche · zithoek · airco · WiFi</p>
       </div>
-    </a>
+    </div>
 
     <div class="rooms__list">
-      <a class="room-row" href="https://www.asteria.nl/kamers/royale-kamer" target="_blank" rel="noopener">
+      <div class="room-row" data-room="royale" role="button" tabindex="0">
         <img class="room-row__img" src="fotos/kamer-royale.webp" alt="Royale Kamer" loading="lazy">
         <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">Royale Kamer</div><div class="room-row__deltas"><span class="plus">+</span> meer ruimte <span class="plus">+</span> ligbad</div></div><span class="room-row__chevron">›</span></div>
-      </a>
-      <a class="room-row" href="https://www.asteria.nl/kamers/deluxe-kamer" target="_blank" rel="noopener">
+      </div>
+      <div class="room-row" data-room="deluxe" role="button" tabindex="0">
         <img class="room-row__img" src="fotos/kamer-deluxe.webp" alt="Deluxe Kamer" loading="lazy">
         <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">+ Eigen sauna</span><div class="room-row__name">Deluxe Kamer</div><div class="room-row__deltas"><span class="plus">+</span> meer ruimte <span class="plus">+</span> privé infraroodsauna</div></div><span class="room-row__chevron">›</span></div>
-      </a>
-      <a class="room-row" href="https://www.asteria.nl/kamers" target="_blank" rel="noopener">
+      </div>
+      <div class="room-row" data-room="junior-suite" role="button" tabindex="0">
         <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior Suite" loading="lazy">
         <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">Junior Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> ruime zithoek <span class="plus">+</span> ligbad <span class="plus">+</span> koelkast</div></div><span class="room-row__chevron">›</span></div>
-      </a>
-      <a class="room-row" href="https://www.asteria.nl/kamers/suite" target="_blank" rel="noopener">
+      </div>
+      <div class="room-row" data-room="suite" role="button" tabindex="0">
         <img class="room-row__img" src="fotos/kamer-suite.webp" alt="Suite" loading="lazy">
         <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">+ Eigen sauna</span><div class="room-row__name">Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> privé infraroodsauna <span class="plus">+</span> ruime zithoek <span class="plus">+</span> koelkast</div></div><span class="room-row__chevron">›</span></div>
-      </a>
-      <a class="room-row" href="https://www.asteria.nl/kamers/bruidssuite" target="_blank" rel="noopener">
+      </div>
+      <div class="room-row" data-room="bruidssuite" role="button" tabindex="0">
         <img class="room-row__img" src="fotos/kamer-bruidssuite.webp" alt="Bruidssuite" loading="lazy">
         <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--premium">Premium</span><div class="room-row__name">Bruidssuite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> vrijstaand bad <span class="plus">+</span> inloopdouche <span class="plus">+</span> koelkast</div></div><span class="room-row__chevron">›</span></div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- Kamerpopup -->
+<div class="room-popup-overlay" id="roomPopup" role="dialog" aria-modal="true" aria-label="Kamerdetails" data-cta="Boek met code 'WELKOM'">
+  <div class="room-popup" id="roomPopupInner"></div>
+</div>
 
 <!-- ══ WELKOM CROSS-SELL CTA (diner-blok) ════════════════════ -->
 <section class="diner" aria-label="Je welkomstgeschenk staat klaar">
@@ -678,6 +780,62 @@
     });
   }, { threshold: 0 });
   io.observe(reviews);
+}());
+
+/* ── Kamerpopup ── */
+(function () {
+  var ROOMS = {'comfort':{imgs:['fotos/room-comfort-3-1.webp','fotos/room-comfort-3-2.webp','fotos/room-comfort-3-3.webp','fotos/room-comfort-3-4.webp'],badge:'<span class="room-row__badge" style="background:#f1f5f9;color:#64748b">Standaard kamer</span>',name:'Comfort Kamer',desc:'Onze standaardkamer: comfortabel, licht en compleet ingericht. De ideale uitvalsbasis voor je verblijf.',features:['~22 m²','Tweepersoonsbed','Douche','Zithoek','Airco','WiFi']},'royale':{imgs:['fotos/room-royale-1.webp','fotos/room-royale-2.webp','fotos/room-royale-3.webp','fotos/room-royale-4.webp'],badge:'<span class="room-row__badge badge--upgrade">Upgrade</span>',name:'Royale Kamer',desc:'Wat meer ruimte om je heen, met een heerlijk ligbad om de dag rustig af te sluiten.',features:['Meer ruimte','Ligbad','Zithoek','Airco','WiFi']},'deluxe':{imgs:['fotos/room-deluxe-1.webp','fotos/room-deluxe-2.webp','fotos/room-deluxe-3.webp','fotos/room-deluxe-4.webp'],badge:'<span class="room-row__badge badge--sauna">+ Eigen sauna</span>',name:'Deluxe Kamer',desc:'Ruime kamer met je eigen privé infraroodsauna. Wellness op je eigen kamer, wanneer jij wilt.',features:['Privé infraroodsauna','Meer ruimte','Ligbad','Airco','WiFi']},'junior-suite':{imgs:['fotos/kamer-junior-suite.webp','fotos/kamer-junior-suite-2.webp'],badge:'<span class="room-row__badge badge--upgrade">Upgrade</span>',name:'Junior Suite',desc:'Een ruime suite met aparte zithoek en ligbad. Extra comfort voor wie er even helemaal tussenuit wil.',features:['Kingsize bed','Ruime zithoek','Ligbad','Koelkast','WiFi']},'suite':{imgs:['fotos/room-suite-1.webp','fotos/room-suite-2.webp','fotos/room-suite-3.webp','fotos/room-suite-4.webp'],badge:'<span class="room-row__badge badge--sauna">+ Eigen sauna</span>',name:'Suite',desc:'Onze suite met privé infraroodsauna en een ruime zithoek. Alle ruimte en rust voor een luxe verblijf.',features:['Kingsize bed','Privé infraroodsauna','Ruime zithoek','Koelkast','WiFi']},'bruidssuite':{imgs:['fotos/room-bruidssuite-1.webp','fotos/room-bruidssuite-2.webp','fotos/room-bruidssuite-3.webp','fotos/room-bruidssuite-4.webp'],badge:'<span class="room-row__badge badge--premium">Premium</span>',name:'Bruidssuite',desc:'Onze mooiste kamer, met vrijstaand bad en inloopdouche. Voor een onvergetelijke gelegenheid.',features:['Kingsize bed','Vrijstaand bad','Inloopdouche','Koelkast','WiFi']}};
+  window.ROOMS = ROOMS;
+  var overlay = document.getElementById('roomPopup');
+  var inner = document.getElementById('roomPopupInner');
+  if (!overlay || !inner) return;
+  var MEWS = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELKOM&mewsRoute=rooms';
+  var CTA_LABEL = overlay.getAttribute('data-cta') || '';
+  var sliderIdx = 0, sliderLen = 0;
+  function goSlide(i) {
+    if (i < 0) i = sliderLen - 1; if (i >= sliderLen) i = 0;
+    sliderIdx = i;
+    var track = inner.querySelector('.room-popup__track');
+    if (track) track.style.transform = 'translateX(-' + (i * 100) + '%)';
+    inner.querySelectorAll('.room-popup__dot').forEach(function (d, di) { d.classList.toggle('is-active', di === i); });
+  }
+  function closePopup() { overlay.classList.remove('is-open'); document.body.style.overflow = ''; }
+  function openPopup(key) {
+    var r = ROOMS[key];
+    if (!r) return;
+    var slides = r.imgs.map(function (src) { return '<img class="room-popup__hero" src="' + src + '" alt="' + r.name + '" loading="lazy">'; });
+    sliderLen = slides.length; sliderIdx = 0;
+    var dotsHtml = slides.length > 1 ? '<div class="room-popup__dots">' + slides.map(function (_, i) { return '<button class="room-popup__dot' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '"></button>'; }).join('') + '</div>' : '';
+    var arrowsHtml = slides.length > 1 ? '<button class="room-popup__arrow room-popup__arrow--prev" aria-label="Vorige foto">‹</button><button class="room-popup__arrow room-popup__arrow--next" aria-label="Volgende foto">›</button>' : '';
+    inner.innerHTML =
+      '<div class="room-popup__slider"><div class="room-popup__track">' + slides.join('') + '</div>' + dotsHtml + arrowsHtml + '</div>' +
+      '<div class="room-popup__body">' +
+        '<button class="room-popup__close" id="popupClose" aria-label="Sluiten">&times;</button>' +
+        r.badge +
+        '<h3 class="room-popup__name">' + r.name + '</h3>' +
+        '<p class="room-popup__desc">' + r.desc + '</p>' +
+        '<ul class="room-popup__features">' + r.features.map(function (f) { return '<li class="room-popup__feature">' + f + '</li>'; }).join('') + '</ul>' +
+        '<a class="room-popup__cta" href="' + MEWS + '" target="_blank" rel="noopener">' + CTA_LABEL + '</a>' +
+      '</div>';
+    var prevBtn = inner.querySelector('.room-popup__arrow--prev');
+    var nextBtn = inner.querySelector('.room-popup__arrow--next');
+    if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); goSlide(sliderIdx - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); goSlide(sliderIdx + 1); });
+    inner.querySelectorAll('.room-popup__dot').forEach(function (dot) { dot.addEventListener('click', function (e) { e.stopPropagation(); goSlide(Number(this.dataset.idx)); }); });
+    var slider = inner.querySelector('.room-popup__slider');
+    var tsx = 0;
+    slider.addEventListener('touchstart', function (e) { tsx = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', function (e) { var d = tsx - e.changedTouches[0].clientX; if (Math.abs(d) > 40) goSlide(sliderIdx + (d > 0 ? 1 : -1)); });
+    document.getElementById('popupClose').addEventListener('click', closePopup);
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closePopup(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePopup(); });
+  document.querySelectorAll('.room-row, .rooms__base').forEach(function (el) {
+    el.addEventListener('click', function () { openPopup(this.dataset.room); });
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(this.dataset.room); } });
+  });
 }());
 
 /* ── Hamburger menu ── */
