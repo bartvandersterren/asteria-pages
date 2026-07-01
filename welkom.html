@@ -333,8 +333,9 @@
   .fac-tile__btn:hover { background: #a82c2c; }
   @media (max-width: 768px) {
     .fac { padding: 56px 0; }
-    .fac-row { flex-direction: column; height: auto; gap: 12px; }
-    .fac-tile, .fac-tile.is-default, .fac-row:hover .fac-tile, .fac-row:hover .fac-tile:hover { flex: none; height: 280px; }
+    .fac-row { flex-direction: row; height: auto; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 0 24px 22px; }
+    .fac-row::-webkit-scrollbar { display: none; }
+    .fac-tile, .fac-tile.is-default, .fac-row:hover .fac-tile, .fac-row:hover .fac-tile:hover { flex: 0 0 80%; scroll-snap-align: start; height: 420px; }
     .fac-tile__extra { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
     .fac-tile__title { font-size: 1.4rem; }
   }
