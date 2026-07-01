@@ -27,7 +27,7 @@ export async function onRequestGet({ env, request }) {
   try {
     if (summary) {
       // Samenvatting: counts per event + per variant
-      const [eventCounts, variantCounts, bookingStats] = await Promise.all([
+      const [eventCounts, variantCounts, popupAb, bookingStats] = await Promise.all([
         env.ASTERIA_D1.prepare(
           `SELECT event, COUNT(*) as count FROM events GROUP BY event ORDER BY count DESC`
         ).all(),
@@ -37,6 +37,17 @@ export async function onRequestGet({ env, request }) {
            WHERE event IN ('page_view','mews_click','popup_open')
            GROUP BY event, variant_price
            ORDER BY event, variant_price`
+        ).all(),
+        // A/B nieuwsbrief-popup: shows / submits / conversies per variant
+        env.ASTERIA_D1.prepare(
+          `SELECT variant_email as variant,
+                  SUM(CASE WHEN event='email_popup_open' THEN 1 ELSE 0 END) as shows,
+                  SUM(CASE WHEN event='email_submit'     THEN 1 ELSE 0 END) as submits,
+                  SUM(CASE WHEN event='email_success'    THEN 1 ELSE 0 END) as conversions
+           FROM events
+           WHERE variant_email IN ('A_whitecard','B_scratchcard')
+           GROUP BY variant_email
+           ORDER BY variant_email`
         ).all(),
         env.ASTERIA_D1.prepare(
           `SELECT
@@ -48,10 +59,17 @@ export async function onRequestGet({ env, request }) {
         ).all(),
       ]);
 
+      // Conversieratio per variant erbij rekenen
+      const popup_ab = (popupAb.results || []).map((r) => ({
+        ...r,
+        conversion_rate: r.shows ? +(100 * r.conversions / r.shows).toFixed(1) : 0,
+      }));
+
       return new Response(
         JSON.stringify({
           events: eventCounts.results,
           variants: variantCounts.results,
+          popup_ab,
           bookings: bookingStats.results[0] || { total_bookings: 0, total_revenue: 0 },
         }),
         { headers: { 'Content-Type': 'application/json' } }

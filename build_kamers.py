@@ -1405,10 +1405,10 @@ def faq_items_overview(lang):
     return '\n'.join(out)
 
 # ── Schrijf pagina's ───────────────────────────────────────────────────
-NL_POPUP_TAG = '<script src="/newsletter-popup.js" defer></script>'
+NL_POPUP_TAG = '<script src="/popup-ab.js" defer></script>'
 def with_newsletter(html):
-    """Sluit de universele nieuwsbrief-popup in vóór </body> (idempotent)."""
-    if 'newsletter-popup.js' in html:
+    """Sluit de nieuwsbrief-popup A/B-loader in vóór </body> (idempotent)."""
+    if 'popup-ab.js' in html or 'newsletter-popup.js' in html:
         return html
     idx = html.rfind('</body>')
     return html if idx == -1 else html[:idx] + NL_POPUP_TAG + '\n' + html[idx:]
