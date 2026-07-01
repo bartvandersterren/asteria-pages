@@ -1,18 +1,16 @@
 /* ══════════════════════════════════════════════════════════
    UNIVERSELE NIEUWSBRIEF-POPUP — Hotel Asteria
-   Injecteert zelf de e-mail-capture popup (welkomstpakket) op
-   elke pagina waar deze nog niet inline aanwezig is.
-   Taal wordt afgeleid uit <html lang> (nl / en / de).
+   Witte-kaart ontwerp (foto links / boven), Asteria-brand.
+   Injecteert zichzelf op elke pagina waar de popup nog niet
+   inline aanwezig is. Taal via <html lang> (nl / en / de).
    Insluiten met: <script src="/newsletter-popup.js" defer></script>
 ══════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
   // ── Guards ─────────────────────────────────────────────
-  // Pagina heeft de popup al inline → niets doen (geen dubbele markup/ID's)
-  if (document.getElementById('ecOverlay')) return;
-  // Bezoeker heeft zich al aangemeld → nooit meer tonen
-  if (localStorage.getItem('ec_converted')) return;
+  if (document.getElementById('ecOverlay')) return;       // al inline aanwezig
+  if (localStorage.getItem('ec_converted')) return;        // al aangemeld
 
   // ── Taal & copy ────────────────────────────────────────
   var lang = (document.documentElement.getAttribute('lang') || 'nl').slice(0, 2).toLowerCase();
@@ -22,31 +20,31 @@
     nl: {
       overlayAria: 'Nieuwsbrief aanmelden',
       closeAria: 'Sluiten',
-      title: 'Gratis welkomstpakket<br>bij uw verblijf',
-      perks: ['&#x1F6C1; Badjas &amp; handdoek', '&#x1F942; Fles bubbels op de kamer'],
-      sub: 'Meld u aan en ontvang uw persoonlijke code per e-mail.',
+      title: 'Gratis welkomstcadeau<br>bij je verblijf',
+      perks: ['Badjas &amp; badhanddoeken', 'Fles bubbels op de kamer'],
       terms: 'Niet in combinatie met arrangementen. Geldig bij je eerste verblijf.',
+      label: 'E-mailadres',
+      placeholder: 'jouw@email.nl',
+      submit: 'Schrijf me in',
+      submitReset: 'Schrijf me in',
+      consent: 'Door in te schrijven ga je akkoord met ons <a href="/privacyverklaring" target="_blank">privacybeleid</a>. Je kunt je altijd afmelden.',
       error: 'Er ging iets mis. Probeer het opnieuw.',
-      placeholder: 'uw e-mailadres',
-      submit: 'Stuur mij de code &#x2192;',
-      submitReset: 'Aanmelden',
-      consent: 'Door u aan te melden gaat u akkoord met onze <a href="/privacyverklaring" target="_blank">privacyverklaring</a>. Afmelden kan altijd.',
       successTitle: 'Bijna klaar!',
-      successSub: 'Check uw inbox en bevestig uw aanmelding. Uw welkomstcode staat in diezelfde mail. Vermeld hem bij het boeken.',
-      spamNote: 'Geen mail ontvangen? Check uw spamfolder.'
+      successSub: 'Check je inbox en bevestig je aanmelding. Je welkomstcode staat in diezelfde mail. Vermeld hem bij het boeken.',
+      spamNote: 'Geen mail ontvangen? Check je spamfolder.'
     },
     en: {
       overlayAria: 'Newsletter sign-up',
       closeAria: 'Close',
-      title: 'Free welcome package<br>with your stay',
-      perks: ['&#x1F6C1; Bathrobe &amp; towel', '&#x1F942; Bottle of bubbles in your room'],
-      sub: 'Sign up and receive your personal code by email.',
+      title: 'Free welcome gift<br>with your stay',
+      perks: ['Bathrobe &amp; towels', 'Bottle of bubbles in your room'],
       terms: 'Not valid in combination with packages. Valid on your first stay.',
-      error: 'Something went wrong. Please try again.',
-      placeholder: 'your email address',
-      submit: 'Send me the code &#x2192;',
-      submitReset: 'Sign up',
+      label: 'Email address',
+      placeholder: 'you@email.com',
+      submit: 'Sign me up',
+      submitReset: 'Sign me up',
       consent: 'By signing up you agree to our <a href="/privacyverklaring" target="_blank">privacy policy</a>. You can unsubscribe at any time.',
+      error: 'Something went wrong. Please try again.',
       successTitle: 'Almost done!',
       successSub: 'Check your inbox and confirm your sign-up. Your welcome code is in that same email. Mention it when you book.',
       spamNote: 'No email? Check your spam folder.'
@@ -54,15 +52,15 @@
     de: {
       overlayAria: 'Newsletter anmelden',
       closeAria: 'Schließen',
-      title: 'Gratis Willkommenspaket<br>bei Ihrem Aufenthalt',
-      perks: ['&#x1F6C1; Bademantel &amp; Handtuch', '&#x1F942; Flasche Sekt auf dem Zimmer'],
-      sub: 'Melden Sie sich an und erhalten Sie Ihren persönlichen Code per E-Mail.',
+      title: 'Gratis Willkommensgeschenk<br>bei Ihrem Aufenthalt',
+      perks: ['Bademantel &amp; Handtücher', 'Flasche Sekt auf dem Zimmer'],
       terms: 'Nicht mit Arrangements kombinierbar. Gültig bei Ihrem ersten Aufenthalt.',
-      error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
-      placeholder: 'Ihre E-Mail-Adresse',
-      submit: 'Code senden &#x2192;',
+      label: 'E-Mail-Adresse',
+      placeholder: 'ihre@email.de',
+      submit: 'Anmelden',
       submitReset: 'Anmelden',
       consent: 'Mit der Anmeldung stimmen Sie unserer <a href="/privacyverklaring" target="_blank">Datenschutzerklärung</a> zu. Abmeldung jederzeit möglich.',
+      error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
       successTitle: 'Fast geschafft!',
       successSub: 'Prüfen Sie Ihren Posteingang und bestätigen Sie Ihre Anmeldung. Ihr Willkommenscode steht in derselben E-Mail. Nennen Sie ihn bei der Buchung.',
       spamNote: 'Keine E-Mail erhalten? Prüfen Sie Ihren Spam-Ordner.'
@@ -70,81 +68,80 @@
   };
   var t = COPY[lang];
 
-  // ── Styles injecteren (eenmalig) ───────────────────────
+  // ── Styles ─────────────────────────────────────────────
   var CSS = ''
-    + '.ec-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:1200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s ease;}'
+    + '.ec-overlay{position:fixed;inset:0;background:rgba(20,20,20,0.62);z-index:1200;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .3s ease;overflow-y:auto;font-family:"Montserrat",sans-serif;}'
     + '.ec-overlay.is-open{opacity:1;pointer-events:auto;}'
-    + '.ec-modal{width:100%;max-width:480px;border-radius:4px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.65);position:relative;transform:translateY(12px);transition:transform .3s ease;}'
+    + '.ec-modal{display:flex;width:100%;max-width:720px;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.45);position:relative;transform:translateY(12px);transition:transform .3s ease;max-height:92vh;}'
     + '.ec-overlay.is-open .ec-modal{transform:translateY(0);}'
-    + '.ec-modal-inner{position:relative;min-height:480px;display:flex;flex-direction:column;justify-content:flex-end;padding:40px 40px 40px;}'
-    + '.ec-modal-bg{position:absolute;inset:-6px;background-image:url("/fotos/popup-welkomstpakket.webp");background-size:cover;background-position:center;filter:blur(5px);}'
-    + '.ec-modal-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.90) 0%,rgba(0,0,0,0.55) 50%,rgba(0,0,0,0.30) 100%);}'
-    + '.ec-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.45);font-size:22px;font-weight:300;cursor:pointer;line-height:1;z-index:2;transition:color .2s;padding:4px;font-family:inherit;}'
-    + '.ec-close:hover{color:rgba(255,255,255,0.85);}'
-    + '.ec-content{position:relative;z-index:1;}'
-    + '.ec-title{font-family:"Montserrat",sans-serif;font-weight:300;font-size:27px;color:#fff;line-height:1.25;margin:0 0 12px;letter-spacing:-0.3px;}'
-    + '.ec-sub{font-family:"Montserrat",sans-serif;font-weight:300;font-size:14px;color:rgba(255,255,255,0.72);line-height:1.65;margin:0 0 28px;}'
-    + '.ec-form-row{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}'
-    + '.ec-email-input{width:100%;background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.25);border-radius:3px;padding:14px 16px;font-family:"Montserrat",sans-serif;font-weight:300;font-size:14px;color:#fff;outline:none;transition:border-color .2s,background .2s;}'
-    + '.ec-email-input::placeholder{color:rgba(255,255,255,0.38);}'
-    + '.ec-email-input:focus{background:rgba(255,255,255,0.14);border-color:rgba(255,255,255,0.50);}'
-    + '.ec-submit-btn{width:100%;background:#c23435;border:none;border-radius:3px;padding:15px 18px;font-family:"Electrolize",sans-serif;font-size:11px;letter-spacing:2.5px;color:#fff;text-transform:uppercase;cursor:pointer;transition:background .2s;}'
+    + '.ec-photo{flex:0 0 42%;background-image:url("/fotos/popup-welkomstpakket.webp");background-size:cover;background-position:center;min-height:440px;}'
+    + '.ec-panel{flex:1 1 auto;position:relative;padding:44px 44px 36px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}'
+    + '.ec-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.85);border:none;color:#333;font-size:18px;font-weight:400;line-height:1;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:inherit;}'
+    + '.ec-close:hover{background:#fff;}'
+    + '.ec-title{font-family:"Montserrat",sans-serif;font-weight:600;font-size:26px;color:#1a1a1a;line-height:1.22;margin:0 0 18px;letter-spacing:-0.2px;}'
+    + '.ec-perks{list-style:none;padding:0;margin:0 0 14px;display:flex;flex-direction:column;gap:8px;}'
+    + '.ec-perks li{position:relative;padding-left:26px;font-size:15px;color:#333;font-family:"Montserrat",sans-serif;font-weight:400;line-height:1.4;}'
+    + '.ec-perks li::before{content:"";position:absolute;left:0;top:3px;width:15px;height:15px;background-image:url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%23c23435\' stroke-width=\'3\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><polyline points=\'20 6 9 17 4 12\'/></svg>");background-size:contain;background-repeat:no-repeat;}'
+    + '.ec-terms{font-family:"Montserrat",sans-serif;font-weight:300;font-size:11px;color:#9a9a9a;line-height:1.5;margin:0 0 24px;}'
+    + '.ec-label{display:block;font-family:"Montserrat",sans-serif;font-weight:700;font-size:12px;color:#1a1a1a;margin:0 0 8px;}'
+    + '.ec-email-input{width:100%;box-sizing:border-box;background:#fff;border:1px solid #cccccc;border-radius:4px;padding:13px 14px;font-family:"Montserrat",sans-serif;font-weight:400;font-size:14px;color:#111;outline:none;transition:border-color .2s;}'
+    + '.ec-email-input::placeholder{color:#a5a5a5;}'
+    + '.ec-email-input:focus{border-color:#c23435;}'
+    + '.ec-submit-btn{width:100%;margin-top:16px;background:#c23435;border:none;border-radius:4px;padding:15px 18px;font-family:"Montserrat",sans-serif;font-weight:600;font-size:15px;color:#fff;cursor:pointer;transition:background .2s;}'
     + '.ec-submit-btn:hover{background:#a82c2c;}'
-    + '.ec-submit-btn:disabled{background:#888;cursor:default;}'
-    + '.ec-consent{font-family:"Montserrat",sans-serif;font-weight:300;font-size:11px;color:rgba(255,255,255,0.42);line-height:1.6;}'
-    + '.ec-consent a{color:rgba(255,255,255,0.60);text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);}'
-    + '.ec-perks{list-style:none;padding:0;margin:0 0 12px;display:flex;flex-direction:column;gap:4px;}'
-    + '.ec-perks li{font-size:14px;color:rgba(255,255,255,0.88);font-family:"Montserrat",sans-serif;font-weight:400;}'
-    + '.ec-terms{font-family:"Montserrat",sans-serif;font-weight:300;font-size:11px;color:rgba(255,255,255,0.50);line-height:1.5;margin:0 0 22px;}'
-    + '.ec-error{font-size:11px;color:#ff8a8a;margin-bottom:10px;display:none;}'
+    + '.ec-submit-btn:disabled{background:#b98a8a;cursor:default;}'
+    + '.ec-consent{font-family:"Montserrat",sans-serif;font-weight:300;font-size:11px;color:#8f8f8f;line-height:1.6;margin:16px 0 0;}'
+    + '.ec-consent a{color:#c23435;text-decoration:underline;}'
+    + '.ec-error{font-size:12px;color:#c23435;margin:12px 0 0;display:none;}'
     + '.ec-error.is-visible{display:block;}'
     + '.ec-success{display:none;}'
     + '.ec-success.is-visible{display:flex;flex-direction:column;}'
     + '.ec-form-state.is-hidden{display:none;}'
-    + '.ec-success-icon{width:44px;height:44px;border:1px solid rgba(255,255,255,0.22);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:20px;flex-shrink:0;}'
-    + '.ec-success-icon svg{width:18px;height:18px;stroke:rgba(255,255,255,0.6);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}'
-    + '.ec-success-title{font-family:"Montserrat",sans-serif;font-weight:300;font-size:27px;color:#fff;line-height:1.25;margin:0 0 12px;}'
-    + '.ec-success-sub{font-family:"Montserrat",sans-serif;font-weight:300;font-size:14px;color:rgba(255,255,255,0.72);line-height:1.65;margin:0 0 12px;}'
-    + '.ec-spam-note{font-family:"Montserrat",sans-serif;font-weight:300;font-size:11px;color:rgba(255,255,255,0.38);line-height:1.6;}'
-    + '@media (max-width:480px){.ec-modal-inner{padding:32px 24px 32px;min-height:400px;}.ec-title,.ec-success-title{font-size:22px;}.ec-sub,.ec-success-sub{font-size:13px;}}';
+    + '.ec-success-icon{width:46px;height:46px;border-radius:50%;background:#c23435;display:flex;align-items:center;justify-content:center;margin-bottom:20px;flex-shrink:0;}'
+    + '.ec-success-icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}'
+    + '.ec-success-title{font-family:"Montserrat",sans-serif;font-weight:600;font-size:24px;color:#1a1a1a;line-height:1.25;margin:0 0 12px;}'
+    + '.ec-success-sub{font-family:"Montserrat",sans-serif;font-weight:300;font-size:14px;color:#555;line-height:1.65;margin:0 0 12px;}'
+    + '.ec-spam-note{font-family:"Montserrat",sans-serif;font-weight:300;font-size:11px;color:#9a9a9a;line-height:1.6;margin:0;}'
+    + '@media (max-width:640px){'
+    +   '.ec-modal{flex-direction:column;max-width:400px;}'
+    +   '.ec-photo{flex:none;width:100%;min-height:0;height:190px;}'
+    +   '.ec-panel{padding:26px 24px 30px;}'
+    +   '.ec-title{font-size:22px;}'
+    + '}';
 
   var styleEl = document.createElement('style');
   styleEl.id = 'ec-styles';
   styleEl.textContent = CSS;
   document.head.appendChild(styleEl);
 
-  // ── Markup injecteren ──────────────────────────────────
+  // ── Markup ─────────────────────────────────────────────
   var perksHtml = t.perks.map(function (p) { return '<li>' + p + '</li>'; }).join('');
   var markup = ''
     + '<div class="ec-overlay" id="ecOverlay" role="dialog" aria-modal="true" aria-label="' + t.overlayAria + '">'
     +   '<div class="ec-modal" id="ecModal">'
-    +     '<div class="ec-modal-inner">'
-    +       '<div class="ec-modal-bg"></div>'
+    +     '<div class="ec-photo"></div>'
+    +     '<div class="ec-panel">'
     +       '<button class="ec-close" id="ecClose" aria-label="' + t.closeAria + '">&times;</button>'
-    +       '<div class="ec-content">'
-    +         '<div class="ec-form-state" id="ecFormState">'
-    +           '<h2 class="ec-title">' + t.title + '</h2>'
-    +           '<ul class="ec-perks">' + perksHtml + '</ul>'
-    +           '<p class="ec-terms">' + t.terms + '</p>'
-    +           '<p class="ec-sub">' + t.sub + '</p>'
-    +           '<p class="ec-error" id="ecError">' + t.error + '</p>'
-    +           '<div class="ec-form-row">'
-    +             '<input class="ec-email-input" type="email" id="ecEmail" placeholder="' + t.placeholder + '" autocomplete="email">'
-    +             '<button class="ec-submit-btn" id="ecSubmit">' + t.submit + '</button>'
-    +           '</div>'
-    +           '<p class="ec-consent">' + t.consent + '</p>'
-    +         '</div>'
-    +         '<div class="ec-success" id="ecSuccess">'
-    +           '<div class="ec-success-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></div>'
-    +           '<h2 class="ec-success-title">' + t.successTitle + '</h2>'
-    +           '<p class="ec-success-sub">' + t.successSub + '</p>'
-    +           '<p class="ec-spam-note">' + t.spamNote + '</p>'
-    +         '</div>'
+    +       '<div class="ec-form-state" id="ecFormState">'
+    +         '<h2 class="ec-title">' + t.title + '</h2>'
+    +         '<ul class="ec-perks">' + perksHtml + '</ul>'
+    +         '<p class="ec-terms">' + t.terms + '</p>'
+    +         '<label class="ec-label" for="ecEmail">' + t.label + '</label>'
+    +         '<input class="ec-email-input" type="email" id="ecEmail" placeholder="' + t.placeholder + '" autocomplete="email">'
+    +         '<p class="ec-error" id="ecError">' + t.error + '</p>'
+    +         '<button class="ec-submit-btn" id="ecSubmit">' + t.submit + '</button>'
+    +         '<p class="ec-consent">' + t.consent + '</p>'
+    +       '</div>'
+    +       '<div class="ec-success" id="ecSuccess">'
+    +         '<div class="ec-success-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>'
+    +         '<h2 class="ec-success-title">' + t.successTitle + '</h2>'
+    +         '<p class="ec-success-sub">' + t.successSub + '</p>'
+    +         '<p class="ec-spam-note">' + t.spamNote + '</p>'
     +       '</div>'
     +     '</div>'
     +   '</div>'
     + '</div>'
-    // Verborgen Revinate-form (submit-doel)
+    // Verborgen Revinate-form (submit-doel → e-maillijst)
     + '<form id="revinate_contact_api_form" token="210bb345-899a-4f69-9b9f-4a00624a2024" style="visibility:hidden;position:absolute;left:-9999px;width:1px;height:1px;">'
     +   '<input type="email" name="email" id="ec_hidden_email">'
     +   '<input type="text" name="vipStatus" value="Website popup">'
