@@ -130,6 +130,11 @@ def inject_welkom_booking():
         bk_js = re.sub(r"var VOUCHER\s*=\s*'[^']*';",
                        "var VOUCHER = '" + voucher + "';", bk_js, count=1)
 
+        # Meerprijzen (upgrade-labels als '+€10 p.n.') uit de kamerkeuze-stap
+        # halen: welkom is een algemeen welkomstaanbod, niet arrangement-specifiek.
+        # De echte beschikbaarheidsprijs (priceLabel) blijft staan.
+        bk_js = re.sub(r"upgrade:\s*'[^']*'", "upgrade: ''", bk_js)
+
         # Oude injectie verwijderen (idempotent)
         w = re.sub(re.escape(START) + '.*?' + re.escape(END), '', w, flags=re.S)
 
