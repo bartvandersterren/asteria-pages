@@ -38,6 +38,14 @@ TEMPLATES = {
             'de': ('happy-summer-arrangement-de.html', 'translations/happy-summer-de.json'),
         },
     },
+    'najaar': {
+        'template': 'najaar.template.html',
+        'langs': {
+            'nl': ('najaarsarrangement.html',    'translations/najaar-nl.json'),
+            'en': ('najaarsarrangement-en.html', 'translations/najaar-en.json'),
+            'de': ('najaarsarrangement-de.html', 'translations/najaar-de.json'),
+        },
+    },
     'welkom': {
         'template': 'welkom.template.html',
         'langs': {
