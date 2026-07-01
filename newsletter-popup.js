@@ -16,8 +16,14 @@
   var lang = (document.documentElement.getAttribute('lang') || 'nl').slice(0, 2).toLowerCase();
   if (lang !== 'en' && lang !== 'de') lang = 'nl';
 
+  // Revinate-lijst per taal (token op het verborgen form bepaalt de e-maillijst)
+  var TOKEN_NL = '210bb345-899a-4f69-9b9f-4a00624a2024';
+  var TOKEN_EN = 'b7a5ebe6-df0d-4a05-a5b6-3e9274ba9cc6';
+  var TOKEN_DE = '449e7373-329f-4087-8f96-0124d65c69a4';
+
   var COPY = {
     nl: {
+      token: TOKEN_NL,
       overlayAria: 'Nieuwsbrief aanmelden',
       closeAria: 'Sluiten',
       title: 'Gratis welkomstcadeau<br>bij je verblijf',
@@ -34,6 +40,7 @@
       spamNote: 'Geen mail ontvangen? Check je spamfolder.'
     },
     en: {
+      token: TOKEN_EN,
       overlayAria: 'Newsletter sign-up',
       closeAria: 'Close',
       title: 'Free welcome gift<br>with your stay',
@@ -50,6 +57,7 @@
       spamNote: 'No email? Check your spam folder.'
     },
     de: {
+      token: TOKEN_DE,
       overlayAria: 'Newsletter anmelden',
       closeAria: 'Schließen',
       title: 'Gratis Willkommensgeschenk<br>bei Ihrem Aufenthalt',
@@ -142,7 +150,7 @@
     +   '</div>'
     + '</div>'
     // Verborgen Revinate-form (submit-doel → e-maillijst)
-    + '<form id="revinate_contact_api_form" token="210bb345-899a-4f69-9b9f-4a00624a2024" style="visibility:hidden;position:absolute;left:-9999px;width:1px;height:1px;">'
+    + '<form id="revinate_contact_api_form" token="' + t.token + '" style="visibility:hidden;position:absolute;left:-9999px;width:1px;height:1px;">'
     +   '<input type="email" name="email" id="ec_hidden_email">'
     +   '<input type="text" name="vipStatus" value="Website popup">'
     +   '<button type="submit" style="display:none">Submit</button>'
