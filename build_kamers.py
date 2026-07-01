@@ -1405,11 +1405,19 @@ def faq_items_overview(lang):
     return '\n'.join(out)
 
 # ── Schrijf pagina's ───────────────────────────────────────────────────
+NL_POPUP_TAG = '<script src="/newsletter-popup.js" defer></script>'
+def with_newsletter(html):
+    """Sluit de universele nieuwsbrief-popup in vóór </body> (idempotent)."""
+    if 'newsletter-popup.js' in html:
+        return html
+    idx = html.rfind('</body>')
+    return html if idx == -1 else html[:idx] + NL_POPUP_TAG + '\n' + html[idx:]
+
 written = []
 for lang in ('nl', 'en', 'de'):
     out = os.path.join(BASE, 'kamertypes' + SUFFIX[lang] + '.html')
     with open(out, 'w', encoding='utf-8') as f:
-        f.write(build_overview(lang))
+        f.write(with_newsletter(build_overview(lang)))
     written.append(os.path.basename(out))
 for r in ROOMS:
     for lang in ('nl', 'en', 'de'):
@@ -1417,7 +1425,7 @@ for r in ROOMS:
             continue  # comfort-kamer.html niet overschrijven
         out = os.path.join(BASE, r['slug'] + SUFFIX[lang] + '.html')
         with open(out, 'w', encoding='utf-8') as f:
-            f.write(build_page(r, lang))
+            f.write(with_newsletter(build_page(r, lang)))
         written.append(os.path.basename(out))
 
 # ── comfort-kamer.html (NL) bijwerken ──────────────────────────────────
@@ -1471,7 +1479,7 @@ comfort = comfort.replace('<!-- ══ FOOTER',
 comfort = comfort.replace('\n</body>',
     '\n<!--BK-JS--><script>\n' + booking_bundle('nl') + '\n</script><!--/BK-JS-->\n</body>', 1)
 with open(SRC, 'w', encoding='utf-8') as f:
-    f.write(comfort)
+    f.write(with_newsletter(comfort))
 
 if MISSING:
     print('!! ONVERTAALDE TERMEN:', MISSING)
