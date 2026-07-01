@@ -134,12 +134,12 @@
   @media (max-width: 900px) { .arr-c__content { padding: 48px 44px; } }
   @media (max-width: 768px) {
     body { background: #f0efed; }
-    .arr-c { flex-direction: column; height: calc(100svh - 32px); margin: 16px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.10); }
-    .arr-c__photos { flex: 0 0 34%; }
-    .arr-c__content { flex: 1; min-height: 0; overflow: hidden; padding: 16px 20px 0; border-left: none; border-top: 1px solid #f1f5f9; justify-content: flex-start; display: flex; flex-direction: column; }
-    .arr-c__title { font-size: 15px; margin-bottom: 8px; }
+    .arr-c { flex-direction: column; height: auto; margin: 16px; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.10); }
+    .arr-c__photos { flex: none; height: 220px; }
+    .arr-c__content { flex: none; overflow: visible; padding: 20px 20px; border-left: none; border-top: 1px solid #f1f5f9; display: flex; flex-direction: column; }
+    .arr-c__title { font-size: 16px; margin-bottom: 10px; }
     .arr-c__intro { display: none; }
-    .arr-c__features { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; margin-bottom: 0; }
+    .arr-c__features { flex: none; overflow: visible; margin-bottom: 8px; }
     .arr-c__feature { padding: 8px 6px 8px 10px; }
     .arr-c__feature-icon { width: 30px; height: 30px; }
     .arr-c__feature-name { font-size: 12px; }
@@ -380,6 +380,12 @@
   .care-contact__row:hover { color: #a82c2c; }
   .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }
   .care-contact__icon svg { width: 18px; height: 18px; }
+  /* Maashof-stijl op desktop: grote foto rechts, contactkaart overlappend links */
+  @media (min-width: 769px) {
+    .care__inner { min-height: 560px; }
+    .care__img { width: 65%; height: 560px; margin-left: auto; }
+    .care__card { position: absolute; left: 24px; top: 50%; transform: translateY(-50%); margin: 0; width: 46%; max-width: 500px; padding: 48px 46px; }
+  }
   @media (max-width: 768px) { .care { --overlap: 48px; padding: 56px 0; } .care__img { height: 320px; } .care__card { padding: 32px 24px; } }
 
   /* ============================================================
