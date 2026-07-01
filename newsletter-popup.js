@@ -25,6 +25,7 @@
       title: 'Gratis welkomstpakket<br>bij uw verblijf',
       perks: ['&#x1F6C1; Badjas &amp; handdoek', '&#x1F942; Fles bubbels op de kamer'],
       sub: 'Meld u aan en ontvang uw persoonlijke code per e-mail.',
+      terms: 'Niet in combinatie met arrangementen. Geldig bij je eerste verblijf.',
       error: 'Er ging iets mis. Probeer het opnieuw.',
       placeholder: 'uw e-mailadres',
       submit: 'Stuur mij de code &#x2192;',
@@ -40,6 +41,7 @@
       title: 'Free welcome package<br>with your stay',
       perks: ['&#x1F6C1; Bathrobe &amp; towel', '&#x1F942; Bottle of bubbles in your room'],
       sub: 'Sign up and receive your personal code by email.',
+      terms: 'Not valid in combination with packages. Valid on your first stay.',
       error: 'Something went wrong. Please try again.',
       placeholder: 'your email address',
       submit: 'Send me the code &#x2192;',
@@ -55,6 +57,7 @@
       title: 'Gratis Willkommenspaket<br>bei Ihrem Aufenthalt',
       perks: ['&#x1F6C1; Bademantel &amp; Handtuch', '&#x1F942; Flasche Sekt auf dem Zimmer'],
       sub: 'Melden Sie sich an und erhalten Sie Ihren persönlichen Code per E-Mail.',
+      terms: 'Nicht mit Arrangements kombinierbar. Gültig bei Ihrem ersten Aufenthalt.',
       error: 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.',
       placeholder: 'Ihre E-Mail-Adresse',
       submit: 'Code senden &#x2192;',
@@ -74,7 +77,7 @@
     + '.ec-modal{width:100%;max-width:480px;border-radius:4px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.65);position:relative;transform:translateY(12px);transition:transform .3s ease;}'
     + '.ec-overlay.is-open .ec-modal{transform:translateY(0);}'
     + '.ec-modal-inner{position:relative;min-height:480px;display:flex;flex-direction:column;justify-content:flex-end;padding:40px 40px 40px;}'
-    + '.ec-modal-bg{position:absolute;inset:-6px;background-image:url("/fotos/hero-buitenkant.webp");background-size:cover;background-position:center;filter:blur(5px);}'
+    + '.ec-modal-bg{position:absolute;inset:-6px;background-image:url("/fotos/popup-welkomstpakket.webp");background-size:cover;background-position:center;filter:blur(5px);}'
     + '.ec-modal-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.90) 0%,rgba(0,0,0,0.55) 50%,rgba(0,0,0,0.30) 100%);}'
     + '.ec-close{position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.45);font-size:22px;font-weight:300;cursor:pointer;line-height:1;z-index:2;transition:color .2s;padding:4px;font-family:inherit;}'
     + '.ec-close:hover{color:rgba(255,255,255,0.85);}'
@@ -92,6 +95,7 @@
     + '.ec-consent a{color:rgba(255,255,255,0.60);text-decoration:underline;text-decoration-color:rgba(255,255,255,0.25);}'
     + '.ec-perks{list-style:none;padding:0;margin:0 0 12px;display:flex;flex-direction:column;gap:4px;}'
     + '.ec-perks li{font-size:14px;color:rgba(255,255,255,0.88);font-family:"Montserrat",sans-serif;font-weight:400;}'
+    + '.ec-terms{font-family:"Montserrat",sans-serif;font-weight:300;font-size:11px;color:rgba(255,255,255,0.50);line-height:1.5;margin:0 0 22px;}'
     + '.ec-error{font-size:11px;color:#ff8a8a;margin-bottom:10px;display:none;}'
     + '.ec-error.is-visible{display:block;}'
     + '.ec-success{display:none;}'
@@ -121,6 +125,7 @@
     +         '<div class="ec-form-state" id="ecFormState">'
     +           '<h2 class="ec-title">' + t.title + '</h2>'
     +           '<ul class="ec-perks">' + perksHtml + '</ul>'
+    +           '<p class="ec-terms">' + t.terms + '</p>'
     +           '<p class="ec-sub">' + t.sub + '</p>'
     +           '<p class="ec-error" id="ecError">' + t.error + '</p>'
     +           '<div class="ec-form-row">'
