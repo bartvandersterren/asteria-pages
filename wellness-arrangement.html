@@ -4347,7 +4347,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
     if (!r) return;
     var detailEl = document.getElementById('bkRoomDetail');
     detailEl.innerHTML =
-      '<img class="bk-room-detail__img" src="' + r.imgs[0] + '" alt="' + r.name + '" loading="lazy">' +
+      (r.video ? '<video class="bk-room-detail__img" src="' + r.video + '" muted loop playsinline autoplay preload="auto" poster="' + r.imgs[0] + '"></video>' : '') + r.imgs.map(function (src) { return '<img class="bk-room-detail__img" src="' + src + '" alt="' + r.name + '" loading="lazy">'; }).join('') +
       r.badge +
       '<h3 class="bk-room-detail__name">' + r.name + '</h3>' +
       '<p class="bk-room-detail__desc">' + r.desc + '</p>' +
