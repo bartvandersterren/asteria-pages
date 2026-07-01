@@ -48,7 +48,7 @@ const CONFIG = {
   // De prijs (zichtbaar tijdens/na het krassen)
   prizeEyebrow: '',
   prize:        'Gratis welkomstcadeau',
-  prizeSub:     'Flesje bubbels + badjas & badhanddoeken',
+  prizeItems:   ['Flesje bubbels op de kamer', 'Badjas & badhanddoeken'],
   claimBtn:     'Claim je cadeau',
 
   // Scherm 2 — e-mail
@@ -121,6 +121,9 @@ const CONFIG = {
   .sc-prize-eyebrow{font-family:'Electrolize',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${col.accent};margin:0 0 12px;}
   .sc-prize-title{font-weight:700;font-size:22px;color:${col.heading};line-height:1.2;margin:0 0 10px;}
   .sc-prize-sub{font-size:13px;color:#555;line-height:1.5;margin:0;}
+  .sc-prize-list{list-style:none;padding:0;margin:12px auto 0;display:inline-block;text-align:left;}
+  .sc-prize-list li{position:relative;padding-left:24px;font-size:14px;color:#333;line-height:1.4;margin:6px 0;}
+  .sc-prize-list li::before{content:"";position:absolute;left:0;top:2px;width:15px;height:15px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c23435' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");background-size:contain;background-repeat:no-repeat;}
   .sc-canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none;transition:opacity .45s ease;}
   .sc-canvas:active{cursor:grabbing;}
 
@@ -179,7 +182,7 @@ const CONFIG = {
             <div class="sc-prize">
               ${C.prizeEyebrow ? '<p class="sc-prize-eyebrow">' + C.prizeEyebrow + '</p>' : ''}
               <p class="sc-prize-title">${C.prize}</p>
-              ${C.prizeSub ? '<p class="sc-prize-sub">' + C.prizeSub + '</p>' : ''}
+              <ul class="sc-prize-list">${(C.prizeItems || []).map(function (x) { return '<li>' + x + '</li>'; }).join('')}</ul>
             </div>
             <canvas class="sc-canvas" id="scCanvas"></canvas>
           </div>
