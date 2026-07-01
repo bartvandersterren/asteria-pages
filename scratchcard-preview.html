@@ -98,7 +98,8 @@ const CONFIG = {
 
   // ── Styles ──
   const css = `
-  .sc-overlay{position:fixed;inset:0;background:rgba(20,20,20,0.62);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Montserrat',sans-serif;overflow-y:auto;}
+  .sc-overlay{position:fixed;inset:0;background:rgba(20,20,20,0.62);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Montserrat',sans-serif;overflow-y:auto;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+  .sc-overlay input{-webkit-user-select:text;user-select:text;}
   .sc-modal{display:flex;width:100%;max-width:900px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 32px 90px rgba(0,0,0,0.5);position:relative;max-height:94vh;}
   .sc-photo{flex:0 0 44%;background:url('${C.photo}') center/cover no-repeat;min-height:560px;}
   .sc-panel{flex:1 1 auto;position:relative;padding:44px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow-y:auto;}
@@ -302,8 +303,8 @@ const CONFIG = {
     return { x: p.clientX - rect.left, y: p.clientY - rect.top };
   }
 
-  canvas.addEventListener('pointerdown', (e) => { drawing = true; canvas.setPointerCapture(e.pointerId); const p = posFromEvent(e); scratchAt(p.x, p.y); });
-  canvas.addEventListener('pointermove', (e) => { if (!drawing) return; const p = posFromEvent(e); scratchAt(p.x, p.y); });
+  canvas.addEventListener('pointerdown', (e) => { e.preventDefault(); drawing = true; canvas.setPointerCapture(e.pointerId); const p = posFromEvent(e); scratchAt(p.x, p.y); });
+  canvas.addEventListener('pointermove', (e) => { if (!drawing) return; e.preventDefault(); const p = posFromEvent(e); scratchAt(p.x, p.y); });
   canvas.addEventListener('pointerup', () => { drawing = false; });
   canvas.addEventListener('pointercancel', () => { drawing = false; });
 
