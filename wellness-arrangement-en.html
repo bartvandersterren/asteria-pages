@@ -4086,7 +4086,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   }
 
   function buildBookingUrl(checkin, checkout, roomKey) {
-    var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER + '&mewsStart=' + toYMD(checkin)
+    var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER + '&language=en-US' + '&mewsStart=' + toYMD(checkin)
       + '&mewsEnd='   + toYMD(checkout);
     if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
       var catId = window.ROOMS[roomKey].mewsCategoryId;

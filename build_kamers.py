@@ -9,6 +9,25 @@ weggeschreven.
 """
 import os, re
 
+
+def add_mews_language(html, lang):
+    """Voeg &language=<code> toe aan alle Mews-deeplink-URL's. Alleen EN/DE;
+    NL blijft byte-identiek. Dekt de openBooking params-array en de
+    buildBookingUrl-deeplink."""
+    code = {'en': 'en-US', 'de': 'de-DE'}.get(lang)
+    if not code:
+        return html
+    q = '&language=' + code
+    html = re.sub(r'(mewsVoucherCode=[A-Za-z0-9_-]+)', r'\1' + q, html)
+    html = html.replace(
+        "MEWS_BASE + '?mewsStart=' + toYMD(checkin)",
+        "MEWS_BASE + '?mewsStart=' + toYMD(checkin) + '" + q + "'")
+    html = html.replace(
+        "var params = [];",
+        "var params = ['language=" + code + "'];")
+    return html
+
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(BASE, 'comfort-kamer.html')
 with open(SRC, encoding='utf-8') as f:
@@ -1417,7 +1436,7 @@ written = []
 for lang in ('nl', 'en', 'de'):
     out = os.path.join(BASE, 'kamertypes' + SUFFIX[lang] + '.html')
     with open(out, 'w', encoding='utf-8') as f:
-        f.write(with_newsletter(build_overview(lang)))
+        f.write(add_mews_language(with_newsletter(build_overview(lang)), lang))
     written.append(os.path.basename(out))
 for r in ROOMS:
     for lang in ('nl', 'en', 'de'):
@@ -1425,7 +1444,7 @@ for r in ROOMS:
             continue  # comfort-kamer.html niet overschrijven
         out = os.path.join(BASE, r['slug'] + SUFFIX[lang] + '.html')
         with open(out, 'w', encoding='utf-8') as f:
-            f.write(with_newsletter(build_page(r, lang)))
+            f.write(add_mews_language(with_newsletter(build_page(r, lang)), lang))
         written.append(os.path.basename(out))
 
 # ── comfort-kamer.html (NL) bijwerken ──────────────────────────────────
