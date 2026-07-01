@@ -1475,7 +1475,7 @@
 
 /* ── Kamerpopup ── */
 (function () {
-  var ROOMS = {'comfort':{video:'videos/comfort.mp4',imgs:['fotos/kamer-comfort-a.webp','fotos/kamer-comfort-b.webp','fotos/kamer-comfort-c.webp','fotos/kamer-comfort-d.webp'],badge:'<span class="room-row__badge" style="background:#f1f5f9;color:#64748b">Standard room</span>',name:'Comfort Room',desc:'Our standard room: comfortable, bright and fully equipped. The ideal base for your stay.',features:['~22 m²','Double bed','Shower','Seating area','A/C','WiFi']},'royale':{video:'videos/royale.mp4',imgs:['fotos/room-royale-1.webp','fotos/room-royale-2.webp','fotos/room-royale-3.webp','fotos/room-royale-4.webp'],badge:'<span class="room-row__badge badge--upgrade">Upgrade</span>',name:'Royale Room',desc:'A little more space around you, with a lovely bathtub to wind down the day.',features:['More space','Bathtub','Seating area','A/C','WiFi']},'deluxe':{video:'videos/deluxe.mp4',imgs:['fotos/room-deluxe-1.webp','fotos/room-deluxe-2.webp','fotos/room-deluxe-3.webp','fotos/room-deluxe-4.webp'],badge:'<span class="room-row__badge badge--sauna">+ Private sauna</span>',name:'Deluxe Room',desc:'A spacious room with your own private infrared sauna. Wellness in your room, whenever you like.',features:['Private infrared sauna','More space','Bathtub','A/C','WiFi']},'junior-suite':{video:null,imgs:['fotos/kamer-junior-suite.webp','fotos/kamer-junior-suite-2.webp'],badge:'<span class="room-row__badge badge--upgrade">Upgrade</span>',name:'Junior Suite',desc:'A spacious suite with a separate seating area and bathtub. Extra comfort for a proper getaway.',features:['Kingsize bed','Spacious seating area','Bathtub','Mini fridge','WiFi']},'suite':{video:'videos/suite.mp4',imgs:['fotos/room-suite-1.webp','fotos/room-suite-2.webp','fotos/room-suite-3.webp','fotos/room-suite-4.webp'],badge:'<span class="room-row__badge badge--sauna">+ Private sauna</span>',name:'Suite',desc:'Our suite with a private infrared sauna and a spacious seating area. All the room and calm for a luxurious stay.',features:['Kingsize bed','Private infrared sauna','Spacious seating area','Mini fridge','WiFi']},'bruidssuite':{video:'videos/bruidssuite.mp4',imgs:['fotos/room-bruidssuite-1.webp','fotos/room-bruidssuite-2.webp','fotos/room-bruidssuite-3.webp','fotos/room-bruidssuite-4.webp'],badge:'<span class="room-row__badge badge--premium">Premium</span>',name:'Bridal Suite',desc:'Our most beautiful room, with a freestanding bath and walk-in shower. For an unforgettable occasion.',features:['Kingsize bed','Freestanding bath','Walk-in shower','Mini fridge','WiFi']}};
+  var ROOMS = {'comfort':{video: 'videos/comfort.mp4',imgs: ['fotos/kamer-comfort-a.webp', 'fotos/kamer-comfort-b.webp', 'fotos/kamer-comfort-c.webp', 'fotos/kamer-comfort-d.webp'],badge:'<span class="room-row__badge" style="background:#f1f5f9;color:#64748b">Standard room</span>',name:'Comfort Room',desc:'Our standard room: comfortable, bright and fully equipped. The ideal base for your stay.',features:['~22 m²','Double bed','Shower','Seating area','A/C','WiFi']},'royale':{video: 'videos/royale.mp4',imgs: ['fotos/room-royale-1.webp', 'fotos/room-royale-2.webp', 'fotos/room-royale-3.webp', 'fotos/room-royale-4.webp'],badge:'<span class="room-row__badge badge--upgrade">Upgrade</span>',name:'Royale Room',desc:'A little more space around you, with a lovely bathtub to wind down the day.',features:['More space','Bathtub','Seating area','A/C','WiFi']},'deluxe':{video: 'videos/deluxe.mp4',imgs: ['fotos/room-deluxe-1.webp', 'fotos/room-deluxe-2.webp', 'fotos/room-deluxe-3.webp', 'fotos/room-deluxe-4.webp'],badge:'<span class="room-row__badge badge--sauna">+ Private sauna</span>',name:'Deluxe Room',desc:'A spacious room with your own private infrared sauna. Wellness in your room, whenever you like.',features:['Private infrared sauna','More space','Bathtub','A/C','WiFi']},'junior-suite':{video: null,imgs: ['fotos/kamer-junior-suite.webp', 'fotos/kamer-junior-suite-2.webp'],badge:'<span class="room-row__badge badge--upgrade">Upgrade</span>',name:'Junior Suite',desc:'A spacious suite with a separate seating area and bathtub. Extra comfort for a proper getaway.',features:['Kingsize bed','Spacious seating area','Bathtub','Mini fridge','WiFi']},'suite':{video: 'videos/suite.mp4',imgs: ['fotos/room-suite-1.webp', 'fotos/room-suite-2.webp', 'fotos/room-suite-3.webp', 'fotos/room-suite-4.webp'],badge:'<span class="room-row__badge badge--sauna">+ Private sauna</span>',name:'Suite',desc:'Our suite with a private infrared sauna and a spacious seating area. All the room and calm for a luxurious stay.',features:['Kingsize bed','Private infrared sauna','Spacious seating area','Mini fridge','WiFi']},'bruidssuite':{video: 'videos/bruidssuite.mp4',imgs: ['fotos/room-bruidssuite-1.webp', 'fotos/room-bruidssuite-2.webp', 'fotos/room-bruidssuite-3.webp', 'fotos/room-bruidssuite-4.webp'],badge:'<span class="room-row__badge badge--premium">Premium</span>',name:'Bridal Suite',desc:'Our most beautiful room, with a freestanding bath and walk-in shower. For an unforgettable occasion.',features:['Kingsize bed','Freestanding bath','Walk-in shower','Mini fridge','WiFi']}};
   window.ROOMS = ROOMS;
   var overlay = document.getElementById('roomPopup');
   var inner = document.getElementById('roomPopupInner');
@@ -2078,7 +2078,7 @@
     'comfort': { video: 'videos/comfort.mp4',
       badge: '<span class="room-row__badge badge--included">Included in package</span>',
       name: 'Comfort Room',
-      imgs: ['fotos/kamer-comfort.webp'],
+      imgs: ['fotos/kamer-comfort-a.webp', 'fotos/kamer-comfort-b.webp', 'fotos/kamer-comfort-c.webp', 'fotos/kamer-comfort-d.webp'],
       desc: 'A comfortable room for two people with everything you need for a relaxed stay.',
       features: ['~22 m²', 'Double bed', 'Shower', 'Seating area', 'A/C', 'WiFi'],
       upgrade: '',
@@ -2088,7 +2088,7 @@
     'royale': { video: 'videos/royale.mp4',
       badge: '<span class="room-row__badge badge--upgrade">Upgrade</span>',
       name: 'Royale Room',
-      imgs: ['fotos/kamer-royale.webp', 'fotos/kamer-royale-2.webp', 'fotos/kamer-royale-3.webp'],
+      imgs: ['fotos/room-royale-1.webp', 'fotos/room-royale-2.webp', 'fotos/room-royale-3.webp', 'fotos/room-royale-4.webp'],
       desc: 'More space to breathe \u2014 and the option of a bath if you want to relax in your room after wellness too.',
       features: ['More spacious than Comfort', 'Bath or shower', 'Seating area', 'Coffee maker', 'A/C'],
       upgrade: '',
@@ -2098,14 +2098,14 @@
     'deluxe': { video: 'videos/deluxe.mp4',
       badge: '<span class="room-row__badge badge--sauna">+ Private sauna</span>',
       name: 'Deluxe Room',
-      imgs: ['fotos/kamer-deluxe.webp', 'fotos/kamer-deluxe-2.webp', 'fotos/kamer-deluxe-3.webp'],
+      imgs: ['fotos/room-deluxe-1.webp', 'fotos/room-deluxe-2.webp', 'fotos/room-deluxe-3.webp', 'fotos/room-deluxe-4.webp'],
       desc: 'A private infrared sauna in your room. Wellness starts at your door \u2014 no shared spaces.',
       features: ['Private infrared sauna', 'More space', 'Double bed', 'Shower', 'Seating area', 'Coffee maker', 'A/C'],
       upgrade: '',
       shortDesc: '~25 m\u00b2 \u00b7 private infrared sauna \u00b7 kingsize bed',
       mewsCategoryId: 'c737de50-e41e-4c8d-a818-af1d00ffc315'
     },
-    'junior-suite': {
+    'junior-suite': { video: null,
       badge: '<span class="room-row__badge badge--upgrade">Upgrade</span>',
       name: 'Junior Suite',
       imgs: ['fotos/kamer-junior-suite.webp', 'fotos/kamer-junior-suite-2.webp'],
@@ -2118,7 +2118,7 @@
     'suite': { video: 'videos/suite.mp4',
       badge: '<span class="room-row__badge badge--sauna">+ Private sauna</span>',
       name: 'Suite',
-      imgs: ['fotos/kamer-suite.webp', 'fotos/kamer-suite-2.webp', 'fotos/kamer-suite-3.webp'],
+      imgs: ['fotos/room-suite-1.webp', 'fotos/room-suite-2.webp', 'fotos/room-suite-3.webp', 'fotos/room-suite-4.webp'],
       desc: 'The best of both worlds: a spacious suite with private infrared sauna and access to the shared wellness centre.',
       features: ['Kingsize bed', 'Private infrared sauna', 'Spacious seating area with sofa bed', 'Mini fridge', 'A/C'],
       upgrade: '',
@@ -2128,7 +2128,7 @@
     'bruidssuite': { video: 'videos/bruidssuite.mp4',
       badge: '<span class="room-row__badge badge--premium">Premium</span>',
       name: 'Bridal Suite',
-      imgs: ['fotos/kamer-bruidssuite.webp', 'fotos/kamer-bruidssuite-2.webp', 'fotos/kamer-bruidssuite-3.webp'],
+      imgs: ['fotos/room-bruidssuite-1.webp', 'fotos/room-bruidssuite-2.webp', 'fotos/room-bruidssuite-3.webp', 'fotos/room-bruidssuite-4.webp'],
       desc: 'Freestanding bathtub, spacious walk-in shower and the most romantic atmosphere in the hotel. For an unforgettable evening.',
       features: ['Kingsize bed', 'Freestanding bathtub', 'Spacious walk-in shower', 'Seating area', 'Mini fridge', 'A/C'],
       upgrade: '',
@@ -2644,7 +2644,7 @@
     if (!r) return;
     var detailEl = document.getElementById('bkRoomDetail');
     detailEl.innerHTML =
-      (r.video ? '<video class="bk-room-detail__img" src="' + r.video + '" muted loop playsinline autoplay preload="auto" poster="' + r.imgs[0] + '"></video>' : '') + r.imgs.map(function (src) { return '<img class="bk-room-detail__img" src="' + src + '" alt="' + r.name + '" loading="lazy">'; }).join('') +
+      '<div style="position:relative;margin-bottom:16px;border-radius:10px;overflow:hidden;">' + '<div class="bk-detail-track" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;">' + (r.video ? '<video class="bk-detail-slide" src="' + r.video + '" muted loop playsinline autoplay preload="auto" poster="' + r.imgs[0] + '" style="flex:0 0 100%;scroll-snap-align:center;width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>' : '') + r.imgs.map(function (src) { return '<img class="bk-detail-slide" src="' + src + '" alt="' + r.name + '" loading="lazy" style="flex:0 0 100%;scroll-snap-align:center;width:100%;aspect-ratio:16/9;object-fit:cover;display:block;">'; }).join('') + '</div>' + ((r.imgs.length + (r.video ? 1 : 0)) > 1 ? '<button type="button" aria-label="Vorige" onclick="var t=this.parentNode.querySelector(&quot;.bk-detail-track&quot;);t.scrollBy({left:-t.clientWidth,behavior:&quot;smooth&quot;});" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,0.92);color:#1a1a1a;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:2;">&#8249;</button>' + '<button type="button" aria-label="Volgende" onclick="var t=this.parentNode.querySelector(&quot;.bk-detail-track&quot;);t.scrollBy({left:t.clientWidth,behavior:&quot;smooth&quot;});" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,0.92);color:#1a1a1a;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:2;">&#8250;</button>' : '') + '</div>' +
       r.badge +
       '<h3 class="bk-room-detail__name">' + r.name + '</h3>' +
       '<p class="bk-room-detail__desc">' + r.desc + '</p>' +

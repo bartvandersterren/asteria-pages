@@ -87,6 +87,57 @@ def add_mews_language(html, lang):
     return html
 
 
+# Detailpagina-media per kamer (bron van waarheid: kamerdetailpagina's /
+# build_kamers.slides_for). Video eerst, dan foto's in detailvolgorde.
+DETAIL_MEDIA = {
+    'comfort':      ('videos/comfort.mp4',      ['fotos/kamer-comfort-a.webp', 'fotos/kamer-comfort-b.webp', 'fotos/kamer-comfort-c.webp', 'fotos/kamer-comfort-d.webp']),
+    'comfort-3':    ('videos/comfort-3.mp4',    ['fotos/room-comfort-3-1.webp', 'fotos/room-comfort-3-2.webp', 'fotos/room-comfort-3-3.webp', 'fotos/room-comfort-3-4.webp']),
+    'mindervalide': ('videos/mindervalide.mp4', ['fotos/room-mindervalide-1.webp', 'fotos/room-mindervalide-2.webp', 'fotos/room-mindervalide-3.webp', 'fotos/room-mindervalide-4.webp']),
+    'royale':       ('videos/royale.mp4',       ['fotos/room-royale-1.webp', 'fotos/room-royale-2.webp', 'fotos/room-royale-3.webp', 'fotos/room-royale-4.webp']),
+    'deluxe':       ('videos/deluxe.mp4',       ['fotos/room-deluxe-1.webp', 'fotos/room-deluxe-2.webp', 'fotos/room-deluxe-3.webp', 'fotos/room-deluxe-4.webp']),
+    'junior-suite': (None,                       ['fotos/kamer-junior-suite.webp', 'fotos/kamer-junior-suite-2.webp']),
+    'suite':        ('videos/suite.mp4',        ['fotos/room-suite-1.webp', 'fotos/room-suite-2.webp', 'fotos/room-suite-3.webp', 'fotos/room-suite-4.webp']),
+    'bruidssuite':  ('videos/bruidssuite.mp4',  ['fotos/room-bruidssuite-1.webp', 'fotos/room-bruidssuite-2.webp', 'fotos/room-bruidssuite-3.webp', 'fotos/room-bruidssuite-4.webp']),
+}
+
+
+def fix_room_media(html):
+    """Zet in alle ROOMS-objecten de kamer-media gelijk aan de detailpagina's
+    (video + volledige fotoset in detailvolgorde). Alleen objecten met 'imgs:'
+    (de room-datasets) worden aangeraakt."""
+    for key, (video, imgs) in DETAIL_MEDIA.items():
+        imgs_js = '[' + ', '.join("'" + s + "'" for s in imgs) + ']'
+        vid_js = ("'" + video + "'") if video else 'null'
+        for q in ("'", '"'):
+            marker = q + key + q + ':'
+            pos = 0
+            while True:
+                p = html.find(marker, pos)
+                if p == -1:
+                    break
+                b = html.find('{', p)
+                if b == -1 or b - (p + len(marker)) > 3:
+                    pos = p + len(marker); continue
+                depth = 0; j = b
+                while j < len(html):
+                    if html[j] == '{': depth += 1
+                    elif html[j] == '}':
+                        depth -= 1
+                        if depth == 0: break
+                    j += 1
+                obj = html[b:j + 1]
+                if 'imgs:' not in obj:
+                    pos = j + 1; continue
+                new_obj = re.sub(r"imgs:\s*\[[^\]]*\]", "imgs: " + imgs_js, obj, count=1)
+                if re.search(r"video:\s*('[^']*'|null|None)", new_obj):
+                    new_obj = re.sub(r"video:\s*('[^']*'|null|None)", "video: " + vid_js, new_obj, count=1)
+                else:
+                    new_obj = '{ video: ' + vid_js + ',' + new_obj[1:]
+                html = html[:b] + new_obj + html[j + 1:]
+                pos = b + len(new_obj)
+    return html
+
+
 def inject_welkom_booking():
     """Geef de welkom-pagina's dezelfde 3-staps boekingsmodule als de
     arrangementen (inline Mews-widget + datepicker-overlay), met de welkom-
@@ -176,6 +227,9 @@ def build(template_name, lang):
 
     # Mews-boekingslinks in de juiste taal openen (alleen EN/DE)
     html = add_mews_language(html, lang)
+
+    # Kamer-media in ROOMS gelijk aan de detailpagina's (video + volledige fotoset)
+    html = fix_room_media(html)
 
     # Sanity check: no unreplaced markers
     remaining = re.findall(r'\{\{[A-Z_]+\}\}', html)
