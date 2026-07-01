@@ -87,6 +87,71 @@ def add_mews_language(html, lang):
     return html
 
 
+def inject_welkom_booking():
+    """Geef de welkom-pagina's dezelfde 3-staps boekingsmodule als de
+    arrangementen (inline Mews-widget + datepicker-overlay), met de welkom-
+    voucher. Bron per taal = de al-gebouwde, gelokaliseerde arrangementpagina.
+    Idempotent via <!--WELKOM-BK--> markers; CTA-deeplinks worden herbedraad
+    naar window.openBookingPopup(). Draait als post-stap na build('welkom')."""
+    SRC = {
+        '':    ('happy-summer-arrangement.html',    'WELKOM'),
+        '-en': ('happy-summer-arrangement-en.html', 'WELCOME'),
+        '-de': ('happy-summer-arrangement-de.html', 'WILLKOMMEN'),
+    }
+    START, END = '<!--WELKOM-BK-START-->', '<!--WELKOM-BK-END-->'
+    for suffix, (arr_file, voucher) in SRC.items():
+        welkom_path = os.path.join(base, 'welkom' + suffix + '.html')
+        arr_path = os.path.join(base, arr_file)
+        if not (os.path.exists(welkom_path) and os.path.exists(arr_path)):
+            print(f'  [welkom-booking/{suffix or "nl"}] overgeslagen (bron ontbreekt)')
+            continue
+        arr = open(arr_path, encoding='utf-8').read()
+        w = open(welkom_path, encoding='utf-8').read()
+
+        def between(a, b, inclusive_end=True):
+            i = arr.index(a); j = arr.index(b, i)
+            return arr[i:(j + len(b)) if inclusive_end else j]
+
+        def enclosing_script(keyword):
+            k = arr.index(keyword)
+            s = arr.rindex('<script', 0, k)
+            e = arr.index('</script>', k) + len('</script>')
+            return arr[s:e]
+
+        mews_head = between('<!-- Mews BookingEngine -->', '<!-- End Mews BookingEngine -->')
+        cs = arr.rindex('/*', 0, arr.index('.bk-overlay {'))
+        ce = arr.rindex('/*', 0, arr.index('.ec-overlay {'))
+        bk_css = arr[cs:ce].rstrip()
+        bk_markup = between('<div class="bk-overlay"', '<!-- ══ DINER', inclusive_end=False).rstrip()
+        dp_js = enclosing_script('MONTH_NAMES')
+        bk_js = enclosing_script('/* ══ BOOKING POPUP')
+
+        # Welkom-voucher in de booking-JS zetten (arrangement had z'n eigen code)
+        bk_js = re.sub(r"var VOUCHER\s*=\s*'[^']*';",
+                       "var VOUCHER = '" + voucher + "';", bk_js, count=1)
+
+        # Oude injectie verwijderen (idempotent)
+        w = re.sub(re.escape(START) + '.*?' + re.escape(END), '', w, flags=re.S)
+
+        # In <head>: widget-script + overlay-CSS
+        head_block = ('\n' + START + '\n' + mews_head + '\n<style>\n' + bk_css
+                      + '\n</style>\n' + END + '\n')
+        w = w.replace('</head>', head_block + '</head>', 1)
+
+        # Vóór </body>: overlay-markup + datepicker-JS + booking-JS
+        body_block = ('\n' + START + '\n' + bk_markup + '\n' + dp_js + '\n'
+                      + bk_js + '\n' + END + '\n')
+        w = w.replace('</body>', body_block + '</body>', 1)
+
+        # CTA's: Mews-deeplinks vervangen door de popup-trigger
+        w = re.sub(r'href="https://app\.mews\.com/distributor/[^"]*"',
+                   'href="#" onclick="window.openBookingPopup();return false;"', w)
+
+        with open(welkom_path, 'w', encoding='utf-8') as f:
+            f.write(w)
+        print(f'  [welkom-booking/{suffix or "nl"}] geinjecteerd (voucher {voucher})')
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -140,5 +205,11 @@ for tpl in templates_to_build:
             print(f'  Unknown lang for {tpl}: {lang}')
             sys.exit(1)
         build(tpl, lang)
+
+# Welkom krijgt dezelfde boekingsmodule als de arrangementen (post-stap,
+# na build zodat de gelokaliseerde arrangement-bronnen bestaan).
+if 'welkom' in templates_to_build:
+    print('Injecting welkom booking module...')
+    inject_welkom_booking()
 
 print('Done.')
