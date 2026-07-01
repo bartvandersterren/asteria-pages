@@ -110,7 +110,7 @@ const CONFIG = {
   .sc-sub{font-size:15px;color:#555;font-weight:400;margin:0 0 26px;line-height:1.5;}
 
   /* Kraskaart */
-  .sc-card{position:relative;width:270px;height:320px;border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,0.28);}
+  .sc-card{position:relative;width:330px;height:242px;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,0.28);}
   .sc-prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:#faf8f5;box-sizing:border-box;}
   .sc-prize-eyebrow{font-family:'Electrolize',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${col.accent};margin:0 0 12px;}
   .sc-prize-title{font-weight:700;font-size:22px;color:${col.heading};line-height:1.2;margin:0 0 10px;}
@@ -149,7 +149,7 @@ const CONFIG = {
     .sc-photo{flex:none;order:2;width:100%;min-height:0;height:150px;}
     .sc-panel{order:1;padding:34px 26px 30px;}
     .sc-h{font-size:28px;}
-    .sc-card{width:240px;height:290px;}
+    .sc-card{width:290px;height:213px;}
   }`;
   const styleEl = document.createElement('style');
   styleEl.textContent = css;
@@ -236,40 +236,66 @@ const CONFIG = {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const w = rect.width, h = rect.height;
 
-    // goudfoil — diagonale gradient
+    // 1) goud-basis met zachte diagonale gradient
     ctx.globalCompositeOperation = 'source-over';
     const g = ctx.createLinearGradient(0, 0, w, h);
-    g.addColorStop(0,   col.coverTop);
-    g.addColorStop(0.5, col.coverBottom);
-    g.addColorStop(1,   col.coverTop);
+    g.addColorStop(0.00, col.coverTop);
+    g.addColorStop(0.45, col.coverBottom);
+    g.addColorStop(1.00, col.coverTop);
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
 
-    // foil-glans: enkele lichte diagonale banen
+    // 2) zachte lichtplek in het midden (foil-glans)
+    const rg = ctx.createRadialGradient(w*0.5, h*0.42, 8, w*0.5, h*0.5, Math.max(w, h)*0.72);
+    rg.addColorStop(0, 'rgba(255,252,244,0.35)');
+    rg.addColorStop(1, 'rgba(255,252,244,0)');
+    ctx.fillStyle = rg;
+    ctx.fillRect(0, 0, w, h);
+
+    // 3) grain / korrel (metallic foil-textuur) — echt willekeurig
+    const specks = Math.round(w * h * 1.1);
+    for (let i = 0; i < specks; i++) {
+      const x = Math.random() * w, y = Math.random() * h, r = Math.random();
+      ctx.fillStyle = r < 0.5 ? 'rgba(255,255,255,' + (0.05 + r * 0.14).toFixed(3) + ')'
+                              : 'rgba(85,65,40,' + (0.04 + (r - 0.5) * 0.14).toFixed(3) + ')';
+      ctx.fillRect(x, y, 1, 1);
+    }
+
+    // 4) donkere zigzag-krabbel (achter de tekst)
     ctx.save();
-    ctx.globalAlpha = 0.10;
-    ctx.strokeStyle = '#ffffff';
-    ctx.lineWidth = 10;
-    for (let i = -h; i < w; i += 34) { ctx.beginPath(); ctx.moveTo(i, h); ctx.lineTo(i + h, 0); ctx.stroke(); }
+    ctx.strokeStyle = 'rgba(74,58,38,0.34)';
+    ctx.lineWidth = Math.max(11, h * 0.055);
+    ctx.lineCap = 'square';
+    ctx.lineJoin = 'miter';
+    const zx0 = w * 0.20, zx1 = w * 0.80, top = h * 0.30, bot = h * 0.70, steps = 6;
+    ctx.beginPath();
+    for (let s = 0; s <= steps; s++) {
+      const x = zx0 + (zx1 - zx0) * (s / steps);
+      const y = (s % 2 === 0) ? bot : top;
+      s === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
     ctx.restore();
 
-    // "kras"-krabbels op de achtergrond (zoals Hears)
-    ctx.save();
-    ctx.globalAlpha = 0.14;
-    ctx.strokeStyle = '#6b543a';
-    ctx.lineWidth = 9;
-    ctx.lineCap = 'round';
-    for (let i = 0; i < 5; i++) { const x = w * 0.28 + i * 22; ctx.beginPath(); ctx.moveTo(x, h * 0.32); ctx.lineTo(x - 20, h * 0.68); ctx.stroke(); }
-    ctx.restore();
+    // 5) donkere vignette (randen)
+    const vg = ctx.createRadialGradient(w*0.5, h*0.5, Math.min(w, h)*0.35, w*0.5, h*0.5, Math.max(w, h)*0.72);
+    vg.addColorStop(0, 'rgba(0,0,0,0)');
+    vg.addColorStop(1, 'rgba(60,44,24,0.28)');
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, w, h);
 
-    // KRAS HIER
+    // 6) tekst — groot, bold, pale (bovenop de krabbel)
     ctx.fillStyle = col.coverInk;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = "700 18px 'Montserrat', sans-serif";
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '1px';
+    let fs = Math.round(h * 0.19);
+    ctx.font = "800 " + fs + "px 'Montserrat', sans-serif";
+    while (ctx.measureText(C.coverText).width > w * 0.86 && fs > 10) {
+      fs -= 1; ctx.font = "800 " + fs + "px 'Montserrat', sans-serif";
+    }
     ctx.fillText(C.coverText, w/2, h/2);
-    ctx.font = "500 10px 'Electrolize', sans-serif";
-    ctx.fillText(C.coverBrand, w/2, h - 26);
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
   }
 
   // ── Scratch-tracking via raster (geen getImageData → geen CORS-issues) ──
