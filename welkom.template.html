@@ -307,6 +307,69 @@
   @media (max-width: 768px) { .diner { padding: 0; } .diner__card { border-radius: 0; box-shadow: none; min-height: unset; aspect-ratio: 4/3; max-width: 100%; } .diner__content { padding: 24px 28px; max-width: 100%; } .diner__title { font-size: 22px; margin-bottom: 10px; } .diner__eyebrow { margin-bottom: 10px; } .diner__sub { display: none; } .diner__cta { font-size: 12px; padding: 11px 22px; } }
 
   /* ============================================================
+     FACILITEITEN — expand-on-hover tegels
+     ============================================================ */
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .fac { background: #fff; padding: 88px 0; }
+  .fac__head { text-align: center; max-width: 1180px; margin: 0 auto 40px; padding: 0 24px; }
+  .fac__head h2 { font-family: 'Electrolize', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px); color: #1a1a1a; }
+  .fac-row { display: flex; gap: 14px; max-width: 1180px; margin: 0 auto; padding: 0 24px; height: 460px; }
+  .fac-tile { position: relative; flex: 1 1 0; min-width: 0; border-radius: 18px; overflow: hidden; cursor: pointer; transition: flex-grow 0.55s cubic-bezier(0.4,0,0.2,1); }
+  .fac-tile.is-default { flex: 2.6 1 0; }
+  .fac-row:hover .fac-tile { flex: 1 1 0; }
+  .fac-row:hover .fac-tile:hover { flex: 2.6 1 0; }
+  .fac-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .fac-tile:hover img { transform: scale(1.04); }
+  .fac-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.25) 45%, transparent 72%); }
+  .fac-tile__content { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 30px; color: #fff; }
+  .fac-tile__eyebrow { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.8); display: block; margin-bottom: 8px; white-space: nowrap; }
+  .fac-tile__title { font-family: 'Electrolize', sans-serif; font-size: 1.7rem; text-transform: uppercase; letter-spacing: 0.02em; margin: 0 0 12px; white-space: nowrap; }
+  .fac-tile__extra { opacity: 0; transform: translateY(8px); transition: opacity 0.35s ease, transform 0.35s ease; pointer-events: none; }
+  .fac-tile.is-default .fac-tile__extra { opacity: 1; transform: none; pointer-events: auto; }
+  .fac-row:hover .fac-tile.is-default .fac-tile__extra { opacity: 0; transform: translateY(8px); pointer-events: none; }
+  .fac-row:hover .fac-tile:hover .fac-tile__extra { opacity: 1; transform: none; pointer-events: auto; }
+  .fac-tile__text { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.85); max-width: 360px; margin: 0 0 18px; }
+  .fac-tile__btn { display: inline-block; background: #c23435; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; border: none; border-radius: 8px; padding: 11px 26px; cursor: pointer; transition: background 0.2s; }
+  .fac-tile__btn:hover { background: #a82c2c; }
+  @media (max-width: 768px) {
+    .fac { padding: 56px 0; }
+    .fac-row { flex-direction: column; height: auto; gap: 12px; }
+    .fac-tile, .fac-tile.is-default, .fac-row:hover .fac-tile, .fac-row:hover .fac-tile:hover { flex: none; height: 280px; }
+    .fac-tile__extra { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
+    .fac-tile__title { font-size: 1.4rem; }
+  }
+
+  /* ============================================================
+     FAQ  (uit kamerdetailpagina's)
+     ============================================================ */
+  .faq { padding: 88px 0; background: #f8f7f5; }
+  .faq__head { text-align: center; margin-bottom: 40px; }
+  .faq__head h2 { font-family: 'Electrolize', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px); color: #1a1a1a; }
+  .faq__list { max-width: 820px; margin: 0 auto; border-top: 1px solid #e7e7e7; }
+  .faq__list details { border-bottom: 1px solid #e7e7e7; }
+  .faq__list summary { list-style: none; cursor: pointer; padding: 22px 2px; display: flex; justify-content: space-between; align-items: center; gap: 20px; font-size: 16px; font-weight: 400; color: #1a1a1a; }
+  .faq__list summary::-webkit-details-marker { display: none; }
+  .faq__list summary::after { content: '+'; font-size: 22px; color: #c23435; font-weight: 300; }
+  .faq__list details[open] summary::after { content: '\2212'; }
+  .faq__list .faq__a { padding: 0 2px 24px; font-weight: 300; font-size: 15px; line-height: 1.7; color: #475569; max-width: 70ch; }
+
+  /* ============================================================
+     WILT U MEER WETEN — care-section  (uit kamerdetailpagina's)
+     ============================================================ */
+  .care { --overlap: 70px; position: relative; background: #fff; padding: 80px 0; }
+  .care__inner { position: relative; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .care__img { width: 100%; height: 480px; object-fit: cover; border-radius: 18px; display: block; }
+  .care__card { position: relative; z-index: 3; max-width: 880px; margin: calc(-1 * var(--overlap)) auto 0; background: #fff; color: #1a1a1a; padding: 50px 48px; border-radius: 18px; box-shadow: 0 18px 50px rgba(0,0,0,0.10); }
+  .care__card h2 { font-family: 'Electrolize', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 400; font-size: clamp(24px, 2.8vw, 32px); color: #1a1a1a; margin-bottom: 16px; }
+  .care__card p { font-weight: 300; font-size: 15px; line-height: 1.7; color: #475569; margin-bottom: 30px; }
+  .care-contact { display: flex; flex-direction: column; gap: 14px; }
+  .care-contact__row { display: flex; align-items: center; gap: 13px; color: #c23435; font-size: 15px; font-weight: 500; text-decoration: none; transition: color 0.2s; }
+  .care-contact__row:hover { color: #a82c2c; }
+  .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }
+  .care-contact__icon svg { width: 18px; height: 18px; }
+  @media (max-width: 768px) { .care { --overlap: 48px; padding: 56px 0; } .care__img { height: 320px; } .care__card { padding: 32px 24px; } }
+
+  /* ============================================================
      STICKY CTA  (verbatim uit happy-summer)
      ============================================================ */
   .sticky-fab { position: fixed; bottom: 20px; right: 16px; z-index: 900; display: inline-flex; align-items: center; gap: 8px; background: #c23435; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.04em; text-decoration: none; padding: 12px 20px; border-radius: 50px; box-shadow: 0 4px 16px rgba(194,52,53,0.45), 0 6px 20px rgba(0,0,0,0.15); opacity: 0; transform: scale(0.88); pointer-events: none; transition: background 200ms ease; }
@@ -544,6 +607,107 @@
   </div>
 </section>
 
+
+<!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
+<section class="rooms" id="kamertypes" aria-label="{{ROOMS_ARIA}}">
+  <div class="rooms__inner">
+    <span class="rooms__eyebrow">{{ROOMS_EYEBROW}}</span>
+    <h2 class="rooms__title">{{ROOMS_TITLE}}</h2>
+    <p class="rooms__sub">{{ROOMS_SUB}}</p>
+
+    <div class="rooms__base" data-room="comfort" role="button" tabindex="0" style="cursor:pointer">
+      <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="{{ROOM_COMFORT_IMG_ALT}}" loading="lazy">
+      <div class="rooms__base-body">
+        <span class="rooms__base-badge">{{ROOM_COMFORT_BADGE_STATIC}}</span>
+        <span class="rooms__base-name">{{ROOM_COMFORT_IMG_ALT}}</span>
+        <p class="rooms__base-feats">{{ROOM_COMFORT_FEATS_STATIC}}</p>
+      </div>
+    </div>
+
+    <div class="rooms__list">
+      <div class="room-row" data-room="royale" role="button" tabindex="0">
+        <img class="room-row__img" src="fotos/kamer-royale.webp" alt="{{ROOM_ROYALE_IMG_ALT}}" loading="lazy">
+        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">{{ROOM_ROYALE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> {{ROOM_ROYALE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
+      </div>
+      <div class="room-row" data-room="deluxe" role="button" tabindex="0">
+        <img class="room-row__img" src="fotos/kamer-deluxe.webp" alt="{{ROOM_DELUXE_IMG_ALT}}" loading="lazy">
+        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">{{ROOM_SAUNA_BADGE_STATIC}}</span><div class="room-row__name">{{ROOM_DELUXE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> {{ROOM_DELUXE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
+      </div>
+      <div class="room-row" data-room="junior-suite" role="button" tabindex="0">
+        <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior Suite" loading="lazy">
+        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">Junior Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_JUNIOR_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
+      </div>
+      <div class="room-row" data-room="suite" role="button" tabindex="0">
+        <img class="room-row__img" src="fotos/kamer-suite.webp" alt="Suite" loading="lazy">
+        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">{{ROOM_SAUNA_BADGE_STATIC}}</span><div class="room-row__name">Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_SUITE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
+      </div>
+      <div class="room-row" data-room="bruidssuite" role="button" tabindex="0">
+        <img class="room-row__img" src="fotos/kamer-bruidssuite.webp" alt="{{ROOM_BRUIDSSUITE_IMG_ALT}}" loading="lazy">
+        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--premium">Premium</span><div class="room-row__name">{{ROOM_BRUIDSSUITE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_BRUIDSSUITE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Kamerpopup -->
+<div class="room-popup-overlay" id="roomPopup" role="dialog" aria-modal="true" aria-label="{{POPUP_ARIA}}" data-cta="{{ROOM_POPUP_CTA}}">
+  <div class="room-popup" id="roomPopupInner"></div>
+</div>
+
+<!-- ══ FACILITEITEN ══════════════════════════════════════════ -->
+<section class="fac" id="faciliteiten" aria-label="{{FAC_ARIA}}">
+  <div class="fac__head"><h2>{{FAC_HEAD}}</h2></div>
+  <div class="fac-row">
+    <div class="fac-tile is-default" data-fac="restaurant" role="button" tabindex="0">
+      <img src="fotos/restaurant-sfeer.webp" alt="{{FACR_TITLE}}" loading="lazy">
+      <div class="fac-tile__content">
+        <span class="fac-tile__eyebrow">{{FACR_EYEBROW}}</span>
+        <div class="fac-tile__title">{{FACR_TITLE}}</div>
+        <div class="fac-tile__extra">
+          <p class="fac-tile__text">{{FACR_TEXT}}</p>
+          <span class="fac-tile__btn">{{FAC_MORE}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="fac-tile" data-fac="wellness" role="button" tabindex="0">
+      <img src="fotos/wellness-spa.webp" alt="{{FACW_TITLE}}" loading="lazy">
+      <div class="fac-tile__content">
+        <span class="fac-tile__eyebrow">{{FACW_EYEBROW}}</span>
+        <div class="fac-tile__title">{{FACW_TITLE}}</div>
+        <div class="fac-tile__extra">
+          <p class="fac-tile__text">{{FACW_TEXT}}</p>
+          <span class="fac-tile__btn">{{FAC_MORE}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="fac-tile" data-fac="gym" role="button" tabindex="0">
+      <img src="fotos/wp-gym.webp" alt="{{FACG_TITLE}}" loading="lazy">
+      <div class="fac-tile__content">
+        <span class="fac-tile__eyebrow">{{FACG_EYEBROW}}</span>
+        <div class="fac-tile__title">{{FACG_TITLE}}</div>
+        <div class="fac-tile__extra">
+          <p class="fac-tile__text">{{FACG_TEXT}}</p>
+          <span class="fac-tile__btn">{{FAC_MORE}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WELKOM CROSS-SELL CTA (diner-blok) ════════════════════ -->
+<section class="diner" aria-label="{{DINER_ARIA}}">
+  <div class="diner__card">
+    <div class="diner__bg" role="img" aria-label="{{DINER_BG_ARIA}}"></div>
+    <div class="diner__overlay"></div>
+    <div class="diner__content">
+      <span class="diner__eyebrow">{{DINER_EYEBROW}}</span>
+      <h2 class="diner__title">{{DINER_TITLE}}</h2>
+      <p class="diner__sub">{{DINER_SUB}}</p>
+      <a class="diner__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELKOM&amp;mewsRoute=rooms" target="_blank" rel="noopener">{{BTN_BOOK_ARRANGEMENT}}</a>
+    </div>
+  </div>
+</section>
+
 <!-- ══ OMGEVING — Ontdek de omgeving ═════════════════════════ -->
 <section class="beleving" id="omgeving" aria-label="{{OMG_ARIA}}">
   <div class="beleving__head">
@@ -608,62 +772,31 @@
   </div>
 </section>
 
-<!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
-<section class="rooms" id="kamertypes" aria-label="{{ROOMS_ARIA}}">
-  <div class="rooms__inner">
-    <span class="rooms__eyebrow">{{ROOMS_EYEBROW}}</span>
-    <h2 class="rooms__title">{{ROOMS_TITLE}}</h2>
-    <p class="rooms__sub">{{ROOMS_SUB}}</p>
-
-    <div class="rooms__base" data-room="comfort" role="button" tabindex="0" style="cursor:pointer">
-      <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="{{ROOM_COMFORT_IMG_ALT}}" loading="lazy">
-      <div class="rooms__base-body">
-        <span class="rooms__base-badge">{{ROOM_COMFORT_BADGE_STATIC}}</span>
-        <span class="rooms__base-name">{{ROOM_COMFORT_IMG_ALT}}</span>
-        <p class="rooms__base-feats">{{ROOM_COMFORT_FEATS_STATIC}}</p>
-      </div>
-    </div>
-
-    <div class="rooms__list">
-      <div class="room-row" data-room="royale" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-royale.webp" alt="{{ROOM_ROYALE_IMG_ALT}}" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">{{ROOM_ROYALE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> {{ROOM_ROYALE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="deluxe" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-deluxe.webp" alt="{{ROOM_DELUXE_IMG_ALT}}" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">{{ROOM_SAUNA_BADGE_STATIC}}</span><div class="room-row__name">{{ROOM_DELUXE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> {{ROOM_DELUXE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="junior-suite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior Suite" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">Junior Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_JUNIOR_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="suite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-suite.webp" alt="Suite" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">{{ROOM_SAUNA_BADGE_STATIC}}</span><div class="room-row__name">Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_SUITE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="bruidssuite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-bruidssuite.webp" alt="{{ROOM_BRUIDSSUITE_IMG_ALT}}" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--premium">Premium</span><div class="room-row__name">{{ROOM_BRUIDSSUITE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_BRUIDSSUITE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
+<!-- ══ FAQ ═══════════════════════════════════════════════════ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="faq__head"><h2>{{FAQ_TITLE}}</h2></div>
+    <div class="faq__list">
+      <details><summary>{{FAQ_Q1}}</summary><div class="faq__a">{{FAQ_A1}}</div></details>
+      <details><summary>{{FAQ_Q2}}</summary><div class="faq__a">{{FAQ_A2}}</div></details>
+      <details><summary>{{FAQ_Q3}}</summary><div class="faq__a">{{FAQ_A3}}</div></details>
+      <details><summary>{{FAQ_Q4}}</summary><div class="faq__a">{{FAQ_A4}}</div></details>
+      <details><summary>{{FAQ_Q5}}</summary><div class="faq__a">{{FAQ_A5}}</div></details>
     </div>
   </div>
 </section>
 
-<!-- Kamerpopup -->
-<div class="room-popup-overlay" id="roomPopup" role="dialog" aria-modal="true" aria-label="{{POPUP_ARIA}}" data-cta="{{ROOM_POPUP_CTA}}">
-  <div class="room-popup" id="roomPopupInner"></div>
-</div>
-
-<!-- ══ WELKOM CROSS-SELL CTA (diner-blok) ════════════════════ -->
-<section class="diner" aria-label="{{DINER_ARIA}}">
-  <div class="diner__card">
-    <div class="diner__bg" role="img" aria-label="{{DINER_BG_ARIA}}"></div>
-    <div class="diner__overlay"></div>
-    <div class="diner__content">
-      <span class="diner__eyebrow">{{DINER_EYEBROW}}</span>
-      <h2 class="diner__title">{{DINER_TITLE}}</h2>
-      <p class="diner__sub">{{DINER_SUB}}</p>
-      <a class="diner__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=WELKOM&amp;mewsRoute=rooms" target="_blank" rel="noopener">{{BTN_BOOK_ARRANGEMENT}}</a>
+<!-- ══ WILT U MEER WETEN — care-section ══════════════════════ -->
+<section class="care" aria-label="{{CARE_TITLE}}">
+  <div class="care__inner">
+    <img class="care__img" src="fotos/care-receptie.webp" alt="{{CARE_TITLE}}" loading="lazy">
+    <div class="care__card">
+      <h2>{{CARE_TITLE}}</h2>
+      <p>{{CARE_BODY}}</p>
+      <div class="care-contact">
+        <a class="care-contact__row" href="mailto:info@asteria.nl"><span class="care-contact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg></span>info@asteria.nl</a>
+        <a class="care-contact__row" href="tel:0031478511466"><span class="care-contact__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg></span>0478 511 466</a>
+      </div>
     </div>
   </div>
 </section>
@@ -821,6 +954,44 @@
   document.querySelectorAll('.room-row, .rooms__base').forEach(function (el) {
     el.addEventListener('click', function () { openPopup(this.dataset.room); });
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(this.dataset.room); } });
+  });
+
+  /* Faciliteiten-popup (hergebruikt dezelfde overlay/slider) */
+  var FACILITIES = {{FACILITIES_JS_DATA}};
+  function openFacPopup(key) {
+    var f = FACILITIES[key];
+    if (!f) return;
+    var slides = f.imgs.map(function (src) { return '<img class="room-popup__hero" src="' + src + '" alt="' + f.name + '" loading="lazy">'; });
+    sliderLen = slides.length; sliderIdx = 0;
+    var dotsHtml = slides.length > 1 ? '<div class="room-popup__dots">' + slides.map(function (_, i) { return '<button class="room-popup__dot' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '"></button>'; }).join('') + '</div>' : '';
+    var arrowsHtml = slides.length > 1 ? '<button class="room-popup__arrow room-popup__arrow--prev" aria-label="{{ROOM_POPUP_PREV_ARIA}}">‹</button><button class="room-popup__arrow room-popup__arrow--next" aria-label="{{ROOM_POPUP_NEXT_ARIA}}">›</button>' : '';
+    var ctaHtml = f.cta ? '<a class="room-popup__cta" href="' + f.cta.href + '" target="_blank" rel="noopener">' + f.cta.label + '</a>' : '';
+    inner.innerHTML =
+      '<div class="room-popup__slider"><div class="room-popup__track">' + slides.join('') + '</div>' + dotsHtml + arrowsHtml + '</div>' +
+      '<div class="room-popup__body">' +
+        '<button class="room-popup__close" id="popupClose" aria-label="{{BTN_CLOSE_ARIA}}">&times;</button>' +
+        '<span class="room-row__badge" style="background:#f1f5f9;color:#64748b">' + f.eyebrow + '</span>' +
+        '<h3 class="room-popup__name">' + f.name + '</h3>' +
+        '<p class="room-popup__desc">' + f.desc + '</p>' +
+        '<ul class="room-popup__features">' + f.features.map(function (x) { return '<li class="room-popup__feature">' + x + '</li>'; }).join('') + '</ul>' +
+        ctaHtml +
+      '</div>';
+    var prevBtn = inner.querySelector('.room-popup__arrow--prev');
+    var nextBtn = inner.querySelector('.room-popup__arrow--next');
+    if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); goSlide(sliderIdx - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); goSlide(sliderIdx + 1); });
+    inner.querySelectorAll('.room-popup__dot').forEach(function (dot) { dot.addEventListener('click', function (e) { e.stopPropagation(); goSlide(Number(this.dataset.idx)); }); });
+    var slider = inner.querySelector('.room-popup__slider');
+    var tsx = 0;
+    slider.addEventListener('touchstart', function (e) { tsx = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', function (e) { var d = tsx - e.changedTouches[0].clientX; if (Math.abs(d) > 40) goSlide(sliderIdx + (d > 0 ? 1 : -1)); });
+    document.getElementById('popupClose').addEventListener('click', closePopup);
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+  document.querySelectorAll('.fac-tile[data-fac]').forEach(function (el) {
+    el.addEventListener('click', function () { openFacPopup(this.dataset.fac); });
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFacPopup(this.dataset.fac); } });
   });
 }());
 
