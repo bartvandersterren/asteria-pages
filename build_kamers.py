@@ -348,7 +348,7 @@ def rooms_js(lang):
     for k in BOOKABLE:
         r = BYKEY[k]
         obj[k] = {'name': NAME[k][lang], 'upgrade': '', 'mewsCategoryId': CATEGORY[k],
-                  'imgs': [slides_for(r)[0]], 'badge': '', 'desc': SHORT[k][lang],
+                  'video': r.get('video'), 'imgs': slides_for(r), 'badge': '', 'desc': SHORT[k][lang],
                   'features': FEAT[k][lang]}
     return 'window.ROOMS = ' + json.dumps(obj, ensure_ascii=False) + ';'
 
