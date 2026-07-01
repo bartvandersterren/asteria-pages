@@ -52,8 +52,8 @@ const CONFIG = {
   claimBtn:     'Claim je cadeau',
 
   // Scherm 2 — e-mail
-  emailEyebrow:     'Je cadeau ligt klaar',
-  emailHeading:     'Waar mogen we je code naartoe sturen?',
+  emailEyebrow:     '',
+  emailHeading:     'Waar sturen we je code heen?',
   emailPlaceholder: 'jouw@email.nl',
   emailBtn:         'Stuur mij de code',
   terms:            'Niet in combinatie met arrangementen. Geldig bij je eerste verblijf.',
@@ -152,10 +152,10 @@ const CONFIG = {
 
   @media (max-width:680px){
     .sc-modal{flex-direction:column;max-width:420px;}
-    .sc-photo{flex:none;order:2;width:auto;min-height:0;height:150px;margin:0 20px 20px;border-radius:14px;}
-    .sc-panel{order:1;padding:34px 26px 30px;}
+    .sc-photo{flex:none;order:2;width:auto;min-height:0;height:230px;margin:0 20px 20px;border-radius:14px;}
+    .sc-panel{order:1;padding:34px 26px 26px;}
     .sc-h{font-size:28px;}
-    .sc-card{width:250px;height:184px;}
+    .sc-card{width:215px;height:158px;}
   }`;
   const styleEl = document.createElement('style');
   styleEl.textContent = css;
@@ -191,7 +191,7 @@ const CONFIG = {
         <!-- Scherm 2: e-mail -->
         <div class="sc-stage" id="scStageEmail">
           <img class="sc-logo" src="${C.logo}" alt="Hotel Asteria">
-          <p class="sc-prize-eyebrow" style="margin-bottom:10px;">${C.emailEyebrow}</p>
+          ${C.emailEyebrow ? '<p class="sc-prize-eyebrow" style="margin-bottom:10px;">' + C.emailEyebrow + '</p>' : ''}
           <h2 class="sc-h" style="font-size:26px;margin-bottom:20px;">${C.emailHeading}</h2>
           <div class="sc-form">
             <input class="sc-input" type="email" id="scEmail" placeholder="${C.emailPlaceholder}" autocomplete="email">
