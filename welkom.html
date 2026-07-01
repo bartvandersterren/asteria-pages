@@ -339,6 +339,12 @@
     .fac-tile__extra { opacity: 1 !important; transform: none !important; pointer-events: auto !important; }
     .fac-tile__title { font-size: 1.4rem; }
   }
+  .fac-hint { display: none; }
+  .fac-hint span { font-size: 0.72rem; color: #999; font-family: 'Montserrat', sans-serif; }
+  .fac-dots { display: flex; gap: 6px; }
+  .fac-dot { width: 6px; height: 6px; border-radius: 50%; background: #ccc; }
+  .fac-dot.active { background: #c23435; width: 18px; border-radius: 3px; }
+  @media (max-width: 768px) { .fac-hint { display: flex; align-items: center; gap: 10px; padding: 14px 24px 0; } }
 
   /* ============================================================
      FAQ  (uit kamerdetailpagina's)
@@ -712,6 +718,10 @@
       </div>
     </div>
   </div>
+  <div class="fac-hint">
+    <div class="fac-dots"><div class="fac-dot active"></div><div class="fac-dot"></div><div class="fac-dot"></div></div>
+    <span>Swipe voor meer</span>
+  </div>
 </section>
 
 <!-- ══ WELKOM CROSS-SELL CTA (diner-blok) ════════════════════ -->
@@ -977,11 +987,13 @@
   });
 
   /* Faciliteiten-popup (hergebruikt dezelfde overlay/slider) */
-  var FACILITIES = {'restaurant':{imgs:['fotos/restaurant-sfeer.webp','fotos/restaurant-diner.webp','fotos/brasserie.webp','fotos/restaurant-ontbijt.webp'],eyebrow:'Restaurant & Brasserie',name:'Restaurant & Brasserie',desc:'Een sfeervolle brasserie met open haard en zonnig terras, plus een restaurant voor het diner. Warm, huiselijk en met passie bereid, van ontbijt tot diner.',features:['Brasserie ma-vr 07:00-00:00','Restaurant 11:30-21:30','Zonnig terras','Open haard'],cta:{href:'https://www.asteria.nl/restaurant',label:'Bekijk het restaurant'}},'wellness':{imgs:['fotos/wellness-spa.webp','fotos/wellness-sauna.webp','fotos/wp-sauna-fins.webp','fotos/wp-dompelbad.webp'],eyebrow:'Wellness · Top Floor',name:'Wellness op de Top Floor',desc:'300 m² wellness hoog boven Venray, met vier unieke sauna’s, een dompelbad, kruidenbad, belevenisdouches en sfeervolle relaxruimtes. Even helemaal tot rust komen.',features:['4 sauna’s','Dompel- en kruidenbad','Belevenisdouches','Ruime relaxruimte'],cta:{href:'https://wellnessasteria.nl',label:'Reserveer wellness'}},'gym':{imgs:['fotos/wp-gym.webp'],eyebrow:'Fitness',name:'Fitnessruimte',desc:'Een moderne fitnessruimte voor alle hotelgasten. Even bewegen wanneer het jou uitkomt, zonder extra kosten.',features:['Gratis voor hotelgasten','Moderne apparatuur','Cardio en kracht'],cta:{href:'https://www.asteria.nl/wellness',label:'Meer over fitness'}}};
+  var FACILITIES = {'restaurant':{video:null,imgs:['fotos/restaurant-sfeer.webp','fotos/restaurant-diner.webp','fotos/brasserie.webp','fotos/restaurant-ontbijt.webp'],eyebrow:'Restaurant & Brasserie',name:'Restaurant & Brasserie',desc:'Een sfeervolle brasserie met open haard en zonnig terras, plus een restaurant voor het diner. Warm, huiselijk en met passie bereid, van ontbijt tot diner.',features:['Brasserie ma-vr 07:00-00:00','Restaurant 11:30-21:30','Zonnig terras','Open haard'],cta:{href:'https://www.asteria.nl/restaurant',label:'Bekijk het restaurant'}},'wellness':{video:'videos/wellness-walk.mp4',imgs:['fotos/top-floor-1.webp','fotos/top-floor-2.webp','fotos/top-floor-3.webp','fotos/top-floor-4.webp','fotos/top-floor-5.webp','fotos/top-floor-6.webp'],eyebrow:'Wellness · Top Floor',name:'Wellness op de Top Floor',desc:'300 m² wellness hoog boven Venray, met vier unieke sauna’s, een dompelbad, kruidenbad, belevenisdouches en sfeervolle relaxruimtes. Even helemaal tot rust komen.',features:['4 sauna’s','Dompel- en kruidenbad','Belevenisdouches','Ruime relaxruimte'],cta:{href:'https://wellnessasteria.nl',label:'Reserveer wellness'}},'gym':{video:'videos/gym.mp4',imgs:['fotos/wp-gym.webp'],eyebrow:'Fitness',name:'Fitnessruimte',desc:'Een moderne fitnessruimte voor alle hotelgasten. Even bewegen wanneer het jou uitkomt, zonder extra kosten.',features:['Gratis voor hotelgasten','Moderne apparatuur','Cardio en kracht'],cta:{href:'https://www.asteria.nl/wellness',label:'Meer over fitness'}}};
   function openFacPopup(key) {
     var f = FACILITIES[key];
     if (!f) return;
-    var slides = f.imgs.map(function (src) { return '<img class="room-popup__hero" src="' + src + '" alt="' + f.name + '" loading="lazy">'; });
+    var slides = [];
+    if (f.video) slides.push('<video class="room-popup__hero room-popup__video" src="' + f.video + '" muted loop playsinline autoplay preload="auto" poster="' + f.imgs[0] + '"></video>');
+    f.imgs.forEach(function (src) { slides.push('<img class="room-popup__hero" src="' + src + '" alt="' + f.name + '" loading="lazy">'); });
     sliderLen = slides.length; sliderIdx = 0;
     var dotsHtml = slides.length > 1 ? '<div class="room-popup__dots">' + slides.map(function (_, i) { return '<button class="room-popup__dot' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '"></button>'; }).join('') + '</div>' : '';
     var arrowsHtml = slides.length > 1 ? '<button class="room-popup__arrow room-popup__arrow--prev" aria-label="Vorige foto">‹</button><button class="room-popup__arrow room-popup__arrow--next" aria-label="Volgende foto">›</button>' : '';
@@ -1008,6 +1020,8 @@
     document.getElementById('popupClose').addEventListener('click', closePopup);
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
+    var fvid = inner.querySelector('.room-popup__video');
+    if (fvid) { var fpp = fvid.play(); if (fpp && fpp.catch) fpp.catch(function () {}); }
   }
   document.querySelectorAll('.fac-tile[data-fac]').forEach(function (el) {
     el.addEventListener('click', function () { openFacPopup(this.dataset.fac); });
