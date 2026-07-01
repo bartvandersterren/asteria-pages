@@ -40,6 +40,14 @@
   .foot{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.7;}
   .foot code{background:#ececec;padding:1px 6px;border-radius:4px;}
   .totals{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0 0;font-size:13px;color:var(--muted);}
+  .split{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:18px 0 0;}
+  .splitlabel{font-size:13px;font-weight:600;margin:0 0 10px;}
+  .splitlabel span{color:var(--muted);font-weight:400;}
+  .splitbar{display:flex;height:34px;border-radius:8px;overflow:hidden;background:var(--bg);}
+  .splitbar div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;min-width:44px;transition:width .3s;}
+  .splitbar .sa{background:var(--crimson);}
+  .splitbar .sb{background:var(--gold);}
+  .splitmid{text-align:center;font-size:11px;color:var(--muted);margin-top:8px;}
 </style>
 </head>
 <body>
@@ -100,7 +108,17 @@ function load() {
         out = '<div class="empty">Nog geen toningen geregistreerd. Zodra bezoekers de popup zien, verschijnen hier de cijfers.<br>Ververs deze pagina over een tijdje.</div>';
       } else {
         var winA = (A.conversion_rate || 0) >= (B.conversion_rate || 0);
+        var shareA = 100 * (A.shows || 0) / totalShows;
+        var shareB = 100 * (B.shows || 0) / totalShows;
         out = '<div class="cards">' + card(A, winA && A.shows) + card(B, !winA && B.shows) + '</div>'
+          + '<div class="split">'
+          +   '<div class="splitlabel">Verdeling van vertoningen <span>— streven 50/50</span></div>'
+          +   '<div class="splitbar">'
+          +     '<div class="sa" style="width:' + shareA + '%">' + Math.round(shareA) + '% A</div>'
+          +     '<div class="sb" style="width:' + shareB + '%">' + Math.round(shareB) + '% B</div>'
+          +   '</div>'
+          +   '<div class="splitmid">' + (A.shows||0) + ' × variant A · ' + (B.shows||0) + ' × variant B</div>'
+          + '</div>'
           + '<div class="totals">'
           + '<span>Totaal getoond: <b>' + totalShows + '</b></span>'
           + '<span>Totaal aangemeld: <b>' + ((A.conversions||0)+(B.conversions||0)) + '</b></span>'
