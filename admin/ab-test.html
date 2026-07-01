@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Popup A/B-test — Hotel Asteria</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--crimson:#c23435;--ink:#1a1a1a;--muted:#7a7a7a;--line:#e6e6e6;--bg:#f6f5f3;--gold:#c8a63d;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);padding:32px 20px 60px;}
+  .wrap{max-width:900px;margin:0 auto;}
+  h1{font-size:26px;font-weight:700;margin:0 0 4px;}
+  .lead{color:var(--muted);font-size:14px;margin:0 0 24px;}
+  .bar{display:flex;align-items:center;gap:12px;margin:0 0 26px;flex-wrap:wrap;}
+  button{font-family:inherit;font-weight:600;font-size:13px;border:none;border-radius:6px;padding:10px 16px;cursor:pointer;background:var(--crimson);color:#fff;transition:background .2s;}
+  button:hover{background:#a82c2c;}
+  .updated{font-size:12px;color:var(--muted);}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:640px){.cards{grid-template-columns:1fr;}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;position:relative;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+  .card.win{border-color:var(--crimson);box-shadow:0 6px 22px rgba(194,52,53,.14);}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;background:var(--ink);border-radius:20px;padding:4px 12px;}
+  .card.b .tag{background:var(--gold);}
+  .cardname{font-size:18px;font-weight:700;margin:12px 0 2px;}
+  .cardsub{font-size:12px;color:var(--muted);margin:0 0 18px;}
+  .rate{font-size:46px;font-weight:800;line-height:1;letter-spacing:-1px;}
+  .rate small{font-size:16px;font-weight:600;color:var(--muted);}
+  .ratelbl{font-size:12px;color:var(--muted);margin:6px 0 18px;}
+  .metrics{display:flex;gap:8px;}
+  .metric{flex:1;background:var(--bg);border-radius:8px;padding:12px 8px;text-align:center;}
+  .metric b{display:block;font-size:22px;font-weight:700;}
+  .metric span{font-size:11px;color:var(--muted);}
+  .winbadge{position:absolute;top:16px;right:16px;font-size:11px;font-weight:700;color:var(--crimson);}
+  .progress{height:8px;background:var(--bg);border-radius:5px;overflow:hidden;margin-top:14px;}
+  .progress i{display:block;height:100%;background:var(--crimson);}
+  .card.b .progress i{background:var(--gold);}
+  .empty{background:#fff;border:1px dashed var(--line);border-radius:12px;padding:40px;text-align:center;color:var(--muted);}
+  .foot{margin-top:26px;font-size:12px;color:var(--muted);line-height:1.7;}
+  .foot code{background:#ececec;padding:1px 6px;border-radius:4px;}
+  .totals{display:flex;gap:18px;flex-wrap:wrap;margin:8px 0 0;font-size:13px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Nieuwsbrief-popup — A/B-test</h1>
+  <p class="lead">Variant A (witte kaart) vs. Variant B (scratchcard) — conversie = aanmeldingen ÷ toningen.</p>
+  <div class="bar">
+    <button onclick="load()">Vernieuwen</button>
+    <span class="updated" id="updated"></span>
+  </div>
+  <div id="out"><div class="empty">Laden…</div></div>
+  <div class="foot">
+    Bron: <code>/api/stats?summary=1</code> · veld <code>popup_ab</code>.
+    Cijfers vullen zich naarmate bezoekers binnenkomen; wacht op ± een paar honderd toningen per variant voor een betrouwbaar verschil.<br>
+    A = <code>A_whitecard</code> (newsletter-popup.js) · B = <code>B_scratchcard</code> (scratchcard-popup.js).
+  </div>
+</div>
+
+<script>
+var NAMES = {
+  A_whitecard:   { tag: 'Variant A', name: 'Witte kaart', sub: 'newsletter-popup.js', cls: 'a' },
+  B_scratchcard: { tag: 'Variant B', name: 'Scratchcard', sub: 'scratchcard-popup.js', cls: 'b' }
+};
+
+function card(v, isWin) {
+  var m = NAMES[v.variant] || { tag: v.variant, name: v.variant, sub: '', cls: 'a' };
+  return '<div class="card ' + m.cls + (isWin ? ' win' : '') + '">'
+    + (isWin ? '<div class="winbadge">★ hoogste conversie</div>' : '')
+    + '<span class="tag">' + m.tag + '</span>'
+    + '<div class="cardname">' + m.name + '</div>'
+    + '<div class="cardsub">' + m.sub + '</div>'
+    + '<div class="rate">' + (v.conversion_rate != null ? v.conversion_rate : 0) + '<small>%</small></div>'
+    + '<div class="ratelbl">conversieratio (aanmelding ÷ getoond)</div>'
+    + '<div class="metrics">'
+    +   '<div class="metric"><b>' + (v.shows || 0) + '</b><span>getoond</span></div>'
+    +   '<div class="metric"><b>' + (v.submits || 0) + '</b><span>ingevuld</span></div>'
+    +   '<div class="metric"><b>' + (v.conversions || 0) + '</b><span>aangemeld</span></div>'
+    + '</div>'
+    + '<div class="progress"><i style="width:' + Math.min(100, (v.conversion_rate || 0)) + '%"></i></div>'
+    + '</div>';
+}
+
+function load() {
+  document.getElementById('out').innerHTML = '<div class="empty">Laden…</div>';
+  fetch('/api/stats?summary=1', { cache: 'no-store' })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var ab = d.popup_ab || [];
+      // Zorg dat beide varianten er staan, ook op 0
+      var byV = {}; ab.forEach(function (r) { byV[r.variant] = r; });
+      ['A_whitecard', 'B_scratchcard'].forEach(function (k) {
+        if (!byV[k]) byV[k] = { variant: k, shows: 0, submits: 0, conversions: 0, conversion_rate: 0 };
+      });
+      var A = byV.A_whitecard, B = byV.B_scratchcard;
+      var totalShows = (A.shows || 0) + (B.shows || 0);
+      var out;
+      if (totalShows === 0) {
+        out = '<div class="empty">Nog geen toningen geregistreerd. Zodra bezoekers de popup zien, verschijnen hier de cijfers.<br>Ververs deze pagina over een tijdje.</div>';
+      } else {
+        var winA = (A.conversion_rate || 0) >= (B.conversion_rate || 0);
+        out = '<div class="cards">' + card(A, winA && A.shows) + card(B, !winA && B.shows) + '</div>'
+          + '<div class="totals">'
+          + '<span>Totaal getoond: <b>' + totalShows + '</b></span>'
+          + '<span>Totaal aangemeld: <b>' + ((A.conversions||0)+(B.conversions||0)) + '</b></span>'
+          + '</div>';
+      }
+      document.getElementById('out').innerHTML = out;
+      var now = new Date();
+      document.getElementById('updated').textContent = 'Laatst ververst: ' + now.toLocaleTimeString('nl-NL');
+    })
+    .catch(function () {
+      document.getElementById('out').innerHTML = '<div class="empty">Kon de cijfers niet laden. Probeer opnieuw.</div>';
+    });
+}
+load();
+</script>
+</body>
+</html>

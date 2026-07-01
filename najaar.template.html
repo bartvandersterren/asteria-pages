@@ -3057,53 +3057,6 @@
   </div>
 </footer>
 
-<!-- ══ REVINATE HIDDEN FORM ════════════════════════════════ -->
-<form id="revinate_contact_api_form"
-      token="210bb345-899a-4f69-9b9f-4a00624a2024"
-      style="visibility:hidden;position:absolute;left:-9999px;width:1px;height:1px;">
-  <input type="email" name="email" id="ec_hidden_email">
-  <input type="text" name="vipStatus" value="Wellness nieuwsbrief">
-  <button type="submit" style="display:none">Submit</button>
-</form>
-
-<!-- ══ EMAIL CAPTURE ═════════════════════════════════════ -->
-<div class="ec-overlay" id="ecOverlay" role="dialog" aria-modal="true" aria-label="{{EC_OVERLAY_ARIA}}">
-  <div class="ec-modal" id="ecModal">
-    <div class="ec-modal-inner">
-      <div class="ec-modal-bg"></div>
-      <button class="ec-close" id="ecClose" aria-label="{{BTN_CLOSE_ARIA}}">&times;</button>
-      <div class="ec-content">
-
-        <!-- {{EC_COMMENT_SCREEN1}} -->
-        <div class="ec-form-state" id="ecFormState">
-          <h2 class="ec-title">{{EC_TITLE}}</h2>
-          <p class="ec-sub">{{EC_SUB}}</p>
-          <p class="ec-error" id="ecError">{{EC_ERROR}}</p>
-          <div class="ec-form-row">
-            <input class="ec-email-input" type="email" id="ecEmail" placeholder="{{EC_EMAIL_PLACEHOLDER}}" autocomplete="email">
-            <button class="ec-submit-btn" id="ecSubmit">{{BTN_SUBSCRIBE}}</button>
-          </div>
-          <p class="ec-consent">{{EC_CONSENT}}</p>
-        </div>
-
-        <!-- {{EC_COMMENT_SCREEN2}} -->
-        <div class="ec-success" id="ecSuccess">
-          <div class="ec-success-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <polyline points="2,4 12,13 22,4"/>
-            </svg>
-          </div>
-          <h2 class="ec-success-title">{{EC_SUCCESS_TITLE}}</h2>
-          <p class="ec-success-sub">{{EC_SUCCESS_SUB}}</p>
-          <p class="ec-spam-note">{{EC_SPAM_NOTE}}</p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ══ COOKIE BANNER ═════════════════════════════════════ -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="{{COOKIE_BANNER_ARIA}}">
   <p class="cookie-banner__text">
@@ -4213,5 +4166,6 @@
 </script>
 
 
+<script src="/popup-ab.js" defer></script>
 </body>
 </html>

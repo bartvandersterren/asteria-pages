@@ -3098,53 +3098,6 @@
   </div>
 </footer>
 
-<!-- ══ REVINATE HIDDEN FORM ════════════════════════════════ -->
-<form id="revinate_contact_api_form"
-      token="210bb345-899a-4f69-9b9f-4a00624a2024"
-      style="visibility:hidden;position:absolute;left:-9999px;width:1px;height:1px;">
-  <input type="email" name="email" id="ec_hidden_email">
-  <input type="text" name="vipStatus" value="Wellness nieuwsbrief">
-  <button type="submit" style="display:none">Submit</button>
-</form>
-
-<!-- ══ EMAIL CAPTURE ═════════════════════════════════════ -->
-<div class="ec-overlay" id="ecOverlay" role="dialog" aria-modal="true" aria-label="Newsletter sign-up">
-  <div class="ec-modal" id="ecModal">
-    <div class="ec-modal-inner">
-      <div class="ec-modal-bg"></div>
-      <button class="ec-close" id="ecClose" aria-label="Close">&times;</button>
-      <div class="ec-content">
-
-        <!-- Screen 1: form -->
-        <div class="ec-form-state" id="ecFormState">
-          <h2 class="ec-title">Free bathrobe, towel<br>&amp; bubbles in your room</h2>
-          <p class="ec-sub">Sign up for the newsletter and receive the package on your first stay.</p>
-          <p class="ec-error" id="ecError">Something went wrong. Please try again.</p>
-          <div class="ec-form-row">
-            <input class="ec-email-input" type="email" id="ecEmail" placeholder="your email address" autocomplete="email">
-            <button class="ec-submit-btn" id="ecSubmit">Sign up</button>
-          </div>
-          <p class="ec-consent">By signing up you agree to our <a href="/privacyverklaring" target="_blank">privacy policy</a>. You can unsubscribe at any time.</p>
-        </div>
-
-        <!-- Screen 2: success -->
-        <div class="ec-success" id="ecSuccess">
-          <div class="ec-success-icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <polyline points="2,4 12,13 22,4"/>
-            </svg>
-          </div>
-          <h2 class="ec-success-title">Check your inbox</h2>
-          <p class="ec-success-sub">We've sent you an email. Open it to confirm your subscription. Your personal code is inside.</p>
-          <p class="ec-spam-note">Didn't receive an email? Check your spam folder.</p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- ══ COOKIE BANNER ═════════════════════════════════════ -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie notice">
   <p class="cookie-banner__text">
@@ -4540,5 +4493,6 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
 </script>
 
 
+<script src="/popup-ab.js" defer></script>
 </body>
 </html>
