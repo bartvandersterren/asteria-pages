@@ -19,3 +19,6 @@ test-image-gen.js
 
 # Referentie-afbeeldingen (niet nodig in repo)
 /wellness-kaart-refs/
+
+__pycache__/
+*.pyc
