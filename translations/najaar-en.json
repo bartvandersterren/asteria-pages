@@ -130,5 +130,6 @@
   "ARR_C_FINEPRINT": "* Price per person based on a double room, excluding €2 city tax per person per night. · Bookable 8 September to 30 November.",
   "ROOM_BASE_IMG_ALT": "Deluxe Room",
   "ROOM_BASE_BADGE_STATIC": "Standard included",
-  "ROOM_BASE_FEATS_STATIC": "~25 m² · king-size bed · private infrared sauna · seating area · air conditioning"
+  "ROOM_BASE_FEATS_STATIC": "~25 m² · king-size bed · private infrared sauna · seating area · air conditioning",
+  "BK_BACK_STEP2_TEXT": "Back"
 }

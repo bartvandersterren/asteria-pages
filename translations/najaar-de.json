@@ -130,5 +130,6 @@
   "ARR_C_FINEPRINT": "* Preis pro Person auf Basis eines Doppelzimmers, zzgl. €2,– Kurtaxe pro Person pro Nacht. · Buchbar vom 8. September bis 30. November.",
   "ROOM_BASE_IMG_ALT": "Deluxe-Zimmer",
   "ROOM_BASE_BADGE_STATIC": "Standardmäßig inklusive",
-  "ROOM_BASE_FEATS_STATIC": "~25 m² · Kingsize-Bett · private Infrarotsauna · Sitzecke · Klimaanlage"
+  "ROOM_BASE_FEATS_STATIC": "~25 m² · Kingsize-Bett · private Infrarotsauna · Sitzecke · Klimaanlage",
+  "BK_BACK_STEP2_TEXT": "Zurück"
 }

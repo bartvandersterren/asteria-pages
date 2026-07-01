@@ -130,5 +130,6 @@
   "ARR_C_FINEPRINT": "* Prijs per persoon o.b.v. een tweepersoonskamer, exclusief €2,– verblijfsbelasting p.p.p.n. · Boekbaar van 8 september t/m 30 november.",
   "ROOM_BASE_IMG_ALT": "Deluxe Kamer",
   "ROOM_BASE_BADGE_STATIC": "Standaard inbegrepen",
-  "ROOM_BASE_FEATS_STATIC": "~25 m² · kingsize bed · privé infraroodsauna · zithoek · airco"
+  "ROOM_BASE_FEATS_STATIC": "~25 m² · kingsize bed · privé infraroodsauna · zithoek · airco",
+  "BK_BACK_STEP2_TEXT": "Terug"
 }

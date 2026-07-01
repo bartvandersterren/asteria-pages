@@ -138,5 +138,6 @@
   "COOKIE_TEXT": "This website uses cookies for an optimal experience.",
   "COOKIE_LINK_TEXT": "More info",
   "COOKIE_BTN": "Accept",
-  "BTN_BOOK_DIRECT": "Book now"
+  "BTN_BOOK_DIRECT": "Book now",
+  "BK_BACK_STEP2_TEXT": "Back"
 }
