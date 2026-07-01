@@ -195,7 +195,7 @@
     shown = true;
     sessionStorage.setItem('ec_shown', '1');
     overlay.classList.add('is-open');
-    if (window.track) window.track('email_popup_open');
+    if (window.track) window.track('email_popup_open', { variant_email: 'A_whitecard' });
     setTimeout(function () { emailInput && emailInput.focus(); }, 350);
   }
 
@@ -218,7 +218,7 @@
     formState.classList.add('is-hidden');
     successEl.classList.add('is-visible');
     localStorage.setItem('ec_converted', '1');
-    if (window.track) window.track('email_success');
+    if (window.track) window.track('email_success', { variant_email: 'A_whitecard' });
   }
 
   function showError() {
@@ -242,7 +242,7 @@
     submitBtn.disabled = true;
     submitBtn.textContent = '...';
     errorEl.classList.remove('is-visible');
-    if (window.track) window.track('email_submit');
+    if (window.track) window.track('email_submit', { variant_email: 'A_whitecard' });
 
     // Kopieer email naar verborgen Revinate-form
     var hiddenEmail = document.getElementById('ec_hidden_email');
