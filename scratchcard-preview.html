@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Scratchcard prototype — Hotel Asteria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;height:100%;}
+  /* Achtergrond = simulatie van een pagina eronder */
+  body{
+    font-family:'Montserrat',sans-serif;
+    background:#2a2a2a url('/fotos/popup-welkomstpakket.webp') center/cover no-repeat;
+  }
+  body::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,0.25);}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     SCRATCHCARD PROTOTYPE — makkelijk aan te passen via CONFIG (onderaan)
+     Alle teksten / kleuren / foto staan in het CONFIG-object in het script.
+══════════════════════════════════════════════════════════ -->
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   CONFIG — pas hier alles aan. Sla op en herlaad om te zien.
+───────────────────────────────────────────────────────────── */
+const CONFIG = {
+  // Beeld & merk
+  logo:  'https://www.asteria.nl/images/logo-hotel-asteria.png',
+  photo: '/fotos/popup-welkomstpakket.webp',
+
+  // Scherm 1 — kraskaart
+  heading:   'Probeer je geluk',
+  sub:       'Kras het vak open en ontdek wat je wint',
+  coverBrand:'HOTEL ASTERIA',
+  coverText: 'KRAS HIER',
+
+  // De prijs (zichtbaar tijdens/na het krassen)
+  prizeEyebrow: 'Gefeliciteerd, je wint',
+  prize:        'Gratis welkomstcadeau',
+  prizeSub:     'Flesje bubbels + badjas & badhanddoeken bij je verblijf',
+  claimBtn:     'Claim je cadeau',
+
+  // Scherm 2 — e-mail
+  emailEyebrow:     'Je cadeau ligt klaar',
+  emailHeading:     'Waar mogen we je code naartoe sturen?',
+  emailPlaceholder: 'jouw@email.nl',
+  emailBtn:         'Stuur mij de code',
+  terms:            'Niet in combinatie met arrangementen. Geldig bij je eerste verblijf.',
+  consent:          'Door in te schrijven ga je akkoord met ons <a href="/privacyverklaring" target="_blank">privacybeleid</a>. Je kunt je altijd afmelden.',
+  errorText:        'Er ging iets mis. Probeer het opnieuw.',
+
+  // Scherm 3 — succes
+  successHeading: 'Bijna klaar!',
+  successSub:     'Check je inbox en bevestig je aanmelding. Je welkomstcode staat in diezelfde mail. Vermeld hem bij het boeken.',
+  spamNote:       'Geen mail ontvangen? Check je spamfolder.',
+
+  // Kleuren
+  colors: {
+    accent:     '#c23435',   // crimson — knoppen & accenten
+    accentDark: '#a82c2c',   // hover
+    coverTop:   '#e0cba6',   // kraslaag — goudfoil (lichte tint)
+    coverBottom:'#b28f5f',   // kraslaag — goudfoil (donkere tint)
+    coverInk:   'rgba(255,255,255,0.78)', // tekst op de kraslaag
+    heading:    '#1a1a1a'
+  },
+
+  // Gedrag
+  scratchThreshold: 0.5,   // 0–1: bij hoeveel % opengekrast automatisch onthuld wordt
+  submitToRevinate: true,  // true = echt naar de Revinate-lijst; false = alleen simuleren (voor design-tests)
+  revinateToken:    '210bb345-899a-4f69-9b9f-4a00624a2024' // NL-lijst
+};
+</script>
+
+<!-- Verborgen Revinate-form (submit-doel) -->
+<form id="revinate_contact_api_form" style="visibility:hidden;position:absolute;left:-9999px;width:1px;height:1px;">
+  <input type="email" name="email" id="sc_hidden_email">
+  <input type="text" name="vipStatus" value="Scratchcard">
+  <button type="submit" style="display:none">Submit</button>
+</form>
+<script type="text/javascript" src="//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1"></script>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   RENDER — bouwt de popup uit CONFIG (niet nodig om te wijzigen)
+───────────────────────────────────────────────────────────── */
+(function () {
+  const C = CONFIG, col = C.colors;
+
+  // Revinate-token op het form zetten
+  const revForm = document.getElementById('revinate_contact_api_form');
+  if (revForm) revForm.setAttribute('token', C.revinateToken);
+
+  // ── Styles ──
+  const css = `
+  .sc-overlay{position:fixed;inset:0;background:rgba(20,20,20,0.62);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;font-family:'Montserrat',sans-serif;overflow-y:auto;}
+  .sc-modal{display:flex;width:100%;max-width:900px;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 32px 90px rgba(0,0,0,0.5);position:relative;max-height:94vh;}
+  .sc-photo{flex:0 0 44%;background:url('${C.photo}') center/cover no-repeat;min-height:560px;}
+  .sc-panel{flex:1 1 auto;position:relative;padding:44px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow-y:auto;}
+  .sc-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.05);border:none;color:#333;font-size:18px;line-height:1;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;transition:background .2s;font-family:inherit;}
+  .sc-close:hover{background:rgba(0,0,0,0.12);}
+  .sc-logo{height:46px;width:auto;margin:0 0 22px;}
+  .sc-h{font-family:'Montserrat',sans-serif;font-weight:600;font-size:34px;color:${col.heading};line-height:1.1;margin:0 0 10px;letter-spacing:-0.5px;}
+  .sc-sub{font-size:15px;color:#555;font-weight:400;margin:0 0 26px;line-height:1.5;}
+
+  /* Kraskaart */
+  .sc-card{position:relative;width:270px;height:320px;border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,0.28);}
+  .sc-prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:#faf8f5;box-sizing:border-box;}
+  .sc-prize-eyebrow{font-family:'Electrolize',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:${col.accent};margin:0 0 12px;}
+  .sc-prize-title{font-weight:700;font-size:22px;color:${col.heading};line-height:1.2;margin:0 0 10px;}
+  .sc-prize-sub{font-size:13px;color:#555;line-height:1.5;margin:0;}
+  .sc-canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none;transition:opacity .45s ease;}
+  .sc-canvas:active{cursor:grabbing;}
+
+  .sc-claim{margin-top:26px;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .4s ease,transform .4s ease;width:100%;max-width:300px;}
+  .sc-claim.is-visible{opacity:1;transform:none;pointer-events:auto;}
+
+  /* Knoppen & form */
+  .sc-btn{width:100%;background:${col.accent};border:none;border-radius:4px;padding:16px 18px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;color:#fff;cursor:pointer;transition:background .2s;}
+  .sc-btn:hover{background:${col.accentDark};}
+  .sc-btn:disabled{background:#b98a8a;cursor:default;}
+  .sc-hint{font-size:11px;color:#9a9a9a;margin:12px 0 0;}
+
+  .sc-stage{display:none;flex-direction:column;align-items:center;justify-content:center;width:100%;}
+  .sc-stage.is-active{display:flex;}
+
+  .sc-form{width:100%;max-width:340px;}
+  .sc-input{width:100%;box-sizing:border-box;background:#fff;border:1px solid #ccc;border-radius:4px;padding:14px 15px;font-family:'Montserrat',sans-serif;font-size:14px;color:#111;outline:none;margin-bottom:12px;transition:border-color .2s;}
+  .sc-input:focus{border-color:${col.accent};}
+  .sc-input::placeholder{color:#a5a5a5;}
+  .sc-terms{font-size:11px;color:#9a9a9a;line-height:1.5;margin:14px 0 0;}
+  .sc-consent{font-size:11px;color:#8f8f8f;line-height:1.6;margin:14px 0 0;}
+  .sc-consent a{color:${col.accent};text-decoration:underline;}
+  .sc-error{font-size:12px;color:${col.accent};margin:10px 0 0;display:none;}
+  .sc-error.is-visible{display:block;}
+
+  .sc-success-icon{width:52px;height:52px;border-radius:50%;background:${col.accent};display:flex;align-items:center;justify-content:center;margin:0 0 22px;}
+  .sc-success-icon svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+  .sc-spam{font-size:11px;color:#9a9a9a;margin:12px 0 0;}
+
+  @media (max-width:680px){
+    .sc-modal{flex-direction:column;max-width:420px;}
+    .sc-photo{flex:none;order:2;width:100%;min-height:0;height:150px;}
+    .sc-panel{order:1;padding:34px 26px 30px;}
+    .sc-h{font-size:28px;}
+    .sc-card{width:240px;height:290px;}
+  }`;
+  const styleEl = document.createElement('style');
+  styleEl.textContent = css;
+  document.head.appendChild(styleEl);
+
+  // ── Markup ──
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `
+  <div class="sc-overlay" id="scOverlay" role="dialog" aria-modal="true" aria-label="${C.heading}">
+    <div class="sc-modal">
+      <div class="sc-photo"></div>
+      <div class="sc-panel">
+        <button class="sc-close" id="scClose" aria-label="Sluiten">&times;</button>
+
+        <!-- Scherm 1: kraskaart -->
+        <div class="sc-stage is-active" id="scStageScratch">
+          <img class="sc-logo" src="${C.logo}" alt="Hotel Asteria">
+          <h2 class="sc-h">${C.heading}</h2>
+          <p class="sc-sub">${C.sub}</p>
+          <div class="sc-card" id="scCard">
+            <div class="sc-prize">
+              <p class="sc-prize-eyebrow">${C.prizeEyebrow}</p>
+              <p class="sc-prize-title">${C.prize}</p>
+              <p class="sc-prize-sub">${C.prizeSub}</p>
+            </div>
+            <canvas class="sc-canvas" id="scCanvas"></canvas>
+          </div>
+          <div class="sc-claim" id="scClaim">
+            <button class="sc-btn" id="scClaimBtn">${C.claimBtn}</button>
+          </div>
+        </div>
+
+        <!-- Scherm 2: e-mail -->
+        <div class="sc-stage" id="scStageEmail">
+          <img class="sc-logo" src="${C.logo}" alt="Hotel Asteria">
+          <p class="sc-prize-eyebrow" style="margin-bottom:10px;">${C.emailEyebrow}</p>
+          <h2 class="sc-h" style="font-size:26px;margin-bottom:20px;">${C.emailHeading}</h2>
+          <div class="sc-form">
+            <input class="sc-input" type="email" id="scEmail" placeholder="${C.emailPlaceholder}" autocomplete="email">
+            <button class="sc-btn" id="scSubmit">${C.emailBtn}</button>
+            <p class="sc-error" id="scError">${C.errorText}</p>
+            <p class="sc-terms">${C.terms}</p>
+            <p class="sc-consent">${C.consent}</p>
+          </div>
+        </div>
+
+        <!-- Scherm 3: succes -->
+        <div class="sc-stage" id="scStageSuccess">
+          <div class="sc-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h2 class="sc-h" style="font-size:26px;">${C.successHeading}</h2>
+          <p class="sc-sub" style="max-width:340px;">${C.successSub}</p>
+          <p class="sc-spam">${C.spamNote}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>`;
+  document.body.appendChild(wrap.firstElementChild);
+
+  // ── Refs ──
+  const overlay   = document.getElementById('scOverlay');
+  const canvas    = document.getElementById('scCanvas');
+  const claim     = document.getElementById('scClaim');
+  const claimBtn  = document.getElementById('scClaimBtn');
+  const stScratch = document.getElementById('scStageScratch');
+  const stEmail   = document.getElementById('scStageEmail');
+  const stSuccess = document.getElementById('scStageSuccess');
+  const emailIn   = document.getElementById('scEmail');
+  const submitBtn = document.getElementById('scSubmit');
+  const errorEl   = document.getElementById('scError');
+
+  document.getElementById('scClose').addEventListener('click', () => overlay.style.display = 'none');
+
+  // ── Kraslaag tekenen ──
+  const ctx = canvas.getContext('2d');
+  let revealed = false;
+
+  function drawCover() {
+    const rect = canvas.getBoundingClientRect();
+    if (!rect.width) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const w = rect.width, h = rect.height;
+
+    // goudfoil — diagonale gradient
+    ctx.globalCompositeOperation = 'source-over';
+    const g = ctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0,   col.coverTop);
+    g.addColorStop(0.5, col.coverBottom);
+    g.addColorStop(1,   col.coverTop);
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    // foil-glans: enkele lichte diagonale banen
+    ctx.save();
+    ctx.globalAlpha = 0.10;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 10;
+    for (let i = -h; i < w; i += 34) { ctx.beginPath(); ctx.moveTo(i, h); ctx.lineTo(i + h, 0); ctx.stroke(); }
+    ctx.restore();
+
+    // "kras"-krabbels op de achtergrond (zoals Hears)
+    ctx.save();
+    ctx.globalAlpha = 0.14;
+    ctx.strokeStyle = '#6b543a';
+    ctx.lineWidth = 9;
+    ctx.lineCap = 'round';
+    for (let i = 0; i < 5; i++) { const x = w * 0.28 + i * 22; ctx.beginPath(); ctx.moveTo(x, h * 0.32); ctx.lineTo(x - 20, h * 0.68); ctx.stroke(); }
+    ctx.restore();
+
+    // KRAS HIER
+    ctx.fillStyle = col.coverInk;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = "700 18px 'Montserrat', sans-serif";
+    ctx.fillText(C.coverText, w/2, h/2);
+    ctx.font = "500 10px 'Electrolize', sans-serif";
+    ctx.fillText(C.coverBrand, w/2, h - 26);
+  }
+
+  // ── Scratch-tracking via raster (geen getImageData → geen CORS-issues) ──
+  const COLS = 26, ROWS = 30, cells = new Uint8Array(COLS * ROWS);
+  let scratchedCount = 0, drawing = false;
+
+  function scratchAt(x, y) {
+    const rect = canvas.getBoundingClientRect();
+    const brush = 26;
+    // wissen
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, brush, 0, Math.PI * 2);
+    ctx.fill();
+    // raster markeren
+    const cw = rect.width / COLS, ch = rect.height / ROWS;
+    for (let c = 0; c < COLS; c++) {
+      for (let r = 0; r < ROWS; r++) {
+        const i = r * COLS + c;
+        if (cells[i]) continue;
+        const cx = (c + 0.5) * cw, cy = (r + 0.5) * ch;
+        if (Math.hypot(cx - x, cy - y) <= brush) { cells[i] = 1; scratchedCount++; }
+      }
+    }
+    if (!revealed && scratchedCount / (COLS * ROWS) >= C.scratchThreshold) reveal();
+  }
+
+  function posFromEvent(e) {
+    const rect = canvas.getBoundingClientRect();
+    const p = e.touches ? e.touches[0] : e;
+    return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+  }
+
+  canvas.addEventListener('pointerdown', (e) => { drawing = true; canvas.setPointerCapture(e.pointerId); const p = posFromEvent(e); scratchAt(p.x, p.y); });
+  canvas.addEventListener('pointermove', (e) => { if (!drawing) return; const p = posFromEvent(e); scratchAt(p.x, p.y); });
+  canvas.addEventListener('pointerup', () => { drawing = false; });
+  canvas.addEventListener('pointercancel', () => { drawing = false; });
+
+  function reveal() {
+    revealed = true;
+    canvas.style.opacity = '0';
+    setTimeout(() => { canvas.style.display = 'none'; }, 450);
+    claim.classList.add('is-visible');
+  }
+
+  // Voor previews: onthul programmatorisch (window.scReveal())
+  window.scReveal = reveal;
+
+  // ── Stappen ──
+  claimBtn.addEventListener('click', () => {
+    stScratch.classList.remove('is-active');
+    stEmail.classList.add('is-active');
+    setTimeout(() => emailIn.focus(), 250);
+  });
+
+  let submitting = false;
+  function showSuccess() {
+    submitting = false;
+    stEmail.classList.remove('is-active');
+    stSuccess.classList.add('is-active');
+  }
+  function showError() {
+    submitting = false;
+    errorEl.classList.add('is-visible');
+    submitBtn.disabled = false;
+    submitBtn.textContent = C.emailBtn;
+  }
+
+  submitBtn.addEventListener('click', () => {
+    if (submitting) return;
+    submitting = true;
+    const email = emailIn.value.trim();
+    if (!email || !emailIn.checkValidity()) { submitting = false; emailIn.focus(); return; }
+    submitBtn.disabled = true;
+    submitBtn.textContent = '...';
+    errorEl.classList.remove('is-visible');
+
+    if (!C.submitToRevinate) { setTimeout(showSuccess, 500); return; } // design-testmodus
+
+    const hidden = document.getElementById('sc_hidden_email');
+    if (hidden) hidden.value = email;
+    try {
+      if (typeof revFormOnSubmit === 'function') { revFormOnSubmit(); }
+      else if (revForm) { revForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); }
+      else { showError(); return; }
+      showSuccess();
+    } catch (err) { showError(); }
+  });
+  emailIn.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !submitting) submitBtn.click(); });
+
+  // Kraslaag tekenen zodra fonts geladen zijn (nette tekst op de laag)
+  const paint = () => drawCover();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(paint); else window.addEventListener('load', paint);
+  window.addEventListener('resize', () => { if (!revealed) { scratchedCount = 0; cells.fill(0); drawCover(); } });
+})();
+</script>
+</body>
+</html>
