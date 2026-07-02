@@ -4284,5 +4284,63 @@
 
 
 <script src="/popup-ab.js" defer></script>
+
+<!-- ══ LANGUAGE PICKER POPUP (taalkeuze na foutieve maillink) ══ -->
+<style>
+  #langPick{position:fixed;inset:0;z-index:2147483000;display:none;
+    align-items:center;justify-content:center;padding:20px;
+    background:rgba(20,20,20,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);}
+  #langPick.is-open{display:flex;}
+  #langPick .lp-card{position:relative;width:100%;max-width:340px;background:#fff;
+    border-radius:12px;padding:34px 28px 28px;text-align:center;
+    box-shadow:0 18px 50px rgba(0,0,0,.28);font-family:'Montserrat',sans-serif;}
+  #langPick .lp-close{position:absolute;top:12px;right:14px;border:0;background:none;
+    font-size:22px;line-height:1;color:#9a9a9a;cursor:pointer;padding:4px;}
+  #langPick .lp-close:hover{color:#292929;}
+  #langPick .lp-title{font-family:'Electrolize',sans-serif;text-transform:uppercase;
+    letter-spacing:.06em;font-size:16px;color:#111;margin:0 0 6px;}
+  #langPick .lp-sub{font-size:12.5px;color:#6b6b6b;margin:0 0 22px;line-height:1.5;}
+  #langPick .lp-btn{display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;box-sizing:border-box;padding:13px 16px;margin-top:10px;
+    border:1px solid #d3d3d3;border-radius:8px;background:#fff;color:#111;
+    font-family:'Montserrat',sans-serif;font-size:14.5px;font-weight:600;
+    text-decoration:none;cursor:pointer;transition:border-color .15s,background .15s;}
+  #langPick .lp-btn:hover{border-color:#c23435;background:#faf4f4;}
+  #langPick .lp-btn .lp-flag{font-size:17px;line-height:1;}
+  #langPick .lp-btn.is-current{border-color:#c23435;color:#c23435;}
+  #langPick .lp-btn.is-current::after{content:'✓';margin-left:auto;color:#c23435;font-weight:700;}
+</style>
+<div id="langPick" role="dialog" aria-modal="true" aria-label="Kies je taal / Choose your language / Sprache wählen">
+  <div class="lp-card">
+    <button type="button" class="lp-close" aria-label="Sluiten">&times;</button>
+    <p class="lp-title">Kies je taal</p>
+    <p class="lp-sub">Choose your language &middot; Wählen Sie Ihre Sprache</p>
+    <a class="lp-btn" data-lang="nl" href="/happy-summer-arrangement"><span class="lp-flag">🇳🇱</span> Nederlands</a>
+    <a class="lp-btn" data-lang="en" href="/happy-summer-arrangement-en"><span class="lp-flag">🇬🇧</span> English</a>
+    <a class="lp-btn" data-lang="de" href="/happy-summer-arrangement-de"><span class="lp-flag">🇩🇪</span> Deutsch</a>
+  </div>
+</div>
+<script>
+(function(){
+  var box = document.getElementById('langPick');
+  if(!box) return;
+  var cur = (document.documentElement.lang || 'nl').slice(0,2).toLowerCase();
+  var btns = box.querySelectorAll('.lp-btn');
+  for(var i=0;i<btns.length;i++){
+    if(btns[i].getAttribute('data-lang') === cur){
+      btns[i].classList.add('is-current');
+      // Huidige taal: niet navigeren, alleen sluiten
+      btns[i].addEventListener('click', function(e){ e.preventDefault(); close(); });
+    }
+  }
+  function open(){ box.classList.add('is-open'); }
+  function close(){ box.classList.remove('is-open'); }
+  box.querySelector('.lp-close').addEventListener('click', close);
+  box.addEventListener('click', function(e){ if(e.target === box) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+  // Toont bij elke pagina-opening (geen onthouden)
+  open();
+})();
+</script>
 </body>
 </html>
