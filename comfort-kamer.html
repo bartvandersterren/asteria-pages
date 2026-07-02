@@ -44,39 +44,6 @@
     window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
   </script>
 
-<!--BK-HEAD-->
-<!-- Mews BookingEngine -->
-  <script>
-  (function(m,e,w,s){c=m.createElement(e);c.onload=function(){
-    Mews.Distributor({
-      configurationIds:[s],
-      language:'nl-NL',
-      onBookingFinished:function(res){
-        try{
-          var cnt=res?res.length:1;
-          var val=null;
-          if(res&&res.length){
-            val=res.reduce(function(s,r){
-              return s+(r.totalCost&&r.totalCost.value?r.totalCost.value:0);
-            },0);
-          }
-          var txId=res&&res[0]&&(res[0].reservationGroupId||res[0].id)||Date.now().toString(36);
-          if(window.track)window.track('booking_complete',{reservation_count:cnt,total_value:val,transaction_id:txId});
-          if(typeof gtag==='function'){
-            if(val){gtag('event','purchase',{send_to:'G-DPCP945DCG',value:val,currency:'EUR',transaction_id:txId});}
-            if(window.GA_ADS_LABEL){gtag('event','conversion',{send_to:window.GA_ADS_LABEL,value:val||0,currency:'EUR',transaction_id:txId});}
-          }
-        }catch(e){}
-      }
-    },function(api){
-      window.mewsApi=api;
-      if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
-    });
-  };c.async=1;c.src=w;t=m.getElementsByTagName(e)[0];t.parentNode.insertBefore(c,t);
-  })(document,'script','https://app.mews.com/distributor/distributor.min.js','6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
-  </script>
-  <!-- End Mews BookingEngine -->
-<!--/BK-HEAD-->
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -156,6 +123,11 @@
       .main-nav ul li { width: 100%; display: block; }
       .main-nav ul li a { font-size: 20px; line-height: 40px; color: #f2f2f2; padding: 5px 0; display: block; border-bottom: none; text-decoration: none; }
       .menu-close { display: block !important; color: #fff; font-size: 22px; padding: 16px; cursor: pointer; list-style: none; }
+      /* Taalwissel in de mobiele header (desktop heeft dezelfde in de top-bar) */
+      .mobile-nav-buttons .mobile-lang { display: inline-flex; align-items: center; padding: 10px 6px 10px 4px; }
+      .mobile-nav-buttons .mobile-lang .nav-icon { width: 18px; height: 18px; margin: 0 3px 0 0; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; }
+      .mobile-nav-buttons .mobile-lang .lang-nav { color: #fff; font-size: 13px; margin: 0; }
+      .mobile-nav-buttons .mobile-lang .lang-arrow { color: #fff; }
     }
 
     /* ══════════════════════════════════════════════════════════
@@ -1473,7 +1445,6 @@
   .care-contact__row:hover { color: #a82c2c; }
   .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }
   .care-contact__icon svg { width: 18px; height: 18px; }
-  /* Maashof-stijl op desktop: grote foto rechts, contactkaart overlappend links */
   @media (min-width: 861px) {
     .care-section .promo__inner { position: relative; min-height: 560px; }
     .care-section .promo__img { width: 65%; height: 560px; margin-left: auto; }
@@ -1522,6 +1493,15 @@
         <button class="button book-now" onclick="window.openBooking()">Boek nu</button>
       </div>
       <div class="mobile-nav-buttons">
+        <span class="lang-wrapper mobile-lang">
+          <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+          <select class="lang-nav" aria-label="Taal / Language / Sprache">
+            <option value="nl" selected>nl</option>
+            <option value="en">en</option>
+            <option value="de">de</option>
+          </select>
+          <span class="lang-arrow">&#9662;</span>
+        </span>
         <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Menu</span>
         <a href="tel:0031478511466" class="button"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Bel</a>
       </div>
@@ -1953,6 +1933,11 @@
   <a class="btn-primary" href="#" onclick="window.openBooking('comfort');return false;" data-track-cta="sticky">Reserveren</a>
 </div>
 
+
+
+
+
+
 <!--BK-MARKUP-->
 <div class="bk-overlay" id="bookingPopup" role="dialog" aria-modal="true" aria-label="Verblijf boeken">
   <div class="bk-modal" id="bookingModal">
@@ -2173,14 +2158,16 @@
   }
 }());
 
-/* ── Taalwisselaar ── */
+/* ── Taalwisselaar (desktop top-bar + mobiele header) ── */
 (function () {
-  var sel = document.querySelector('.lang-nav');
-  if (!sel) return;
-  sel.value = 'nl';
-  sel.addEventListener('change', function () {
-    var urls = { 'nl': '/comfort-kamer', 'en': '/comfort-kamer-en', 'de': '/comfort-kamer-de' };
-    if (urls[sel.value]) window.location.href = urls[sel.value];
+  var sels = document.querySelectorAll('.lang-nav');
+  if (!sels.length) return;
+  Array.prototype.forEach.call(sels, function (sel) {
+    sel.value = 'nl';
+    sel.addEventListener('change', function () {
+      var urls = { 'nl': '/comfort-kamer', 'en': '/comfort-kamer-en', 'de': '/comfort-kamer-de' };
+      if (urls[sel.value]) window.location.href = urls[sel.value];
+    });
   });
 }());
 
@@ -2218,6 +2205,7 @@
 }());
 </script>
 
+<script src="/popup-ab.js" defer></script>
 <!--BK-JS--><script>
 window.ROOMS = {"comfort": {"name": "Comfort kamer", "upgrade": "", "mewsCategoryId": "98900f3b-e5e2-49c9-9776-af1d00ffc315", "video": "videos/comfort.mp4", "imgs": ["fotos/kamer-comfort-a.webp", "fotos/kamer-comfort-b.webp", "fotos/kamer-comfort-c.webp", "fotos/kamer-comfort-d.webp"], "badge": "", "desc": "Een comfortabele kamer voor twee personen met alles wat u nodig hebt voor een ontspannen verblijf.", "features": ["~22 m&sup2;", "Twinbeds", "Douche", "Airco", "WiFi"]}, "comfort-3": {"name": "Comfort kamer 3 personen", "upgrade": "", "mewsCategoryId": "85ca19d7-eea5-41c8-8b93-af1d00ffc315", "video": "videos/comfort-3.mp4", "imgs": ["fotos/room-comfort-3-1.webp", "fotos/room-comfort-3-2.webp", "fotos/room-comfort-3-3.webp", "fotos/room-comfort-3-4.webp"], "badge": "", "desc": "Extra ruimte voor families of vrienden — drie eenpersoonsbedden en alle gemakken.", "features": ["~22 m&sup2;", "3 bedden", "Max. 3", "Douche/bad"]}, "mindervalide": {"name": "Mindervalide kamer", "upgrade": "", "mewsCategoryId": "fa5b6540-7234-49ce-beb1-af1d00ffc315", "video": "videos/mindervalide.mp4", "imgs": ["fotos/room-mindervalide-1.webp", "fotos/room-mindervalide-2.webp", "fotos/room-mindervalide-3.webp", "fotos/room-mindervalide-4.webp"], "badge": "", "desc": "Ruime, aangepaste kamer voor gasten met beperkte mobiliteit, met rolstoeltoegankelijke badkamer.", "features": ["~37 m&sup2;", "Aangepast", "Twinbeds", "Bedbank"]}, "royale": {"name": "Royale kamer", "upgrade": "", "mewsCategoryId": "a8fd7310-0d61-422f-89e6-af1d00ffc315", "video": "videos/royale.mp4", "imgs": ["fotos/room-royale-1.webp", "fotos/room-royale-2.webp", "fotos/room-royale-3.webp", "fotos/room-royale-4.webp"], "badge": "", "desc": "Ruimer dan de Comfort kamer, met een comfortabele zithoek en de keuze voor een bad.", "features": ["~25 m&sup2;", "Bad of douche", "Zithoek", "Airco"]}, "deluxe": {"name": "Deluxe kamer", "upgrade": "", "mewsCategoryId": "c737de50-e41e-4c8d-a818-af1d00ffc315", "video": "videos/deluxe.mp4", "imgs": ["fotos/room-deluxe-1.webp", "fotos/room-deluxe-2.webp", "fotos/room-deluxe-3.webp", "fotos/room-deluxe-4.webp"], "badge": "", "desc": "Een privé infraroodsauna op de kamer — wellness begint bij u aan de deur.", "features": ["~25 m&sup2;", "Infraroodsauna", "Douche", "Zithoek"]}, "junior-suite": {"name": "Junior suite", "upgrade": "", "mewsCategoryId": "27ea8deb-ded5-4856-8fdd-af1d00ffc315", "video": null, "imgs": ["fotos/kamer-junior-suite.webp", "fotos/kamer-junior-suite-2.webp"], "badge": "", "desc": "Kingsize bed, bad en een ruime zithoek met bedbank voor extra slaapgelegenheid.", "features": ["~37 m&sup2;", "Kingsize", "Bedbank", "Bad & douche"]}, "suite": {"name": "Suite", "upgrade": "", "mewsCategoryId": "4a642b66-68e6-444c-beeb-af1d00ffc315", "video": "videos/suite.mp4", "imgs": ["fotos/room-suite-1.webp", "fotos/room-suite-2.webp", "fotos/room-suite-3.webp", "fotos/room-suite-4.webp"], "badge": "", "desc": "Onze meest ruime kamer met eigen infraroodsauna en royale zithoek.", "features": ["~40 m&sup2;", "Kingsize", "Infraroodsauna", "Bedbank"]}, "bruidssuite": {"name": "Bruidssuite", "upgrade": "", "mewsCategoryId": "a9f18d18-561b-47a9-8ba7-b2a800cfd0e2", "video": "videos/bruidssuite.mp4", "imgs": ["fotos/room-bruidssuite-1.webp", "fotos/room-bruidssuite-2.webp", "fotos/room-bruidssuite-3.webp", "fotos/room-bruidssuite-4.webp"], "badge": "", "desc": "Vrijstaand ligbad, ruime inloopdouche en de meest romantische sfeer van het hotel.", "features": ["~36 m&sup2;", "Kingsize", "Ligbad", "Inloopdouche"]}};
 (function() {
@@ -2859,6 +2847,5 @@ window.openBooking = function (k) { var bb = document.getElementById('bbGuests')
       });
   }());
 </script><!--/BK-JS-->
-<script src="/popup-ab.js" defer></script>
 </body>
 </html>
