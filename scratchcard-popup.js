@@ -331,17 +331,25 @@
     return { x: p.clientX - rect.left, y: p.clientY - rect.top };
   }
 
-  canvas.addEventListener('pointerdown', function (e) {
-    e.preventDefault(); drawing = true; canvas.setPointerCapture(e.pointerId);
+  // Krassen mag BUITEN de kaart beginnen: luister op de zone rondom de kaart,
+  // zodat een muisdruk/veeg die net naast de kaart start en eroverheen sleept
+  // gewoon doorkrast. posFromEvent rekent t.o.v. de canvas; punten buiten de
+  // canvas markeren simpelweg niets tot de aanwijzer op de kaart komt.
+  var scratchTarget = document.getElementById('scZone') || canvas;
+
+  scratchTarget.addEventListener('pointerdown', function (e) {
+    if (revealed) return;
+    e.preventDefault(); drawing = true;
+    try { scratchTarget.setPointerCapture(e.pointerId); } catch (err) {}
     if (!scratchStarted) { scratchStarted = true; track('scratch_start'); }
     var p = posFromEvent(e); lastX = p.x; lastY = p.y; scratchLine(p.x, p.y, p.x, p.y);
   });
-  canvas.addEventListener('pointermove', function (e) {
+  scratchTarget.addEventListener('pointermove', function (e) {
     if (!drawing) return; e.preventDefault();
     var p = posFromEvent(e); scratchLine(lastX, lastY, p.x, p.y); lastX = p.x; lastY = p.y;
   });
-  canvas.addEventListener('pointerup', function () { drawing = false; lastX = lastY = null; });
-  canvas.addEventListener('pointercancel', function () { drawing = false; lastX = lastY = null; });
+  scratchTarget.addEventListener('pointerup', function () { drawing = false; lastX = lastY = null; });
+  scratchTarget.addEventListener('pointercancel', function () { drawing = false; lastX = lastY = null; });
 
   function reveal() {
     revealed = true;
