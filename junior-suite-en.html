@@ -2756,7 +2756,7 @@ window.ROOMS = {"comfort": {"name": "Comfort room", "upgrade": "", "mewsCategory
       return '<div class="bk-room-card' + (!isAvailable ? ' is-unavailable' : '') + '" data-key="' + key + '" role="radio" aria-checked="false" tabindex="' + (isAvailable ? '0' : '-1') + '">' +
         '<div class="bk-room-card__header">' +
           '<div class="bk-room-card__radio"></div>' +
-          (r.imgs && r.imgs[0] ? '<img class="bk-room-card__thumb" src="' + r.imgs[0] + '" alt="" loading="lazy" style="width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0;display:block;">' : '') + '<span class="bk-room-card__name">' + r.name + '</span>' +
+          '<span class="bk-room-card__name">' + r.name + '</span>' +
           '<span class="bk-room-card__upgrade">' + r.upgrade + '</span>' +
           (priceLabel ? '<span class="bk-room-card__price">' + priceLabel + '</span>' : '') +
           volLabel +
