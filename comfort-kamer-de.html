@@ -149,6 +149,11 @@
       .main-nav ul li { width: 100%; display: block; }
       .main-nav ul li a { font-size: 20px; line-height: 40px; color: #f2f2f2; padding: 5px 0; display: block; border-bottom: none; text-decoration: none; }
       .menu-close { display: block !important; color: #fff; font-size: 22px; padding: 16px; cursor: pointer; list-style: none; }
+      /* Taalwissel in de mobiele header (desktop heeft dezelfde in de top-bar) */
+      .mobile-nav-buttons .mobile-lang { display: inline-flex; align-items: center; padding: 10px 6px 10px 4px; }
+      .mobile-nav-buttons .mobile-lang .nav-icon { width: 18px; height: 18px; margin: 0 3px 0 0; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; }
+      .mobile-nav-buttons .mobile-lang .lang-nav { color: #fff; font-size: 13px; margin: 0; }
+      .mobile-nav-buttons .mobile-lang .lang-arrow { color: #fff; }
     }
 
     /* ══════════════════════════════════════════════════════════
@@ -1467,7 +1472,6 @@
   .care-contact__row:hover { color: #a82c2c; }
   .care-contact__icon { color: #e8923a; display: flex; flex-shrink: 0; }
   .care-contact__icon svg { width: 18px; height: 18px; }
-  /* Maashof-stijl op desktop: grote foto rechts, contactkaart overlappend links */
   @media (min-width: 861px) {
     .care-section .promo__inner { position: relative; min-height: 560px; }
     .care-section .promo__img { width: 65%; height: 560px; margin-left: auto; }
@@ -1516,6 +1520,15 @@
         <button class="button book-now" onclick="window.openBooking()">Jetzt buchen</button>
       </div>
       <div class="mobile-nav-buttons">
+        <span class="lang-wrapper mobile-lang">
+          <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+          <select class="lang-nav" aria-label="Taal / Language / Sprache">
+            <option value="nl">nl</option>
+            <option value="en">en</option>
+            <option value="de" selected>de</option>
+          </select>
+          <span class="lang-arrow">&#9662;</span>
+        </span>
         <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> Menü</span>
         <a href="tel:0031478511466" class="button"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Anrufen</a>
       </div>
@@ -1704,6 +1717,35 @@
     </div>
   </div>
 </section>
+
+<!-- ══ REVIEWS ══════════════════════════════════════════════ -->
+<section class="reviews" id="reviews" aria-label="Gastbeoordelingen">
+
+  <div class="reviews__header">
+    <div class="reviews__score-block">
+      <span class="reviews__score" id="reviewsScore">4,2</span>
+      <div class="reviews__score-meta">
+        <span class="reviews__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="reviews__total" id="reviewsTotal">2.219 beoordelingen</span>
+      </div>
+    </div>
+    <div class="reviews__live-badge" aria-label="Live Google Reviews">
+      <div class="reviews__google-g" aria-hidden="true"></div>
+      Google Reviews
+      <div class="reviews__live-dot" aria-hidden="true"></div>
+      Live
+    </div>
+  </div>
+
+  <div class="reviews__marquee-wrap">
+    <div class="reviews__track" id="reviewsTrack">
+      <p class="reviews__loading">Reviews worden geladen&hellip;</p>
+    </div>
+  </div>
+
+</section>
+
+<div class="pagewm">
 
 
 <!-- ══ REVIEWS ══════════════════════════════════════════════ -->
@@ -2169,14 +2211,16 @@
   }
 }());
 
-/* ── Taalwisselaar ── */
+/* ── Taalwisselaar (desktop top-bar + mobiele header) ── */
 (function () {
-  var sel = document.querySelector('.lang-nav');
-  if (!sel) return;
-  sel.value = 'de';
-  sel.addEventListener('change', function () {
-    var urls = { 'nl': '/comfort-kamer', 'en': '/comfort-kamer-en', 'de': '/comfort-kamer-de' };
-    if (urls[sel.value]) window.location.href = urls[sel.value];
+  var sels = document.querySelectorAll('.lang-nav');
+  if (!sels.length) return;
+  Array.prototype.forEach.call(sels, function (sel) {
+    sel.value = 'de';
+    sel.addEventListener('change', function () {
+      var urls = { 'nl': '/comfort-kamer', 'en': '/comfort-kamer-en', 'de': '/comfort-kamer-de' };
+      if (urls[sel.value]) window.location.href = urls[sel.value];
+    });
   });
 }());
 

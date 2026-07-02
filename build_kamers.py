@@ -72,6 +72,34 @@ FOOTER  = slice_between(html, '<!-- ══ FOOTER', '</footer>', include_end=Tru
 _si = html.index('/* ── Mews booking')
 SCRIPTS = html[html.rindex('<script>', 0, _si):html.index('</script>', _si) + len('</script>')]
 
+# ── Taalwissel ook in de mobiele header (naast de desktop-select in de top-bar).
+#    Idempotent: alleen injecteren als 'mobile-lang' er nog niet staat.
+_MOBILE_LANG = (
+    '        <span class="lang-wrapper mobile-lang">\n'
+    '          <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>\n'
+    '          <select class="lang-nav" aria-label="Taal / Language / Sprache">\n'
+    '            <option value="nl" selected>nl</option>\n'
+    '            <option value="en">en</option>\n'
+    '            <option value="de">de</option>\n'
+    '          </select>\n'
+    '          <span class="lang-arrow">&#9662;</span>\n'
+    '        </span>\n')
+_MENU_BTN = '        <span class="menu-button button" id="menuOpen">'
+if 'mobile-lang' not in NAV:
+    assert NAV.count(_MENU_BTN) == 1, 'kamer NAV: menu-button anchor niet gevonden'
+    NAV = NAV.replace(_MENU_BTN, _MOBILE_LANG + _MENU_BTN, 1)
+
+_MENU_CLOSE_CSS = '      .menu-close { display: block !important; color: #fff; font-size: 22px; padding: 16px; cursor: pointer; list-style: none; }'
+_MOBILE_LANG_CSS = (_MENU_CLOSE_CSS + '\n'
+    '      /* Taalwissel in de mobiele header (desktop heeft dezelfde in de top-bar) */\n'
+    '      .mobile-nav-buttons .mobile-lang { display: inline-flex; align-items: center; padding: 10px 6px 10px 4px; }\n'
+    '      .mobile-nav-buttons .mobile-lang .nav-icon { width: 18px; height: 18px; margin: 0 3px 0 0; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; }\n'
+    '      .mobile-nav-buttons .mobile-lang .lang-nav { color: #fff; font-size: 13px; margin: 0; }\n'
+    '      .mobile-nav-buttons .mobile-lang .lang-arrow { color: #fff; }')
+if '.mobile-lang' not in STYLE:
+    assert STYLE.count(_MENU_CLOSE_CSS) == 1, 'kamer STYLE: menu-close anchor niet gevonden'
+    STYLE = STYLE.replace(_MENU_CLOSE_CSS, _MOBILE_LANG_CSS, 1)
+
 # ── Boekingsmodule overnemen van de arrangementpagina ──────────────────
 import json
 ARRSRC = open(os.path.join(BASE, 'happy-summer-arrangement.html'), encoding='utf-8').read()
@@ -822,18 +850,20 @@ def build_types_list(current_key, lang):
     return '\n\n'.join(rows)
 
 def lang_switcher(slug, lang):
-    return f'''/* ── Taalwisselaar ── */
+    return f'''/* ── Taalwisselaar (desktop top-bar + mobiele header) ── */
 (function () {{
-  var sel = document.querySelector('.lang-nav');
-  if (!sel) return;
-  sel.value = '{lang}';
-  sel.addEventListener('change', function () {{
-    var urls = {{ 'nl': '/{slug}', 'en': '/{slug}-en', 'de': '/{slug}-de' }};
-    if (urls[sel.value]) window.location.href = urls[sel.value];
+  var sels = document.querySelectorAll('.lang-nav');
+  if (!sels.length) return;
+  Array.prototype.forEach.call(sels, function (sel) {{
+    sel.value = '{lang}';
+    sel.addEventListener('change', function () {{
+      var urls = {{ 'nl': '/{slug}', 'en': '/{slug}-en', 'de': '/{slug}-de' }};
+      if (urls[sel.value]) window.location.href = urls[sel.value];
+    }});
   }});
 }}())'''
 
-_SW_RE = re.compile(r'/\* ── Taalwisselaar ── \*/\n\(function \(\) \{.*?\}\(\)\)', re.S)
+_SW_RE = re.compile(r'/\* ── Taalwisselaar[^\n]*\*/\n\(function \(\) \{.*?\}\(\)\)', re.S)
 def scripts_for(slug, lang):
     return _SW_RE.sub(lambda m: lang_switcher(slug, lang), SCRIPTS)
 
@@ -1454,6 +1484,11 @@ for r in ROOMS:
 
 # ── comfort-kamer.html (NL) bijwerken ──────────────────────────────────
 comfort = html
+# Mobiele taalwissel ook in de NL comfort-kamer (zelfde als de overige pagina's)
+if 'mobile-lang' not in comfort:
+    comfort = comfort.replace(_MENU_BTN, _MOBILE_LANG + _MENU_BTN, 1)
+if '.mobile-lang' not in comfort:
+    comfort = comfort.replace(_MENU_CLOSE_CSS, _MOBILE_LANG_CSS, 1)
 new_list = '    <div id="roomList">\n' + build_types_list('comfort', 'nl') + '\n    </div>'
 comfort = re.sub(r'    <div id="roomList">.*?\n    </div>', lambda m: new_list, comfort, count=1, flags=re.S)
 comfort = comfort.replace(
