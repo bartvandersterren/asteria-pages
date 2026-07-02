@@ -3304,6 +3304,7 @@
       });
 
       btn.addEventListener('mouseenter', function() {
+        if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
         if (cal.selectedStart && !cal.selectedEnd) {
           var newHover = new Date(btn.dataset.date + 'T00:00:00');
           if (!cal.hoverDate || !isSameDay(newHover, cal.hoverDate)) {

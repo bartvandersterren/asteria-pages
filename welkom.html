@@ -1855,6 +1855,7 @@
       });
 
       btn.addEventListener('mouseenter', function() {
+        if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
         if (cal.selectedStart && !cal.selectedEnd) {
           var newHover = new Date(btn.dataset.date + 'T00:00:00');
           if (!cal.hoverDate || !isSameDay(newHover, cal.hoverDate)) {
@@ -2835,16 +2836,18 @@
   }
 })();
 
-/* ── Taalwisselaar ── */
+/* ── Taalwisselaar (desktop top-bar + mobiele header) ── */
 (function() {
-  var sel = document.querySelector('.lang-nav');
-  if (!sel) return;
-  sel.value = 'nl';
-  sel.addEventListener('change', function() {
-    var v = sel.value;
-    localStorage.setItem('asteria_lang', v);
+  var sels = document.querySelectorAll('.lang-nav');
+  if (!sels.length) return;
+  Array.prototype.forEach.call(sels, function(sel) {
+    sel.value = 'nl';
+    sel.addEventListener('change', function() {
+      var v = sel.value;
+      localStorage.setItem('asteria_lang', v);
     if (v === 'en') window.location.replace('/happy-summer-arrangement-en');
     else if (v === 'de') window.location.replace('/happy-summer-arrangement-de');
+    });
   });
 })();
 </script>
