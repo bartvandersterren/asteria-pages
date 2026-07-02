@@ -102,6 +102,8 @@
     + ".sc-h{font-family:'Montserrat',sans-serif;font-weight:600;font-size:34px;color:" + col.heading + ";line-height:1.1;margin:0 0 10px;letter-spacing:-0.5px;}"
     + ".sc-sub{font-size:15px;color:#555;font-weight:400;margin:0 0 26px;line-height:1.5;}"
     + ".sc-card{position:relative;width:280px;height:205px;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,0.28);}"
+    + ".sc-scratch-zone{display:inline-block;padding:20px;border-radius:26px;cursor:grab;border:2px dashed rgba(138,115,48,0.35);-webkit-tap-highlight-color:transparent;touch-action:none;}"
+    + ".sc-scratch-zone:active{cursor:grabbing;}"
     + ".sc-prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:#faf8f5;box-sizing:border-box;}"
     + ".sc-prize-title{font-weight:700;font-size:22px;color:" + col.heading + ";line-height:1.2;margin:0 0 10px;}"
     + ".sc-prize-list{list-style:none;padding:0;margin:12px auto 0;display:inline-block;text-align:left;}"
@@ -175,12 +177,14 @@
     +         '<img class="sc-logo" src="' + LOGO + '" alt="Hotel Asteria">'
     +         '<h2 class="sc-h">' + t.heading + '</h2>'
     +         '<p class="sc-sub">' + t.sub + '</p>'
+    +         '<div class="sc-scratch-zone" id="scZone">'
     +         '<div class="sc-card" id="scCard">'
     +           '<div class="sc-prize">'
     +             '<p class="sc-prize-title">' + t.prize + '</p>'
     +             '<ul class="sc-prize-list">' + perksHtml + '</ul>'
     +           '</div>'
     +           '<canvas class="sc-canvas" id="scCanvas"></canvas>'
+    +         '</div>'
     +         '</div>'
     +         '<div class="sc-claim" id="scClaim"><button class="sc-btn" id="scClaimBtn">' + t.claimBtn + '</button></div>'
     +       '</div>'
