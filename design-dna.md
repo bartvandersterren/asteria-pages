@@ -55,6 +55,15 @@ _Referentiekader voor de design agent. Lees dit vóór je ook maar één regel s
 - Bodytekst: 15-16px, Montserrat 300 of 400, kleur `#475569`
 - Line-height body: 1.7
 
+### Hero — kleine tekst leesbaar over de foto (verplicht bij nieuwe arrangementpagina's)
+
+De kleine hero-teksten (eyebrow/locatie, subtitel, trust-USP's) staan over een drukke foto en moeten leesbaar blijven. Gebruik deze minimumwaarden — nooit lager qua opacity, altijd met text-shadow:
+- `.hero__location` (eyebrow): `color: rgba(255,255,255,0.75)` + `text-shadow: 0 1px 12px rgba(0,0,0,0.55)`
+- `.hero__sub` (subtitel): min `15px`, `font-weight: 400`, `color: rgba(255,255,255,0.9)` + `text-shadow: 0 1px 16px rgba(0,0,0,0.6)`
+- `.hero__trust span` (USP's): min `12px`, `color: rgba(255,255,255,0.82)` + `text-shadow: 0 1px 12px rgba(0,0,0,0.55)`
+
+Vermijd witte tekst onder ~0.7 opacity zonder schaduw op een foto-hero — dat leest niet.
+
 ---
 
 ## Motion
