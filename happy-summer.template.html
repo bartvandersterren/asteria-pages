@@ -179,6 +179,11 @@
       .main-nav ul li { width: 100%; display: block; }
       .main-nav ul li a { font-size: 20px; line-height: 40px; color: #f2f2f2; padding: 5px 0; display: block; border-bottom: none; text-decoration: none; }
       .menu-close { display: block !important; color: #fff; font-size: 22px; padding: 16px; cursor: pointer; list-style: none; }
+      /* Taalwissel in de mobiele header (desktop heeft dezelfde in de top-bar) */
+      .mobile-nav-buttons .mobile-lang { display: inline-flex; align-items: center; padding: 10px 6px 10px 4px; }
+      .mobile-nav-buttons .mobile-lang .nav-icon { width: 18px; height: 18px; margin: 0 3px 0 0; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: middle; }
+      .mobile-nav-buttons .mobile-lang .lang-nav { color: #fff; font-size: 13px; margin: 0; }
+      .mobile-nav-buttons .mobile-lang .lang-arrow { color: #fff; }
     }
 
     /* ══════════════════════════════════════════════════════════
@@ -2643,6 +2648,13 @@
         <button class="button book-now" onclick="window.openBookingPopup()">{{NAV_BOOK_BTN}}</button>
       </div>
       <div class="mobile-nav-buttons">
+        <span class="lang-wrapper mobile-lang">
+          <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+          <select class="lang-nav" aria-label="Taal / Language / Sprache">
+            {{LANG_SELECT_OPTIONS}}
+          </select>
+          <span class="lang-arrow">&#9662;</span>
+        </span>
         <span class="menu-button button" id="menuOpen"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg> {{NAV_MENU}}</span>
         <a href="tel:0031478511466" class="button"><svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> {{NAV_CALL}}</a>
       </div>
@@ -4184,78 +4196,22 @@
   }
 })();
 
-/* ── Taalwisselaar ── */
+/* ── Taalwisselaar (desktop top-bar + mobiele header) ── */
 (function() {
-  var sel = document.querySelector('.lang-nav');
-  if (!sel) return;
-  sel.value = {{LANG_SWITCH_SEL_VALUE}};
-  sel.addEventListener('change', function() {
-    var v = sel.value;
-    localStorage.setItem('asteria_lang', v);
+  var sels = document.querySelectorAll('.lang-nav');
+  if (!sels.length) return;
+  Array.prototype.forEach.call(sels, function(sel) {
+    sel.value = {{LANG_SWITCH_SEL_VALUE}};
+    sel.addEventListener('change', function() {
+      var v = sel.value;
+      localStorage.setItem('asteria_lang', v);
 {{LANG_SWITCH_JS}}
+    });
   });
 })();
 </script>
 
 
 <script src="/popup-ab.js" defer></script>
-
-<!-- ══ LANGUAGE PICKER POPUP (taalkeuze na foutieve maillink) ══ -->
-<style>
-  #langPick{position:fixed;inset:0;z-index:2147483000;display:none;
-    align-items:center;justify-content:center;padding:20px;
-    background:rgba(20,20,20,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);}
-  #langPick.is-open{display:flex;}
-  #langPick .lp-card{position:relative;width:100%;max-width:340px;background:#fff;
-    border-radius:12px;padding:34px 28px 28px;text-align:center;
-    box-shadow:0 18px 50px rgba(0,0,0,.28);font-family:'Montserrat',sans-serif;}
-  #langPick .lp-close{position:absolute;top:12px;right:14px;border:0;background:none;
-    font-size:22px;line-height:1;color:#9a9a9a;cursor:pointer;padding:4px;}
-  #langPick .lp-close:hover{color:#292929;}
-  #langPick .lp-title{font-family:'Electrolize',sans-serif;text-transform:uppercase;
-    letter-spacing:.06em;font-size:16px;color:#111;margin:0 0 6px;}
-  #langPick .lp-sub{font-size:12.5px;color:#6b6b6b;margin:0 0 22px;line-height:1.5;}
-  #langPick .lp-btn{display:flex;align-items:center;justify-content:center;gap:8px;
-    width:100%;box-sizing:border-box;padding:13px 16px;margin-top:10px;
-    border:1px solid #d3d3d3;border-radius:8px;background:#fff;color:#111;
-    font-family:'Montserrat',sans-serif;font-size:14.5px;font-weight:600;
-    text-decoration:none;cursor:pointer;transition:border-color .15s,background .15s;}
-  #langPick .lp-btn:hover{border-color:#c23435;background:#faf4f4;}
-  #langPick .lp-btn .lp-flag{font-size:17px;line-height:1;}
-  #langPick .lp-btn.is-current{border-color:#c23435;color:#c23435;}
-  #langPick .lp-btn.is-current::after{content:'✓';margin-left:auto;color:#c23435;font-weight:700;}
-</style>
-<div id="langPick" role="dialog" aria-modal="true" aria-label="Kies je taal / Choose your language / Sprache wählen">
-  <div class="lp-card">
-    <button type="button" class="lp-close" aria-label="Sluiten">&times;</button>
-    <p class="lp-title">Kies je taal</p>
-    <p class="lp-sub">Choose your language &middot; Wählen Sie Ihre Sprache</p>
-    <a class="lp-btn" data-lang="nl" href="/happy-summer-arrangement"><span class="lp-flag">🇳🇱</span> Nederlands</a>
-    <a class="lp-btn" data-lang="en" href="/happy-summer-arrangement-en"><span class="lp-flag">🇬🇧</span> English</a>
-    <a class="lp-btn" data-lang="de" href="/happy-summer-arrangement-de"><span class="lp-flag">🇩🇪</span> Deutsch</a>
-  </div>
-</div>
-<script>
-(function(){
-  var box = document.getElementById('langPick');
-  if(!box) return;
-  var cur = (document.documentElement.lang || 'nl').slice(0,2).toLowerCase();
-  var btns = box.querySelectorAll('.lp-btn');
-  for(var i=0;i<btns.length;i++){
-    if(btns[i].getAttribute('data-lang') === cur){
-      btns[i].classList.add('is-current');
-      // Huidige taal: niet navigeren, alleen sluiten
-      btns[i].addEventListener('click', function(e){ e.preventDefault(); close(); });
-    }
-  }
-  function open(){ box.classList.add('is-open'); }
-  function close(){ box.classList.remove('is-open'); }
-  box.querySelector('.lp-close').addEventListener('click', close);
-  box.addEventListener('click', function(e){ if(e.target === box) close(); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
-  // Toont bij elke pagina-opening (geen onthouden)
-  open();
-})();
-</script>
 </body>
 </html>
