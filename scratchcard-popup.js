@@ -102,7 +102,7 @@
     + ".sc-h{font-family:'Montserrat',sans-serif;font-weight:600;font-size:34px;color:" + col.heading + ";line-height:1.1;margin:0 0 10px;letter-spacing:-0.5px;}"
     + ".sc-sub{font-size:15px;color:#555;font-weight:400;margin:0 0 26px;line-height:1.5;}"
     + ".sc-card{position:relative;width:280px;height:205px;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,0.28);}"
-    + ".sc-scratch-zone{display:inline-block;padding:20px;border-radius:26px;cursor:grab;border:2px dashed rgba(138,115,48,0.35);-webkit-tap-highlight-color:transparent;touch-action:none;}"
+    + ".sc-scratch-zone{display:inline-block;padding:clamp(16px,4.5vw,34px);border-radius:30px;cursor:grab;border:2px dashed rgba(138,115,48,0.35);-webkit-tap-highlight-color:transparent;touch-action:none;}"
     + ".sc-scratch-zone:active{cursor:grabbing;}"
     + ".sc-prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:#faf8f5;box-sizing:border-box;}"
     + ".sc-prize-title{font-weight:700;font-size:22px;color:" + col.heading + ";line-height:1.2;margin:0 0 10px;}"
@@ -335,10 +335,15 @@
   // zodat een muisdruk/veeg die net naast de kaart start en eroverheen sleept
   // gewoon doorkrast. posFromEvent rekent t.o.v. de canvas; punten buiten de
   // canvas markeren simpelweg niets tot de aanwijzer op de kaart komt.
-  var scratchTarget = document.getElementById('scZone') || canvas;
+  // Startgebied = de hele kras-stap (logo/tekst/rand rondom de kaart), niet
+  // alleen de kaart. Zo kun je je muis ruim naast de kaart indrukken en
+  // eroverheen slepen. De sluitknop zit buiten deze stap, dus geen conflict.
+  var scratchTarget = document.getElementById('scStageScratch')
+                   || document.getElementById('scZone') || canvas;
 
   scratchTarget.addEventListener('pointerdown', function (e) {
     if (revealed) return;
+    if (e.target.closest && e.target.closest('.sc-claim')) return;
     e.preventDefault(); drawing = true;
     try { scratchTarget.setPointerCapture(e.pointerId); } catch (err) {}
     if (!scratchStarted) { scratchStarted = true; track('scratch_start'); }
