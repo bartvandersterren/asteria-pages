@@ -3525,19 +3525,12 @@
 
 /* ── Kamertypes — A/B toggle + popup ── */
 (function () {
-  // A/B toggle: ?rooms=compact | ?rooms=thumb | random 50/50
+  // Altijd de mini-thumbnail variant (kleine kamerfoto bij elk kamertype),
+  // tenzij expliciet ?rooms=compact in de URL staat.
   var section = document.querySelector('.rooms');
   if (section) {
-    var params = new URLSearchParams(window.location.search);
-    var variant = params.get('rooms');
-    if (variant !== 'compact' && variant !== 'thumb') {
-      variant = sessionStorage.getItem('rooms-variant');
-      if (!variant) {
-        variant = Math.random() < 0.5 ? 'compact' : 'thumb';
-        sessionStorage.setItem('rooms-variant', variant);
-      }
-    }
-    if (variant === 'thumb') {
+    var variant = new URLSearchParams(window.location.search).get('rooms');
+    if (variant !== 'compact') {
       section.classList.add('rooms--thumb');
     }
   }
@@ -4069,7 +4062,7 @@
       return '<div class="bk-room-card' + (!isAvailable ? ' is-unavailable' : '') + '" data-key="' + key + '" role="radio" aria-checked="false" tabindex="' + (isAvailable ? '0' : '-1') + '">' +
         '<div class="bk-room-card__header">' +
           '<div class="bk-room-card__radio"></div>' +
-          (r.imgs && r.imgs[0] ? '<img class="bk-room-card__thumb" src="' + r.imgs[0] + '" alt="" loading="lazy" style="width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0;display:block;">' : '') + '<span class="bk-room-card__name">' + r.name + '</span>' +
+          '<span class="bk-room-card__name">' + r.name + '</span>' +
           '<span class="bk-room-card__upgrade">' + r.upgrade + '</span>' +
           (priceLabel ? '<span class="bk-room-card__price">' + priceLabel + '</span>' : '') +
           volLabel +
