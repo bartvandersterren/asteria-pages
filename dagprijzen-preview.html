@@ -19,612 +19,54 @@
   .pv-section-label p { font-size: 12px; font-weight: 300; color: #777; margin: 0; }
   .pv-card { max-width: 560px; margin: 0 auto; background: #fff; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,.08); padding: 28px 24px 24px; }
   .pv-note { max-width: 560px; margin: 24px auto 0; text-align: center; font-size: 11px; font-weight: 300; color: #9098a3; }
-/* ── Overlay ── */
-  .bk-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 1100;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-  }
-  .bk-overlay.is-open {
-    opacity: 1;
-    pointer-events: auto;
-  }
 
-  /* ── Modal ── */
-  .bk-modal {
-    position: relative;
-    background: #fff;
-    border-radius: 20px 20px 0 0;
-    width: 100%;
-    max-width: 480px;
-    max-height: 92vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transform: translateY(40px);
-    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
-  }
-  #bkStep1 {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    flex: 1;
-    padding: 28px 24px 0;
-  }
-  #bkStep1 #bkCalendar {
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0;
-  }
-  .bk-sticky-footer {
-    flex-shrink: 0;
-    padding: 0 0 32px;
-    background: #fff;
-  }
-  .bk-overlay.is-open .bk-modal {
-    transform: translateY(0);
-  }
+  /* ══ Gedeelde datepicker (2 thema's) ══ */
+  .dc-title { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 18px; color: #1a1a1a; text-align: center; margin: 0 0 20px; }
+  .dc-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .dc-nav button { background: none; border: none; font-size: 22px; line-height: 1; color: #4a4a4a; cursor: pointer; padding: 4px 10px; border-radius: 8px; }
+  .dc-nav button:disabled { color: #d1d5db; cursor: default; }
+  .dc-nav__label { font-family: 'Electrolize', sans-serif; font-size: 15px; color: #1a1a1a; }
+  .dc-grid { display: flex; flex-direction: column; gap: 22px; }
+  @media (min-width: 600px) { .dc-grid { flex-direction: row; } .dc-month { flex: 1; min-width: 0; } }
+  .dc-scroll { max-height: 60vh; overflow-y: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 2px 4px; }
+  .dc-grid--stack { gap: 26px; }
+  .dc-mlabel { font-family: 'Electrolize', sans-serif; font-size: 13px; color: #6b7280; text-align: center; margin-bottom: 8px; }
+  .dc-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
+  .dc-weekdays span { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: #9ca3af; padding: 4px 0; }
+  .dc-days { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .dc-day { font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-height: 44px; padding: 4px 0 3px; border: none; background: none; cursor: pointer; width: 100%; }
+  .dc-day.is-empty { visibility: hidden; cursor: default; }
+  .dc-day[disabled] { cursor: default; }
+  .dc-num { font-size: 13px; font-weight: 600; color: #1a1a1a; line-height: 1; }
+  .dc-price { font-size: 9px; font-weight: 600; color: #7c7c7c; line-height: 1; min-height: 11px; white-space: nowrap; }
+  .dc-day.r-l { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+  .dc-day.r-r { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+  .dc-day.is-dim .dc-num { color: #c4c4c4; } .dc-day.is-dim .dc-price { color: #d4d4d4; }
+  .dc-day.is-out .dc-num { color: #c4c4c4; }
+  .dc-day.is-past .dc-num { color: #d6d6d6; }
+  .dc-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
+  .dc-info { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #555; }
+  .dc-info b { font-weight: 700; color: #1a1a1a; }
+  .dc-cta { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: #fff; border: none; border-radius: 8px; padding: 13px 30px; cursor: pointer; }
+  .dc-cta:disabled { cursor: default; }
+  .dc-note { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 300; color: #9098a3; text-align: center; margin: 16px 4px 0; }
 
-  @media (min-width: 600px) {
-    .bk-overlay {
-      align-items: center;
-    }
-    .bk-modal {
-      border-radius: 20px;
-      max-height: 88vh;
-    }
-  }
+  /* Thema Asteria (crimson) — beschikbare dagen zonder achtergrond */
+  .theme-asteria .dc-day.is-window, .theme-asteria .dc-day.is-range { background: #fde8e8; }
+  .theme-asteria .dc-day.is-sel { background: #c23435; }
+  .theme-asteria .dc-day.is-sel .dc-num { color: #fff; }
+  .theme-asteria .dc-day.is-sel .dc-price { color: #ffe1e1; }
+  .theme-asteria .dc-cta { background: #c23435; }
+  .theme-asteria .dc-cta:disabled { background: #e7b9ba; }
 
-  /* ── Sluit & terug knoppen ── */
-  .bk-close {
-    position: absolute;
-    top: 16px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #6b7280;
-    cursor: pointer;
-    line-height: 1;
-    padding: 4px;
-  }
-  .bk-close:hover { color: #0f172a; }
-
-  .bk-back {
-    background: none;
-    border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6b7280;
-    cursor: pointer;
-    padding: 0;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .bk-back:hover { color: #0f172a; }
-
-  /* ── Stap indicator ── */
-  .bk-step-indicator {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    margin-bottom: 16px;
-  }
-  .bk-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #e5e7eb;
-  }
-  .bk-dot--active { background: #c23435; }
-
-  /* ── Custom Datepicker ── */
-  #bkCalendar { width: 100%; }
-
-  .cal-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .cal-nav__prev,
-  .cal-nav__next {
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: #9ca3af;
-    cursor: pointer;
-    padding: 2px 8px;
-    line-height: 1;
-    font-family: inherit;
-  }
-  .cal-nav__prev:hover:not([disabled]),
-  .cal-nav__next:hover:not([disabled]) { color: #1a1a1a; }
-  .cal-nav__prev[disabled] { color: #e5e7eb; cursor: default; }
-  .cal-nav__label {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 14px;
-    color: #1a1a1a;
-    text-align: center;
-  }
-  .cal-grid-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  @media (min-width: 600px) {
-    .cal-grid-wrap { flex-direction: row; }
-    .cal-month { flex: 1; min-width: 0; }
-  }
-  .cal-month-label {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 13px;
-    color: #6b7280;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-  .cal-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    margin-bottom: 2px;
-  }
-  .cal-weekdays span {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    color: #9ca3af;
-    text-align: center;
-    padding: 4px 0;
-  }
-  .cal-day-empty { display: block; }
-  .cal-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  }
-  .cal-day {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    color: #1a1a1a;
-    background: none;
-    border: 1px solid transparent;
-    border-radius: 50%;
-    cursor: pointer;
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    width: 100%;
-  }
-  .cal-day:hover:not(.is-disabled):not(.is-start):not(.is-end) {
-    background: #f3f4f6;
-  }
-  .cal-day.is-disabled {
-    color: #d1d5db;
-    cursor: default;
-    pointer-events: none;
-  }
-  .cal-day.is-today { border-color: #c23435; }
-  .cal-day.is-start,
-  .cal-day.is-end {
-    background: #c23435;
-    border-color: #c23435;
-    color: #fff;
-    font-weight: 700;
-    border-radius: 50%;
-  }
-  .cal-day.is-in-range,
-  .cal-day.is-hover-range {
-    background: #fde8e8;
-    border-color: #fde8e8;
-    border-radius: 0;
-    color: #1a1a1a;
-  }
-
-  /* ══ Dagprijzen — alleen actief als #bkStep1 de klasse .cal-has-prices
-     krijgt (gezet door de datepicker zodra CAL_PRICES_ENABLED true is).
-     Standaard UIT: dan is de kalender identiek aan voorheen. ══ */
-  .cal-day__num   { font-size: 12px; font-weight: 400; }
-  .cal-day__price { display: none; }          /* verborgen tenzij prijzen aan */
-  .cal-has-prices .cal-day {
-    aspect-ratio: auto;
-    border-radius: 8px;
-    flex-direction: column;
-    gap: 1px;
-    padding: 4px 0 3px;
-    min-height: 40px;
-    line-height: 1.05;
-  }
-  .cal-has-prices .cal-day.is-start,
-  .cal-has-prices .cal-day.is-end { border-radius: 8px; }
-  /* Dagprijs (laagste beschikbare kamer, 2 pers.) — neutrale tint, geen merk-goud */
-  .cal-has-prices .cal-day__price {
-    display: block;
-    font-size: 9px;
-    font-weight: 600;
-    color: #5a6472;
-    letter-spacing: .01em;
-    min-height: 11px;          /* reserveer hoogte → geen layout-shift tijdens laden */
-    white-space: nowrap;
-  }
-  .cal-has-prices .cal-day.is-start .cal-day__num,
-  .cal-has-prices .cal-day.is-end   .cal-day__num { font-weight: 700; }
-  .cal-has-prices .cal-day.is-disabled .cal-day__price { visibility: hidden; }
-  /* Vol (geen kamer beschikbaar): dimmen, maar klikbaar houden voor uitcheckdag */
-  .cal-has-prices .cal-day.is-unavailable { color: #c2c2c2; }
-  .cal-has-prices .cal-day.is-unavailable .cal-day__price { color: #c6c2ba; }
-  .cal-has-prices .cal-day.is-start .cal-day__price,
-  .cal-has-prices .cal-day.is-end   .cal-day__price { color: rgba(255,255,255,.85); }
-  .cal-has-prices .cal-day.is-in-range .cal-day__price,
-  .cal-has-prices .cal-day.is-hover-range .cal-day__price { color: #9c6b70; }
-
-  /* Prijs-disclaimer onder de kalender (alleen zichtbaar als prijzen aan) */
-  .bk-price-note {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    font-weight: 300;
-    line-height: 1.4;
-    color: #9098a3;
-    text-align: center;
-    margin: 10px 4px 0;
-    display: none;
-  }
-  #bkStep1.cal-has-prices .bk-price-note,
-  .cal-has-prices .bk-price-note { display: block; }
-
-  /* ── Titel ── */
-  .bk-title {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: #1a1a1a;
-    margin: 0 0 20px;
-    text-align: center;
-  }
-
-  /* ── Bevestigingsbalk ── */
-  .bk-summary {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    background: #f8f7f5;
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin: 16px 0;
-  }
-  .bk-summary__field {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-  .bk-summary__sep {
-    width: 1px;
-    height: 32px;
-    background: #e5e7eb;
-  }
-  .bk-summary__label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #9ca3af;
-  }
-  .bk-summary__value {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1a1a1a;
-  }
-
-  /* ── CTA rij ── */
-  .bk-cta-row {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 4px;
-  }
-  .bk-btn-primary {
-    background: #c23435;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 14px 20px;
-    cursor: pointer;
-    transition: background 200ms ease;
-    width: 100%;
-  }
-  .bk-btn-primary:hover:not(:disabled) { background: #a82c2c; }
-  .bk-btn-primary:disabled {
-    background: #d1d5db;
-    cursor: not-allowed;
-  }
-  .bk-btn-ghost {
-    background: none;
-    border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6b7280;
-    text-decoration: underline;
-    cursor: pointer;
-    padding: 4px 0;
-    text-align: center;
-  }
-  .bk-btn-ghost:hover { color: #1a1a1a; }
-
-  /* ── Kamerkeuze cards (stap 2) ── */
-  .bk-rooms {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
-    max-height: 360px;
-    overflow-y: auto;
-  }
-  .bk-room-card {
-    border: 1.5px solid #e5e7eb;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 200ms ease;
-  }
-  .bk-room-card.is-selected {
-    border-color: #c23435;
-    background: #fff8f8;
-  }
-  .bk-room-card__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 14px;
-    gap: 8px;
-  }
-  .bk-room-card__name {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1a1a1a;
-    flex: 1;
-  }
-  .bk-room-card__upgrade {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6b7280;
-    white-space: nowrap;
-  }
-  .bk-room-card.is-selected .bk-room-card__upgrade { color: #c23435; }
-  .bk-room-card__toggle {
-    background: none;
-    border: none;
-    font-size: 11px;
-    color: #9ca3af;
-    cursor: pointer;
-    padding: 2px 4px;
-    flex-shrink: 0;
-  }
-  .bk-room-card__toggle:hover { color: #1a1a1a; }
-  .bk-room-card__details {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6b7280;
-    padding: 0 14px 12px;
-    display: none;
-  }
-  .bk-room-card__details.is-open { display: block; }
-  .bk-room-card.is-unavailable {
-    opacity: 0.45;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
-  .bk-room-card__vol {
-    margin-left: auto;
-    font-size: 11px;
-    font-weight: 700;
-    color: #c23435;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .bk-room-card__price {
-    margin-left: auto;
-    font-size: 13px;
-    font-weight: 700;
-    color: #2d2d2d;
-  }
-
-  /* ── Radio indicator ── */
-  .bk-room-card__radio {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid #d1d5db;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 200ms;
-  }
-  .bk-room-card.is-selected .bk-room-card__radio {
-    border-color: #c23435;
-  }
-  .bk-room-card__radio::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: transparent;
-    transition: background 200ms;
-  }
-  .bk-room-card.is-selected .bk-room-card__radio::after {
-    background: #c23435;
-  }
-
-  /* ── Stap animatie ── */
-  .bk-step[hidden] { display: none !important; }
-  #bkStep2, #bkStep3 {
-    padding: 28px 24px 32px;
-    overflow-y: auto;
-    flex: 1;
-  }
-
-  /* ── Pre-geselecteerde kamer badge ── */
-  .bk-selected-room {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #fff8f8;
-    border: 1.5px solid #fca5a5;
-    border-radius: 10px;
-    padding: 10px 14px;
-    margin-bottom: 8px;
-  }
-  .bk-selected-room__label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #9ca3af;
-    display: block;
-    margin-bottom: 2px;
-  }
-  .bk-selected-room__name {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #c23435;
-  }
-  .bk-selected-room__change {
-    margin-left: auto;
-    background: none;
-    border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    color: #9ca3af;
-    text-decoration: underline;
-    cursor: pointer;
-    flex-shrink: 0;
-    padding: 0;
-  }
-  .bk-selected-room__change:hover { color: #1a1a1a; }
-
-  /* ── Room detail sub-view (stap 3) ── */
-  .bk-room-detail__img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 16px;
-    display: block;
-  }
-  .bk-room-detail__name {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: #1a1a1a;
-    margin: 8px 0 10px;
-  }
-  .bk-room-detail__desc {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    color: #4b5563;
-    line-height: 1.65;
-    margin-bottom: 16px;
-  }
-  .bk-room-detail__features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-  .bk-room-detail__feature {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    color: #374151;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .bk-room-detail__feature::before {
-    content: '\2713';
-    color: #c23435;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  /* ── Button-variant resets voor omgezette CTAs ── */
-  button.hero__cta,
-  button.arr-c__cta,
-  button.diner__cta {
-    cursor: pointer;
-    font-family: inherit;
-    border: none;
-  }
-  button.sticky-card__btn {
-    cursor: pointer;
-    font-family: inherit;
-    border: none;
-    width: 100%;
-  }
-  button.sticky-fab {
-    cursor: pointer;
-    font-family: inherit;
-    border: none;
-  }
-
-  /* ══ Versie 2 — Van der Valk-functionaliteit in Asteria-huisstijl (browser) ══ */
-  .vv2-title { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 18px; color: #1a1a1a; text-align: center; margin: 0 0 20px; }
-  .vv2-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .vv2-nav button { background: none; border: none; font-size: 22px; line-height: 1; color: #4a4a4a; cursor: pointer; padding: 4px 10px; border-radius: 8px; }
-  .vv2-nav button:disabled { color: #d1d5db; cursor: default; }
-  .vv2-nav__label { font-family: 'Electrolize', sans-serif; font-size: 15px; color: #1a1a1a; }
-  .vv2-grid { display: flex; flex-direction: column; gap: 22px; }
-  @media (min-width: 600px) { .vv2-grid { flex-direction: row; } .vv2-month { flex: 1; min-width: 0; } }
-  .vv2-mlabel { font-family: 'Electrolize', sans-serif; font-size: 13px; color: #6b7280; text-align: center; margin-bottom: 8px; }
-  .vv2-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
-  .vv2-weekdays span { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: #9ca3af; padding: 4px 0; }
-  .vv2-days { display: grid; grid-template-columns: repeat(7, 1fr); }
-  .vv2-day { font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-height: 44px; padding: 4px 0 3px; border: none; background: none; cursor: pointer; width: 100%; }
-  .vv2-day.is-empty { visibility: hidden; cursor: default; }
-  .vv2-day[disabled] { cursor: default; }
-  .vv2-num { font-size: 13px; font-weight: 600; color: #1a1a1a; line-height: 1; }
-  .vv2-price { font-size: 9px; font-weight: 600; color: #7c7c7c; line-height: 1; min-height: 11px; white-space: nowrap; }
-  /* Groene band (elke boekbare dag) — het Van der Valk-effect */
-  .vv2-day.is-avail, .vv2-day.is-window { background: #ecf6db; }
-  .vv2-day.is-range { background: #cbe6a0; }
-  .vv2-day.is-sel   { background: #86c440; }
-  .vv2-day.is-sel .vv2-num { color: #fff; }
-  .vv2-day.is-sel .vv2-price { color: #eaffd0; }
-  /* Afgeronde uiteinden van elke aaneengesloten (groene) run binnen de week */
-  .vv2-day.r-l { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
-  .vv2-day.r-r { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
-  /* Gedimd (buiten het uitcheck-venster, tijdens datumkeuze) */
-  .vv2-day.is-dim .vv2-num { color: #c4c4c4; }
-  .vv2-day.is-dim .vv2-price { color: #d4d4d4; }
-  /* Vol / niet-boekbaar: geen band, geen prijs, GEEN streep */
-  .vv2-day.is-out .vv2-num { color: #c4c4c4; }
-  .vv2-day.is-past .vv2-num { color: #d6d6d6; }
-  /* Footer */
-  .vv2-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
-  .vv2-info { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #555; }
-  .vv2-info b { font-weight: 700; color: #1a1a1a; }
-  .vv2-cta { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: #fff; background: #c23435; border: none; border-radius: 8px; padding: 13px 30px; cursor: pointer; }
-  .vv2-cta:disabled { background: #e7b9ba; cursor: default; }
-  .vv2-note { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 300; color: #9098a3; text-align: center; margin: 16px 4px 0; }
+  /* Thema Van der Valk (groen) — elke boekbare dag een groene band */
+  .theme-vdv .dc-day.is-avail, .theme-vdv .dc-day.is-window { background: #ecf6db; }
+  .theme-vdv .dc-day.is-range { background: #cbe6a0; }
+  .theme-vdv .dc-day.is-sel { background: #86c440; }
+  .theme-vdv .dc-day.is-sel .dc-num { color: #fff; }
+  .theme-vdv .dc-day.is-sel .dc-price { color: #eaffd0; }
+  .theme-vdv .dc-cta { background: #c23435; }
+  .theme-vdv .dc-cta:disabled { background: #e7b9ba; }
 
 </style>
 </head>
@@ -632,466 +74,204 @@
   <div class="pv-intro">
     <p class="pv-eyebrow">Preview</p>
     <h1>Dagprijzen in de boekingskalender</h1>
-    <p>Twee visualisaties van dezelfde dagprijzen (2 personen, 1 nacht, afgerond). Kies datums om het gedrag te vergelijken.</p>
+    <p>Twee stijlen van dezelfde boekingsmodule — zelfde dagprijzen én dezelfde Van der Valk-logica. Kies datums om te vergelijken.</p>
   </div>
 
   <div class="pv-section-label">
     <span class="n">Versie 1</span>
     <h2>Asteria-stijl</h2>
-    <p>Neutrale prijs onder elke dag, huisstijl-crimson voor je selectie.</p>
+    <p>Neutrale huisstijl met crimson selectie. Kies een aankomstdatum: het geldige uitcheck-venster licht op (uitchecken op een volle dag kan).</p>
   </div>
-  <div class="pv-card">
-    <div class="bk-step" id="bkStep1">
-      <h2 class="bk-title">Kies uw verblijfsdata</h2>
-      <div id="bkCalendar"></div>
-      <p class="bk-price-note">Afgeronde prijs per nacht, o.b.v. de goedkoopste beschikbare kamer voor 2 personen.</p>
+
+  <div class="pv-card theme-asteria">
+    <h2 class="dc-title">Kies uw verblijfsdata</h2>
+    <div class="dc" id="a1Calendar"></div>
+    <div class="dc-foot">
+      <div class="dc-info" id="a1Info">Kies je aankomst- en vertrekdatum.</div>
+      <button class="dc-cta" id="a1Apply" disabled>Verder</button>
     </div>
+    <p class="dc-note">Afgeronde prijs per nacht, o.b.v. de goedkoopste beschikbare kamer voor 2 personen.</p>
   </div>
 
   <div class="pv-section-label">
     <span class="n">Versie 2</span>
-    <h2>Van der Valk-functionaliteit, Asteria-huisstijl</h2>
-    <p>Groene dagtint (het 'goedkoop'-gevoel) en de Van der Valk-logica: kies een aankomstdatum, dan licht het geldige uitcheck-venster op (uitchecken op een volle dag kan). Nu in de browser-weergave met Asteria-lettertype en -knop.</p>
+    <h2>Van der Valk-stijl</h2>
+    <p>Groene dagtint (het 'goedkoop'-gevoel), zelfde logica. Op telefoon scrollbaar door de maanden.</p>
   </div>
 
-  <div class="pv-card">
-    <h2 class="vv2-title">Kies uw verblijfsdata</h2>
-    <div id="vvCalendar"></div>
-    <div class="vv2-foot">
-      <div class="vv2-info" id="vvInfo">Kies je aankomst- en vertrekdatum.</div>
-      <button class="vv2-cta" id="vvApply" disabled>Verder</button>
+  <div class="pv-card theme-vdv">
+    <h2 class="dc-title">Kies uw verblijfsdata</h2>
+    <div class="dc" id="vvCalendar"></div>
+    <div class="dc-foot">
+      <div class="dc-info" id="vvInfo">Kies je aankomst- en vertrekdatum.</div>
+      <button class="dc-cta" id="vvApply" disabled>Verder</button>
     </div>
-    <p class="vv2-note">Afgeronde prijs per nacht, o.b.v. de goedkoopste beschikbare kamer voor 2 personen.</p>
+    <p class="dc-note">Afgeronde prijs per nacht, o.b.v. de goedkoopste beschikbare kamer voor 2 personen.</p>
   </div>
-
 
   <p class="pv-note">Prijzen zijn een momentopname van 2026-07-09 (in de live versie zijn ze realtime). Niet-openbare previewpagina.</p>
 
 <script>
-  var BAKED = {"2026-07-09": 138, "2026-07-10": 130, "2026-07-11": 135, "2026-07-12": 98, "2026-07-13": 134, "2026-07-14": 122, "2026-07-15": 117, "2026-07-16": 125, "2026-07-17": null, "2026-07-18": 206, "2026-07-19": 121, "2026-07-20": 120, "2026-07-21": 122, "2026-07-22": 117, "2026-07-23": 115, "2026-07-24": 134, "2026-07-25": 134, "2026-07-26": 104, "2026-07-27": 106, "2026-07-28": 117, "2026-07-29": 118, "2026-07-30": 112, "2026-07-31": 125, "2026-08-01": 130, "2026-08-02": 102, "2026-08-03": 121, "2026-08-04": 121, "2026-08-05": 122, "2026-08-06": 121, "2026-08-07": 115, "2026-08-08": 131, "2026-08-09": 115, "2026-08-10": 113, "2026-08-11": 114, "2026-08-12": 117, "2026-08-13": 129, "2026-08-14": null, "2026-08-15": null, "2026-08-16": 107, "2026-08-17": 115, "2026-08-18": 118, "2026-08-19": 127, "2026-08-20": 118, "2026-08-21": 125, "2026-08-22": 128, "2026-08-23": 102, "2026-08-24": 117, "2026-08-25": 122, "2026-08-26": 123, "2026-08-27": 117, "2026-08-28": 136, "2026-08-29": 144, "2026-08-30": 104, "2026-08-31": 122, "2026-09-01": 123, "2026-09-02": 134, "2026-09-03": 115, "2026-09-04": null, "2026-09-05": null, "2026-09-06": 104, "2026-09-07": 117, "2026-09-08": 128, "2026-09-09": 127, "2026-09-10": 122, "2026-09-11": 121, "2026-09-12": 131, "2026-09-13": 106, "2026-09-14": 112, "2026-09-15": 124, "2026-09-16": 126, "2026-09-17": 112, "2026-09-18": 139, "2026-09-19": 141, "2026-09-20": 108, "2026-09-21": 117, "2026-09-22": 127, "2026-09-23": 123, "2026-09-24": 112, "2026-09-25": 132, "2026-09-26": 144, "2026-09-27": 103, "2026-09-28": 121, "2026-09-29": 130, "2026-09-30": 126, "2026-10-01": 118, "2026-10-02": 134, "2026-10-03": 134, "2026-10-04": 103, "2026-10-05": 114, "2026-10-06": 122, "2026-10-07": 123, "2026-10-08": 112, "2026-10-09": 125, "2026-10-10": 134, "2026-10-11": 104, "2026-10-12": 119, "2026-10-13": 122, "2026-10-14": 120, "2026-10-15": null, "2026-10-16": null, "2026-10-17": null, "2026-10-18": 103, "2026-10-19": 113, "2026-10-20": 117, "2026-10-21": 120, "2026-10-22": null, "2026-10-23": null, "2026-10-24": null, "2026-10-25": 103, "2026-10-26": 112, "2026-10-27": 119, "2026-10-28": 120, "2026-10-29": 112, "2026-10-30": 113, "2026-10-31": 125};
-  window.BAKED = BAKED;
-  try { localStorage.setItem('asteria-dagprijzen', '1'); } catch (e) {}
-  var _fetch = window.fetch;
-  window.fetch = function(url, opts) {
-    if (typeof url === 'string' && url.indexOf('/api/day-prices') === 0) {
-      var qs = url.split('?')[1] || '', p = {};
-      qs.split('&').forEach(function(kv){ var a = kv.split('='); p[a[0]] = a[1]; });
-      var out = {};
-      Object.keys(BAKED).forEach(function(k){ if (k >= p.from && k <= p.to) out[k] = BAKED[k]; });
-      return Promise.resolve(new Response(JSON.stringify({ prices: out, currency: 'EUR' }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } }));
-    }
-    return _fetch.apply(this, arguments);
-  };
-</script>
-<script>
-(function() {
-  var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',
-                     'Juli','Augustus','September','Oktober','November','December'];
-  var DAY_NAMES   = ['Ma','Di','Wo','Do','Vr','Za','Zo'];
-
-  var CAL_CUR = '€'; // €
-
-  // Dagprijzen staan standaard UIT (kalender = zoals voorheen). Activeren:
-  //  1) permanent overal → zet CAL_PRICES_ENABLED op true en rebuild.
-  //  2) los previewen → open een pagina met ?dagprijzen=1 (blijft plakken via
-  //     localStorage; ?dagprijzen=0 zet 'm weer uit).
-  var CAL_PRICES_ENABLED = false;
-  try {
-    var _dp = new URLSearchParams(location.search).get('dagprijzen');
-    if (_dp === '1') localStorage.setItem('asteria-dagprijzen', '1');
-    else if (_dp === '0') localStorage.removeItem('asteria-dagprijzen');
-    if (localStorage.getItem('asteria-dagprijzen') === '1') CAL_PRICES_ENABLED = true;
-  } catch (e) {}
-
-  var cal = {
-    viewYear: 0, viewMonth: 0,
-    selectedStart: null, selectedEnd: null,
-    hoverDate: null,
-    onDateChange: null,
-    pricesByMonth: {}   // 'YYYY-MM' → { status, prices:{ 'YYYY-MM-DD': number|null } }
-  };
-
-  function todayMidnight() {
-    var d = new Date();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  }
-
-  function isSameDay(a, b) {
-    return a && b &&
-      a.getFullYear() === b.getFullYear() &&
-      a.getMonth()    === b.getMonth()    &&
-      a.getDate()     === b.getDate();
-  }
-
-  function isBefore(a, b) { return !!a && !!b && a.getTime() < b.getTime(); }
-  function isAfter(a, b)  { return !!a && !!b && a.getTime() > b.getTime(); }
-
-  function formatISO(d) {
-    var m   = d.getMonth() + 1;
-    var day = d.getDate();
-    return d.getFullYear() + '-' + (m < 10 ? '0' + m : m) + '-' + (day < 10 ? '0' + day : day);
-  }
-
-  function firstWeekdayOfMonth(year, month) {
-    // 0 = maandag, 6 = zondag
-    var dow = new Date(year, month, 1).getDay(); // 0=zo,1=ma,...6=za
-    return dow === 0 ? 6 : dow - 1;
-  }
-
-  function daysInMonth(year, month) {
-    return new Date(year, month + 1, 0).getDate();
-  }
-
-  // ── Dagprijzen ophalen (per kalendermaand, gecached) ──────────────────
-  function pmKey(year, month) {
-    var mm = month + 1;
-    return year + '-' + (mm < 10 ? '0' + mm : mm);
-  }
-
-  function ensureMonth(year, month, rerender) {
-    if (!CAL_PRICES_ENABLED) return;
-    var key = pmKey(year, month);
-    if (cal.pricesByMonth[key]) return;             // al bezig of geladen
-    cal.pricesByMonth[key] = { status: 'loading', prices: null };
-
-    var last = daysInMonth(year, month);
-    var from = key + '-01';
-    var to   = key + '-' + (last < 10 ? '0' + last : last);
-
-    fetch('/api/day-prices?from=' + from + '&to=' + to, { headers: { 'Accept': 'application/json' } })
-      .then(function(r) { return r.ok ? r.json() : null; })
-      .then(function(d) {
-        if (d && d.prices) {
-          cal.pricesByMonth[key] = { status: 'done', prices: d.prices };
-          if (rerender) render();
-        } else {
-          cal.pricesByMonth[key] = { status: 'error', prices: null };
-        }
-      })
-      .catch(function() {
-        // Stil falen: kalender werkt zonder prijzen (huidig gedrag).
-        cal.pricesByMonth[key] = { status: 'error', prices: null };
-      });
-  }
-
-  function renderMonth(year, month) {
-    var todayDate  = todayMidnight();
-    var daysCount  = daysInMonth(year, month);
-    var firstDay   = firstWeekdayOfMonth(year, month);
-    var start      = cal.selectedStart;
-    var end        = cal.selectedEnd;
-    var hover      = cal.hoverDate;
-
-    // Bepaal effectieve range voor in-range highlight
-    var rangeA = null, rangeB = null;
-    if (start && end) {
-      rangeA = isBefore(start, end) ? start : end;
-      rangeB = isBefore(start, end) ? end   : start;
-    } else if (start && hover && !isSameDay(hover, start)) {
-      rangeA = isBefore(start, hover) ? start : hover;
-      rangeB = isBefore(start, hover) ? hover : start;
-    }
-
-    var monthPrices = (cal.pricesByMonth[pmKey(year, month)] || {}).prices || null;
-
-    var html = '<div class="cal-month">';
-    html += '<div class="cal-month-label">' + MONTH_NAMES[month] + ' ' + year + '</div>';
-    html += '<div class="cal-weekdays">';
-    for (var w = 0; w < 7; w++) {
-      html += '<span>' + DAY_NAMES[w] + '</span>';
-    }
-    html += '</div><div class="cal-days">';
-
-    // Lege cellen vóór de eerste dag
-    for (var e = 0; e < firstDay; e++) {
-      html += '<span class="cal-day-empty"></span>';
-    }
-
-    for (var day = 1; day <= daysCount; day++) {
-      var date     = new Date(year, month, day);
-      var iso      = formatISO(date);
-      var disabled = isBefore(date, todayDate);
-      var classes  = ['cal-day'];
-
-      if (disabled)                          classes.push('is-disabled');
-      if (isSameDay(date, todayDate) && !disabled) classes.push('is-today');
-      if (isSameDay(date, start))            classes.push('is-start');
-      if (isSameDay(date, end))              classes.push('is-end');
-
-      if (rangeA && rangeB && isAfter(date, rangeA) && isBefore(date, rangeB)) {
-        classes.push(cal.selectedEnd ? 'is-in-range' : 'is-hover-range');
-      }
-
-      // Dagprijs: laagste beschikbare kamer (2 pers.). number = prijs,
-      // null = vol (dimmen, wel klikbaar), undefined = nog niet geladen.
-      var priceHtml = '';
-      if (!disabled && monthPrices) {
-        var pv = monthPrices[iso];
-        if (typeof pv === 'number')      priceHtml = CAL_CUR + ' ' + pv;
-        else if (pv === null)            classes.push('is-unavailable');
-      }
-
-      var attrs = disabled ? ' disabled aria-disabled="true"' : '';
-      html += '<button class="' + classes.join(' ') + '" data-date="' + iso + '"' + attrs + '>'
-            + '<span class="cal-day__num">' + day + '</span>'
-            + '<span class="cal-day__price">' + priceHtml + '</span>'
-            + '</button>';
-    }
-
-    html += '</div></div>';
-    return html;
-  }
-
-  function render() {
-    var container = document.getElementById('bkCalendar');
-    if (!container) return;
-
-    var y1 = cal.viewYear, m1 = cal.viewMonth;
-    var y2 = y1, m2 = m1 + 1;
-    if (m2 > 11) { m2 = 0; y2++; }
-
-    // Dagprijzen (alleen als geactiveerd): zichtbare maanden + prefetch.
-    if (CAL_PRICES_ENABLED) {
-      var _s1 = document.getElementById('bkStep1');
-      if (_s1) _s1.classList.add('cal-has-prices');
-      ensureMonth(y1, m1, true);
-      ensureMonth(y2, m2, true);
-      var y3 = y2, m3 = m2 + 1; if (m3 > 11) { m3 = 0; y3++; }
-      ensureMonth(y3, m3, false);
-    }
-
-    var todayDate    = todayMidnight();
-    var prevDisabled = (y1 < todayDate.getFullYear()) ||
-                       (y1 === todayDate.getFullYear() && m1 <= todayDate.getMonth());
-
-    var html = '<div class="cal-nav">';
-    html += '<button class="cal-nav__prev"' + (prevDisabled ? ' disabled' : '') + '>&#8249;</button>';
-    html += '<span class="cal-nav__label">' + MONTH_NAMES[m1] + ' \u2014 ' + MONTH_NAMES[m2] + ' ' + y2 + '</span>';
-    html += '<button class="cal-nav__next">&#8250;</button>';
-    html += '</div>';
-    html += '<div class="cal-grid-wrap">';
-    html += renderMonth(y1, m1);
-    html += renderMonth(y2, m2);
-    html += '</div>';
-
-    container.innerHTML = html;
-    attachListeners(container);
-  }
-
-  function attachListeners(container) {
-    var btnPrev = container.querySelector('.cal-nav__prev');
-    var btnNext = container.querySelector('.cal-nav__next');
-
-    btnPrev.addEventListener('click', function() {
-      cal.viewMonth--;
-      if (cal.viewMonth < 0) { cal.viewMonth = 11; cal.viewYear--; }
-      render();
-    });
-    btnNext.addEventListener('click', function() {
-      cal.viewMonth++;
-      if (cal.viewMonth > 11) { cal.viewMonth = 0; cal.viewYear++; }
-      render();
-    });
-
-    container.querySelectorAll('.cal-day:not([disabled])').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var date = new Date(btn.dataset.date + 'T00:00:00');
-        if (!cal.selectedStart || (cal.selectedStart && cal.selectedEnd)) {
-          cal.selectedStart = date;
-          cal.selectedEnd   = null;
-        } else {
-          if (isSameDay(date, cal.selectedStart)) {
-            cal.selectedStart = null;
-          } else if (isBefore(date, cal.selectedStart)) {
-            cal.selectedEnd   = cal.selectedStart;
-            cal.selectedStart = date;
-          } else {
-            cal.selectedEnd = date;
-          }
-        }
-        cal.hoverDate = null;
-        render();
-        if (cal.onDateChange) {
-          cal.onDateChange(cal.selectedStart, cal.selectedEnd);
-        }
-      });
-
-      btn.addEventListener('mouseenter', function() {
-        if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
-        if (cal.selectedStart && !cal.selectedEnd) {
-          var newHover = new Date(btn.dataset.date + 'T00:00:00');
-          if (!cal.hoverDate || !isSameDay(newHover, cal.hoverDate)) {
-            cal.hoverDate = newHover;
-            render();
-          }
-        }
-      });
-    });
-
-    container.addEventListener('mouseleave', function() {
-      if (cal.hoverDate) {
-        cal.hoverDate = null;
-        render();
-      }
-    });
-  }
-
-  window.initCustomCalendar = function(onDateChange) {
-    var t = todayMidnight();
-    cal.viewYear      = t.getFullYear();
-    cal.viewMonth     = t.getMonth();
-    cal.selectedStart = null;
-    cal.selectedEnd   = null;
-    cal.hoverDate     = null;
-    cal.onDateChange  = onDateChange || null;
-    render();
-  };
-
-  window.clearCustomCalendar = function() {
-    var t = todayMidnight();
-    cal.viewYear      = t.getFullYear();
-    cal.viewMonth     = t.getMonth();
-    cal.selectedStart = null;
-    cal.selectedEnd   = null;
-    cal.hoverDate     = null;
-    render();
-  };
-})();
+  window.BAKED = {"2026-07-09": 138, "2026-07-10": 130, "2026-07-11": 135, "2026-07-12": 98, "2026-07-13": 134, "2026-07-14": 122, "2026-07-15": 117, "2026-07-16": 125, "2026-07-17": null, "2026-07-18": 206, "2026-07-19": 121, "2026-07-20": 120, "2026-07-21": 122, "2026-07-22": 117, "2026-07-23": 115, "2026-07-24": 134, "2026-07-25": 134, "2026-07-26": 104, "2026-07-27": 106, "2026-07-28": 117, "2026-07-29": 118, "2026-07-30": 112, "2026-07-31": 125, "2026-08-01": 130, "2026-08-02": 102, "2026-08-03": 121, "2026-08-04": 121, "2026-08-05": 122, "2026-08-06": 121, "2026-08-07": 115, "2026-08-08": 131, "2026-08-09": 115, "2026-08-10": 113, "2026-08-11": 114, "2026-08-12": 117, "2026-08-13": 129, "2026-08-14": null, "2026-08-15": null, "2026-08-16": 107, "2026-08-17": 115, "2026-08-18": 118, "2026-08-19": 127, "2026-08-20": 118, "2026-08-21": 125, "2026-08-22": 128, "2026-08-23": 102, "2026-08-24": 117, "2026-08-25": 122, "2026-08-26": 123, "2026-08-27": 117, "2026-08-28": 136, "2026-08-29": 144, "2026-08-30": 104, "2026-08-31": 122, "2026-09-01": 123, "2026-09-02": 134, "2026-09-03": 115, "2026-09-04": null, "2026-09-05": null, "2026-09-06": 104, "2026-09-07": 117, "2026-09-08": 128, "2026-09-09": 127, "2026-09-10": 122, "2026-09-11": 121, "2026-09-12": 131, "2026-09-13": 106, "2026-09-14": 112, "2026-09-15": 124, "2026-09-16": 126, "2026-09-17": 112, "2026-09-18": 139, "2026-09-19": 141, "2026-09-20": 108, "2026-09-21": 117, "2026-09-22": 127, "2026-09-23": 123, "2026-09-24": 112, "2026-09-25": 132, "2026-09-26": 144, "2026-09-27": 103, "2026-09-28": 121, "2026-09-29": 130, "2026-09-30": 126, "2026-10-01": 118, "2026-10-02": 134, "2026-10-03": 134, "2026-10-04": 103, "2026-10-05": 114, "2026-10-06": 122, "2026-10-07": 123, "2026-10-08": 112, "2026-10-09": 125, "2026-10-10": 134, "2026-10-11": 104, "2026-10-12": 119, "2026-10-13": 122, "2026-10-14": 120, "2026-10-15": null, "2026-10-16": null, "2026-10-17": null, "2026-10-18": 103, "2026-10-19": 113, "2026-10-20": 117, "2026-10-21": 120, "2026-10-22": null, "2026-10-23": null, "2026-10-24": null, "2026-10-25": 103, "2026-10-26": 112, "2026-10-27": 119, "2026-10-28": 120, "2026-10-29": 112, "2026-10-30": 113, "2026-10-31": 125};
 </script>
 <script>
 (function () {
   var MONTHS = ['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
   var DAYS   = ['Ma','Di','Wo','Do','Vr','Za','Zo'];
   var BAKED  = window.BAKED || {};
-  var MAXSTAY = 14;                       // max aantal nachten in het venster
+  var MAXSTAY = 14;
+  var MONTHS_PHONE = 4;
 
   function today() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
   var T0 = today();
   function iso(d) { var m = d.getMonth()+1, a = d.getDate(); return d.getFullYear()+'-'+(m<10?'0'+m:m)+'-'+(a<10?'0'+a:a); }
   function same(a,b) { return a && b && a.getTime()===b.getTime(); }
   function add(d,n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()+n); }
-  function fwd(y,m) { var w = new Date(y,m,1).getDay(); return w===0?6:w-1; }   // 0 = maandag
+  function fwd(y,m) { var w = new Date(y,m,1).getDay(); return w===0?6:w-1; }
   function dim(y,m) { return new Date(y,m+1,0).getDate(); }
   function avail(d) { return typeof BAKED[iso(d)] === 'number'; }
   function fmtFull(d) { return d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+  function isPhone() { return window.matchMedia && window.matchMedia('(max-width: 599px)').matches; }
+  function monthsFromNow(k) { var y=T0.getFullYear(), m=T0.getMonth(), out=[]; for (var i=0;i<k;i++){ out.push([y,m]); m++; if(m>11){m=0;y++;} } return out; }
 
-  var st = { start:null, end:null };
-  var view = { y:0, m:0 };
+  // Eén kalender-instantie. cfg = { id, availBg, infoId, ctaId }.
+  function makeCalendar(cfg) {
+    var st = { start:null, end:null };
+    var view = { y:0, m:0 };
 
-  // Laatste geldige uitcheckdatum vanaf de aankomst: schuif op zolang de NACHT
-  // beschikbaar is (de uitcheckdag zelf hoeft niet beschikbaar te zijn — je
-  // slaapt die nacht niet). Stopt bij de eerste volle nacht of na MAXSTAY.
-  function windowEnd() {
-    if (!st.start) return null;
-    var co = add(st.start, 1);            // minimale uitcheck = 1 nacht
-    while ((co - st.start) / 86400000 < MAXSTAY) {
-      if (BAKED[iso(co)] == null) break;  // nacht 'co' is vol → hier stopt het
-      co = add(co, 1);
-    }
-    return co;
-  }
-
-  // Bepaal per dag: klasse, prijs (of null=verbergen), klikbaar, gekleurd(voor band).
-  function cellInfo(dt) {
-    var res = { num: dt.getDate(), price: null, cls: [], colored: false, clickable: false };
-    if (dt < T0) { res.cls.push('is-past'); return res; }
-    var s = st.start, e = st.end, a = avail(dt);
-
-    if (!s) {                              // niets geselecteerd
-      if (a) { res.colored = true; res.clickable = true; res.cls.push('is-avail'); res.price = BAKED[iso(dt)]; }
-      else res.cls.push('is-out');
-      return res;
-    }
-    if (s && !e) {                         // aankomst gekozen, uitcheck nog niet
-      var we = windowEnd();
-      if (same(dt, s)) { res.colored = true; res.clickable = true; res.cls.push('is-sel'); return res; }
-      if (dt > s && dt <= we) { res.colored = true; res.clickable = true; res.cls.push('is-window'); return res; } // geldige uitcheck (ook als vol)
-      if (a) { res.clickable = true; res.cls.push('is-dim'); res.price = BAKED[iso(dt)]; }  // gedimd, klik = nieuwe aankomst
-      else res.cls.push('is-dim','is-out');
-      return res;
-    }
-    // volledige selectie
-    var lo = s<e?s:e, hi = s<e?e:s;
-    if (same(dt, lo) || same(dt, hi)) { res.colored = true; res.clickable = true; res.cls.push('is-sel'); return res; }
-    if (dt > lo && dt < hi) { res.colored = true; res.clickable = true; res.cls.push('is-range'); return res; }
-    if (a) { res.colored = true; res.clickable = true; res.cls.push('is-avail'); res.price = BAKED[iso(dt)]; return res; }
-    res.cls.push('is-out'); return res;
-  }
-
-  function monthHtml(y, m) {
-    var first = fwd(y,m), n = dim(y,m);
-    function coloredDay(day) { return day>=1 && day<=n && cellInfo(new Date(y,m,day)).colored; }
-
-    var html = '<div class="vv2-month"><div class="vv2-mlabel">'+MONTHS[m]+' '+y+'</div><div class="vv2-weekdays">';
-    for (var w=0; w<7; w++) html += '<span>'+DAYS[w]+'</span>';
-    html += '</div><div class="vv2-days">';
-    for (var e=0; e<first; e++) html += '<span class="vv2-day is-empty"></span>';
-    for (var d=1; d<=n; d++) {
-      var dt = new Date(y,m,d), ci = cellInfo(dt), col = (first + d - 1) % 7;
-      var cls = ['vv2-day'].concat(ci.cls);
-      if (ci.colored) {
-        if (col===0 || !coloredDay(d-1)) cls.push('r-l');
-        if (col===6 || !coloredDay(d+1)) cls.push('r-r');
+    // Laatste geldige uitcheck: schuif op zolang de NACHT beschikbaar is (de
+    // uitcheckdag zelf hoeft niet beschikbaar te zijn). Stopt bij de eerste
+    // volle nacht of na MAXSTAY.
+    function windowEnd() {
+      if (!st.start) return null;
+      var co = add(st.start, 1);
+      while ((co - st.start) / 86400000 < MAXSTAY) {
+        if (BAKED[iso(co)] == null) break;
+        co = add(co, 1);
       }
-      html += '<button class="'+cls.join(' ')+'" data-d="'+iso(dt)+'"'+(ci.clickable?'':' disabled')+'>'
-            + '<span class="vv2-num">'+d+'</span>'
-            + '<span class="vv2-price">'+(ci.price!=null ? '€ '+ci.price : '')+'</span></button>';
+      return co;
     }
-    return html + '</div></div>';
-  }
 
-  function foot() {
-    var info = document.getElementById('vvInfo'), cta = document.getElementById('vvApply');
-    if (st.start && st.end) {
-      var lo = st.start<st.end?st.start:st.end, hi = st.start<st.end?st.end:st.start;
-      var total = 0, d = new Date(lo);
-      while (d < hi) { var v = BAKED[iso(d)]; if (typeof v === 'number') total += v; d = add(d,1); }
-      info.innerHTML = '<b>'+fmtFull(lo)+'</b> t/m <b>'+fmtFull(hi)+'</b> &middot; vanaf &euro; '+total;
-      cta.removeAttribute('disabled');
-    } else if (st.start) {
-      info.textContent = 'Kies je vertrekdatum.';
-      cta.setAttribute('disabled','');
-    } else {
-      info.textContent = 'Kies je aankomst- en vertrekdatum.';
-      cta.setAttribute('disabled','');
+    function cellInfo(dt) {
+      var res = { num: dt.getDate(), price: null, cls: [], clickable: false };
+      if (dt < T0) { res.cls.push('is-past'); return res; }
+      var s = st.start, e = st.end, a = avail(dt);
+      if (!s) {
+        if (a) { res.clickable = true; res.cls.push('is-avail'); res.price = BAKED[iso(dt)]; }
+        else res.cls.push('is-out');
+        return res;
+      }
+      if (s && !e) {
+        var we = windowEnd();
+        if (same(dt, s)) { res.clickable = true; res.cls.push('is-sel'); return res; }
+        if (dt > s && dt <= we) { res.clickable = true; res.cls.push('is-window'); return res; }
+        if (a) { res.clickable = true; res.cls.push('is-dim'); res.price = BAKED[iso(dt)]; }
+        else res.cls.push('is-dim','is-out');
+        return res;
+      }
+      var lo = s<e?s:e, hi = s<e?e:s;
+      if (same(dt, lo) || same(dt, hi)) { res.clickable = true; res.cls.push('is-sel'); return res; }
+      if (dt > lo && dt < hi) { res.clickable = true; res.cls.push('is-range'); return res; }
+      if (a) { res.clickable = true; res.cls.push('is-avail'); res.price = BAKED[iso(dt)]; return res; }
+      res.cls.push('is-out'); return res;
     }
-  }
 
-  function render() {
-    var box = document.getElementById('vvCalendar'); if (!box) return;
-    var y1 = view.y, m1 = view.m, y2 = y1, m2 = m1+1; if (m2>11) { m2=0; y2++; }
-    var prevOff = (y1<T0.getFullYear()) || (y1===T0.getFullYear() && m1<=T0.getMonth());
-    var html = '<div class="vv2-nav"><button class="vv2-prev"'+(prevOff?' disabled':'')+'>&#8249;</button>'
-             + '<span class="vv2-nav__label">'+MONTHS[m1]+' &mdash; '+MONTHS[m2]+' '+y2+'</span>'
-             + '<button class="vv2-next">&#8250;</button></div>'
-             + '<div class="vv2-grid">'+monthHtml(y1,m1)+monthHtml(y2,m2)+'</div>';
-    box.innerHTML = html;
+    // Heeft een cel een gekleurde achtergrond? (voor afgeronde band-uiteinden)
+    function bg(cls) {
+      return cls.indexOf('is-sel')>=0 || cls.indexOf('is-window')>=0 || cls.indexOf('is-range')>=0
+             || (cfg.availBg && cls.indexOf('is-avail')>=0);
+    }
+    function dayBg(y,m,day) { return day>=1 && day<=dim(y,m) && bg(cellInfo(new Date(y,m,day)).cls); }
 
-    var p = box.querySelector('.vv2-prev'), nx = box.querySelector('.vv2-next');
-    if (p) p.addEventListener('click', function(){ if (p.disabled) return; view.m--; if (view.m<0){view.m=11;view.y--;} render(); });
-    if (nx) nx.addEventListener('click', function(){ view.m++; if (view.m>11){view.m=0;view.y++;} render(); });
-    box.querySelectorAll('.vv2-day:not(.is-empty):not([disabled])').forEach(function(b){
-      b.addEventListener('click', function(){
-        var d = new Date(b.dataset.d + 'T00:00:00');
-        if (!st.start || (st.start && st.end)) { st.start = d; st.end = null; }
-        else {
-          var we = windowEnd();
-          if (d > st.start && d <= we) st.end = d;   // geldige uitcheck (ook volle dag)
-          else st.start = d;                          // anders: nieuwe aankomst
+    function monthHtml(y, m) {
+      var first = fwd(y,m), n = dim(y,m);
+      var html = '<div class="dc-month"><div class="dc-mlabel">'+MONTHS[m]+' '+y+'</div><div class="dc-weekdays">';
+      for (var w=0; w<7; w++) html += '<span>'+DAYS[w]+'</span>';
+      html += '</div><div class="dc-days">';
+      for (var e=0; e<first; e++) html += '<span class="dc-day is-empty"></span>';
+      for (var d=1; d<=n; d++) {
+        var dt = new Date(y,m,d), ci = cellInfo(dt), col = (first + d - 1) % 7;
+        var cls = ['dc-day'].concat(ci.cls);
+        if (bg(ci.cls)) {
+          if (col===0 || !dayBg(y,m,d-1)) cls.push('r-l');
+          if (col===6 || !dayBg(y,m,d+1)) cls.push('r-r');
         }
-        render();
+        html += '<button class="'+cls.join(' ')+'" data-d="'+iso(dt)+'"'+(ci.clickable?'':' disabled')+'>'
+              + '<span class="dc-num">'+d+'</span>'
+              + '<span class="dc-price">'+(ci.price!=null ? '€ '+ci.price : '')+'</span></button>';
+      }
+      return html + '</div></div>';
+    }
+
+    function foot() {
+      var info = document.getElementById(cfg.infoId), cta = document.getElementById(cfg.ctaId);
+      if (!info) return;
+      if (st.start && st.end) {
+        var lo = st.start<st.end?st.start:st.end, hi = st.start<st.end?st.end:st.start;
+        var total = 0, d = new Date(lo);
+        while (d < hi) { var v = BAKED[iso(d)]; if (typeof v === 'number') total += v; d = add(d,1); }
+        info.innerHTML = '<b>'+fmtFull(lo)+'</b> t/m <b>'+fmtFull(hi)+'</b> &middot; vanaf &euro; '+total;
+        if (cta) cta.removeAttribute('disabled');
+      } else {
+        info.textContent = st.start ? 'Kies je vertrekdatum.' : 'Kies je aankomst- en vertrekdatum.';
+        if (cta) cta.setAttribute('disabled','');
+      }
+    }
+
+    function attach(box) {
+      var p = box.querySelector('.dc-prev'), nx = box.querySelector('.dc-next');
+      if (p) p.addEventListener('click', function(){ if (p.disabled) return; view.m--; if (view.m<0){view.m=11;view.y--;} render(); });
+      if (nx) nx.addEventListener('click', function(){ view.m++; if (view.m>11){view.m=0;view.y++;} render(); });
+      box.querySelectorAll('.dc-day:not(.is-empty):not([disabled])').forEach(function(b){
+        b.addEventListener('click', function(){
+          var d = new Date(b.dataset.d + 'T00:00:00');
+          if (!st.start || (st.start && st.end)) { st.start = d; st.end = null; }
+          else { var we = windowEnd(); if (d > st.start && d <= we) st.end = d; else st.start = d; }
+          render();
+        });
       });
-    });
-    foot();
+    }
+
+    function render() {
+      var box = document.getElementById(cfg.id); if (!box) return;
+      if (isPhone()) {
+        var old = box.querySelector('.dc-scroll'); var top = old ? old.scrollTop : 0;
+        var h = '<div class="dc-scroll"><div class="dc-grid dc-grid--stack">';
+        monthsFromNow(MONTHS_PHONE).forEach(function(ym){ h += monthHtml(ym[0], ym[1]); });
+        h += '</div></div>';
+        box.innerHTML = h;
+        var ns = box.querySelector('.dc-scroll'); if (ns) ns.scrollTop = top;
+      } else {
+        var y1 = view.y, m1 = view.m, y2 = y1, m2 = m1+1; if (m2>11) { m2=0; y2++; }
+        var prevOff = (y1<T0.getFullYear()) || (y1===T0.getFullYear() && m1<=T0.getMonth());
+        var h = '<div class="dc-nav"><button class="dc-prev"'+(prevOff?' disabled':'')+'>&#8249;</button>'
+              + '<span class="dc-nav__label">'+MONTHS[m1]+' &mdash; '+MONTHS[m2]+' '+y2+'</span>'
+              + '<button class="dc-next">&#8250;</button></div>'
+              + '<div class="dc-grid">'+monthHtml(y1,m1)+monthHtml(y2,m2)+'</div>';
+        box.innerHTML = h;
+      }
+      attach(box);
+      foot();
+    }
+
+    return {
+      init: function(){ st.start = st.end = null; view.y = T0.getFullYear(); view.m = T0.getMonth(); render(); },
+      rerender: render
+    };
   }
 
-  window.initVvCalendar = function(){ st.start = st.end = null; view.y = T0.getFullYear(); view.m = T0.getMonth(); render(); };
+  var cals = [
+    makeCalendar({ id:'a1Calendar', availBg:false, infoId:'a1Info', ctaId:'a1Apply' }),
+    makeCalendar({ id:'vvCalendar', availBg:true,  infoId:'vvInfo', ctaId:'vvApply' })
+  ];
+  cals.forEach(function(c){ c.init(); });
+
+  var wasPhone = isPhone();
+  window.addEventListener('resize', function(){
+    var ph = isPhone();
+    if (ph !== wasPhone) { wasPhone = ph; cals.forEach(function(c){ c.rerender(); }); }
+  });
 })();
-</script>
-<script>
-  if (window.initCustomCalendar) window.initCustomCalendar();
-  if (window.initVvCalendar) window.initVvCalendar();
 </script>
 </body>
 </html>
