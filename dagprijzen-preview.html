@@ -51,7 +51,9 @@
   .dc-cta:disabled { cursor: default; }
   .dc-note { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 300; color: #9098a3; text-align: center; margin: 16px 4px 0; }
 
-  /* Thema Asteria (crimson) — beschikbare dagen zonder achtergrond */
+  /* Thema Asteria (crimson) — beschikbare dagen krijgen een subtiele tint zodat
+     ze duidelijk als tikbare cellen ogen (belangrijk op telefoon) */
+  .theme-asteria .dc-day.is-avail { background: #f4f2ef; }
   .theme-asteria .dc-day.is-window, .theme-asteria .dc-day.is-range { background: #fde8e8; }
   .theme-asteria .dc-day.is-sel { background: #c23435; }
   .theme-asteria .dc-day.is-sel .dc-num { color: #fff; }
@@ -261,7 +263,7 @@
   }
 
   var cals = [
-    makeCalendar({ id:'a1Calendar', availBg:false, infoId:'a1Info', ctaId:'a1Apply' }),
+    makeCalendar({ id:'a1Calendar', availBg:true, infoId:'a1Info', ctaId:'a1Apply' }),
     makeCalendar({ id:'vvCalendar', availBg:true,  infoId:'vvInfo', ctaId:'vvApply' })
   ];
   cals.forEach(function(c){ c.init(); });
