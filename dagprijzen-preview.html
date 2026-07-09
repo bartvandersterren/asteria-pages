@@ -586,45 +586,45 @@
     border: none;
   }
 
-  /* ══ Versie 2 — Van der Valk-stijl (bottom-sheet, groen) ══ */
-  .vv-sheet { max-width: 420px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 12px 44px rgba(0,0,0,.13); overflow: hidden; display: flex; flex-direction: column; }
-  .vv-grab { width: 40px; height: 4px; background: #d7d7d7; border-radius: 2px; margin: 12px auto 2px; }
-  .vv-head { position: relative; text-align: center; padding: 14px 20px 16px; }
-  .vv-head__title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: #1a1a1a; }
-  .vv-head__close { position: absolute; top: 12px; right: 18px; font-size: 20px; color: #333; background: none; border: none; cursor: pointer; line-height: 1; }
-  .vv-weekhead { display: grid; grid-template-columns: repeat(7, 1fr); border-top: 1px solid #ececec; border-bottom: 1px solid #ececec; padding: 12px 14px; }
-  .vv-weekhead span { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 15px; color: #8c8c8c; }
-  .vv-scroll { max-height: 460px; overflow-y: auto; padding: 4px 14px 12px; }
-  .vv-mtitle { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 20px; color: #1a1a1a; margin: 18px 0 10px; }
-  .vv-week { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 8px; }
-  .vv-cell { font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; padding: 6px 0; border: none; background: none; cursor: pointer; width: 100%; }
-  .vv-cell.is-empty { visibility: hidden; cursor: default; }
-  .vv-cell[disabled] { cursor: default; }
-  .vv-cell__num { font-size: 17px; font-weight: 700; color: #1a1a1a; line-height: 1; }
-  .vv-cell__price { font-size: 12px; font-weight: 400; color: #7c7c7c; line-height: 1; min-height: 13px; }
-  /* Groene band (elke boekbare dag) */
-  .vv-cell.is-avail, .vv-cell.is-window { background: #ecf6db; }
-  .vv-cell.is-range { background: #cbe6a0; }
-  .vv-cell.is-sel   { background: #86c440; }
-  .vv-cell.is-sel .vv-cell__num { color: #fff; }
+  /* ══ Versie 2 — Van der Valk-functionaliteit in Asteria-huisstijl (browser) ══ */
+  .vv2-title { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 18px; color: #1a1a1a; text-align: center; margin: 0 0 20px; }
+  .vv2-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .vv2-nav button { background: none; border: none; font-size: 22px; line-height: 1; color: #4a4a4a; cursor: pointer; padding: 4px 10px; border-radius: 8px; }
+  .vv2-nav button:disabled { color: #d1d5db; cursor: default; }
+  .vv2-nav__label { font-family: 'Electrolize', sans-serif; font-size: 15px; color: #1a1a1a; }
+  .vv2-grid { display: flex; flex-direction: column; gap: 22px; }
+  @media (min-width: 600px) { .vv2-grid { flex-direction: row; } .vv2-month { flex: 1; min-width: 0; } }
+  .vv2-mlabel { font-family: 'Electrolize', sans-serif; font-size: 13px; color: #6b7280; text-align: center; margin-bottom: 8px; }
+  .vv2-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
+  .vv2-weekdays span { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: #9ca3af; padding: 4px 0; }
+  .vv2-days { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .vv2-day { font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-height: 44px; padding: 4px 0 3px; border: none; background: none; cursor: pointer; width: 100%; }
+  .vv2-day.is-empty { visibility: hidden; cursor: default; }
+  .vv2-day[disabled] { cursor: default; }
+  .vv2-num { font-size: 13px; font-weight: 600; color: #1a1a1a; line-height: 1; }
+  .vv2-price { font-size: 9px; font-weight: 600; color: #7c7c7c; line-height: 1; min-height: 11px; white-space: nowrap; }
+  /* Groene band (elke boekbare dag) — het Van der Valk-effect */
+  .vv2-day.is-avail, .vv2-day.is-window { background: #ecf6db; }
+  .vv2-day.is-range { background: #cbe6a0; }
+  .vv2-day.is-sel   { background: #86c440; }
+  .vv2-day.is-sel .vv2-num { color: #fff; }
+  .vv2-day.is-sel .vv2-price { color: #eaffd0; }
   /* Afgeronde uiteinden van elke aaneengesloten (groene) run binnen de week */
-  .vv-cell.r-l { border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
-  .vv-cell.r-r { border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+  .vv2-day.r-l { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+  .vv2-day.r-r { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
   /* Gedimd (buiten het uitcheck-venster, tijdens datumkeuze) */
-  .vv-cell.is-dim .vv-cell__num { color: #bdbdbd; }
-  .vv-cell.is-dim .vv-cell__price { color: #cfcfcf; }
+  .vv2-day.is-dim .vv2-num { color: #c4c4c4; }
+  .vv2-day.is-dim .vv2-price { color: #d4d4d4; }
   /* Vol / niet-boekbaar: geen band, geen prijs, GEEN streep */
-  .vv-cell.is-out .vv-cell__num { color: #c4c4c4; }
-  .vv-cell.is-past .vv-cell__num { color: #d6d6d6; }
+  .vv2-day.is-out .vv2-num { color: #c4c4c4; }
+  .vv2-day.is-past .vv2-num { color: #d6d6d6; }
   /* Footer */
-  .vv-foot { border-top: 1px solid #ececec; padding: 16px 18px 18px; }
-  .vv-foot__info { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; min-height: 20px; }
-  .vv-foot__range { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; color: #1a1a1a; }
-  .vv-foot__from  { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; color: #1a1a1a; white-space: nowrap; }
-  .vv-foot__hint  { font-family: 'Montserrat', sans-serif; font-size: 14px; color: #8c8c8c; }
-  .vv-apply { width: 100%; border: none; border-radius: 10px; padding: 15px; font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: #fff; background: #f4cfa0; cursor: default; }
-  .vv-apply.is-on { background: #ef8f3c; cursor: pointer; }
-  .vv-note { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #9a9a9a; margin: 14px 2px 0; }
+  .vv2-foot { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
+  .vv2-info { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #555; }
+  .vv2-info b { font-weight: 700; color: #1a1a1a; }
+  .vv2-cta { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: #fff; background: #c23435; border: none; border-radius: 8px; padding: 13px 30px; cursor: pointer; }
+  .vv2-cta:disabled { background: #e7b9ba; cursor: default; }
+  .vv2-note { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 300; color: #9098a3; text-align: center; margin: 16px 4px 0; }
 
 </style>
 </head>
@@ -650,27 +650,25 @@
 
   <div class="pv-section-label">
     <span class="n">Versie 2</span>
-    <h2>Van der Valk-stijl</h2>
-    <p>Elke boekbare dag krijgt een groene tint. Kies een aankomstdatum, dan licht het geldige uitcheck-venster op (uitchecken op een volle dag kan). Buiten dat venster dimmen de dagen.</p>
+    <h2>Van der Valk-functionaliteit, Asteria-huisstijl</h2>
+    <p>Groene dagtint (het 'goedkoop'-gevoel) en de Van der Valk-logica: kies een aankomstdatum, dan licht het geldige uitcheck-venster op (uitchecken op een volle dag kan). Nu in de browser-weergave met Asteria-lettertype en -knop.</p>
   </div>
 
-  <div class="vv-sheet">
-    <div class="vv-grab"></div>
-    <div class="vv-head"><span class="vv-head__title">Select a date</span><button class="vv-head__close" aria-label="Sluiten">&#10005;</button></div>
-    <div class="vv-weekhead"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
-    <div class="vv-scroll" id="vvScroll"></div>
-    <div class="vv-foot">
-      <div class="vv-foot__info" id="vvInfo"><span class="vv-foot__hint">Select a checkout date</span></div>
-      <button class="vv-apply" id="vvApply" disabled>Apply</button>
-      <p class="vv-note">Rounded price based on 1 night and the cheapest room.</p>
+  <div class="pv-card">
+    <h2 class="vv2-title">Kies uw verblijfsdata</h2>
+    <div id="vvCalendar"></div>
+    <div class="vv2-foot">
+      <div class="vv2-info" id="vvInfo">Kies je aankomst- en vertrekdatum.</div>
+      <button class="vv2-cta" id="vvApply" disabled>Verder</button>
     </div>
+    <p class="vv2-note">Afgeronde prijs per nacht, o.b.v. de goedkoopste beschikbare kamer voor 2 personen.</p>
   </div>
 
 
   <p class="pv-note">Prijzen zijn een momentopname van 2026-07-09 (in de live versie zijn ze realtime). Niet-openbare previewpagina.</p>
 
 <script>
-  var BAKED = {"2026-07-09": 135, "2026-07-10": 127, "2026-07-11": 136, "2026-07-12": 98, "2026-07-13": 125, "2026-07-14": 122, "2026-07-15": 118, "2026-07-16": 125, "2026-07-17": null, "2026-07-18": 197, "2026-07-19": 122, "2026-07-20": 121, "2026-07-21": 119, "2026-07-22": 116, "2026-07-23": 114, "2026-07-24": 134, "2026-07-25": 134, "2026-07-26": 104, "2026-07-27": 106, "2026-07-28": 118, "2026-07-29": 118, "2026-07-30": 112, "2026-07-31": 126, "2026-08-01": 130, "2026-08-02": 102, "2026-08-03": 121, "2026-08-04": 120, "2026-08-05": 120, "2026-08-06": 120, "2026-08-07": 116, "2026-08-08": 131, "2026-08-09": 115, "2026-08-10": 113, "2026-08-11": 114, "2026-08-12": 117, "2026-08-13": 128, "2026-08-14": null, "2026-08-15": null, "2026-08-16": 112, "2026-08-17": 115, "2026-08-18": 118, "2026-08-19": 123, "2026-08-20": 118, "2026-08-21": 124, "2026-08-22": 128, "2026-08-23": 102, "2026-08-24": 116, "2026-08-25": 122, "2026-08-26": 123, "2026-08-27": 117, "2026-08-28": 131, "2026-08-29": 144, "2026-08-30": 103, "2026-08-31": 122, "2026-09-01": 123, "2026-09-02": 134, "2026-09-03": 113, "2026-09-04": null, "2026-09-05": null, "2026-09-06": 104, "2026-09-07": 117, "2026-09-08": 128, "2026-09-09": 127, "2026-09-10": 123, "2026-09-11": 121, "2026-09-12": 131, "2026-09-13": 106, "2026-09-14": 112, "2026-09-15": 124, "2026-09-16": 126, "2026-09-17": 112, "2026-09-18": 139, "2026-09-19": 141, "2026-09-20": 108, "2026-09-21": 116, "2026-09-22": 127, "2026-09-23": 123, "2026-09-24": 112, "2026-09-25": 133, "2026-09-26": 145, "2026-09-27": 103, "2026-09-28": 121, "2026-09-29": 130, "2026-09-30": 126, "2026-10-01": 118, "2026-10-02": 134, "2026-10-03": 134, "2026-10-04": 103, "2026-10-05": 114, "2026-10-06": 122, "2026-10-07": 123, "2026-10-08": 112, "2026-10-09": 125, "2026-10-10": 134, "2026-10-11": 104, "2026-10-12": 119, "2026-10-13": 122, "2026-10-14": 120, "2026-10-15": null, "2026-10-16": null, "2026-10-17": null, "2026-10-18": 103, "2026-10-19": 113, "2026-10-20": 117, "2026-10-21": 120, "2026-10-22": null, "2026-10-23": null, "2026-10-24": null, "2026-10-25": 103, "2026-10-26": 112, "2026-10-27": 119, "2026-10-28": 120, "2026-10-29": 112, "2026-10-30": 113, "2026-10-31": 125};
+  var BAKED = {"2026-07-09": 138, "2026-07-10": 130, "2026-07-11": 135, "2026-07-12": 98, "2026-07-13": 134, "2026-07-14": 122, "2026-07-15": 117, "2026-07-16": 125, "2026-07-17": null, "2026-07-18": 206, "2026-07-19": 121, "2026-07-20": 120, "2026-07-21": 122, "2026-07-22": 117, "2026-07-23": 115, "2026-07-24": 134, "2026-07-25": 134, "2026-07-26": 104, "2026-07-27": 106, "2026-07-28": 117, "2026-07-29": 118, "2026-07-30": 112, "2026-07-31": 125, "2026-08-01": 130, "2026-08-02": 102, "2026-08-03": 121, "2026-08-04": 121, "2026-08-05": 122, "2026-08-06": 121, "2026-08-07": 115, "2026-08-08": 131, "2026-08-09": 115, "2026-08-10": 113, "2026-08-11": 114, "2026-08-12": 117, "2026-08-13": 129, "2026-08-14": null, "2026-08-15": null, "2026-08-16": 107, "2026-08-17": 115, "2026-08-18": 118, "2026-08-19": 127, "2026-08-20": 118, "2026-08-21": 125, "2026-08-22": 128, "2026-08-23": 102, "2026-08-24": 117, "2026-08-25": 122, "2026-08-26": 123, "2026-08-27": 117, "2026-08-28": 136, "2026-08-29": 144, "2026-08-30": 104, "2026-08-31": 122, "2026-09-01": 123, "2026-09-02": 134, "2026-09-03": 115, "2026-09-04": null, "2026-09-05": null, "2026-09-06": 104, "2026-09-07": 117, "2026-09-08": 128, "2026-09-09": 127, "2026-09-10": 122, "2026-09-11": 121, "2026-09-12": 131, "2026-09-13": 106, "2026-09-14": 112, "2026-09-15": 124, "2026-09-16": 126, "2026-09-17": 112, "2026-09-18": 139, "2026-09-19": 141, "2026-09-20": 108, "2026-09-21": 117, "2026-09-22": 127, "2026-09-23": 123, "2026-09-24": 112, "2026-09-25": 132, "2026-09-26": 144, "2026-09-27": 103, "2026-09-28": 121, "2026-09-29": 130, "2026-09-30": 126, "2026-10-01": 118, "2026-10-02": 134, "2026-10-03": 134, "2026-10-04": 103, "2026-10-05": 114, "2026-10-06": 122, "2026-10-07": 123, "2026-10-08": 112, "2026-10-09": 125, "2026-10-10": 134, "2026-10-11": 104, "2026-10-12": 119, "2026-10-13": 122, "2026-10-14": 120, "2026-10-15": null, "2026-10-16": null, "2026-10-17": null, "2026-10-18": 103, "2026-10-19": 113, "2026-10-20": 117, "2026-10-21": 120, "2026-10-22": null, "2026-10-23": null, "2026-10-24": null, "2026-10-25": 103, "2026-10-26": 112, "2026-10-27": 119, "2026-10-28": 120, "2026-10-29": 112, "2026-10-30": 113, "2026-10-31": 125};
   window.BAKED = BAKED;
   try { localStorage.setItem('asteria-dagprijzen', '1'); } catch (e) {}
   var _fetch = window.fetch;
@@ -963,10 +961,10 @@
 </script>
 <script>
 (function () {
-  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var MONTHS = ['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
+  var DAYS   = ['Ma','Di','Wo','Do','Vr','Za','Zo'];
   var BAKED  = window.BAKED || {};
   var MAXSTAY = 14;                       // max aantal nachten in het venster
-  var MONTHS_SHOWN = 4;
 
   function today() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
   var T0 = today();
@@ -976,9 +974,10 @@
   function fwd(y,m) { var w = new Date(y,m,1).getDay(); return w===0?6:w-1; }   // 0 = maandag
   function dim(y,m) { return new Date(y,m+1,0).getDate(); }
   function avail(d) { return typeof BAKED[iso(d)] === 'number'; }
-  function fmtFull(d) { var a = d.getDate(); return (a<10?'0'+a:a)+' '+MONTHS[d.getMonth()]+' '+d.getFullYear(); }
+  function fmtFull(d) { return d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear(); }
 
   var st = { start:null, end:null };
+  var view = { y:0, m:0 };
 
   // Laatste geldige uitcheckdatum vanaf de aankomst: schuif op zolang de NACHT
   // beschikbaar is (de uitcheckdag zelf hoeft niet beschikbaar te zijn — je
@@ -1022,61 +1021,61 @@
 
   function monthHtml(y, m) {
     var first = fwd(y,m), n = dim(y,m);
-    var cells = [];
-    for (var e=0; e<first; e++) cells.push(null);
-    for (var d=1; d<=n; d++) cells.push(new Date(y,m,d));
-    while (cells.length % 7 !== 0) cells.push(null);
+    function coloredDay(day) { return day>=1 && day<=n && cellInfo(new Date(y,m,day)).colored; }
 
-    var html = '<div class="vv-mtitle">'+MONTHS[m]+' '+y+'</div>';
-    for (var i=0; i<cells.length; i+=7) {
-      var wk = cells.slice(i, i+7);
-      var info = wk.map(function(dt){ return dt ? cellInfo(dt) : { empty:true, colored:false }; });
-      html += '<div class="vv-week">';
-      for (var j=0; j<7; j++) {
-        var c = info[j];
-        if (c.empty) { html += '<span class="vv-cell is-empty"></span>'; continue; }
-        var cls = c.cls.slice();
-        if (c.colored) {                    // afgeronde uiteinden van de run
-          if (j===0 || !info[j-1].colored) cls.push('r-l');
-          if (j===6 || !info[j+1].colored) cls.push('r-r');
-        }
-        var dt = wk[j];
-        html += '<button class="vv-cell '+cls.join(' ')+'" data-d="'+iso(dt)+'"'+(c.clickable?'':' disabled')+'>'
-              + '<span class="vv-cell__num">'+c.num+'</span>'
-              + '<span class="vv-cell__price">'+(c.price!=null ? '€'+c.price : '')+'</span></button>';
+    var html = '<div class="vv2-month"><div class="vv2-mlabel">'+MONTHS[m]+' '+y+'</div><div class="vv2-weekdays">';
+    for (var w=0; w<7; w++) html += '<span>'+DAYS[w]+'</span>';
+    html += '</div><div class="vv2-days">';
+    for (var e=0; e<first; e++) html += '<span class="vv2-day is-empty"></span>';
+    for (var d=1; d<=n; d++) {
+      var dt = new Date(y,m,d), ci = cellInfo(dt), col = (first + d - 1) % 7;
+      var cls = ['vv2-day'].concat(ci.cls);
+      if (ci.colored) {
+        if (col===0 || !coloredDay(d-1)) cls.push('r-l');
+        if (col===6 || !coloredDay(d+1)) cls.push('r-r');
       }
-      html += '</div>';
+      html += '<button class="'+cls.join(' ')+'" data-d="'+iso(dt)+'"'+(ci.clickable?'':' disabled')+'>'
+            + '<span class="vv2-num">'+d+'</span>'
+            + '<span class="vv2-price">'+(ci.price!=null ? '€ '+ci.price : '')+'</span></button>';
     }
-    return html;
+    return html + '</div></div>';
   }
 
   function foot() {
-    var info = document.getElementById('vvInfo'), apply = document.getElementById('vvApply');
+    var info = document.getElementById('vvInfo'), cta = document.getElementById('vvApply');
     if (st.start && st.end) {
       var lo = st.start<st.end?st.start:st.end, hi = st.start<st.end?st.end:st.start;
       var total = 0, d = new Date(lo);
       while (d < hi) { var v = BAKED[iso(d)]; if (typeof v === 'number') total += v; d = add(d,1); }
-      info.innerHTML = '<span class="vv-foot__range">'+fmtFull(lo)+' - '+fmtFull(hi)+'</span>'
-                     + '<span class="vv-foot__from">From &euro;'+total+',-</span>';
-      apply.classList.add('is-on'); apply.removeAttribute('disabled');
+      info.innerHTML = '<b>'+fmtFull(lo)+'</b> t/m <b>'+fmtFull(hi)+'</b> &middot; vanaf &euro; '+total;
+      cta.removeAttribute('disabled');
+    } else if (st.start) {
+      info.textContent = 'Kies je vertrekdatum.';
+      cta.setAttribute('disabled','');
     } else {
-      info.innerHTML = '<span class="vv-foot__hint">Select a checkout date</span>';
-      apply.classList.remove('is-on'); apply.setAttribute('disabled','');
+      info.textContent = 'Kies je aankomst- en vertrekdatum.';
+      cta.setAttribute('disabled','');
     }
   }
 
   function render() {
-    var sc = document.getElementById('vvScroll'); if (!sc) return;
-    var top = sc.scrollTop;
-    var t = today(), y = t.getFullYear(), m = t.getMonth(), html = '';
-    for (var k=0; k<MONTHS_SHOWN; k++) { html += monthHtml(y, m); m++; if (m>11){m=0;y++;} }
-    sc.innerHTML = html;
-    sc.scrollTop = top;
-    sc.querySelectorAll('.vv-cell:not(.is-empty):not([disabled])').forEach(function(b){
+    var box = document.getElementById('vvCalendar'); if (!box) return;
+    var y1 = view.y, m1 = view.m, y2 = y1, m2 = m1+1; if (m2>11) { m2=0; y2++; }
+    var prevOff = (y1<T0.getFullYear()) || (y1===T0.getFullYear() && m1<=T0.getMonth());
+    var html = '<div class="vv2-nav"><button class="vv2-prev"'+(prevOff?' disabled':'')+'>&#8249;</button>'
+             + '<span class="vv2-nav__label">'+MONTHS[m1]+' &mdash; '+MONTHS[m2]+' '+y2+'</span>'
+             + '<button class="vv2-next">&#8250;</button></div>'
+             + '<div class="vv2-grid">'+monthHtml(y1,m1)+monthHtml(y2,m2)+'</div>';
+    box.innerHTML = html;
+
+    var p = box.querySelector('.vv2-prev'), nx = box.querySelector('.vv2-next');
+    if (p) p.addEventListener('click', function(){ if (p.disabled) return; view.m--; if (view.m<0){view.m=11;view.y--;} render(); });
+    if (nx) nx.addEventListener('click', function(){ view.m++; if (view.m>11){view.m=0;view.y++;} render(); });
+    box.querySelectorAll('.vv2-day:not(.is-empty):not([disabled])').forEach(function(b){
       b.addEventListener('click', function(){
         var d = new Date(b.dataset.d + 'T00:00:00');
         if (!st.start || (st.start && st.end)) { st.start = d; st.end = null; }
-        else {                                  // aankomst gekozen, nu uitcheck
+        else {
           var we = windowEnd();
           if (d > st.start && d <= we) st.end = d;   // geldige uitcheck (ook volle dag)
           else st.start = d;                          // anders: nieuwe aankomst
@@ -1087,7 +1086,7 @@
     foot();
   }
 
-  window.initVvCalendar = function(){ st.start = st.end = null; render(); };
+  window.initVvCalendar = function(){ st.start = st.end = null; view.y = T0.getFullYear(); view.m = T0.getMonth(); render(); };
 })();
 </script>
 <script>
