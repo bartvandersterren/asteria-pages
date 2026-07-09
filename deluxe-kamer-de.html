@@ -879,30 +879,19 @@
   }
   .cal-day {
     font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
     color: #1a1a1a;
     background: none;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 50%;
     cursor: pointer;
+    aspect-ratio: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1px;
-    padding: 4px 0 3px;
+    padding: 0;
     width: 100%;
-    min-height: 40px;
-    line-height: 1.05;
-  }
-  .cal-day__num   { font-size: 12px; font-weight: 400; }
-  /* Dagprijs (laagste beschikbare kamer, 2 pers.) — neutrale tint, geen merk-goud */
-  .cal-day__price {
-    font-size: 9px;
-    font-weight: 600;
-    color: #5a6472;
-    letter-spacing: .01em;
-    min-height: 11px;          /* reserveer hoogte → geen layout-shift tijdens laden */
-    white-space: nowrap;
   }
   .cal-day:hover:not(.is-disabled):not(.is-start):not(.is-end) {
     background: #f3f4f6;
@@ -912,22 +901,15 @@
     cursor: default;
     pointer-events: none;
   }
-  .cal-day.is-disabled .cal-day__price { visibility: hidden; }
-  /* Vol (geen kamer beschikbaar): dimmen, maar klikbaar houden voor uitcheckdag */
-  .cal-day.is-unavailable         { color: #c2c2c2; }
-  .cal-day.is-unavailable .cal-day__price { color: #c6c2ba; }
   .cal-day.is-today { border-color: #c23435; }
   .cal-day.is-start,
   .cal-day.is-end {
     background: #c23435;
     border-color: #c23435;
     color: #fff;
-    border-radius: 8px;
+    font-weight: 700;
+    border-radius: 50%;
   }
-  .cal-day.is-start  .cal-day__num,
-  .cal-day.is-end    .cal-day__num   { font-weight: 700; }
-  .cal-day.is-start  .cal-day__price,
-  .cal-day.is-end    .cal-day__price { color: rgba(255,255,255,.85); }
   .cal-day.is-in-range,
   .cal-day.is-hover-range {
     background: #fde8e8;
@@ -935,10 +917,45 @@
     border-radius: 0;
     color: #1a1a1a;
   }
-  .cal-day.is-in-range .cal-day__price,
-  .cal-day.is-hover-range .cal-day__price { color: #9c6b70; }
 
-  /* Prijs-disclaimer onder de kalender */
+  /* ══ Dagprijzen — alleen actief als #bkStep1 de klasse .cal-has-prices
+     krijgt (gezet door de datepicker zodra CAL_PRICES_ENABLED true is).
+     Standaard UIT: dan is de kalender identiek aan voorheen. ══ */
+  .cal-day__num   { font-size: 12px; font-weight: 400; }
+  .cal-day__price { display: none; }          /* verborgen tenzij prijzen aan */
+  .cal-has-prices .cal-day {
+    aspect-ratio: auto;
+    border-radius: 8px;
+    flex-direction: column;
+    gap: 1px;
+    padding: 4px 0 3px;
+    min-height: 40px;
+    line-height: 1.05;
+  }
+  .cal-has-prices .cal-day.is-start,
+  .cal-has-prices .cal-day.is-end { border-radius: 8px; }
+  /* Dagprijs (laagste beschikbare kamer, 2 pers.) — neutrale tint, geen merk-goud */
+  .cal-has-prices .cal-day__price {
+    display: block;
+    font-size: 9px;
+    font-weight: 600;
+    color: #5a6472;
+    letter-spacing: .01em;
+    min-height: 11px;          /* reserveer hoogte → geen layout-shift tijdens laden */
+    white-space: nowrap;
+  }
+  .cal-has-prices .cal-day.is-start .cal-day__num,
+  .cal-has-prices .cal-day.is-end   .cal-day__num { font-weight: 700; }
+  .cal-has-prices .cal-day.is-disabled .cal-day__price { visibility: hidden; }
+  /* Vol (geen kamer beschikbaar): dimmen, maar klikbaar houden voor uitcheckdag */
+  .cal-has-prices .cal-day.is-unavailable { color: #c2c2c2; }
+  .cal-has-prices .cal-day.is-unavailable .cal-day__price { color: #c6c2ba; }
+  .cal-has-prices .cal-day.is-start .cal-day__price,
+  .cal-has-prices .cal-day.is-end   .cal-day__price { color: rgba(255,255,255,.85); }
+  .cal-has-prices .cal-day.is-in-range .cal-day__price,
+  .cal-has-prices .cal-day.is-hover-range .cal-day__price { color: #9c6b70; }
+
+  /* Prijs-disclaimer onder de kalender (alleen zichtbaar als prijzen aan) */
   .bk-price-note {
     font-family: 'Montserrat', sans-serif;
     font-size: 11px;
@@ -947,7 +964,10 @@
     color: #9098a3;
     text-align: center;
     margin: 10px 4px 0;
+    display: none;
   }
+  #bkStep1.cal-has-prices .bk-price-note,
+  .cal-has-prices .bk-price-note { display: block; }
 
   /* ── Titel ── */
   .bk-title {
@@ -2300,6 +2320,18 @@ window.ROOMS = {"comfort": {"name": "Komfortzimmer", "upgrade": "", "mewsCategor
 
   var CAL_CUR = '€'; // €
 
+  // Dagprijzen staan standaard UIT (kalender = zoals voorheen). Activeren:
+  //  1) permanent overal → zet CAL_PRICES_ENABLED op true en rebuild.
+  //  2) los previewen → open een pagina met ?dagprijzen=1 (blijft plakken via
+  //     localStorage; ?dagprijzen=0 zet 'm weer uit).
+  var CAL_PRICES_ENABLED = false;
+  try {
+    var _dp = new URLSearchParams(location.search).get('dagprijzen');
+    if (_dp === '1') localStorage.setItem('asteria-dagprijzen', '1');
+    else if (_dp === '0') localStorage.removeItem('asteria-dagprijzen');
+    if (localStorage.getItem('asteria-dagprijzen') === '1') CAL_PRICES_ENABLED = true;
+  } catch (e) {}
+
   var cal = {
     viewYear: 0, viewMonth: 0,
     selectedStart: null, selectedEnd: null,
@@ -2346,6 +2378,7 @@ window.ROOMS = {"comfort": {"name": "Komfortzimmer", "upgrade": "", "mewsCategor
   }
 
   function ensureMonth(year, month, rerender) {
+    if (!CAL_PRICES_ENABLED) return;
     var key = pmKey(year, month);
     if (cal.pricesByMonth[key]) return;             // al bezig of geladen
     cal.pricesByMonth[key] = { status: 'loading', prices: null };
@@ -2446,11 +2479,15 @@ window.ROOMS = {"comfort": {"name": "Komfortzimmer", "upgrade": "", "mewsCategor
     var y2 = y1, m2 = m1 + 1;
     if (m2 > 11) { m2 = 0; y2++; }
 
-    // Dagprijzen: twee zichtbare maanden ophalen (+ volgende prefetchen).
-    ensureMonth(y1, m1, true);
-    ensureMonth(y2, m2, true);
-    var y3 = y2, m3 = m2 + 1; if (m3 > 11) { m3 = 0; y3++; }
-    ensureMonth(y3, m3, false);
+    // Dagprijzen (alleen als geactiveerd): zichtbare maanden + prefetch.
+    if (CAL_PRICES_ENABLED) {
+      var _s1 = document.getElementById('bkStep1');
+      if (_s1) _s1.classList.add('cal-has-prices');
+      ensureMonth(y1, m1, true);
+      ensureMonth(y2, m2, true);
+      var y3 = y2, m3 = m2 + 1; if (m3 > 11) { m3 = 0; y3++; }
+      ensureMonth(y3, m3, false);
+    }
 
     var todayDate    = todayMidnight();
     var prevDisabled = (y1 < todayDate.getFullYear()) ||

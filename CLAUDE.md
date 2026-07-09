@@ -109,7 +109,14 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 
 ## Dagprijzen-kalender (OTA-stijl datepicker, 2026-07-09)
 
-De custom datepicker toont per dag de laagste beschikbare kamerprijs (2 pers., 1 nacht, afgerond), exact matchend met direct boeken via Mews. Live op alle boek-knoppen (happy-summer-arrangement, kamerpagina's ×3 talen, welkom).
+De custom datepicker kan per dag de laagste beschikbare kamerprijs tonen (2 pers., 1 nacht, afgerond), exact matchend met direct boeken via Mews. De code staat op alle boek-knoppen (happy-summer-arrangement, kamerpagina's ×3 talen, welkom) maar staat **standaard UIT** — dan is de kalender identiek aan voorheen (ronde cellen, geen prijzen).
+
+**Activeren:**
+- **Overal permanent:** zet in `happy-summer.template.html` `var CAL_PRICES_ENABLED = false;` → `true` en rebuild (`build.py happy-summer && build.py welkom && build_kamers.py`).
+- **Los previewen op een echte pagina:** open met `?dagprijzen=1` (blijft plakken via `localStorage['asteria-dagprijzen']`; `?dagprijzen=0` zet uit). Let op: de lang-redirect kan de query-param droppen bij niet-NL browsers — gebruik dan de losse previewpagina.
+- **Deelbare preview:** `dagprijzen-preview.html` → `visit.asteria.nl/dagprijzen-preview` — zelfstandige pagina met prijzen AAN en een **ingebakken momentopname** van echte Mews-prijzen (geen KV/endpoint nodig, geen redirect). Hergenereren met `scratchpad/gen_preview.py` (slicet de echte widget uit happy-summer-arrangement.html + verse prijzen). `noindex`.
+
+Technisch: `.cal-day` basis = oude ronde cel; prijs-stijl alleen onder `.cal-has-prices` (klasse die de datepicker op `#bkStep1` zet als de flag aan is).
 
 **Endpoint:** `functions/api/day-prices.js` → `GET /api/day-prices?from=YYYY-MM-DD&to=YYYY-MM-DD` → `{ prices: { "2026-08-01": 114, "2026-08-02": null, … }, currency:"EUR" }`. `null` = die nacht geen kamer beschikbaar. Vereist KV-binding `ASTERIA_KV` (bestaat al). Cache: per maand `dayprices:v1:{YYYY-MM}` (26u TTL, vers <1u, stale-while-revalidate).
 
