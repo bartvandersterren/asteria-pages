@@ -586,45 +586,45 @@
     border: none;
   }
 
-  /* ══ Versie 2 — Van der Valk-stijl (groen) ══ */
-  .vv-card .bk-title, .vv-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; text-align: center; color: #2f3a22; margin: 0 0 6px; }
-  .vv-sub { text-align: center; font-size: 12px; color: #6b8a3f; font-weight: 600; margin: 0 0 20px; }
-  .vv-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-  .vv-nav button { background: none; border: none; font-size: 22px; line-height: 1; color: #5f8f1f; cursor: pointer; padding: 4px 12px; border-radius: 8px; }
-  .vv-nav button:disabled { color: #cdd6c0; cursor: default; }
-  .vv-nav__label { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: #33401f; }
-  .vv-grid { display: flex; flex-direction: column; gap: 20px; }
-  @media (min-width: 600px) { .vv-grid { flex-direction: row; } .vv-month { flex: 1; min-width: 0; } }
-  .vv-month-label { text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; color: #6a7358; margin-bottom: 8px; }
-  .vv-weekdays { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
-  .vv-weekdays span { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; color: #9aa0a6; padding: 4px 0; }
-  .vv-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
-  .vv-empty { display: block; }
-  .vv-day { font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; min-height: 42px; padding: 4px 0 3px; width: 100%; border: 1px solid transparent; border-radius: 6px; background: none; cursor: pointer; }
-  .vv-day__num { font-size: 12px; font-weight: 600; color: #2f3a22; }
-  .vv-day__price { font-size: 9px; font-weight: 700; color: #5f8f1f; min-height: 11px; white-space: nowrap; }
-  /* Elke boekbare dag krijgt de groene tint — dat is de kern van het effect */
-  .vv-day.is-avail { background: #e3f3d0; }
-  .vv-day.is-avail:hover { background: #d2ebb2; }
-  .vv-day.is-past { cursor: default; }
-  .vv-day.is-past .vv-day__num { color: #d3d3d3; }
-  .vv-day.is-past .vv-day__price { visibility: hidden; }
-  .vv-day.is-out { cursor: default; background: #f4f4f2; }
-  .vv-day.is-out .vv-day__num { color: #c4c4c4; text-decoration: line-through; }
-  .vv-day.is-out .vv-day__price { visibility: hidden; }
-  .vv-day.is-range { background: #cfe8a6; border-radius: 0; }
-  .vv-day.is-hoverrange { background: #ddf0c2; border-radius: 0; }
-  .vv-day.is-start, .vv-day.is-end { background: #6fab1e; border-radius: 6px; }
-  .vv-day.is-start .vv-day__num, .vv-day.is-end .vv-day__num { color: #fff; }
-  .vv-day.is-start .vv-day__price, .vv-day.is-end .vv-day__price { color: #eaffd0; }
-  /* Na aankomstkeuze: prijzen van het uitcheck-venster verborgen (cel blijft groen) */
-  .vv-day.is-hidden-price .vv-day__price { visibility: hidden; }
-  .vv-summary { display: flex; align-items: center; background: #f2f6ea; border-radius: 10px; padding: 12px 8px; margin-top: 18px; }
-  .vv-summary__f { flex: 1; text-align: center; }
-  .vv-summary__l { display: block; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: #8a9a72; }
-  .vv-summary__v { display: block; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; color: #33401f; margin-top: 3px; }
-  .vv-sep { width: 1px; align-self: stretch; background: #dde5cf; margin: 4px 0; }
-  .vv-hint { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 300; color: #7d8a66; margin: 12px 4px 0; min-height: 15px; }
+  /* ══ Versie 2 — Van der Valk-stijl (bottom-sheet, groen) ══ */
+  .vv-sheet { max-width: 420px; margin: 0 auto; background: #fff; border-radius: 20px; box-shadow: 0 12px 44px rgba(0,0,0,.13); overflow: hidden; display: flex; flex-direction: column; }
+  .vv-grab { width: 40px; height: 4px; background: #d7d7d7; border-radius: 2px; margin: 12px auto 2px; }
+  .vv-head { position: relative; text-align: center; padding: 14px 20px 16px; }
+  .vv-head__title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; color: #1a1a1a; }
+  .vv-head__close { position: absolute; top: 12px; right: 18px; font-size: 20px; color: #333; background: none; border: none; cursor: pointer; line-height: 1; }
+  .vv-weekhead { display: grid; grid-template-columns: repeat(7, 1fr); border-top: 1px solid #ececec; border-bottom: 1px solid #ececec; padding: 12px 14px; }
+  .vv-weekhead span { text-align: center; font-family: 'Montserrat', sans-serif; font-size: 15px; color: #8c8c8c; }
+  .vv-scroll { max-height: 460px; overflow-y: auto; padding: 4px 14px 12px; }
+  .vv-mtitle { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 20px; color: #1a1a1a; margin: 18px 0 10px; }
+  .vv-week { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 8px; }
+  .vv-cell { font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; padding: 6px 0; border: none; background: none; cursor: pointer; width: 100%; }
+  .vv-cell.is-empty { visibility: hidden; cursor: default; }
+  .vv-cell[disabled] { cursor: default; }
+  .vv-cell__num { font-size: 17px; font-weight: 700; color: #1a1a1a; line-height: 1; }
+  .vv-cell__price { font-size: 12px; font-weight: 400; color: #7c7c7c; line-height: 1; min-height: 13px; }
+  /* Groene band (elke boekbare dag) */
+  .vv-cell.is-avail, .vv-cell.is-window { background: #ecf6db; }
+  .vv-cell.is-range { background: #cbe6a0; }
+  .vv-cell.is-sel   { background: #86c440; }
+  .vv-cell.is-sel .vv-cell__num { color: #fff; }
+  /* Afgeronde uiteinden van elke aaneengesloten (groene) run binnen de week */
+  .vv-cell.r-l { border-top-left-radius: 12px; border-bottom-left-radius: 12px; }
+  .vv-cell.r-r { border-top-right-radius: 12px; border-bottom-right-radius: 12px; }
+  /* Gedimd (buiten het uitcheck-venster, tijdens datumkeuze) */
+  .vv-cell.is-dim .vv-cell__num { color: #bdbdbd; }
+  .vv-cell.is-dim .vv-cell__price { color: #cfcfcf; }
+  /* Vol / niet-boekbaar: geen band, geen prijs, GEEN streep */
+  .vv-cell.is-out .vv-cell__num { color: #c4c4c4; }
+  .vv-cell.is-past .vv-cell__num { color: #d6d6d6; }
+  /* Footer */
+  .vv-foot { border-top: 1px solid #ececec; padding: 16px 18px 18px; }
+  .vv-foot__info { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 12px; min-height: 20px; }
+  .vv-foot__range { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; color: #1a1a1a; }
+  .vv-foot__from  { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; color: #1a1a1a; white-space: nowrap; }
+  .vv-foot__hint  { font-family: 'Montserrat', sans-serif; font-size: 14px; color: #8c8c8c; }
+  .vv-apply { width: 100%; border: none; border-radius: 10px; padding: 15px; font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: #fff; background: #f4cfa0; cursor: default; }
+  .vv-apply.is-on { background: #ef8f3c; cursor: pointer; }
+  .vv-note { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #9a9a9a; margin: 14px 2px 0; }
 
 </style>
 </head>
@@ -651,14 +651,19 @@
   <div class="pv-section-label">
     <span class="n">Versie 2</span>
     <h2>Van der Valk-stijl</h2>
-    <p>Elke boekbare dag krijgt een groene tint (het 'goedkoop'-gevoel). Zodra je een aankomstdatum kiest, verdwijnen de prijzen van de komende twee weken.</p>
+    <p>Elke boekbare dag krijgt een groene tint. Kies een aankomstdatum, dan licht het geldige uitcheck-venster op (uitchecken op een volle dag kan). Buiten dat venster dimmen de dagen.</p>
   </div>
 
-  <div class="pv-card vv-card">
-    <div class="vv-title">Kies je aankomst- en vertrekdatum</div>
-    <div class="vv-sub">&#10003; Laagste prijs gegarandeerd</div>
-    <div id="vvCalendar"></div>
-    <p class="vv-hint" id="vvHint">Kies je aankomstdatum om te beginnen.</p>
+  <div class="vv-sheet">
+    <div class="vv-grab"></div>
+    <div class="vv-head"><span class="vv-head__title">Select a date</span><button class="vv-head__close" aria-label="Sluiten">&#10005;</button></div>
+    <div class="vv-weekhead"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+    <div class="vv-scroll" id="vvScroll"></div>
+    <div class="vv-foot">
+      <div class="vv-foot__info" id="vvInfo"><span class="vv-foot__hint">Select a checkout date</span></div>
+      <button class="vv-apply" id="vvApply" disabled>Apply</button>
+      <p class="vv-note">Rounded price based on 1 night and the cheapest room.</p>
+    </div>
   </div>
 
 
@@ -667,7 +672,6 @@
 <script>
   var BAKED = {"2026-07-09": 135, "2026-07-10": 127, "2026-07-11": 136, "2026-07-12": 98, "2026-07-13": 125, "2026-07-14": 122, "2026-07-15": 118, "2026-07-16": 125, "2026-07-17": null, "2026-07-18": 197, "2026-07-19": 122, "2026-07-20": 121, "2026-07-21": 119, "2026-07-22": 116, "2026-07-23": 114, "2026-07-24": 134, "2026-07-25": 134, "2026-07-26": 104, "2026-07-27": 106, "2026-07-28": 118, "2026-07-29": 118, "2026-07-30": 112, "2026-07-31": 126, "2026-08-01": 130, "2026-08-02": 102, "2026-08-03": 121, "2026-08-04": 120, "2026-08-05": 120, "2026-08-06": 120, "2026-08-07": 116, "2026-08-08": 131, "2026-08-09": 115, "2026-08-10": 113, "2026-08-11": 114, "2026-08-12": 117, "2026-08-13": 128, "2026-08-14": null, "2026-08-15": null, "2026-08-16": 112, "2026-08-17": 115, "2026-08-18": 118, "2026-08-19": 123, "2026-08-20": 118, "2026-08-21": 124, "2026-08-22": 128, "2026-08-23": 102, "2026-08-24": 116, "2026-08-25": 122, "2026-08-26": 123, "2026-08-27": 117, "2026-08-28": 131, "2026-08-29": 144, "2026-08-30": 103, "2026-08-31": 122, "2026-09-01": 123, "2026-09-02": 134, "2026-09-03": 113, "2026-09-04": null, "2026-09-05": null, "2026-09-06": 104, "2026-09-07": 117, "2026-09-08": 128, "2026-09-09": 127, "2026-09-10": 123, "2026-09-11": 121, "2026-09-12": 131, "2026-09-13": 106, "2026-09-14": 112, "2026-09-15": 124, "2026-09-16": 126, "2026-09-17": 112, "2026-09-18": 139, "2026-09-19": 141, "2026-09-20": 108, "2026-09-21": 116, "2026-09-22": 127, "2026-09-23": 123, "2026-09-24": 112, "2026-09-25": 133, "2026-09-26": 145, "2026-09-27": 103, "2026-09-28": 121, "2026-09-29": 130, "2026-09-30": 126, "2026-10-01": 118, "2026-10-02": 134, "2026-10-03": 134, "2026-10-04": 103, "2026-10-05": 114, "2026-10-06": 122, "2026-10-07": 123, "2026-10-08": 112, "2026-10-09": 125, "2026-10-10": 134, "2026-10-11": 104, "2026-10-12": 119, "2026-10-13": 122, "2026-10-14": 120, "2026-10-15": null, "2026-10-16": null, "2026-10-17": null, "2026-10-18": 103, "2026-10-19": 113, "2026-10-20": 117, "2026-10-21": 120, "2026-10-22": null, "2026-10-23": null, "2026-10-24": null, "2026-10-25": 103, "2026-10-26": 112, "2026-10-27": 119, "2026-10-28": 120, "2026-10-29": 112, "2026-10-30": 113, "2026-10-31": 125};
   window.BAKED = BAKED;
-  // Versie 1 gebruikt de echte widget met /api/day-prices — stub die naar BAKED wijst.
   try { localStorage.setItem('asteria-dagprijzen', '1'); } catch (e) {}
   var _fetch = window.fetch;
   window.fetch = function(url, opts) {
@@ -959,105 +963,131 @@
 </script>
 <script>
 (function () {
-  var MONTHS = ['Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December'];
-  var DAYS   = ['Ma','Di','Wo','Do','Vr','Za','Zo'];
-  var SD = ['zo','ma','di','wo','do','vr','za'];
-  var SM = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
-  var BAKED = window.BAKED || {};
-  var HIDE_DAYS = 14;   // uitcheck-venster waarin prijzen verborgen worden
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var BAKED  = window.BAKED || {};
+  var MAXSTAY = 14;                       // max aantal nachten in het venster
+  var MONTHS_SHOWN = 4;
 
   function today() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  var T0 = today();
   function iso(d) { var m = d.getMonth()+1, a = d.getDate(); return d.getFullYear()+'-'+(m<10?'0'+m:m)+'-'+(a<10?'0'+a:a); }
   function same(a,b) { return a && b && a.getTime()===b.getTime(); }
   function add(d,n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()+n); }
-  function fwd(y,m) { var w = new Date(y,m,1).getDay(); return w===0?6:w-1; }
+  function fwd(y,m) { var w = new Date(y,m,1).getDay(); return w===0?6:w-1; }   // 0 = maandag
   function dim(y,m) { return new Date(y,m+1,0).getDate(); }
-  function fmt(d) { return d ? (SD[d.getDay()]+' '+d.getDate()+' '+SM[d.getMonth()]) : '—'; }
+  function avail(d) { return typeof BAKED[iso(d)] === 'number'; }
+  function fmtFull(d) { var a = d.getDate(); return (a<10?'0'+a:a)+' '+MONTHS[d.getMonth()]+' '+d.getFullYear(); }
 
-  var st = { vy:0, vm:0, start:null, end:null, hover:null };
+  var st = { start:null, end:null };
 
-  function month(y, m) {
-    var t = today(), n = dim(y,m), first = fwd(y,m);
-    var ra=null, rb=null;
-    if (st.start && st.end) { ra = st.start<st.end?st.start:st.end; rb = st.start<st.end?st.end:st.start; }
-    else if (st.start && st.hover && !same(st.hover,st.start)) { ra = st.start<st.hover?st.start:st.hover; rb = st.start<st.hover?st.hover:st.start; }
-    var ha = st.start, hb = st.start ? add(st.start, HIDE_DAYS) : null;
-
-    var h = '<div class="vv-month"><div class="vv-month-label">'+MONTHS[m]+' '+y+'</div><div class="vv-weekdays">';
-    for (var w=0; w<7; w++) h += '<span>'+DAYS[w]+'</span>';
-    h += '</div><div class="vv-days">';
-    for (var e=0; e<first; e++) h += '<span class="vv-empty"></span>';
-    for (var d=1; d<=n; d++) {
-      var dt = new Date(y,m,d), id = iso(dt), past = dt<t, pr = BAKED[id], avail = (typeof pr === 'number');
-      var c = ['vv-day'], ptxt = '';
-      if (past) c.push('is-past');
-      else if (!avail) c.push('is-out');
-      else {
-        c.push('is-avail');
-        var hidden = ha && dt >= ha && dt <= hb;   // binnen uitcheck-venster
-        if (hidden) c.push('is-hidden-price'); else ptxt = '€ ' + pr;
-      }
-      if (same(dt, st.start)) c.push('is-start');
-      if (same(dt, st.end))   c.push('is-end');
-      if (ra && rb && dt>ra && dt<rb) c.push(st.end ? 'is-range' : 'is-hoverrange');
-      var ok = !past && avail;
-      h += '<button class="'+c.join(' ')+'" data-d="'+id+'"'+(ok?'':' disabled')+'>'
-         + '<span class="vv-day__num">'+d+'</span><span class="vv-day__price">'+ptxt+'</span></button>';
+  // Laatste geldige uitcheckdatum vanaf de aankomst: schuif op zolang de NACHT
+  // beschikbaar is (de uitcheckdag zelf hoeft niet beschikbaar te zijn — je
+  // slaapt die nacht niet). Stopt bij de eerste volle nacht of na MAXSTAY.
+  function windowEnd() {
+    if (!st.start) return null;
+    var co = add(st.start, 1);            // minimale uitcheck = 1 nacht
+    while ((co - st.start) / 86400000 < MAXSTAY) {
+      if (BAKED[iso(co)] == null) break;  // nacht 'co' is vol → hier stopt het
+      co = add(co, 1);
     }
-    return h + '</div></div>';
+    return co;
   }
 
-  function summary() {
-    var a = st.start && st.end ? (st.start<st.end?st.start:st.end) : st.start;
-    var b = st.start && st.end ? (st.start<st.end?st.end:st.start) : null;
-    var nights = '—';
-    if (st.start && st.end) nights = Math.round(Math.abs(st.end-st.start)/86400000) + ' nachten';
-    return '<div class="vv-summary">'
-      + '<div class="vv-summary__f"><span class="vv-summary__l">Aankomst</span><span class="vv-summary__v">'+fmt(a)+'</span></div>'
-      + '<div class="vv-sep"></div>'
-      + '<div class="vv-summary__f"><span class="vv-summary__l">Vertrek</span><span class="vv-summary__v">'+fmt(b)+'</span></div>'
-      + '<div class="vv-sep"></div>'
-      + '<div class="vv-summary__f"><span class="vv-summary__l">Nachten</span><span class="vv-summary__v">'+nights+'</span></div></div>';
+  // Bepaal per dag: klasse, prijs (of null=verbergen), klikbaar, gekleurd(voor band).
+  function cellInfo(dt) {
+    var res = { num: dt.getDate(), price: null, cls: [], colored: false, clickable: false };
+    if (dt < T0) { res.cls.push('is-past'); return res; }
+    var s = st.start, e = st.end, a = avail(dt);
+
+    if (!s) {                              // niets geselecteerd
+      if (a) { res.colored = true; res.clickable = true; res.cls.push('is-avail'); res.price = BAKED[iso(dt)]; }
+      else res.cls.push('is-out');
+      return res;
+    }
+    if (s && !e) {                         // aankomst gekozen, uitcheck nog niet
+      var we = windowEnd();
+      if (same(dt, s)) { res.colored = true; res.clickable = true; res.cls.push('is-sel'); return res; }
+      if (dt > s && dt <= we) { res.colored = true; res.clickable = true; res.cls.push('is-window'); return res; } // geldige uitcheck (ook als vol)
+      if (a) { res.clickable = true; res.cls.push('is-dim'); res.price = BAKED[iso(dt)]; }  // gedimd, klik = nieuwe aankomst
+      else res.cls.push('is-dim','is-out');
+      return res;
+    }
+    // volledige selectie
+    var lo = s<e?s:e, hi = s<e?e:s;
+    if (same(dt, lo) || same(dt, hi)) { res.colored = true; res.clickable = true; res.cls.push('is-sel'); return res; }
+    if (dt > lo && dt < hi) { res.colored = true; res.clickable = true; res.cls.push('is-range'); return res; }
+    if (a) { res.colored = true; res.clickable = true; res.cls.push('is-avail'); res.price = BAKED[iso(dt)]; return res; }
+    res.cls.push('is-out'); return res;
+  }
+
+  function monthHtml(y, m) {
+    var first = fwd(y,m), n = dim(y,m);
+    var cells = [];
+    for (var e=0; e<first; e++) cells.push(null);
+    for (var d=1; d<=n; d++) cells.push(new Date(y,m,d));
+    while (cells.length % 7 !== 0) cells.push(null);
+
+    var html = '<div class="vv-mtitle">'+MONTHS[m]+' '+y+'</div>';
+    for (var i=0; i<cells.length; i+=7) {
+      var wk = cells.slice(i, i+7);
+      var info = wk.map(function(dt){ return dt ? cellInfo(dt) : { empty:true, colored:false }; });
+      html += '<div class="vv-week">';
+      for (var j=0; j<7; j++) {
+        var c = info[j];
+        if (c.empty) { html += '<span class="vv-cell is-empty"></span>'; continue; }
+        var cls = c.cls.slice();
+        if (c.colored) {                    // afgeronde uiteinden van de run
+          if (j===0 || !info[j-1].colored) cls.push('r-l');
+          if (j===6 || !info[j+1].colored) cls.push('r-r');
+        }
+        var dt = wk[j];
+        html += '<button class="vv-cell '+cls.join(' ')+'" data-d="'+iso(dt)+'"'+(c.clickable?'':' disabled')+'>'
+              + '<span class="vv-cell__num">'+c.num+'</span>'
+              + '<span class="vv-cell__price">'+(c.price!=null ? '€'+c.price : '')+'</span></button>';
+      }
+      html += '</div>';
+    }
+    return html;
+  }
+
+  function foot() {
+    var info = document.getElementById('vvInfo'), apply = document.getElementById('vvApply');
+    if (st.start && st.end) {
+      var lo = st.start<st.end?st.start:st.end, hi = st.start<st.end?st.end:st.start;
+      var total = 0, d = new Date(lo);
+      while (d < hi) { var v = BAKED[iso(d)]; if (typeof v === 'number') total += v; d = add(d,1); }
+      info.innerHTML = '<span class="vv-foot__range">'+fmtFull(lo)+' - '+fmtFull(hi)+'</span>'
+                     + '<span class="vv-foot__from">From &euro;'+total+',-</span>';
+      apply.classList.add('is-on'); apply.removeAttribute('disabled');
+    } else {
+      info.innerHTML = '<span class="vv-foot__hint">Select a checkout date</span>';
+      apply.classList.remove('is-on'); apply.setAttribute('disabled','');
+    }
   }
 
   function render() {
-    var box = document.getElementById('vvCalendar'); if (!box) return;
-    var y1 = st.vy, m1 = st.vm, y2 = y1, m2 = m1+1; if (m2>11) { m2=0; y2++; }
-    var t = today(), prevOff = (y1<t.getFullYear()) || (y1===t.getFullYear() && m1<=t.getMonth());
-    var h = '<div class="vv-nav"><button class="vv-prev"'+(prevOff?' disabled':'')+'>‹</button>'
-          + '<span class="vv-nav__label">'+MONTHS[m1]+' — '+MONTHS[m2]+' '+y2+'</span>'
-          + '<button class="vv-next">›</button></div>'
-          + '<div class="vv-grid">'+month(y1,m1)+month(y2,m2)+'</div>';
-    box.innerHTML = h + summary();
-    var hint = document.getElementById('vvHint');
-    if (hint) hint.textContent = !st.start ? 'Kies je aankomstdatum om te beginnen.'
-      : (!st.end ? 'Kies je vertrekdatum. Tijdens je verblijf tonen we de totaalprijs bij het afronden.'
-                 : 'Mooie keuze! Rond af voor de definitieve prijs.');
-    attach(box);
-  }
-
-  function attach(box) {
-    var p = box.querySelector('.vv-prev'), n = box.querySelector('.vv-next');
-    if (p) p.addEventListener('click', function(){ if (p.disabled) return; st.vm--; if (st.vm<0){st.vm=11;st.vy--;} render(); });
-    if (n) n.addEventListener('click', function(){ st.vm++; if (st.vm>11){st.vm=0;st.vy++;} render(); });
-    box.querySelectorAll('.vv-day:not([disabled])').forEach(function(b){
+    var sc = document.getElementById('vvScroll'); if (!sc) return;
+    var top = sc.scrollTop;
+    var t = today(), y = t.getFullYear(), m = t.getMonth(), html = '';
+    for (var k=0; k<MONTHS_SHOWN; k++) { html += monthHtml(y, m); m++; if (m>11){m=0;y++;} }
+    sc.innerHTML = html;
+    sc.scrollTop = top;
+    sc.querySelectorAll('.vv-cell:not(.is-empty):not([disabled])').forEach(function(b){
       b.addEventListener('click', function(){
         var d = new Date(b.dataset.d + 'T00:00:00');
         if (!st.start || (st.start && st.end)) { st.start = d; st.end = null; }
-        else if (same(d, st.start)) { st.start = null; st.end = null; }
-        else if (d < st.start) { st.end = st.start; st.start = d; }
-        else st.end = d;
-        st.hover = null; render();
-      });
-      b.addEventListener('mouseenter', function(){
-        if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
-        if (st.start && !st.end) { var hv = new Date(b.dataset.d + 'T00:00:00'); if (!st.hover || !same(hv, st.hover)) { st.hover = hv; render(); } }
+        else {                                  // aankomst gekozen, nu uitcheck
+          var we = windowEnd();
+          if (d > st.start && d <= we) st.end = d;   // geldige uitcheck (ook volle dag)
+          else st.start = d;                          // anders: nieuwe aankomst
+        }
+        render();
       });
     });
-    box.addEventListener('mouseleave', function(){ if (st.hover) { st.hover = null; render(); } });
+    foot();
   }
 
-  window.initVvCalendar = function(){ var t = today(); st.vy = t.getFullYear(); st.vm = t.getMonth(); st.start = st.end = st.hover = null; render(); };
+  window.initVvCalendar = function(){ st.start = st.end = null; render(); };
 })();
 </script>
 <script>
