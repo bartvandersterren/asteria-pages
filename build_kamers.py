@@ -344,7 +344,9 @@ BK_TR = {
        ("Bekijk beschikbaarheid \\u2192","Check availability \\u2192"),("&larr; Aanpassen","← Adjust"),
        ("&larr; Terug","← Back"),("Laden\\u2026","Loading\\u2026"),("Kies een kamer","Choose a room"),
        (">Vol<",">Full<"),(">meer info<",">more info<"),("Selecteer deze kamer","Select this room"),
-       (">Personen</span>",">Guests</span>")],
+       (">Personen</span>",">Guests</span>"),
+       ("Afgeronde prijs per nacht, o.b.v. de goedkoopste beschikbare kamer voor 2 personen.",
+        "Rounded price per night, based on the cheapest available room for 2 guests.")],
  'de':[("var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',",
         "var MONTH_NAMES = ['Januar','Februar','März','April','Mai','Juni',"),
        ("'Juli','Augustus','September','Oktober','November','December'];",
@@ -362,7 +364,9 @@ BK_TR = {
        (">Kies uw kamer</h2>",">Wählen Sie Ihr Zimmer</h2>"),("Bekijk beschikbaarheid &rarr;","Verfügbarkeit prüfen →"),
        ("Bekijk beschikbaarheid \\u2192","Verfügbarkeit prüfen \\u2192"),("&larr; Aanpassen","← Ändern"),
        ("&larr; Terug","← Zurück"),("Laden\\u2026","Lädt\\u2026"),("Kies een kamer","Zimmer wählen"),
-       (">Vol<",">Belegt<"),(">meer info<",">mehr Infos<"),("Selecteer deze kamer","Dieses Zimmer wählen")],
+       (">Vol<",">Belegt<"),(">meer info<",">mehr Infos<"),("Selecteer deze kamer","Dieses Zimmer wählen"),
+       ("Afgeronde prijs per nacht, o.b.v. de goedkoopste beschikbare kamer voor 2 personen.",
+        "Gerundeter Preis pro Nacht, für das günstigste verfügbare Zimmer für 2 Personen.")],
 }
 def bk_localize(text, lang):
     if lang == 'nl':
