@@ -57,7 +57,15 @@ TEMPLATES = {
     'augustus-actie': {
         'template': 'augustus-actie.template.html',
         'langs': {
-            'nl': ('augustus-actie.html', 'translations/augustus-actie-nl.json'),
+            'nl': ('augustus-actie.html',    'translations/augustus-actie-nl.json'),
+            'en': ('augustus-actie-en.html', 'translations/augustus-actie-en.json'),
+            'de': ('augustus-actie-de.html', 'translations/augustus-actie-de.json'),
+        },
+        # De cadeau-/kamersecties staan letterlijk (NL) in de template; voor EN/DE
+        # worden die na de {{KEY}}-pass vertaald via een geordende NL→taal-lijst.
+        'literals': {
+            'en': 'translations/augustus-actie-literals-en.json',
+            'de': 'translations/augustus-actie-literals-de.json',
         },
     },
 }
@@ -230,6 +238,14 @@ def build(template_name, lang):
 
     for key, value in translations.items():
         html = html.replace('{{' + key + '}}', value)
+
+    # Letterlijke (hardcoded) NL-strings vertalen, in lijstvolgorde: langste/
+    # meest specifieke strings staan vooraan zodat substrings niet half raken.
+    literals_file = config.get('literals', {}).get(lang)
+    if literals_file:
+        with open(os.path.join(base, literals_file), encoding='utf-8') as f:
+            for source, target in json.load(f):
+                html = html.replace(source, target)
 
     # Mews-boekingslinks in de juiste taal openen (alleen EN/DE)
     html = add_mews_language(html, lang)
