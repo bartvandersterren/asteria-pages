@@ -214,72 +214,6 @@ def inject_welkom_booking():
         print(f'  [welkom-booking/{suffix or "nl"}] geinjecteerd (voucher {voucher})')
 
 
-def inject_actie_booking():
-    """Geef de augustus-actie-pagina dezelfde 3-staps boekingsmodule als de
-    arrangementen (zie inject_welkom_booking), maar met een DYNAMISCHE
-    vouchercode: de cadeau-kiezer op de pagina zet window.ACTIE_VOUCHER en
-    roept window.setActieVoucher() aan, zodat de popup en de deeplink-fallback
-    altijd met de code van het gekozen cadeau boeken.
-    Idempotent via <!--ACTIE-BK--> markers; draait als post-stap."""
-    actie_path = os.path.join(base, 'augustus-actie.html')
-    arr_path = os.path.join(base, 'happy-summer-arrangement.html')
-    if not (os.path.exists(actie_path) and os.path.exists(arr_path)):
-        print('  [actie-booking] overgeslagen (bron ontbreekt)')
-        return
-    arr = open(arr_path, encoding='utf-8').read()
-    w = open(actie_path, encoding='utf-8').read()
-
-    START, END = '<!--ACTIE-BK-START-->', '<!--ACTIE-BK-END-->'
-
-    def between(a, b, inclusive_end=True):
-        i = arr.index(a); j = arr.index(b, i)
-        return arr[i:(j + len(b)) if inclusive_end else j]
-
-    def enclosing_script(keyword):
-        k = arr.index(keyword)
-        s = arr.rindex('<script', 0, k)
-        e = arr.index('</script>', k) + len('</script>')
-        return arr[s:e]
-
-    mews_head = between('<!-- Mews BookingEngine -->', '<!-- End Mews BookingEngine -->')
-    cs = arr.rindex('/*', 0, arr.index('.bk-overlay {'))
-    ce = arr.rindex('/*', 0, arr.index('.ec-overlay {'))
-    bk_css = arr[cs:ce].rstrip()
-    bk_markup = between('<div class="bk-overlay"', '<!-- ══ DINER', inclusive_end=False).rstrip()
-    dp_js = enclosing_script('MONTH_NAMES')
-    bk_js = enclosing_script('/* ══ BOOKING POPUP')
-
-    # Dynamische vouchercode: init vanaf de cadeau-kiezer, setter voor wissels
-    bk_js = re.sub(
-        r"var VOUCHER\s*=\s*'[^']*';",
-        "var VOUCHER = window.ACTIE_VOUCHER || 'DINER';\n"
-        "  window.setActieVoucher = function (v) { VOUCHER = v; };",
-        bk_js, count=1)
-
-    # Meerprijzen (upgrade-labels) uit de kamerkeuze-stap halen: de actie is
-    # een algemeen cadeau-aanbod, niet arrangement-specifiek.
-    bk_js = re.sub(r"upgrade:\s*'[^']*'", "upgrade: ''", bk_js)
-
-    # Oude injectie verwijderen (idempotent)
-    w = re.sub(re.escape(START) + '.*?' + re.escape(END), '', w, flags=re.S)
-
-    head_block = ('\n' + START + '\n' + mews_head + '\n<style>\n' + bk_css
-                  + '\n</style>\n' + END + '\n')
-    w = w.replace('</head>', head_block + '</head>', 1)
-
-    body_block = ('\n' + START + '\n' + bk_markup + '\n' + dp_js + '\n'
-                  + bk_js + '\n' + END + '\n')
-    w = w.replace('</body>', body_block + '</body>', 1)
-
-    # CTA's: Mews-deeplinks vervangen door de popup-trigger
-    w = re.sub(r'href="https://app\.mews\.com/distributor/[^"]*"',
-               'href="#" onclick="window.openBookingPopup();return false;"', w)
-
-    with open(actie_path, 'w', encoding='utf-8') as f:
-        f.write(w)
-    print('  [actie-booking] geinjecteerd (dynamische cadeaucode, default DINER)')
-
-
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -342,10 +276,5 @@ for tpl in templates_to_build:
 if 'welkom' in templates_to_build:
     print('Injecting welkom booking module...')
     inject_welkom_booking()
-
-# Augustus-actie krijgt dezelfde boekingsmodule, met dynamische cadeaucode.
-if 'augustus-actie' in templates_to_build:
-    print('Injecting actie booking module...')
-    inject_actie_booking()
 
 print('Done.')

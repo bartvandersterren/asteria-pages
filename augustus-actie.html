@@ -32,7 +32,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Augustus-actie: kies je cadeau | Hotel Asteria">
   <meta property="og:description" content="Boek vóór 7 augustus een verblijf in augustus bij Hotel Asteria in Venray en kies zelf je cadeau: een 3-gangendiner waarbij de tweede persoon gratis mee-eet, bubbels op de kamer, gratis ontbijt of gratis fietshuur.">
-  <meta property="og:image" content="https://visit.asteria.nl/fotos/hero-zomer.webp">
+  <meta property="og:image" content="https://visit.asteria.nl/fotos/arr-c-diner.webp">
   <meta property="og:url" content="https://visit.asteria.nl/augustus-actie">
   <meta property="og:locale" content="nl_NL">
   <meta property="og:site_name" content="Hotel Asteria Venray">
@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
-  <link rel="preload" as="image" href="fotos/hero-zomer.webp" type="image/webp">
+  <link rel="preload" as="image" href="fotos/arr-c-diner.webp" type="image/webp">
 
   <script type="application/ld+json">
   {
@@ -52,7 +52,7 @@
     "address": { "@type": "PostalAddress", "streetAddress": "Maasheseweg 80a", "postalCode": "5804 AD", "addressLocality": "Venray", "addressCountry": "NL" },
     "telephone": "+31478511466",
     "email": "info@asteria.nl",
-    "image": "https://visit.asteria.nl/fotos/hero-zomer.webp",
+    "image": "https://visit.asteria.nl/fotos/arr-c-diner.webp",
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "2219", "bestRating": "5" }
   }
   </script>
@@ -67,7 +67,7 @@
      HERO  (verbatim uit happy-summer.template.html)
      ============================================================ */
   .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; padding-top: 110px; padding-bottom: 80px; }
-  .hero__bg { position: absolute; inset: 0; background: #0d0c0b url('fotos/hero-zomer.webp') center 42% / cover no-repeat; }
+  .hero__bg { position: absolute; inset: 0; background: #0d0c0b url('fotos/arr-c-diner.webp') center 55% / cover no-repeat; }
   .hero__overlay { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 85% at 50% 44%, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.82) 100%), linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 25%, transparent 45%), linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, transparent 18%); }
   .hero__grain { position: absolute; inset: 0; pointer-events: none; opacity: 0.18; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E"); mix-blend-mode: overlay; }
   .hero__content { position: relative; z-index: 3; max-width: 780px; padding: 0 28px; color: #fff; }
@@ -482,573 +482,131 @@
   .cookie-banner a { color: #fff; text-decoration: underline; }
   .cookie-banner button { background: #c23435; color: #fff; border: none; border-radius: 8px; padding: 10px 22px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
   .cookie-banner button:hover { background: #a82c2c; }
+
+  /* ============================================================
+     AUGUSTUS-ACTIE — wisselende hero (Parkhotel-opzet)
+     ============================================================ */
+  .hero__bgx { position: absolute; inset: 0; background-size: cover; background-position: center 55%; opacity: 0; animation: actieHeroFade 12s infinite; }
+  .hero__bgx:nth-child(1) { animation-delay: 0s; }
+  .hero__bgx:nth-child(2) { animation-delay: 3s; }
+  .hero__bgx:nth-child(3) { animation-delay: 6s; }
+  .hero__bgx:nth-child(4) { animation-delay: 9s; }
+  @keyframes actieHeroFade { 0%{opacity:0} 5%{opacity:1} 25%{opacity:1} 33%{opacity:0} 100%{opacity:0} }
+  @media (prefers-reduced-motion: reduce) { .hero__bgx { animation: none; } .hero__bgx:nth-child(1) { opacity: 1; } }
+  .hero__kicker { display: inline-block; border: 1px solid rgba(255,255,255,0.85); color: #fff; font-family: 'Electrolize', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding: 7px 16px; border-radius: 4px; margin-bottom: 18px; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.14s both; }
+  .hero__review { font-family: 'Montserrat', sans-serif; font-size: 13px; letter-spacing: 0.04em; color: rgba(255,255,255,0.92); text-shadow: 0 1px 12px rgba(0,0,0,0.55); margin-bottom: 18px; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.24s both; }
+  .hero__review .stars { color: #f59e0b; letter-spacing: 2px; }
+  .hero__gifts { display: flex; gap: 12px 26px; justify-content: center; flex-wrap: wrap; margin-top: 30px; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.78s both; }
+  .hero__gifts a { color: #fff; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: 0.08em; border-bottom: 1px solid rgba(255,255,255,0.55); padding-bottom: 4px; transition: border-color 0.2s; }
+  .hero__gifts a:hover { border-color: #fff; }
+
+  /* ============================================================
+     KIES JE CADEAU — 4 kaarten op charcoal
+     ============================================================ */
+  .gift { background: #1a1a1a; padding: 88px 0 96px; }
+  .gift__head { text-align: center; max-width: 720px; margin: 0 auto 48px; padding: 0 24px; }
+  .gift__head h2 { font-family: 'Electrolize', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px); color: #fff; }
+  .gift__head p { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; margin: 16px auto 0; }
+  .gift__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .gift-card { background: #fff; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; text-align: center; }
+  .gift-card__img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+  .gift-card__body { padding: 20px 18px 22px; display: flex; flex-direction: column; flex: 1; }
+  .gift-card h3 { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 15px; text-transform: uppercase; letter-spacing: 0.04em; color: #0f172a; margin: 0 0 8px; line-height: 1.35; }
+  .gift-card p { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 13px; color: #64748b; line-height: 1.6; margin: 0 0 16px; }
+  .gift-card__btn { margin-top: auto; display: block; background: #c23435; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; text-decoration: none; padding: 12px 10px; border-radius: 8px; transition: background 0.2s; }
+  .gift-card__btn:hover { background: #a82c2c; }
+  .gift__note { font-family: 'Montserrat', sans-serif; font-size: 13px; color: rgba(255,255,255,0.6); text-align: center; margin: 34px auto 0; padding: 0 24px; line-height: 1.7; }
+  @media (max-width: 1024px) and (min-width: 769px) { .gift__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) {
+    .gift { padding: 56px 0 64px; }
+    .gift__grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 0 20px 18px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .gift__grid::-webkit-scrollbar { display: none; }
+    .gift-card { flex: 0 0 72%; scroll-snap-align: start; }
+  }
+
+  /* ============================================================
+     KAMERSLIDER (Parkhotel-opzet, Asteria-stijl)
+     ============================================================ */
+  .ars { background: #f0efed; padding: 88px 0; }
+  .ars__head { text-align: center; margin: 0 auto 40px; padding: 0 24px; }
+  .ars__eyebrow { font-family: 'Electrolize', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #c23435; display: block; margin-bottom: 10px; }
+  .ars__head h2 { font-family: 'Electrolize', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px); color: #1a1a1a; }
+  .ars__sub { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 14px; color: #64748b; margin-top: 10px; }
+  .ars__track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 4px max(24px, calc((100vw - 1180px) / 2)) 26px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .ars__track::-webkit-scrollbar { display: none; }
+  .ars-item { flex: 0 0 390px; scroll-snap-align: start; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,0.06); display: flex; flex-direction: column; }
+  .ars-item__img { width: 100%; aspect-ratio: 3/2; object-fit: cover; display: block; }
+  .ars-item__body { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+  .ars-item h3 { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 18px; text-transform: uppercase; letter-spacing: 0.05em; color: #0f172a; margin: 8px 0 8px; }
+  .ars-item__desc { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 13.5px; color: #64748b; line-height: 1.6; margin: 0 0 18px; }
+  .ars-feats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 6px; list-style: none; margin: 0 0 22px; padding: 0; }
+  .ars-feats li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; font-family: 'Montserrat', sans-serif; font-size: 10.5px; color: #475569; line-height: 1.25; }
+  .ars-feats svg { width: 26px; height: 26px; color: #c23435; }
+  .ars-btns { margin-top: auto; display: flex; gap: 10px; }
+  .ars-btns a { flex: 1; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; padding: 12px 8px; border-radius: 8px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .ars-btn--book { background: #c23435; color: #fff; }
+  .ars-btn--book:hover { background: #a82c2c; }
+  .ars-btn--info { border: 1px solid #c23435; color: #c23435; }
+  .ars-btn--info:hover { background: #fef6f6; }
+  .ars__nav { display: flex; gap: 10px; justify-content: center; margin-top: 6px; }
+  .ars__nav button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid #c23435; background: transparent; color: #c23435; font-size: 20px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; }
+  .ars__nav button:hover { background: #c23435; color: #fff; }
+  @media (max-width: 768px) { .ars { padding: 56px 0; } .ars-item { flex: 0 0 84%; } .ars__nav { display: none; } }
+
+  /* ============================================================
+     GM-MODALS — cadeau-keuze + kamer-info (Parkhotel-opzet)
+     ============================================================ */
+  .gm { position: fixed; inset: 0; z-index: 1300; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .gm-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.62); }
+  .gm-card { position: relative; background: #fff; border-radius: 16px; max-width: 520px; width: 100%; padding: 32px 28px 24px; max-height: 88vh; overflow: auto; }
+  .gm-card h3 { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 20px; text-transform: uppercase; letter-spacing: 0.05em; color: #0f172a; margin: 0 0 4px; text-align: center; }
+  .gm-intro { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #64748b; text-align: center; margin: 0 0 18px; }
+  .gm-option { display: flex; align-items: center; gap: 14px; padding: 10px; border: 1px solid #eee7e0; border-radius: 10px; margin-top: 10px; text-decoration: none; background: #fff; transition: border-color 0.2s, background 0.2s; }
+  .gm-option:hover { border-color: #c23435; background: #fef6f6; }
+  .gm-option img { width: 78px; height: 58px; object-fit: cover; border-radius: 6px; flex: none; display: block; }
+  .gm-option strong { display: block; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: #0f172a; }
+  .gm-option span span { font-family: 'Montserrat', sans-serif; font-size: 12px; color: #64748b; }
+  .gm-close { position: absolute; top: 8px; right: 16px; z-index: 5; font-size: 26px; line-height: 1; color: #0f172a; text-decoration: none; }
+  .gm-card--info { max-width: 680px; padding: 0 0 26px; }
+  .gm-card--info .gm-close { color: #fff; text-shadow: 0 1px 5px rgba(0,0,0,0.6); }
+  .gm-info-body { padding: 22px 30px 0; }
+  .gm-card--info h3 { text-align: left; }
+  .gm-meta { font-family: 'Montserrat', sans-serif; font-size: 12.5px; color: #94a3b8; margin: 0 0 12px; }
+  .gm-desc { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 14px; line-height: 1.65; color: #475569; margin: 0; }
+  .gm-facts { columns: 2; column-gap: 24px; list-style: none; margin: 16px 0 0; padding: 0; }
+  .gm-facts li { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #475569; padding: 4px 0 4px 20px; position: relative; break-inside: avoid; }
+  .gm-facts li::before { content: '\2713'; color: #c23435; font-weight: 700; position: absolute; left: 0; }
+  .gm-cta { margin-top: 22px; }
+  .gm-cta a { display: block; background: #c23435; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; text-align: center; text-decoration: none; padding: 14px; border-radius: 8px; transition: background 0.2s; }
+  .gm-cta a:hover { background: #a82c2c; }
+  .rs-media { position: relative; overflow: hidden; }
+  .rs-slide { display: none; }
+  .rs-slide.on { display: block; }
+  .gm-photo.rs-media { height: 280px; border-radius: 16px 16px 0 0; }
+  .gm-photo.rs-media .rs-slide { height: 100%; }
+  .gm-photo.rs-media .rs-slide img, .gm-photo.rs-media .rs-slide video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .rs-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 38px; height: 38px; padding: 0 0 3px; border: 1px solid rgba(255,255,255,0.85); border-radius: 50%; background: rgba(20,20,20,0.35); color: #fff; font-size: 24px; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; }
+  .rs-arrow:hover { background: rgba(20,20,20,0.7); }
+  .rs-prev { left: 12px; }
+  .rs-next { right: 12px; }
+  @media (max-width: 600px) { .gm-photo.rs-media { height: 190px; } .gm-info-body { padding: 18px 20px 0; } .gm-facts { columns: 1; } .gm-card { padding: 28px 18px 20px; } }
+  
   </style>
-
-<!--ACTIE-BK-START-->
-<!-- Mews BookingEngine -->
-  <script>
-  (function(m,e,w,s){c=m.createElement(e);c.onload=function(){
-    Mews.Distributor({
-      configurationIds:[s],
-      language:'nl-NL',
-      onBookingFinished:function(res){
-        try{
-          var cnt=res?res.length:1;
-          var val=null;
-          if(res&&res.length){
-            val=res.reduce(function(s,r){
-              return s+(r.totalCost&&r.totalCost.value?r.totalCost.value:0);
-            },0);
-          }
-          var txId=res&&res[0]&&(res[0].reservationGroupId||res[0].id)||Date.now().toString(36);
-          if(window.track)window.track('booking_complete',{reservation_count:cnt,total_value:val,transaction_id:txId});
-          if(typeof gtag==='function'){
-            if(val){gtag('event','purchase',{send_to:'G-DPCP945DCG',value:val,currency:'EUR',transaction_id:txId});}
-            if(window.GA_ADS_LABEL){gtag('event','conversion',{send_to:window.GA_ADS_LABEL,value:val||0,currency:'EUR',transaction_id:txId});}
-          }
-        }catch(e){}
-      }
-    },function(api){
-      window.mewsApi=api;
-      if(window._mewsPending){window._mewsPending();window._mewsPending=null;}
-    });
-  };c.async=1;c.src=w;t=m.getElementsByTagName(e)[0];t.parentNode.insertBefore(c,t);
-  })(document,'script','https://app.mews.com/distributor/distributor.min.js','6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
-  </script>
-  <!-- End Mews BookingEngine -->
-<style>
-/* ── Overlay ── */
-  .bk-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 1100;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-  }
-  .bk-overlay.is-open {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* ── Modal ── */
-  .bk-modal {
-    position: relative;
-    background: #fff;
-    border-radius: 20px 20px 0 0;
-    width: 100%;
-    max-width: 480px;
-    max-height: 92vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transform: translateY(40px);
-    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
-  }
-  #bkStep1 {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    flex: 1;
-    padding: 28px 24px 0;
-  }
-  #bkStep1 #bkCalendar {
-    flex: 1;
-    overflow-y: auto;
-    min-height: 0;
-  }
-  .bk-sticky-footer {
-    flex-shrink: 0;
-    padding: 0 0 32px;
-    background: #fff;
-  }
-  .bk-overlay.is-open .bk-modal {
-    transform: translateY(0);
-  }
-
-  @media (min-width: 600px) {
-    .bk-overlay {
-      align-items: center;
-    }
-    .bk-modal {
-      border-radius: 20px;
-      max-height: 88vh;
-    }
-  }
-
-  /* ── Sluit & terug knoppen ── */
-  .bk-close {
-    position: absolute;
-    top: 16px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #6b7280;
-    cursor: pointer;
-    line-height: 1;
-    padding: 4px;
-  }
-  .bk-close:hover { color: #0f172a; }
-
-  .bk-back {
-    background: none;
-    border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6b7280;
-    cursor: pointer;
-    padding: 0;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .bk-back:hover { color: #0f172a; }
-
-  /* ── Stap indicator ── */
-  .bk-step-indicator {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    margin-bottom: 16px;
-  }
-  .bk-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #e5e7eb;
-  }
-  .bk-dot--active { background: #c23435; }
-
-  /* ── Custom Datepicker ── */
-  #bkCalendar { width: 100%; }
-
-  .cal-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .cal-nav__prev,
-  .cal-nav__next {
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: #9ca3af;
-    cursor: pointer;
-    padding: 2px 8px;
-    line-height: 1;
-    font-family: inherit;
-  }
-  .cal-nav__prev:hover:not([disabled]),
-  .cal-nav__next:hover:not([disabled]) { color: #1a1a1a; }
-  .cal-nav__prev[disabled] { color: #e5e7eb; cursor: default; }
-  .cal-nav__label {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 14px;
-    color: #1a1a1a;
-    text-align: center;
-  }
-  .cal-grid-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  @media (min-width: 600px) {
-    .cal-grid-wrap { flex-direction: row; }
-    .cal-month { flex: 1; min-width: 0; }
-  }
-  .cal-month-label {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 13px;
-    color: #6b7280;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-  .cal-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    margin-bottom: 2px;
-  }
-  .cal-weekdays span {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    color: #9ca3af;
-    text-align: center;
-    padding: 4px 0;
-  }
-  .cal-day-empty { display: block; }
-  .cal-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-  }
-  .cal-day {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    color: #1a1a1a;
-    background: none;
-    border: 1px solid transparent;
-    border-radius: 50%;
-    cursor: pointer;
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    width: 100%;
-  }
-  .cal-day:hover:not(.is-disabled):not(.is-start):not(.is-end) {
-    background: #f3f4f6;
-  }
-  .cal-day.is-disabled {
-    color: #d1d5db;
-    cursor: default;
-    pointer-events: none;
-  }
-  .cal-day.is-today { border-color: #c23435; }
-  .cal-day.is-start,
-  .cal-day.is-end {
-    background: #c23435;
-    border-color: #c23435;
-    color: #fff;
-    font-weight: 700;
-    border-radius: 50%;
-  }
-  .cal-day.is-in-range,
-  .cal-day.is-hover-range {
-    background: #fde8e8;
-    border-color: #fde8e8;
-    border-radius: 0;
-    color: #1a1a1a;
-  }
-
-  /* ── Titel ── */
-  .bk-title {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: #1a1a1a;
-    margin: 0 0 20px;
-    text-align: center;
-  }
-
-  /* ── Bevestigingsbalk ── */
-  .bk-summary {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    background: #f8f7f5;
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin: 16px 0;
-  }
-  .bk-summary__field {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-  .bk-summary__sep {
-    width: 1px;
-    height: 32px;
-    background: #e5e7eb;
-  }
-  .bk-summary__label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #9ca3af;
-  }
-  .bk-summary__value {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1a1a1a;
-  }
-
-  /* ── CTA rij ── */
-  .bk-cta-row {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 4px;
-  }
-  .bk-btn-primary {
-    background: #c23435;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 14px 20px;
-    cursor: pointer;
-    transition: background 200ms ease;
-    width: 100%;
-  }
-  .bk-btn-primary:hover:not(:disabled) { background: #a82c2c; }
-  .bk-btn-primary:disabled {
-    background: #d1d5db;
-    cursor: not-allowed;
-  }
-  .bk-btn-ghost {
-    background: none;
-    border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6b7280;
-    text-decoration: underline;
-    cursor: pointer;
-    padding: 4px 0;
-    text-align: center;
-  }
-  .bk-btn-ghost:hover { color: #1a1a1a; }
-
-  /* ── Kamerkeuze cards (stap 2) ── */
-  .bk-rooms {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
-    max-height: 360px;
-    overflow-y: auto;
-  }
-  .bk-room-card {
-    border: 1.5px solid #e5e7eb;
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: border-color 200ms ease;
-  }
-  .bk-room-card.is-selected {
-    border-color: #c23435;
-    background: #fff8f8;
-  }
-  .bk-room-card__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 14px;
-    gap: 8px;
-  }
-  .bk-room-card__name {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1a1a1a;
-    flex: 1;
-  }
-  .bk-room-card__upgrade {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6b7280;
-    white-space: nowrap;
-  }
-  .bk-room-card.is-selected .bk-room-card__upgrade { color: #c23435; }
-  .bk-room-card__toggle {
-    background: none;
-    border: none;
-    font-size: 11px;
-    color: #9ca3af;
-    cursor: pointer;
-    padding: 2px 4px;
-    flex-shrink: 0;
-  }
-  .bk-room-card__toggle:hover { color: #1a1a1a; }
-  .bk-room-card__details {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    color: #6b7280;
-    padding: 0 14px 12px;
-    display: none;
-  }
-  .bk-room-card__details.is-open { display: block; }
-  .bk-room-card.is-unavailable {
-    opacity: 0.45;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
-  .bk-room-card__vol {
-    margin-left: auto;
-    font-size: 11px;
-    font-weight: 700;
-    color: #c23435;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-  .bk-room-card__price {
-    margin-left: auto;
-    font-size: 13px;
-    font-weight: 700;
-    color: #2d2d2d;
-  }
-
-  /* ── Radio indicator ── */
-  .bk-room-card__radio {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid #d1d5db;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 200ms;
-  }
-  .bk-room-card.is-selected .bk-room-card__radio {
-    border-color: #c23435;
-  }
-  .bk-room-card__radio::after {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: transparent;
-    transition: background 200ms;
-  }
-  .bk-room-card.is-selected .bk-room-card__radio::after {
-    background: #c23435;
-  }
-
-  /* ── Stap animatie ── */
-  .bk-step[hidden] { display: none !important; }
-  #bkStep2, #bkStep3 {
-    padding: 28px 24px 32px;
-    overflow-y: auto;
-    flex: 1;
-  }
-
-  /* ── Pre-geselecteerde kamer badge ── */
-  .bk-selected-room {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #fff8f8;
-    border: 1.5px solid #fca5a5;
-    border-radius: 10px;
-    padding: 10px 14px;
-    margin-bottom: 8px;
-  }
-  .bk-selected-room__label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #9ca3af;
-    display: block;
-    margin-bottom: 2px;
-  }
-  .bk-selected-room__name {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: #c23435;
-  }
-  .bk-selected-room__change {
-    margin-left: auto;
-    background: none;
-    border: none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
-    color: #9ca3af;
-    text-decoration: underline;
-    cursor: pointer;
-    flex-shrink: 0;
-    padding: 0;
-  }
-  .bk-selected-room__change:hover { color: #1a1a1a; }
-
-  /* ── Room detail sub-view (stap 3) ── */
-  .bk-room-detail__img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 16px;
-    display: block;
-  }
-  .bk-room-detail__name {
-    font-family: 'Electrolize', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    color: #1a1a1a;
-    margin: 8px 0 10px;
-  }
-  .bk-room-detail__desc {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    color: #4b5563;
-    line-height: 1.65;
-    margin-bottom: 16px;
-  }
-  .bk-room-detail__features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-  .bk-room-detail__feature {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    color: #374151;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .bk-room-detail__feature::before {
-    content: '\2713';
-    color: #c23435;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  /* ── Button-variant resets voor omgezette CTAs ── */
-  button.hero__cta,
-  button.arr-c__cta,
-  button.diner__cta {
-    cursor: pointer;
-    font-family: inherit;
-    border: none;
-  }
-  button.sticky-card__btn {
-    cursor: pointer;
-    font-family: inherit;
-    border: none;
-    width: 100%;
-  }
-  button.sticky-fab {
-    cursor: pointer;
-    font-family: inherit;
-    border: none;
-  }
-</style>
-<!--ACTIE-BK-END-->
 </head>
 <body>
 
 
 
 <!-- ══ STICKY CTA ════════════════════════════════════════════ -->
-<a class="sticky-fab" id="stickyFab" aria-label="Boek met jouw cadeaucode" href="#" onclick="window.openBookingPopup();return false;" target="_blank" rel="noopener">
-  Boek nu
+<a class="sticky-fab" id="stickyFab" aria-label="Kies je cadeau" href="#cadeaus">
+  Kies je cadeau
   <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </a>
-<div class="sticky-card" id="stickyCard" role="complementary" aria-label="Snel boeken met jouw cadeaucode">
-  <span class="sticky-card__name">Jouw cadeaucode</span>
-  <strong class="sticky-card__code actie-code">DINER</strong>
-  <span class="sticky-card__code-sub">boek vóór 7 augustus</span>
-  <a class="sticky-card__btn" href="#" onclick="window.openBookingPopup();return false;" target="_blank" rel="noopener">Boek nu &rarr;</a>
+<div class="sticky-card" id="stickyCard" role="complementary" aria-label="Augustus-actie">
+  <span class="sticky-card__name">Augustus-actie</span>
+  <strong class="sticky-card__code">4 cadeaus</strong>
+  <span class="sticky-card__code-sub">boek v&oacute;&oacute;r 7 augustus</span>
+  <a class="sticky-card__btn" href="#cadeaus">Kies je cadeau &rarr;</a>
 </div>
 
 <!-- ══ NAV ═══════════════════════════════════════════════════ -->
@@ -1078,7 +636,7 @@
           <li><a href="https://www.asteria.nl/omgeving">Omgeving</a></li>
           <li><a href="https://www.asteria.nl/contact">Contact</a></li>
         </ul>
-        <a class="button book-now" href="#" onclick="window.openBookingPopup();return false;" target="_blank" rel="noopener">Boek nu</a>
+        <a class="button book-now" href="#cadeaus">Boek nu</a>
       </div>
       <div class="mobile-nav-buttons">
         <span class="lang-wrapper mobile-lang">
@@ -1097,80 +655,209 @@
 
 <!-- ══ HERO ══════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-  <div class="hero__bg"></div>
+  <div class="hero__bg">
+    <div class="hero__bgx" style="background-image:url('fotos/arr-c-diner.webp')"></div>
+    <div class="hero__bgx" style="background-image:url('fotos/arr-c-welkom-bubbels.webp')"></div>
+    <div class="hero__bgx" style="background-image:url('fotos/arr-c-ontbijt.webp')"></div>
+    <div class="hero__bgx" style="background-image:url('fotos/omgeving-fietsers.webp')"></div>
+  </div>
   <div class="hero__overlay"></div>
   <div class="hero__grain"></div>
   <div class="hero__content">
-    <span class="hero__location">Venray &nbsp;&middot;&nbsp; Noord-Limburg</span>
+    <span class="hero__kicker">Augustus-actie</span>
+    <p class="hero__review"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &nbsp;4,2 uit 2.219 reviews</p>
     <h1 class="hero__title">Kies<br>je cadeau</h1>
     <div class="hero__rule" aria-hidden="true"></div>
     <p class="hero__sub">In augustus is het bij ons nog volop zomer. Boek vóór 7 augustus een verblijf in augustus en kies zelf het cadeau dat bij aankomst voor je klaarstaat.</p>
-    <a class="hero__cta" href="#arrangement" data-track-cta="hero">Kies je cadeau</a>
-    <div class="hero__trust">
-      <span>&#10003; Cadeau naar keuze</span>
-      <span>&#10003; Gratis annuleren</span>
-      <span>&#10003; Limburgse gastvrijheid</span>
+    <a class="hero__cta" href="#cadeaus" data-track-cta="hero">Boek vóór 7 augustus</a>
+    <div class="hero__gifts">
+      <a href="#cadeaus">3-gangendiner</a>
+      <a href="#cadeaus">Fles bubbels</a>
+      <a href="#cadeaus">Gratis ontbijt</a>
+      <a href="#cadeaus">Gratis fietshuur</a>
     </div>
   </div>
   <div class="hero__scroll" aria-hidden="true"><div class="hero__scroll-dot"></div><div class="hero__scroll-track"></div></div>
 </section>
 
-<!-- ══ WELKOMSTGESCHENK-KAART (arr-c) ════════════════════════ -->
-<section class="arr-c" id="arrangement" aria-label="Augustus-actie, kies je cadeau">
-  <div class="arr-c__photos" aria-hidden="true">
-    <div class="arr-c__photo is-active" data-key="diner" style="background-image:url('fotos/arr-c-diner.webp')"></div>
-    <div class="arr-c__photo" data-key="bubbels" style="background-image:url('fotos/arr-c-welkom-bubbels.webp')"></div>
-    <div class="arr-c__photo" data-key="ontbijt" style="background-image:url('fotos/arr-c-ontbijt.webp')"></div>
-    <div class="arr-c__photo" data-key="fiets" style="background-image:url('fotos/omgeving-fietsers.webp')"></div>
-    <span class="arr-c__photo-caption" id="arrCCaption">3-gangendiner</span>
+<!-- ══ KIES JE CADEAU (Parkhotel-opzet) ══════════════════════ -->
+<section class="gift" id="cadeaus" aria-label="Kies je cadeau">
+  <div class="gift__head">
+    <h2>Kies je cadeau</h2>
+    <p>Boek je v&oacute;&oacute;r 7 augustus een verblijf in augustus? Dan verwelkomen we je met een cadeau naar keuze. Kies hieronder je cadeau en boek met de bijbehorende code, dan staat alles bij aankomst voor je klaar.</p>
   </div>
-  <div class="arr-c__content">
-    <a href="#reviews" class="arr-c__rating" aria-label="4,2 van 5 sterren op 2.219 Google reviews">
-      <span class="arr-c__rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <span class="arr-c__rating-score">4,2</span>
-      <span class="arr-c__rating-count">· 2.219 reviews</span>
-    </a>
-    <span class="arr-c__eyebrow">Augustus-actie</span>
-    <h2 class="arr-c__title">Welk cadeau kies jij?</h2>
-    <p class="arr-c__intro">Boek vóór 7 augustus een overnachting in augustus en kies één van deze vier cadeaus. Bij aankomst staat alles voor je klaar.</p>
-
-    <ul class="arr-c__features" id="arrCFeatures">
-      <li class="arr-c__feature is-active" data-key="diner" data-caption="3-gangendiner" data-voucher="DINER" data-giftname="3-gangendiner, 2e persoon gratis" role="button" tabindex="0">
-        <div class="arr-c__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v5a2 2 0 002 2v11M6 3v5M10 3v5"/><path d="M17 21v-6c-1.5 0-2.5-2-2.5-5 0-2.5 1-4.5 2.5-4.5S19.5 7.5 19.5 10c0 3-1 5-2.5 5"/></svg></div>
-        <div class="arr-c__feature-body"><strong class="arr-c__feature-name">3-gangendiner in ons restaurant</strong><span class="arr-c__feature-desc">De tweede persoon dineert gratis met je mee.</span></div>
-        <div class="arr-c__feature-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </li>
-      <li class="arr-c__feature" data-key="bubbels" data-caption="Fles bubbels" data-voucher="BUBBELS" data-giftname="fles bubbels op de kamer" role="button" tabindex="0">
-        <div class="arr-c__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 11v11"/><path d="M6.8 4h10.4l-2 7c0 2.2-1.9 4-4.2 4S6.8 13.2 6.8 11L4.8 4z"/></svg></div>
-        <div class="arr-c__feature-body"><strong class="arr-c__feature-name">Fles bubbels op de kamer</strong><span class="arr-c__feature-desc">Bij aankomst staat er een gekoelde fles bubbels voor je klaar.</span></div>
-        <div class="arr-c__feature-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </li>
-      <li class="arr-c__feature" data-key="ontbijt" data-caption="Ontbijtbuffet" data-voucher="ONTBIJT" data-giftname="gratis ontbijt" role="button" tabindex="0">
-        <div class="arr-c__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9h1a3 3 0 010 6h-1"/><path d="M4 9h14v5a5 5 0 01-5 5H9a5 5 0 01-5-5V9z"/><path d="M8 5c0-.5.5-1 .5-1.5M12 5c0-.5.5-1 .5-1.5"/></svg></div>
-        <div class="arr-c__feature-body"><strong class="arr-c__feature-name">Gratis ontbijt</strong><span class="arr-c__feature-desc">Begin de ochtend rustig met ons uitgebreide ontbijtbuffet.</span></div>
-        <div class="arr-c__feature-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </li>
-      <li class="arr-c__feature" data-key="fiets" data-caption="Fietsen in Noord-Limburg" data-voucher="FIETS" data-giftname="gratis fietshuur" role="button" tabindex="0">
-        <div class="arr-c__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17" r="3.2"/><circle cx="18.5" cy="17" r="3.2"/><path d="M5.5 17l4.5-8h5.5l3 8M10 9h5.5M13.5 17l-3.5-8"/><path d="M9 6h2.5"/></svg></div>
-        <div class="arr-c__feature-body"><strong class="arr-c__feature-name">Gratis fietshuur</strong><span class="arr-c__feature-desc">Ontdek de mooiste routes van Noord-Limburg op de fiets.</span></div>
-        <div class="arr-c__feature-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </li>
-    </ul>
-
-    <div class="arr-c__bottom">
-      <div class="arr-c__codewrap arr-c__bottom-line">
-        <span class="arr-c__code-label">Jouw cadeaucode</span>
-        <span class="arr-c__code actie-code">DINER</span>
-        <span class="arr-c__code-sub" id="actieCodeSub">3-gangendiner, 2e persoon gratis</span>
+  <div class="gift__grid">
+    <div class="gift-card">
+      <img class="gift-card__img" src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy">
+      <div class="gift-card__body">
+        <h3>3-gangendiner in ons restaurant</h3>
+        <p>Schuif aan in ons restaurant: <strong>de tweede persoon dineert gratis met je mee.</strong></p>
+        <a class="gift-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER" target="_blank" rel="noopener" data-track-cta="gift_diner">Boek met code 'DINER'</a>
       </div>
-      <a class="arr-c__cta" href="#" onclick="window.openBookingPopup();return false;" target="_blank" rel="noopener" data-track-cta="arr_c">
-        Boek met jouw cadeau
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <p class="arr-c__fineprint">Boek vóór 7 augustus 2026, voor verblijven in augustus. Gratis annulering tot 24 uur voor aankomst. Op basis van beschikbaarheid.</p>
+    </div>
+    <div class="gift-card">
+      <img class="gift-card__img" src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy">
+      <div class="gift-card__body">
+        <h3>Fles bubbels</h3>
+        <p>Bij aankomst staat er een gekoelde fles bubbels op je kamer.</p>
+        <a class="gift-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS" target="_blank" rel="noopener" data-track-cta="gift_bubbels">Boek met code 'BUBBELS'</a>
+      </div>
+    </div>
+    <div class="gift-card">
+      <img class="gift-card__img" src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy">
+      <div class="gift-card__body">
+        <h3>Gratis ontbijt</h3>
+        <p>Begin de ochtend rustig met ons uitgebreide ontbijtbuffet.</p>
+        <a class="gift-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT" target="_blank" rel="noopener" data-track-cta="gift_ontbijt">Boek met code 'ONTBIJT'</a>
+      </div>
+    </div>
+    <div class="gift-card">
+      <img class="gift-card__img" src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy">
+      <div class="gift-card__body">
+        <h3>Gratis fietshuur</h3>
+        <p>Ontdek de mooiste routes van Noord-Limburg op de fiets.</p>
+        <a class="gift-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS" target="_blank" rel="noopener" data-track-cta="gift_fiets">Boek met code 'FIETS'</a>
+      </div>
     </div>
   </div>
+  <p class="gift__note">De actie geldt voor verblijven in de hele maand augustus. Boeken kan v&oacute;&oacute;r 7 augustus.<br>Gratis annulering tot 24 uur voor aankomst. Op basis van beschikbaarheid.</p>
 </section>
+
+<!-- ══ KAMERSLIDER (Parkhotel-opzet) ═════════════════════════ -->
+<section class="ars" id="kamertypes" aria-label="Kamertypes">
+  <div class="ars__head">
+    <span class="ars__eyebrow">Kies je kamer</span>
+    <h2>Welke kamer past bij jou?</h2>
+    <p class="ars__sub">Welke kamer je ook kiest, je cadeau staat bij aankomst klaar</p>
+  </div>
+  <div class="ars__track" id="arsTrack">
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-comfort.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge" style="background:#f1f5f9;color:#64748b">Standaard kamer</span></div>
+          <h3>Comfort Kamer</h3>
+          <p class="ars-item__desc">Onze standaardkamer: comfortabel, licht en compleet ingericht. De ideale uitvalsbasis voor je verblijf.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6M4 4v6M4 4l6 6M20 20h-6M20 20v-6M20 20l-6-6"/></svg>~22 m²</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18v2m18-2v2M3 15h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>Tweepersoonsbed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 21v-9a5 5 0 015-5h1a4 4 0 014 4M9 15h.01M12 17h.01M15 15h.01M12 13h.01M15 19h.01M9 19h.01"/></svg>Douche</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 6l14 12M19 6L5 18M3 12h18"/></svg>Airco</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-comfort" onclick="document.getElementById('cadeau-comfort').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-comfort" onclick="var m=document.getElementById('info-comfort');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-royale.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--upgrade">Upgrade</span></div>
+          <h3>Royale Kamer</h3>
+          <p class="ars-item__desc">Wat meer ruimte om je heen, met een heerlijk ligbad om de dag rustig af te sluiten.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6M4 4v6M4 4l6 6M20 20h-6M20 20v-6M20 20l-6-6"/></svg>Meer ruimte</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18v2a5 5 0 01-5 5H8a5 5 0 01-5-5v-2zM6 12V5a2 2 0 014 0M7 19l-1 2m11-2l1 2"/></svg>Ligbad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a3 3 0 013-3h8a3 3 0 013 3v3M5 11a2 2 0 00-2 2v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 00-2-2M5 18v2m14-2v2"/></svg>Zithoek</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 6l14 12M19 6L5 18M3 12h18"/></svg>Airco</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-royale" onclick="document.getElementById('cadeau-royale').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-royale" onclick="var m=document.getElementById('info-royale');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-deluxe.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--sauna">+ Eigen sauna</span></div>
+          <h3>Deluxe Kamer</h3>
+          <p class="ars-item__desc">Ruime kamer met je eigen privé infraroodsauna. Wellness op je eigen kamer, wanneer jij wilt.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c-1 2 1 3 0 5m4-5c-1 2 1 3 0 5m4-5c-1 2 1 3 0 5M4 13h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3v-4z"/></svg>Eigen sauna</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6M4 4v6M4 4l6 6M20 20h-6M20 20v-6M20 20l-6-6"/></svg>Meer ruimte</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18v2a5 5 0 01-5 5H8a5 5 0 01-5-5v-2zM6 12V5a2 2 0 014 0M7 19l-1 2m11-2l1 2"/></svg>Ligbad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 6l14 12M19 6L5 18M3 12h18"/></svg>Airco</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-deluxe" onclick="document.getElementById('cadeau-deluxe').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-deluxe" onclick="var m=document.getElementById('info-deluxe');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-junior-suite.webp" alt="Junior Suite bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--upgrade">Upgrade</span></div>
+          <h3>Junior Suite</h3>
+          <p class="ars-item__desc">Een ruime suite met aparte zithoek en ligbad. Extra comfort voor wie er even helemaal tussenuit wil.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18v2m18-2v2M3 15h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>Kingsize bed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a3 3 0 013-3h8a3 3 0 013 3v3M5 11a2 2 0 00-2 2v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 00-2-2M5 18v2m14-2v2"/></svg>Ruime zithoek</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18v2a5 5 0 01-5 5H8a5 5 0 01-5-5v-2zM6 12V5a2 2 0 014 0M7 19l-1 2m11-2l1 2"/></svg>Ligbad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v2M9 13v3"/></svg>Koelkast</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-junior-suite" onclick="document.getElementById('cadeau-junior-suite').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-junior-suite" onclick="var m=document.getElementById('info-junior-suite');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-suite.webp" alt="Suite bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--sauna">+ Eigen sauna</span></div>
+          <h3>Suite</h3>
+          <p class="ars-item__desc">Onze suite met privé infraroodsauna en een ruime zithoek. Alle ruimte en rust voor een luxe verblijf.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18v2m18-2v2M3 15h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>Kingsize bed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c-1 2 1 3 0 5m4-5c-1 2 1 3 0 5m4-5c-1 2 1 3 0 5M4 13h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3v-4z"/></svg>Eigen sauna</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a3 3 0 013-3h8a3 3 0 013 3v3M5 11a2 2 0 00-2 2v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 00-2-2M5 18v2m14-2v2"/></svg>Ruime zithoek</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v2M9 13v3"/></svg>Koelkast</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-suite" onclick="document.getElementById('cadeau-suite').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-suite" onclick="var m=document.getElementById('info-suite');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-bruidssuite.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--premium">Premium</span></div>
+          <h3>Bruidssuite</h3>
+          <p class="ars-item__desc">Onze mooiste kamer, met vrijstaand bad en inloopdouche. Voor een onvergetelijke gelegenheid.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18v2m18-2v2M3 15h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>Kingsize bed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18v2a5 5 0 01-5 5H8a5 5 0 01-5-5v-2zM6 12V5a2 2 0 014 0M7 19l-1 2m11-2l1 2"/></svg>Vrijstaand bad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 21v-9a5 5 0 015-5h1a4 4 0 014 4M9 15h.01M12 17h.01M15 15h.01M12 13h.01M15 19h.01M9 19h.01"/></svg>Inloopdouche</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v2M9 13v3"/></svg>Koelkast</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-bruidssuite" onclick="document.getElementById('cadeau-bruidssuite').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-bruidssuite" onclick="var m=document.getElementById('info-bruidssuite');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="ars__nav" aria-hidden="true">
+    <button type="button" class="ars-prev" aria-label="Vorige kamer">&#8249;</button>
+    <button type="button" class="ars-next" aria-label="Volgende kamer">&#8250;</button>
+  </div>
+</section>
+
+<div class="gm" id="cadeau-comfort"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Comfort Kamer. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-comfort"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/kamer-comfort-a.webp" src="videos/comfort.mp4"></video></div><div class="rs-slide"><img src="fotos/kamer-comfort-a.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/kamer-comfort-b.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/kamer-comfort-c.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/kamer-comfort-d.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Comfort Kamer</h3><p class="gm-meta">~22 m² · tweepersoonsbed · max. 2 personen</p><p class="gm-desc">Onze standaardkamer: comfortabel, licht en compleet ingericht. De ideale uitvalsbasis voor je verblijf.</p><ul class="gm-facts"><li>Tweepersoonsbed</li><li>Badkamer met douche</li><li>Zithoek</li><li>Airconditioning</li><li>Koffie- en theefaciliteiten</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-comfort" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-comfort').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-royale"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Royale Kamer. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-royale"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/room-royale-1.webp" src="videos/royale.mp4"></video></div><div class="rs-slide"><img src="fotos/room-royale-1.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-royale-2.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-royale-3.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-royale-4.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Royale Kamer</h3><p class="gm-meta">ruimer dan Comfort · ligbad · max. 2 personen</p><p class="gm-desc">Wat meer ruimte om je heen, met een heerlijk ligbad om de dag rustig af te sluiten.</p><ul class="gm-facts"><li>Meer ruimte</li><li>Ligbad</li><li>Zithoek</li><li>Airconditioning</li><li>Koffie- en theefaciliteiten</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-royale" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-royale').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-deluxe"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Deluxe Kamer. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-deluxe"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/room-deluxe-1.webp" src="videos/deluxe.mp4"></video></div><div class="rs-slide"><img src="fotos/room-deluxe-1.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-deluxe-2.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-deluxe-3.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-deluxe-4.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Deluxe Kamer</h3><p class="gm-meta">eigen infraroodsauna · ligbad · max. 2 personen</p><p class="gm-desc">Ruime kamer met je eigen privé infraroodsauna. Wellness op je eigen kamer, wanneer jij wilt.</p><ul class="gm-facts"><li>Privé infraroodsauna</li><li>Meer ruimte</li><li>Ligbad</li><li>Airconditioning</li><li>Zithoek</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-deluxe" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-deluxe').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-junior-suite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Junior Suite. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-junior-suite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><img src="fotos/kamer-junior-suite.webp" alt="Junior Suite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/kamer-junior-suite-2.webp" alt="Junior Suite bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Junior Suite</h3><p class="gm-meta">kingsize bed · ruime zithoek · max. 2 personen</p><p class="gm-desc">Een ruime suite met aparte zithoek en ligbad. Extra comfort voor wie er even helemaal tussenuit wil.</p><ul class="gm-facts"><li>Kingsize bed</li><li>Ruime zithoek</li><li>Ligbad</li><li>Koelkast</li><li>Airconditioning</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-junior-suite" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-junior-suite').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-suite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Suite. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-suite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/room-suite-1.webp" src="videos/suite.mp4"></video></div><div class="rs-slide"><img src="fotos/room-suite-1.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-suite-2.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-suite-3.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-suite-4.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Suite</h3><p class="gm-meta">kingsize bed · eigen infraroodsauna · max. 2 personen</p><p class="gm-desc">Onze suite met privé infraroodsauna en een ruime zithoek. Alle ruimte en rust voor een luxe verblijf.</p><ul class="gm-facts"><li>Kingsize bed</li><li>Privé infraroodsauna</li><li>Ruime zithoek</li><li>Koelkast</li><li>Airconditioning</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-suite" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-suite').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-bruidssuite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Bruidssuite. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-bruidssuite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/room-bruidssuite-1.webp" src="videos/bruidssuite.mp4"></video></div><div class="rs-slide"><img src="fotos/room-bruidssuite-1.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-bruidssuite-2.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-bruidssuite-3.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-bruidssuite-4.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Bruidssuite</h3><p class="gm-meta">kingsize bed · vrijstaand bad · max. 2 personen</p><p class="gm-desc">Onze mooiste kamer, met vrijstaand bad en inloopdouche. Voor een onvergetelijke gelegenheid.</p><ul class="gm-facts"><li>Kingsize bed</li><li>Vrijstaand bad</li><li>Inloopdouche</li><li>Koelkast</li><li>Airconditioning</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-bruidssuite" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-bruidssuite').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
 
 <!-- ══ REVIEWS ═══════════════════════════════════════════════ -->
 <section class="reviews" id="reviews" aria-label="Gastbeoordelingen">
@@ -1196,47 +883,6 @@
   </div>
 </section>
 
-
-<!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
-<section class="rooms rooms--thumb" id="kamertypes" aria-label="Kamertypes">
-  <div class="rooms__inner">
-    <span class="rooms__eyebrow">Kies je kamer</span>
-    <h2 class="rooms__title">Welke kamer past bij jou?</h2>
-    <p class="rooms__sub">Welke kamer je ook kiest, je cadeau staat bij aankomst klaar</p>
-
-    <div class="rooms__base" data-room="comfort" role="button" tabindex="0" style="cursor:pointer">
-      <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="Comfort Kamer" loading="lazy">
-      <div class="rooms__base-body">
-        <span class="rooms__base-badge">Standaard kamer</span>
-        <span class="rooms__base-name">Comfort Kamer</span>
-        <p class="rooms__base-feats">~22 m² · tweepersoons bed · douche · zithoek · airco · WiFi</p>
-      </div>
-    </div>
-
-    <div class="rooms__list">
-      <div class="room-row" data-room="royale" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-royale.webp" alt="Royale Kamer" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">Royale Kamer</div><div class="room-row__deltas"><span class="plus">+</span> meer ruimte <span class="plus">+</span> ligbad</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="deluxe" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-deluxe.webp" alt="Deluxe Kamer" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">+ Eigen sauna</span><div class="room-row__name">Deluxe Kamer</div><div class="room-row__deltas"><span class="plus">+</span> meer ruimte <span class="plus">+</span> privé infraroodsauna</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="junior-suite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior Suite" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">Junior Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> ruime zithoek <span class="plus">+</span> ligbad <span class="plus">+</span> koelkast</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="suite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-suite.webp" alt="Suite" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">+ Eigen sauna</span><div class="room-row__name">Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> privé infraroodsauna <span class="plus">+</span> ruime zithoek <span class="plus">+</span> koelkast</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="bruidssuite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-bruidssuite.webp" alt="Bruidssuite" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--premium">Premium</span><div class="room-row__name">Bruidssuite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> vrijstaand bad <span class="plus">+</span> inloopdouche <span class="plus">+</span> koelkast</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Kamerpopup -->
 <div class="room-popup-overlay" id="roomPopup" role="dialog" aria-modal="true" aria-label="Kamerdetails" data-cta="Boek met jouw cadeau">
@@ -1296,7 +942,7 @@
       <span class="diner__eyebrow">Augustus-actie</span>
       <h2 class="diner__title">Je cadeau<br>staat klaar</h2>
       <p class="diner__sub">Een 3-gangendiner waarbij de tweede persoon gratis mee-eet, bubbels op de kamer, gratis ontbijt of een dag fietsen door Noord-Limburg: jij kiest, wij zorgen dat het klaarstaat.</p>
-      <a class="diner__cta" href="#" onclick="window.openBookingPopup();return false;" target="_blank" rel="noopener">Boek met jouw cadeau</a>
+      <a class="diner__cta" href="#cadeaus">Kies je cadeau</a>
     </div>
   </div>
 </section>
@@ -1602,6 +1248,29 @@ window.ACTIE_VOUCHER = 'DINER';
   });
 }());
 
+
+/* ── Kamerslider pijlen ── */
+(function () {
+  var track = document.getElementById('arsTrack');
+  if (!track) return;
+  function step() {
+    var it = track.querySelector('.ars-item');
+    return it ? it.getBoundingClientRect().width + 24 : 400;
+  }
+  var prev = document.querySelector('.ars__nav .ars-prev');
+  var next = document.querySelector('.ars__nav .ars-next');
+  if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+  if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+}());
+
+/* ── Gm-modals: sluiten met Escape ── */
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  document.querySelectorAll('.gm').forEach(function (m) {
+    if (m.style.display === 'flex') { var v = m.querySelector('video'); if (v) v.pause(); m.style.display = 'none'; }
+  });
+});
+
 /* ── Hamburger menu ── */
 (function () {
   var nav = document.querySelector('.main-nav');
@@ -1635,1227 +1304,5 @@ window.ACTIE_VOUCHER = 'DINER';
 }());
 </script>
 
-
-<!--ACTIE-BK-START-->
-<div class="bk-overlay" id="bookingPopup" role="dialog" aria-modal="true" aria-label="Verblijf boeken">
-  <div class="bk-modal" id="bookingModal">
-
-    <!-- Stap 1: Datum kiezen -->
-    <div class="bk-step" id="bkStep1">
-      <button class="bk-close" id="bkClose" aria-label="Sluiten">&times;</button>
-      <div class="bk-step-indicator" aria-hidden="true">
-        <span class="bk-dot bk-dot--active"></span>
-        <span class="bk-dot"></span>
-      </div>
-      <h2 class="bk-title">Kies uw verblijfsdata</h2>
-      <div id="bkCalendar"></div>
-      <div class="bk-sticky-footer">
-        <div class="bk-summary" id="bkSummary" aria-live="polite">
-          <div class="bk-summary__field">
-            <span class="bk-summary__label">Aankomst</span>
-            <span class="bk-summary__value" id="bkAankomst">&mdash;</span>
-          </div>
-          <div class="bk-summary__sep" aria-hidden="true"></div>
-          <div class="bk-summary__field">
-            <span class="bk-summary__label">Vertrek</span>
-            <span class="bk-summary__value" id="bkVertrek">&mdash;</span>
-          </div>
-          <div class="bk-summary__sep" aria-hidden="true"></div>
-          <div class="bk-summary__field">
-            <span class="bk-summary__label">Nachten</span>
-            <span class="bk-summary__value" id="bkNachten">&mdash;</span>
-          </div>
-        </div>
-        <div class="bk-selected-room" id="bkSelectedRoom" hidden>
-          <div>
-            <span class="bk-selected-room__label">Geselecteerde kamer</span>
-            <span class="bk-selected-room__name" id="bkSelectedRoomName"></span>
-          </div>
-          <button class="bk-selected-room__change" id="bkChangeRoom">wijzig</button>
-        </div>
-        <div class="bk-cta-row">
-          <button class="bk-btn-primary" id="bkToStep2" disabled>Volgende: kies kamer &rarr;</button>
-          <button class="bk-btn-ghost" id="bkDirectBook" disabled>Of boek direct zonder kamerkeuze</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Stap 2: Kamer kiezen -->
-    <div class="bk-step" id="bkStep2" hidden>
-      <button class="bk-back" id="bkBack" aria-label="Terug naar datumkeuze">&larr; Aanpassen</button>
-      <div class="bk-step-indicator" aria-hidden="true">
-        <span class="bk-dot"></span>
-        <span class="bk-dot bk-dot--active"></span>
-      </div>
-      <h2 class="bk-title">Kies uw kamer</h2>
-      <div class="bk-rooms" id="bkRooms" role="radiogroup" aria-label="Kamertype kiezen"></div>
-      <div class="bk-cta-row">
-        <button class="bk-btn-primary" id="bkConfirm">Bekijk beschikbaarheid &rarr;</button>
-      </div>
-    </div>
-
-    <!-- Stap 3: Kamerdetail sub-view -->
-    <div class="bk-step" id="bkStep3" hidden>
-      <button class="bk-back" id="bkBackToRooms" aria-label="Terug naar kamerkeuze">&larr; Terug</button>
-      <div id="bkRoomDetail"></div>
-    </div>
-
-  </div>
-</div>
-<script>
-/* ── Custom Datepicker ── */
-(function() {
-  var MONTH_NAMES = ['Januari','Februari','Maart','April','Mei','Juni',
-                     'Juli','Augustus','September','Oktober','November','December'];
-  var DAY_NAMES   = ['Ma','Di','Wo','Do','Vr','Za','Zo'];
-
-  var cal = {
-    viewYear: 0, viewMonth: 0,
-    selectedStart: null, selectedEnd: null,
-    hoverDate: null,
-    onDateChange: null
-  };
-
-  function todayMidnight() {
-    var d = new Date();
-    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-  }
-
-  function isSameDay(a, b) {
-    return a && b &&
-      a.getFullYear() === b.getFullYear() &&
-      a.getMonth()    === b.getMonth()    &&
-      a.getDate()     === b.getDate();
-  }
-
-  function isBefore(a, b) { return !!a && !!b && a.getTime() < b.getTime(); }
-  function isAfter(a, b)  { return !!a && !!b && a.getTime() > b.getTime(); }
-
-  function formatISO(d) {
-    var m   = d.getMonth() + 1;
-    var day = d.getDate();
-    return d.getFullYear() + '-' + (m < 10 ? '0' + m : m) + '-' + (day < 10 ? '0' + day : day);
-  }
-
-  function firstWeekdayOfMonth(year, month) {
-    // 0 = maandag, 6 = zondag
-    var dow = new Date(year, month, 1).getDay(); // 0=zo,1=ma,...6=za
-    return dow === 0 ? 6 : dow - 1;
-  }
-
-  function daysInMonth(year, month) {
-    return new Date(year, month + 1, 0).getDate();
-  }
-
-  function renderMonth(year, month) {
-    var todayDate  = todayMidnight();
-    var daysCount  = daysInMonth(year, month);
-    var firstDay   = firstWeekdayOfMonth(year, month);
-    var start      = cal.selectedStart;
-    var end        = cal.selectedEnd;
-    var hover      = cal.hoverDate;
-
-    // Bepaal effectieve range voor in-range highlight
-    var rangeA = null, rangeB = null;
-    if (start && end) {
-      rangeA = isBefore(start, end) ? start : end;
-      rangeB = isBefore(start, end) ? end   : start;
-    } else if (start && hover && !isSameDay(hover, start)) {
-      rangeA = isBefore(start, hover) ? start : hover;
-      rangeB = isBefore(start, hover) ? hover : start;
-    }
-
-    var html = '<div class="cal-month">';
-    html += '<div class="cal-month-label">' + MONTH_NAMES[month] + ' ' + year + '</div>';
-    html += '<div class="cal-weekdays">';
-    for (var w = 0; w < 7; w++) {
-      html += '<span>' + DAY_NAMES[w] + '</span>';
-    }
-    html += '</div><div class="cal-days">';
-
-    // Lege cellen vóór de eerste dag
-    for (var e = 0; e < firstDay; e++) {
-      html += '<span class="cal-day-empty"></span>';
-    }
-
-    for (var day = 1; day <= daysCount; day++) {
-      var date     = new Date(year, month, day);
-      var iso      = formatISO(date);
-      var disabled = isBefore(date, todayDate);
-      var classes  = ['cal-day'];
-
-      if (disabled)                          classes.push('is-disabled');
-      if (isSameDay(date, todayDate) && !disabled) classes.push('is-today');
-      if (isSameDay(date, start))            classes.push('is-start');
-      if (isSameDay(date, end))              classes.push('is-end');
-
-      if (rangeA && rangeB && isAfter(date, rangeA) && isBefore(date, rangeB)) {
-        classes.push(cal.selectedEnd ? 'is-in-range' : 'is-hover-range');
-      }
-
-      var attrs = disabled ? ' disabled aria-disabled="true"' : '';
-      html += '<button class="' + classes.join(' ') + '" data-date="' + iso + '"' + attrs + '>' + day + '</button>';
-    }
-
-    html += '</div></div>';
-    return html;
-  }
-
-  function render() {
-    var container = document.getElementById('bkCalendar');
-    if (!container) return;
-
-    var y1 = cal.viewYear, m1 = cal.viewMonth;
-    var y2 = y1, m2 = m1 + 1;
-    if (m2 > 11) { m2 = 0; y2++; }
-
-    var todayDate    = todayMidnight();
-    var prevDisabled = (y1 < todayDate.getFullYear()) ||
-                       (y1 === todayDate.getFullYear() && m1 <= todayDate.getMonth());
-
-    var html = '<div class="cal-nav">';
-    html += '<button class="cal-nav__prev"' + (prevDisabled ? ' disabled' : '') + '>&#8249;</button>';
-    html += '<span class="cal-nav__label">' + MONTH_NAMES[m1] + ' \u2014 ' + MONTH_NAMES[m2] + ' ' + y2 + '</span>';
-    html += '<button class="cal-nav__next">&#8250;</button>';
-    html += '</div>';
-    html += '<div class="cal-grid-wrap">';
-    html += renderMonth(y1, m1);
-    html += renderMonth(y2, m2);
-    html += '</div>';
-
-    container.innerHTML = html;
-    attachListeners(container);
-  }
-
-  function attachListeners(container) {
-    var btnPrev = container.querySelector('.cal-nav__prev');
-    var btnNext = container.querySelector('.cal-nav__next');
-
-    btnPrev.addEventListener('click', function() {
-      cal.viewMonth--;
-      if (cal.viewMonth < 0) { cal.viewMonth = 11; cal.viewYear--; }
-      render();
-    });
-    btnNext.addEventListener('click', function() {
-      cal.viewMonth++;
-      if (cal.viewMonth > 11) { cal.viewMonth = 0; cal.viewYear++; }
-      render();
-    });
-
-    container.querySelectorAll('.cal-day:not([disabled])').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var date = new Date(btn.dataset.date + 'T00:00:00');
-        if (!cal.selectedStart || (cal.selectedStart && cal.selectedEnd)) {
-          cal.selectedStart = date;
-          cal.selectedEnd   = null;
-        } else {
-          if (isSameDay(date, cal.selectedStart)) {
-            cal.selectedStart = null;
-          } else if (isBefore(date, cal.selectedStart)) {
-            cal.selectedEnd   = cal.selectedStart;
-            cal.selectedStart = date;
-          } else {
-            cal.selectedEnd = date;
-          }
-        }
-        cal.hoverDate = null;
-        render();
-        if (cal.onDateChange) {
-          cal.onDateChange(cal.selectedStart, cal.selectedEnd);
-        }
-      });
-
-      btn.addEventListener('mouseenter', function() {
-        if (window.matchMedia && window.matchMedia('(hover: none)').matches) return;
-        if (cal.selectedStart && !cal.selectedEnd) {
-          var newHover = new Date(btn.dataset.date + 'T00:00:00');
-          if (!cal.hoverDate || !isSameDay(newHover, cal.hoverDate)) {
-            cal.hoverDate = newHover;
-            render();
-          }
-        }
-      });
-    });
-
-    container.addEventListener('mouseleave', function() {
-      if (cal.hoverDate) {
-        cal.hoverDate = null;
-        render();
-      }
-    });
-  }
-
-  window.initCustomCalendar = function(onDateChange) {
-    var t = todayMidnight();
-    cal.viewYear      = t.getFullYear();
-    cal.viewMonth     = t.getMonth();
-    cal.selectedStart = null;
-    cal.selectedEnd   = null;
-    cal.hoverDate     = null;
-    cal.onDateChange  = onDateChange || null;
-    render();
-  };
-
-  window.clearCustomCalendar = function() {
-    var t = todayMidnight();
-    cal.viewYear      = t.getFullYear();
-    cal.viewMonth     = t.getMonth();
-    cal.selectedStart = null;
-    cal.selectedEnd   = null;
-    cal.hoverDate     = null;
-    render();
-  };
-})();
-</script>
-<script>
-/* ── Cookie banner ── */
-(function () {
-  if (localStorage.getItem('cookie-consent')) {
-    document.getElementById('cookieBanner').hidden = true;
-    return;
-  }
-  document.getElementById('cookieAccept').addEventListener('click', function () {
-    localStorage.setItem('cookie-consent', '1');
-    document.getElementById('cookieBanner').hidden = true;
-  });
-}());
-
-
-  /* ── Hamburger menu ── */
-  (function () {
-    var nav      = document.querySelector('.main-nav');
-    var btnOpen  = document.getElementById('menuOpen');
-    var btnClose = document.getElementById('menuClose');
-    if (btnOpen) {
-      btnOpen.addEventListener('click', function () {
-        nav.classList.add('show-mobile-nav');
-        setTimeout(function () { nav.classList.add('delay'); }, 10);
-      });
-    }
-    if (btnClose) {
-      btnClose.addEventListener('click', function () {
-        nav.classList.remove('delay');
-        setTimeout(function () { nav.classList.remove('show-mobile-nav'); }, 400);
-      });
-    }
-  }());
-
-
-  /* ── Feature-interactie: hover + click + keyboard ── */
-  (function () {
-    var features = document.querySelectorAll('.arr-c__feature');
-    var photos   = document.querySelectorAll('.arr-c__photo');
-    var caption  = document.getElementById('arrCCaption');
-
-    function activate(key, cap) {
-      features.forEach(function (f) { f.classList.toggle('is-active', f.dataset.key === key); });
-      photos.forEach(function (p)   { p.classList.toggle('is-active', p.dataset.key === key); });
-      if (caption) caption.textContent = cap;
-    }
-
-    features.forEach(function (feature) {
-      feature.addEventListener('mouseenter', function () {
-        activate(this.dataset.key, this.dataset.caption);
-      });
-      feature.addEventListener('click', function () {
-        activate(this.dataset.key, this.dataset.caption);
-      });
-      feature.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          activate(this.dataset.key, this.dataset.caption);
-        }
-      });
-    });
-  }());
-
-
-  /* ── Duur-toggle: 2 vs 3 dagen ── */
-  (function () {
-    var btns        = document.querySelectorAll('.arr-c__dur');
-    var priceEl     = document.getElementById('arrCPrice');
-    var detailEl    = document.getElementById('arrCDurDetail');
-    var stickyPrice = document.querySelector('.sticky-card__price');
-    if (!btns.length) return;
-    function select(btn) {
-      btns.forEach(function (b) {
-        var on = b === btn;
-        b.classList.toggle('is-active', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
-      if (priceEl)     priceEl.textContent     = btn.dataset.price;
-      if (detailEl)    detailEl.textContent    = btn.dataset.sub;
-      if (stickyPrice) stickyPrice.textContent = btn.dataset.price;
-      window.arrDuration = Number(btn.dataset.dur);
-    }
-    btns.forEach(function (b) {
-      b.addEventListener('click', function () { select(this); });
-    });
-    window.arrDuration = 2;
-  }());
-
-
-  /* ── Reviews marquee ── */
-  (function () {
-    var track = document.getElementById('reviewsTrack');
-    var score = document.getElementById('reviewsScore');
-    var total = document.getElementById('reviewsTotal');
-
-    var colors = ['#c23435','#1e88e5','#43a047','#8e24aa','#fb8c00'];
-    function colorFor(name) {
-      return colors[(name.charCodeAt(0) || 0) % colors.length];
-    }
-    function starsHtml(n) {
-      var full = Math.round(n);
-      return '&#9733;'.repeat(full) + (full < 5 ? '&#9734;'.repeat(5 - full) : '');
-    }
-    function cardHtml(r, isStatic) {
-      var initials = r.author.split(' ').map(function (w) { return w[0]; }).slice(0, 2).join('');
-      var avatarHtml = (!isStatic && r.avatar)
-        ? '<img class="review-card__avatar" src="' + r.avatar + '" alt="" loading="lazy">'
-        : '<div class="review-card__avatar" style="background:' + colorFor(r.author) + '">' + initials + '</div>';
-      return '<article class="review-card">'
-        + '<div class="review-card__google-g" aria-hidden="true"></div>'
-        + '<div class="review-card__top">'
-        + avatarHtml
-        + '<div class="review-card__meta">'
-        + '<span class="review-card__name">' + r.author + '</span>'
-        + '<span class="review-card__date">' + r.time + '</span>'
-        + '</div>'
-        + '</div>'
-        + '<div class="review-card__stars">' + starsHtml(r.rating) + '</div>'
-        + '<p class="review-card__text">' + r.text + '</p>'
-        + '</article>';
-    }
-
-    function renderMarquee(reviews, isStatic) {
-      // Dupliceer voor naadloze loop
-      var html = reviews.map(function (r) { return cardHtml(r, isStatic); }).join('');
-      track.innerHTML = html + html;
-    }
-
-    var fallback = [
-      { author: 'Rob', time: '24 december 2025', rating: 5, text: 'Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!' },
-      { author: 'Danielle', time: '14 augustus 2025', rating: 5, text: 'We hebben 2 heerlijke dagen Venray gehad met 1 overnachting, diner, ontbijt en late check out. Het diner was top en het ontbijt ook. Personeel heel vriendelijk. Wij komen hier zeker nog eens terug.' },
-      { author: 'Cornelia O.', time: '10 juni 2024', rating: 5, text: 'Was super goed fijne bedden. Koffie apparaat op je kamer. Top hotel.' },
-      { author: 'Judith B.', time: '3 februari 2025', rating: 5, text: 'Geweldig verblijf! Heerlijk gegeten en de omgeving is prachtig voor een fietstocht. Echt genieten.' },
-      { author: 'Martin V.', time: '18 november 2024', rating: 4, text: 'Mooie locatie, vriendelijk personeel. Diner was uitstekend verzorgd.' }
-    ];
-
-    fetch('/api/google-reviews')
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        if (data.error) throw new Error(data.error);
-        if (score) score.textContent = data.rating ? data.rating.toFixed(1).replace('.', ',') : '4,2';
-        if (total) total.textContent = (data.total ? data.total.toLocaleString('nl-NL') : '2.219') + ' beoordelingen';
-        var reviews = (data.reviews || []).slice(0, 8);
-        if (!reviews.length) throw new Error('geen reviews');
-        renderMarquee(reviews, false);
-      })
-      .catch(function () {
-        renderMarquee(fallback, true);
-      });
-  }());
-
-
-  /* ── Sticky CTA ── */
-  (function () {
-    var fab  = document.getElementById('stickyFab');
-    var card = document.getElementById('stickyCard');
-    var reviews = document.getElementById('reviews');
-    if (!fab || !card || !reviews) return;
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        var show;
-        if (e.isIntersecting) {
-          show = true;                        // reviews in beeld → arrangement voorbij
-        } else if (e.boundingClientRect.top > 0) {
-          show = false;                       // reviews nog onder viewport
-        } else {
-          show = true;                        // reviews al boven viewport (ver gescrolld)
-        }
-        fab.classList.toggle('is-visible', show);
-        card.classList.toggle('is-visible', show);
-      });
-    }, { threshold: 0 });
-
-    io.observe(reviews);
-  }());
-
-/* ── Kamertypes — A/B toggle + popup ── */
-(function () {
-  // Altijd de mini-thumbnail variant (kleine kamerfoto bij elk kamertype),
-  // tenzij expliciet ?rooms=compact in de URL staat.
-  var section = document.querySelector('.rooms');
-  if (section) {
-    var variant = new URLSearchParams(window.location.search).get('rooms');
-    if (variant !== 'compact') {
-      section.classList.add('rooms--thumb');
-    }
-  }
-
-  // Room data
-  var ROOMS = {
-    'comfort': { video: 'videos/comfort.mp4',
-      badge: '<span class="room-row__badge badge--included">Standaard inbegrepen</span>',
-      name: 'Comfort Kamer',
-      imgs: ['fotos/kamer-comfort-a.webp', 'fotos/kamer-comfort-b.webp', 'fotos/kamer-comfort-c.webp', 'fotos/kamer-comfort-d.webp'],
-      desc: 'Een comfortabele kamer voor twee personen met alles wat u nodig hebt voor een ontspannen verblijf.',
-      features: ['~22 m²', 'Tweepersoons bed', 'Douche', 'Zithoek', 'Airco', 'WiFi'],
-      upgrade: '',
-      shortDesc: '~22 m\u00b2 \u00b7 tweepersoons bed \u00b7 douche',
-      mewsCategoryId: '98900f3b-e5e2-49c9-9776-af1d00ffc315'
-    },
-    'royale': { video: 'videos/royale.mp4',
-      badge: '<span class="room-row__badge badge--upgrade">Upgrade</span>',
-      name: 'Royale Kamer',
-      imgs: ['fotos/room-royale-1.webp', 'fotos/room-royale-2.webp', 'fotos/room-royale-3.webp', 'fotos/room-royale-4.webp'],
-      desc: 'Meer ruimte om te ademen \u2014 met de keuze voor een bad als u ook op de kamer wilt ontspannen.',
-      features: ['Ruimer dan Comfort', 'Bad of douche', 'Zithoek', 'Koffiezetapparaat', 'Airco'],
-      upgrade: '',
-      shortDesc: 'Ruimer \u00b7 bad of douche \u00b7 koffiezetapparaat',
-      mewsCategoryId: 'a8fd7310-0d61-422f-89e6-af1d00ffc315'
-    },
-    'deluxe': { video: 'videos/deluxe.mp4',
-      badge: '<span class="room-row__badge badge--sauna">+ Eigen sauna</span>',
-      name: 'Deluxe Kamer',
-      imgs: ['fotos/room-deluxe-1.webp', 'fotos/room-deluxe-2.webp', 'fotos/room-deluxe-3.webp', 'fotos/room-deluxe-4.webp'],
-      desc: 'Een priv\u00e9 infraroodsauna op de kamer. Wellness begint bij u aan de deur \u2014 geen gedeelde ruimte.',
-      features: ['Eigen infraroodsauna', 'Meer ruimte', 'Dubbel bed', 'Douche', 'Zithoek', 'Koffiezetapparaat', 'Airco'],
-      upgrade: '',
-      shortDesc: '~25 m\u00b2 \u00b7 priv\u00e9 infraroodsauna \u00b7 kingsize bed',
-      mewsCategoryId: 'c737de50-e41e-4c8d-a818-af1d00ffc315'
-    },
-    'junior-suite': { video: null,
-      badge: '<span class="room-row__badge badge--upgrade">Upgrade</span>',
-      name: 'Junior Suite',
-      imgs: ['fotos/kamer-junior-suite.webp', 'fotos/kamer-junior-suite-2.webp'],
-      desc: 'Het extra formaat dat uw verblijf \u00e9cht luxe maakt: kingsize bed, een bad en een ruime zithoek.',
-      features: ['Kingsize bed', 'Bad', 'Ruime zithoek met slaapbank', 'Koelkastje', 'Koffiezetapparaat', 'Airco'],
-      upgrade: '',
-      shortDesc: 'Kingsize bed \u00b7 bad \u00b7 ruime zithoek',
-      mewsCategoryId: '27ea8deb-ded5-4856-8fdd-af1d00ffc315'
-    },
-    'suite': { video: 'videos/suite.mp4',
-      badge: '<span class="room-row__badge badge--sauna">+ Eigen sauna</span>',
-      name: 'Suite',
-      imgs: ['fotos/room-suite-1.webp', 'fotos/room-suite-2.webp', 'fotos/room-suite-3.webp', 'fotos/room-suite-4.webp'],
-      desc: 'Het beste van beide werelden: een ruime suite met eigen infraroodsauna voor extra comfort.',
-      features: ['Kingsize bed', 'Eigen infraroodsauna', 'Ruime zithoek met slaapbank', 'Koelkastje', 'Airco'],
-      upgrade: '',
-      shortDesc: 'Kingsize bed \u00b7 eigen infraroodsauna \u00b7 ruime suite',
-      mewsCategoryId: '4a642b66-68e6-444c-beeb-af1d00ffc315'
-    },
-    'bruidssuite': { video: 'videos/bruidssuite.mp4',
-      badge: '<span class="room-row__badge badge--premium">Premium</span>',
-      name: 'Bruidssuite',
-      imgs: ['fotos/room-bruidssuite-1.webp', 'fotos/room-bruidssuite-2.webp', 'fotos/room-bruidssuite-3.webp', 'fotos/room-bruidssuite-4.webp'],
-      desc: 'Vrijstaand bad, ruime inloopdouche en de meest romantische sfeer van het hotel. Voor een onvergetelijke avond.',
-      features: ['Kingsize bed', 'Vrijstaand bad', 'Ruime inloopdouche', 'Zithoek', 'Koelkastje', 'Airco'],
-      upgrade: '',
-      shortDesc: 'Kingsize bed \u00b7 vrijstaand bad \u00b7 romantische sfeer',
-      mewsCategoryId: 'a9f18d18-561b-47a9-8ba7-b2a800cfd0e2'
-    }
-  };
-
-  // Bijhouden welke kamer de gast via de kamerpopup heeft bekeken
-  window.selectedRoomId = null;
-
-  var overlay = document.getElementById('roomPopup');
-  var inner = document.getElementById('roomPopupInner');
-
-  var sliderIdx = 0;
-  var sliderLen = 0;
-
-  function goSlide(i) {
-    sliderIdx = (i + sliderLen) % sliderLen;
-    var track = inner.querySelector('.room-popup__track');
-    if (track) track.style.transform = 'translateX(-' + (sliderIdx * 100) + '%)';
-    var dots = inner.querySelectorAll('.room-popup__dot');
-    dots.forEach(function (d, j) { d.classList.toggle('is-active', j === sliderIdx); });
-  }
-
-  function openPopup(key) {
-    window.selectedRoomId = key;
-    var r = ROOMS[key];
-    if (!r) return;
-    var imgs = r.imgs;
-    var slides = [];
-    if (r.video) {
-      slides.push('<video class="room-popup__hero room-popup__video" src="' + r.video + '" muted loop playsinline autoplay preload="auto" poster="' + imgs[0] + '"></video>');
-    }
-    imgs.forEach(function (src) {
-      slides.push('<img class="room-popup__hero" src="' + src + '" alt="' + r.name + '" loading="lazy">');
-    });
-    sliderLen = slides.length;
-    sliderIdx = 0;
-
-    var imgsHtml = slides.join('');
-
-    var dotsHtml = slides.length > 1 ? '<div class="room-popup__dots">' +
-      slides.map(function (_, i) { return '<button class="room-popup__dot' + (i === 0 ? ' is-active' : '') + '" data-idx="' + i + '"></button>'; }).join('') +
-      '</div>' : '';
-
-    var arrowsHtml = slides.length > 1 ?
-      '<button class="room-popup__arrow room-popup__arrow--prev" aria-label="Vorige">\u2039</button>' +
-      '<button class="room-popup__arrow room-popup__arrow--next" aria-label="Volgende">\u203A</button>' : '';
-
-    inner.innerHTML =
-      '<div class="room-popup__slider">' +
-        '<div class="room-popup__track">' + imgsHtml + '</div>' +
-        dotsHtml + arrowsHtml +
-      '</div>' +
-      '<div class="room-popup__body">' +
-        '<button class="room-popup__close" id="popupClose" aria-label="Sluiten">&times;</button>' +
-        r.badge +
-        '<h3 class="room-popup__name">' + r.name + '</h3>' +
-        '<p class="room-popup__desc">' + r.desc + '</p>' +
-        '<ul class="room-popup__features">' +
-          r.features.map(function (f) { return '<li class="room-popup__feature">' + f + '</li>'; }).join('') +
-        '</ul>' +
-        '<button class="room-popup__cta" onclick="window.openBookingPopup(\'' + key + '\')">Boek dit arrangement</button>' +
-      '</div>';
-
-    // Slider controls
-    var prevBtn = inner.querySelector('.room-popup__arrow--prev');
-    var nextBtn = inner.querySelector('.room-popup__arrow--next');
-    if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); goSlide(sliderIdx - 1); });
-    if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); goSlide(sliderIdx + 1); });
-    inner.querySelectorAll('.room-popup__dot').forEach(function (dot) {
-      dot.addEventListener('click', function (e) { e.stopPropagation(); goSlide(Number(this.dataset.idx)); });
-    });
-
-    // Touch swipe
-    var slider = inner.querySelector('.room-popup__slider');
-    var touchStartX = 0;
-    slider.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
-    slider.addEventListener('touchend', function (e) {
-      var diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) goSlide(sliderIdx + (diff > 0 ? 1 : -1));
-    });
-
-    overlay.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    document.getElementById('popupClose').addEventListener('click', closePopup);
-    var popupVideo = inner.querySelector('.room-popup__video');
-    if (popupVideo) { var pp = popupVideo.play(); if (pp && pp.catch) pp.catch(function () {}); }
-  }
-
-  function closePopup() {
-    var v = inner.querySelector('.room-popup__video');
-    if (v) { try { v.pause(); } catch (e) {} }
-    overlay.classList.remove('is-open');
-    document.body.style.overflow = '';
-    window.selectedRoomId = null;
-  }
-
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closePopup();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closePopup();
-  });
-
-  // Comfort baseline — ook klikbaar
-  var baseEl = document.querySelector('.rooms__base[data-room]');
-  if (baseEl) {
-    baseEl.addEventListener('click', function () { openPopup(this.dataset.room); });
-    baseEl.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(this.dataset.room); }
-    });
-  }
-
-  document.querySelectorAll('.room-row').forEach(function (row) {
-    row.addEventListener('click', function () { openPopup(this.dataset.room); });
-    row.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPopup(this.dataset.room); }
-    });
-  });
-
-  // Expose ROOMS voor booking popup IIFE
-  window.ROOMS = ROOMS;
-}());
-
-/* ══ ANALYTICS ══════════════════════════════════════════════ */
-(function () {
-  var sid = sessionStorage.getItem('_sid');
-  if (!sid) {
-    sid = Math.random().toString(36).slice(2) + Date.now().toString(36);
-    sessionStorage.setItem('_sid', sid);
-  }
-
-  function track(event, props) {
-    if (localStorage.getItem('asteria_no_track')) return;
-    var payload = {
-      session_id:    sid,
-      event:         event,
-      page:          location.pathname,
-      referrer:      document.referrer || null,
-      variant_price: sessionStorage.getItem('price_variant') || null,
-      variant_email: sessionStorage.getItem('ec_variant') || null,
-    };
-    if (props) {
-      Object.keys(props).forEach(function (k) { payload[k] = props[k]; });
-    }
-    fetch('/api/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      keepalive: true,
-    }).catch(function () {});
-  }
-
-  window.track = track;
-
-  // page_view bij laden
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { track('page_view'); });
-  } else {
-    track('page_view');
-  }
-
-  // CTA clicks
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('[data-track-cta]').forEach(function (el) {
-      el.addEventListener('click', function () {
-        track('cta_click', { cta: el.getAttribute('data-track-cta') });
-      });
-    });
-  });
-}());
-
-/* ══ A/B PRICE TEST ═════════════════════════════════════════ */
-(function () {
-  // Vaste prijs voor Happy Summer (geen A/B prijstest)
-  window.priceVariant = 'A';
-}());
-
-/* ══ BOOKING POPUP ══════════════════════════════════════════ */
-(function () {
-  var MEWS_BASE = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
-  var VOUCHER = window.ACTIE_VOUCHER || 'DINER';
-  window.setActieVoucher = function (v) { VOUCHER = v; };
-
-  var overlay   = document.getElementById('bookingPopup');
-  var step1     = document.getElementById('bkStep1');
-  var step2     = document.getElementById('bkStep2');
-  var step3     = document.getElementById('bkStep3');
-  var btnClose  = document.getElementById('bkClose');
-  var btnBack   = document.getElementById('bkBack');
-  var btnBackToRooms = document.getElementById('bkBackToRooms');
-  var btnToStep2    = document.getElementById('bkToStep2');
-  var btnDirectBook = document.getElementById('bkDirectBook');
-  var btnConfirm    = document.getElementById('bkConfirm');
-  var elAankomst = document.getElementById('bkAankomst');
-  var elVertrek  = document.getElementById('bkVertrek');
-  var elNachten  = document.getElementById('bkNachten');
-  var elRooms    = document.getElementById('bkRooms');
-  var elSelectedRoom     = document.getElementById('bkSelectedRoom');
-  var elSelectedRoomName = document.getElementById('bkSelectedRoomName');
-  var btnChangeRoom      = document.getElementById('bkChangeRoom');
-
-  var selectedDates = [];   // [Date aankomst, Date vertrek]
-  var selectedRoomKey = null; // kamersleutel voor stap 2
-  var availabilityResult  = null;   // gevuld door fetchAvailability
-  var availabilityLoading = false;  // true terwijl fetch loopt
-
-  var DAYS_NL = ['zo','ma','di','wo','do','vr','za'];
-  var MONTHS_NL = ['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
-
-  function formatDate(d) {
-    return DAYS_NL[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS_NL[d.getMonth()];
-  }
-
-  function toYMD(d) {
-    var mm = d.getMonth() + 1;
-    var dd = d.getDate();
-    return d.getFullYear() + '-' + (mm < 10 ? '0' : '') + mm + '-' + (dd < 10 ? '0' : '') + dd;
-  }
-
-  var availabilityCache = {}; // key: "YYYY-MM-DD|YYYY-MM-DD" -> { categoryId: { available, lowestPrice } }
-
-  function fetchAvailability(checkin, checkout, callback) {
-    var cacheKey = toYMD(checkin) + '|' + toYMD(checkout);
-    if (availabilityCache[cacheKey]) { callback(null, availabilityCache[cacheKey]); return; }
-
-    var categoryIds = Object.values(window.ROOMS).map(function (r) { return r.mewsCategoryId; });
-
-    fetch('/mews/api/distributor/v1/hotels/getAvailability', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        Client: 'Asteria Pages 1.0.0',
-        ConfigurationId: '6dc9094c-76e3-4fd8-83a7-af1d00ffc556',
-        HotelId: '65a522c9-4828-413d-9ad8-af1d00ffb83f',
-        StartUtc: toYMD(checkin) + 'T12:00:00Z',
-        EndUtc: toYMD(checkout) + 'T12:00:00Z',
-        VoucherCode: VOUCHER,
-        CategoryIds: categoryIds
-      })
-    })
-    .then(function (res) { return res.json(); })
-    .then(function (data) {
-      var result = {};
-      var avails = data.RoomCategoryAvailabilities || [];
-      avails.forEach(function (a) {
-        var lowestPrice = null;
-        if (a.RoomOccupancyAvailabilities && a.RoomOccupancyAvailabilities.length) {
-          var firstOcc = a.RoomOccupancyAvailabilities[0];
-          if (firstOcc.Pricing && firstOcc.Pricing.length) {
-            var pricing = firstOcc.Pricing[0];
-            if (pricing.Price && pricing.Price.GrossValue != null) {
-              lowestPrice = pricing.Price.GrossValue;
-            }
-          }
-        }
-        result[a.RoomCategoryId] = {
-          available: a.AvailableRoomCount > 0,
-          lowestPrice: lowestPrice
-        };
-      });
-      availabilityCache[cacheKey] = result;
-      callback(null, result);
-    })
-    .catch(function (err) {
-      callback(err, null);
-    });
-  }
-
-  function buildBookingUrl(checkin, checkout, roomKey) {
-    var url = MEWS_BASE + '?mewsVoucherCode=' + VOUCHER + '&mewsStart=' + toYMD(checkin)
-      + '&mewsEnd='   + toYMD(checkout);
-    if (roomKey && window.ROOMS && window.ROOMS[roomKey] && window.ROOMS[roomKey].mewsCategoryId) {
-      var catId = window.ROOMS[roomKey].mewsCategoryId;
-      url += '&mewsRoute=rates&mewsRoom=' + catId;
-    } else {
-      url += '&mewsRoute=rooms';
-    }
-    return url;
-  }
-
-  function updateSummary() {
-    if (selectedDates.length === 2) {
-      var diff = Math.round((selectedDates[1] - selectedDates[0]) / 86400000);
-      elAankomst.textContent = formatDate(selectedDates[0]);
-      elVertrek.textContent  = formatDate(selectedDates[1]);
-      elNachten.textContent  = diff + (diff === 1 ? ' nacht' : ' nachten');
-      btnToStep2.disabled    = false;
-      btnDirectBook.disabled = false;
-
-      // Start availability fetch alvast op achtergrond
-      availabilityResult  = null;
-      availabilityLoading = true;
-      fetchAvailability(selectedDates[0], selectedDates[1], function (err, result) {
-        availabilityLoading = false;
-        availabilityResult  = err ? null : result;
-      });
-    } else {
-      elAankomst.textContent = '\u2014';
-      elVertrek.textContent  = '\u2014';
-      elNachten.textContent  = '\u2014';
-      btnToStep2.disabled    = true;
-      btnDirectBook.disabled = true;
-      availabilityResult  = null;
-      availabilityLoading = false;
-    }
-  }
-
-  function openBookingPopup(preselectedRoomKey) {
-    selectedRoomKey = preselectedRoomKey || null;
-    selectedDates   = [];
-    availabilityResult  = null;
-    availabilityLoading = false;
-    updateSummary();
-
-    // Altijd stap 1 tonen bij openen
-    step1.hidden = false;
-    step2.hidden = true;
-    step3.hidden = true;
-
-    // Pre-selectie UI
-    var modal = document.getElementById('bookingModal');
-    if (selectedRoomKey && window.ROOMS && window.ROOMS[selectedRoomKey]) {
-      modal.classList.add('has-preselected');
-      elSelectedRoomName.textContent = window.ROOMS[selectedRoomKey].name;
-      elSelectedRoom.hidden = false;
-      btnToStep2.textContent = 'Bekijk beschikbaarheid \u2192';
-      btnDirectBook.hidden = true;
-    } else {
-      modal.classList.remove('has-preselected');
-      elSelectedRoom.hidden = true;
-      btnToStep2.textContent = 'Volgende: kies kamer \u2192';
-      btnDirectBook.hidden = false;
-    }
-
-    overlay.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-    if (window.track) window.track('popup_open');
-
-    // Custom datepicker — wordt ingevuld in Task 3
-    if (window.initCustomCalendar) {
-      window.initCustomCalendar(function(start, end) {
-        selectedDates = start && end ? [start, end] : [];
-        updateSummary();
-      });
-    }
-  }
-
-  function closeBookingPopup() {
-    overlay.classList.remove('is-open');
-    document.body.style.overflow = '';
-    btnDirectBook.hidden = false;
-    document.getElementById('bookingModal').classList.remove('has-preselected');
-    if (window.clearCustomCalendar) window.clearCustomCalendar();
-  }
-
-  // Sluit via overlay klik (buiten modal)
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closeBookingPopup();
-  });
-
-  function launchMews(checkin, checkout, roomKey) {
-    closeBookingPopup();
-    function doOpen() {
-      window.mewsApi.setStartDate(checkin);
-      window.mewsApi.setEndDate(checkout);
-      window.mewsApi.setVoucherCode(VOUCHER);
-      window.mewsApi.open();
-    }
-    if (window.mewsApi) {
-      doOpen();
-    } else {
-      window._mewsPending = doOpen;
-      setTimeout(function() {
-        if (window._mewsPending) {
-          window._mewsPending = null;
-          window.open(buildBookingUrl(checkin, checkout, roomKey), '_blank', 'noopener');
-        }
-      }, 4000);
-    }
-  }
-
-  btnClose.addEventListener('click', closeBookingPopup);
-
-  btnToStep2.addEventListener('click', function () {
-    if (selectedDates.length < 2) return;
-
-    // Als er al een kamer geselecteerd is (via kamerpopup), sla stap 2 over
-    if (selectedRoomKey) {
-      if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
-      launchMews(selectedDates[0], selectedDates[1], selectedRoomKey);
-      return;
-    }
-
-    // Wacht op availability als nog bezig
-    if (availabilityLoading) {
-      btnToStep2.textContent = 'Laden\u2026';
-      btnToStep2.disabled = true;
-      var poll = setInterval(function () {
-        if (!availabilityLoading) {
-          clearInterval(poll);
-          btnToStep2.textContent = 'Kies een kamer';
-          btnToStep2.disabled = false;
-          step1.hidden = true;
-          step2.hidden = false;
-          if (window.track) window.track('step2_reached');
-          renderRoomCards(availabilityResult);
-        }
-      }, 100);
-      return;
-    }
-
-    // Availability beschikbaar (of gefaald — dan renderen zonder data)
-    if (window.track) window.track('step2_reached');
-    step1.hidden = true;
-    step2.hidden = false;
-    renderRoomCards(availabilityResult);
-  });
-
-  btnDirectBook.addEventListener('click', function () {
-    if (selectedDates.length < 2) return;
-    if (window.track) window.track('mews_click', { room_key: null });
-    launchMews(selectedDates[0], selectedDates[1], null);
-  });
-
-  btnBack.addEventListener('click', function () {
-    step1.hidden = false;
-    step2.hidden = true;
-  });
-
-  btnBackToRooms.addEventListener('click', function () {
-    step3.hidden = true;
-    step2.hidden = false;
-  });
-
-  btnChangeRoom.addEventListener('click', function () {
-    selectedRoomKey = null;
-    var modal = document.getElementById('bookingModal');
-    modal.classList.remove('has-preselected');
-    elSelectedRoom.hidden = true;
-    btnToStep2.textContent = 'Volgende: kies kamer \u2192';
-    btnDirectBook.hidden = false;
-  });
-
-  // Escape key
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeBookingPopup();
-  });
-
-  // Exporteer openBookingPopup zodat andere scripts het kunnen aanroepen
-  window.openBookingPopup = openBookingPopup;
-
-  function renderRoomCards(availability) {
-    var ROOM_KEYS = ['comfort', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];
-    selectedRoomKey = null;
-    var firstAvailableKey = null;
-
-    elRooms.innerHTML = ROOM_KEYS.map(function (key) {
-      var r = window.ROOMS[key];
-      var avail = availability && r.mewsCategoryId && availability[r.mewsCategoryId];
-      var isAvailable = !availability || !avail || avail.available; // bij null data: alles beschikbaar tonen
-      var lowestPrice = avail && avail.lowestPrice;
-      var priceLabel  = lowestPrice ? '\u20ac\u00a0' + Math.round(lowestPrice) : '';
-      var volLabel    = availability && avail && !avail.available ? '<span class="bk-room-card__vol">Vol</span>' : '';
-
-      if (isAvailable && !firstAvailableKey) firstAvailableKey = key;
-
-      return '<div class="bk-room-card' + (!isAvailable ? ' is-unavailable' : '') + '" data-key="' + key + '" role="radio" aria-checked="false" tabindex="' + (isAvailable ? '0' : '-1') + '">' +
-        '<div class="bk-room-card__header">' +
-          '<div class="bk-room-card__radio"></div>' +
-          '<span class="bk-room-card__name">' + r.name + '</span>' +
-          '<span class="bk-room-card__upgrade">' + r.upgrade + '</span>' +
-          (priceLabel ? '<span class="bk-room-card__price">' + priceLabel + '</span>' : '') +
-          volLabel +
-          '<button class="bk-room-card__toggle" data-key="' + key + '" tabindex="-1">meer info</button>' +
-        '</div>' +
-      '</div>';
-    }).join('');
-
-    // Selecteer eerste beschikbare kamer
-    if (firstAvailableKey) {
-      var firstCard = elRooms.querySelector('[data-key="' + firstAvailableKey + '"]');
-      if (firstCard) { firstCard.classList.add('is-selected'); firstCard.setAttribute('aria-checked', 'true'); }
-      selectedRoomKey = firstAvailableKey;
-    }
-
-    // Klik op card -> selecteer (alleen beschikbare kamers)
-    elRooms.querySelectorAll('.bk-room-card:not(.is-unavailable)').forEach(function (card) {
-      card.addEventListener('click', function (e) {
-        if (e.target.classList.contains('bk-room-card__toggle')) return;
-        elRooms.querySelectorAll('.bk-room-card').forEach(function (c) {
-          c.classList.remove('is-selected');
-          c.setAttribute('aria-checked', 'false');
-        });
-        card.classList.add('is-selected');
-        card.setAttribute('aria-checked', 'true');
-        selectedRoomKey = card.getAttribute('data-key');
-      });
-    });
-
-    // "Meer info" → room detail sub-view
-    elRooms.querySelectorAll('.bk-room-card__toggle').forEach(function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        goToRoomDetail(btn.getAttribute('data-key'));
-      });
-    });
-  }
-
-  function goToRoomDetail(key) {
-    var r = window.ROOMS && window.ROOMS[key];
-    if (!r) return;
-    var detailEl = document.getElementById('bkRoomDetail');
-    detailEl.innerHTML =
-      '<div style="position:relative;margin-bottom:16px;border-radius:10px;overflow:hidden;">' + '<div class="bk-detail-track" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;">' + (r.video ? '<video class="bk-detail-slide" src="' + r.video + '" muted loop playsinline autoplay preload="auto" poster="' + r.imgs[0] + '" style="flex:0 0 100%;scroll-snap-align:center;width:100%;aspect-ratio:16/9;object-fit:cover;display:block;"></video>' : '') + r.imgs.map(function (src) { return '<img class="bk-detail-slide" src="' + src + '" alt="' + r.name + '" loading="lazy" style="flex:0 0 100%;scroll-snap-align:center;width:100%;aspect-ratio:16/9;object-fit:cover;display:block;">'; }).join('') + '</div>' + ((r.imgs.length + (r.video ? 1 : 0)) > 1 ? '<button type="button" aria-label="Vorige" onclick="var t=this.parentNode.querySelector(&quot;.bk-detail-track&quot;);t.scrollBy({left:-t.clientWidth,behavior:&quot;smooth&quot;});" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,0.92);color:#1a1a1a;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:2;">&#8249;</button>' + '<button type="button" aria-label="Volgende" onclick="var t=this.parentNode.querySelector(&quot;.bk-detail-track&quot;);t.scrollBy({left:t.clientWidth,behavior:&quot;smooth&quot;});" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,0.92);color:#1a1a1a;font-size:18px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:2;">&#8250;</button>' : '') + '</div>' +
-      r.badge +
-      '<h3 class="bk-room-detail__name">' + r.name + '</h3>' +
-      '<p class="bk-room-detail__desc">' + r.desc + '</p>' +
-      '<ul class="bk-room-detail__features">' +
-        r.features.map(function (f) { return '<li class="bk-room-detail__feature">' + f + '</li>'; }).join('') +
-      '</ul>' +
-      '<button class="bk-btn-primary" data-select-key="' + key + '">Selecteer deze kamer</button>';
-
-    detailEl.querySelector('[data-select-key]').addEventListener('click', function () {
-      var k = this.dataset.selectKey;
-      selectedRoomKey = k;
-      step3.hidden = true;
-      step2.hidden = false;
-      elRooms.querySelectorAll('.bk-room-card').forEach(function (c) {
-        var isThis = c.getAttribute('data-key') === k;
-        c.classList.toggle('is-selected', isThis);
-        c.setAttribute('aria-checked', isThis ? 'true' : 'false');
-      });
-    });
-
-    step2.hidden = true;
-    step3.hidden = false;
-  }
-
-  btnConfirm.addEventListener('click', function () {
-    if (selectedDates.length < 2 || !selectedRoomKey) return;
-    if (window.track) window.track('mews_click', { room_key: selectedRoomKey });
-    launchMews(selectedDates[0], selectedDates[1], selectedRoomKey);
-  });
-
-}());
-
-/* ══ EMAIL CAPTURE ══════════════════════════════════════ */
-(function () {
-  // ── Guards ──────────────────────────────────────────
-  if (localStorage.getItem('ec_converted')) return;
-
-  var overlay   = document.getElementById('ecOverlay');
-  var modal     = document.getElementById('ecModal');
-  var btnClose  = document.getElementById('ecClose');
-  var formState = document.getElementById('ecFormState');
-  var successEl = document.getElementById('ecSuccess');
-  var emailInput = document.getElementById('ecEmail');
-  var submitBtn  = document.getElementById('ecSubmit');
-  var errorEl    = document.getElementById('ecError');
-
-  if (!overlay) return;
-
-  var shown = false;
-  var submitting = false;
-
-  // ── Open / close ─────────────────────────────────────
-  function openPopup() {
-    if (shown) return;
-    if (sessionStorage.getItem('ec_shown')) return;
-    shown = true;
-    sessionStorage.setItem('ec_shown', '1');
-    overlay.classList.add('is-open');
-    setTimeout(function () { emailInput && emailInput.focus(); }, 350);
-  }
-
-  function closePopup() {
-    overlay.classList.remove('is-open');
-  }
-
-  btnClose.addEventListener('click', closePopup);
-
-  overlay.addEventListener('click', function (e) {
-    if (e.target === overlay) closePopup();
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePopup();
-  });
-
-  window.openEmailCapture = openPopup;
-
-  // ── Submit handler ───────────────────────────────────
-  function showSuccess() {
-    submitting = false;
-    formState.classList.add('is-hidden');
-    successEl.classList.add('is-visible');
-    localStorage.setItem('ec_converted', '1');
-    if (window.track) window.track('email_success');
-  }
-
-  function showError() {
-    submitting = false;
-    errorEl.classList.add('is-visible');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Aanmelden';
-  }
-
-  submitBtn.addEventListener('click', function () {
-    if (submitting) return;
-    submitting = true;
-
-    var email = emailInput.value.trim();
-    if (!email || !emailInput.checkValidity()) {
-      submitting = false;
-      emailInput.focus();
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = '...';
-    errorEl.classList.remove('is-visible');
-    if (window.track) window.track('email_submit');
-
-    // Kopieer email naar verborgen Revinate form
-    var hiddenEmail = document.getElementById('ec_hidden_email');
-    if (hiddenEmail) hiddenEmail.value = email;
-
-    // Roep Revinate submit aan
-    try {
-      var revForm = document.getElementById('revinate_contact_api_form');
-      if (typeof revFormOnSubmit === 'function') {
-        revFormOnSubmit();
-      } else if (revForm) {
-        revForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-      } else {
-        showError();
-        return;
-      }
-      showSuccess();
-    } catch (e) {
-      showError();
-    }
-  });
-
-  // Enter in email input triggert submit
-  emailInput.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !submitting) submitBtn.click();
-  });
-
-  // ── A/B split ────────────────────────────────────────
-  var variant = sessionStorage.getItem('ec_variant');
-  if (!variant) {
-    variant = Math.random() < 0.5 ? 'A' : 'B';
-    sessionStorage.setItem('ec_variant', variant);
-  }
-
-  // ── Variant A: timer 4 seconden ──────────────────────
-  if (variant === 'A') {
-    setTimeout(openPopup, 4000);
-    return;
-  }
-
-  // ── Variant B: exit intent (desktop) + scroll (mobile) ──
-  var isMobile = window.matchMedia('(max-width: 768px)').matches;
-
-  if (!isMobile) {
-    // Exit intent: muis verlaat venster bovenkant
-    document.addEventListener('mouseleave', function handler(e) {
-      if (e.clientY <= 5) {
-        document.removeEventListener('mouseleave', handler);
-        openPopup();
-      }
-    });
-  } else {
-    // Scroll-depth: 70% van de pagina gescrold
-    function onScroll() {
-      var scrolled = window.scrollY + window.innerHeight;
-      var total = document.documentElement.scrollHeight;
-      if (scrolled / total >= 0.70) {
-        window.removeEventListener('scroll', onScroll);
-        openPopup();
-      }
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-  }
-})();
-
-/* ── Taalwisselaar (desktop top-bar + mobiele header) ── */
-(function() {
-  var sels = document.querySelectorAll('.lang-nav');
-  if (!sels.length) return;
-  Array.prototype.forEach.call(sels, function(sel) {
-    sel.value = 'nl';
-    sel.addEventListener('change', function() {
-      var v = sel.value;
-      localStorage.setItem('asteria_lang', v);
-    if (v === 'en') window.location.replace('/happy-summer-arrangement-en');
-    else if (v === 'de') window.location.replace('/happy-summer-arrangement-de');
-    });
-  });
-})();
-</script>
-<!--ACTIE-BK-END-->
 </body>
 </html>

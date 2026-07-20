@@ -32,7 +32,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{PAGE_TITLE}}">
   <meta property="og:description" content="{{META_DESC}}">
-  <meta property="og:image" content="https://visit.asteria.nl/fotos/hero-zomer.webp">
+  <meta property="og:image" content="https://visit.asteria.nl/fotos/arr-c-diner.webp">
   <meta property="og:url" content="{{CANONICAL_URL}}">
   <meta property="og:locale" content="{{OG_LOCALE}}">
   <meta property="og:site_name" content="Hotel Asteria Venray">
@@ -41,7 +41,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Electrolize&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="brand.css">
-  <link rel="preload" as="image" href="fotos/hero-zomer.webp" type="image/webp">
+  <link rel="preload" as="image" href="fotos/arr-c-diner.webp" type="image/webp">
 
   <script type="application/ld+json">
   {
@@ -52,7 +52,7 @@
     "address": { "@type": "PostalAddress", "streetAddress": "Maasheseweg 80a", "postalCode": "5804 AD", "addressLocality": "Venray", "addressCountry": "NL" },
     "telephone": "+31478511466",
     "email": "info@asteria.nl",
-    "image": "https://visit.asteria.nl/fotos/hero-zomer.webp",
+    "image": "https://visit.asteria.nl/fotos/arr-c-diner.webp",
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "2219", "bestRating": "5" }
   }
   </script>
@@ -67,7 +67,7 @@
      HERO  (verbatim uit happy-summer.template.html)
      ============================================================ */
   .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; padding-top: 110px; padding-bottom: 80px; }
-  .hero__bg { position: absolute; inset: 0; background: #0d0c0b url('fotos/hero-zomer.webp') center 42% / cover no-repeat; }
+  .hero__bg { position: absolute; inset: 0; background: #0d0c0b url('fotos/arr-c-diner.webp') center 55% / cover no-repeat; }
   .hero__overlay { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 85% at 50% 44%, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.48) 55%, rgba(0,0,0,0.82) 100%), linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 25%, transparent 45%), linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, transparent 18%); }
   .hero__grain { position: absolute; inset: 0; pointer-events: none; opacity: 0.18; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23g)' opacity='1'/%3E%3C/svg%3E"); mix-blend-mode: overlay; }
   .hero__content { position: relative; z-index: 3; max-width: 780px; padding: 0 28px; color: #fff; }
@@ -482,6 +482,115 @@
   .cookie-banner a { color: #fff; text-decoration: underline; }
   .cookie-banner button { background: #c23435; color: #fff; border: none; border-radius: 8px; padding: 10px 22px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; }
   .cookie-banner button:hover { background: #a82c2c; }
+
+  /* ============================================================
+     AUGUSTUS-ACTIE — wisselende hero (Parkhotel-opzet)
+     ============================================================ */
+  .hero__bgx { position: absolute; inset: 0; background-size: cover; background-position: center 55%; opacity: 0; animation: actieHeroFade 12s infinite; }
+  .hero__bgx:nth-child(1) { animation-delay: 0s; }
+  .hero__bgx:nth-child(2) { animation-delay: 3s; }
+  .hero__bgx:nth-child(3) { animation-delay: 6s; }
+  .hero__bgx:nth-child(4) { animation-delay: 9s; }
+  @keyframes actieHeroFade { 0%{opacity:0} 5%{opacity:1} 25%{opacity:1} 33%{opacity:0} 100%{opacity:0} }
+  @media (prefers-reduced-motion: reduce) { .hero__bgx { animation: none; } .hero__bgx:nth-child(1) { opacity: 1; } }
+  .hero__kicker { display: inline-block; border: 1px solid rgba(255,255,255,0.85); color: #fff; font-family: 'Electrolize', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; padding: 7px 16px; border-radius: 4px; margin-bottom: 18px; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.14s both; }
+  .hero__review { font-family: 'Montserrat', sans-serif; font-size: 13px; letter-spacing: 0.04em; color: rgba(255,255,255,0.92); text-shadow: 0 1px 12px rgba(0,0,0,0.55); margin-bottom: 18px; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.24s both; }
+  .hero__review .stars { color: #f59e0b; letter-spacing: 2px; }
+  .hero__gifts { display: flex; gap: 12px 26px; justify-content: center; flex-wrap: wrap; margin-top: 30px; animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.78s both; }
+  .hero__gifts a { color: #fff; text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 12px; letter-spacing: 0.08em; border-bottom: 1px solid rgba(255,255,255,0.55); padding-bottom: 4px; transition: border-color 0.2s; }
+  .hero__gifts a:hover { border-color: #fff; }
+
+  /* ============================================================
+     KIES JE CADEAU — 4 kaarten op charcoal
+     ============================================================ */
+  .gift { background: #1a1a1a; padding: 88px 0 96px; }
+  .gift__head { text-align: center; max-width: 720px; margin: 0 auto 48px; padding: 0 24px; }
+  .gift__head h2 { font-family: 'Electrolize', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px); color: #fff; }
+  .gift__head p { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.7; margin: 16px auto 0; }
+  .gift__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .gift-card { background: #fff; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; text-align: center; }
+  .gift-card__img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+  .gift-card__body { padding: 20px 18px 22px; display: flex; flex-direction: column; flex: 1; }
+  .gift-card h3 { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 15px; text-transform: uppercase; letter-spacing: 0.04em; color: #0f172a; margin: 0 0 8px; line-height: 1.35; }
+  .gift-card p { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 13px; color: #64748b; line-height: 1.6; margin: 0 0 16px; }
+  .gift-card__btn { margin-top: auto; display: block; background: #c23435; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; text-decoration: none; padding: 12px 10px; border-radius: 8px; transition: background 0.2s; }
+  .gift-card__btn:hover { background: #a82c2c; }
+  .gift__note { font-family: 'Montserrat', sans-serif; font-size: 13px; color: rgba(255,255,255,0.6); text-align: center; margin: 34px auto 0; padding: 0 24px; line-height: 1.7; }
+  @media (max-width: 1024px) and (min-width: 769px) { .gift__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 768px) {
+    .gift { padding: 56px 0 64px; }
+    .gift__grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; padding: 0 20px 18px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .gift__grid::-webkit-scrollbar { display: none; }
+    .gift-card { flex: 0 0 72%; scroll-snap-align: start; }
+  }
+
+  /* ============================================================
+     KAMERSLIDER (Parkhotel-opzet, Asteria-stijl)
+     ============================================================ */
+  .ars { background: #f0efed; padding: 88px 0; }
+  .ars__head { text-align: center; margin: 0 auto 40px; padding: 0 24px; }
+  .ars__eyebrow { font-family: 'Electrolize', sans-serif; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #c23435; display: block; margin-bottom: 10px; }
+  .ars__head h2 { font-family: 'Electrolize', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; font-weight: 400; font-size: clamp(26px, 3.2vw, 38px); color: #1a1a1a; }
+  .ars__sub { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 14px; color: #64748b; margin-top: 10px; }
+  .ars__track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 4px max(24px, calc((100vw - 1180px) / 2)) 26px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .ars__track::-webkit-scrollbar { display: none; }
+  .ars-item { flex: 0 0 390px; scroll-snap-align: start; background: #fff; border-radius: 18px; overflow: hidden; box-shadow: 0 2px 14px rgba(0,0,0,0.06); display: flex; flex-direction: column; }
+  .ars-item__img { width: 100%; aspect-ratio: 3/2; object-fit: cover; display: block; }
+  .ars-item__body { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+  .ars-item h3 { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 18px; text-transform: uppercase; letter-spacing: 0.05em; color: #0f172a; margin: 8px 0 8px; }
+  .ars-item__desc { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 13.5px; color: #64748b; line-height: 1.6; margin: 0 0 18px; }
+  .ars-feats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 6px; list-style: none; margin: 0 0 22px; padding: 0; }
+  .ars-feats li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; font-family: 'Montserrat', sans-serif; font-size: 10.5px; color: #475569; line-height: 1.25; }
+  .ars-feats svg { width: 26px; height: 26px; color: #c23435; }
+  .ars-btns { margin-top: auto; display: flex; gap: 10px; }
+  .ars-btns a { flex: 1; text-align: center; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; padding: 12px 8px; border-radius: 8px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .ars-btn--book { background: #c23435; color: #fff; }
+  .ars-btn--book:hover { background: #a82c2c; }
+  .ars-btn--info { border: 1px solid #c23435; color: #c23435; }
+  .ars-btn--info:hover { background: #fef6f6; }
+  .ars__nav { display: flex; gap: 10px; justify-content: center; margin-top: 6px; }
+  .ars__nav button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid #c23435; background: transparent; color: #c23435; font-size: 20px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s; }
+  .ars__nav button:hover { background: #c23435; color: #fff; }
+  @media (max-width: 768px) { .ars { padding: 56px 0; } .ars-item { flex: 0 0 84%; } .ars__nav { display: none; } }
+
+  /* ============================================================
+     GM-MODALS — cadeau-keuze + kamer-info (Parkhotel-opzet)
+     ============================================================ */
+  .gm { position: fixed; inset: 0; z-index: 1300; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .gm-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.62); }
+  .gm-card { position: relative; background: #fff; border-radius: 16px; max-width: 520px; width: 100%; padding: 32px 28px 24px; max-height: 88vh; overflow: auto; }
+  .gm-card h3 { font-family: 'Electrolize', sans-serif; font-weight: 400; font-size: 20px; text-transform: uppercase; letter-spacing: 0.05em; color: #0f172a; margin: 0 0 4px; text-align: center; }
+  .gm-intro { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #64748b; text-align: center; margin: 0 0 18px; }
+  .gm-option { display: flex; align-items: center; gap: 14px; padding: 10px; border: 1px solid #eee7e0; border-radius: 10px; margin-top: 10px; text-decoration: none; background: #fff; transition: border-color 0.2s, background 0.2s; }
+  .gm-option:hover { border-color: #c23435; background: #fef6f6; }
+  .gm-option img { width: 78px; height: 58px; object-fit: cover; border-radius: 6px; flex: none; display: block; }
+  .gm-option strong { display: block; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: #0f172a; }
+  .gm-option span span { font-family: 'Montserrat', sans-serif; font-size: 12px; color: #64748b; }
+  .gm-close { position: absolute; top: 8px; right: 16px; z-index: 5; font-size: 26px; line-height: 1; color: #0f172a; text-decoration: none; }
+  .gm-card--info { max-width: 680px; padding: 0 0 26px; }
+  .gm-card--info .gm-close { color: #fff; text-shadow: 0 1px 5px rgba(0,0,0,0.6); }
+  .gm-info-body { padding: 22px 30px 0; }
+  .gm-card--info h3 { text-align: left; }
+  .gm-meta { font-family: 'Montserrat', sans-serif; font-size: 12.5px; color: #94a3b8; margin: 0 0 12px; }
+  .gm-desc { font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 14px; line-height: 1.65; color: #475569; margin: 0; }
+  .gm-facts { columns: 2; column-gap: 24px; list-style: none; margin: 16px 0 0; padding: 0; }
+  .gm-facts li { font-family: 'Montserrat', sans-serif; font-size: 13px; color: #475569; padding: 4px 0 4px 20px; position: relative; break-inside: avoid; }
+  .gm-facts li::before { content: '\2713'; color: #c23435; font-weight: 700; position: absolute; left: 0; }
+  .gm-cta { margin-top: 22px; }
+  .gm-cta a { display: block; background: #c23435; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; text-align: center; text-decoration: none; padding: 14px; border-radius: 8px; transition: background 0.2s; }
+  .gm-cta a:hover { background: #a82c2c; }
+  .rs-media { position: relative; overflow: hidden; }
+  .rs-slide { display: none; }
+  .rs-slide.on { display: block; }
+  .gm-photo.rs-media { height: 280px; border-radius: 16px 16px 0 0; }
+  .gm-photo.rs-media .rs-slide { height: 100%; }
+  .gm-photo.rs-media .rs-slide img, .gm-photo.rs-media .rs-slide video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .rs-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 38px; height: 38px; padding: 0 0 3px; border: 1px solid rgba(255,255,255,0.85); border-radius: 50%; background: rgba(20,20,20,0.35); color: #fff; font-size: 24px; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s; }
+  .rs-arrow:hover { background: rgba(20,20,20,0.7); }
+  .rs-prev { left: 12px; }
+  .rs-next { right: 12px; }
+  @media (max-width: 600px) { .gm-photo.rs-media { height: 190px; } .gm-info-body { padding: 18px 20px 0; } .gm-facts { columns: 1; } .gm-card { padding: 28px 18px 20px; } }
+  
   </style>
 </head>
 <body>
@@ -489,15 +598,15 @@
 {{LANG_DETECT_SCRIPT}}
 
 <!-- ══ STICKY CTA ════════════════════════════════════════════ -->
-<a class="sticky-fab" id="stickyFab" aria-label="{{STICKY_FAB_ARIA}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}" target="_blank" rel="noopener">
-  {{BTN_BOOK_DIRECT}}
+<a class="sticky-fab" id="stickyFab" aria-label="Kies je cadeau" href="#cadeaus">
+  Kies je cadeau
   <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
 </a>
-<div class="sticky-card" id="stickyCard" role="complementary" aria-label="{{STICKY_CARD_ARIA}}">
-  <span class="sticky-card__name">{{STICKY_CARD_NAME}}</span>
-  <strong class="sticky-card__code actie-code">{{VOUCHER}}</strong>
-  <span class="sticky-card__code-sub">{{STICKY_CARD_SUB}}</span>
-  <a class="sticky-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}" target="_blank" rel="noopener">{{BTN_BOOK_DIRECT}} &rarr;</a>
+<div class="sticky-card" id="stickyCard" role="complementary" aria-label="Augustus-actie">
+  <span class="sticky-card__name">Augustus-actie</span>
+  <strong class="sticky-card__code">4 cadeaus</strong>
+  <span class="sticky-card__code-sub">boek v&oacute;&oacute;r 7 augustus</span>
+  <a class="sticky-card__btn" href="#cadeaus">Kies je cadeau &rarr;</a>
 </div>
 
 <!-- ══ NAV ═══════════════════════════════════════════════════ -->
@@ -527,7 +636,7 @@
           <li><a href="https://www.asteria.nl/omgeving">{{NAV_SURROUNDINGS}}</a></li>
           <li><a href="https://www.asteria.nl/contact">{{NAV_CONTACT}}</a></li>
         </ul>
-        <a class="button book-now" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}" target="_blank" rel="noopener">{{NAV_BOOK_BTN}}</a>
+        <a class="button book-now" href="#cadeaus">{{NAV_BOOK_BTN}}</a>
       </div>
       <div class="mobile-nav-buttons">
         <span class="lang-wrapper mobile-lang">
@@ -546,80 +655,209 @@
 
 <!-- ══ HERO ══════════════════════════════════════════════════ -->
 <section class="hero" id="hero">
-  <div class="hero__bg"></div>
+  <div class="hero__bg">
+    <div class="hero__bgx" style="background-image:url('fotos/arr-c-diner.webp')"></div>
+    <div class="hero__bgx" style="background-image:url('fotos/arr-c-welkom-bubbels.webp')"></div>
+    <div class="hero__bgx" style="background-image:url('fotos/arr-c-ontbijt.webp')"></div>
+    <div class="hero__bgx" style="background-image:url('fotos/omgeving-fietsers.webp')"></div>
+  </div>
   <div class="hero__overlay"></div>
   <div class="hero__grain"></div>
   <div class="hero__content">
-    <span class="hero__location">Venray &nbsp;&middot;&nbsp; {{HERO_LOCATION}}</span>
+    <span class="hero__kicker">Augustus-actie</span>
+    <p class="hero__review"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &nbsp;4,2 uit 2.219 reviews</p>
     <h1 class="hero__title">{{HERO_TITLE}}</h1>
     <div class="hero__rule" aria-hidden="true"></div>
     <p class="hero__sub">{{HERO_SUBTITLE}}</p>
-    <a class="hero__cta" href="#arrangement" data-track-cta="hero">{{HERO_CTA}}</a>
-    <div class="hero__trust">
-      <span>&#10003; {{HERO_USP1}}</span>
-      <span>&#10003; {{HERO_USP2}}</span>
-      <span>&#10003; {{HERO_USP3}}</span>
+    <a class="hero__cta" href="#cadeaus" data-track-cta="hero">{{HERO_CTA}}</a>
+    <div class="hero__gifts">
+      <a href="#cadeaus">3-gangendiner</a>
+      <a href="#cadeaus">Fles bubbels</a>
+      <a href="#cadeaus">Gratis ontbijt</a>
+      <a href="#cadeaus">Gratis fietshuur</a>
     </div>
   </div>
   <div class="hero__scroll" aria-hidden="true"><div class="hero__scroll-dot"></div><div class="hero__scroll-track"></div></div>
 </section>
 
-<!-- ══ WELKOMSTGESCHENK-KAART (arr-c) ════════════════════════ -->
-<section class="arr-c" id="arrangement" aria-label="{{ARR_C_ARIA}}">
-  <div class="arr-c__photos" aria-hidden="true">
-    <div class="arr-c__photo is-active" data-key="diner" style="background-image:url('fotos/arr-c-diner.webp')"></div>
-    <div class="arr-c__photo" data-key="bubbels" style="background-image:url('fotos/arr-c-welkom-bubbels.webp')"></div>
-    <div class="arr-c__photo" data-key="ontbijt" style="background-image:url('fotos/arr-c-ontbijt.webp')"></div>
-    <div class="arr-c__photo" data-key="fiets" style="background-image:url('fotos/omgeving-fietsers.webp')"></div>
-    <span class="arr-c__photo-caption" id="arrCCaption">{{ARR_C_CAPTION_INIT}}</span>
+<!-- ══ KIES JE CADEAU (Parkhotel-opzet) ══════════════════════ -->
+<section class="gift" id="cadeaus" aria-label="Kies je cadeau">
+  <div class="gift__head">
+    <h2>Kies je cadeau</h2>
+    <p>Boek je v&oacute;&oacute;r 7 augustus een verblijf in augustus? Dan verwelkomen we je met een cadeau naar keuze. Kies hieronder je cadeau en boek met de bijbehorende code, dan staat alles bij aankomst voor je klaar.</p>
   </div>
-  <div class="arr-c__content">
-    <a href="#reviews" class="arr-c__rating" aria-label="{{ARR_C_RATING_ARIA}}">
-      <span class="arr-c__rating-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-      <span class="arr-c__rating-score">4,2</span>
-      <span class="arr-c__rating-count">{{ARR_C_RATING_COUNT}}</span>
-    </a>
-    <span class="arr-c__eyebrow">{{ARR_C_EYEBROW}}</span>
-    <h2 class="arr-c__title">{{ARR_C_TITLE}}</h2>
-    <p class="arr-c__intro">{{ARR_C_INTRO}}</p>
-
-    <ul class="arr-c__features" id="arrCFeatures">
-      <li class="arr-c__feature is-active" data-key="diner" data-caption="{{ARR_C_F1_CAP}}" data-voucher="{{VOUCHER_F1}}" data-giftname="{{ARR_C_F1_GIFT}}" role="button" tabindex="0">
-        <div class="arr-c__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v5a2 2 0 002 2v11M6 3v5M10 3v5"/><path d="M17 21v-6c-1.5 0-2.5-2-2.5-5 0-2.5 1-4.5 2.5-4.5S19.5 7.5 19.5 10c0 3-1 5-2.5 5"/></svg></div>
-        <div class="arr-c__feature-body"><strong class="arr-c__feature-name">{{ARR_C_F1_NAME}}</strong><span class="arr-c__feature-desc">{{ARR_C_F1_DESC}}</span></div>
-        <div class="arr-c__feature-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </li>
-      <li class="arr-c__feature" data-key="bubbels" data-caption="{{ARR_C_F2_CAP}}" data-voucher="{{VOUCHER_F2}}" data-giftname="{{ARR_C_F2_GIFT}}" role="button" tabindex="0">
-        <div class="arr-c__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8M12 11v11"/><path d="M6.8 4h10.4l-2 7c0 2.2-1.9 4-4.2 4S6.8 13.2 6.8 11L4.8 4z"/></svg></div>
-        <div class="arr-c__feature-body"><strong class="arr-c__feature-name">{{ARR_C_F2_NAME}}</strong><span class="arr-c__feature-desc">{{ARR_C_F2_DESC}}</span></div>
-        <div class="arr-c__feature-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </li>
-      <li class="arr-c__feature" data-key="ontbijt" data-caption="{{ARR_C_F3_CAP}}" data-voucher="{{VOUCHER_F3}}" data-giftname="{{ARR_C_F3_GIFT}}" role="button" tabindex="0">
-        <div class="arr-c__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 9h1a3 3 0 010 6h-1"/><path d="M4 9h14v5a5 5 0 01-5 5H9a5 5 0 01-5-5V9z"/><path d="M8 5c0-.5.5-1 .5-1.5M12 5c0-.5.5-1 .5-1.5"/></svg></div>
-        <div class="arr-c__feature-body"><strong class="arr-c__feature-name">{{ARR_C_F3_NAME}}</strong><span class="arr-c__feature-desc">{{ARR_C_F3_DESC}}</span></div>
-        <div class="arr-c__feature-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </li>
-      <li class="arr-c__feature" data-key="fiets" data-caption="{{ARR_C_F4_CAP}}" data-voucher="{{VOUCHER_F4}}" data-giftname="{{ARR_C_F4_GIFT}}" role="button" tabindex="0">
-        <div class="arr-c__feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17" r="3.2"/><circle cx="18.5" cy="17" r="3.2"/><path d="M5.5 17l4.5-8h5.5l3 8M10 9h5.5M13.5 17l-3.5-8"/><path d="M9 6h2.5"/></svg></div>
-        <div class="arr-c__feature-body"><strong class="arr-c__feature-name">{{ARR_C_F4_NAME}}</strong><span class="arr-c__feature-desc">{{ARR_C_F4_DESC}}</span></div>
-        <div class="arr-c__feature-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      </li>
-    </ul>
-
-    <div class="arr-c__bottom">
-      <div class="arr-c__codewrap arr-c__bottom-line">
-        <span class="arr-c__code-label">{{CODE_LABEL}}</span>
-        <span class="arr-c__code actie-code">{{VOUCHER}}</span>
-        <span class="arr-c__code-sub" id="actieCodeSub">{{CODE_SUB}}</span>
+  <div class="gift__grid">
+    <div class="gift-card">
+      <img class="gift-card__img" src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy">
+      <div class="gift-card__body">
+        <h3>3-gangendiner in ons restaurant</h3>
+        <p>Schuif aan in ons restaurant: <strong>de tweede persoon dineert gratis met je mee.</strong></p>
+        <a class="gift-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER" target="_blank" rel="noopener" data-track-cta="gift_diner">Boek met code 'DINER'</a>
       </div>
-      <a class="arr-c__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}" target="_blank" rel="noopener" data-track-cta="arr_c">
-        {{BTN_BOOK_ARRANGEMENT}}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <p class="arr-c__fineprint">{{ARR_C_FINEPRINT}}</p>
+    </div>
+    <div class="gift-card">
+      <img class="gift-card__img" src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy">
+      <div class="gift-card__body">
+        <h3>Fles bubbels</h3>
+        <p>Bij aankomst staat er een gekoelde fles bubbels op je kamer.</p>
+        <a class="gift-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS" target="_blank" rel="noopener" data-track-cta="gift_bubbels">Boek met code 'BUBBELS'</a>
+      </div>
+    </div>
+    <div class="gift-card">
+      <img class="gift-card__img" src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy">
+      <div class="gift-card__body">
+        <h3>Gratis ontbijt</h3>
+        <p>Begin de ochtend rustig met ons uitgebreide ontbijtbuffet.</p>
+        <a class="gift-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT" target="_blank" rel="noopener" data-track-cta="gift_ontbijt">Boek met code 'ONTBIJT'</a>
+      </div>
+    </div>
+    <div class="gift-card">
+      <img class="gift-card__img" src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy">
+      <div class="gift-card__body">
+        <h3>Gratis fietshuur</h3>
+        <p>Ontdek de mooiste routes van Noord-Limburg op de fiets.</p>
+        <a class="gift-card__btn" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS" target="_blank" rel="noopener" data-track-cta="gift_fiets">Boek met code 'FIETS'</a>
+      </div>
     </div>
   </div>
+  <p class="gift__note">De actie geldt voor verblijven in de hele maand augustus. Boeken kan v&oacute;&oacute;r 7 augustus.<br>Gratis annulering tot 24 uur voor aankomst. Op basis van beschikbaarheid.</p>
 </section>
+
+<!-- ══ KAMERSLIDER (Parkhotel-opzet) ═════════════════════════ -->
+<section class="ars" id="kamertypes" aria-label="Kamertypes">
+  <div class="ars__head">
+    <span class="ars__eyebrow">Kies je kamer</span>
+    <h2>Welke kamer past bij jou?</h2>
+    <p class="ars__sub">Welke kamer je ook kiest, je cadeau staat bij aankomst klaar</p>
+  </div>
+  <div class="ars__track" id="arsTrack">
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-comfort.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge" style="background:#f1f5f9;color:#64748b">Standaard kamer</span></div>
+          <h3>Comfort Kamer</h3>
+          <p class="ars-item__desc">Onze standaardkamer: comfortabel, licht en compleet ingericht. De ideale uitvalsbasis voor je verblijf.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6M4 4v6M4 4l6 6M20 20h-6M20 20v-6M20 20l-6-6"/></svg>~22 m²</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18v2m18-2v2M3 15h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>Tweepersoonsbed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 21v-9a5 5 0 015-5h1a4 4 0 014 4M9 15h.01M12 17h.01M15 15h.01M12 13h.01M15 19h.01M9 19h.01"/></svg>Douche</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 6l14 12M19 6L5 18M3 12h18"/></svg>Airco</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-comfort" onclick="document.getElementById('cadeau-comfort').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-comfort" onclick="var m=document.getElementById('info-comfort');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-royale.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--upgrade">Upgrade</span></div>
+          <h3>Royale Kamer</h3>
+          <p class="ars-item__desc">Wat meer ruimte om je heen, met een heerlijk ligbad om de dag rustig af te sluiten.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6M4 4v6M4 4l6 6M20 20h-6M20 20v-6M20 20l-6-6"/></svg>Meer ruimte</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18v2a5 5 0 01-5 5H8a5 5 0 01-5-5v-2zM6 12V5a2 2 0 014 0M7 19l-1 2m11-2l1 2"/></svg>Ligbad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a3 3 0 013-3h8a3 3 0 013 3v3M5 11a2 2 0 00-2 2v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 00-2-2M5 18v2m14-2v2"/></svg>Zithoek</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 6l14 12M19 6L5 18M3 12h18"/></svg>Airco</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-royale" onclick="document.getElementById('cadeau-royale').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-royale" onclick="var m=document.getElementById('info-royale');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-deluxe.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--sauna">+ Eigen sauna</span></div>
+          <h3>Deluxe Kamer</h3>
+          <p class="ars-item__desc">Ruime kamer met je eigen privé infraroodsauna. Wellness op je eigen kamer, wanneer jij wilt.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c-1 2 1 3 0 5m4-5c-1 2 1 3 0 5m4-5c-1 2 1 3 0 5M4 13h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3v-4z"/></svg>Eigen sauna</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6M4 4v6M4 4l6 6M20 20h-6M20 20v-6M20 20l-6-6"/></svg>Meer ruimte</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18v2a5 5 0 01-5 5H8a5 5 0 01-5-5v-2zM6 12V5a2 2 0 014 0M7 19l-1 2m11-2l1 2"/></svg>Ligbad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 6l14 12M19 6L5 18M3 12h18"/></svg>Airco</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-deluxe" onclick="document.getElementById('cadeau-deluxe').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-deluxe" onclick="var m=document.getElementById('info-deluxe');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-junior-suite.webp" alt="Junior Suite bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--upgrade">Upgrade</span></div>
+          <h3>Junior Suite</h3>
+          <p class="ars-item__desc">Een ruime suite met aparte zithoek en ligbad. Extra comfort voor wie er even helemaal tussenuit wil.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18v2m18-2v2M3 15h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>Kingsize bed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a3 3 0 013-3h8a3 3 0 013 3v3M5 11a2 2 0 00-2 2v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 00-2-2M5 18v2m14-2v2"/></svg>Ruime zithoek</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18v2a5 5 0 01-5 5H8a5 5 0 01-5-5v-2zM6 12V5a2 2 0 014 0M7 19l-1 2m11-2l1 2"/></svg>Ligbad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v2M9 13v3"/></svg>Koelkast</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-junior-suite" onclick="document.getElementById('cadeau-junior-suite').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-junior-suite" onclick="var m=document.getElementById('info-junior-suite');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-suite.webp" alt="Suite bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--sauna">+ Eigen sauna</span></div>
+          <h3>Suite</h3>
+          <p class="ars-item__desc">Onze suite met privé infraroodsauna en een ruime zithoek. Alle ruimte en rust voor een luxe verblijf.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18v2m18-2v2M3 15h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>Kingsize bed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4c-1 2 1 3 0 5m4-5c-1 2 1 3 0 5m4-5c-1 2 1 3 0 5M4 13h16v4a3 3 0 01-3 3H7a3 3 0 01-3-3v-4z"/></svg>Eigen sauna</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a3 3 0 013-3h8a3 3 0 013 3v3M5 11a2 2 0 00-2 2v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 00-2-2M5 18v2m14-2v2"/></svg>Ruime zithoek</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v2M9 13v3"/></svg>Koelkast</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-suite" onclick="document.getElementById('cadeau-suite').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-suite" onclick="var m=document.getElementById('info-suite');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+      <div class="ars-item">
+        <img class="ars-item__img" src="fotos/kamer-bruidssuite.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy">
+        <div class="ars-item__body">
+          <div><span class="room-row__badge badge--premium">Premium</span></div>
+          <h3>Bruidssuite</h3>
+          <p class="ars-item__desc">Onze mooiste kamer, met vrijstaand bad en inloopdouche. Voor een onvergetelijke gelegenheid.</p>
+          <ul class="ars-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6M3 18v2m18-2v2M3 15h18M6 10V7a2 2 0 012-2h8a2 2 0 012 2v3"/></svg>Kingsize bed</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18v2a5 5 0 01-5 5H8a5 5 0 01-5-5v-2zM6 12V5a2 2 0 014 0M7 19l-1 2m11-2l1 2"/></svg>Vrijstaand bad</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 21v-9a5 5 0 015-5h1a4 4 0 014 4M9 15h.01M12 17h.01M15 15h.01M12 13h.01M15 19h.01M9 19h.01"/></svg>Inloopdouche</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M6 10h12M9 6v2M9 13v3"/></svg>Koelkast</li>
+          </ul>
+          <div class="ars-btns">
+            <a class="ars-btn--book" href="#cadeau-bruidssuite" onclick="document.getElementById('cadeau-bruidssuite').style.display='flex';return false;">Boek de kamer</a>
+            <a class="ars-btn--info" href="#info-bruidssuite" onclick="var m=document.getElementById('info-bruidssuite');m.style.display='flex';var w=m.querySelector('.rs-media');if(w){var sl=w.querySelectorAll('.rs-slide');sl[+w.dataset.i||0].classList.remove('on');w.dataset.i=0;sl[0].classList.add('on');var v=w.querySelector('video');if(v){v.muted=true;v.play()}}return false;">Meer info</a>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="ars__nav" aria-hidden="true">
+    <button type="button" class="ars-prev" aria-label="Vorige kamer">&#8249;</button>
+    <button type="button" class="ars-next" aria-label="Volgende kamer">&#8250;</button>
+  </div>
+</section>
+
+<div class="gm" id="cadeau-comfort"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Comfort Kamer. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-comfort"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/kamer-comfort-a.webp" src="videos/comfort.mp4"></video></div><div class="rs-slide"><img src="fotos/kamer-comfort-a.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/kamer-comfort-b.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/kamer-comfort-c.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/kamer-comfort-d.webp" alt="Comfort Kamer bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Comfort Kamer</h3><p class="gm-meta">~22 m² · tweepersoonsbed · max. 2 personen</p><p class="gm-desc">Onze standaardkamer: comfortabel, licht en compleet ingericht. De ideale uitvalsbasis voor je verblijf.</p><ul class="gm-facts"><li>Tweepersoonsbed</li><li>Badkamer met douche</li><li>Zithoek</li><li>Airconditioning</li><li>Koffie- en theefaciliteiten</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-comfort" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-comfort').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-royale"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Royale Kamer. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-royale"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/room-royale-1.webp" src="videos/royale.mp4"></video></div><div class="rs-slide"><img src="fotos/room-royale-1.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-royale-2.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-royale-3.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-royale-4.webp" alt="Royale Kamer bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Royale Kamer</h3><p class="gm-meta">ruimer dan Comfort · ligbad · max. 2 personen</p><p class="gm-desc">Wat meer ruimte om je heen, met een heerlijk ligbad om de dag rustig af te sluiten.</p><ul class="gm-facts"><li>Meer ruimte</li><li>Ligbad</li><li>Zithoek</li><li>Airconditioning</li><li>Koffie- en theefaciliteiten</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-royale" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-royale').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-deluxe"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Deluxe Kamer. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-deluxe"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/room-deluxe-1.webp" src="videos/deluxe.mp4"></video></div><div class="rs-slide"><img src="fotos/room-deluxe-1.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-deluxe-2.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-deluxe-3.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-deluxe-4.webp" alt="Deluxe Kamer bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Deluxe Kamer</h3><p class="gm-meta">eigen infraroodsauna · ligbad · max. 2 personen</p><p class="gm-desc">Ruime kamer met je eigen privé infraroodsauna. Wellness op je eigen kamer, wanneer jij wilt.</p><ul class="gm-facts"><li>Privé infraroodsauna</li><li>Meer ruimte</li><li>Ligbad</li><li>Airconditioning</li><li>Zithoek</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-deluxe" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-deluxe').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-junior-suite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Junior Suite. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-junior-suite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><img src="fotos/kamer-junior-suite.webp" alt="Junior Suite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/kamer-junior-suite-2.webp" alt="Junior Suite bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Junior Suite</h3><p class="gm-meta">kingsize bed · ruime zithoek · max. 2 personen</p><p class="gm-desc">Een ruime suite met aparte zithoek en ligbad. Extra comfort voor wie er even helemaal tussenuit wil.</p><ul class="gm-facts"><li>Kingsize bed</li><li>Ruime zithoek</li><li>Ligbad</li><li>Koelkast</li><li>Airconditioning</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-junior-suite" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-junior-suite').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-suite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Suite. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-suite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/room-suite-1.webp" src="videos/suite.mp4"></video></div><div class="rs-slide"><img src="fotos/room-suite-1.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-suite-2.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-suite-3.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-suite-4.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Suite</h3><p class="gm-meta">kingsize bed · eigen infraroodsauna · max. 2 personen</p><p class="gm-desc">Onze suite met privé infraroodsauna en een ruime zithoek. Alle ruimte en rust voor een luxe verblijf.</p><ul class="gm-facts"><li>Kingsize bed</li><li>Privé infraroodsauna</li><li>Ruime zithoek</li><li>Koelkast</li><li>Airconditioning</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-suite" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-suite').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
+<div class="gm" id="cadeau-bruidssuite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;"></a><div class="gm-card"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="this.closest('.gm').style.display='none';return false;">&times;</a><h3>Kies je cadeau</h3><p class="gm-intro">Je boekt de Bruidssuite. Kies het cadeau dat je bij aankomst ontvangt.</p><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=DINER&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-diner.webp" alt="3-gangendiner in Restaurant Asteria" loading="lazy"><span><strong>3-gangendiner in ons restaurant</strong><span>de tweede persoon dineert gratis mee</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=BUBBELS&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-welkom-bubbels.webp" alt="Fles bubbels op de kamer" loading="lazy"><span><strong>Fles bubbels</strong><span>bij aankomst gekoeld op je kamer</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=ONTBIJT&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/arr-c-ontbijt.webp" alt="Uitgebreid ontbijt bij Hotel Asteria" loading="lazy"><span><strong>Gratis ontbijt</strong><span>ons uitgebreide ontbijtbuffet</span></span></a><a class="gm-option" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=FIETS&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" target="_blank" rel="noopener"><img src="fotos/omgeving-fietsers.webp" alt="Fietsen in de omgeving van Venray" loading="lazy"><span><strong>Gratis fietshuur</strong><span>ontdek Noord-Limburg op de fiets</span></span></a></div></div>
+<div class="gm" id="info-bruidssuite"><a class="gm-overlay" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;"></a><div class="gm-card gm-card--info"><a class="gm-close" href="#kamertypes" aria-label="Sluiten" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';return false;">&times;</a><div class="gm-photo rs-media" data-i="0"><div class="rs-slide on"><video class="rs-video" muted loop playsinline preload="none" poster="fotos/room-bruidssuite-1.webp" src="videos/bruidssuite.mp4"></video></div><div class="rs-slide"><img src="fotos/room-bruidssuite-1.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-bruidssuite-2.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-bruidssuite-3.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div><div class="rs-slide"><img src="fotos/room-bruidssuite-4.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div><button type="button" class="rs-arrow rs-prev" aria-label="Vorige foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c-1+sl.length)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8249;</button><button type="button" class="rs-arrow rs-next" aria-label="Volgende foto" onclick="var w=this.closest('.rs-media'),sl=w.querySelectorAll('.rs-slide'),c=+w.dataset.i||0,i=(c+1)%sl.length;sl[c].classList.remove('on');w.dataset.i=i;sl[i].classList.add('on');var v=w.querySelector('video');if(v){if(i==0){v.play()}else{v.pause()}}return false;">&#8250;</button></div><div class="gm-info-body"><h3>Bruidssuite</h3><p class="gm-meta">kingsize bed · vrijstaand bad · max. 2 personen</p><p class="gm-desc">Onze mooiste kamer, met vrijstaand bad en inloopdouche. Voor een onvergetelijke gelegenheid.</p><ul class="gm-facts"><li>Kingsize bed</li><li>Vrijstaand bad</li><li>Inloopdouche</li><li>Koelkast</li><li>Airconditioning</li><li>Gratis wifi</li></ul><div class="gm-cta"><a href="#cadeau-bruidssuite" onclick="var pv=this.closest('.gm').querySelector('video');if(pv)pv.pause();this.closest('.gm').style.display='none';document.getElementById('cadeau-bruidssuite').style.display='flex';return false;">Boek de kamer</a></div></div></div></div>
 
 <!-- ══ REVIEWS ═══════════════════════════════════════════════ -->
 <section class="reviews" id="reviews" aria-label="{{REVIEWS_ARIA}}">
@@ -645,47 +883,6 @@
   </div>
 </section>
 
-
-<!-- ══ KAMERTYPES ════════════════════════════════════════════ -->
-<section class="rooms rooms--thumb" id="kamertypes" aria-label="{{ROOMS_ARIA}}">
-  <div class="rooms__inner">
-    <span class="rooms__eyebrow">{{ROOMS_EYEBROW}}</span>
-    <h2 class="rooms__title">{{ROOMS_TITLE}}</h2>
-    <p class="rooms__sub">{{ROOMS_SUB}}</p>
-
-    <div class="rooms__base" data-room="comfort" role="button" tabindex="0" style="cursor:pointer">
-      <img class="rooms__base-img" src="fotos/kamer-comfort.webp" alt="{{ROOM_COMFORT_IMG_ALT}}" loading="lazy">
-      <div class="rooms__base-body">
-        <span class="rooms__base-badge">{{ROOM_COMFORT_BADGE_STATIC}}</span>
-        <span class="rooms__base-name">{{ROOM_COMFORT_IMG_ALT}}</span>
-        <p class="rooms__base-feats">{{ROOM_COMFORT_FEATS_STATIC}}</p>
-      </div>
-    </div>
-
-    <div class="rooms__list">
-      <div class="room-row" data-room="royale" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-royale.webp" alt="{{ROOM_ROYALE_IMG_ALT}}" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">{{ROOM_ROYALE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> {{ROOM_ROYALE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="deluxe" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-deluxe.webp" alt="{{ROOM_DELUXE_IMG_ALT}}" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">{{ROOM_SAUNA_BADGE_STATIC}}</span><div class="room-row__name">{{ROOM_DELUXE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> {{ROOM_DELUXE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="junior-suite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior Suite" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--upgrade">Upgrade</span><div class="room-row__name">Junior Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_JUNIOR_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="suite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-suite.webp" alt="Suite" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--sauna">{{ROOM_SAUNA_BADGE_STATIC}}</span><div class="room-row__name">Suite</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_SUITE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-      <div class="room-row" data-room="bruidssuite" role="button" tabindex="0">
-        <img class="room-row__img" src="fotos/kamer-bruidssuite.webp" alt="{{ROOM_BRUIDSSUITE_IMG_ALT}}" loading="lazy">
-        <div class="room-row__body"><div class="room-row__info"><span class="room-row__badge badge--premium">Premium</span><div class="room-row__name">{{ROOM_BRUIDSSUITE_IMG_ALT}}</div><div class="room-row__deltas"><span class="plus">+</span> kingsize bed <span class="plus">+</span> {{ROOM_BRUIDSSUITE_DELTAS}}</div></div><span class="room-row__chevron">›</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- Kamerpopup -->
 <div class="room-popup-overlay" id="roomPopup" role="dialog" aria-modal="true" aria-label="{{POPUP_ARIA}}" data-cta="{{ROOM_POPUP_CTA}}">
@@ -745,7 +942,7 @@
       <span class="diner__eyebrow">{{DINER_EYEBROW}}</span>
       <h2 class="diner__title">{{DINER_TITLE}}</h2>
       <p class="diner__sub">{{DINER_SUB}}</p>
-      <a class="diner__cta" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}" target="_blank" rel="noopener">{{BTN_BOOK_ARRANGEMENT}}</a>
+      <a class="diner__cta" href="#cadeaus">{{BTN_BOOK_ARRANGEMENT}}</a>
     </div>
   </div>
 </section>
@@ -1050,6 +1247,29 @@ window.ACTIE_VOUCHER = '{{VOUCHER}}';
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFacPopup(this.dataset.fac); } });
   });
 }());
+
+
+/* ── Kamerslider pijlen ── */
+(function () {
+  var track = document.getElementById('arsTrack');
+  if (!track) return;
+  function step() {
+    var it = track.querySelector('.ars-item');
+    return it ? it.getBoundingClientRect().width + 24 : 400;
+  }
+  var prev = document.querySelector('.ars__nav .ars-prev');
+  var next = document.querySelector('.ars__nav .ars-next');
+  if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+  if (next) next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+}());
+
+/* ── Gm-modals: sluiten met Escape ── */
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Escape') return;
+  document.querySelectorAll('.gm').forEach(function (m) {
+    if (m.style.display === 'flex') { var v = m.querySelector('video'); if (v) v.pause(); m.style.display = 'none'; }
+  });
+});
 
 /* ── Hamburger menu ── */
 (function () {
