@@ -107,6 +107,31 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Na `git push` ~35 seconden wachten vóór live URL testen (Cloudflare deploy tijd)
 - Screenshot workflow: `browser_run_code_unsafe` voor viewport + navigate + scroll, dan `browser_take_screenshot`
 
+## Dagprijzen-kalender (OTA-stijl datepicker, 2026-07-09)
+
+De custom datepicker kan per dag de laagste beschikbare kamerprijs tonen (2 pers., 1 nacht, afgerond), exact matchend met direct boeken via Mews. De code staat op alle boek-knoppen (happy-summer-arrangement, kamerpagina's ×3 talen, welkom) maar staat **standaard UIT** — dan is de kalender identiek aan voorheen (ronde cellen, geen prijzen).
+
+**Activeren:**
+- **Overal permanent:** zet in `happy-summer.template.html` `var CAL_PRICES_ENABLED = false;` → `true` en rebuild (`build.py happy-summer && build.py welkom && build_kamers.py`).
+- **Los previewen op een echte pagina:** open met `?dagprijzen=1` (blijft plakken via `localStorage['asteria-dagprijzen']`; `?dagprijzen=0` zet uit). Let op: de lang-redirect kan de query-param droppen bij niet-NL browsers — gebruik dan de losse previewpagina.
+- **Deelbare preview:** `dagprijzen-preview.html` → `visit.asteria.nl/dagprijzen-preview` — zelfstandige pagina met prijzen AAN en een **ingebakken momentopname** van echte Mews-prijzen (geen KV/endpoint nodig, geen redirect). Hergenereren met `scratchpad/gen_preview.py` (slicet de echte widget uit happy-summer-arrangement.html + verse prijzen). `noindex`.
+
+Technisch: `.cal-day` basis = oude ronde cel; prijs-stijl alleen onder `.cal-has-prices` (klasse die de datepicker op `#bkStep1` zet als de flag aan is).
+
+**Endpoint:** `functions/api/day-prices.js` → `GET /api/day-prices?from=YYYY-MM-DD&to=YYYY-MM-DD` → `{ prices: { "2026-08-01": 114, "2026-08-02": null, … }, currency:"EUR" }`. `null` = die nacht geen kamer beschikbaar. Vereist KV-binding `ASTERIA_KV` (bestaat al). Cache: per maand `dayprices:v1:{YYYY-MM}` (26u TTL, vers <1u, stale-while-revalidate).
+
+**Widget:** in `happy-summer.template.html` (canonieke bron — de datepicker-IIFE + `.cal-day` CSS + `bk-price-note` disclaimer worden door `build_kamers.py` en `inject_welkom_booking()` naar de andere pagina's gesliced). Prijs-code hangt aan `render()` (NIET aan `initCustomCalendar` — die string-replacet build_kamers.py exact). Disclaimer via placeholder `{{BK_PRICE_DISCLAIMER}}` (happy-summer JSONs) + `BK_TR`-mapping in build_kamers.py voor EN/DE. Build: `python3 build.py happy-summer && python3 build.py welkom && python3 build_kamers.py`.
+
+**Mews Distributor API — spike-bevindingen (belangrijk, gold ook voor Parkhotel):**
+- `hotels/getAvailability` geeft GEEN per-nacht prijzen: `Price.Total` = VERBLIJFStotaal, `AvailableRoomCount` = range-MINIMUM. → per dag een losse **1-nacht-call** (StartUtc=dag, EndUtc=dag+1). (Er is wel `Price.AveragePerNight`, maar prijzen variëren per nacht dus average ≠ exact.)
+- Alleen categorieën met beschikbaarheid komen terug; ontbrekend/`AvailableRoomCount<1` = niet meetellen. Geen enkele → prijs `null`.
+- Occupancy zoeken op **`AdultCount===2`** (NIET op index — volgorde varieert; bb-price.js's index-1-aanname is fragiel).
+- `configuration/get` verwacht veld **`Ids`** (niet `ConfigurationIds`), en valideert de `Client`-string **per enterprise**.
+- Single-call latency ~0.5s warm; een maand (31 dagen, 8 concurrency) ~4-5s → prima voor achtergrond/synchrone bouw, daarna gecached.
+- Geen Cron op Pages Functions → cache blijft warm via stale-while-revalidate (verkeer). Cold-miss bouwt synchroon (~5-8s), degradeert stil naar geen-prijzen bij Mews-uitval.
+
+**Parkhotel (Fase 2, geblokkeerd):** Parkhotel heeft GEEN geregistreerde direct-API-client. `configuration/get` op config `ea3920b8-…` geeft 401 met elke geprobeerde client-string ("Parkhotel Booking 1.0.0", "Mews Distributor …" enz.). Nodig: óf een distributor-client registreren in Mews Operations (zoals Asteria's "Asteria Booking 1.0.0"), óf de exacte werkende payload uit devtools → Network op parkhotelhorst.nl boek-knop. Zonder dat kan de Parkhotel-poort niet gebouwd worden.
+
 ## Cloudflare Functions
 
 - Google Reviews proxy: `functions/api/google-reviews.js` — vereist `GOOGLE_PLACES_API_KEY` env var in Cloudflare Pages dashboard

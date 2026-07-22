@@ -87,6 +87,7 @@
   "BK_POPUP_ARIA": "Book your stay",
   "BK_COMMENT_STEP1": "Step 1: Choose dates",
   "BK_TITLE_STEP1": "Choose your stay dates",
+  "BK_PRICE_DISCLAIMER": "Rounded price per night, based on the cheapest available room for 2 guests.",
   "BK_LABEL_ARRIVAL": "Arrival",
   "BK_LABEL_DEPARTURE": "Departure",
   "BK_LABEL_NIGHTS": "Nights",
