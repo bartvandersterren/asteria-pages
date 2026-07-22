@@ -92,5 +92,6 @@
   "AGDP_NIGHTS": "Nights",
   "AGDP_CTA": "Check availability &rarr;",
   "AGDP_DAYS": "Mo,Tu,We,Th,Fr,Sa,Su",
-  "AGDP_MON_SHORT": "Aug"
+  "AGDP_MON_SHORT": "Aug",
+  "AGDP_GUESTS": "Guests"
 }
