@@ -1468,7 +1468,7 @@ document.addEventListener('keydown', function (e) {
   }
 
   document.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href*="mews.com/distributor"][href*="mewsRoom="]');
+    var a = e.target.closest('a[href*="mews.com/distributor"]');
     if (!a) return;
     e.preventDefault(); e.stopPropagation();
     pendingHref = a.href;
