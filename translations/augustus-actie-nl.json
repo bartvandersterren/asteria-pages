@@ -92,5 +92,6 @@
   "AGDP_NIGHTS": "Nachten",
   "AGDP_CTA": "Bekijk beschikbaarheid &rarr;",
   "AGDP_DAYS": "Ma,Di,Wo,Do,Vr,Za,Zo",
-  "AGDP_MON_SHORT": "aug"
+  "AGDP_MON_SHORT": "aug",
+  "AGDP_GUESTS": "Personen"
 }

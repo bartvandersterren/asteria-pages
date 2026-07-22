@@ -1331,6 +1331,12 @@ document.addEventListener('keydown', function (e) {
 .agdp-sep { width: 1px; height: 30px; background: #ddd; }
 .agdp-sum-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #999; }
 .agdp-sum-value { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.agdp-guests { display: flex; align-items: center; justify-content: space-between; border: 1px solid #e2e0dc; border-radius: 6px; padding: 10px 16px; margin: 0 0 14px; }
+.agdp-guests-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #999; }
+.agdp-guests-ctl { display: flex; align-items: center; gap: 14px; }
+.agdp-guests-btn { width: 30px; height: 30px; border: 1px solid #c8c6c2; border-radius: 50%; background: #fff; font-size: 17px; line-height: 1; color: #1a1a1a; cursor: pointer; }
+.agdp-guests-btn[disabled] { color: #ccc; border-color: #e5e5e5; cursor: default; }
+.agdp-guests-num { font-size: 15px; font-weight: 600; color: #1a1a1a; min-width: 18px; text-align: center; }
 .agdp-cta { display: block; width: 100%; border: 0; border-radius: 6px; padding: 14px 18px; background: #c23435; color: #fff; font-family: 'Montserrat', Arial, sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; }
 .agdp-cta[disabled] { background: #d8d8d8; color: #fff; cursor: default; }
 </style>
@@ -1348,6 +1354,14 @@ document.addEventListener('keydown', function (e) {
       <div class="agdp-sep" aria-hidden="true"></div>
       <div><span class="agdp-sum-label">Nights</span><span class="agdp-sum-value" id="agdpNights">&mdash;</span></div>
     </div>
+    <div class="agdp-guests">
+      <span class="agdp-guests-label">Guests</span>
+      <div class="agdp-guests-ctl">
+        <button class="agdp-guests-btn" id="agdpMinus" aria-label="&minus;">&minus;</button>
+        <span class="agdp-guests-num" id="agdpGuests">2</span>
+        <button class="agdp-guests-btn" id="agdpPlus" aria-label="+">+</button>
+      </div>
+    </div>
     <button class="agdp-cta" id="agdpConfirm" disabled>Check availability &rarr;</button>
   </div>
 </div>
@@ -1363,7 +1377,18 @@ document.addEventListener('keydown', function (e) {
   var elEnd = document.getElementById('agdpEnd');
   var elNights = document.getElementById('agdpNights');
   var btnConfirm = document.getElementById('agdpConfirm');
-  var pendingHref = null, selStart = null, selEnd = null;
+  var elGuests = document.getElementById('agdpGuests');
+  var btnMinus = document.getElementById('agdpMinus');
+  var btnPlus = document.getElementById('agdpPlus');
+  var pendingHref = null, selStart = null, selEnd = null, adults = 2;
+
+  function updateGuests() {
+    elGuests.textContent = adults;
+    btnMinus.disabled = adults <= 1;
+    btnPlus.disabled = adults >= 6;
+  }
+  btnMinus.addEventListener('click', function () { if (adults > 1) { adults--; updateGuests(); } });
+  btnPlus.addEventListener('click', function () { if (adults < 6) { adults++; updateGuests(); } });
 
   function daysInMonth() { return new Date(YEAR, MONTH + 1, 0).getDate(); }
   function todayMidnight() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
@@ -1430,8 +1455,8 @@ document.addEventListener('keydown', function (e) {
     if (!a) return;
     e.preventDefault(); e.stopPropagation();
     pendingHref = a.href;
-    selStart = null; selEnd = null;
-    render(); update();
+    selStart = null; selEnd = null; adults = 2;
+    render(); update(); updateGuests();
     overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
     if (window.track) window.track('datepicker_open');
@@ -1439,7 +1464,7 @@ document.addEventListener('keydown', function (e) {
 
   btnConfirm.addEventListener('click', function () {
     if (!selStart || !selEnd || !pendingHref) return;
-    var url = pendingHref + '&mewsStart=' + ymd(selStart) + '&mewsEnd=' + ymd(selEnd);
+    var url = pendingHref + '&mewsStart=' + ymd(selStart) + '&mewsEnd=' + ymd(selEnd) + '&mewsAdultCount=' + adults;
     close();
     if (window.track) window.track('mews_click');
     window.open(url, '_blank', 'noopener');
