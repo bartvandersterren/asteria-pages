@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wellness Package | Hotel Asteria Venray</title>
   <link rel="icon" href="/favicon.ico">
-  <meta name="description" content="Wellness package with overnight stay, three-course dinner and breakfast buffet at Hotel Asteria Venray. Four unique saunas on the Top Floor. From €139.50 p.p.">
+  <meta name="description" content="Wellness package with overnight stay, three-course dinner and breakfast buffet at Hotel Asteria Venray. Four unique saunas on the Top Floor. From €124.50 p.p.">
 
   <!-- Canonical -->
   <link rel="canonical" href="https://visit.asteria.nl/wellness-arrangement-en">
@@ -19,7 +19,7 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Wellness Package | Hotel Asteria Venray">
-  <meta property="og:description" content="Wellness package with overnight stay, three-course dinner and breakfast buffet at Hotel Asteria Venray. Four unique saunas on the Top Floor. From €139.50 p.p.">
+  <meta property="og:description" content="Wellness package with overnight stay, three-course dinner and breakfast buffet at Hotel Asteria Venray. Four unique saunas on the Top Floor. From €124.50 p.p.">
   <meta property="og:image" content="https://visit.asteria.nl/fotos/wellness-hero.webp">
   <meta property="og:url" content="https://visit.asteria.nl/wellness-arrangement-en">
   <meta property="og:locale" content="en_GB">
@@ -95,11 +95,11 @@
       "@type": "Offer",
       "name": "Wellness Package",
       "description": "Overnight stay, welcome drink, bathrobe and slippers, free wellness access, three-course dinner and breakfast buffet.",
-      "price": "139.50",
+      "price": "124.50",
       "priceCurrency": "EUR",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
-        "price": "139.50",
+        "price": "124.50",
         "priceCurrency": "EUR",
         "unitText": "per person"
       },
@@ -2560,7 +2560,7 @@
 
 <div class="sticky-card" id="stickyCard" role="complementary" aria-label="Quick booking">
   <span class="sticky-card__name">Wellness Package</span>
-  <strong class="sticky-card__price">&euro;139,50</strong>
+  <strong class="sticky-card__price">&euro;124,50</strong>
   <span class="sticky-card__price-sub">per person</span>
   <button
     class="sticky-card__btn"
@@ -2838,7 +2838,7 @@
 
       <div class="arr-c__price-row">
         <span class="arr-c__price-from">From</span>
-        <strong class="arr-c__price">&euro;139,50</strong>
+        <strong class="arr-c__price">&euro;124,50</strong>
         <span class="arr-c__price-sub">p.p.p.n. based on a Comfort Room</span>
       </div>
 
@@ -3951,7 +3951,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       event:         event,
       page:          location.pathname,
       referrer:      document.referrer || null,
-      variant_price: sessionStorage.getItem('price_variant') || null,
+      variant_price: null,
       variant_email: sessionStorage.getItem('ec_variant') || null,
     };
     if (props) {
@@ -3984,29 +3984,10 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   });
 }());
 
-/* ══ A/B PRICE TEST ═════════════════════════════════════════ */
-(function () {
-  var v = sessionStorage.getItem('price_variant');
-  if (!v) {
-    v = Math.random() < 0.5 ? 'A' : 'B';
-    sessionStorage.setItem('price_variant', v);
-  }
-  window.priceVariant = v;
-
-  if (v === 'B') {
-    document.addEventListener('DOMContentLoaded', function () {
-      var stickyPrice = document.querySelector('.sticky-card__price');
-      var arrPrice    = document.querySelector('.arr-c__price');
-      if (stickyPrice) stickyPrice.textContent = '\u20ac124,50';
-      if (arrPrice)    arrPrice.textContent    = '\u20ac124,50';
-    });
-  }
-}());
-
 /* ══ BOOKING POPUP ══════════════════════════════════════════ */
 (function () {
   var MEWS_BASE = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
-  var VOUCHER   = window.priceVariant === 'B' ? 'WELLNESS2026' : '2026WELLNESS';
+  var VOUCHER   = 'WELLNESS2026';
 
   var overlay   = document.getElementById('bookingPopup');
   var step1     = document.getElementById('bkStep1');

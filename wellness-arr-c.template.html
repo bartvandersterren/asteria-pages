@@ -95,11 +95,11 @@
       "@type": "Offer",
       "name": "{{ARRANGEMENT_NAME}}",
       "description": "{{SCHEMA_OFFER_DESC}}",
-      "price": "139.50",
+      "price": "124.50",
       "priceCurrency": "EUR",
       "priceSpecification": {
         "@type": "UnitPriceSpecification",
-        "price": "139.50",
+        "price": "124.50",
         "priceCurrency": "EUR",
         {{SCHEMA_UNIT_TEXT}}
       },
@@ -2560,7 +2560,7 @@
 
 <div class="sticky-card" id="stickyCard" role="complementary" aria-label="{{STICKY_CARD_ARIA}}">
   <span class="sticky-card__name">{{ARRANGEMENT_NAME}}</span>
-  <strong class="sticky-card__price">&euro;139,50</strong>
+  <strong class="sticky-card__price">&euro;124,50</strong>
   <span class="sticky-card__price-sub">{{STICKY_CARD_PER_PERSON}}</span>
   <button
     class="sticky-card__btn"
@@ -2834,7 +2834,7 @@
 
       <div class="arr-c__price-row">
         <span class="arr-c__price-from">{{ARR_C_PRICE_FROM}}</span>
-        <strong class="arr-c__price">&euro;139,50</strong>
+        <strong class="arr-c__price">&euro;124,50</strong>
         <span class="arr-c__price-sub">{{ARR_C_PRICE_SUB}}</span>
       </div>
 
@@ -3760,7 +3760,7 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
       event:         event,
       page:          location.pathname,
       referrer:      document.referrer || null,
-      variant_price: sessionStorage.getItem('price_variant') || null,
+      variant_price: null,
       variant_email: sessionStorage.getItem('ec_variant') || null,
     };
     if (props) {
@@ -3793,29 +3793,10 @@ document.addEventListener('DOMContentLoaded', wpRenderPins);
   });
 }());
 
-/* ══ A/B PRICE TEST ═════════════════════════════════════════ */
-(function () {
-  var v = sessionStorage.getItem('price_variant');
-  if (!v) {
-    v = Math.random() < 0.5 ? 'A' : 'B';
-    sessionStorage.setItem('price_variant', v);
-  }
-  window.priceVariant = v;
-
-  if (v === 'B') {
-    document.addEventListener('DOMContentLoaded', function () {
-      var stickyPrice = document.querySelector('.sticky-card__price');
-      var arrPrice    = document.querySelector('.arr-c__price');
-      if (stickyPrice) stickyPrice.textContent = '\u20ac124,50';
-      if (arrPrice)    arrPrice.textContent    = '\u20ac124,50';
-    });
-  }
-}());
-
 /* ══ BOOKING POPUP ══════════════════════════════════════════ */
 (function () {
   var MEWS_BASE = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
-  var VOUCHER   = window.priceVariant === 'B' ? 'WELLNESS2026' : '2026WELLNESS';
+  var VOUCHER   = 'WELLNESS2026';
 
   var overlay   = document.getElementById('bookingPopup');
   var step1     = document.getElementById('bkStep1');
