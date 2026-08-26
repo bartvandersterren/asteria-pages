@@ -817,10 +817,17 @@ def badge_variant(b):
     if b in ('Voordelig', 'Aangepast'): return ' badge--base'
     return ' badge--upgrade'
 
+# Kamers die niet op de kamertypes-overzichtspagina getoond worden (offline gezet)
+# LET OP: bij een regeneratie ook 'junior-suite' uit ROOM_KEYS in de room-picker
+# van kamertypes*.html halen (de BOOKING-bundle is gedeeld met de kamerpagina's).
+HIDDEN_ON_TYPES = {'junior-suite'}
+
 def build_types_list(current_key, lang):
     suf = SUFFIX[lang]
     rows = []
     for r in ROOMS:
+        if current_key is None and r['key'] in HIDDEN_ON_TYPES:
+            continue
         cur = r['key'] == current_key
         thumb = r.get('thumb') or slides_for(r)[0]
         nm = NAME[r['key']][lang]
