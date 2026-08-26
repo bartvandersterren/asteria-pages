@@ -1806,18 +1806,6 @@
         </div>
       </article>
 
-      <article class="room-row" data-cat="luxe">
-        <img class="room-row__img" src="fotos/kamer-junior-suite.webp" alt="Junior-Suite" loading="lazy">
-        <div>
-          <h3 class="room-row__name">Junior-Suite <span class="room-row__badge badge--upgrade">Familie</span></h3>
-          <p class="room-row__desc">Kingsize-Bett, Badewanne und eine geräumige Sitzecke mit Schlafsofa für zusätzliche Schlafmöglichkeit.</p>
-          <div class="room-row__feat"><span>~37 m&sup2;</span><span>Kingsize</span><span>Schlafsofa</span><span>Bad & Dusche</span></div>
-        </div>
-        <div class="room-row__actions">
-          <a class="btn-ghost" href="/junior-suite-de">Mehr Details</a>
-          <a class="btn-primary" href="#" onclick="window.openBooking('junior-suite');return false;" data-track-cta="types_junior-suite">Reservieren</a>
-        </div>
-      </article>
 
       <article class="room-row" data-cat="luxe">
         <img class="room-row__img" src="fotos/room-suite-1.webp" alt="Suite" loading="lazy">
@@ -2668,7 +2656,7 @@ window.ROOMS = {"comfort": {"name": "Komfortzimmer", "upgrade": "", "mewsCategor
   window.openBookingPopup = openBookingPopup;
 
   function renderRoomCards(availability) {
-    var ROOM_KEYS = ['comfort', 'comfort-3', 'mindervalide', 'royale', 'deluxe', 'junior-suite', 'suite', 'bruidssuite'];
+    var ROOM_KEYS = ['comfort', 'comfort-3', 'mindervalide', 'royale', 'deluxe', 'suite', 'bruidssuite'];
     selectedRoomKey = null;
     var firstAvailableKey = null;
 
