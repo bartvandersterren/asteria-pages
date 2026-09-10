@@ -216,9 +216,9 @@ t('ROOM_COMFORT_FEATS_STATIC',
   '~22 m\u00b2 \u00b7 Doppelbett \u00b7 Dusche \u00b7 Sitzecke \u00b7 Klimaanlage \u00b7 WLAN')
 t('ROOM_ROYALE_IMG_ALT', 'Royale Kamer', 'Royale Room', 'Royale Kamer')
 t('ROOM_ROYALE_DELTAS',
-  'meer ruimte <span class="plus">+</span> ligbad',
-  'more space <span class="plus">+</span> bathtub',
-  'mehr Platz <span class="plus">+</span> Badewanne')
+  'meer ruimte <span class="plus">+</span> bad of douche',
+  'more space <span class="plus">+</span> bath or shower',
+  'mehr Platz <span class="plus">+</span> Badewanne oder Dusche')
 t('ROOM_SAUNA_BADGE_STATIC', '+ Eigen sauna', '+ Private sauna', '+ Eigene Sauna')
 t('ROOM_DELUXE_IMG_ALT', 'Deluxe Kamer', 'Deluxe Room', 'Deluxe Kamer')
 t('ROOM_DELUXE_DELTAS',
