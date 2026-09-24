@@ -139,5 +139,6 @@
   "COOKIE_LINK_TEXT": "Meer info",
   "COOKIE_BTN": "Akkoord",
   "BTN_BOOK_DIRECT": "Boek direct",
-  "BK_BACK_STEP2_TEXT": "Terug"
+  "BK_BACK_STEP2_TEXT": "Terug",
+  "FOOTER_EXTRA_LINK": ""
 }

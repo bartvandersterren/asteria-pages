@@ -139,5 +139,6 @@
   "COOKIE_LINK_TEXT": "More info",
   "COOKIE_BTN": "Accept",
   "BTN_BOOK_DIRECT": "Book now",
-  "BK_BACK_STEP2_TEXT": "Back"
+  "BK_BACK_STEP2_TEXT": "Back",
+  "FOOTER_EXTRA_LINK": ""
 }
