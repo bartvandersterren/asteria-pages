@@ -90,7 +90,7 @@
 
     /* ══ LAYOUT ══ */
     .sp-wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
-    .sp-section { padding: 120px 0; background: #ffffff; }
+    .sp-section { padding: 120px 0; background: #ffffff; box-sizing: border-box; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
     .sp-section--tint { background: #f0efed; }
 
     .sp h1, .sp h2, .sp h3 { font-family: 'Electrolize', sans-serif; font-weight: 400; text-transform: uppercase; color: #1f2328; }
@@ -115,7 +115,7 @@
 
     /* ── Hero ── */
     .sp-hero { position: relative; margin-top: 126px; margin-bottom: 53px; z-index: 1; }
-    .sp-hero__stage { position: relative; height: 680px; overflow: hidden; }
+    .sp-hero__stage { position: relative; height: 680px; height: calc(100vh - 126px); height: calc(100svh - 126px); min-height: 620px; overflow: hidden; }
     .sp-hero__stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; }
     .sp-hero__stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,20,24,0.72) 0%, rgba(18,20,24,0.5) 36%, rgba(18,20,24,0) 72%), linear-gradient(to right, rgba(18,20,24,0.4) 0%, rgba(18,20,24,0.12) 45%, rgba(18,20,24,0) 65%); }
     .sp-hero__content { position: absolute; left: 0; right: 0; bottom: 104px; z-index: 2; }
@@ -228,7 +228,7 @@
       .sp-wrap { padding: 0 20px; }
       .sp-section { padding: 88px 0; }
       .sp-hero { margin-top: 76px; margin-bottom: 0; }
-      .sp-hero__stage { height: auto; min-height: 600px; display: flex; align-items: flex-end; }
+      .sp-hero__stage { height: auto; min-height: 600px; min-height: calc(100svh - 76px); display: flex; align-items: flex-end; }
       .sp-hero__stage::after { background: linear-gradient(to top, rgba(18,20,24,0.78) 0%, rgba(18,20,24,0.5) 45%, rgba(18,20,24,0) 80%); }
       .sp-hero__content { position: relative; bottom: auto; padding: 160px 0 40px; }
       .sp-usp { position: static; transform: none; width: auto; max-width: none; min-height: 0; display: block; padding: 8px 20px; border-radius: 0; box-shadow: none; border-bottom: 1px solid #e7e4de; }
