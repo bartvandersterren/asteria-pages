@@ -176,6 +176,16 @@
     .sp-twee h2 { padding-right: 40px; margin: 0; }
     .sp-twee__tekst { border-left: 2px solid #cfc9be; padding-left: 40px; margin-left: 20px; }
     .sp-twee__tekst p { font-size: 17px; }
+    .sp-section--split { padding: 0; display: flex; align-items: stretch; }
+    .sp-split { display: grid; grid-template-columns: 1fr 1fr; flex: 1; width: 100%; }
+    .sp-split__foto { position: relative; }
+    .sp-split__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .sp-split__tekst { display: flex; flex-direction: column; justify-content: center; padding: 120px 80px; }
+    .sp-split__tekst h2 { margin: 0 0 24px; }
+    .sp-split__tekst p { font-size: 17px; max-width: 520px; margin: 0; }
+    .sp-split--omgekeerd .sp-split__foto { order: 2; }
+    .sp-split--omgekeerd .sp-split__tekst { align-items: flex-end; text-align: left; }
+    .sp-split--omgekeerd .sp-split__tekst > * { width: 100%; max-width: 520px; }
 
     /* ── Kaarten ── */
     .sp-cabins { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-top: 56px; }
@@ -238,6 +248,11 @@
       .sp-karte { margin-top: 40px; }
       .sp-anreise-text { grid-template-columns: 1fr; gap: 0; margin-top: 48px; padding-top: 36px; }
       .sp-twee { grid-template-columns: 1fr; }
+      .sp-split { grid-template-columns: 1fr; }
+      .sp-split__foto { aspect-ratio: 4 / 3; }
+      .sp-split--omgekeerd .sp-split__foto { order: 0; }
+      .sp-split__tekst { padding: 44px 20px 60px; }
+      .sp-split--omgekeerd .sp-split__tekst { align-items: flex-start; }
       .sp-twee h2 { padding-right: 0; margin-bottom: 20px; }
       .sp-twee__tekst { border-left: 0; border-top: 2px solid #cfc9be; margin-left: 0; padding: 28px 0 0; }
       .sp-cabins { grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 40px; }
@@ -408,10 +423,11 @@
   </section>
 
   <!-- ══ TEXTILFREI ════════════════════════════════════════════ -->
-  <section class="sp-section sp-section--tint" aria-labelledby="h-textilfrei">
-    <div class="sp-wrap sp-twee">
-      <h2 id="h-textilfrei">Textilfrei, an jedem Tag</h2>
-      <div class="sp-twee__tekst">
+  <section class="sp-section sp-section--tint sp-section--split" aria-labelledby="h-textilfrei">
+    <div class="sp-split">
+      <div class="sp-split__foto"><img src="/fotos/wellness-sauna2.webp" alt="Sauna im Hotel Asteria mit warmem Holz und gedämpftem Licht" loading="lazy"></div>
+      <div class="sp-split__tekst">
+        <h2 id="h-textilfrei">Textilfrei, an jedem Tag</h2>
         <p>Viele Saunen in den Niederlanden haben feste Tage, an denen alle Badekleidung tragen. Bei uns gibt es das nicht. Die Wellness im Hotel Asteria ist an allen Tagen textilfrei.</p>
       </div>
     </div>
@@ -498,10 +514,11 @@
   </section>
 
   <!-- ══ MEHR LESEN ════════════════════════════════════════════ -->
-  <section class="sp-section" aria-labelledby="h-mehr">
-    <div class="sp-wrap sp-twee">
-      <h2 id="h-mehr">Mehr lesen</h2>
-      <div class="sp-twee__tekst">
+  <section class="sp-section sp-section--split" aria-labelledby="h-mehr">
+    <div class="sp-split sp-split--omgekeerd">
+      <div class="sp-split__foto"><img src="/fotos/wp-relaxruimte.webp" alt="Ruheraum der Wellness im Hotel Asteria" loading="lazy"></div>
+      <div class="sp-split__tekst">
+        <h2 id="h-mehr">Mehr lesen</h2>
         <p>Wie ein Saunabesuch in den Niederlanden abläuft, vom Bademantel bis zum Bezahlen, erklärt der Ratgeber <a class="sp-link" href="https://wellnesshotel-holland.de/sauna-in-holland" target="_blank" rel="noopener">Sauna in Holland: so läuft das</a>. Wer mehrere Häuser nebeneinander sehen möchte: Der Guide <a class="sp-link" href="https://wellnesshotel-holland.de/" target="_blank" rel="noopener">Wellnesshotel Holland</a> sortiert neun Wellnesshotels in den Niederlanden nach Fahrzeit ab NRW.</p>
       </div>
     </div>
