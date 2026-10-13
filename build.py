@@ -7,6 +7,7 @@ Gebruik:
   python3 build.py wellness           # alleen wellness template
   python3 build.py feedback           # alleen feedback template
   python3 build.py verblijfsverjaardag-v2   # lander W1 (reviewmuur uit content/)
+  python3 build.py herfst             # seizoenslander herfst (visit.asteria.nl/herfst)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -83,6 +84,15 @@ TEMPLATES = {
         'template': 'lander-w1.template.html',
         'langs': {
             'nl': ('verblijfsverjaardag-v2.html', 'translations/verblijfsverjaardag-v2-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+    },
+    # Seizoenslander herfst (blokkenkiezer 1c-2d-3a-4a-5c-6a-7b-8b): alleen NL, noindex, niet in sitemap.
+    # Sjabloon eigen (herfst.template.html + herfst.css + herfst.js), reviewmuur zoals lander-w1.
+    'herfst': {
+        'template': 'herfst.template.html',
+        'langs': {
+            'nl': ('herfst.html', 'translations/herfst-nl.json'),
         },
         'reviews': 'content/reviews-google-asteria.json',
     },

@@ -173,3 +173,17 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Kop/voet komen uit de Effecty-staging (asteria.staging.effectytools.com) van sep 2026; de staging is sindsdien veranderd
   (menu-pijltjes, hogere mobiele voet), dus de pixelcheck geeft 4,6 % op 1440.
 - Test: `python3 scripts/test_lander_w1.py` (Playwright, 26 checks op 1440 en 390).
+
+### /herfst (seizoenslander rebooking-flow 04, okt 2026)
+
+- `herfst.template.html` + `herfst.css` (laadt na `lander-w1.css`, alleen blokken met prefix `hf-`) + `herfst.js` (kopie van
+  `lander-w1.js` met `lus()` op `.hf-strook`, onderbalk op `.hf-hero` en `momenten()` voor de herfstdag). Kiezerkeuze
+  1c-2d-3a-4a-5c-6a-7b-8b (`~/Documents/Parkhotel /Website ontwerp/asteria-herfst-blokkenkiezer/`); reviewmuur (W1 b5a) en
+  fotowolk (W1 b7a) 1:1 uit lander-w1. Geen vouchercode: `mews-open` zonder `data-voucher`, per kamer `data-room`.
+- Bouwen: `python3 build.py herfst` -> `herfst.html`. Teksten in `translations/herfst-nl.json`. noindex, niet in sitemap.xml.
+- Foto's: `python3 scripts/herfst_fotos.py` maakt `fotos/hf-*.webp` (Fotobank + repo; omgeving Kasteeltuinen, Maasduinen,
+  Overloon, Outlet zijn Parkhotel-assets als noodoplossing).
+- Vanaf-prijzen: `python3 scripts/herfst_prijzen.py --detail` (Mews Distributor getAvailability per nacht 15 okt t/m 30 nov,
+  2 volwassenen, publieke tarieven zonder OTA, zonder voucher) -> waarden in `PRIJS_*` van de JSON zetten en opnieuw bouwen.
+- Test: `python3 scripts/test_herfst.py [--schermafdruk qa/herfst]` (Playwright, 1440 en 390).
+- Open: rebooking-mail 04 (asteria-flows) linkt nog naar /najaarsarrangement; omzetten na livegang.

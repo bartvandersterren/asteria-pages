@@ -1,0 +1,217 @@
+/* Seizoenslander herfst (visit.asteria.nl/herfst), blokkenkiezer asteria-herfst, keuze 1c-2d-3a-4a-5c-6a-7b-8b.
+   Laadt NA lander-w1.css: tokens, kop/voet/drawer, basis, .btn*, .as-*, review-badge, reviewmuur (b5a), fotowolk (b7a),
+   onderbalk, cookie en kamer-pop-up komen daar vandaan. Hier alleen de nieuwe blokken (prefix hf-), geport uit de kiezer:
+   .pv -> .lp, @container pv (max-width:700px) -> @media (max-width:719px), cqw -> vw. */
+
+.lp{--as-wm-ster:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-515 -0 2841 2972' fill='none'%3E %3Cpath fill='%23C76E4E' fill-opacity='.04' d='M2326.3 844.054C1971.04 683.274 1569.16 654.676 1197.04 761.897C693.44 256.226 260.538 -1.0535e-05 260.538 -1.0535e-05C285.237 390.639 354.425 766.419 468.775 1140.02C171.892 1343.36 -221.438 1665.22 -515.148 2101.06C-514.595 2191.32 -450.336 2146.81 -406.138 2113.61C-19.8775 1851.23 332.681 1701.15 640.888 1621.12C820.582 2060.08 1062.53 2503.67 1368.99 2972.4C1195.3 2294.84 1248.65 1724.99 1248.65 1724.99C1248.65 1724.99 1231.79 1755.64 1197.35 1734.48C1169.88 1835.13 1180.46 2278.62 1162.91 2023.06C1154.65 1903.22 1177.6 1714.55 1205.01 1541.85C1604.09 1535.18 1861.25 1641.15 1926.51 1671.51C1932.18 1674.18 1937.51 1676.78 1942.98 1679.57C1743.99 1374.25 1527.59 1109.91 1318 887.113C1943.46 678.278 2326.1 844.182 2326.1 844.182M484.13 332.439C692.344 466.352 894.517 635.446 1073.03 803.037C1008.51 827.479 945.051 855.812 883.155 888.848C846.69 908.299 742.96 963.057 602.262 1052.12C542.831 817.741 503.929 581.725 484.13 332.439ZM-16.9162 1761.59C170.947 1578.75 351.147 1428.99 522.41 1306.27C543.821 1369.04 566.832 1431.65 590.707 1494.27C409.307 1549.63 207.473 1634.49 -16.7139 1761.46M1071.96 2250.35C954.771 2019.32 856.261 1802.06 774.68 1590.01C886.274 1567.3 991.031 1553.49 1088.86 1546.65C1062.19 1705.77 1053.78 1889.19 1071.96 2250.35ZM1718.96 1501.56C1611.22 1469.1 1449.6 1416.16 1227.88 1406.23C1252.34 1270.45 1274.7 1163.07 1278.87 1137.91C1288.99 1075.64 1246.25 1070.01 1246.25 1070.01L1196.58 1244.31C1196.58 1244.31 1178.55 1306.2 1171.38 1184.52C1151.09 1269.21 1133.02 1339.09 1117.57 1405.04C1001.4 1407.58 870.922 1422.9 725.745 1457.53C697.625 1377.94 671.693 1298.67 648.485 1219.66C847.594 1088.95 1033.18 995.034 1203.09 928.738C1509.17 1233.3 1718.96 1501.56 1718.96 1501.56Z'/%3E %3C/svg%3E");}
+
+/* ---------- uit paginastijl.css (kiezer), niet in lander-w1.css ---------- */
+.lp .btn-tertiary--onderstreept::before{transform:scaleX(1)}
+.lp .as-wm{position:relative;overflow:hidden}
+.lp .as-wm::before{content:"";position:absolute;z-index:0;pointer-events:none;width:2100px;height:2200px;right:-760px;top:-500px;
+    background:var(--as-wm-ster) center/contain no-repeat}
+.lp .as-wm>*{position:relative;z-index:1}
+.lp .hf-tag{position:absolute;left:24px;top:24px;z-index:2;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    line-height:1.4;background:var(--terracotta);color:var(--surface);border-radius:var(--radius-pill);padding:5px 12px;white-space:nowrap}
+
+/* ---------- blok 1c: herfst vol beeld, zomer als inzetkaart, tekstkaart rechts ---------- */
+.lp .hf-hero{padding:0}
+.lp .hf-hero-binnen{position:relative;height:680px;overflow:hidden;background:var(--ink)}
+.lp .hf-beeld{position:absolute;inset:0}
+.lp .hf-beeld>img{width:100%;height:100%;object-fit:cover;object-view-box:inset(0 0 0 16.7%);object-position:50% 18%}
+.lp .hf-beeld::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(270deg,rgba(68,42,6,.35) 0%,rgba(68,42,6,0) 45%)}
+.lp .hf-hero-wrap{height:100%;display:flex;align-items:center;justify-content:flex-end;z-index:2}
+.lp .hf-hero-kaart{width:460px;background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-deep);padding:40px 40px 34px;
+    display:flex;flex-direction:column;gap:16px}
+.lp .hf-hero-kaart h1{font-size:48px;line-height:1.08}
+.lp .hf-intro-tekst{color:var(--ink-soft);font-size:var(--text-sm);line-height:1.6}
+.lp .hf-knoppen{display:flex;flex-direction:column;align-items:stretch;gap:10px;margin-top:6px}
+.lp .hf-score{display:flex;align-items:center;flex-wrap:wrap;gap:8px 10px;font-size:14px;line-height:1.4;color:var(--ink-soft);padding-top:14px;border-top:1px solid var(--hairline)}
+.lp .hf-score b{color:var(--ink)}
+.lp .hf-g{width:18px;height:18px;flex:none}
+.lp .hf-zomer{position:absolute;left:24px;bottom:32px;z-index:3;width:300px;height:200px;background:var(--surface);border-radius:var(--radius-card);
+    box-shadow:var(--shadow-deep);padding:8px}
+.lp .hf-zomer>img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;border-radius:var(--radius-image)}
+.lp .hf-zomer .hf-tag{left:18px;top:18px;font-size:10px;padding:4px 10px}
+@media (max-width:719px){
+  .lp .hf-hero-binnen{height:auto;overflow:visible;background:transparent;padding-bottom:28px}
+  .lp .hf-beeld{position:relative;inset:auto;height:420px;overflow:hidden}
+  .lp .hf-beeld>img{object-view-box:none;object-position:48% 22%}
+  .lp .hf-beeld::after{background:none}
+  .lp .hf-tag{left:16px;top:16px;font-size:10px;padding:4px 10px}
+  .lp .hf-zomer{left:16px;bottom:auto;top:262px;width:170px;height:116px;padding:5px}
+  .lp .hf-zomer .hf-tag{left:11px;top:11px;font-size:9px;padding:3px 7px}
+  .lp .hf-hero-wrap{height:auto;display:block;margin-top:-28px}
+  .lp .hf-hero-kaart{width:auto;padding:28px 20px 24px;gap:12px}
+  .lp .hf-hero-kaart h1{font-size:36px}
+  .lp .hf-knoppen .btn{width:100%;white-space:normal;line-height:1.25;text-align:center}
+}
+
+/* ---------- blok 2d: ster met redenenwiel (staging .usp-statement + .usp-wheel) ---------- */
+.lp .hf-intro-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,600px);gap:56px;align-items:center}
+.lp .hf-ster{display:block;width:auto;height:80px;margin-bottom:24px}
+.lp .hf-intro-kol h2{font-size:var(--h2);max-width:14ch}
+.lp .hf-intro-kol p{margin-top:20px;font-size:var(--text-body);line-height:1.7;max-width:46ch}
+.lp .hf-intro-link{margin-top:24px}
+.lp .hf-intro-media{position:relative;display:grid;grid-template-columns:290px minmax(0,1fr);align-items:center}
+.lp .hf-intro-foto{position:relative;z-index:1;aspect-ratio:391/618;border-radius:var(--radius-image);overflow:hidden;box-shadow:var(--shadow-card)}
+.lp .hf-intro-foto img{width:100%;height:100%;object-fit:cover;object-position:45% 50%}
+.lp .hf-wiel{position:relative;z-index:2;margin-left:-40px;gap:14px}
+.lp .hf-wiel-item{line-height:1.35;box-shadow:var(--as-schaduw)}
+.lp .hf-wiel-item.is-active{box-shadow:var(--shadow-card)}
+.lp .hf-wiel .hf-wiel-item:nth-child(1),.lp .hf-wiel .hf-wiel-item:nth-child(4){margin-left:34px;opacity:.78}
+.lp .hf-wiel .hf-wiel-item:nth-child(3){margin-left:8px}
+@media (max-width:719px){
+  .lp .hf-intro-grid{grid-template-columns:minmax(0,1fr);gap:32px}
+  .lp .hf-ster{height:56px;margin-bottom:18px}
+  .lp .hf-intro-kol p{margin-top:14px}
+  .lp .hf-intro-media{grid-template-columns:minmax(0,1fr);gap:0}
+  .lp .hf-intro-foto{aspect-ratio:4/5;max-height:380px;width:100%}
+  .lp .hf-wiel{margin:-40px 14px 0;gap:10px}
+  .lp .hf-wiel .hf-wiel-item:nth-child(n){margin-left:0;opacity:1}
+  .lp .as-wm::before{width:1300px;height:1400px;right:-600px;top:-300px}
+}
+
+/* ---------- blok 3a: herfstdag, momentenlijst in paneel met foto (Parkhotel /herfst/ .sz-dag) ----------
+   Ivoren paneel vanaf de linker schermrand; staande foto rechts die 80 px buiten het omhulsel steekt.
+   herfst.js: klik op een moment opent het (de rest dicht) en wisselt foto, alt en tag; telefoon = accordeon. */
+.lp .hf-dag{overflow-x:clip}
+.lp .hf-dag-blok{position:relative;display:flow-root;min-height:687px}
+.lp .hf-dag-bg{position:absolute;top:47px;bottom:0;left:calc((100% - 100vw) / 2);right:calc(397px + max(-80px, calc((100% - 100vw) / 2)));
+    background:var(--surface);border-radius:0 var(--radius-card) var(--radius-card) 0;box-shadow:var(--shadow-card)}
+.lp .hf-dag-fotovak{position:absolute;top:0;right:max(-80px, calc((100% - 100vw) / 2));width:500px;height:640px;overflow:hidden;
+    border-radius:var(--radius-image);background:var(--ink);box-shadow:var(--shadow-deep);z-index:1}
+.lp .hf-dag-foto{width:100%;height:100%;object-fit:cover;transition:opacity .3s var(--ease-soft)}
+.lp .hf-dag-foto.is-wissel{opacity:0}
+.lp .hf-dag-tag{position:absolute;left:23px;bottom:28px;display:inline-flex;align-items:center;gap:6px;background:var(--terracotta);color:var(--surface);
+    padding:4px 12px;border-radius:var(--radius-pill);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;line-height:1.4}
+.lp .hf-dag-inner{position:relative;margin-top:47px;min-height:640px;padding:56px 0;display:flex;flex-direction:column;justify-content:center;gap:12px;align-items:flex-start;
+    margin-left:calc((100% - 100vw) / 2 + 56px);margin-right:calc(556px + max(-80px, calc((100% - 100vw) / 2)))}
+.lp .hf-momenten{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:8px;align-self:stretch}
+.lp .hf-moment{padding:16px 18px;background:var(--surface);border:1px solid var(--hairline-strong);border-left:3px solid var(--hairline-strong);
+    border-radius:var(--radius-chip);transition:border-color .25s var(--ease-soft),box-shadow .25s var(--ease-soft)}
+.lp .hf-moment.is-open{border-color:var(--terracotta);box-shadow:var(--shadow-card)}
+.lp .hf-moment-kop{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:18px;align-items:baseline;width:100%;margin:0;padding:0;border:0;background:none;
+    text-align:left;color:inherit;cursor:pointer}
+.lp .hf-moment-kop:focus-visible{outline:3px solid var(--terracotta);outline-offset:6px;border-radius:2px}
+.lp .hf-moment.is-open .hf-moment-kop{cursor:default}
+.lp .hf-tijd{font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1.3;color:var(--terracotta-text)}
+.lp .hf-naam{font-family:var(--font-body);font-weight:600;font-size:18px;line-height:1.3;color:var(--ink)}
+.lp .hf-open{padding-left:90px}
+.lp .hf-moment:not(.is-open) .hf-open{display:none}
+.lp .hf-moment-tekst{font-size:15px;line-height:1.45;margin-top:4px;color:var(--ink-soft)}
+.lp .hf-moment-link{margin-top:10px;font-size:14px;font-weight:600;color:var(--terracotta-text)}
+@media (max-width:719px){
+  .lp .hf-dag-blok{display:flex;flex-direction:column;min-height:0}
+  .lp .hf-dag-bg{display:none}
+  .lp .hf-dag-inner{order:1;margin:0;min-height:0;padding:34px 20px 28px;background:var(--surface);border-radius:var(--radius-card) var(--radius-card) 0 0;box-shadow:var(--shadow-card)}
+  .lp .hf-dag-inner h2{line-height:1.1}
+  .lp .hf-moment{padding:12px}
+  .lp .hf-moment-kop{grid-template-columns:52px minmax(0,1fr) auto;column-gap:12px;align-items:center}
+  .lp .hf-moment-kop::after{content:"+";font-family:var(--font-display);font-size:24px;line-height:1;color:var(--terracotta);transition:transform .25s var(--ease-soft)}
+  .lp .hf-moment.is-open .hf-moment-kop::after{transform:rotate(45deg)}
+  .lp .hf-moment.is-open .hf-moment-kop{cursor:pointer}
+  .lp .hf-tijd{font-size:16px}
+  .lp .hf-naam{font-size:17px}
+  .lp .hf-open{padding-left:64px}
+  .lp .hf-dag-fotovak{order:2;position:relative;top:auto;right:auto;width:100%;height:291px;border-radius:0 0 var(--radius-image) var(--radius-image);box-shadow:var(--shadow-card)}
+  .lp .hf-dag-tag{left:20px;bottom:24px}
+}
+
+/* ---------- blok 4a: kamerslider zoals Parkhotel /herfst/ (zd-kamerkeuze) ----------
+   Strook loopt door tot de rechter schermrand; herfst.js lus() kloont de rij voor de oneindige lus, teller 1/8. */
+.lp .hf-kamers{overflow:hidden}
+.lp .hf-kamers-sub{font-size:18px;line-height:25px;color:var(--ink-soft);margin-top:14px;max-width:760px}
+.lp .hf-teller{display:flex;align-items:center;justify-content:flex-end;gap:20px;margin-top:22px}
+.lp .hf-teller--onder{display:none}
+.lp .hf-nu{font-family:var(--font-display);font-weight:700;font-size:25px;line-height:1;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.lp .hf-pijl{width:57px;height:57px;border:2px solid var(--ink)}
+.lp .hf-strook{display:flex;gap:30px;overflow-x:auto;overflow-y:hidden;margin:34px calc((100% - 100vw) / 2) 0 -10px;padding:10px 0 16px 10px;
+    scroll-snap-type:x mandatory;scroll-padding-left:10px;overscroll-behavior-x:contain;scroll-behavior:auto}
+.lp .hf-strook:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
+.lp .hf-strook [data-kloon]{user-select:none}
+.lp .hf-kaart{flex:0 0 320px;min-height:499px;min-width:0;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--hairline);
+    border-radius:var(--radius-image);box-shadow:var(--shadow-card);overflow:hidden;scroll-snap-align:start}
+.lp .hf-kaart-foto{position:relative;flex:none;height:190px}
+.lp .hf-kaart-foto img{width:100%;height:100%;object-fit:cover}
+.lp .hf-pil{position:absolute;left:14px;top:14px;display:inline-flex;align-items:center;gap:6px;background:var(--terracotta);color:var(--surface);padding:4px 11px;
+    border-radius:var(--radius-pill);font-weight:600;font-size:10px;letter-spacing:.1em;text-transform:uppercase;line-height:1.4}
+.lp .hf-pil svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lp .hf-kaart-inhoud{padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.lp .hf-kaart-inhoud h3{font-size:24px;line-height:30px}
+.lp .hf-specs{font-size:15px;line-height:22px;color:var(--ink-soft)}
+.lp .hf-prijs{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;margin-top:2px}
+.lp .hf-va,.lp .hf-pn{font-size:14px;line-height:1.2;color:var(--ink-soft)}
+.lp .hf-prijs b{font-family:var(--font-display);font-weight:700;font-size:24px;line-height:30px;color:var(--ink)}
+.lp .hf-acties{margin-top:auto;padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.lp .hf-acties .btn{width:100%}
+.lp .hf-noot{font-size:15px;line-height:22px;color:var(--ink-soft);margin-top:22px;max-width:760px}
+@media (max-width:719px){
+  .lp .hf-kamers-sub{font-size:16px;line-height:24px}
+  .lp .hf-teller{display:none}
+  .lp .hf-teller--onder{display:flex;margin-top:22px;gap:14px}
+  .lp .hf-nu{font-size:20px}
+  .lp .hf-pijl{width:44px;height:44px;border-width:1.5px}
+  .lp .hf-strook{gap:16px;margin-top:24px}
+  .lp .hf-kaart{flex-basis:245px;min-height:0}
+  .lp .hf-kaart-foto{height:150px}
+  .lp .hf-kaart-inhoud{padding:18px;gap:9px}
+  .lp .hf-kaart-inhoud h3{font-size:22px;line-height:28px}
+  .lp .hf-specs{font-size:14px;line-height:21px}
+  .lp .hf-prijs b{font-size:22px}
+  .lp .hf-noot{font-size:14px;line-height:21px;margin-top:16px}
+}
+
+/* ---------- blok 5c: najaarsarrangement, brede foto met overlappende kaart ---------- */
+.lp .hf-arr-grid{display:grid;grid-template-columns:minmax(0,1fr) 480px;grid-template-areas:"foto foto" "tekst kaart";column-gap:56px}
+.lp .hf-arr-foto{grid-area:foto;aspect-ratio:16/7;border-radius:var(--radius-image);overflow:hidden;box-shadow:var(--shadow-card)}
+.lp .hf-arr-foto img{width:100%;height:100%;object-fit:cover}
+.lp .hf-arr-tekst{grid-area:tekst;padding:44px 0 0 8px}
+.lp .hf-arr-tekst h2{font-size:var(--h2)}
+.lp .hf-arr-tekst p{margin-top:18px;max-width:460px}
+.lp .hf-arr-kaart{grid-area:kaart;position:relative;z-index:1;margin:-230px 40px 0 -40px;background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-deep);padding:36px 36px 32px}
+.lp .hf-vink{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.lp .hf-vink li{display:flex;align-items:flex-start;gap:12px;font-size:var(--text-sm);line-height:1.45;color:var(--ink)}
+.lp .hf-vink .as-icoon{width:22px;height:22px;color:var(--terracotta)}
+.lp .hf-arr-acties{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin-top:28px;padding-top:24px;border-top:1px solid var(--hairline)}
+.lp .hf-arr-acties .btn{width:100%}
+@media (max-width:719px){
+  .lp .hf-arr-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"tekst" "foto" "kaart"}
+  .lp .hf-arr-tekst{padding:0 0 24px}
+  .lp .hf-arr-tekst p{margin-top:14px}
+  .lp .hf-arr-foto{aspect-ratio:auto;height:240px}
+  .lp .hf-arr-kaart{margin:-48px 0 0;padding:24px 20px 24px}
+  .lp .hf-arr-acties{align-items:center}
+  .lp .hf-arr-acties .btn{white-space:normal;line-height:1.25;text-align:center}
+}
+
+/* ---------- blok 6a: omgeving, mozaiek met een grote tegel (Parkhotel /herfst/ .sz-omg) ---------- */
+.lp .hf-omg-kop{margin-bottom:28px}
+.lp .hf-omg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:300px 300px;gap:16px}
+.lp .hf-tegel{position:relative;display:block;overflow:hidden;border-radius:var(--radius-image);background:var(--ink);box-shadow:var(--shadow-card);color:var(--on-ink)}
+.lp .hf-tegel--groot{grid-column:span 2;grid-row:span 2}
+.lp .hf-tegel img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-soft)}
+.lp .hf-tegel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(68,42,6,0) 45%,rgba(68,42,6,.78) 100%)}
+.lp .hf-tegel:hover img{transform:scale(1.03)}
+.lp .hf-tegel:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
+.lp .hf-tegel-naam{position:absolute;left:18px;right:18px;bottom:16px;z-index:2;font-family:var(--font-display);font-weight:700;font-size:21px;line-height:1.2;color:var(--on-ink)}
+.lp .hf-tegel--groot .hf-tegel-naam{left:26px;right:26px;bottom:24px;font-size:30px}
+@media (max-width:719px){
+  .lp .hf-omg-kop{margin-bottom:20px}
+  .lp .hf-omg-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:240px 170px 170px;gap:10px}
+  .lp .hf-tegel--groot{grid-column:span 2;grid-row:span 1}
+  .lp .hf-tegel-naam{left:12px;right:12px;bottom:12px;font-size:16px}
+  .lp .hf-tegel--groot .hf-tegel-naam{left:16px;right:16px;bottom:16px;font-size:22px}
+}
+
+/* ---------- blok 8b: W1-fotowolk (b7a in lander-w1.css) met twee knoppen in plaats van de boekbalk ---------- */
+.lp .hf-slot-knoppen{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:32px}
+@media (max-width:719px){
+  .lp .hf-slot-knoppen{flex-direction:column;align-items:stretch;width:100%;margin-top:24px}
+  .lp .hf-slot-knoppen .btn{width:100%;white-space:normal;line-height:1.25;text-align:center}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .lp .hf-dag-foto,.lp .hf-tegel img,.lp .hf-moment{transition:none}
+  .lp .hf-tegel:hover img{transform:none}
+}
