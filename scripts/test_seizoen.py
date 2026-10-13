@@ -3,7 +3,7 @@
 
 Gebruik:
   python3 -m http.server 8765        # in de repo-root, in een tweede terminal
-  python3 scripts/test_seizoen.py [basis-url] [--schermafdruk map]
+  python3 scripts/test_seizoen.py <seizoen|url> [--schermafdruk map]   # bv. lente --schermafdruk qa/lente
 
 Standaard basis-url: http://localhost:8765/herfst.html (lente: .../lente.html enz.)
 Checks (1440 en 390): geen horizontale overloop, noindex, alle foto's laden, kamerslider (teller 1/8, pijlen, lus),
@@ -18,6 +18,9 @@ args = [a for a in sys.argv[1:]]
 shotdir = None
 if '--schermafdruk' in args:
     i = args.index('--schermafdruk'); shotdir = args[i + 1]; del args[i:i + 2]
+SEIZOENEN = ('herfst', 'lente', 'zomer', 'winter')
+if args and args[0] in SEIZOENEN:
+    args[0] = f'http://localhost:8765/{args[0]}.html'
 URL = args[0] if args else 'http://localhost:8765/herfst.html'
 resultaten = []
 ROYALE = 'a8fd7310-0d61-422f-89e6-af1d00ffc315'
@@ -97,7 +100,7 @@ with sync_playwright() as p:
         zichtbaar = pg.evaluate("getComputedStyle(document.querySelector('.hf-moment:nth-child(3) .hf-open')).display !== 'none'")
         if not mob:
             check(f'{tag} klik op Namiddag opent dat moment en wisselt de foto',
-                  na == [False, False, True, False] and src1.endswith('hf-sauna-bos.webp') and src1 != src0 and zichtbaar
+                  na == [False, False, True, False] and src1 == pg.evaluate("document.querySelector('.hf-moment:nth-child(3)').dataset.foto") and src1 != src0 and zichtbaar
                   and pg.evaluate("getComputedStyle(document.querySelector('.hf-dag-foto')).opacity") == '1',
                   f'{na} {src1} tag={tagtekst}')
         else:

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, later lente, zomer, winter), rebooking-flow 04
+  Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, /lente, /zomer, /winter), rebooking-flow 04
   ----------------------------------------------------------------------------------------------------
   Eén sjabloon voor alle seizoenen: ALLE seizoensinhoud (teksten, foto's, links, arrangement, tags, prijzen)
   komt uit translations/<seizoen>-nl.json; hier staat alleen de structuur.
@@ -8,7 +8,7 @@
   reviewmuur (W1 b5a) en fotowolk (W1 b7a) 1:1 uit lander-w1; de overige blokken (prefix hf-) staan in seizoen.css.
   Geen vouchercode: Mews opent zonder code, per kamer met data-room.
 
-  Bouwen:  python3 build.py herfst
+  Bouwen:  python3 build.py herfst lente zomer winter
   Stijl:   lander-w1.css + seizoen.css   Script: seizoen.js   Prijzen: scripts/seizoen_prijzen.py
 -->
 <html lang="nl">
@@ -288,7 +288,7 @@
         </div>
         <div class="hf-arr-kaart">
           <ul class="hf-vink"><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_EEN}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_TWEE}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_DRIE}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_VIER}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_VIJF}}</span></li></ul>
-          <div class="hf-arr-acties"><a class="btn btn-primary" href="{{ARR_URL}}">{{CTA_ARR}}</a><a class="btn-tertiary btn-tertiary--onderstreept" href="https://www.asteria.nl/arrangementen">{{ARR_ALLE}}</a></div>
+          <div class="hf-arr-acties"><a class="btn btn-primary" href="{{ARR_URL}}">{{CTA_ARR}}</a><a class="btn-tertiary btn-tertiary--onderstreept" href="{{ARR_ALLE_URL}}">{{ARR_ALLE}}</a></div>
         </div>
       </div>
     </div>
@@ -336,34 +336,34 @@
   <section class="sec b7a" data-toon="paper" aria-labelledby="slot-kop">
     <div class="b7a-grid">
       <div class="b7a-col b7a-col--buiten" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_1}}" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="tall" src="{{WOLK_2}}" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_1}}" alt="{{WOLK_1_ALT}}" loading="lazy">
+        <img class="b7a-foto" data-h="tall" src="{{WOLK_2}}" alt="{{WOLK_2_ALT}}" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="medium" src="{{WOLK_3}}" alt="" loading="lazy">
-        <img class="b7a-foto b7a-m" data-h="medium" src="{{WOLK_4}}" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="{{WOLK_5}}" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="{{WOLK_3}}" alt="{{WOLK_3_ALT}}" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="medium" src="{{WOLK_4}}" alt="{{WOLK_4_ALT}}" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="{{WOLK_5}}" alt="{{WOLK_5_ALT}}" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="very-tall" src="{{WOLK_6}}" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="very-tall" src="{{WOLK_6}}" alt="{{WOLK_6_ALT}}" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_7}}" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_7}}" alt="{{WOLK_7_ALT}}" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_8}}" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_8}}" alt="{{WOLK_8_ALT}}" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_9}}" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_9}}" alt="{{WOLK_9_ALT}}" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="medium" src="{{WOLK_10}}" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="{{WOLK_11}}" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="{{WOLK_12}}" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="medium" src="{{WOLK_10}}" alt="{{WOLK_10_ALT}}" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="{{WOLK_11}}" alt="{{WOLK_11_ALT}}" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="{{WOLK_12}}" alt="{{WOLK_12_ALT}}" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_13}}" alt="" loading="lazy">
-        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_14}}" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_13}}" alt="{{WOLK_13_ALT}}" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_14}}" alt="{{WOLK_14_ALT}}" loading="lazy">
       </div>
       <div class="b7a-inhoud">
         <h2 id="slot-kop">{{SLOT_KOP_A}} <span class="g">{{SLOT_KOP_EM}}</span>?</h2>

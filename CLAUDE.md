@@ -174,21 +174,27 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   (menu-pijltjes, hogere mobiele voet), dus de pixelcheck geeft 4,6 % op 1440.
 - Test: `python3 scripts/test_lander_w1.py` (Playwright, 26 checks op 1440 en 390).
 
-### Seizoenslanders /herfst (en later lente, zomer, winter), rebooking-flow 04, okt 2026
+### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 
 - Eén sjabloon voor alle seizoenen: `seizoen.template.html` + `seizoen.css` (laadt na `lander-w1.css`, blokken met prefix `hf-`)
   + `seizoen.js` (kopie van `lander-w1.js` met `lus()` op `.hf-strook`, onderbalk op `.hf-hero`, `momenten()` voor blok 3a).
-  ALLE seizoensinhoud (teksten, foto's, links, arrangement-URL, tags, prijzen, fotowolk `WOLK_1..14`) staat in
-  `translations/<seizoen>-nl.json`; in het sjabloon staan alleen structuur, kamers (namen, specs, Mews-id's) en iconen.
-  Nieuw seizoen = JSON kopieren van `herfst-nl.json` + build.py-entry (template `seizoen.template.html`) + eigen foto's.
+  ALLE seizoensinhoud (teksten, foto's, links, arrangement-URL + `ARR_ALLE_URL`, tags, prijzen, fotowolk `WOLK_1..14` met
+  `WOLK_n_ALT`) staat in `translations/<seizoen>-nl.json`; in het sjabloon staan alleen structuur, kamers (namen, specs,
+  Mews-id's) en iconen. Nieuw seizoen = JSON kopiëren + seizoen toevoegen aan de lijst in build.py + eigen foto's.
 - Kiezerkeuze 1c-2d-3a-4a-5c-6i-7b-8b (`~/Documents/Parkhotel /Website ontwerp/asteria-herfst-blokkenkiezer/`); reviewmuur (W1 b5a)
   en fotowolk (W1 b7a) 1:1 uit lander-w1. Geen vouchercode: `mews-open` zonder `data-voucher`, per kamer `data-room`.
-- Bouwen: `python3 build.py herfst` -> `herfst.html`. noindex, niet in sitemap.xml. Let op: de marker-check in build.py ziet
-  keys met cijfers (`WOLK_1`) niet; controleer met `grep -o '{{[A-Z_0-9]*}}' herfst.html`.
-- Foto's herfst: `python3 scripts/herfst_fotos.py` maakt `fotos/hf-*.webp` (Fotobank + repo; Maasduinen en Kasteeltuinen zijn
-  Parkhotel-assets als noodoplossing).
-- Vanaf-prijzen: `python3 scripts/seizoen_prijzen.py --detail [--van JJJJ-MM-DD --tot JJJJ-MM-DD]` (Mews Distributor
-  getAvailability per nacht, 2 volwassenen, publieke tarieven zonder OTA, zonder voucher; standaard herfst 15 okt t/m 30 nov)
+- Bouwen: `python3 build.py herfst lente zomer winter` -> `<seizoen>.html`. noindex, niet in sitemap.xml. Let op: de
+  marker-check in build.py ziet keys met cijfers (`WOLK_1`) niet; controleer met `grep -o '{{[A-Z_0-9]*}}' *.html`.
+- Foto's: `python3 scripts/seizoen_fotos.py <seizoen>` maakt `fotos/hf-*` (herfst), `lt-*` (lente), `zm-*` (zomer),
+  `wt-*` (winter) uit Fotobank + repo. Gedeelde foto's (l26-*, wp-sauna-fins, hf-kasteeltuinen, lt-bos, lt-hero-800 als
+  inzet zomer, hf-hero-800 als inzet winter) verwijst de JSON direct. Parkhotel-assets als noodoplossing voor uitjes zonder
+  Asteria-foto: Maasduinen, Kasteeltuinen, Groote Peel, Venlo, Designer Outlet. Thermaalbad Arcen toont een Asteria-sauna.
+- Vanaf-prijzen: `python3 scripts/seizoen_prijzen.py <seizoen> --detail` (vensters in `VENSTERS`: herfst 15 okt-30 nov 2026,
+  lente 1 mrt-31 mei 2027, zomer 1 jun-31 aug 2027, winter 1 dec 2026-28 feb 2027; of `--van/--tot JJJJ-MM-DD`). Mews
+  Distributor getAvailability per nacht, 2 volwassenen, publieke tarieven zonder OTA, zonder voucher. De API geeft 429 bij
+  snelle reeksen: script wacht 1 s per nacht en probeert opnieuw; draai seizoenen na elkaar, niet parallel.
   -> waarden in `PRIJS_*` van de JSON zetten en opnieuw bouwen.
-- Test: `python3 scripts/test_seizoen.py [url] [--schermafdruk qa/herfst]` (Playwright, 1440 en 390, 31 checks).
-- Open: rebooking-mail 04 (asteria-flows) linkt nog naar /najaarsarrangement; omzetten na livegang.
+- Test: `python3 -m http.server 8765` + `python3 scripts/test_seizoen.py <seizoen> [--schermafdruk qa/<seizoen>]`
+  (Playwright, 1440 en 390, 31 checks). `qa/` staat niet in git.
+- Open: rebooking-mail 04 (asteria-flows) linkt nog naar /najaarsarrangement; omzetten na livegang. Lente heeft nog geen
+  eigen aspergepagina (knop naar asteria.nl/arrangementen); Happy Summer-periode 2027 controleren.

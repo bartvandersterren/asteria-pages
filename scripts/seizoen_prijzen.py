@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """Vanaf-prijzen voor de kamerslider van de seizoenslanders (visit.asteria.nl/herfst, lente, zomer, winter).
 
-Haalt per nacht (standaard 15 okt t/m 30 nov 2026 voor herfst; --van/--tot JJJJ-MM-DD, 2 volwassenen) de beschikbaarheid op via de Mews
+Haalt per nacht (seizoensvenster uit VENSTERS, standaard herfst 15 okt t/m 30 nov 2026; --van/--tot JJJJ-MM-DD, 2 volwassenen) de beschikbaarheid op via de Mews
 Distributor API (hotels/getAvailability, zonder vouchercode) en neemt per kamercategorie de
 laagste prijs per nacht over alle publieke tarieven (IsPrivate false). OTA-tarieven (naam
 bevat "OTA") tellen niet mee: die zijn voor de boekingssites, niet voor de eigen site.
 Prijzen zijn inclusief btw; de verblijfsbelasting zit er niet in.
 
 Gebruik:
-  python3 scripts/seizoen_prijzen.py            # herfst: JSON-blok voor translations/herfst-nl.json
+  python3 scripts/seizoen_prijzen.py lente      # seizoensvenster (herfst, lente, zomer, winter); standaard herfst
   python3 scripts/seizoen_prijzen.py --detail   # ook datum en tarief per kamer
   python3 scripts/seizoen_prijzen.py --van 2027-03-20 --tot 2027-05-31   # ander seizoen
 
 Faalt de API, dan print het script de waarden uit build_kamers.py met de melding CONTROLEREN.
 """
-import json, sys, urllib.request
+import json, sys, time, urllib.error, urllib.request
 from datetime import date, timedelta
 
 API = 'https://api.mews.com/api/distributor/v1/hotels/getAvailability'
@@ -24,7 +24,13 @@ BASIS = {
     'HotelId': '65a522c9-4828-413d-9ad8-af1d00ffb83f',
     'AdultCount': 2,
 }
-START, EIND = date(2026, 10, 15), date(2026, 11, 30)   # laatste aankomstnacht 30 nov
+VENSTERS = {  # seizoen: (eerste, laatste aankomstnacht)
+    'herfst': (date(2026, 10, 15), date(2026, 11, 30)),
+    'lente':  (date(2027, 3, 1), date(2027, 5, 31)),
+    'zomer':  (date(2027, 6, 1), date(2027, 8, 31)),
+    'winter': (date(2026, 12, 1), date(2027, 2, 28)),
+}
+START, EIND = VENSTERS['herfst']
 
 KAMERS = [  # key in <seizoen>-nl.json, Mews-categorie
     ('PRIJS_COMFORT',      '98900f3b-e5e2-49c9-9776-af1d00ffc315'),
@@ -43,12 +49,18 @@ TERUGVAL = {  # build_kamers.py (peildatum onbekend)
 }
 
 
-def nacht(d):
+def nacht(d, poging=0):
     body = dict(BASIS, StartUtc=d.isoformat() + 'T12:00:00Z',
                 EndUtc=(d + timedelta(days=1)).isoformat() + 'T12:00:00Z')
     req = urllib.request.Request(API, data=json.dumps(body).encode(), headers={'Content-Type': 'application/json'})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.load(r)
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        if e.code == 429 and poging < 5:   # rate limit: even wachten en opnieuw
+            time.sleep(30 * (poging + 1))
+            return nacht(d, poging + 1)
+        raise
 
 
 def euro(v):
@@ -58,6 +70,9 @@ def euro(v):
 def main():
     global START, EIND
     detail = '--detail' in sys.argv
+    seizoen = next((a for a in sys.argv[1:] if a in VENSTERS), None)
+    if seizoen:
+        START, EIND = VENSTERS[seizoen]
     if '--van' in sys.argv: START = date.fromisoformat(sys.argv[sys.argv.index('--van') + 1])
     if '--tot' in sys.argv: EIND = date.fromisoformat(sys.argv[sys.argv.index('--tot') + 1])
     laagst = {}  # categorie -> (prijs, datum, tariefnaam)
@@ -86,6 +101,7 @@ def main():
                         if oud is None or eur < oud[0]:
                             laagst[cat['RoomCategoryId']] = (eur, d.isoformat(), naam)
             d += timedelta(days=1)
+            time.sleep(1)   # de API geeft bij snelle reeksen 429
     except Exception as e:  # API onbereikbaar of ander formaat
         print(f'Mews-API faalt ({e}); waarden uit build_kamers.py, CONTROLEREN', file=sys.stderr)
         print(json.dumps(TERUGVAL, indent=1, ensure_ascii=False))

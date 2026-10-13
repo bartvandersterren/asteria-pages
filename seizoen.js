@@ -1,4 +1,4 @@
-/* Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, later lente, zomer, winter). Vanilla, geen frameworks.
+/* Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, /lente, /zomer, /winter). Vanilla, geen frameworks.
    Kopie van lander-w1.js met:
    - kamerslider blok 4a (.hf-strook, teller .hf-nu "1/8", pijlen .hf-volgende/.hf-vorige) via lus();
    - onderbalk op de telefoon zodra de hero (.hf-hero) uit beeld is;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, later lente, zomer, winter), rebooking-flow 04
+  Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, /lente, /zomer, /winter), rebooking-flow 04
   ----------------------------------------------------------------------------------------------------
   Eén sjabloon voor alle seizoenen: ALLE seizoensinhoud (teksten, foto's, links, arrangement, tags, prijzen)
   komt uit translations/<seizoen>-nl.json; hier staat alleen de structuur.
@@ -8,7 +8,7 @@
   reviewmuur (W1 b5a) en fotowolk (W1 b7a) 1:1 uit lander-w1; de overige blokken (prefix hf-) staan in seizoen.css.
   Geen vouchercode: Mews opent zonder code, per kamer met data-room.
 
-  Bouwen:  python3 build.py herfst
+  Bouwen:  python3 build.py herfst lente zomer winter
   Stijl:   lander-w1.css + seizoen.css   Script: seizoen.js   Prijzen: scripts/seizoen_prijzen.py
 -->
 <html lang="nl">
@@ -455,34 +455,34 @@
   <section class="sec b7a" data-toon="paper" aria-labelledby="slot-kop">
     <div class="b7a-grid">
       <div class="b7a-col b7a-col--buiten" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/hf-bos-hand.webp" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="tall" src="fotos/l26-ontbijt.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/hf-bos-hand.webp" alt="Stel wandelt hand in hand over een bospad in de herfst" loading="lazy">
+        <img class="b7a-foto" data-h="tall" src="fotos/l26-ontbijt.webp" alt="Mand met verse broodjes bij het ontbijtbuffet" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="medium" src="fotos/hf-vlaai.webp" alt="" loading="lazy">
-        <img class="b7a-foto b7a-m" data-h="medium" src="fotos/hf-sauna-bos.webp" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="fotos/l26-kamer-royale-2.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="fotos/hf-vlaai.webp" alt="Limburgse vlaai bij de koffie" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="medium" src="fotos/hf-sauna-bos.webp" alt="Sauna met een verlichte bosfoto op de glazen wand" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="fotos/l26-kamer-royale-2.webp" alt="Royale kamer bij Hotel Asteria" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="very-tall" src="fotos/hf-laan.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="very-tall" src="fotos/hf-laan.webp" alt="Stel op een bospad bij Hotel Asteria" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-wellness-staand.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-wellness-staand.webp" alt="Wellness op de Top Floor" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-hotel-zonsondergang.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-hotel-zonsondergang.webp" alt="Hotel Asteria bij zonsondergang" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-vk-deluxe.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-vk-deluxe.webp" alt="Deluxe kamer bij Hotel Asteria" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="medium" src="fotos/hf-fietsen-bord.webp" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="fotos/l26-fitness.webp" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="fotos/hf-diner.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="medium" src="fotos/hf-fietsen-bord.webp" alt="Stel bij het bord met fietsroutes voor het hotel" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="fotos/l26-fitness.webp" alt="Fitnessruimte van Hotel Asteria" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="fotos/hf-diner.webp" alt="Hoofdgerecht met een glas witte wijn in het restaurant" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/hf-brug.webp" alt="" loading="lazy">
-        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/l26-hotel-buiten.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/hf-brug.webp" alt="Stel leest samen de fietskaart bij de fietsenstalling" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/l26-hotel-buiten.webp" alt="Hotel Asteria aan de vijver" loading="lazy">
       </div>
       <div class="b7a-inhoud">
         <h2 id="slot-kop">Klaar voor je <span class="g">herfstverblijf</span>?</h2>
