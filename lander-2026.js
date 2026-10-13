@@ -371,10 +371,27 @@
   function vulFac(key, knop) {
     var f = facData[key];
     if (!f || !popFac) return false;
-    var tegel = knop.closest('.b6a-tegel');
-    var bron = tegel ? tegel.querySelector('img') : null;
+    /* grote foto + drie kleine eronder (zelfde .lp-pop__fotos als de kamer-pop-up); zonder fotos: beeld van de tegel */
+    var fotos = f.fotos || [];
     var hero = popFac.querySelector('.lp-pop__hero');
-    if (bron) { hero.src = bron.getAttribute('src'); hero.alt = bron.getAttribute('alt') || ''; hero.style.objectPosition = getComputedStyle(bron).objectPosition; }
+    var rij = popFac.querySelector('.lp-pop__fotos');
+    if (fotos.length) {
+      hero.src = fotos[0]; hero.alt = f.titel + ' bij Hotel Asteria'; hero.style.objectPosition = '';
+    } else {
+      var tegel = knop.closest('.b6a-tegel');
+      var bron = tegel ? tegel.querySelector('img') : null;
+      if (bron) { hero.src = bron.getAttribute('src'); hero.alt = bron.getAttribute('alt') || ''; hero.style.objectPosition = getComputedStyle(bron).objectPosition; }
+    }
+    if (rij) {
+      rij.textContent = '';
+      var rijFotos = fotos.slice(1, 4);
+      rij.setAttribute('data-n', rijFotos.length);
+      rijFotos.forEach(function (src, i) {
+        var img = maak('img');
+        img.src = src; img.alt = f.titel + ', foto ' + (i + 2); img.loading = 'lazy'; img.decoding = 'async';
+        rij.appendChild(img);
+      });
+    }
     popFac.querySelector('.lp-pop__titel').textContent = f.titel;
     popFac.querySelector('.lp-pop__tekst').textContent = f.tekst;
     var chips = popFac.querySelector('.lp-pop__chips');
