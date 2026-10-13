@@ -68,6 +68,14 @@ TEMPLATES = {
             'de': 'translations/augustus-actie-literals-de.json',
         },
     },
+    # Lander-sjabloon 2026 (nieuwe huisstijl asteria.nl): alleen NL, noindex.
+    # Andere flow-landers = zelfde template + eigen JSON + eigen fotos/l26-*.
+    'verblijfsverjaardag': {
+        'template': 'lander-2026.template.html',
+        'langs': {
+            'nl': ('verblijfsverjaardag.html', 'translations/verblijfsverjaardag-nl.json'),
+        },
+    },
 }
 
 def add_mews_language(html, lang):
