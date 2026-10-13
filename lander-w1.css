@@ -610,7 +610,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
     .lp .b4b-tel{font-size:var(--text-xs);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
     .lp .b4b-tel b{font-weight:700;color:var(--ink)}
     .lp .b4b-pijlen{display:flex;gap:8px}
-    .lp .b4b-strook{display:flex;gap:24px;overflow:hidden;margin:-10px -10px 0;padding:10px 10px 20px}
+    /* de strook loopt links en rechts door tot de schermrand (zoals de oude lander): kaart 1 staat op de
+       wrap-lijn, de volgende kaarten lopen tot de rand van het scherm */
+    .lp .b4b-strook{--bleed:max(var(--gutter), (100vw - 1120px) / 2);display:flex;gap:24px;overflow:hidden;margin:-10px calc(-1 * var(--bleed)) 0;padding:10px var(--bleed) 20px;width:calc(100% + 2 * var(--bleed));scroll-padding-left:var(--bleed)}
     .lp .b4b-kaart{flex:0 0 calc((100% - 48px) / 2.25);min-width:0;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:10px}
     .lp .b4b-foto{position:relative;aspect-ratio:16/10;border-radius:var(--radius-image);overflow:hidden}
     .lp .b4b-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -751,7 +753,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .lp .b2a-tegel{scroll-snap-align:start}
 .lp .b2a-label .btn{white-space:nowrap}
 /* 4b: echte slider (lander-w1.js lus()), kaarten op zand, eerste stand kamer 1 */
-.lp .b4b-strook{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:10px;overscroll-behavior-x:contain;scroll-behavior:auto}
+.lp .b4b-strook{overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scroll-behavior:auto}
 .lp .b4b-kaart{scroll-snap-align:start}
 .lp .b4b-strook [data-kloon]{user-select:none}
 .lp .b4b-strook:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
@@ -793,7 +795,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
   .lp .as-booking-card .value{justify-content:space-between}
   .lp .as-booking-card .btn{margin:8px 0 0;width:100%}
   .lp .b2a-strook{margin-right:calc(-1 * var(--gutter));padding-right:var(--gutter);scroll-padding-left:0}
-  .lp .b4b-strook{margin:-10px -10px 0;padding:10px 10px 20px}
+  .lp .b4b-strook{--bleed:10px;margin:-10px -10px 0;padding:10px 10px 20px;width:calc(100% + 20px);scroll-padding-left:10px}
   .lp .b5a-kop{flex-direction:column;align-items:flex-start;gap:16px;margin-bottom:28px}
   .lp .g-sticker{gap:8px;padding:8px 14px 8px 12px}
   .lp .g-sticker__ster{width:20px;height:20px}
