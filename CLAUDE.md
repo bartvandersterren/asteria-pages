@@ -173,3 +173,23 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Kop/voet komen uit de Effecty-staging (asteria.staging.effectytools.com) van sep 2026; de staging is sindsdien veranderd
   (menu-pijltjes, hogere mobiele voet), dus de pixelcheck geeft 4,6 % op 1440.
 - Test: `python3 scripts/test_lander_w1.py` (Playwright, 26 checks op 1440 en 390).
+
+### /extras (pre-arrival upsell, okt 2026)
+
+- 1:1-nabouw van parkhotelhorst.nl/extras/ in W1-huisstijl: `extras.template.html` + `translations/extras-nl.json` →
+  `python3 build.py extras` → `extras.html`; `extras.css` (prefix xv-, laadt na `lander-w1.css`), `extras.js` (pagina-
+  gedrag + kop/drawer/cookie/Mews-poort; laadt GEEN `lander-w1.js`); productfoto's `fotos/extras-*.webp`.
+- API: `functions/api/extras/[[path]].js` (GET `/api/extras/sessie`, POST `/api/extras/bestel`; catalogus live uit
+  Mews `configuration/get`, AANBOD bovenin). Zap-blauwdruk, producten en env-vars: `docs/ZAP-EXTRAS-ASTERIA.md`.
+- Testlink: `/extras?r=0c90a9f6-2e2e-4214-88c8-b4b900b4f047&n=123456&a=2026-10-20&d=2026-10-22&p=2&v=Stijn&k=diner`
+  (`e`, `k`, `t` optioneel). Noindex, niet in sitemap.xml.
+- Env: `ZAPIER_EXTRAS_HOOK`, `EXTRAS_SHARED_SECRET`, optioneel `RESEND_API_KEY` (anders receptiemail via FormSubmit,
+  geen gastmail), `MAIL_FROM`, `MAIL_INFO`; `EXTRAS_DRY_RUN=1` alleen op preview. Zonder hook: `fallback` +
+  `[HANDMATIG]`-mail aan de receptie.
+- GOTCHA count × personen × nachten: Mews vermenigvuldigt Count zelf (PerPerson × personen, PerPersonPerTimeUnit ×
+  personen × nachten). Zonder Once-`bestel_id` kiest de Function het dichtstbijzijnde Count en zet `!! CORRIGEER IN
+  MEWS` in de taak als het afwijkt.
+- Tests: `node --test scripts/test_extras_unit.mjs`; `PORT=8788 bash scripts/test_extras_api.sh` (start zelf
+  `wrangler pages dev`, vereist `.dev.vars` met EXTRAS_DRY_RUN=1, MAIL_DRY_RUN=1, EXTRAS_SHARED_SECRET=test);
+  `python3 scripts/test_extras.py <url> --schermafdruk qa/extras` (tegen een draaiende `wrangler pages dev`).
+  Gotcha: poort 8788 wordt soms bezet door een Parkhotel-`wrangler dev`; dan een andere poort kiezen.

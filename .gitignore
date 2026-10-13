@@ -22,3 +22,6 @@ test-image-gen.js
 
 __pycache__/
 *.pyc
+
+# Lokale secrets voor wrangler pages dev (extras-lander)
+.dev.vars
