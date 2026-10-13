@@ -159,6 +159,8 @@
       var it = items[0];
       var weg = !it.isIntersecting && it.boundingClientRect.top < 0;
       balk.classList.toggle('is-zichtbaar', weg);
+      document.documentElement.classList.toggle('mob-cta-aan', weg);
+      document.documentElement.style.setProperty('--mob-cta-h', balk.offsetHeight + 'px');
       balk.setAttribute('aria-hidden', weg ? 'false' : 'true');
       var a = balk.querySelector('a');
       if (a) a.setAttribute('tabindex', weg ? '0' : '-1');
@@ -394,15 +396,27 @@
 
   /* ── faciliteiten: "Laad meer" toont de verborgen tegels en verdwijnt ── */
   var laadMeer = document.querySelector('.b6a-laadmeer');
-  if (laadMeer) laadMeer.addEventListener('click', function () {
-    var extra = document.querySelectorAll('.b6a-extra[hidden]');
-    extra.forEach(function (t) { t.hidden = false; });
-    laadMeer.setAttribute('aria-expanded', 'true');
-    var houder = laadMeer.closest('.b6a-meer');
-    if (houder) houder.hidden = true;
-    var eerste = extra[0] && extra[0].querySelector('button');
-    if (eerste) eerste.focus({ preventScroll: false });
-  });
+  var tegels = Array.prototype.slice.call(document.querySelectorAll('.b6a-tegel'));
+  var mobiel = window.matchMedia('(max-width: 719px)');
+  var facOpen = false;
+  /* op de telefoon staan alleen de eerste twee tegels open (zoals de Parkhotel-landers); Laad meer toont de rest */
+  function facStand() {
+    tegels.forEach(function (t, i) {
+      var extra = t.classList.contains('b6a-extra');
+      var verberg = !facOpen && (extra || (mobiel.matches && i >= 2));
+      if (verberg) t.setAttribute('hidden', ''); else t.removeAttribute('hidden');
+    });
+    if (laadMeer) laadMeer.parentElement.hidden = facOpen;
+  }
+  if (laadMeer) {
+    laadMeer.addEventListener('click', function () {
+      facOpen = true; laadMeer.setAttribute('aria-expanded', 'true'); facStand();
+      var eerste = tegels.filter(function (t) { return t.offsetParent !== null; })[2];
+      if (eerste && mobiel.matches) eerste.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+  facStand();
+  if (mobiel.addEventListener) mobiel.addEventListener('change', facStand); else if (mobiel.addListener) mobiel.addListener(facStand);
 
   /* ── cookiemelding (zoals welkom) ── */
   var banner = document.getElementById('cookieBanner');
