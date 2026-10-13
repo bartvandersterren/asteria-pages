@@ -7,6 +7,7 @@ Gebruik:
   python3 build.py wellness           # alleen wellness template
   python3 build.py feedback           # alleen feedback template
   python3 build.py verblijfsverjaardag-v2   # lander W1 (reviewmuur uit content/)
+  python3 build.py extras             # pre-arrival upsell-lander /extras (alleen NL)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -85,6 +86,14 @@ TEMPLATES = {
             'nl': ('verblijfsverjaardag-v2.html', 'translations/verblijfsverjaardag-v2-nl.json'),
         },
         'reviews': 'content/reviews-google-asteria.json',
+    },
+    # Pre-arrival upsell-lander /extras (1:1 parkhotelhorst.nl/extras/ in W1-huisstijl): alleen NL, noindex.
+    # Gedrag in extras.js, API in functions/api/extras/[[path]].js.
+    'extras': {
+        'template': 'extras.template.html',
+        'langs': {
+            'nl': ('extras.html', 'translations/extras-nl.json'),
+        },
     },
 }
 
