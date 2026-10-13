@@ -547,14 +547,15 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .lp .b2a-vink .as-icoon{width:20px;height:20px;color:var(--terracotta)}
 
 /* ---------- blok 3a: praktisch, ivoren paneel met overlapfoto ---------- */
-.lp .b3a-blok{position:relative;display:grid;grid-template-columns:minmax(0,64fr) minmax(0,36fr);padding-top:40px}
-.lp .b3a-paneel{grid-column:1 / -1;grid-row:1;background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:44px calc(36% + 22px) 44px 32px}
+.lp .b3a-blok{position:relative;padding-top:47px;min-height:425px}
+.lp .b3a-blok::before{content:"";position:absolute;z-index:0;top:47px;bottom:0;left:calc(-1 * max(var(--gutter), (100vw - 1120px) / 2));right:230px;background:var(--surface);border-radius:0 var(--radius-card) var(--radius-card) 0;box-shadow:var(--shadow-card)}
+.lp .b3a-paneel{position:relative;z-index:1;padding:76px 0 64px 24px;max-width:calc(100% - 322px)}
 .lp .b3a-paneel h2{max-width:12ch}
 .lp .b3a-tekst{margin-top:20px;font-size:16px;line-height:1.6}
-.lp .b3a-checks{list-style:none;margin:28px 0 0;padding:24px 0 0;border-top:1px solid var(--hairline);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
-.lp .b3a-checks li{display:flex;align-items:flex-start;gap:9px;font-size:15px;line-height:1.4;color:var(--ink)}
-.lp .b3a-checks .as-icoon{width:18px;height:18px;margin-top:1px;color:var(--terracotta)}
-.lp .b3a-foto{grid-column:2;grid-row:1;position:relative;z-index:1;margin:-40px 16px 44px 0;border-radius:var(--radius-image);overflow:hidden;box-shadow:var(--shadow-deep);min-height:0}
+.lp .b3a-checks{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 14px}
+.lp .b3a-checks li{display:flex;align-items:center;gap:12px;font-size:15px;line-height:1.35;color:var(--ink)}
+.lp .b3a-checks .as-icoon{flex:none;box-sizing:content-box;width:20px;height:20px;padding:9px;border-radius:var(--radius-chip);background:var(--paper-shade-2);color:var(--terracotta)}
+.lp .b3a-foto{position:absolute;z-index:1;top:0;right:0;width:290px;height:425px;border-radius:var(--radius-image);overflow:hidden;box-shadow:var(--shadow-deep)}
 .lp .b3a-foto img{display:block;width:100%;height:100%;object-fit:cover;object-position:56% 50%}
 
 /* ---------- blok 4a: kamerslider ---------- */
@@ -564,7 +565,8 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .lp .b4a-teller{display:flex;align-items:center;gap:14px;flex:none;padding-top:6px}
 .lp .b4a-telgetal{font-family:var(--font-display);font-weight:700;font-size:24px;line-height:1;color:var(--ink-soft);margin-right:6px;min-width:2.2em;text-align:right;font-variant-numeric:tabular-nums}
 .lp .b4a-teller--onder{justify-content:flex-end;margin-top:22px;padding-top:0}
-.lp .b4a-strook{display:flex;gap:29px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-inline:10px;overscroll-behavior-x:contain;margin:34px -10px 0;padding:6px 10px 16px}
+.lp .b4a-strook{--bleed:max(var(--gutter), (100vw - 1120px) / 2);display:flex;gap:29px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-left:var(--bleed);scroll-padding-right:10px;overscroll-behavior-x:contain;margin:34px -10px 0 calc(-1 * var(--bleed));padding:6px 10px 16px var(--bleed);width:calc(100% + var(--bleed) + 10px);scroll-behavior:auto}
+.lp .b4a-strook [data-kloon]{user-select:none}
 .lp .b4a-noot{font-size:15px;line-height:1.5;color:var(--ink-soft);margin-top:22px;max-width:760px}
 .lp .b4a-kaart{flex:0 0 calc((100% - 58px) / 3);min-width:0;display:flex;flex-direction:column;background:var(--surface);border-radius:var(--radius-image);box-shadow:var(--shadow-card);overflow:hidden;scroll-snap-align:start}
 .lp .b4a-foto{height:190px}
@@ -725,13 +727,14 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
   .lp .b2a-beeld{height:240px;margin:0 20px}
   .lp .b2a-kaart{width:auto;margin:16px 20px 24px;padding:20px;box-shadow:none;border:1px solid var(--hairline-strong)}
   /* 3a */
-  .lp .b3a-blok{grid-template-columns:minmax(0,1fr);padding-top:0}
-  .lp .b3a-paneel{grid-column:1;grid-row:1;padding:32px 22px 30px;border-radius:var(--radius-card) var(--radius-card) 0 0}
+  .lp .b3a-blok{padding-top:0;min-height:0;display:flex;flex-direction:column}
+  .lp .b3a-blok::before{display:none}
+  .lp .b3a-paneel{order:1;max-width:none;background:var(--surface);padding:32px 22px 30px;border-radius:var(--radius-card) var(--radius-card) 0 0;box-shadow:var(--shadow-card)}
   .lp .b3a-checks{grid-template-columns:minmax(0,1fr);gap:12px}
-  .lp .b3a-foto{grid-column:1;grid-row:2;margin:0;height:260px;border-radius:0 0 var(--radius-card) var(--radius-card);box-shadow:var(--shadow-card)}
+  .lp .b3a-foto{order:2;position:relative;top:auto;right:auto;width:100%;height:260px;border-radius:0 0 var(--radius-card) var(--radius-card);box-shadow:var(--shadow-card)}
   /* 4a */
   .lp .b4a-teller:not(.b4a-teller--onder){display:none}
-  .lp .b4a-strook{gap:16px;margin-top:24px}
+  .lp .b4a-strook{--bleed:10px;gap:16px;margin-top:24px;scroll-padding-left:10px}
   .lp .b4a-teller--onder{margin-top:12px}
   .lp .b4a-noot{font-size:14px;margin-top:18px}
   .lp .b4a-kaart{flex-basis:calc(100% - 48px)}

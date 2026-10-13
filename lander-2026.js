@@ -91,23 +91,47 @@
     strook.scrollBy({ left: richting * stap(strook), behavior: 'smooth' });
   }
 
-  /* ── kamerslider met teller i/8 boven en onder ── */
+  /* ── kamerslider: oneindige lus zoals de Parkhotel-landers. De hele rij staat een keer vooraan en
+     een keer achteraan gekloond; de teller telt alleen de echte kaarten; na 120 ms stilstand springt
+     de strook onzichtbaar terug naar het echte exemplaar. ── */
   var kamers = document.querySelector('.b4a-strook');
-  if (kamers) {
-    var totaal = kamers.children.length;
-    var tellers = document.querySelectorAll('.b4a-telgetal');
-    var zetTeller = function () {
-      var w = stap(kamers) || 1;
-      var i = Math.round(kamers.scrollLeft / w) + 1;
-      if (aanEind(kamers)) i = Math.max(i, totaal - Math.round(kamers.clientWidth / w) + 1);
-      i = Math.min(Math.max(i, 1), totaal);
-      for (var t = 0; t < tellers.length; t++) tellers[t].textContent = i + '/' + totaal;
+  if (kamers && kamers.children.length > 1) {
+    var echt = Array.prototype.slice.call(kamers.children), n = echt.length, off = n;
+    var kloon = function (k) {
+      var c = k.cloneNode(true); c.setAttribute('data-kloon', ''); c.setAttribute('aria-hidden', 'true');
+      c.querySelectorAll('a,button').forEach(function (x) { x.setAttribute('tabindex', '-1'); });
+      return c;
     };
-    var wacht;
-    kamers.addEventListener('scroll', function () { clearTimeout(wacht); wacht = setTimeout(zetTeller, 60); }, { passive: true });
-    document.querySelectorAll('.b4a-volgende').forEach(function (b) { b.addEventListener('click', function () { verschuif(kamers, 1); }); });
-    document.querySelectorAll('.b4a-vorige').forEach(function (b) { b.addEventListener('click', function () { verschuif(kamers, -1); }); });
-    zetTeller();
+    echt.forEach(function (k) { kamers.insertBefore(kloon(k), echt[0]); });
+    echt.forEach(function (k) { kamers.appendChild(kloon(k)); });
+    var alle = kamers.children, tellers = document.querySelectorAll('.b4a-telgetal'), huidig = 0;
+    var stapK = function () { return alle[off + 1].offsetLeft - alle[off].offsetLeft || kamers.clientWidth; };
+    var positie = function () { return Math.round(kamers.scrollLeft / stapK()) - off; };
+    var update = function () {
+      var i = ((positie() % n) + n) % n + 1; huidig = i - 1;
+      for (var t = 0; t < tellers.length; t++) tellers[t].textContent = i + '/' + n;
+    };
+    var zetStart = function () { kamers.scrollLeft = (off + huidig) * stapK(); };
+    var wacht, wachtMaat, maatWissel = false, breedte = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === breedte) return;
+      maatWissel = true; clearTimeout(wachtMaat);
+      wachtMaat = setTimeout(function () { breedte = window.innerWidth; zetStart(); setTimeout(function () { maatWissel = false; update(); }, 50); }, 100);
+    });
+    kamers.addEventListener('scroll', function () {
+      if (maatWissel) return;
+      window.requestAnimationFrame(update);
+      clearTimeout(wacht);
+      wacht = setTimeout(function () {
+        var p = positie();
+        if (p < 0) kamers.scrollLeft += n * stapK(); else if (p >= n) kamers.scrollLeft -= n * stapK();
+      }, 120);
+    }, { passive: true });
+    document.querySelectorAll('.b4a-volgende').forEach(function (b) { b.addEventListener('click', function () { kamers.scrollBy({ left: stapK(), behavior: 'smooth' }); }); });
+    document.querySelectorAll('.b4a-vorige').forEach(function (b) { b.addEventListener('click', function () { kamers.scrollBy({ left: -stapK(), behavior: 'smooth' }); }); });
+    zetStart(); update();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(zetStart);
+    window.addEventListener('load', zetStart);
   }
 
   /* ── reviewstrook: pijl schuift één kaart, aan het eind terug naar het begin ── */
