@@ -6,6 +6,7 @@ Gebruik:
   python3 build.py                    # bouwt alles
   python3 build.py wellness           # alleen wellness template
   python3 build.py feedback           # alleen feedback template
+  python3 build.py verblijfsverjaardag-v2   # lander W1 (reviewmuur uit content/)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -75,6 +76,15 @@ TEMPLATES = {
         'langs': {
             'nl': ('verblijfsverjaardag.html', 'translations/verblijfsverjaardag-nl.json'),
         },
+    },
+    # Lander-sjabloon W1 Thuiskomst (blokkenkiezer 1a-2a-3a-4b-5a-6c-7a): alleen NL, noindex.
+    # Reviewmuur wordt gevuld uit content/reviews-google-asteria.json (zie inject_reviews).
+    'verblijfsverjaardag-v2': {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': ('verblijfsverjaardag-v2.html', 'translations/verblijfsverjaardag-v2-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
     },
 }
 
@@ -230,6 +240,41 @@ def inject_welkom_booking():
         print(f'  [welkom-booking/{suffix or "nl"}] geinjecteerd (voucher {voucher})')
 
 
+def inject_reviews(html, reviews_file, max_kaarten=24, max_tekens=260):
+    """Vul de reviewmuur (lander-w1, blok 5a) uit een Google-reviews-JSON
+    (formaat zoals zaalzeven-pages/content/reviews-google.json). Vervangt
+    <!-- REVIEWS --> door maximaal 24 kaarten en vult {{GOOGLE_PROFIEL}} /
+    {{GOOGLE_REVIEW_URL}} met profiel_url / review_url uit de JSON als de
+    vertalings-JSON ze niet al gaf. Lange teksten worden op een woordgrens
+    afgekapt (ongeveer 260 tekens) met een beletselteken."""
+    from html import escape
+    with open(os.path.join(base, reviews_file), encoding='utf-8') as f:
+        data = json.load(f)
+    ster = ('<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 '
+            '17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>')
+    kaarten = []
+    for r in (data.get('reviews') or [])[:max_kaarten]:
+        tekst = ' '.join((r.get('tekst') or '').split())
+        if len(tekst) > max_tekens:
+            tekst = tekst[:max_tekens].rsplit(' ', 1)[0].rstrip(' ,.;:!?') + ' \u2026'
+        n = max(1, min(5, int(r.get('sterren') or 5)))
+        datum = (r.get('datum') or '').strip()
+        meta = (escape(datum) + ' &middot; Google') if datum else 'Google'
+        kaarten.append(
+            '      <article class="kaart b5a-kaart">\n'
+            f'        <span class="b5a-k-sterren" role="img" aria-label="{n} van 5 sterren">{ster * n}</span>\n'
+            f'        <p>\u201c{escape(tekst, quote=False)}\u201d</p>\n'
+            f'        <p class="b5a-naam">{escape(r.get("naam") or "Gast", quote=False)}<span>{meta}</span></p>\n'
+            '      </article>')
+    if not kaarten:
+        print(f'  WARNING: geen reviews in {reviews_file}')
+    html = html.replace('<!-- REVIEWS -->', '\n'.join(kaarten))
+    profiel = data.get('profiel_url') or 'https://www.google.com/maps/search/?api=1&query=Hotel+Asteria+Venray'
+    schrijf = data.get('review_url') or profiel
+    html = html.replace('{{GOOGLE_PROFIEL}}', escape(profiel)).replace('{{GOOGLE_REVIEW_URL}}', escape(schrijf))
+    return html
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -254,6 +299,10 @@ def build(template_name, lang):
         with open(os.path.join(base, literals_file), encoding='utf-8') as f:
             for source, target in json.load(f):
                 html = html.replace(source, target)
+
+    # Reviewmuur uit de Google-reviews-JSON (alleen templates met 'reviews')
+    if config.get('reviews'):
+        html = inject_reviews(html, config['reviews'])
 
     # Mews-boekingslinks in de juiste taal openen (alleen EN/DE)
     html = add_mews_language(html, lang)
