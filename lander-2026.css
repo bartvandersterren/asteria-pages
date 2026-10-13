@@ -834,6 +834,20 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
 .lp .lp-pop__acties{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:24px}
 .lp .lp-pop__link{font-size:var(--text-sm);font-weight:700;color:var(--terracotta-text);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1.5px;text-decoration-color:rgba(199,110,78,.5)}
 .lp .lp-pop__link:hover{text-decoration-color:var(--terracotta)}
+/* bureaublad: pop-up in twee kolommen (media links, tekst rechts) zodat je niet hoeft te scrollen */
+@media (min-width: 900px){
+  .lp .lp-pop{width:min(1100px,100% - 48px);max-height:min(92dvh,900px)}
+  .lp .lp-pop__binnen{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,13fr);grid-template-rows:auto minmax(0,1fr);align-items:start}
+  .lp .lp-pop__media{grid-column:1;grid-row:1;aspect-ratio:4/3}
+  .lp .lp-pop__fotos{grid-column:1;grid-row:2;padding:8px 0 8px 8px;align-self:start}
+  .lp .lp-pop--fac .lp-pop__media{grid-row:1 / span 2;aspect-ratio:auto;align-self:stretch;min-height:380px}
+  .lp .lp-pop__body{grid-column:2;grid-row:1 / span 2;align-self:center;padding:32px 36px 32px 28px}
+  .lp .lp-pop__tekst{font-size:15px}
+  .lp .lp-pop__kenmerken{margin-top:16px;padding-top:14px;gap:10px 16px}
+  .lp .lp-pop__acties{margin-top:20px}
+}
+}
+
 @media (prefers-reduced-motion:no-preference){
   .lp .lp-pop[open],.lp .lp-pop.is-open{animation:lpPopIn .25s var(--ease-soft)}
   .lp .lp-pop[open]::backdrop{animation:lpPopFade .25s var(--ease-soft)}
@@ -855,3 +869,11 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .lp-pop__fotos{gap:6px;padding:6px 6px 0}
   .lp .b6a-grid{grid-auto-rows:auto}
 }
+/* telefoon: compacter beeld, minder scrollen */
+@media (max-width: 719px){
+  .lp .lp-pop__media{aspect-ratio:16/9}
+  .lp .lp-pop__tekst{font-size:14px;line-height:1.55}
+  .lp .lp-pop__kenmerken{margin-top:14px;padding-top:12px;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
+  .lp .lp-pop__body{padding:18px 18px 20px}
+  .lp .lp-pop__fotos img{aspect-ratio:16/10}
+  .lp .lp-pop__kenmerken li{font-size:13px}
