@@ -159,3 +159,17 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 
 ## Foto-index lezen
 - `foto-index.md` is te groot voor de Read tool (~60k tokens) — gebruik `Bash head -N foto-index.md` of grep om specifieke secties op te zoeken
+
+## Flow-landers (lander-w1, okt 2026)
+
+- `lander-w1.template.html` + `lander-w1.css` + `lander-w1.js` = sjabloon voor de flow-landers in de nieuwe asteria.nl-huisstijl
+  (structuur W1 Thuiskomst: hero met boekbalk, tegelstrook, ster-split, kamerslider, reviewmuur, FAQ, fotowolk). Eerste pagina:
+  `verblijfsverjaardag-v2` (build.py-entry, `translations/verblijfsverjaardag-v2-nl.json`, foto's `fotos/l26-*.webp`). Nieuwe lander
+  (bedankt, welkom-terug, gemist) = nieuwe JSON + build.py-entry + eigen l26-foto's. `lander-2026.*` is het oude Parkhotel-model.
+- Reviewmuur leest `content/reviews-google-asteria.json` (24 Google-reviews, opgehaald via google.com/travel; Maps-weergave toont voor
+  dit profiel geen reviews). Google-profiel cid `10392502528258527703`, place-id `ChIJ8QbzR7lqx0cR19Ey1PyVOZA`.
+- Boekbalk: Mews-widget-API `setVoucherCode`, `setStartDate`, `setEndDate`, `setAdultCount` werken (widget opent op stap Datums;
+  `showRooms()` slaat die over); URL-fallback `mewsStart`, `mewsEnd`, `mewsAdultCount` op de distributor-URL.
+- Kop/voet komen uit de Effecty-staging (asteria.staging.effectytools.com) van sep 2026; de staging is sindsdien veranderd
+  (menu-pijltjes, hogere mobiele voet), dus de pixelcheck geeft 4,6 % op 1440.
+- Test: `python3 scripts/test_lander_w1.py` (Playwright, 26 checks op 1440 en 390).
