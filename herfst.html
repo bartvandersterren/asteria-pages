@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <!--
-  Hotel Asteria, seizoenslander herfst (visit.asteria.nl/herfst), rebooking-flow 04
-  ----------------------------------------------------------------------------------
-  Blokkenkiezer asteria-herfst-blokkenkiezer, keuze 1c-2d-3a-4a-5c-6a-7b-8b. Kop, voet, kamer-pop-up,
-  reviewmuur (W1 b5a) en fotowolk (W1 b7a) 1:1 uit lander-w1; de overige blokken (prefix hf-) staan in herfst.css.
+  Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, later lente, zomer, winter), rebooking-flow 04
+  ----------------------------------------------------------------------------------------------------
+  Eén sjabloon voor alle seizoenen: ALLE seizoensinhoud (teksten, foto's, links, arrangement, tags, prijzen)
+  komt uit translations/<seizoen>-nl.json; hier staat alleen de structuur.
+  Opbouw: blokkenkiezer asteria-herfst-blokkenkiezer, keuze 1c-2d-3a-4a-5c-6i-7b-8b. Kop, voet, kamer-pop-up,
+  reviewmuur (W1 b5a) en fotowolk (W1 b7a) 1:1 uit lander-w1; de overige blokken (prefix hf-) staan in seizoen.css.
   Geen vouchercode: Mews opent zonder code, per kamer met data-room.
 
   Bouwen:  python3 build.py herfst
-  Stijl:   lander-w1.css + herfst.css   Script: herfst.js   Prijzen: scripts/herfst_prijzen.py
+  Stijl:   lander-w1.css + seizoen.css   Script: seizoen.js   Prijzen: scripts/seizoen_prijzen.py
 -->
 <html lang="nl">
 <head>
@@ -31,8 +33,8 @@
   <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="fotos/hf-hero.webp" imagesrcset="fotos/hf-hero-800.webp 800w, fotos/hf-hero.webp 1600w" imagesizes="100vw" type="image/webp">
   <link rel="stylesheet" href="lander-w1.css">
-  <link rel="stylesheet" href="herfst.css">
-  <script src="herfst.js" defer></script>
+  <link rel="stylesheet" href="seizoen.css">
+  <script src="seizoen.js" defer></script>
 
   <!-- GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
@@ -129,11 +131,11 @@
 </aside>
 <main class="lp">
 
-  <!-- ══ BLOK 1c: HERO, HERFST VOL BEELD MET ZOMER ALS INZETKAART (kiezer 1c) ══ -->
+  <!-- ══ BLOK 1c: HERO, HUIDIG SEIZOEN VOL BEELD MET HET VORIGE VERBLIJF ALS INZETKAART (kiezer 1c) ══ -->
   <section class="sec hf-hero" data-toon="paper">
     <div class="hf-hero-binnen">
       <div class="hf-beeld"><img src="fotos/hf-hero.webp" srcset="fotos/hf-hero-800.webp 800w, fotos/hf-hero.webp 1600w" sizes="100vw" alt="Stel maakt een selfie op een bospad in de herfst bij Hotel Asteria" width="1600" height="1066" fetchpriority="high"><span class="hf-tag">Nu: de herfst</span></div>
-      <div class="hf-zomer"><img src="fotos/hf-zomer.webp" alt="Zomer bij Hotel Asteria: lunch op het terras" width="800" height="533"><span class="hf-tag">Je verblijf, zomer</span></div>
+      <div class="hf-vorig"><img src="fotos/hf-zomer.webp" alt="Zomer bij Hotel Asteria: lunch op het terras" width="800" height="533"><span class="hf-tag">Je verblijf, zomer</span></div>
       <div class="wrap hf-hero-wrap">
         <div class="hf-hero-kaart">
           <h1>Ken je Hotel Asteria al in de <span class="g">herfst</span>?</h1>
@@ -145,7 +147,7 @@
     </div>
   </section>
 
-  <!-- ══ BLOK 2d: VENRAY IN EEN ANDER SEIZOEN, STER MET REDENENWIEL (staging .usp-statement + .usp-wheel) ══ -->
+  <!-- ══ BLOK 2d: INTRO, STER MET REDENENWIEL (staging .usp-statement + .usp-wheel) ══ -->
   <section class="sec hf-intro as-wm" data-toon="paper">
     <div class="wrap"><div class="hf-intro-grid">
       <div class="hf-intro-kol"><svg class="hf-ster" viewBox="-515 0 2841 2973" fill="none" aria-hidden="true"><path d="M2326.3 844.054C1971.04 683.274 1569.16 654.676 1197.04 761.897C693.44 256.226 260.538 1.99826e-05 260.538 1.99826e-05C285.237 390.639 354.425 766.419 468.775 1140.02C171.892 1343.36 -221.438 1665.22 -515.148 2101.06C-514.595 2191.32 -450.336 2146.81 -406.138 2113.61C-19.8775 1851.23 332.681 1701.15 640.888 1621.12C820.582 2060.08 1062.53 2503.67 1368.99 2972.4C1195.3 2294.84 1248.65 1724.99 1248.65 1724.99C1248.65 1724.99 1231.79 1755.64 1197.35 1734.48C1169.88 1835.13 1180.46 2278.62 1162.91 2023.06C1154.65 1903.22 1177.6 1714.55 1205.01 1541.85C1604.09 1535.18 1861.25 1641.15 1926.51 1671.51C1932.18 1674.18 1937.51 1676.78 1942.98 1679.57C1743.99 1374.25 1527.59 1109.91 1318 887.113C1943.46 678.278 2326.1 844.182 2326.1 844.182M484.13 332.439C692.344 466.352 894.517 635.446 1073.03 803.037C1008.51 827.479 945.051 855.812 883.155 888.848C846.69 908.3 742.96 963.058 602.262 1052.12C542.831 817.741 503.929 581.725 484.13 332.439ZM-16.9162 1761.59C170.947 1578.75 351.147 1428.99 522.41 1306.27C543.821 1369.04 566.832 1431.65 590.707 1494.27C409.307 1549.63 207.473 1634.49 -16.7139 1761.46M1071.96 2250.35C954.771 2019.32 856.261 1802.06 774.68 1590.01C886.274 1567.3 991.031 1553.49 1088.86 1546.65C1062.19 1705.77 1053.78 1889.19 1071.96 2250.35ZM1718.96 1501.56C1611.22 1469.1 1449.6 1416.16 1227.88 1406.23C1252.34 1270.45 1274.7 1163.07 1278.87 1137.91C1288.99 1075.64 1246.25 1070.01 1246.25 1070.01L1196.58 1244.31C1196.58 1244.31 1178.55 1306.2 1171.38 1184.52C1151.09 1269.21 1133.02 1339.09 1117.57 1405.04C1001.4 1407.58 870.922 1422.9 725.745 1457.53C697.625 1377.94 671.693 1298.67 648.485 1219.66C847.594 1088.95 1033.18 995.034 1203.09 928.738C1509.17 1233.3 1718.96 1501.56 1718.96 1501.56Z" fill="var(--terracotta)"/></svg><h2>Venray in een <span class="g">ander seizoen</span></h2><p>Een tijdje geleden was je bij ons in Venray. Wat ons betreft smaakt dat naar meer, want Noord-Limburg laat in elk seizoen een ander gezicht zien. Het bos naast het hotel kleurt mee met het jaar, op de Top Floor wachten vier sauna's en een stoomcabine, en in de brasserie wisselt de kaart met de seizoenen mee.</p><div class="hf-intro-link"><a class="btn-tertiary btn-tertiary--onderstreept" href="#kamers">Bekijk de kamers</a></div></div>
@@ -156,8 +158,8 @@
     </div></div>
   </section>
 
-  <!-- ══ BLOK 3a: ZO ZIET EEN HERFSTDAG BIJ ONS ERUIT (Parkhotel /herfst/ .sz-dag) ══ -->
-  <section class="sec hf-dag" id="herfstdag" data-toon="paper">
+  <!-- ══ BLOK 3a: ZO ZIET EEN DAG BIJ ONS ERUIT (Parkhotel /herfst/ .sz-dag) ══ -->
+  <section class="sec hf-dag" id="dag" data-toon="paper">
     <div class="wrap">
       <div class="hf-dag-blok">
         <div class="hf-dag-bg" aria-hidden="true"></div>
@@ -190,7 +192,7 @@
     </div>
   </section>
 
-  <!-- ══ BLOK 4a: JE KAMER VOOR DE HERFST, KAMERSLIDER ZOALS PARKHOTEL /herfst/ (zd-kamerkeuze) ══ -->
+  <!-- ══ BLOK 4a: KAMERS, KAMERSLIDER ZOALS PARKHOTEL /herfst/ (zd-kamerkeuze) ══ -->
   <section class="sec hf-kamers" id="kamers" data-toon="paper" aria-labelledby="kamers-kop">
     <div class="wrap">
       <h2 id="kamers-kop">Je kamer voor de <span class="g">herfst</span></h2>
@@ -275,7 +277,7 @@
     </div>
   </section>
 
-  <!-- ══ BLOK 5c: ONS NAJAARSARRANGEMENT, BREDE FOTO MET OVERLAPPENDE KAART ══ -->
+  <!-- ══ BLOK 5c: SEIZOENSARRANGEMENT, BREDE FOTO MET OVERLAPPENDE KAART ══ -->
   <section class="sec hf-arr" data-toon="paper">
     <div class="wrap">
       <div class="hf-arr-grid">
@@ -292,16 +294,20 @@
     </div>
   </section>
 
-  <!-- ══ BLOK 6a: ONZE OMGEVING IN DE HERFST, MOZAIEK MET EEN GROTE TEGEL (Parkhotel /herfst/ .sz-omg) ══ -->
+  <!-- ══ BLOK 6i: ONZE OMGEVING, STAANDE FOTO MET LIJST VAN DRIE ══ -->
   <section class="sec hf-omg" data-toon="paper">
     <div class="wrap">
-      <h2 class="hf-omg-kop">Onze omgeving in de <span class="g">herfst</span></h2>
       <div class="hf-omg-grid">
-        <a class="hf-tegel hf-tegel--groot" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-maasduinen.webp" alt="Nationaal Park De Maasduinen in de herfst" loading="lazy"><span class="hf-tegel-naam">Wandelen en fietsen door de Maasduinen</span></a>
-        <a class="hf-tegel" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-kasteeltuinen.webp" alt="Kasteeltuinen Arcen" loading="lazy"><span class="hf-tegel-naam">Kasteeltuinen Arcen</span></a>
-        <a class="hf-tegel" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-hertogjan.webp" alt="Hertog Jan Brouwerij" loading="lazy"><span class="hf-tegel-naam">Hertog Jan Brouwerij</span></a>
-        <a class="hf-tegel" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-overloon.webp" alt="Oorlogsmuseum Overloon" loading="lazy"><span class="hf-tegel-naam">Oorlogsmuseum Overloon</span></a>
-        <a class="hf-tegel" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-outlet.webp" alt="Designer Outlet Roermond" loading="lazy"><span class="hf-tegel-naam">Designer Outlet Roermond</span></a>
+        <img class="hf-omg-foto" src="fotos/hf-bos-hand.webp" alt="Stel wandelt hand in hand over een bospad in de herfst" loading="lazy">
+        <div class="hf-omg-tekst">
+          <h2>Onze omgeving in de <span class="g">herfst</span></h2>
+          <p class="hf-omg-intro">Vanuit het hotel loop je zo het bos in. De Maasduinen en de Groote Peel liggen om de hoek, Arcen en Venlo op een halfuur.</p>
+          <ul class="hf-omg-lijst">
+          <li><a class="hf-omg-rij" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-maasduinen.webp" alt="Nationaal Park De Maasduinen in de herfst" loading="lazy" width="80" height="80"><span><span class="hf-omg-naam">Wandelen en fietsen door de Maasduinen</span><span class="hf-omg-regel">Om de hoek van het hotel</span></span><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+          <li><a class="hf-omg-rij" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-kasteeltuinen.webp" alt="Kasteeltuinen Arcen" loading="lazy" width="80" height="80"><span><span class="hf-omg-naam">Kasteeltuinen Arcen</span><span class="hf-omg-regel">Ongeveer 25 km van het hotel</span></span><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+          <li><a class="hf-omg-rij" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-hertogjan.webp" alt="Hertog Jan Brouwerij" loading="lazy" width="80" height="80"><span><span class="hf-omg-naam">Hertog Jan Brouwerij</span><span class="hf-omg-regel">In Arcen</span></span><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -490,7 +496,7 @@
     </div>
   </section>
 
-  <!-- ══ POP-UP kamer (Bekijk kamer, blok 4a, knop Meer info). Inhoud uit de JSON hieronder, vulling door herfst.js.
+  <!-- ══ POP-UP kamer (Bekijk kamer, blok 4a, knop Meer info). Inhoud uit de JSON hieronder, vulling door seizoen.js.
        Let op: geen key "imgs" in de kamerdata, anders overschrijft build.py fix_room_media() de media. ══ -->
   <dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam">
     <button type="button" class="lp-pop__sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>

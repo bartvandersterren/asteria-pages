@@ -1,8 +1,8 @@
-/* Hotel Asteria, seizoenslander herfst (visit.asteria.nl/herfst). Vanilla, geen frameworks.
+/* Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, later lente, zomer, winter). Vanilla, geen frameworks.
    Kopie van lander-w1.js met:
    - kamerslider blok 4a (.hf-strook, teller .hf-nu "1/8", pijlen .hf-volgende/.hf-vorige) via lus();
    - onderbalk op de telefoon zodra de hero (.hf-hero) uit beeld is;
-   - momenten() voor blok 3a: klik op een moment opent het en wisselt foto, alt en tag (bureaublad);
+   - momenten() voor blok 3a (een dag bij ons): klik op een moment opent het en wisselt foto, alt en tag (bureaublad);
      op de telefoon (<= 719 px) een accordeon zonder fotowissel.
    Mews-poort (zonder voucher, kamer uit data-room), pop-up Meer info, reviewmuur, drawer en cookie ongewijzigd.
    De boekbalk-code blijft staan maar vindt op deze pagina geen formulier. */
@@ -231,7 +231,7 @@
   }
   lus(document.querySelector('.hf-strook'), { tellers: '.hf-nu', volgende: '.hf-volgende', vorige: '.hf-vorige' });
 
-  /* ── blok 3a: herfstdag. Bureaublad: klik op een moment opent het, de rest klapt dicht en de foto
+  /* ── blok 3a: een dag bij ons. Bureaublad: klik op een moment opent het, de rest klapt dicht en de foto
      rechts wisselt (src, alt en tag uit de data-attributen van de li, zachte overgang). Telefoon
      (<= 719 px): accordeon, het aangeklikte moment klapt open of dicht, de foto blijft staan. ── */
   function momenten() {

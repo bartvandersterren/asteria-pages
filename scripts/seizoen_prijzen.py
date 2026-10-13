@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Vanaf-prijzen voor de kamerslider van /herfst (visit.asteria.nl/herfst).
+"""Vanaf-prijzen voor de kamerslider van de seizoenslanders (visit.asteria.nl/herfst, lente, zomer, winter).
 
-Haalt per nacht (15 okt t/m 30 nov 2026, 2 volwassenen) de beschikbaarheid op via de Mews
+Haalt per nacht (standaard 15 okt t/m 30 nov 2026 voor herfst; --van/--tot JJJJ-MM-DD, 2 volwassenen) de beschikbaarheid op via de Mews
 Distributor API (hotels/getAvailability, zonder vouchercode) en neemt per kamercategorie de
 laagste prijs per nacht over alle publieke tarieven (IsPrivate false). OTA-tarieven (naam
 bevat "OTA") tellen niet mee: die zijn voor de boekingssites, niet voor de eigen site.
 Prijzen zijn inclusief btw; de verblijfsbelasting zit er niet in.
 
 Gebruik:
-  python3 scripts/herfst_prijzen.py            # print een JSON-blok voor translations/herfst-nl.json
-  python3 scripts/herfst_prijzen.py --detail   # ook datum en tarief per kamer
+  python3 scripts/seizoen_prijzen.py            # herfst: JSON-blok voor translations/herfst-nl.json
+  python3 scripts/seizoen_prijzen.py --detail   # ook datum en tarief per kamer
+  python3 scripts/seizoen_prijzen.py --van 2027-03-20 --tot 2027-05-31   # ander seizoen
 
 Faalt de API, dan print het script de waarden uit build_kamers.py met de melding CONTROLEREN.
 """
@@ -25,7 +26,7 @@ BASIS = {
 }
 START, EIND = date(2026, 10, 15), date(2026, 11, 30)   # laatste aankomstnacht 30 nov
 
-KAMERS = [  # key in herfst-nl.json, Mews-categorie
+KAMERS = [  # key in <seizoen>-nl.json, Mews-categorie
     ('PRIJS_COMFORT',      '98900f3b-e5e2-49c9-9776-af1d00ffc315'),
     ('PRIJS_COMFORT_3',    '85ca19d7-eea5-41c8-8b93-af1d00ffc315'),
     ('PRIJS_ROYALE',       'a8fd7310-0d61-422f-89e6-af1d00ffc315'),
@@ -55,7 +56,10 @@ def euro(v):
 
 
 def main():
+    global START, EIND
     detail = '--detail' in sys.argv
+    if '--van' in sys.argv: START = date.fromisoformat(sys.argv[sys.argv.index('--van') + 1])
+    if '--tot' in sys.argv: EIND = date.fromisoformat(sys.argv[sys.argv.index('--tot') + 1])
     laagst = {}  # categorie -> (prijs, datum, tariefnaam)
     try:
         d = START

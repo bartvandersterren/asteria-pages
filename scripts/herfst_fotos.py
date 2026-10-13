@@ -4,7 +4,7 @@
 Bronnen (zie de kiezer asteria-herfst-blokkenkiezer/assets-lijst.md):
   FB = ~/Documents/Asteria /Fotobank Asteria/  (originelen, niet in git)
   AP = deze repo (fotos/)
-  PH = ~/projects/parkhotel-site/public/assets/img/  (alleen uitstapjes zonder Asteria-foto; noodoplossing)
+  PH = ~/projects/parkhotel-site/public/assets/img/  (Maasduinen en Kasteeltuinen: geen Asteria-foto; noodoplossing)
 
 Gebruik:  python3 scripts/herfst_fotos.py   (overschrijft bestaande hf-bestanden)
 """
@@ -32,8 +32,6 @@ FOTOS = {
     'hf-deluxe':        (AP + 'kamer-deluxe.webp', [1600, 800], None),
     'hf-maasduinen':    (PH + 'ct-natuur-maasduinen-2345ed.webp', [1200], None),
     'hf-kasteeltuinen': (PH + 'ct-cultuur-kasteeltuinen-da9adc.webp', [1200], None),
-    'hf-overloon':      (PH + 'Fietsbrug-Oorlogsmuseum-Overloon-1-6e6bab.webp', [1200], None),
-    'hf-outlet':        (PH + 'gd-outlet-hero-e19ebe.webp', [1200], None),
     'hf-hertogjan':     (AP + 'omgeving-hertogjan.webp', [600], None),
 }
 

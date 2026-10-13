@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Playwright-test voor de seizoenslander herfst (visit.asteria.nl/herfst), afgeleid van test_lander_w1.py.
+"""Playwright-test voor de seizoenslanders (seizoen.template.html; standaard herfst), afgeleid van test_lander_w1.py.
 
 Gebruik:
   python3 -m http.server 8765        # in de repo-root, in een tweede terminal
-  python3 scripts/test_herfst.py [basis-url] [--schermafdruk map]
+  python3 scripts/test_seizoen.py [basis-url] [--schermafdruk map]
 
-Standaard basis-url: http://localhost:8765/herfst.html
+Standaard basis-url: http://localhost:8765/herfst.html (lente: .../lente.html enz.)
 Checks (1440 en 390): geen horizontale overloop, noindex, alle foto's laden, kamerslider (teller 1/8, pijlen, lus),
 Meer info opent de pop-up met de juiste kamer en data-room, momentenlijst (bureaublad: wisselt foto, telefoon:
-accordeon), reviewmuur (4 kolommen op 1440, 1 op 390, pauze bij hover, statisch bij prefers-reduced-motion),
+accordeon), omgeving (foto + drie regels), reviewmuur (4 kolommen op 1440, 1 op 390, pauze bij hover, statisch bij prefers-reduced-motion),
 onderbalk na de hero op 390, Kies deze kamer opent de Mews-poort met data-room en zonder voucher, geen consolefouten.
 """
 import sys
@@ -107,6 +107,13 @@ with sync_playwright() as p:
                   na == [True, False, True, False] and dicht == [True, False, False, False] and src1 == src0 and zichtbaar,
                   f'{na} -> {dicht}, foto {src1}')
 
+        # omgeving (6i): staande foto en drie regels met thumbnail, naam en regel
+        omg = pg.evaluate("""()=>[...document.querySelectorAll('.hf-omg-rij')].map(r=>({img:r.querySelector('img').naturalWidth>0,
+            naam:r.querySelector('.hf-omg-naam').textContent.trim(),regel:r.querySelector('.hf-omg-regel').textContent.trim(),href:r.getAttribute('href')}))""")
+        check(f'{tag} omgeving: foto en drie regels met foto, naam en regel',
+              len(omg) == 3 and all(o['img'] and o['naam'] and o['regel'] and o['href'].startswith('http') for o in omg)
+              and pg.evaluate("document.querySelector('.hf-omg-foto').naturalWidth>0"), ' | '.join(o['naam'] for o in omg))
+
         # reviewmuur
         kol = pg.evaluate("document.querySelectorAll('.b5a-muur.is-loop .b5a-kol').length")
         verwacht = 4 if w == 1440 else 1
@@ -159,7 +166,7 @@ with sync_playwright() as p:
             pg.wait_for_timeout(800)
             H = pg.evaluate('document.documentElement.scrollHeight')
             pg.set_viewport_size({'width': w, 'height': H}); pg.wait_for_timeout(800)
-            pg.screenshot(path=f'{shotdir}/herfst-{w}.png')
+            pg.screenshot(path=f"{shotdir}/{URL.rstrip('/').split('/')[-1].replace('.html', '')}-{w}.png")
         ctx.close()
     b.close()
 

@@ -87,10 +87,11 @@ TEMPLATES = {
         },
         'reviews': 'content/reviews-google-asteria.json',
     },
-    # Seizoenslander herfst (blokkenkiezer 1c-2d-3a-4a-5c-6a-7b-8b): alleen NL, noindex, niet in sitemap.
-    # Sjabloon eigen (herfst.template.html + herfst.css + herfst.js), reviewmuur zoals lander-w1.
+    # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
+    # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
+    # Lente/zomer/winter = nieuwe entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.
     'herfst': {
-        'template': 'herfst.template.html',
+        'template': 'seizoen.template.html',
         'langs': {
             'nl': ('herfst.html', 'translations/herfst-nl.json'),
         },

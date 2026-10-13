@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <!--
-  Hotel Asteria, seizoenslander herfst (visit.asteria.nl/herfst), rebooking-flow 04
-  ----------------------------------------------------------------------------------
-  Blokkenkiezer asteria-herfst-blokkenkiezer, keuze 1c-2d-3a-4a-5c-6a-7b-8b. Kop, voet, kamer-pop-up,
-  reviewmuur (W1 b5a) en fotowolk (W1 b7a) 1:1 uit lander-w1; de overige blokken (prefix hf-) staan in herfst.css.
+  Hotel Asteria, seizoenslander (visit.asteria.nl/herfst, later lente, zomer, winter), rebooking-flow 04
+  ----------------------------------------------------------------------------------------------------
+  Eén sjabloon voor alle seizoenen: ALLE seizoensinhoud (teksten, foto's, links, arrangement, tags, prijzen)
+  komt uit translations/<seizoen>-nl.json; hier staat alleen de structuur.
+  Opbouw: blokkenkiezer asteria-herfst-blokkenkiezer, keuze 1c-2d-3a-4a-5c-6i-7b-8b. Kop, voet, kamer-pop-up,
+  reviewmuur (W1 b5a) en fotowolk (W1 b7a) 1:1 uit lander-w1; de overige blokken (prefix hf-) staan in seizoen.css.
   Geen vouchercode: Mews opent zonder code, per kamer met data-room.
 
   Bouwen:  python3 build.py herfst
-  Stijl:   lander-w1.css + herfst.css   Script: herfst.js   Prijzen: scripts/herfst_prijzen.py
+  Stijl:   lander-w1.css + seizoen.css   Script: seizoen.js   Prijzen: scripts/seizoen_prijzen.py
 -->
 <html lang="nl">
 <head>
@@ -29,10 +31,10 @@
 
   <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" href="{{HERO_IMG}}" imagesrcset="fotos/hf-hero-800.webp 800w, {{HERO_IMG}} 1600w" imagesizes="100vw" type="image/webp">
+  <link rel="preload" as="image" href="{{HERO_IMG}}" imagesrcset="{{HERO_IMG_800}} 800w, {{HERO_IMG}} 1600w" imagesizes="100vw" type="image/webp">
   <link rel="stylesheet" href="lander-w1.css">
-  <link rel="stylesheet" href="herfst.css">
-  <script src="herfst.js" defer></script>
+  <link rel="stylesheet" href="seizoen.css">
+  <script src="seizoen.js" defer></script>
 
   <!-- GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
@@ -129,60 +131,60 @@
 </aside>
 <main class="lp">
 
-  <!-- ══ BLOK 1c: HERO, HERFST VOL BEELD MET ZOMER ALS INZETKAART (kiezer 1c) ══ -->
+  <!-- ══ BLOK 1c: HERO, HUIDIG SEIZOEN VOL BEELD MET HET VORIGE VERBLIJF ALS INZETKAART (kiezer 1c) ══ -->
   <section class="sec hf-hero" data-toon="paper">
     <div class="hf-hero-binnen">
-      <div class="hf-beeld"><img src="{{HERO_IMG}}" srcset="fotos/hf-hero-800.webp 800w, {{HERO_IMG}} 1600w" sizes="100vw" alt="{{HERO_ALT}}" width="1600" height="1066" fetchpriority="high"><span class="hf-tag">{{TAG_NU}}</span></div>
-      <div class="hf-zomer"><img src="{{ZOMER_IMG}}" alt="{{ZOMER_ALT}}" width="800" height="533"><span class="hf-tag">{{TAG_ZOMER}}</span></div>
+      <div class="hf-beeld"><img src="{{HERO_IMG}}" srcset="{{HERO_IMG_800}} 800w, {{HERO_IMG}} 1600w" sizes="100vw" alt="{{HERO_ALT}}" width="1600" height="1066" fetchpriority="high"><span class="hf-tag">{{TAG_NU}}</span></div>
+      <div class="hf-vorig"><img src="{{VORIG_IMG}}" alt="{{VORIG_ALT}}" width="800" height="533"><span class="hf-tag">{{TAG_VORIG}}</span></div>
       <div class="wrap hf-hero-wrap">
         <div class="hf-hero-kaart">
           <h1>{{H_EEN_A}} <span class="g">{{H_EEN_EM}}</span>?</h1>
           <p class="hf-intro-tekst">{{SUB}}</p>
-          <div class="hf-knoppen"><a class="btn btn-primary" href="#kamers">{{CTA_KAMERS}}</a><a class="btn btn-secondary" href="https://visit.asteria.nl/najaarsarrangement">{{CTA_ARR}}</a></div>
+          <div class="hf-knoppen"><a class="btn btn-primary" href="#kamers">{{CTA_KAMERS}}</a><a class="btn btn-secondary" href="{{ARR_URL}}">{{CTA_ARR}}</a></div>
           <p class="hf-score" aria-label="4,2 op Google uit ruim 2.200 reviews"><svg class="hf-g" viewBox="0 0 48 48" aria-hidden="true"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/><path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/><path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/><path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/></svg><span class="sterren" data-vol="5" aria-hidden="true"></span><span><b>4,2</b> {{SCORE_TEKST}}</span></p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ BLOK 2d: VENRAY IN EEN ANDER SEIZOEN, STER MET REDENENWIEL (staging .usp-statement + .usp-wheel) ══ -->
+  <!-- ══ BLOK 2d: INTRO, STER MET REDENENWIEL (staging .usp-statement + .usp-wheel) ══ -->
   <section class="sec hf-intro as-wm" data-toon="paper">
     <div class="wrap"><div class="hf-intro-grid">
       <div class="hf-intro-kol"><svg class="hf-ster" viewBox="-515 0 2841 2973" fill="none" aria-hidden="true"><path d="M2326.3 844.054C1971.04 683.274 1569.16 654.676 1197.04 761.897C693.44 256.226 260.538 1.99826e-05 260.538 1.99826e-05C285.237 390.639 354.425 766.419 468.775 1140.02C171.892 1343.36 -221.438 1665.22 -515.148 2101.06C-514.595 2191.32 -450.336 2146.81 -406.138 2113.61C-19.8775 1851.23 332.681 1701.15 640.888 1621.12C820.582 2060.08 1062.53 2503.67 1368.99 2972.4C1195.3 2294.84 1248.65 1724.99 1248.65 1724.99C1248.65 1724.99 1231.79 1755.64 1197.35 1734.48C1169.88 1835.13 1180.46 2278.62 1162.91 2023.06C1154.65 1903.22 1177.6 1714.55 1205.01 1541.85C1604.09 1535.18 1861.25 1641.15 1926.51 1671.51C1932.18 1674.18 1937.51 1676.78 1942.98 1679.57C1743.99 1374.25 1527.59 1109.91 1318 887.113C1943.46 678.278 2326.1 844.182 2326.1 844.182M484.13 332.439C692.344 466.352 894.517 635.446 1073.03 803.037C1008.51 827.479 945.051 855.812 883.155 888.848C846.69 908.3 742.96 963.058 602.262 1052.12C542.831 817.741 503.929 581.725 484.13 332.439ZM-16.9162 1761.59C170.947 1578.75 351.147 1428.99 522.41 1306.27C543.821 1369.04 566.832 1431.65 590.707 1494.27C409.307 1549.63 207.473 1634.49 -16.7139 1761.46M1071.96 2250.35C954.771 2019.32 856.261 1802.06 774.68 1590.01C886.274 1567.3 991.031 1553.49 1088.86 1546.65C1062.19 1705.77 1053.78 1889.19 1071.96 2250.35ZM1718.96 1501.56C1611.22 1469.1 1449.6 1416.16 1227.88 1406.23C1252.34 1270.45 1274.7 1163.07 1278.87 1137.91C1288.99 1075.64 1246.25 1070.01 1246.25 1070.01L1196.58 1244.31C1196.58 1244.31 1178.55 1306.2 1171.38 1184.52C1151.09 1269.21 1133.02 1339.09 1117.57 1405.04C1001.4 1407.58 870.922 1422.9 725.745 1457.53C697.625 1377.94 671.693 1298.67 648.485 1219.66C847.594 1088.95 1033.18 995.034 1203.09 928.738C1509.17 1233.3 1718.96 1501.56 1718.96 1501.56Z" fill="var(--terracotta)"/></svg><h2>{{INTRO_KOP_A}} <span class="g">{{INTRO_KOP_EM}}</span></h2><p>{{INTRO_TEKST}}</p><div class="hf-intro-link"><a class="btn-tertiary btn-tertiary--onderstreept" href="#kamers">{{CTA_KAMERS}}</a></div></div>
       <div class="hf-intro-media">
-        <div class="hf-intro-foto"><img src="fotos/hf-laan.webp" alt="{{INTRO_ALT}}" loading="lazy" width="1000" height="1333"></div>
+        <div class="hf-intro-foto"><img src="{{INTRO_IMG}}" alt="{{INTRO_ALT}}" loading="lazy" width="1000" height="1333"></div>
         <ul class="as-usp-wheel hf-wiel"><li class="as-usp-wheel-item hf-wiel-item"><span class="as-usp-icon"><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14l3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17z"/><path d="M12 22v-3"/></svg></span><span>{{PUNT_EEN}}</span></li><li class="as-usp-wheel-item hf-wiel-item is-active"><span class="as-usp-icon"><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3c-1.2 1.3-1.2 2.7 0 4s1.2 2.7 0 4"/><path d="M12 3c-1.2 1.3-1.2 2.7 0 4s1.2 2.7 0 4"/><path d="M16 3c-1.2 1.3-1.2 2.7 0 4s1.2 2.7 0 4"/><path d="M3 15h18"/><path d="M5 15v6"/><path d="M19 15v6"/><path d="M3 19h18"/></svg></span><span>{{PUNT_TWEE}}</span></li><li class="as-usp-wheel-item hf-wiel-item"><span class="as-usp-icon"><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="2.2"/><path d="M2.5 3v4.5a1.5 1.5 0 0 0 3 0V3"/><path d="M4 3v18"/><path d="M21 3c-1.3.9-1.9 2.4-1.9 4.3V12H21"/><path d="M21 3v18"/></svg></span><span>{{PUNT_DRIE}}</span></li><li class="as-usp-wheel-item hf-wiel-item"><span class="as-usp-icon"><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/></svg></span><span>{{PUNT_VIER}}</span></li></ul>
       </div>
     </div></div>
   </section>
 
-  <!-- ══ BLOK 3a: ZO ZIET EEN HERFSTDAG BIJ ONS ERUIT (Parkhotel /herfst/ .sz-dag) ══ -->
-  <section class="sec hf-dag" id="herfstdag" data-toon="paper">
+  <!-- ══ BLOK 3a: ZO ZIET EEN DAG BIJ ONS ERUIT (Parkhotel /herfst/ .sz-dag) ══ -->
+  <section class="sec hf-dag" id="dag" data-toon="paper">
     <div class="wrap">
       <div class="hf-dag-blok">
         <div class="hf-dag-bg" aria-hidden="true"></div>
         <div class="hf-dag-fotovak">
-          <img class="hf-dag-foto" src="fotos/hf-bos-hand.webp" alt="{{MOMENT_EEN_ALT}}" loading="lazy" width="1200" height="799">
+          <img class="hf-dag-foto" src="{{MOMENT_EEN_FOTO}}" alt="{{MOMENT_EEN_ALT}}" loading="lazy" width="1200" height="799">
           <span class="hf-dag-tag">{{MOMENT_EEN_TIJD}} {{MOMENT_EEN_NAAM}}</span>
         </div>
         <div class="hf-dag-inner">
           <h2>{{DAG_KOP_A}} <span class="g">{{DAG_KOP_EM}}</span> {{DAG_KOP_B}}</h2>
           <ol class="hf-momenten" aria-label="{{DAG_LIJST_LABEL}}">
-          <li class="hf-moment is-open" data-foto="fotos/hf-bos-hand.webp" data-alt="{{MOMENT_EEN_ALT}}" data-tag="{{MOMENT_EEN_TIJD}} {{MOMENT_EEN_NAAM}}">
+          <li class="hf-moment is-open" data-foto="{{MOMENT_EEN_FOTO}}" data-alt="{{MOMENT_EEN_ALT}}" data-tag="{{MOMENT_EEN_TIJD}} {{MOMENT_EEN_NAAM}}">
             <button type="button" class="hf-moment-kop" aria-expanded="true" aria-controls="hf-moment-1"><span class="hf-tijd">{{MOMENT_EEN_TIJD}}</span><span class="hf-naam">{{MOMENT_EEN_NAAM}}</span></button>
-            <div class="hf-open" id="hf-moment-1"><p class="hf-moment-tekst">{{MOMENT_EEN_TEKST}}</p><a class="btn-tertiary hf-moment-link" href="https://www.asteria.nl/omgeving">{{MOMENT_EEN_LINK}}</a></div>
+            <div class="hf-open" id="hf-moment-1"><p class="hf-moment-tekst">{{MOMENT_EEN_TEKST}}</p><a class="btn-tertiary hf-moment-link" href="{{MOMENT_EEN_URL}}">{{MOMENT_EEN_LINK}}</a></div>
           </li>
-          <li class="hf-moment" data-foto="fotos/hf-fietsen-bos.webp" data-alt="{{MOMENT_TWEE_ALT}}" data-tag="{{MOMENT_TWEE_TIJD}} {{MOMENT_TWEE_NAAM}}">
+          <li class="hf-moment" data-foto="{{MOMENT_TWEE_FOTO}}" data-alt="{{MOMENT_TWEE_ALT}}" data-tag="{{MOMENT_TWEE_TIJD}} {{MOMENT_TWEE_NAAM}}">
             <button type="button" class="hf-moment-kop" aria-expanded="false" aria-controls="hf-moment-2"><span class="hf-tijd">{{MOMENT_TWEE_TIJD}}</span><span class="hf-naam">{{MOMENT_TWEE_NAAM}}</span></button>
-            <div class="hf-open" id="hf-moment-2"><p class="hf-moment-tekst">{{MOMENT_TWEE_TEKST}}</p><a class="btn-tertiary hf-moment-link" href="https://www.asteria.nl/omgeving">{{MOMENT_TWEE_LINK}}</a></div>
+            <div class="hf-open" id="hf-moment-2"><p class="hf-moment-tekst">{{MOMENT_TWEE_TEKST}}</p><a class="btn-tertiary hf-moment-link" href="{{MOMENT_TWEE_URL}}">{{MOMENT_TWEE_LINK}}</a></div>
           </li>
-          <li class="hf-moment" data-foto="fotos/hf-sauna-bos.webp" data-alt="{{MOMENT_DRIE_ALT}}" data-tag="{{MOMENT_DRIE_TIJD}} {{MOMENT_DRIE_NAAM}}">
+          <li class="hf-moment" data-foto="{{MOMENT_DRIE_FOTO}}" data-alt="{{MOMENT_DRIE_ALT}}" data-tag="{{MOMENT_DRIE_TIJD}} {{MOMENT_DRIE_NAAM}}">
             <button type="button" class="hf-moment-kop" aria-expanded="false" aria-controls="hf-moment-3"><span class="hf-tijd">{{MOMENT_DRIE_TIJD}}</span><span class="hf-naam">{{MOMENT_DRIE_NAAM}}</span></button>
-            <div class="hf-open" id="hf-moment-3"><p class="hf-moment-tekst">{{MOMENT_DRIE_TEKST}}</p><a class="btn-tertiary hf-moment-link" href="https://www.asteria.nl/wellness">{{MOMENT_DRIE_LINK}}</a></div>
+            <div class="hf-open" id="hf-moment-3"><p class="hf-moment-tekst">{{MOMENT_DRIE_TEKST}}</p><a class="btn-tertiary hf-moment-link" href="{{MOMENT_DRIE_URL}}">{{MOMENT_DRIE_LINK}}</a></div>
           </li>
-          <li class="hf-moment" data-foto="fotos/hf-diner.webp" data-alt="{{MOMENT_VIER_ALT}}" data-tag="{{MOMENT_VIER_TIJD}} {{MOMENT_VIER_NAAM}}">
+          <li class="hf-moment" data-foto="{{MOMENT_VIER_FOTO}}" data-alt="{{MOMENT_VIER_ALT}}" data-tag="{{MOMENT_VIER_TIJD}} {{MOMENT_VIER_NAAM}}">
             <button type="button" class="hf-moment-kop" aria-expanded="false" aria-controls="hf-moment-4"><span class="hf-tijd">{{MOMENT_VIER_TIJD}}</span><span class="hf-naam">{{MOMENT_VIER_NAAM}}</span></button>
-            <div class="hf-open" id="hf-moment-4"><p class="hf-moment-tekst">{{MOMENT_VIER_TEKST}}</p><a class="btn-tertiary hf-moment-link" href="https://www.asteria.nl/restaurant">{{MOMENT_VIER_LINK}}</a></div>
+            <div class="hf-open" id="hf-moment-4"><p class="hf-moment-tekst">{{MOMENT_VIER_TEKST}}</p><a class="btn-tertiary hf-moment-link" href="{{MOMENT_VIER_URL}}">{{MOMENT_VIER_LINK}}</a></div>
           </li>
           </ol>
         </div>
@@ -190,7 +192,7 @@
     </div>
   </section>
 
-  <!-- ══ BLOK 4a: JE KAMER VOOR DE HERFST, KAMERSLIDER ZOALS PARKHOTEL /herfst/ (zd-kamerkeuze) ══ -->
+  <!-- ══ BLOK 4a: KAMERS, KAMERSLIDER ZOALS PARKHOTEL /herfst/ (zd-kamerkeuze) ══ -->
   <section class="sec hf-kamers" id="kamers" data-toon="paper" aria-labelledby="kamers-kop">
     <div class="wrap">
       <h2 id="kamers-kop">{{KAMER_KOP_A}} <span class="g">{{KAMER_KOP_EM}}</span></h2>
@@ -275,33 +277,37 @@
     </div>
   </section>
 
-  <!-- ══ BLOK 5c: ONS NAJAARSARRANGEMENT, BREDE FOTO MET OVERLAPPENDE KAART ══ -->
+  <!-- ══ BLOK 5c: SEIZOENSARRANGEMENT, BREDE FOTO MET OVERLAPPENDE KAART ══ -->
   <section class="sec hf-arr" data-toon="paper">
     <div class="wrap">
       <div class="hf-arr-grid">
-        <div class="hf-arr-foto"><img src="fotos/hf-deluxe.webp" srcset="fotos/hf-deluxe-800.webp 800w, fotos/hf-deluxe.webp 1600w" sizes="(max-width:719px) 100vw, 1120px" alt="{{ARR_ALT}}" loading="lazy" width="1600" height="1066"></div>
+        <div class="hf-arr-foto"><img src="{{ARR_IMG}}" srcset="{{ARR_IMG_800}} 800w, {{ARR_IMG}} 1600w" sizes="(max-width:719px) 100vw, 1120px" alt="{{ARR_ALT}}" loading="lazy" width="1600" height="1066"></div>
         <div class="hf-arr-tekst">
           <h2>{{ARR_KOP_A}} <span class="g">{{ARR_KOP_EM}}</span></h2>
           <p>{{ARR_TEKST}}</p>
         </div>
         <div class="hf-arr-kaart">
           <ul class="hf-vink"><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_EEN}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_TWEE}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_DRIE}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_VIER}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_VIJF}}</span></li></ul>
-          <div class="hf-arr-acties"><a class="btn btn-primary" href="https://visit.asteria.nl/najaarsarrangement">{{CTA_ARR}}</a><a class="btn-tertiary btn-tertiary--onderstreept" href="https://www.asteria.nl/arrangementen">{{ARR_ALLE}}</a></div>
+          <div class="hf-arr-acties"><a class="btn btn-primary" href="{{ARR_URL}}">{{CTA_ARR}}</a><a class="btn-tertiary btn-tertiary--onderstreept" href="https://www.asteria.nl/arrangementen">{{ARR_ALLE}}</a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ BLOK 6a: ONZE OMGEVING IN DE HERFST, MOZAIEK MET EEN GROTE TEGEL (Parkhotel /herfst/ .sz-omg) ══ -->
+  <!-- ══ BLOK 6i: ONZE OMGEVING, STAANDE FOTO MET LIJST VAN DRIE ══ -->
   <section class="sec hf-omg" data-toon="paper">
     <div class="wrap">
-      <h2 class="hf-omg-kop">{{OMG_KOP_A}} <span class="g">{{OMG_KOP_EM}}</span></h2>
       <div class="hf-omg-grid">
-        <a class="hf-tegel hf-tegel--groot" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-maasduinen.webp" alt="{{OMG_EEN_ALT}}" loading="lazy"><span class="hf-tegel-naam">{{OMG_EEN}}</span></a>
-        <a class="hf-tegel" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-kasteeltuinen.webp" alt="{{OMG_TWEE_ALT}}" loading="lazy"><span class="hf-tegel-naam">{{OMG_TWEE}}</span></a>
-        <a class="hf-tegel" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-hertogjan.webp" alt="{{OMG_DRIE_ALT}}" loading="lazy"><span class="hf-tegel-naam">{{OMG_DRIE}}</span></a>
-        <a class="hf-tegel" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-overloon.webp" alt="{{OMG_VIER_ALT}}" loading="lazy"><span class="hf-tegel-naam">{{OMG_VIER}}</span></a>
-        <a class="hf-tegel" href="https://www.asteria.nl/omgeving"><img src="fotos/hf-outlet.webp" alt="{{OMG_VIJF_ALT}}" loading="lazy"><span class="hf-tegel-naam">{{OMG_VIJF}}</span></a>
+        <img class="hf-omg-foto" src="{{OMG_IMG}}" alt="{{OMG_ALT}}" loading="lazy">
+        <div class="hf-omg-tekst">
+          <h2>{{OMG_KOP_A}} <span class="g">{{OMG_KOP_EM}}</span></h2>
+          <p class="hf-omg-intro">{{OMG_TEKST}}</p>
+          <ul class="hf-omg-lijst">
+          <li><a class="hf-omg-rij" href="{{OMG_EEN_URL}}"><img src="{{OMG_EEN_FOTO}}" alt="{{OMG_EEN_ALT}}" loading="lazy" width="80" height="80"><span><span class="hf-omg-naam">{{OMG_EEN_NAAM}}</span><span class="hf-omg-regel">{{OMG_EEN_REGEL}}</span></span><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+          <li><a class="hf-omg-rij" href="{{OMG_TWEE_URL}}"><img src="{{OMG_TWEE_FOTO}}" alt="{{OMG_TWEE_ALT}}" loading="lazy" width="80" height="80"><span><span class="hf-omg-naam">{{OMG_TWEE_NAAM}}</span><span class="hf-omg-regel">{{OMG_TWEE_REGEL}}</span></span><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+          <li><a class="hf-omg-rij" href="{{OMG_DRIE_URL}}"><img src="{{OMG_DRIE_FOTO}}" alt="{{OMG_DRIE_ALT}}" loading="lazy" width="80" height="80"><span><span class="hf-omg-naam">{{OMG_DRIE_NAAM}}</span><span class="hf-omg-regel">{{OMG_DRIE_REGEL}}</span></span><svg class="as-icoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -330,39 +336,39 @@
   <section class="sec b7a" data-toon="paper" aria-labelledby="slot-kop">
     <div class="b7a-grid">
       <div class="b7a-col b7a-col--buiten" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/hf-bos-hand.webp" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="tall" src="fotos/l26-ontbijt.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_1}}" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="tall" src="{{WOLK_2}}" alt="" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="medium" src="fotos/hf-vlaai.webp" alt="" loading="lazy">
-        <img class="b7a-foto b7a-m" data-h="medium" src="fotos/hf-sauna-bos.webp" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="fotos/l26-kamer-royale-2.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="{{WOLK_3}}" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="medium" src="{{WOLK_4}}" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="{{WOLK_5}}" alt="" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="very-tall" src="fotos/hf-laan.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="very-tall" src="{{WOLK_6}}" alt="" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-wellness-staand.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_7}}" alt="" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-hotel-zonsondergang.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_8}}" alt="" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--midden" aria-hidden="true">
-        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-vk-deluxe.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="very-tall" src="{{WOLK_9}}" alt="" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten b7a-col--offset" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="medium" src="fotos/hf-fietsen-bord.webp" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="fotos/l26-fitness.webp" alt="" loading="lazy">
-        <img class="b7a-foto" data-h="medium" src="fotos/hf-diner.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="medium" src="{{WOLK_10}}" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="{{WOLK_11}}" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="{{WOLK_12}}" alt="" loading="lazy">
       </div>
       <div class="b7a-col b7a-col--buiten" aria-hidden="true">
-        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/hf-brug.webp" alt="" loading="lazy">
-        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/l26-hotel-buiten.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_13}}" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="{{WOLK_14}}" alt="" loading="lazy">
       </div>
       <div class="b7a-inhoud">
         <h2 id="slot-kop">{{SLOT_KOP_A}} <span class="g">{{SLOT_KOP_EM}}</span>?</h2>
         <p class="b7a-tekst">{{SLOT_TEKST}}</p>
-        <div class="hf-slot-knoppen"><a class="btn btn-primary" href="#kamers">{{CTA_KAMERS}}</a><a class="btn btn-secondary" href="https://visit.asteria.nl/najaarsarrangement">{{CTA_ARR}}</a></div>
+        <div class="hf-slot-knoppen"><a class="btn btn-primary" href="#kamers">{{CTA_KAMERS}}</a><a class="btn btn-secondary" href="{{ARR_URL}}">{{CTA_ARR}}</a></div>
         <div class="b7a-regels">
           <a class="b7a-regel" href="tel:+31478511466"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>0478 511 466</a>
           <a class="b7a-regel" href="mailto:info@asteria.nl"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@asteria.nl</a>
@@ -371,7 +377,7 @@
     </div>
   </section>
 
-  <!-- ══ POP-UP kamer (Bekijk kamer, blok 4a, knop Meer info). Inhoud uit de JSON hieronder, vulling door herfst.js.
+  <!-- ══ POP-UP kamer (Bekijk kamer, blok 4a, knop Meer info). Inhoud uit de JSON hieronder, vulling door seizoen.js.
        Let op: geen key "imgs" in de kamerdata, anders overschrijft build.py fix_room_media() de media. ══ -->
   <dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam">
     <button type="button" class="lp-pop__sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
