@@ -188,6 +188,20 @@
     });
   });
 
+  /* v3: de meelopende zijkaart stopt gelijk met de onderkant van de kamerkaarten (--kant-onder) */
+  var zone = document.querySelector('.lp-zone'), zoneStrook = zone && zone.querySelector('.b4b-strook');
+  if (zone && zoneStrook) {
+    var zetKantOnder = function () {
+      var kaart = zoneStrook.querySelector('.b4b-kaart:not([data-kloon])') || zoneStrook.firstElementChild;
+      var onder = zone.getBoundingClientRect().bottom - kaart.getBoundingClientRect().bottom;
+      zone.style.setProperty('--kant-onder', Math.max(0, Math.round(onder)) + 'px');
+    };
+    zetKantOnder();
+    window.addEventListener('load', zetKantOnder);
+    window.addEventListener('resize', zetKantOnder);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(zetKantOnder);
+  }
+
   function stap(strook) {
     var kaart = strook.firstElementChild;
     if (!kaart) return 0;
