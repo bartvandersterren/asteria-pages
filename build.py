@@ -10,7 +10,7 @@ Gebruik:
   python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' -> verblijfsverjaardag.html (live sinds 14 okt 2026; oude lander -> verblijfsverjaardag-oud.html)
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
   python3 build.py bedankt welkom-terug gemist verjaardag   # flow-landers op lander-w1 met zijkaart (zoals verblijfsverjaardag-v3)
-  python3 build.py welkom-v2           # welkomstlander (code WELKOM) op lander-w1 met zijkaart; oude /welkom blijft
+  python3 build.py welkom-v2           # welkomstlander (code WELKOM) op lander-w1 met zijkaart -> welkom.html (live /welkom; oude NL -> welkom-oud.html)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -54,7 +54,7 @@ TEMPLATES = {
     'welkom': {
         'template': 'welkom.template.html',
         'langs': {
-            'nl': ('welkom.html',    'translations/welkom-nl.json'),
+            'nl': ('welkom-oud.html', 'translations/welkom-nl.json'),   # oude NL-lander; /welkom = welkom-v2 (sinds 14 okt 2026)
             'en': ('welkom-en.html', 'translations/welkom-en.json'),
             'de': ('welkom-de.html', 'translations/welkom-de.json'),
         },
@@ -115,11 +115,12 @@ TEMPLATES = {
     # Welkomstlander (welkomstflow na nieuwsbriefaanmelding) op lander-w1 met zijkaart: code WELKOM,
     # welkomstgeschenk (bubbels, badjas, badlaken) bij het eerste verblijf. Alleen NL, noindex.
     # Blok 3a is het cadeaublok (variant 'cadeau', aan via CADEAU_ITEMS in de JSON, render_cadeau).
-    # De oude /welkom (welkom.template.html, NL/EN/DE) blijft tot akkoord Stijn ongewijzigd.
+    # Sinds 14 okt 2026 de live /welkom (welkom.html); oude NL-lander -> welkom-oud.html (entry 'welkom'),
+    # EN/DE blijven welkom-en/-de. /welkom-v2 -> 301 naar /welkom in _redirects.
     'welkom-v2': {
         'template': 'lander-w1.template.html',
         'langs': {
-            'nl': ('welkom-v2.html', 'translations/welkom-v2-nl.json'),
+            'nl': ('welkom.html', 'translations/welkom-v2-nl.json'),
         },
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True},
@@ -225,7 +226,7 @@ def inject_welkom_booking():
     Idempotent via <!--WELKOM-BK--> markers; CTA-deeplinks worden herbedraad
     naar window.openBookingPopup(). Draait als post-stap na build('welkom')."""
     SRC = {
-        '':    ('happy-summer-arrangement.html',    'WELKOM'),
+        '-oud': ('happy-summer-arrangement.html',   'WELKOM'),   # oude NL-lander (welkom-oud.html)
         '-en': ('happy-summer-arrangement-en.html', 'WELCOME'),
         '-de': ('happy-summer-arrangement-de.html', 'WILLKOMMEN'),
     }
@@ -409,6 +410,13 @@ LADDER_PIJL = {
 }
 
 
+ATTENTIE_ICOON_STANDAARD = {
+    'PUNT_TWEE_ICOON': '<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>',
+    'PUNT_DRIE_ICOON': '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
+    'PUNT_VIJF_ICOON': '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/>',
+}
+
+
 def apply_blokken(html, aan):
     """Varianten binnen een sjabloon zonder template-taal. Een blok staat tussen
     <!--[naam[--> en <!--]naam]-->; <!--[!naam[--> ... <!--]!naam]--> is het omgekeerde.
@@ -449,8 +457,13 @@ def build(template_name, lang):
     # Optioneel cadeaublok (cadeau) staat aan zodra de JSON CADEAU_ITEMS heeft (lijst; CADEAU_VOET hoort erbij)
     cadeau = translations.pop('CADEAU_ITEMS', None)
     cadeau_voet = translations.pop('CADEAU_VOET', '') if cadeau else None
+    # Ster-split (blok 3a): iconen van punt 2, 3 en 5 zijn per JSON te kiezen (standaard sleutel, label, kalender);
+    # de knop onder het blok volgt ATTENTIE_KNOP (ontbreekt = tekst van CTA, leeg = geen knop).
+    for k, v in ATTENTIE_ICOON_STANDAARD.items():
+        translations.setdefault(k, v)
+    translations.setdefault('ATTENTIE_KNOP', translations.get('CTA', ''))
     aan = ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
-           | ({'cadeau'} if cadeau else set()))
+           | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
     # Variantblokken (bijv. zijkaart, ladder, cadeau) vóór de {{KEY}}-pass
     html = apply_blokken(html, aan)
