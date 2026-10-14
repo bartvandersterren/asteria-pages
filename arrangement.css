@@ -55,6 +55,9 @@
   .lp .lp-zone .ar-sec{padding-block:44px}
   .lp .lp-zone .ar-inb{padding-top:var(--gap-section)}
   .lp .lp-zone .b4b{padding-top:44px}
+  /* 4: waarom Asteria uitgelijnd als het attentieblok op /verblijfsverjaardag (lander-w1.css op main, PR #164):
+     breedte tussen kolom en kolom + tegelmarge in (1440: 100-944 px); identiek aan die regel, dus na merge van main overbodig maar onschadelijk */
+  .lp .lp-zone .ar-waarom>.wrap{--links:max(0px,(100vw - 1120px) / 2 - 80px);width:calc(100% + var(--links) / 2);margin-left:calc(-.75 * var(--links))}
 }
 
 /* ---------- 2: dit is inbegrepen. Gespiegeld Parkhotel-blok 'Het wellnessarrangement' (/wellness/, .wv-arr + .zd-alles):
