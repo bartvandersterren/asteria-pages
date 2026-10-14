@@ -195,7 +195,7 @@
   <!--[arrangement[-->
   <!-- ══ ARRANGEMENT 2: DIT IS INBEGREPEN. Gespiegeld Parkhotel-blok (wellnessarrangement): ivoren paneel vanaf de linker
        schermrand, rechts een staande fotoslider die 47 px boven het paneel uitsteekt (bolletjes + pijlen, arrangement.js).
-       Foto's uit '_inbegrepen_fotos', punten uit '_inbegrepen', tijdenstrook uit '_tijden' (build.py) ══ -->
+       Foto's uit '_inbegrepen_fotos', punten uit '_inbegrepen', tijdenregel (in het paneel, onder de vinkjes) uit '_tijden' (build.py) ══ -->
   <section class="sec ar-sec ar-inb" data-toon="paper" aria-labelledby="inb-kop">
     <div class="wrap">
       <div class="ar-inb-blok">
@@ -206,6 +206,7 @@
           <ul class="ar-inb-lijst">
 <!-- ARR_INBEGREPEN -->
           </ul>
+          <ul class="ar-tijden" aria-label="Praktisch"><!-- ARR_TIJDEN --></ul>
           <p class="ar-inb-prijs">vanaf <b>{{ARR_PRIJS}}</b> {{ARR_PRIJS_KAART_EENHEID}}</p>
           <div class="ar-inb-acties"><a class="btn btn-primary mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{CTA}}</a><a class="ar-inb-link" href="https://www.asteria.nl/arrangementen">Alle arrangementen<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
         </div>
@@ -217,7 +218,6 @@
           <div class="ar-fs-pijlen"><button type="button" class="ar-fs-pijl" data-fs-stap="-1" aria-label="Vorige foto"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="ar-fs-pijl" data-fs-stap="1" aria-label="Volgende foto"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
         </div>
       </div>
-      <ul class="ar-tijden" aria-label="Praktisch"><!-- ARR_TIJDEN --></ul>
     </div>
   </section>
   <!--[zondag[-->

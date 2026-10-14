@@ -207,7 +207,9 @@ with sync_playwright() as p:
                 return {bg:r('.ar-inb-bg'),inhoud:r('.ar-inb-inhoud'),foto:r('.ar-inb-foto'),dias:document.querySelectorAll('.ar-fs-dia').length,
                   bollen:document.querySelectorAll('.ar-fs-bol').length,pijlen:document.querySelectorAll('.ar-fs-pijl').length,
                   vink:document.querySelectorAll('.ar-inb-punt').length,prijs:(q('.ar-inb-prijs')||{}).innerText||'',
-                  knop:(q('.ar-inb-acties .mews-open')||{dataset:{}}).dataset.voucher,link:(q('.ar-inb-link')||{getAttribute:()=>''}).getAttribute('href')}})()""")
+                  knop:(q('.ar-inb-acties .mews-open')||{dataset:{}}).dataset.voucher,link:(q('.ar-inb-link')||{getAttribute:()=>''}).getAttribute('href'),
+                  tijden:document.querySelectorAll('.ar-inb-inhoud .ar-tijden li').length,tijdenLos:document.querySelectorAll('.ar-tijden').length}})()""")
+            check(f'{tag} inbegrepen: tijdenregel in het paneel, geen losse strook eronder', ib['tijden'] >= 1 and ib['tijdenLos'] == 1, f"{ib['tijden']} / {ib['tijdenLos']}")
             check(f'{tag} inbegrepen: fotoslider met 4-6 dia\'s, evenveel bolletjes, twee pijlen', 4 <= ib['dias'] <= 6 and ib['bollen'] == ib['dias'] and ib['pijlen'] == 2, str(ib)[:300])
             check(f'{tag} inbegrepen: vinkjes, vanaf-prijs, knop met {VOUCHER}, tekstlink alle arrangementen',
                   ib['vink'] >= 4 and PRIJS in ib['prijs'].replace('\u00a0', ' ') and ib['knop'] == VOUCHER and ib['link'] == 'https://www.asteria.nl/arrangementen', str(ib)[:300])
@@ -216,6 +218,8 @@ with sync_playwright() as p:
             else:
                 check(f'{tag} inbegrepen: paneel loopt links tot de schermrand, foto rechts 47 px hoger',
                       ib['bg']['l'] <= 0 and ib['foto']['r'] > ib['bg']['r'] and ib['bg']['t'] - ib['foto']['t'] == 47 and ib['bg']['b'] - ib['foto']['b'] >= 47, str(ib)[:300])
+                check(f'{tag} inbegrepen: paneel loopt 61 px onder de foto door (zd-alles), inhoud 56 px van boven- en onderrand',
+                      ib['bg']['r'] - ib['foto']['l'] == 61 and ib['inhoud']['t'] == ib['bg']['t'] and ib['inhoud']['b'] == ib['bg']['b'], str(ib)[:300])
             pg.locator('.ar-fs').scroll_into_view_if_needed(); pg.wait_for_timeout(300)
             pg.locator('.ar-fs-pijl[data-fs-stap="1"]').click(); pg.wait_for_timeout(900)
             fs = pg.evaluate("(()=>{const s=document.querySelector('.ar-fs-spoor');return {i:Math.round(s.scrollLeft/s.clientWidth),bol:[...document.querySelectorAll('.ar-fs-bol')].findIndex(b=>b.classList.contains('is-aan'))}})()")
