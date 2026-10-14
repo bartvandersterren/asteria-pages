@@ -8,7 +8,7 @@ Gebruik:
 Standaard basis-url: http://localhost:8765/verblijfsverjaardag-v2.html
 Checks (1440 en 390): geen horizontale overloop, boekbalk (voucher, datums, reisgezelschap naar
 Mews-widget of URL-fallback), kamerslider (teller 1 van 8, pijlen, lus), Bekijk kamer-pop-up
-met data-room, Wellness-/Restaurant-pop-up uit de tegelstrook (titel, link, foto's, past in beeld, Escape/kruisje/
+met data-room, Boek nu op een kamerkaart (showRates(kamer) + open() met voucher), Wellness-/Restaurant-pop-up uit de tegelstrook (titel, link, foto's, past in beeld, Escape/kruisje/
 achtergrond sluiten, focus terug), reviewmuur (4 kolommen op 1440, 1 op 390, pauze bij hover, statisch bij
 prefers-reduced-motion), eerste FAQ open, onderbalk na de hero op 390, uitklaptab (>= 720: na de hero,
 weg bij 7a, open/Escape/buiten/sluitknop, Mews met voucher; niet op 390), overloop ook 1100/800, geen consolefouten.
@@ -399,6 +399,17 @@ with sync_playwright() as p:
               pg.evaluate("document.getElementById('lp-pop-kamer').open") and titel == kd['naam']
               and room == kd['kamer'], f'{titel} / {room}')
         pg.keyboard.press('Escape'); pg.wait_for_timeout(300)
+
+        # Boek nu op een kamerkaart: showRates(kamer) kiest alleen de kamer, de widget gaat pas open met open()
+        # (live fout 14 okt 2026: zonder open() gebeurde er niets). Gestubde widget-API, geen netwerk.
+        pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},
+            showRates:r=>window._mews.push('rates:'+r),open:()=>window._mews.push('open')}}""")
+        bk = pg.locator(f'.b4b-kaart:not([data-kloon]) .mews-open[data-room="{kd["kamer"]}"]').first
+        bk.scroll_into_view_if_needed(); bk.click(force=True); pg.wait_for_timeout(300)
+        r = pg.evaluate('window._mews.slice()')
+        check(f'{tag} Boek nu op een kamerkaart roept showRates(kamer) en open() aan, met voucher {VOUCHER}',
+              r == ['v:' + VOUCHER, 'rates:' + kd['kamer'], 'open'], str(r))
+        pg.evaluate("delete window.mewsApi")
 
         if PRIJS:
             check(f'{tag} geen tegelstrook (b2a) op de arrangementpagina', pg.evaluate("!document.querySelector('.b2a, .b2a-strook')"))
