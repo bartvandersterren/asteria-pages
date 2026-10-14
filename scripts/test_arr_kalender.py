@@ -191,7 +191,7 @@ with sync_playwright() as p:
         lp = log['lp'] or {}
         check(f'{tag} bevestigen: boekbalk naar de widget met {CODE}, {a} t/m {bd.isoformat()}',
               lp.get('route') == 'widget' and lp.get('voucher') == CODE and lp.get('start') == a and lp.get('eind') == bd.isoformat()
-              and f's:{a}' in log['m'] and f'e:{bd.isoformat()}' in log['m'] and 'open' in log['m'] and not log['open'], json.dumps(log)[:300])
+              and f's:{a}' in log['m'] and f'e:{bd.isoformat()}' in log['m'] and log['m'].count('open') == 1 and not log['open'], json.dumps(log)[:300])
         print('     widget-log:', json.dumps(log['m']))
         pg.wait_for_timeout(400)
 
@@ -216,8 +216,8 @@ with sync_playwright() as p:
                 pg.evaluate(STUB)
                 pg.locator('#ar-kal .ark-btn').click(); pg.wait_for_timeout(500)
                 m = pg.evaluate('window._mews.slice()')
-                check(f'{tag} bevestigen met kamer: widget krijgt datums, voucher, showRates(kamer) en open',
-                      m[:2] == [f's:{a2}', f'e:{b2}'] and f'v:{CODE}' in m and f'r:{kk["room"]}' in m and m[-1] == 'open', str(m))
+                check(f'{tag} bevestigen met kamer: widget krijgt datums, voucher, showRates(kamer) en precies één open',
+                      m[:2] == [f's:{a2}', f'e:{b2}'] and f'v:{CODE}' in m and f'r:{kk["room"]}' in m and m[-1] == 'open' and m.count('open') == 1, str(m))
                 print('     widget-log kamer:', json.dumps(m))
             else:
                 check(f'{tag} kamerknop: kiesbare dag gevonden', False, 'geen kiesbare dag voor deze kamer')

@@ -11,7 +11,7 @@
      de knop van de boekbalken (form[data-boekbalk]). Cmd/ctrl/shift-klik laten we met rust.
    - Bevestigen: datums in de boekbalk van de hero; zonder kamer form.requestSubmit() (de bestaande widgetflow van
      lander-w1.js + arrangement.js), met kamer een tijdelijke .mews-open met data-room en een href met mewsStart/mewsEnd
-     (fallback-tabblad van lander-w1.js) en de datums vooraf op de widget-API. lander-w1.js blijft ongewijzigd.
+     (fallback-tabblad van lander-w1.js) en de datums vooraf op de widget-API; het openen (showRates + open) doet lander-w1.js.
    - Bureaublad (>= 1024): zwevende kaart naast de knop, twee maanden, niet-modaal. Telefoon: bottom sheet, een maand,
      modaal (showModal). Bereik: vandaag t/m 18 maanden vooruit. */
 (function () {
@@ -318,16 +318,14 @@
     door.href = url;
     door.hidden = true;
     document.body.appendChild(door);
-    /* showRates() alleen opent de widget niet (getest 14 okt 2026 op config 6dc9094c): daarna nog open(), dan staat
-       hij op stap Tarieven met de datums. lander-w1.js doet bij de kamerknoppen alleen showRates; dat laten we daar. */
-    function openNa() { var api = window.mewsApi; if (api && api.open) api.open(); }
+    /* Openen doet lander-w1.js (sinds #168: showRates(kamer) en daarna open(), widget op stap Tarieven); hier alleen
+       de datums vooraf op de widget, dus precies één open(). */
     var klaarApi = !!window.mewsApi;
     if (klaarApi) datums();
     door.click();
-    if (klaarApi) openNa();
-    else if (window._mewsPending) {
+    if (!klaarApi && window._mewsPending) {
       var wachtend = window._mewsPending;
-      window._mewsPending = function () { datums(); wachtend(); openNa(); };
+      window._mewsPending = function () { datums(); wachtend(); };
     }
     setTimeout(function () { if (door.parentNode) door.parentNode.removeChild(door); }, 0);
   }
