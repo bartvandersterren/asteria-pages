@@ -188,7 +188,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   rechts een staande fotoslider die 47 px boven het paneel uitsteekt, bolletjes + pijlen; vinkjes in 2 kolommen vanaf 1440 (1280-1439: een kolom, foto 260 breed),
   vanaf-prijs, knop + tekstlink asteria.nl/arrangementen; telefoon: paneel, daaronder de slider van 290 hoog; tijdenregel met hairline in het paneel onder de vinkjes; 14 okt: paneel loopt 61 px
   onder de foto door zoals zd-alles, inhoud 56 px boven/onder, `display:flow-root` op het blok tegen margin-collapse),
-  3 zondagvoordeel (vijf designopties a-e, zie onder), 4 waarom Asteria (vaste inhoud; draaiend wiel zoals de staging-homepage:
+  3 zondagvoordeel (variant a9 zoals Parkhotel, zie onder), 4 waarom Asteria (vaste inhoud; draaiend wiel zoals de staging-homepage:
   4 klonen voor en na, autoplay 2400 ms alleen in beeld, pijlen omhoog/omlaag pauzeren 6 s, foto wisselt mee met crossfade,
   foto's `fotos/l26-waarom-<punt>.webp` met data-foto/data-pos in het sjabloon; geen autoplay bij reduced motion),
   5 kamers, 6 reviewmuur, 7 FAQ + contactkaart, 8 ook interessant, 9 fotowolk. Geen tegelstrook
@@ -209,11 +209,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
     voor de tijdenstrook). Prijs en knop komen uit `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID`, `CTA`.
   - Zondagvoordeel: `ZV_TOON` (true/false; uit bij kerst en oud en nieuw), `ZV_KOP_A/EM/B`, `ZV_PIL`, `ZV_ZONDAG_KOP`,
     `ZV_ZONDAG_PRIJS`, `ZV_GEWOON_PRIJS`, `ZV_ZONDAG_REGEL`, `ZV_ANDERS_KOP`, `ZV_ANDERS_REGEL`, `ZV_VOETNOOT`,
-    `ZV_KAART_REGEL` (zondagregel in de zijkaart), `ZV_IMG/ALT` (foto voor optie d). Designopties (ronde 2, 14 okt, nog te kiezen
-    door Stijn): a twee kaarten, b weekstrook ma-zo, c brede band met knop 'Boek een zondag' (vult de boekbalk met de eerstvolgende
-    zondag), d foto-split met prijsvergelijking, e schakelaar zondag/andere dag. Alle vijf staan in de HTML; de class
-    `ar-zv-optie-X` op de sectie bepaalt welke zichtbaar is (standaard a). `?zv=a..e` in de URL kiest een optie en toont rechtsonder
-    een keuzeschakelaar (zonder `?zv` nooit). Na de keuze: alleen de gekozen optie in het sjabloon laten staan. Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en
+    `ZV_KAART_REGEL` (zondagregel in de zijkaart), gekozen vorm (14 okt): a9, zoals het Parkhotel-blok zondagvoordeel: ivoren paneel met kop, twee kaarten erin (zondag met terracotta rand en pil op de titelregel, gewone kaart kleiner/grijs), voetnoot in het paneel. Geen `?zv`-opties meer. Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en
     doordeweekse aankomst); zit de korting niet in Mews, dan gewone prijs - EUR 10 p.p. en een regel in `_controleren`.
   - Waarom Asteria: `WAAROM_TOON` (standaard true); inhoud staat vast in het sjabloon.
   - Kamers: `_kamers` = welke kamers, volgorde, pil en prijsregel:
@@ -230,10 +226,10 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Blokken in het sjabloon zijn zo geplaatst dat landers zonder blok `arrangement` byte-identiek blijven; controleer na
   sjabloonwijzigingen: alle entries bouwen vóór en na en `cmp` (zo gedaan bij de invoering).
 - Test: `python3 scripts/test_lander_w1.py http://localhost:8765/najaarsarrangement-v2.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50" [--schermafdruk qa/najaarsarrangement-v2]`
-  (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk, zondagblok (optie a
-  zonder schakelaar, ?zv=a..e precies een optie, optie e wisselt), Waarom Asteria (6 punten + 8 klonen, pijl verandert --active en
+  (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk, zondagblok (paneel met kop,
+  2 kaarten, pil in de zondagkaart), Waarom Asteria (6 punten + 8 klonen, pijl verandert --active en
   foto), kamerslider met lus bij 3 kamers, inbegrepen-paneel tot de linker schermrand + fotoslider (pijlen, bolletjes), reviewmuur
-  8/12, geen b2a, zijkaart zonder foto, zijkaart loopt mee en stopt na de kamers).
+  8/12, geen b2a, zijkaart met foto, zijkaart loopt mee en stopt na de kamers).
   Gotcha: draait er op 8765 al een server uit een andere worktree, start dan een eigen server met `--directory` op een andere poort.
 - Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
