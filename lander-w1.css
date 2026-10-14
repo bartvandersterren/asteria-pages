@@ -1026,7 +1026,8 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .b1k-kaart--vast .b1k-kfoto img{position:absolute;inset:0}
 }
 @media (min-width:1024px){
-  .lp .lp-zone{display:grid;grid-template-columns:minmax(0,1fr) 352px;column-gap:44px;padding-inline:max(var(--gutter),(100% - 1120px) / 2)}
+  /* rechts schuift de kaart mee naar buiten (tot 40 px van de rand), zodat tegelstrook + kaart samen gecentreerd staan en de kolom breder wordt */
+  .lp .lp-zone{display:grid;grid-template-columns:minmax(0,1fr) 352px;column-gap:44px;padding-inline:max(var(--gutter),(100% - 1120px) / 2) calc(max(var(--gutter),(100% - 1120px) / 2) - max(0px,(100vw - 1120px) / 2 - 40px))}
   .lp .lp-zone-hoofd{min-width:0}
   .lp .lp-zone .wrap{width:100%}
   .lp .lp-zone-kant{display:block;padding:var(--gap-section) 0 var(--kant-onder,var(--gap-section))}
