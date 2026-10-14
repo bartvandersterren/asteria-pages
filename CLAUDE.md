@@ -177,6 +177,26 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   (link uit de jubileummail). Oude lander-2026-versie bewaard als `verblijfsverjaardag-oud.html`; `/verblijfsverjaardag-v3` 301 in `_redirects`.
   v2 (uitklaptab) blijft als variant op /verblijfsverjaardag-v2. Alles noindex.
 
+### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
+
+- Zelfde sjabloon als de flow-landers, met build-blokken `zijkaart` + `arrangement`. Eerste pagina: `najaarsarrangement-v2`
+  (`translations/najaarsarrangement-v2-nl.json`, voucher NAJAAR2D, foto's `fotos/l26-najaar-*.webp`). De live
+  `/najaarsarrangement` (najaar.template.html, oude config bee2f902) blijft tot de promotie ongewijzigd.
+- **Nieuw arrangement toevoegen:** kopieer `translations/najaarsarrangement-v2-nl.json` naar `translations/<slug>-nl.json`,
+  pas teksten/foto's/VOUCHER/CANONICAL_URL aan, zet de slug in de arrangement-lijst in build.py en draai `python3 build.py <slug>`.
+  Arrangementvelden: `ARR_PRIJS_PIL` (hero), `ARR_PRIJS_VANAF`/`ARR_PRIJS`/`ARR_PRIJS_EENHEID`/`ARR_PRIJS_BASIS` + `ARR_PERIODE`
+  (boekkaart), `KAART_VINK_A..D` (vier inbegrepen-vinkjes), `TEGEL_{WELLNESS,RESTAURANT,BOS}_IMG/_ALT`, `PUNT_{EEN..VIJF}_ICOON`,
+  `FAQ_ZES_Q/A` (vervangt de vaste annuleer-FAQ), `STICKY_KOP/SUB/KNOP` (onderbalk) en `_kamers`: welke kamers, in welke
+  volgorde en met welke pil (`{"deluxe": {"pil": "Inbegrepen", "soort": "inbegrepen"}}`; soort `inbegrepen`, `upgrade` of
+  `toeslag`). Teller en streepjes volgen het aantal kamers. Onzekere feiten in `_controleren` (lijst; `_`-keys en
+  niet-tekstwaarden gaan niet de {{KEY}}-pass in).
+- Blokken in het sjabloon zijn zo geplaatst dat landers zonder blok `arrangement` byte-identiek blijven; controleer na
+  sjabloonwijzigingen: alle entries bouwen vóór en na en `cmp` (zo gedaan bij de invoering).
+- Test: `python3 scripts/test_lander_w1.py http://localhost:8765/najaarsarrangement-v2.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50"`
+  (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk).
+- Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
+  Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is.
+
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 
 - Eén sjabloon voor alle seizoenen: `seizoen.template.html` + `seizoen.css` (laadt na `lander-w1.css`, blokken met prefix `hf-`)

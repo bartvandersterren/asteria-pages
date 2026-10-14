@@ -10,6 +10,7 @@ Gebruik:
   python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' -> verblijfsverjaardag.html (live sinds 14 okt 2026; oude lander -> verblijfsverjaardag-oud.html)
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
   python3 build.py bedankt welkom-terug gemist verjaardag   # flow-landers op lander-w1 met zijkaart (zoals verblijfsverjaardag-v3)
+  python3 build.py najaarsarrangement-v2   # arrangementsjabloon: lander-w1 met blokken zijkaart + arrangement
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -111,6 +112,20 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True},
     } for s in ('bedankt', 'welkom-terug', 'gemist', 'verjaardag')},
+    # Arrangementen op lander-w1 (blokken 'zijkaart' + 'arrangement'): alleen NL, noindex, niet in sitemap.
+    # Nieuw arrangement = translations/<slug>-nl.json (kopie van najaarsarrangement-v2-nl.json) + slug in deze lijst.
+    # Arrangementvelden: ARR_PRIJS_PIL (hero), ARR_PRIJS_VANAF/ARR_PRIJS/ARR_PRIJS_EENHEID/ARR_PRIJS_BASIS en ARR_PERIODE
+    # (boekkaart), KAART_VINK_A..D (vier inbegrepen-vinkjes), TEGEL_{WELLNESS,RESTAURANT,BOS}_IMG/_ALT, PUNT_{EEN..VIJF}_ICOON,
+    # FAQ_ZES_Q/A, STICKY_* (onderbalk) en '_kamers' (welke kamers, in welke volgorde, met welke pil; zie apply_arrangement).
+    # Keys met een '_' vooraan en niet-tekstwaarden (zoals de lijst '_controleren') gaan niet de {{KEY}}-pass in.
+    **{s: {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': (f'{s}.html', f'translations/{s}-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'zijkaart': True, 'arrangement': True},
+    } for s in ('najaarsarrangement-v2',)},
     # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
     # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
     # Per seizoen een entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.
@@ -331,6 +346,48 @@ def apply_blokken(html, aan):
     return html
 
 
+# Pil-iconen per soort in de kamerslider van een arrangement (blok 4b)
+PIL_ICOON = {
+    'inbegrepen': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>',
+    'upgrade': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
+    'toeslag': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+}
+
+
+def apply_arrangement(html, data):
+    """Kamerslider (blok 4b) voor een arrangement: '_kamers' in de JSON bepaalt welke kamers er staan, in
+    welke volgorde, en de pil per kamer, bijv. {"deluxe": {"pil": "Inbegrepen", "soort": "inbegrepen"},
+    "suite": {"pil": "+ € 20 p.p.", "soort": "toeslag"}, "bruidssuite": {"pil": "Upgrade mogelijk", "soort": "upgrade"}}.
+    Sleutels = data-kamer in het sjabloon (comfort, comfort-3, royale, deluxe, junior-suite, suite, bruidssuite,
+    mindervalide). Teller ('1 van N') en streepjes volgen het aantal kamers."""
+    from html import escape
+    kamers = data.get('_kamers')
+    if not kamers:
+        return html
+    s = html.index('<div class="b4b-strook')
+    voet = html.index('<div class="b4b-voet">', s)
+    start = html.index('<article class="b4b-kaart">', s)
+    eind = html.rindex('</article>', s, voet) + len('</article>')
+    kaarten = {}
+    for m in re.finditer(r'<article class="b4b-kaart">.*?</article>', html[start:eind], re.S):
+        kaarten[re.search(r'data-kamer="([^"]+)"', m.group(0)).group(1)] = m.group(0)
+    nieuw = []
+    for key, cfg in kamers.items():
+        if key not in kaarten:
+            sys.exit(f'apply_arrangement: onbekende kamer {key!r} (kies uit {", ".join(kaarten)})')
+        soort = cfg.get('soort', 'inbegrepen')
+        pil = f'<span class="b4b-pil b4b-pil--{soort}">{PIL_ICOON[soort]}{escape(cfg["pil"], quote=False)}</span>'
+        nieuw.append(re.sub(r'<span class="b4b-pil">.*?</span>', lambda _: pil, kaarten[key], count=1, flags=re.S))
+    html = html[:start] + '\n        '.join(nieuw) + html[eind:]
+    n = len(nieuw)
+    html = html.replace('van <b>8</b></span>', f'van <b>{n}</b></span>', 1)
+    stippen = ''.join(
+        f'<button type="button" class="b4b-dot{" is-active" if i == 0 else ""}" role="tab" aria-selected="{"true" if i == 0 else "false"}" aria-label="Kamer {i + 1}"></button>'
+        for i in range(n))
+    html = re.sub(r'(<div class="b4b-dots"[^>]*>).*?(</div>)', lambda m: m.group(1) + stippen + m.group(2), html, count=1, flags=re.S)
+    return html
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -346,10 +403,16 @@ def build(template_name, lang):
         translations = json.load(f)
 
     # Variantblokken (bijv. zijkaart) vóór de {{KEY}}-pass
-    html = apply_blokken(html, {k for k, v in config.get('blokken', {}).items() if v})
+    aan = {k for k, v in config.get('blokken', {}).items() if v}
+    html = apply_blokken(html, aan)
 
     for key, value in translations.items():
-        html = html.replace('{{' + key + '}}', value)
+        if isinstance(value, str) and not key.startswith('_'):
+            html = html.replace('{{' + key + '}}', value)
+
+    # Arrangement: kamers + pillen uit '_kamers' (alleen met blok 'arrangement')
+    if 'arrangement' in aan:
+        html = apply_arrangement(html, translations)
 
     # Letterlijke (hardcoded) NL-strings vertalen, in lijstvolgorde: langste/
     # meest specifieke strings staan vooraan zodat substrings niet half raken.
