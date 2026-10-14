@@ -16,7 +16,7 @@
   ],
   "PAGE_TITLE": "Weekend aanbieding: 2 nachten met diner en ontbijt | Hotel Asteria Venray",
   "META_DESC": "Weekendje weg in Noord-Limburg: 2 nachten in een Comfort kamer bij Hotel Asteria in Venray, welkomstdrankje, drie-gangen diner, 2x ontbijtbuffet en uitchecken tot 14.00. Vanaf € 166 p.p.",
-  "CANONICAL_URL": "https://visit.asteria.nl/weekend-aanbieding-v2",
+  "CANONICAL_URL": "https://visit.asteria.nl/weekend-aanbieding",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-weekend-aanbieding-hero.webp",
   "H_EEN_A": "Een weekend weg",
   "H_EEN_EM": "in Noord-Limburg",
@@ -225,21 +225,21 @@
   "_andere": [
     {
       "naam": "Oorlogsmuseum arrangement",
-      "url": "https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement",
+      "url": "https://visit.asteria.nl/oorlogsmuseum-arrangement",
       "img": "fotos/l26-oorlogsmuseum-arrangement-sherman.webp",
       "alt": "Sherman-tank in het groen bij het Oorlogsmuseum Overloon",
       "prijs": "vanaf € 131 p.p."
     },
     {
       "naam": "Golfarrangement",
-      "url": "https://www.asteria.nl/arrangementen/golfarrangement",
+      "url": "https://visit.asteria.nl/golfarrangement",
       "img": "fotos/l26-arr-golf.webp",
       "alt": "Golfer op de fairway met een golftas op de voorgrond",
       "prijs": "vanaf € 185,50 p.p."
     },
     {
       "naam": "Limburgs arrangement",
-      "url": "https://www.asteria.nl/arrangementen/limburg-arrangement",
+      "url": "https://visit.asteria.nl/limburg-arrangement",
       "img": "fotos/l26-limburg-arrangement-fietsroute.webp",
       "alt": "Stel met fietsen bij het startpunt van het fietsnetwerk voor Hotel Asteria",
       "prijs": "vanaf € 415 p.p., 3 nachten"

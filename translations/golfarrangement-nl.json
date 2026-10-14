@@ -20,7 +20,7 @@
   ],
   "PAGE_TITLE": "Golfarrangement met greenfee, diner en ontbijt | Hotel Asteria Venray",
   "META_DESC": "Golfarrangement bij Hotel Asteria in Venray: greenfee voor 18 holes op Golfbaan Bleijenbeek of Golfclub Geijsteren, een Royale kamer, drie-gangen diner en ontbijtbuffet. Vanaf € 185,50 p.p.",
-  "CANONICAL_URL": "https://visit.asteria.nl/golfarrangement-v2",
+  "CANONICAL_URL": "https://visit.asteria.nl/golfarrangement",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-golfarrangement-hero.webp",
   "H_EEN_A": "Een dag golfen,",
   "H_EEN_EM": "een avond aan tafel",
@@ -243,21 +243,21 @@
   "_andere": [
     {
       "naam": "Wellness Arrangement",
-      "url": "https://www.asteria.nl/arrangementen/wellnessarrangement",
+      "url": "https://visit.asteria.nl/wellness-arrangement",
       "img": "fotos/wt-arr.webp",
       "alt": "Gast in badjas leest een tijdschrift in de relaxruimte",
       "prijs": "vanaf € 139,50 p.p."
     },
     {
       "naam": "Oorlogsmuseum Arrangement",
-      "url": "https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement",
+      "url": "https://visit.asteria.nl/oorlogsmuseum-arrangement",
       "img": "fotos/l26-golfarrangement-andere-oorlogsmuseum.webp",
       "alt": "Legervoertuig in een nagebouwde strandscène in het oorlogsmuseum",
       "prijs": "vanaf € 131,00 p.p."
     },
     {
       "naam": "Weekend aanbieding",
-      "url": "https://www.asteria.nl/arrangementen/weekend-aanbieding",
+      "url": "https://visit.asteria.nl/weekend-aanbieding",
       "img": "fotos/l26-golfarrangement-andere-weekend.webp",
       "alt": "Hotel Asteria met de vijver en fontein ervoor",
       "prijs": "vanaf € 166,00 p.p. voor 2 nachten"

@@ -23,7 +23,7 @@ Flow-landers (zelfde sjabloon als v3):  ... http://localhost:8765/bedankt.html -
 code dan JUBILEUM checkt de test ook dat JUBILEUM en 'verblijfsverjaardag' niet in de zichtbare tekst staan.)
 
 Arrangementen (blokken zijkaart + arrangement):
-  ... http://localhost:8765/najaarsarrangement-v2.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50"
+  ... http://localhost:8765/najaarsarrangement.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50"
 Extra: robots noindex, alle Mews-links met de voucher, geen oude config bee2f902 in de bron, prijs zichtbaar in de
 zijkaart (1440) en in de onderbalk (390). Kamerslider-checks volgen het aantal kamers op de pagina (8 of minder);
 vanaf 3 kamers de slider met lus (klonen), bij 1-2 het raster. Inbegrepen-blok: paneel loopt links tot de schermrand,

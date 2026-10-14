@@ -15,7 +15,7 @@
   ],
   "PAGE_TITLE": "4-daags Limburg Arrangement met diner en e-bike | Hotel Asteria Venray",
   "META_DESC": "4-daags Limburg Arrangement bij Hotel Asteria in Venray: 3 nachten, elke avond een 3-gangenmenu, ontbijtbuffet, Limburgse vlaai bij aankomst en 3 dagen een elektrische fiets. Vanaf € 415 p.p.",
-  "CANONICAL_URL": "https://visit.asteria.nl/limburg-arrangement-v2",
+  "CANONICAL_URL": "https://visit.asteria.nl/limburg-arrangement",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-limburg-arrangement-hero.webp",
   "H_EEN_A": "Vier dagen",
   "H_EEN_EM": "Limburg op de fiets",
@@ -245,21 +245,21 @@
   "_andere": [
     {
       "naam": "Oorlogsmuseum arrangement",
-      "url": "https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement",
+      "url": "https://visit.asteria.nl/oorlogsmuseum-arrangement",
       "img": "fotos/l26-limburg-arrangement-ander-oorlogsmuseum.webp",
       "alt": "Legervoertuig in de expositie van het Oorlogsmuseum Overloon",
       "prijs": "vanaf € 131 p.p."
     },
     {
       "naam": "Golfarrangement",
-      "url": "https://www.asteria.nl/arrangementen/golfarrangement",
+      "url": "https://visit.asteria.nl/golfarrangement",
       "img": "fotos/l26-arr-golf.webp",
       "alt": "Golfer op de fairway met een golftas op de voorgrond",
       "prijs": "vanaf € 185,50 p.p."
     },
     {
       "naam": "Weekend aanbieding",
-      "url": "https://www.asteria.nl/arrangementen/weekend-aanbieding",
+      "url": "https://visit.asteria.nl/weekend-aanbieding",
       "img": "fotos/l26-limburg-arrangement-ander-weekend.webp",
       "alt": "Hotel Asteria met de vijver en fontein ervoor"
     }

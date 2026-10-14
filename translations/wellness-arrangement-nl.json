@@ -15,7 +15,7 @@
   ],
   "PAGE_TITLE": "Wellnessarrangement met diner en ontbijt | Hotel Asteria Venray",
   "META_DESC": "Wellnessarrangement bij Hotel Asteria in Venray: een overnachting met vrije toegang tot de 300 m² wellness op de Top Floor, welkomstdrankje, drie-gangen diner en ontbijtbuffet. Vanaf € 124,50 p.p.",
-  "CANONICAL_URL": "https://visit.asteria.nl/wellness-arrangement-v3",
+  "CANONICAL_URL": "https://visit.asteria.nl/wellness-arrangement",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-wellness-arrangement-hero.webp",
   "H_EEN_A": "Even helemaal",
   "H_EEN_EM": "tot rust komen",
@@ -241,21 +241,21 @@
   "_andere": [
     {
       "naam": "Najaarsarrangement",
-      "url": "https://www.asteria.nl/arrangementen/najaarsarrangement",
+      "url": "https://visit.asteria.nl/najaarsarrangement",
       "img": "fotos/l26-najaar-hero.webp",
       "alt": "Stel wandelt over een bospad in de herfst bij Venray",
       "prijs": "vanaf € 128,50 p.p."
     },
     {
       "naam": "Golfarrangement",
-      "url": "https://www.asteria.nl/arrangementen/golfarrangement",
+      "url": "https://visit.asteria.nl/golfarrangement",
       "img": "fotos/l26-arr-golf.webp",
       "alt": "Golfer op de fairway met een golftas op de voorgrond",
       "prijs": "vanaf € 185,50 p.p."
     },
     {
       "naam": "Oorlogsmuseum Arrangement",
-      "url": "https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement",
+      "url": "https://visit.asteria.nl/oorlogsmuseum-arrangement",
       "img": "fotos/l26-wellness-arrangement-andere-oorlogsmuseum.webp",
       "alt": "Tank in een nagebouwde oorlogsscène in het Oorlogsmuseum Overloon",
       "prijs": "vanaf € 131,00 p.p."

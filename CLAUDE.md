@@ -128,7 +128,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 
 ## Actieve campaign pagina's
 
-- `wellness-arrangement.html` → `visit.asteria.nl/wellness-arrangement` — wellness arrangement lander (3 talen via template)
+- `wellness-arrangement.html` → `visit.asteria.nl/wellness-arrangement` — sinds okt 2026 het arrangementsjabloon (lander-w1, alleen NL, zie Arrangementen op lander-w1); oude NL-lander op `/wellness-arrangement-oud` (noindex), EN/DE ongewijzigd op `-en`/`-de`
 - `hotel-venray.html` → `visit.asteria.nl/hotel-venray` — branded Google Ads lander, meest up-to-date
 - `lander-google.html` → `visit.asteria.nl/lander-google` — actieve PMax campaign final URL (onderhoud nodig)
 - Beide hebben Mews inline widget + Google Ads + GA4 tracking
@@ -150,7 +150,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - **Bouwen:** `python3 build.py` → bouwt alle templates (wellness + feedback)
 - **Selectief:** `python3 build.py feedback` of `python3 build.py wellness nl`
 - **Templates:**
-  - `wellness-arr-c.template.html` + `translations/{nl,en,de}.json` → wellness-arrangement HTMLs
+  - `wellness-arr-c.template.html` + `translations/{nl,en,de}.json` → `wellness-arrangement-oud.html` (NL, noindex via `'noindex': ('nl',)` in build.py) + `wellness-arrangement-en/-de.html`; zelfde voor `najaar.template.html` → `najaarsarrangement-oud.html` + `-en/-de`
   - `feedback.template.html` + `translations/feedback-{nl,en,de}.json` → feedback HTMLs
 - **Wijziging aanbrengen:** pas JSON aan → `python3 build.py` → commit template + JSONs + HTMLs
 - `generate_translations.py` = eenmalig bootstrapscript, niet meer nodig voor dagelijks gebruik
@@ -193,9 +193,18 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 
-- Zelfde sjabloon als de flow-landers, met build-blokken `zijkaart` + `arrangement`. Eerste pagina: `najaarsarrangement-v2`
-  (`translations/najaarsarrangement-v2-nl.json`, voucher NAJAAR2D, foto's `fotos/l26-najaar-*.webp`). De live
-  `/najaarsarrangement` (najaar.template.html, oude config bee2f902) blijft tot de promotie ongewijzigd.
+- Zelfde sjabloon als de flow-landers, met build-blokken `zijkaart` + `arrangement`. Eerste pagina: `najaarsarrangement`
+  (`translations/najaarsarrangement-nl.json`, voucher NAJAAR2D, foto's `fotos/l26-najaar-*.webp`).
+- **LIVE sinds 14 okt 2026 (PR #162)** op de nette adressen, alle zes noindex, follow, niet in sitemap.xml, canonical/og:url op het
+  nette adres; build-entry = slug = `translations/<slug>-nl.json` -> `<slug>.html`:
+  `/najaarsarrangement` (NAJAAR2D), `/wellness-arrangement` (WELLNESS2026), `/oorlogsmuseum-arrangement` (OORLOGSMUSEUM),
+  `/limburg-arrangement` (LIMBURG), `/weekend-aanbieding` (WEEKEND, zonder zondagblok), `/golfarrangement` (GOLF).
+  Oude NL-pagina's: `/najaarsarrangement-oud` (najaar.template.html, oude config bee2f902) en `/wellness-arrangement-oud`
+  (wellness-arr-c.template.html), beide noindex; hun EN/DE (`-en`/`-de`) zijn ongewijzigd. De preview-adressen
+  `/najaarsarrangement-v2`, `/wellness-arrangement-v3`, `/oorlogsmuseum-arrangement-v2`, `/limburg-arrangement-v2`,
+  `/weekend-aanbieding-v2`, `/golfarrangement-v2` sturen met een 301 door (`_redirects`); de HTML-bestanden zijn weg.
+  `/wellness-arrangement-v2` is een losse oude pagina (geen build-entry) en blijft staan.
+  `_andere` (Ook interessant) linkt naar elkaars visit.asteria.nl-adres; kerst blijft naar asteria.nl.
 - **Opbouw (wireframe-ideaal 14 okt 2026, bron `~/Documents/Parkhotel /Website ontwerp/asteria-arrangement-blokkenkiezer/bron/wireframe-ideaal.html`):**
   1 hero + boekbalk met prijs-pil en chips, zijkaart (sticky, zonder foto) naast 2-5 die stopt na de kamers, 2 dit is inbegrepen
   (ronde 2, 14 okt: gespiegeld Parkhotel-blok 'Het wellnessarrangement' van /wellness/: ivoren paneel vanaf de linker schermrand,
@@ -211,7 +220,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   wiel); beide alleen via het blok
   `arrangement` geladen, dus flow-landers raken ze niet. Eén reviewgetal: `{{REVIEWS_AANTAL}}` = `aantal` uit
   `content/reviews-google-asteria.json` (badge, zijkaart, reviewkop).
-- **Nieuw arrangement toevoegen:** kopieer `translations/najaarsarrangement-v2-nl.json` naar `translations/<slug>-nl.json`,
+- **Nieuw arrangement toevoegen:** kopieer `translations/najaarsarrangement-nl.json` naar `translations/<slug>-nl.json`,
   pas teksten/foto's/VOUCHER/CANONICAL_URL aan, zet de slug in de arrangement-lijst in build.py en draai `python3 build.py <slug>`.
   Velden:
   - Hero: `ARR_PRIJS_PIL`, `_chips` (lijst van 3 korte teksten). `BOEKBALK_NOOT` = regel onder de boekbalk (bijv. aankomstdagen).
@@ -248,7 +257,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
     `_controleren` (lijst; `_`-keys en niet-tekstwaarden gaan niet de {{KEY}}-pass in).
 - Blokken in het sjabloon zijn zo geplaatst dat landers zonder blok `arrangement` byte-identiek blijven; controleer na
   sjabloonwijzigingen: alle entries bouwen vóór en na en `cmp` (zo gedaan bij de invoering).
-- Test: `python3 scripts/test_lander_w1.py http://localhost:8765/najaarsarrangement-v2.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50" [--schermafdruk qa/najaarsarrangement-v2]`
+- Test: `python3 scripts/test_lander_w1.py http://localhost:8765/najaarsarrangement.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50" [--schermafdruk qa/najaarsarrangement]`
   (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk, zondagblok (paneel met kop,
   2 kaarten, pil in de zondagkaart), Waarom Asteria (6 punten + 8 klonen, pijl verandert --active en
   foto), kamerslider met lus bij 3 kamers, inbegrepen-paneel tot de linker schermrand + fotoslider (pijlen, bolletjes), reviewmuur
@@ -282,5 +291,5 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   -> waarden in `PRIJS_*` van de JSON zetten en opnieuw bouwen.
 - Test: `python3 -m http.server 8765` + `python3 scripts/test_seizoen.py <seizoen> [--schermafdruk qa/<seizoen>]`
   (Playwright, 1440 en 390, 31 checks). `qa/` staat niet in git.
-- Open: rebooking-mail 04 (asteria-flows) linkt nog naar /najaarsarrangement; omzetten na livegang. Lente heeft nog geen
+- Rebooking-mail 04 (asteria-flows) en herfst `ARR_URL` linken naar /najaarsarrangement = sinds 14 okt het nieuwe arrangement. Lente heeft nog geen
   eigen aspergepagina (knop naar asteria.nl/arrangementen); Happy Summer-periode 2027 controleren.

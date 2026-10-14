@@ -11,7 +11,8 @@ Gebruik:
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
   python3 build.py bedankt welkom-terug gemist verjaardag   # flow-landers op lander-w1 met zijkaart (zoals verblijfsverjaardag-v3)
   python3 build.py welkom-v2           # welkomstlander (code WELKOM) op lander-w1 met zijkaart -> welkom.html (live /welkom; oude NL -> welkom-oud.html)
-  python3 build.py najaarsarrangement-v2   # arrangementsjabloon: lander-w1 met blokken zijkaart + arrangement
+  python3 build.py najaarsarrangement   # arrangementsjabloon: lander-w1 met blokken zijkaart + arrangement (ook wellness-arrangement,
+                                        # oorlogsmuseum-arrangement, limburg-arrangement, weekend-aanbieding, golfarrangement)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -20,10 +21,13 @@ import json, os, re, sys
 base = os.path.dirname(os.path.abspath(__file__))
 
 TEMPLATES = {
+    # NL-uitvoer van 'wellness' en 'najaar' is sinds de promotie van de arrangementen (okt 2026) -oud + noindex;
+    # /wellness-arrangement en /najaarsarrangement zijn nu de lander-w1-arrangementen. EN/DE ongewijzigd.
     'wellness': {
         'template': 'wellness-arr-c.template.html',
+        'noindex': ('nl',),
         'langs': {
-            'nl': ('wellness-arrangement.html',    'translations/nl.json'),
+            'nl': ('wellness-arrangement-oud.html', 'translations/nl.json'),   # sinds de promotie (okt 2026) -oud, noindex
             'en': ('wellness-arrangement-en.html', 'translations/en.json'),
             'de': ('wellness-arrangement-de.html', 'translations/de.json'),
         },
@@ -46,8 +50,9 @@ TEMPLATES = {
     },
     'najaar': {
         'template': 'najaar.template.html',
+        'noindex': ('nl',),
         'langs': {
-            'nl': ('najaarsarrangement.html',    'translations/najaar-nl.json'),
+            'nl': ('najaarsarrangement-oud.html', 'translations/najaar-nl.json'),   # sinds de promotie (okt 2026) -oud, noindex
             'en': ('najaarsarrangement-en.html', 'translations/najaar-en.json'),
             'de': ('najaarsarrangement-de.html', 'translations/najaar-de.json'),
         },
@@ -127,7 +132,8 @@ TEMPLATES = {
         'blokken': {'zijkaart': True},
     },
     # Arrangementen op lander-w1 (blokken 'zijkaart' + 'arrangement'; arrangement.css/.js): alleen NL, noindex, niet in sitemap.
-    # Nieuw arrangement = translations/<slug>-nl.json (kopie van najaarsarrangement-v2-nl.json) + slug in deze lijst.
+    # Live sinds okt 2026 op de nette adressen (oude -v2/-v3 301 in _redirects; oude najaar/wellness-NL -> -oud).
+    # Nieuw arrangement = translations/<slug>-nl.json (kopie van najaarsarrangement-nl.json) + slug in deze lijst.
     # Opbouw en velden: zie CLAUDE.md (Arrangementen op lander-w1) en apply_arrangement(). Schakelaars in de JSON:
     # ZV_TOON (zondagvoordeel), WAAROM_TOON (Waarom Asteria, standaard aan), ANDERE_TOON (+ lijst '_andere').
     # Keys met een '_' vooraan en niet-tekstwaarden gaan niet de {{KEY}}-pass in.
@@ -138,7 +144,7 @@ TEMPLATES = {
         },
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
-    } for s in ('najaarsarrangement-v2', 'wellness-arrangement-v3', 'oorlogsmuseum-arrangement-v2', 'limburg-arrangement-v2', 'weekend-aanbieding-v2', 'golfarrangement-v2')},
+    } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement')},
     # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
     # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
     # Per seizoen een entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.
@@ -662,6 +668,12 @@ def build(template_name, lang):
 
     # Kamer-media in ROOMS gelijk aan de detailpagina's (video + volledige fotoset)
     html = fix_room_media(html)
+
+    # Oude pagina's (-oud) niet indexeren: robots-meta direct na de charset-regel
+    if lang in config.get('noindex', ()) and 'name="robots"' not in html:
+        html = re.sub(r'(<meta charset="[^"]*">)', r'\1\n  <meta name="robots" content="noindex, follow">', html, count=1)
+        if 'name="robots"' not in html:
+            sys.exit(f'noindex: geen <meta charset> in {output_file}')
 
     # Sanity check: no unreplaced markers
     remaining = re.findall(r'\{\{[A-Z_0-9]+\}\}', html)

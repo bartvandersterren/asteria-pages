@@ -15,7 +15,7 @@
   ],
   "PAGE_TITLE": "Oorlogsmuseum Arrangement Overloon | Hotel Asteria Venray",
   "META_DESC": "Oorlogsmuseum Arrangement bij Hotel Asteria in Venray: entree voor Oorlogsmuseum Overloon met koffie of thee, een Comfort kamer, drie-gangen diner en ontbijtbuffet. Vanaf € 131 p.p.",
-  "CANONICAL_URL": "https://visit.asteria.nl/oorlogsmuseum-arrangement-v2",
+  "CANONICAL_URL": "https://visit.asteria.nl/oorlogsmuseum-arrangement",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-oorlogsmuseum-arrangement-hero.webp",
   "H_EEN_A": "Beleef de geschiedenis",
   "H_EEN_EM": "van Overloon",
@@ -242,14 +242,14 @@
   "_andere": [
     {
       "naam": "Weekend Aanbieding",
-      "url": "https://www.asteria.nl/arrangementen/weekend-aanbieding",
+      "url": "https://visit.asteria.nl/weekend-aanbieding",
       "img": "fotos/l26-oorlogsmuseum-arrangement-weekend.webp",
       "alt": "Hotel Asteria met de vijver en fontein voor de ingang",
       "prijs": "vanaf € 166 p.p. · 2 nachten"
     },
     {
       "naam": "4-daags Limburg Arrangement",
-      "url": "https://www.asteria.nl/arrangementen/limburg-arrangement",
+      "url": "https://visit.asteria.nl/limburg-arrangement",
       "img": "fotos/l26-oorlogsmuseum-arrangement-limburg.webp",
       "alt": "Houten vlonderpad over een ven in de Limburgse natuur",
       "prijs": "vanaf € 415 p.p. · 3 nachten"
