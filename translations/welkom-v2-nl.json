@@ -51,8 +51,30 @@
   "TEGEL_BOS_KNOP": "Omgeving",
   "TEGEL_BOS_HREF": "https://www.asteria.nl/omgeving/",
   "ATTENTIE_KOP_A": "Boek een kamer,",
-  "ATTENTIE_KOP_EM": "je welkomstgeschenk",
-  "ATTENTIE_KOP_B": "staat klaar",
+  "ATTENTIE_KOP_EM": "het cadeau",
+  "ATTENTIE_KOP_B": "is van ons",
+  "CADEAU_INTRO": "Geen arrangement en geen kleine lettertjes: je boekt gewoon een kamer met code WELKOM. Bij je eerste verblijf zetten we bij aankomst een fles bubbels, een zachte badjas en een badlaken op je kamer. Zo hoef je niets mee te nemen en begin je meteen met genieten.",
+  "CADEAU_ITEMS": [
+    {
+      "naam": "Fles bubbels",
+      "regel": "Koud op je kamer bij aankomst",
+      "foto": "fotos/l26-welkom-cadeau-bubbels.webp",
+      "alt": "Fles bubbels met twee gevulde glazen op een gouden bijzettafel op de kamer"
+    },
+    {
+      "naam": "Zachte badjas",
+      "regel": "Voor tijdens je verblijf",
+      "foto": "fotos/l26-welkom-cadeau-badjas.webp",
+      "alt": "Gast in een witte badjas leest een tijdschrift in een relaxstoel in de wellness van Hotel Asteria"
+    },
+    {
+      "naam": "Badlaken",
+      "regel": "Voor de wellness op de Top Floor",
+      "foto": "fotos/l26-welkom-cadeau-badlaken.webp",
+      "alt": "Opgerolde witte handdoeken op de houten bank van de Finse sauna"
+    }
+  ],
+  "CADEAU_VOET": "Bij je eerste verblijf, op basis van beschikbaarheid. Annuleren kan kosteloos tot 24 uur vooraf.",
   "ATTENTIE_TEKST": "Bij je eerste verblijf met code WELKOM ligt dit alvast voor je klaar op de kamer: een fles bubbels, een zachte badjas voor een middag in de wellness of een ochtend op je gemak, en een badlaken, zodat je voor de wellness niets hoeft mee te nemen.",
   "ATTENTIE_IMG": "fotos/l26-welkom-attentie.webp",
   "ATTENTIE_ALT": "Fles bubbels met twee gevulde glazen op een gouden bijzettafel, fauteuil en vitrage op de achtergrond",

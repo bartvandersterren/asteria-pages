@@ -180,6 +180,10 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `lander-w1.template.html` (`<!--[ladder[-->` / `<!--[!ladder[-->`), staat aan zodra de JSON een `UPGRADE_LADDER` heeft
   (kamers, stappen, winstregels, labels, voet; build.py `render_ladder`) + `UPGRADE_INTRO`. CSS/JS prefix `b3l-`. Andere landers
   ook? = `UPGRADE_LADDER` + `UPGRADE_INTRO` in hun JSON. Test: `... /bedankt.html --v3 --voucher BEDANKT --ladder` (zonder `--ladder`: blok afwezig).
+- Cadeaublok (14 okt 2026, alleen /welkom-v2): blok 3a-variant `cadeau` (`<!--[cadeau[-->` / `<!--[!cadeau[-->` om de ster-split),
+  aan zodra de JSON `CADEAU_ITEMS` heeft (lijst naam/regel/foto/alt, optioneel badge, standaard Gratis) + `CADEAU_INTRO` + `CADEAU_VOET`;
+  build.py `render_cadeau`. Drie kaarten in b3l-kaartstijl (CSS `b3c-`, breedte via `.b3l-wrap`), geen knop. Foto's `fotos/l26-welkom-cadeau-*.webp`.
+  Test: `... /welkom-v2.html --v3 --voucher WELKOM --cadeau` (zonder `--cadeau`: blok afwezig).
 
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 

@@ -27,6 +27,12 @@ Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER
 Met --ladder: blok aanwezig (ster-split weg, kop blijft), teller 1 van 4, beginstand (vorige uit), volgende/vorige,
 geen lus aan het eind (volgende uit), streepjes, pijltjestoetsen, swipe (scrollpositie), alleen de actieve stap voor
 schermlezers, kaarten passen in de kolom (1440: links van de zijkaart; 390: onder elkaar). Zonder --ladder: blok afwezig.
+
+Cadeaublok (blok 3a-variant 'cadeau', aan via CADEAU_ITEMS in de JSON, nu alleen welkom-v2):
+  ... http://localhost:8765/welkom-v2.html --v3 --voucher WELKOM --cadeau
+Met --cadeau: blok aanwezig (ster-split weg, ster en kop blijven), 3 kaarten met badge, voetregel, geen knop of link in het
+blok, kaarten passen in de kolom zonder overloop (>= 720: naast elkaar, >= 1024 links van de zijkaart; 390: onder elkaar,
+foto links). Zonder --cadeau: blok afwezig.
 """
 import sys, json
 from datetime import date, timedelta
@@ -38,6 +44,8 @@ V3 = '--v3' in args
 if V3: args.remove('--v3')
 LADDER = '--ladder' in args
 if LADDER: args.remove('--ladder')
+CADEAU = '--cadeau' in args
+if CADEAU: args.remove('--cadeau')
 VOUCHER = 'JUBILEUM'
 if '--voucher' in args:
     i = args.index('--voucher'); VOUCHER = args[i + 1]; del args[i:i + 2]
@@ -50,6 +58,26 @@ fouten, resultaten = [], []
 def check(naam, ok, info=''):
     resultaten.append((naam, ok, info))
     print(('OK   ' if ok else 'FOUT ') + naam + (f'  ({info})' if info else ''))
+
+def cadeau_layout(pg, w):
+    """Cadeaublok: 3 kaarten binnen de rij, geen overloop; >= 720 naast elkaar (>= 1024 links van de zijkaart), < 720 onder elkaar met de foto links."""
+    pg.evaluate("window.scrollTo(0, document.querySelector('#attentie').getBoundingClientRect().top + scrollY - 120)"); pg.wait_for_timeout(500)
+    m = pg.evaluate("""()=>{const rij=document.querySelector('#attentie .b3c-rij'),r=rij.getBoundingClientRect(),
+        k=[...rij.querySelectorAll('.b3c-kaart')],kr=k.map(x=>x.getBoundingClientRect()),
+        f=k.map(x=>x.querySelector('.b3l-foto').getBoundingClientRect()),i=k.map(x=>x.querySelector('.b3l-inhoud').getBoundingClientRect()),
+        z=document.querySelector('.lp-zone-kant .b1k-kaart--vast'),zr=z?z.getBoundingClientRect():null;
+        return {over:Math.max(rij.scrollWidth-rij.clientWidth,...k.map(x=>x.scrollWidth-x.clientWidth)),
+          inRij:kr.every(q=>q.left>=r.left-1&&q.right<=r.right+1),
+          naast:kr[1].left>kr[0].right&&kr[2].left>kr[1].right&&Math.abs(kr[0].top-kr[2].top)<2,
+          onder:kr[1].top>=kr[0].bottom&&kr[2].top>=kr[1].bottom, fotoLinks:f.every((q,j)=>q.right<=i[j].left+1),
+          zijL:zr&&zr.width&&getComputedStyle(z).position==='sticky'?Math.round(zr.left):null, kR:Math.round(Math.max(...kr.map(q=>q.right))),
+          L:Math.round(r.left), R:Math.round(r.right)}}""")
+    if w >= 720:
+        ok = m['over'] <= 0 and m['inRij'] and m['naast'] and (w < 1024 or (m['zijL'] is not None and m['kR'] < m['zijL']))
+        check(f'[{w}] cadeaukaarten naast elkaar in de kolom' + (', links van de zijkaart' if w >= 1024 else '') + ', geen overloop', ok, str(m))
+    else:
+        check(f'[{w}] cadeaukaarten onder elkaar, foto links, geen overloop', m['over'] <= 0 and m['inRij'] and m['onder'] and m['fotoLinks'], str(m))
+    return m
 
 def nieuwe_pagina(b, w, h, mob, rustig=False):
     ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob,
@@ -84,6 +112,8 @@ with sync_playwright() as p:
             pg.locator('.b1k-tab').click(); pg.wait_for_timeout(700)
             sw = pg.evaluate('document.documentElement.scrollWidth')
             check(f'[{w}] geen horizontale overloop (tab + open kaart)', sw <= w, f'scrollWidth {sw}')
+        if CADEAU:
+            cadeau_layout(pg, w)
         eigen = [f for f in pg._fouten if 'mews' not in f.lower()]
         check(f'[{w}] geen consolefouten (eigen code)', not eigen, '; '.join(eigen)[:300])
         ctx.close()
@@ -104,7 +134,10 @@ with sync_playwright() as p:
 
         # upgradeblok A · Ladder-slider
         if not LADDER:
-            check(f'{tag} geen upgradeblok (ladder), ster-split aanwezig', pg.locator('.b3l').count() == 0 and pg.locator('#attentie .b3a-grid').count() == 1)
+            if CADEAU:
+                check(f'{tag} geen upgradeblok (ladder)', pg.locator('.b3l').count() == 0)
+            else:
+                check(f'{tag} geen upgradeblok (ladder), ster-split aanwezig', pg.locator('.b3l').count() == 0 and pg.locator('#attentie .b3a-grid').count() == 1)
         else:
             check(f'{tag} upgradeblok aanwezig in #attentie, ster-split weg, kop blijft',
                   pg.locator('#attentie .b3l').count() == 1 and pg.locator('.b3a-grid').count() == 0 and pg.locator('#attentie .b3a-ster').count() == 1
@@ -148,6 +181,27 @@ with sync_playwright() as p:
                       m['over'] <= 0 and m['inSpoor'] and m['naast'] and m['zijL'] is not None and m['kR'] < m['zijL'], str(m))
             else:
                 check(f'{tag} ladderkaarten onder elkaar, geen overloop', m['over'] <= 0 and m['inSpoor'] and m['onder'], str(m))
+            pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(300)
+
+        # cadeaublok (blok 3a-variant 'cadeau')
+        if not CADEAU:
+            check(f'{tag} geen cadeaublok', pg.locator('.b3c').count() == 0)
+        else:
+            check(f'{tag} cadeaublok aanwezig in #attentie, ster-split weg, ster en kop blijven, 3 kaarten',
+                  pg.locator('#attentie .b3c').count() == 1 and pg.locator('.b3a-grid').count() == 0 and pg.locator('#attentie .b3a-foto, #attentie .b3a-lijst').count() == 0
+                  and pg.locator('#attentie .b3a-ster').count() == 1 and 'het cadeau' in pg.locator('#attentie h2').inner_text()
+                  and pg.locator('#attentie .b3c-kaart').count() == 3)
+            check(f'{tag} cadeaublok zonder knop of link en zonder prijzen',
+                  pg.locator('#attentie a, #attentie button, #attentie .btn, #attentie .mews-open').count() == 0 and '\u20ac' not in pg.locator('#attentie').inner_text())
+            pg.locator('#attentie').scroll_into_view_if_needed(); pg.wait_for_timeout(600)
+            zicht = pg.evaluate("""()=>[...document.querySelectorAll('#attentie .b3c-kaart')].map(k=>{const p=[...k.querySelectorAll('.b3l-pil')].filter(x=>x.offsetParent);
+                return {pil:p.length===1?p[0].innerText.trim():p.length, h3:k.querySelector('h3').innerText, regel:k.querySelector('.b3c-regel').innerText,
+                  foto:k.querySelector('img').complete&&k.querySelector('img').naturalWidth>0}})""")
+            check(f'{tag} elke kaart: één zichtbare badge Gratis, naam, regel, foto geladen',
+                  all(z['pil'].upper() == 'GRATIS' if isinstance(z['pil'], str) else False for z in zicht) and all(z['h3'] and z['regel'] and z['foto'] for z in zicht), str(zicht))
+            check(f'{tag} voetregel onder de kaarten', 'eerste verblijf' in pg.locator('#attentie .b3c-voet').inner_text()
+                  and pg.evaluate("document.querySelector('#attentie .b3c-voet').getBoundingClientRect().top>=document.querySelector('#attentie .b3c-rij').getBoundingClientRect().bottom"))
+            cadeau_layout(pg, w)
             pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(300)
 
         # kamerslider
