@@ -252,3 +252,5 @@
   .lp .ar-ander{flex:0 0 calc(100% - 64px);scroll-snap-align:start}
   .lp .ar-ander-naam{font-size:22px}
 }
+.lp .ar-kaart .b1k-vinkjes.ar-trust{margin-top:16px;gap:8px}
+.lp .ar-kaart .ar-trust li{font-size:14px}
