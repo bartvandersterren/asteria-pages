@@ -6,6 +6,7 @@ Gebruik:
   python3 build.py                    # bouwt alles
   python3 build.py wellness           # alleen wellness template
   python3 build.py feedback           # alleen feedback template
+  python3 build.py feedback-v2        # feedback in de nieuwe huisstijl (lander-w1-kop/voet) -> feedback-v2(-en/-de).html, ongelinkt, noindex
   python3 build.py verblijfsverjaardag-v2   # lander W1 (reviewmuur uit content/)
   python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' -> verblijfsverjaardag.html (live sinds 14 okt 2026; oude lander -> verblijfsverjaardag-oud.html)
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
@@ -38,6 +39,16 @@ TEMPLATES = {
             'nl': ('feedback.html',    'translations/feedback-nl.json'),
             'en': ('feedback-en.html', 'translations/feedback-en.json'),
             'de': ('feedback-de.html', 'translations/feedback-de.json'),
+        },
+    },
+    # v2 in de nieuwe huisstijl (lander-w1-kop/voet), ter review, ongelinkt, noindex (robots-meta staat in het sjabloon),
+    # niet in sitemap.xml. Zelfde werking en teksten als 'feedback'; stijl in feedback-v2.css (prefix fb2-).
+    'feedback-v2': {
+        'template': 'feedback-v2.template.html',
+        'langs': {
+            'nl': ('feedback-v2.html',    'translations/feedback-v2-nl.json'),
+            'en': ('feedback-v2-en.html', 'translations/feedback-v2-en.json'),
+            'de': ('feedback-v2-de.html', 'translations/feedback-v2-de.json'),
         },
     },
     'happy-summer': {

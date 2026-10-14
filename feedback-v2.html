@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, feedbackpagina v2 in de nieuwe huisstijl (lander-w1-kop/voet). Ter review, ongelinkt, noindex.
+  Zelfde werking als feedback.template.html (sterren, positief/negatief/bedankt, POST /api/feedback, window.track);
+  alleen de stijl is nieuw. Kop en voet 1:1 uit lander-w1.template.html (zonder voucher), geen onderbalk.
+
+  Bouwen:  python3 build.py feedback-v2
+  Stijl:   lander-w1.css + feedback-v2.css (prefix fb2-)   Script: lander-w1.js + inline (analytics + sterren)
+-->
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback — Hotel Asteria Venray</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="Deel uw ervaring bij Hotel Asteria Venray.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://visit.asteria.nl/feedback-v2">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Feedback — Hotel Asteria Venray">
+  <meta property="og:description" content="Deel uw ervaring bij Hotel Asteria Venray.">
+  <meta property="og:url" content="https://visit.asteria.nl/feedback-v2">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="feedback-v2.css">
+  <script src="lander-w1.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+</head>
+<body class="fb2-pagina">
+
+<header class="top-stack">
+  <div class="utility-bar">
+    <div class="inner">
+      <div class="util-left">
+        <a href="tel:+31478511466" aria-label="Bel ons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          <span>0478 511466</span>
+        </a>
+        <a href="mailto:info@asteria.nl" aria-label="E-mail ons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>info@asteria.nl</span>
+        </a>
+      </div>
+      <div class="util-right">
+        <a href="https://www.asteria.nl/contact/veelgestelde-vragen">FAQ</a>
+        <a href="https://www.asteria.nl/contact">Contact</a>
+        <a href="https://www.asteria.nl/vacatures">Werken bij</a>
+        <div class="langswitch"><button type="button" class="langswitch__knop" aria-haspopup="true" aria-expanded="false" aria-label="Taal kiezen, huidige taal nl"><span class="langswitch__vlag langswitch__vlag--nl" aria-hidden="true"></span><span class="langswitch__code">nl</span><span class="langswitch__caret" aria-hidden="true"></span></button><div class="langswitch__menu" role="menu"><a class="langswitch__opt is-active" href="/feedback-v2" hreflang="nl"><span class="langswitch__vlag langswitch__vlag--nl" aria-hidden="true"></span>Nederlands</a><a class="langswitch__opt is-" href="/feedback-v2-en" hreflang="en"><span class="langswitch__vlag langswitch__vlag--en" aria-hidden="true"></span>English</a><a class="langswitch__opt is-" href="/feedback-v2-de" hreflang="de"><span class="langswitch__vlag langswitch__vlag--de" aria-hidden="true"></span>Deutsch</a></div></div>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav" aria-label="Hoofdnavigatie">
+    <div class="inner">
+      <a href="https://www.asteria.nl/" class="logo" aria-label="Hotel Asteria, naar de homepage">
+        <img alt="Hotel Asteria" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==">
+      </a>
+      <ul class="nav-links">
+        <li><a href="https://www.asteria.nl/kamers">Kamers &amp; suites</a></li>
+        <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
+        <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
+        <li><a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; feesten</a></li>
+        <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
+        <li><a href="https://www.asteria.nl/over-ons">Over ons</a></li>
+      </ul>
+      <a href="tel:+31478511466" class="nav-phone" aria-label="Bel Hotel Asteria: 0478 511466">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <button class="nav-hamburger" type="button" aria-label="Open menu" aria-controls="nav-drawer" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" class="btn btn-primary nav-cta mews-open">Boek nu</a>
+    </div>
+  </nav>
+</header>
+
+<aside class="nav-drawer" id="nav-drawer" aria-label="Mobiel menu">
+  <div class="nav-drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <button class="nav-drawer__close" type="button" aria-label="Sluit menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <ul class="nav-drawer__list">
+      <li><a href="https://www.asteria.nl/kamers">Kamers &amp; suites</a></li>
+      <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
+      <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
+      <li><a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; feesten</a></li>
+      <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
+      <li><a href="https://www.asteria.nl/over-ons">Over ons</a></li>
+    </ul>
+    <div class="nav-drawer__contact">
+      <a href="tel:+31478511466" class="drawer-contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg><span>0478 511466</span></a>
+      <a href="mailto:info@asteria.nl" class="drawer-contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>info@asteria.nl</span></a>
+      <p class="drawer-contact-address">Maasheseweg 80a &middot; 5804&nbsp;AD Venray</p>
+    </div>
+    <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" class="btn btn-primary nav-drawer__boek mews-open">Boek nu</a>
+  </div>
+</aside>
+
+<main class="lp">
+
+  <section class="sec fb2-sec" data-toon="paper">
+    <div class="wrap">
+
+      <!-- Taalkeuze telefoon (in de kop is de taalkeuze onder 720 px verborgen) -->
+      <nav class="fb2-lang" aria-label="Language">
+        <a href="/feedback-v2" class="active">NL</a>
+        <a href="/feedback-v2-en" class="">EN</a>
+        <a href="/feedback-v2-de" class="">DE</a>
+      </nav>
+
+      <div class="kaart fb2-card">
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==" alt="Hotel Asteria" class="fb2-logo" width="205" height="54">
+
+        <h1 class="fb2-heading">Hoe was uw verblijf?</h1>
+        <p class="fb2-sub">Uw mening helpt ons verbeteren.</p>
+
+        <!-- Sterren -->
+        <div class="fb2-stars" role="radiogroup" aria-label="Rating">
+          <button class="fb2-star" data-rating="1" aria-label="Slecht" type="button">
+            <svg viewBox="0 0 24 24"><path class="fb2-star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </button>
+          <button class="fb2-star" data-rating="2" aria-label="Matig" type="button">
+            <svg viewBox="0 0 24 24"><path class="fb2-star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </button>
+          <button class="fb2-star" data-rating="3" aria-label="OK" type="button">
+            <svg viewBox="0 0 24 24"><path class="fb2-star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </button>
+          <button class="fb2-star" data-rating="4" aria-label="Goed" type="button">
+            <svg viewBox="0 0 24 24"><path class="fb2-star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </button>
+          <button class="fb2-star" data-rating="5" aria-label="Uitstekend" type="button">
+            <svg viewBox="0 0 24 24"><path class="fb2-star-fill" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </button>
+        </div>
+        <div class="fb2-star-labels">
+          <span class="fb2-star-label" id="starLabel"></span>
+        </div>
+
+        <!-- State A: Positief (4-5 sterren) -->
+        <div class="fb2-state" id="statePositive">
+          <h2 class="fb2-state-heading">Fijn om te horen!</h2>
+          <p class="fb2-state-text">Wilt u uw ervaring delen op TripAdvisor? Dat helpt andere gasten enorm.</p>
+          <div class="fb2-review-links">
+            <a href="https://www.tripadvisor.com/Hotel_Review-g652276-d1726559-Reviews-Hotel_Asteria_Venray-Venray_Limburg_Province.html"
+               target="_blank" rel="noopener" class="btn btn-primary fb2-knop" id="btnTripadvisor">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="6.5" cy="13.5" r="2"/><circle cx="17.5" cy="13.5" r="2"/><path d="M24 9.5c-1.28 0-2.46.38-3.45 1.03A8.98 8.98 0 0012 6a8.98 8.98 0 00-8.55 4.53A5.49 5.49 0 000 9.5v1A5.5 5.5 0 005.5 16h.06A5.49 5.49 0 0012 20a5.49 5.49 0 006.44-4H18.5a5.5 5.5 0 005.5-5.5v-1zM6.5 17.5a4 4 0 110-8 4 4 0 010 8zm11 0a4 4 0 110-8 4 4 0 010 8z"/></svg>
+              Naar TripAdvisor
+            </a>
+          </div>
+          <button class="btn-tertiary fb2-skip" type="button" id="btnNoThanks">Liever niet, bedankt</button>
+        </div>
+
+        <!-- State B: Negatief (1-3 sterren) -->
+        <div class="fb2-state" id="stateNegative">
+          <h2 class="fb2-state-heading">Wat had beter gekund?</h2>
+          <form class="fb2-form" id="feedbackForm" novalidate>
+            <textarea class="fb2-textarea" name="message" placeholder="Vertel ons wat we kunnen verbeteren..." required></textarea>
+            <div class="fb2-field">
+              <label class="fb2-label" for="fbName">Naam (optioneel)</label>
+              <input class="fb2-input" type="text" id="fbName" name="name" autocomplete="name">
+            </div>
+            <div class="fb2-field">
+              <label class="fb2-label" for="fbEmail">E-mail (optioneel)</label>
+              <input class="fb2-input" type="email" id="fbEmail" name="email" autocomplete="email">
+            </div>
+            <!-- Honeypot -->
+            <div class="fb2-hp" aria-hidden="true">
+              <input type="text" name="_hp" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="fb2-submit-wrap">
+              <button class="btn btn-primary fb2-submit" type="submit">Verstuur feedback</button>
+              <p class="fb2-error" id="fbError"></p>
+            </div>
+          </form>
+        </div>
+
+        <!-- State C: Bedankt -->
+        <div class="fb2-state" id="stateThanks">
+          <div class="fb2-checkmark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h2 class="fb2-state-heading">Hartelijk dank</h2>
+          <p class="fb2-state-text">Uw feedback helpt ons om het nog beter te doen.</p>
+          <a href="https://www.asteria.nl" class="btn-tertiary fb2-back">Naar asteria.nl</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <img class="footer__star-bg" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIyOTczIiB2aWV3Qm94PSIwIDAgMTkyMCAyOTczIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yMzI2LjMgODQ0LjA1NEMxOTcxLjA0IDY4My4yNzQgMTU2OS4xNiA2NTQuNjc2IDExOTcuMDQgNzYxLjg5N0M2OTMuNDQgMjU2LjIyNiAyNjAuNTM4IDEuOTk4MjZlLTA1IDI2MC41MzggMS45OTgyNmUtMDVDMjg1LjIzNyAzOTAuNjM5IDM1NC40MjUgNzY2LjQxOSA0NjguNzc1IDExNDAuMDJDMTcxLjg5MiAxMzQzLjM2IC0yMjEuNDM4IDE2NjUuMjIgLTUxNS4xNDggMjEwMS4wNkMtNTE0LjU5NSAyMTkxLjMyIC00NTAuMzM2IDIxNDYuODEgLTQwNi4xMzggMjExMy42MUMtMTkuODc3NSAxODUxLjIzIDMzMi42ODEgMTcwMS4xNSA2NDAuODg4IDE2MjEuMTJDODIwLjU4MiAyMDYwLjA4IDEwNjIuNTMgMjUwMy42NyAxMzY4Ljk5IDI5NzIuNEMxMTk1LjMgMjI5NC44NCAxMjQ4LjY1IDE3MjQuOTkgMTI0OC42NSAxNzI0Ljk5QzEyNDguNjUgMTcyNC45OSAxMjMxLjc5IDE3NTUuNjQgMTE5Ny4zNSAxNzM0LjQ4QzExNjkuODggMTgzNS4xMyAxMTgwLjQ2IDIyNzguNjIgMTE2Mi45MSAyMDIzLjA2QzExNTQuNjUgMTkwMy4yMiAxMTc3LjYgMTcxNC41NSAxMjA1LjAxIDE1NDEuODVDMTYwNC4wOSAxNTM1LjE4IDE4NjEuMjUgMTY0MS4xNSAxOTI2LjUxIDE2NzEuNTFDMTkzMi4xOCAxNjc0LjE4IDE5MzcuNTEgMTY3Ni43OCAxOTQyLjk4IDE2NzkuNTdDMTc0My45OSAxMzc0LjI1IDE1MjcuNTkgMTEwOS45MSAxMzE4IDg4Ny4xMTNDMTk0My40NiA2NzguMjc4IDIzMjYuMSA4NDQuMTgyIDIzMjYuMSA4NDQuMTgyTTQ4NC4xMyAzMzIuNDM5QzY5Mi4zNDQgNDY2LjM1MiA4OTQuNTE3IDYzNS40NDYgMTA3My4wMyA4MDMuMDM3QzEwMDguNTEgODI3LjQ3OSA5NDUuMDUxIDg1NS44MTIgODgzLjE1NSA4ODguODQ4Qzg0Ni42OSA5MDguMyA3NDIuOTYgOTYzLjA1OCA2MDIuMjYyIDEwNTIuMTJDNTQyLjgzMSA4MTcuNzQxIDUwMy45MjkgNTgxLjcyNSA0ODQuMTMgMzMyLjQzOVpNLTE2LjkxNjIgMTc2MS41OUMxNzAuOTQ3IDE1NzguNzUgMzUxLjE0NyAxNDI4Ljk5IDUyMi40MSAxMzA2LjI3QzU0My44MjEgMTM2OS4wNCA1NjYuODMyIDE0MzEuNjUgNTkwLjcwNyAxNDk0LjI3QzQwOS4zMDcgMTU0OS42MyAyMDcuNDczIDE2MzQuNDkgLTE2LjcxMzkgMTc2MS40Nk0xMDcxLjk2IDIyNTAuMzVDOTU0Ljc3MSAyMDE5LjMyIDg1Ni4yNjEgMTgwMi4wNiA3NzQuNjggMTU5MC4wMUM4ODYuMjc0IDE1NjcuMyA5OTEuMDMxIDE1NTMuNDkgMTA4OC44NiAxNTQ2LjY1QzEwNjIuMTkgMTcwNS43NyAxMDUzLjc4IDE4ODkuMTkgMTA3MS45NiAyMjUwLjM1Wk0xNzE4Ljk2IDE1MDEuNTZDMTYxMS4yMiAxNDY5LjEgMTQ0OS42IDE0MTYuMTYgMTIyNy44OCAxNDA2LjIzQzEyNTIuMzQgMTI3MC40NSAxMjc0LjcgMTE2My4wNyAxMjc4Ljg3IDExMzcuOTFDMTI4OC45OSAxMDc1LjY0IDEyNDYuMjUgMTA3MC4wMSAxMjQ2LjI1IDEwNzAuMDFMMTE5Ni41OCAxMjQ0LjMxQzExOTYuNTggMTI0NC4zMSAxMTc4LjU1IDEzMDYuMiAxMTcxLjM4IDExODQuNTJDMTE1MS4wOSAxMjY5LjIxIDExMzMuMDIgMTMzOS4wOSAxMTE3LjU3IDE0MDUuMDRDMTAwMS40IDE0MDcuNTggODcwLjkyMiAxNDIyLjkgNzI1Ljc0NSAxNDU3LjUzQzY5Ny42MjUgMTM3Ny45NCA2NzEuNjkzIDEyOTguNjcgNjQ4LjQ4NSAxMjE5LjY2Qzg0Ny41OTQgMTA4OC45NSAxMDMzLjE4IDk5NS4wMzQgMTIwMy4wOSA5MjguNzM4QzE1MDkuMTcgMTIzMy4zIDE3MTguOTYgMTUwMS41NiAxNzE4Ljk2IDE1MDEuNTZaIiBmaWxsPSIjQzc2RTRFIi8+PC9zdmc+">
+  <div class="inner">
+    <div class="footer__brand-block">
+      <a href="https://www.asteria.nl/" class="footer__logo" aria-label="Hotel Asteria">
+        <img alt="Hotel Asteria" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==">
+      </a>
+      <address class="footer__address">
+        Maasheseweg 80a<br>
+        5804 AD Venray<br>
+        <a href="tel:+31478511466">0478 511466</a><br>
+        <a href="mailto:info@asteria.nl">info@asteria.nl</a>
+      </address>
+      <div class="footer__socials" aria-label="Volg ons">
+        <a href="https://www.facebook.com/AsteriaVenray" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.261c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/hotelasteriavenray" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/hotel-asteria-venray" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h3>Verblijf</h3>
+      <a href="/bruidssuite">Bruidssuite</a>
+      <a href="/junior-suite">Junior suite</a>
+      <a href="/comfort-kamer">Comfort kamer</a>
+      <a href="/deluxe-kamer">Deluxe kamer</a>
+      <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" class="mews-open">Beschikbaarheid</a>
+    </div>
+    <div>
+      <h3>Bij ons</h3>
+      <a href="https://www.asteria.nl/restaurant">Restaurant</a>
+      <a href="https://www.asteria.nl/wellness">Wellness</a>
+      <a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; feesten</a>
+      <a href="https://www.asteria.nl/omgeving">Omgeving</a>
+      <a href="https://www.asteria.nl/over-ons">Ons verhaal</a>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <a href="tel:+31478511466">0478 511466</a>
+      <a href="mailto:info@asteria.nl">info@asteria.nl</a>
+      <a href="https://maps.google.com/?q=Maasheseweg+80a+Venray" target="_blank" rel="noopener">Route &amp; parkeren</a>
+      <a href="https://www.asteria.nl/contact/veelgestelde-vragen">Veelgestelde vragen</a>
+      <a href="https://www.asteria.nl/vacatures">Werken bij Asteria</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>&copy; Hotel Asteria &middot; A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01</span>
+    <span>
+      <a href="https://www.asteria.nl/privacy">Privacybeleid</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://www.asteria.nl/algemene-voorwaarden">Algemene voorwaarden</a>
+    </span>
+  </div>
+</footer>
+
+<!-- ══ COOKIE BANNER ══ -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookiemelding">
+  <span>Deze website gebruikt cookies voor een optimale ervaring. <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">Meer info</a></span>
+  <button type="button" id="cookieAccept">Akkoord</button>
+</div>
+
+  <!-- Analytics (lightweight — zelfde als andere pagina's) -->
+  <script>
+  (function(){
+    var sid = sessionStorage.getItem('sid');
+    if (!sid) { sid = Math.random().toString(36).slice(2); sessionStorage.setItem('sid', sid); }
+    window.track = function(event, extra) {
+      var payload = Object.assign({ session_id: sid, event: event, page: location.pathname, referrer: document.referrer }, extra || {});
+      try { navigator.sendBeacon('/api/track', JSON.stringify(payload)); } catch(e) {}
+    };
+    window.track('page_view');
+  })();
+  </script>
+
+  <script>
+  (function(){
+    var rating = 0;
+    var lang = document.documentElement.lang || 'nl';
+    var stars = document.querySelectorAll('.fb2-star');
+    var labelEl = document.getElementById('starLabel');
+    var labels = [
+      'Slecht',
+      'Matig',
+      'OK',
+      'Goed',
+      'Uitstekend'
+    ];
+
+    function setStars(n) {
+      stars.forEach(function(s, i) {
+        s.classList.toggle('active', i < n);
+      });
+      labelEl.textContent = n > 0 ? labels[n - 1] : '';
+      labelEl.classList.toggle('visible', n > 0);
+    }
+
+    function showState(id) {
+      document.querySelectorAll('.fb2-state').forEach(function(el) {
+        el.classList.remove('active');
+      });
+      if (id) {
+        var el = document.getElementById(id);
+        el.classList.add('active');
+      }
+    }
+
+    // Star hover
+    stars.forEach(function(star) {
+      star.addEventListener('mouseenter', function() {
+        var r = parseInt(this.dataset.rating);
+        setStars(r);
+      });
+    });
+
+    document.querySelector('.fb2-stars').addEventListener('mouseleave', function() {
+      setStars(rating);
+    });
+
+    // Star click
+    stars.forEach(function(star) {
+      star.addEventListener('click', function() {
+        var r = parseInt(this.dataset.rating);
+        if (r === rating) {
+          // Deselect
+          rating = 0;
+          setStars(0);
+          showState(null);
+          return;
+        }
+        rating = r;
+        setStars(r);
+        window.track('feedback_rating', { variant_price: String(r) });
+
+        if (r >= 4) {
+          showState('statePositive');
+        } else {
+          showState('stateNegative');
+          var ta = document.querySelector('.fb2-textarea');
+          if (ta) setTimeout(function(){ ta.focus(); }, 300);
+        }
+      });
+    });
+
+    // No thanks → bedankt
+    document.getElementById('btnNoThanks').addEventListener('click', function() {
+      // Submit de positieve rating naar D1 (zonder bericht)
+      submitFeedback({ rating: rating });
+      showState('stateThanks');
+    });
+
+    // TripAdvisor/Google click tracking
+    document.getElementById('btnTripadvisor').addEventListener('click', function() {
+      window.track('feedback_tripadvisor');
+      submitFeedback({ rating: rating });
+    });
+    // Form submit
+    var form = document.getElementById('feedbackForm');
+    var submitBtn = form.querySelector('.fb2-submit');
+    var errorEl = document.getElementById('fbError');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      errorEl.style.display = 'none';
+
+      var msg = form.querySelector('[name="message"]').value.trim();
+      if (!msg) {
+        errorEl.textContent = 'Vertel ons wat we kunnen verbeteren...';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Versturen...';
+
+      submitFeedback({
+        rating: rating,
+        message: msg,
+        name: form.querySelector('[name="name"]').value.trim(),
+        email: form.querySelector('[name="email"]').value.trim(),
+        _hp: form.querySelector('[name="_hp"]').value,
+      }, function(ok) {
+        if (ok) {
+          window.track('feedback_submit');
+          showState('stateThanks');
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Verstuur feedback';
+          errorEl.textContent = 'Er ging iets mis. Probeer het opnieuw.';
+          errorEl.style.display = 'block';
+        }
+      });
+    });
+
+    function submitFeedback(data, cb) {
+      data.lang = lang;
+      data.page_referrer = document.referrer;
+      fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then(function(r) { return r.json(); })
+        .then(function(j) { if (cb) cb(j.success); })
+        .catch(function() { if (cb) cb(false); });
+    }
+  })();
+  </script>
+</body>
+</html>
