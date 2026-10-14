@@ -36,7 +36,7 @@
   <link rel="preload" as="image" href="{{HERO_IMG}}" type="image/webp">
   <link rel="stylesheet" href="lander-w1.css">
   <script src="lander-w1.js" defer></script>
-  <!--[arrangement[--><link rel="stylesheet" href="arrangement.css"><script src="arrangement.js" defer></script><!--]arrangement]-->
+  <!--[arrangement[--><link rel="stylesheet" href="arrangement.css"><link rel="stylesheet" href="arrangement-kalender.css"><script src="arrangement.js" defer></script><script src="arrangement-kalender.js" defer></script><!--]arrangement]-->
 
   <!-- GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
@@ -609,6 +609,26 @@
     </div>
   </dialog>
   <div class="lp-pop-overlay" hidden></div>
+  <!--[arrangement[-->
+  <!-- ══ PRIJSKALENDER "Kies je nachten" (alleen arrangementen; arrangement-kalender.js/.css, prijzen uit /api/arr-kalender).
+       Port van de Parkhotel-bouwsteen blok-kalender-prijs. Elke .mews-open met data-voucher = de code en de datumvelden/knoppen
+       van de boekbalken openen eerst deze kalender. Attributen en teksten vult build.py apply_arrangement() uit de JSON. ══ -->
+  <dialog class="ark" id="ar-kal" aria-labelledby="ar-kal-kop" data-code="{{VOUCHER}}" data-nachten="{{KAL_NACHTEN}}" data-aankomstdagen="{{KAL_AANKOMSTDAGEN}}" data-zondag="{{KAL_ZONDAG}}" data-kamer-standaard="{{KAL_KAMER_STANDAARD}}" data-kamers="{{KAL_KAMERS}}"
+    data-aankomst="aankomst" data-vertrek="vertrek" data-vertrek-vraag="vertrek?" data-nacht="nacht" data-nachten-woord="nachten" data-vorige="Vorige maand" data-volgende="Volgende maand">
+    <div class="ark-greep" aria-hidden="true"></div>
+    <div class="ark-kopr"><div><p class="ark-kop" id="ar-kal-kop">{{KAL_KOP}}</p><p class="ark-sub">{{KAL_SUB}}</p></div><button type="button" class="ark-x" aria-label="Sluiten"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <div class="ark-mid">
+      <div class="ark-kal"><div class="ark-maanden"></div><p class="ark-noot">{{KAL_NOOT_VOOR}} <span class="ark-kamer"></span>, 2 personen</p></div>
+      <div class="ark-leg">{{KAL_LEG_ZONDAG}}<span><i class="c"></i>{{KAL_LEG_DICHT}}</span><span><i class="s"></i>Gevuld: je gekozen nachten</span></div>
+    </div>
+    <div class="ark-voet">
+      <div class="ark-samen"><span class="ark-wat" aria-live="polite"></span><button type="button" class="ark-wis" hidden>Wissen</button></div>
+      <button type="button" class="btn btn-primary ark-btn" disabled>Bekijk kamers en prijzen</button>
+      <p class="ark-code">Actiecode <b>{{VOUCHER}}</b> wordt automatisch ingevuld</p>
+    </div>
+    <span class="ark-tip" aria-hidden="true"></span>
+  </dialog>
+  <!--]arrangement]-->
   <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>
 
   <script type="application/json" id="lp-facdata">

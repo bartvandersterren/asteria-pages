@@ -576,6 +576,8 @@ def apply_arrangement(html, data):
         sys.exit(f'ARR_NACHTEN moet een heel getal van 1 of meer zijn, niet {nachten!r}')
     if nachten > 1:
         html = html.replace(' data-boekbalk ', f' data-boekbalk data-nachten="{nachten}" ')
+    if '{{KAL_KOP}}' in html:
+        html = apply_kalender(html, data, kamers, nachten)
 
     wolk = data.get('_fotowolk')
     if wolk:
@@ -594,6 +596,92 @@ def apply_arrangement(html, data):
                 tag = tag[:-1] + f' style="object-position:{escape(f["pos"])}">'
             stuk = stuk[:m.start()] + tag + stuk[m.end():]
         html = html[:s] + stuk + html[e:]
+    return html
+
+
+WEEKDAGEN = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag']
+KALENDER_JSON = os.path.join(base, 'content', 'arr-kalender.json')
+
+
+def apply_kalender(html, data, kamers, nachten):
+    """Prijskalender 'Kies je nachten' (dialog #ar-kal, arrangement-kalender.js, /api/arr-kalender):
+    - data-attributen en teksten van de dialoog uit de JSON: VOUCHER, ARR_NACHTEN, ARR_AANKOMSTDAGEN (optioneel,
+      lijst van weekdagnummers 0 = zondag ... 6 = zaterdag; Weekend [5, 6]), ZV_TOON (zondag goud + berekende korting),
+      standaardkamer = de eerste kamer met soort 'inbegrepen' uit '_kamers' (anders de eerste), kamernamen uit de kaarten;
+    - schrijft de instellingen van deze code in content/arr-kalender.json (whitelist van de Pages Function). Eén bron:
+      de arrangement-JSON. Een andere code onder dezelfde slug vervalt."""
+    from html import escape
+    code = data['VOUCHER']
+    dagen = data.get('ARR_AANKOMSTDAGEN')
+    if dagen is not None and (not isinstance(dagen, list) or not dagen or any(not isinstance(d, int) or not 0 <= d <= 6 for d in dagen)):
+        sys.exit(f'ARR_AANKOMSTDAGEN moet een lijst weekdagnummers 0-6 zijn (0 = zondag), niet {dagen!r}')
+    zondag = bool(data.get('ZV_TOON'))
+    # kamernamen en Mews-id's uit de kaarten die op de pagina staan
+    namen = {}
+    for m in re.finditer(r'<article class="b4b-kaart[^"]*">.*?</article>', html, re.S):
+        k = m.group(0)
+        if 'data-kloon' in k:
+            continue
+        rid = re.search(r'data-room="([^"]+)"', k)
+        naam = re.search(r'<h3>([^<]+)</h3>', k)
+        if rid and naam:
+            namen[rid.group(1).lower()] = naam.group(1).strip()
+    sleutels = list((kamers or {}).keys())
+    std_sleutel = next((k for k in sleutels if (kamers[k].get('soort', 'inbegrepen') == 'inbegrepen')), sleutels[0] if sleutels else None)
+    std = ''
+    if std_sleutel:
+        m = re.search(r'data-room="([^"]+)"[^>]*>Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="'
+                      + re.escape(std_sleutel) + '"', html)
+        std = m.group(1).lower() if m else ''
+    if not std:
+        sys.exit(f'apply_kalender: geen standaardkamer gevonden voor {code}')
+    if nachten > 1:
+        kop = 'Kies je aankomstdag'
+        if dagen:
+            lijst = [WEEKDAGEN[d] for d in sorted(dagen, key=lambda d: (d + 6) % 7)]
+            wanneer = lijst[0] if len(lijst) == 1 else ', '.join(lijst[:-1]) + ' of ' + lijst[-1]
+            sub = f'Aankomst kan op {wanneer}. Je vertrek na {nachten} nachten komt er vanzelf bij.'
+        else:
+            sub = f'Klik op je aankomstdag. Je vertrek na {nachten} nachten komt er vanzelf bij.'
+        noot = f'Prijs per persoon voor {nachten} nachten bij aankomst op die dag,'
+        dicht = 'Grijs: geen aankomst mogelijk'
+    else:
+        kop = 'Kies je nachten'
+        sub = 'Klik op je aankomstdag en daarna op je vertrekdag. Vertrekken kan ook op een grijze dag.'
+        noot = 'Prijs per persoon per nacht bij aankomst op die dag,'
+        dicht = 'Grijs: niet beschikbaar, vertrekken kan wel'
+    leg_zondag = '<span><i class="o"></i>Goud: aankomst op zondag, € 20 per kamer voordeliger</span>' if zondag else ''
+    vervang = {
+        '{{KAL_NACHTEN}}': str(nachten),
+        '{{KAL_AANKOMSTDAGEN}}': ','.join(str(d) for d in dagen) if dagen else '',
+        '{{KAL_ZONDAG}}': 'ja' if zondag else 'nee',
+        '{{KAL_KAMER_STANDAARD}}': std,
+        '{{KAL_KAMERS}}': escape(json.dumps(namen, ensure_ascii=False, separators=(',', ':'))),
+        '{{KAL_KOP}}': kop, '{{KAL_SUB}}': sub, '{{KAL_NOOT_VOOR}}': noot,
+        '{{KAL_LEG_ZONDAG}}': leg_zondag, '{{KAL_LEG_DICHT}}': dicht,
+    }
+    for k, v in vervang.items():
+        html = html.replace(k, v)
+
+    slug = re.search(r'<link rel="canonical" href="https://visit\.asteria\.nl/([^"]+)"', html)
+    slug = slug.group(1) if slug else ''
+    try:
+        with open(KALENDER_JSON, encoding='utf-8') as f:
+            alle = json.load(f)
+    except (OSError, ValueError):
+        alle = {}
+    alle = {c: v for c, v in alle.items() if c == code or v.get('slug') != slug}
+    alle[code] = {'slug': slug, 'nachten': nachten, 'aankomstdagen': sorted(dagen) if dagen else None,
+                  'zondag': zondag, 'standaardkamer': std}
+    nieuw = json.dumps(dict(sorted(alle.items())), ensure_ascii=False, indent=2) + '\n'
+    try:
+        with open(KALENDER_JSON, encoding='utf-8') as f:
+            oud = f.read()
+    except OSError:
+        oud = None
+    if nieuw != oud:
+        with open(KALENDER_JSON, 'w', encoding='utf-8') as f:
+            f.write(nieuw)
     return html
 
 

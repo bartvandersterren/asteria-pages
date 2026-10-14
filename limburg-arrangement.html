@@ -36,7 +36,7 @@
   <link rel="preload" as="image" href="fotos/l26-limburg-arrangement-hero.webp" type="image/webp">
   <link rel="stylesheet" href="lander-w1.css">
   <script src="lander-w1.js" defer></script>
-  <link rel="stylesheet" href="arrangement.css"><script src="arrangement.js" defer></script>
+  <link rel="stylesheet" href="arrangement.css"><link rel="stylesheet" href="arrangement-kalender.css"><script src="arrangement.js" defer></script><script src="arrangement-kalender.js" defer></script>
 
   <!-- GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
@@ -524,6 +524,24 @@
     </div>
   </dialog>
   <div class="lp-pop-overlay" hidden></div>
+  <!-- ══ PRIJSKALENDER "Kies je nachten" (alleen arrangementen; arrangement-kalender.js/.css, prijzen uit /api/arr-kalender).
+       Port van de Parkhotel-bouwsteen blok-kalender-prijs. Elke .mews-open met data-voucher = de code en de datumvelden/knoppen
+       van de boekbalken openen eerst deze kalender. Attributen en teksten vult build.py apply_arrangement() uit de JSON. ══ -->
+  <dialog class="ark" id="ar-kal" aria-labelledby="ar-kal-kop" data-code="LIMBURG" data-nachten="3" data-aankomstdagen="" data-zondag="ja" data-kamer-standaard="98900f3b-e5e2-49c9-9776-af1d00ffc315" data-kamers="{&quot;98900f3b-e5e2-49c9-9776-af1d00ffc315&quot;:&quot;Comfort kamer&quot;,&quot;a8fd7310-0d61-422f-89e6-af1d00ffc315&quot;:&quot;Royale kamer&quot;,&quot;c737de50-e41e-4c8d-a818-af1d00ffc315&quot;:&quot;Deluxe kamer&quot;,&quot;4a642b66-68e6-444c-beeb-af1d00ffc315&quot;:&quot;Suite&quot;}"
+    data-aankomst="aankomst" data-vertrek="vertrek" data-vertrek-vraag="vertrek?" data-nacht="nacht" data-nachten-woord="nachten" data-vorige="Vorige maand" data-volgende="Volgende maand">
+    <div class="ark-greep" aria-hidden="true"></div>
+    <div class="ark-kopr"><div><p class="ark-kop" id="ar-kal-kop">Kies je aankomstdag</p><p class="ark-sub">Klik op je aankomstdag. Je vertrek na 3 nachten komt er vanzelf bij.</p></div><button type="button" class="ark-x" aria-label="Sluiten"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+    <div class="ark-mid">
+      <div class="ark-kal"><div class="ark-maanden"></div><p class="ark-noot">Prijs per persoon voor 3 nachten bij aankomst op die dag, <span class="ark-kamer"></span>, 2 personen</p></div>
+      <div class="ark-leg"><span><i class="o"></i>Goud: aankomst op zondag, € 20 per kamer voordeliger</span><span><i class="c"></i>Grijs: geen aankomst mogelijk</span><span><i class="s"></i>Gevuld: je gekozen nachten</span></div>
+    </div>
+    <div class="ark-voet">
+      <div class="ark-samen"><span class="ark-wat" aria-live="polite"></span><button type="button" class="ark-wis" hidden>Wissen</button></div>
+      <button type="button" class="btn btn-primary ark-btn" disabled>Bekijk kamers en prijzen</button>
+      <p class="ark-code">Actiecode <b>LIMBURG</b> wordt automatisch ingevuld</p>
+    </div>
+    <span class="ark-tip" aria-hidden="true"></span>
+  </dialog>
   <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>
 
   <script type="application/json" id="lp-facdata">

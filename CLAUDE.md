@@ -227,8 +227,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   - `ARR_NACHTEN` (getal, standaard 1): vast aantal nachten (Limburg 3, Weekend 2). Build zet `data-nachten` op beide
     `form[data-boekbalk]`; `arrangement.js` zet het vertrek op aankomst + N bij elke aankomstkeuze, corrigeert een te kort
     vertrek en zet het vlak voor verzenden nog eens (capture-listener vóór de submit van lander-w1.js), zodat widget
-    (setStartDate/setEndDate) en URL-fallback (mewsStart/mewsEnd) N nachten krijgen. Knoppen zonder datum (zijkaart,
-    kamers) openen de widget zonder datums. Aankomstdag (bijv. alleen vr/za) dwingt de balk niet af: noem hem in `BOEKBALK_NOOT`.
+    (setStartDate/setEndDate) en URL-fallback (mewsStart/mewsEnd) N nachten krijgen. Sinds de prijskalender (zie onder)
+    openen alle boekknoppen eerst de kalender; die dwingt N nachten en de aankomstdagen (`ARR_AANKOMSTDAGEN`) af. Noem de
+    aankomstdag ook in `BOEKBALK_NOOT`.
   - Actiecodeveld in de boekbalk: `arrangement.js` maakt het zo breed als de code (codes tot ±14 tekens passen op 1280/1440).
   - Zijkaart/telefoonkaart: `KAART_KOP`, `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID` ("p.p. per nacht"), `ARR_VOORWAARDEN`
     (annuleren alleen noemen als het vaststaat), `KAART_VINK_A..D`, `KAART_KNOP`, `KAART_TRUST`, `ARR_MOB_NOOT`.
@@ -265,6 +266,29 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   (lus met 2n klonen vanaf 3, raster bij 1-2), FAQ 4-8, zondagchecks alleen met zondagblok (zonder: geen blok, geen zondagregel,
   geen zondag-FAQ), actiecode volledig zichtbaar (ook 14 tekens), vertrek = aankomst + data-nachten en widget krijgt N nachten.
   Gotcha: draait er op 8765 al een server uit een andere worktree, start dan een eigen server met `--directory` op een andere poort.
+- **Prijskalender "Kies je nachten" (okt 2026, port van de Parkhotel-bouwsteen blok-kalender-prijs):** dialoog `#ar-kal` in het
+  arrangement-deel van het sjabloon, `arrangement-kalender.js` + `arrangement-kalender.css` (prefix `ark-`, alleen via blok
+  `arrangement`), API `functions/api/arr-kalender.js` (`GET /api/arr-kalender?code=NAJAAR2D&maand=2026-11&deel=1..4[&vers=1]`).
+  - Elke `.mews-open` met `data-voucher` = de code (zijkaart, telefoonkaart, inbegrepen, kamers, onderbalk, kop, voet, kamer-pop-up)
+    en de datumvelden + knoppen van beide boekbalken openen eerst de kalender (capture op window, vóór lander-w1.js; geen native
+    datumkiezer meer). Bureaublad: zwevende kaart van 740 px naast de knop, 2 maanden. Telefoon: bottom sheet (showModal), 1 maand.
+  - Cel = EUR ceil(prijs_cent/100/2): p.p. per nacht, bij vaste nachten p.p. voor het hele verblijf. Zondag goud (zand + terracotta
+    rand) met de lagere prijs; grijs doorgestreept = niet beschikbaar. Normaal A/B kiezen (vertrekken mag op een grijze dag);
+    vaste nachten: één klik = aankomst + N, alleen `aankomst_mag`-dagen (Weekend vr/za).
+  - Bevestigen: datums in de hero-boekbalk; zonder kamer `requestSubmit()` (bestaande widgetflow, `window.lpBoekbalk`), met kamer
+    (kamerknop) een tijdelijke `.mews-open` met `data-room` en een href met mewsStart/mewsEnd via de Mews-poort van lander-w1.js,
+    met `setStartDate/setEndDate` vooraf (`window.arKalender` = log). lander-w1.js/.css blijven ongewijzigd.
+  - Instellingen per code: `content/arr-kalender.json`, door build.py (`apply_kalender`) gegenereerd uit de arrangement-JSON's
+    (`VOUCHER`, `ARR_NACHTEN`, nieuw optioneel `ARR_AANKOMSTDAGEN` = weekdagnummers 0 = zondag, Weekend `[5, 6]`, `ZV_TOON`,
+    standaardkamer = eerste `inbegrepen` uit `_kamers`). Niet met de hand bewerken; meecommitten na een build. Onbekende code = 400.
+  - API: per dag één getAvailability (StartUtc = aankomst, EndUtc = + nachten, 2 volwassenen, voucher); per categorie de laagste
+    Total over de PRIVÉ-tarieven in het antwoord (`Rates[].IsPrivate`; Mews geeft met een code ook de publieke kamertarieven terug,
+    die tellen niet mee). Zondag (`ZV_TOON`): niet lager dan za/ma = korting nog niet in Mews -> gewoon - EUR 20 per kamer,
+    `berekend:true`; wel lager = echte Mews-prijs. Cache API 6 u per code/maand/deel (5 min met storingsdagen), concurrency 2,
+    3 pogingen, subrequestteller < 45, tijdbudget 25 s; de pop-up vraagt hoogstens 4 delen tegelijk.
+  - Test: `python3 scripts/test_arr_kalender.py http://localhost:8765/najaarsarrangement.html [--echt] [--schermafdruk qa/arr-kalender]`
+    (mockt /api/arr-kalender; `--echt` tegen `npx wrangler pages dev . --port 8788` of de preview). `test_lander_w1.py` zet de
+    kalender in arrangementmodus uit (lege arrangement-kalender.js), zodat de oude Mews-checks blijven gelden.
 - Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
   geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).
