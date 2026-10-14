@@ -1,0 +1,307 @@
+{
+  "_controleren": [
+    "Bron inhoud: https://www.asteria.nl/arrangementen/golfarrangement (14 okt 2026) en de tariefomschrijving in Mews (gelijkluidend). visit.asteria.nl heeft geen golfpagina (/golf en /golfarrangement geven de lege standaardpagina). Staging-overzicht noemt '1 nacht'.",
+    "Periode: de bron noemt geen periode of laatste boekdatum. Mews geeft met GOLF tarieven van okt 2026 t/m in elk geval apr 2027 (juli 2027 alleen nog de Mindervalide kamer). Pagina noemt daarom geen periode; graag bevestigen of het arrangement het hele jaar boekbaar is.",
+    "Zondagvoordeel: de zondagkorting zit niet in Mews. Gemeten 14 okt 2026 (config 6dc9094c, GOLF, 2 volwassenen, 1 nacht): zondag 18 en 25 okt, 1, 8, 15, 22 en 29 nov en dinsdag 20 en 27 okt, 3, 10, 17 en 24 nov, 1 dec allemaal EUR 371,00 voor 2 personen in de Royale kamer (EUR 185,50 p.p.). De zondagprijs op de pagina (EUR 175,50 p.p.) is berekend als gewone prijs min EUR 10 p.p. (EUR 20 per kamer). Eerst de korting in Mews zetten, anders ZV_TOON op false.",
+    "Kamertoeslagen gemeten in Mews met GOLF (2 personen, 1 nacht): Royale EUR 371 (185,50 p.p.), Deluxe 381 (190,50), Junior Suite 391 (195,50), Suite 401 (200,50), Bruidssuite 421 (210,50). Comfort 3 personen en Mindervalide geven ook EUR 371; de gewone Comfort kamer krijgt met GOLF geen tarief. Comfort 3 en Mindervalide staan niet op de pagina.",
+    "Weekenden: vrijdag 6 en 13 nov en zaterdag 7 nov gaven met GOLF geen enkele kamer terug (zaterdag 21 nov wel). Uitverkocht of een beperking op het tarief?",
+    "Golfbaan kiezen: de bron zegt dat je de gewenste golfbaan bij het reserveren telefonisch doorgeeft. Online boeken via Mews vraagt daar niet naar; pagina en FAQ zeggen: bel na het boeken de receptie. Klopt die werkwijze?",
+    "Consumptie: de bron zegt 'Greenfee ... inclusief een consumptie'. De pagina gaat ervan uit dat die consumptie op de golfbaan is.",
+    "Starttijd op de golfbaan en of de greenfee op de aankomst- of vertrekdag valt: onbekend, staat niet op de pagina.",
+    "Tweede nacht: Mews geeft met GOLF voor 3 t/m 5 nov EUR 742,00 voor 2 personen (Royale), precies twee keer het arrangement. Zit er dan ook een tweede greenfee en diner in? De FAQ zegt alleen dat het kan en dat je de prijs bij het boeken ziet.",
+    "Eenpersoonskamer: EUR 241,- p.p. komt van asteria.nl, niet gemeten in Mews (gemeten is alleen 2 volwassenen).",
+    "Annuleringsvoorwaarden van het arrangementstarief: onbekend. De zijkaart noemt geen annuleren; de FAQ zegt: zie je bij het boeken.",
+    "Tijdenstrook: inchecken vanaf 15.00, uitchecken tot 11.00 (FAQ visit.asteria.nl), diner tot 21.30 (restaurant-pop-up), gratis parkeren (staging). Graag bevestigen.",
+    "Wellness Top Floor: niet in het arrangement. FAQ zegt: bijboeken via de receptie, ma-do 16.00-22.00, vr-zo 12.00-22.00 (zoals najaar). Kosten voor hotelgasten onbekend.",
+    "Foto's: hero en golffoto zijn de stockfoto van asteria.nl (golfarrangement-bij-hotel-asteria-1600x800_4.jpg), geen foto van Bleijenbeek of Geijsteren; de golfer staat links in beeld, achter de koptekst. Royale kamer uit fotos/room-royale-1.webp; diner (gedekte tafel) en ontbijt (broodmand) van de staging. l26-golfarrangement-diner-gast.webp is een kopie van l26-najaar-diner.webp.",
+    "Ook interessant: prijzen gemeten in Mews 14 okt 2026 (2 volwassenen, laagste kamer): Wellness EUR 279 (2026WELLNESS, 3 en 10 nov), Oorlogsmuseum EUR 262 (OORLOGSMUSEUM, 3 en 10 nov), Weekend aanbieding EUR 332 voor 2 nachten (WEEKEND, aankomst 20 nov; 6 en 13 nov gaven niets). Foto's oorlogsmuseum en weekend van de koppen op asteria.nl.",
+    "Waarom Asteria: vaste inhoud uit het sjabloon (zie najaar).",
+    "FAQ ontbijttijden (doordeweeks 07.00-10.00, weekend 08.00-10.30) komen van Lastminute.com, zoals op de najaarspagina."
+  ],
+  "PAGE_TITLE": "Golfarrangement met greenfee, diner en ontbijt | Hotel Asteria Venray",
+  "META_DESC": "Golfarrangement bij Hotel Asteria in Venray: greenfee voor 18 holes op Golfbaan Bleijenbeek of Golfclub Geijsteren, een Royale kamer, drie-gangen diner en ontbijtbuffet. Vanaf € 185,50 p.p.",
+  "CANONICAL_URL": "https://visit.asteria.nl/golfarrangement",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-golfarrangement-hero.webp",
+  "H_EEN_A": "Een dag golfen,",
+  "H_EEN_EM": "een avond aan tafel",
+  "SUB": "Greenfee voor 18 holes op Bleijenbeek of Geijsteren, daarna een drie-gangen diner, een nacht in een Royale kamer en het ontbijtbuffet.",
+  "HERO_IMG": "fotos/l26-golfarrangement-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:70%\"",
+  "HERO_ALT": "Golfer slaat af op de fairway, met een golftas op de voorgrond",
+  "VOUCHER": "GOLF",
+  "CODE_ATTR": "",
+  "CTA": "Boek het arrangement",
+  "ARR_PRIJS_PIL": "vanaf € 185,50 p.p.",
+  "ARR_PRIJS": "€ 185,50",
+  "ARR_PRIJS_EENHEID": "p.p.",
+  "KAART_KOP": "Golfarrangement",
+  "ARR_TRUST_A": "Beste prijs gegarandeerd",
+  "ARR_TRUST_B": "Directe bevestiging",
+  "KAART_IMG": "fotos/l26-golfarrangement-royale.webp",
+  "KAART_ALT": "Royale kamer met tweepersoonsbed en zithoek bij Hotel Asteria",
+  "KAART_PIL": "Greenfee en diner inbegrepen",
+  "KAART_VINK_A": "Greenfee voor 18 holes",
+  "KAART_VINK_B": "Drie-gangen diner",
+  "KAART_VINK_C": "Royale kamer",
+  "KAART_VINK_D": "Ontbijtbuffet",
+  "KAART_KNOP": "Boek het arrangement",
+  "KAART_TRUST": "Boek direct bij het hotel · Actiecode GOLF",
+  "BOEKBALK_KNOP": "Boek het arrangement",
+  "BOEKBALK_NOOT": "Actiecode GOLF staat al voor je ingevuld",
+  "KAMER_KOP_A": "In welke",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "slaap je?",
+  "KAMER_SUB": "Het arrangement is op basis van een Royale kamer met koffiezetapparaat, waterkoker, airconditioning, zithoek en gratis wifi. Wil je meer ruimte, kies dan een grotere kamer tegen een toeslag.",
+  "KAMER_PIL": "Inbegrepen",
+  "KAMER_NOOT": "Prijs per persoon per nacht op basis van een tweepersoonskamer, exclusief € 2,– verblijfsbelasting per persoon per nacht. Op een eenpersoonskamer betaal je € 241,– per persoon. De actuele prijs zie je bij het boeken.",
+  "_kamers": {
+    "royale": {
+      "pil": "Inbegrepen",
+      "soort": "inbegrepen",
+      "prijs_label": "vanaf",
+      "prijs": "€ 185,50 p.p."
+    },
+    "deluxe": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 190,50 p.p."
+    },
+    "junior-suite": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 195,50 p.p."
+    },
+    "suite": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 200,50 p.p."
+    },
+    "bruidssuite": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 210,50 p.p."
+    }
+  },
+  "POP_BADGE": "Golfarrangement",
+  "REVIEW_KOP_A": "Waarom gasten graag",
+  "REVIEW_KOP_EM": "terugkomen",
+  "SLOT_KOP_A": "Je",
+  "SLOT_KOP_EM": "golfdag",
+  "SLOT_KOP_B": "staat klaar",
+  "SLOT_TEKST": "Boek het golfarrangement met code GOLF: greenfee voor 18 holes, een Royale kamer, diner en ontbijt. Vragen over de golfbaan? We helpen je graag verder.",
+  "STICKY_KOP": "Golfarrangement",
+  "STICKY_SUB": "vanaf € 185,50 p.p.",
+  "STICKY_KNOP": "Boek nu",
+  "SLOT_FOTO_A": "fotos/l26-golfarrangement-hero.webp",
+  "SLOT_FOTO_A_POS": "30% center",
+  "SLOT_FOTO_B": "fotos/l26-golfarrangement-diner.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p.p. per nacht",
+  "ARR_VOORWAARDEN": "Royale kamer, 2 personen · 1 nacht",
+  "ARR_MOB_NOOT": "Code GOLF staat al ingevuld",
+  "INB_KOP_A": "Dit is",
+  "INB_KOP_EM": "inbegrepen",
+  "ARR_INB_INTRO": "Je kiest de golfbaan, wij regelen de rest: de greenfee, het diner, je kamer en het ontbijt de volgende ochtend.",
+  "ZV_TOON": true,
+  "ZV_KOP_A": "Op zondag",
+  "ZV_KOP_EM": "€ 20 per kamer",
+  "ZV_KOP_B": "voordeliger",
+  "ZV_PIL": "− € 20 per kamer",
+  "ZV_ZONDAG_KOP": "Aankomst op zondag",
+  "ZV_ZONDAG_PRIJS": "€ 175,50",
+  "ZV_GEWOON_PRIJS": "€ 185,50",
+  "ZV_ZONDAG_REGEL": "Korting automatisch verrekend met code GOLF",
+  "ZV_ANDERS_KOP": "Aankomst ma t/m za",
+  "ZV_ANDERS_REGEL": "Gewone prijs op de andere aankomstdagen",
+  "ZV_VOETNOOT": "Prijzen op basis van 2 personen in een Royale kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.",
+  "ZV_KAART_REGEL": "Op zondag <b>€ 20 per kamer</b> voordeliger",
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": true,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "golf",
+    "diner",
+    "dinner",
+    "ontbijt"
+  ],
+  "_chips": [
+    "Greenfee voor 18 holes",
+    "Bleijenbeek of Geijsteren",
+    "Diner en ontbijt"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Greenfee voor 18 holes",
+      "regel": "Golfbaan Bleijenbeek of Golfclub Geijsteren, met een consumptie",
+      "icoon": "<line x1=\"6\" y1=\"2\" x2=\"6\" y2=\"20\"/><path d=\"M6 3l11 4-11 4\"/><ellipse cx=\"9\" cy=\"20.5\" rx=\"6\" ry=\"1.5\"/>"
+    },
+    {
+      "titel": "Golfbaan voor je gereserveerd",
+      "regel": "geef je keuze telefonisch door",
+      "icoon": "<path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z\"/>"
+    },
+    {
+      "titel": "Drie-gangen diner",
+      "regel": "in het restaurant van Asteria",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Royale kamer",
+      "regel": "met airconditioning en zithoek",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Uitgebreid ontbijtbuffet",
+      "regel": "de volgende ochtend",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-golfarrangement-golf.webp",
+      "alt": "Golftas met clubs op de fairway, op de achtergrond een golfer",
+      "pos": "35% 50%"
+    },
+    {
+      "img": "fotos/l26-golfarrangement-royale.webp",
+      "alt": "Royale kamer met tweepersoonsbed, zithoek en groot raam",
+      "pos": "40% 50%"
+    },
+    {
+      "img": "fotos/l26-golfarrangement-diner.webp",
+      "alt": "Gedekte tafel met wijnglazen en menukaart in het restaurant",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-golfarrangement-diner-gast.webp",
+      "alt": "Gast aan tafel in het restaurant tijdens het diner",
+      "pos": "55% 50%"
+    },
+    {
+      "img": "fotos/l26-golfarrangement-ontbijt.webp",
+      "alt": "Mand met verse broodjes op het ontbijtbuffet",
+      "pos": "50% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Inchecken vanaf 15.00",
+      "icoon": "<path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\"/><polyline points=\"10 17 15 12 10 7\"/><line x1=\"15\" y1=\"12\" x2=\"3\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Uitchecken tot 11.00",
+      "icoon": "<path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><polyline points=\"16 17 21 12 16 7\"/><line x1=\"21\" y1=\"12\" x2=\"9\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Diner tot 21.30",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Gratis parkeren",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Wat zit er in het golfarrangement?",
+      "a": "Een greenfee voor 18 holes op Golfbaan Bleijenbeek of Golfclub Geijsteren inclusief een consumptie, een drie-gangen diner in het restaurant van Asteria, een overnachting in een Royale kamer en de volgende ochtend het uitgebreide ontbijtbuffet. Vanaf € 185,50 per persoon, op basis van twee personen; de verblijfsbelasting van € 2,– per persoon per nacht komt erbij."
+    },
+    {
+      "q": "Hoe kies ik de golfbaan?",
+      "a": "Je kiest uit Golfbaan Landgoed Bleijenbeek in Afferden, een glooiende baan in het Maasduinengebied met waterpartijen, oude bomenlanen en een kasteelruïne, of Golfclub Geijsteren, een bosrijke baan op een historisch landgoed met 5 waterholes aan het eind."
+    },
+    {
+      "q": "Hoe geef ik mijn golfbaan door?",
+      "a": "Geef je keuze telefonisch door aan de receptie; wij reserveren de baan voor je. Boek je online, bel dan na het boeken even met de receptie."
+    },
+    {
+      "q": "Hoe laat is het ontbijt?",
+      "a": "Het ontbijtbuffet staat doordeweeks klaar van 07.00 tot 10.00 uur en in het weekend van 08.00 tot 10.30 uur."
+    },
+    {
+      "q": "Kan ik ook alleen komen?",
+      "a": "Ja. Op een eenpersoonskamer kost het golfarrangement € 241,– per persoon, exclusief verblijfsbelasting. Bel de receptie als je wilt boeken voor één persoon."
+    },
+    {
+      "q": "Kan ik een tweede nacht bijboeken?",
+      "a": "Ja. Kies bij het boeken een latere vertrekdatum; de prijs voor de extra nacht zie je direct in het boekingsscherm. Wil je iets anders combineren, bel dan even met de receptie."
+    },
+    {
+      "q": "Is er korting op zondag?",
+      "a": "Ja. Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met code GOLF en geldt eenmalig per kamer per verblijf dat op zondag begint.",
+      "zondag": true
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    }
+  ],
+  "_andere": [
+    {
+      "naam": "Wellness Arrangement",
+      "url": "https://visit.asteria.nl/wellness-arrangement",
+      "img": "fotos/wt-arr.webp",
+      "alt": "Gast in badjas leest een tijdschrift in de relaxruimte",
+      "prijs": "vanaf € 139,50 p.p."
+    },
+    {
+      "naam": "Oorlogsmuseum Arrangement",
+      "url": "https://visit.asteria.nl/oorlogsmuseum-arrangement",
+      "img": "fotos/l26-golfarrangement-andere-oorlogsmuseum.webp",
+      "alt": "Legervoertuig in een nagebouwde strandscène in het oorlogsmuseum",
+      "prijs": "vanaf € 131,00 p.p."
+    },
+    {
+      "naam": "Weekend aanbieding",
+      "url": "https://visit.asteria.nl/weekend-aanbieding",
+      "img": "fotos/l26-golfarrangement-andere-weekend.webp",
+      "alt": "Hotel Asteria met de vijver en fontein ervoor",
+      "prijs": "vanaf € 166,00 p.p. voor 2 nachten"
+    }
+  ],
+  "_fotowolk": [
+    {
+      "img": "fotos/l26-golfarrangement-royale.webp",
+      "pos": "35% center"
+    },
+    {
+      "img": "fotos/l26-fac-ontbijt-2.webp"
+    },
+    {
+      "img": "fotos/l26-fac-restaurant-1.webp"
+    },
+    {
+      "img": "fotos/l26-terras.webp"
+    },
+    {
+      "img": "fotos/l26-kamer-royale-2.webp"
+    },
+    {
+      "img": "fotos/l26-golfarrangement-diner-gast.webp",
+      "pos": "58% center"
+    },
+    {
+      "img": "fotos/l26-arr-bar-staand.webp"
+    },
+    {
+      "img": "fotos/l26-hotel-zonsondergang.webp"
+    },
+    {
+      "img": "fotos/l26-fac-restaurant-4.webp"
+    },
+    {
+      "img": "fotos/l26-golfarrangement-ontbijt.webp"
+    },
+    {
+      "img": "fotos/l26-hotel-buiten.webp"
+    },
+    {
+      "img": "fotos/l26-omg-bossen.webp",
+      "pos": "45% center"
+    }
+  ]
+}

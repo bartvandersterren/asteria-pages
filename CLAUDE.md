@@ -128,7 +128,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 
 ## Actieve campaign pagina's
 
-- `wellness-arrangement.html` → `visit.asteria.nl/wellness-arrangement` — wellness arrangement lander (3 talen via template)
+- `wellness-arrangement.html` → `visit.asteria.nl/wellness-arrangement` — sinds okt 2026 het arrangementsjabloon (lander-w1, alleen NL, zie Arrangementen op lander-w1); oude NL-lander op `/wellness-arrangement-oud` (noindex), EN/DE ongewijzigd op `-en`/`-de`
 - `hotel-venray.html` → `visit.asteria.nl/hotel-venray` — branded Google Ads lander, meest up-to-date
 - `lander-google.html` → `visit.asteria.nl/lander-google` — actieve PMax campaign final URL (onderhoud nodig)
 - Beide hebben Mews inline widget + Google Ads + GA4 tracking
@@ -150,7 +150,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - **Bouwen:** `python3 build.py` → bouwt alle templates (wellness + feedback)
 - **Selectief:** `python3 build.py feedback` of `python3 build.py wellness nl`
 - **Templates:**
-  - `wellness-arr-c.template.html` + `translations/{nl,en,de}.json` → wellness-arrangement HTMLs
+  - `wellness-arr-c.template.html` + `translations/{nl,en,de}.json` → `wellness-arrangement-oud.html` (NL, noindex via `'noindex': ('nl',)` in build.py) + `wellness-arrangement-en/-de.html`; zelfde voor `najaar.template.html` → `najaarsarrangement-oud.html` + `-en/-de`
   - `feedback.template.html` + `translations/feedback-{nl,en,de}.json` → feedback HTMLs
 - **Wijziging aanbrengen:** pas JSON aan → `python3 build.py` → commit template + JSONs + HTMLs
 - `generate_translations.py` = eenmalig bootstrapscript, niet meer nodig voor dagelijks gebruik
@@ -191,6 +191,84 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Vaste feiten (Stijn, 14 okt 2026): Royale en Deluxe 25 m²; badjas te leen; ontbijt ma-vr 07.00-10.00, za-zo 08.00-10.30;
   VERJAARDAG = verblijf rond je verjaardag, verjaardag melden bij het boeken; Google-reviews 2.280 (hero-badge mag "2.200+").
 
+### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
+
+- Zelfde sjabloon als de flow-landers, met build-blokken `zijkaart` + `arrangement`. Eerste pagina: `najaarsarrangement`
+  (`translations/najaarsarrangement-nl.json`, voucher NAJAAR2D, foto's `fotos/l26-najaar-*.webp`).
+- **LIVE sinds 14 okt 2026 (PR #162)** op de nette adressen, alle zes noindex, follow, niet in sitemap.xml, canonical/og:url op het
+  nette adres; build-entry = slug = `translations/<slug>-nl.json` -> `<slug>.html`:
+  `/najaarsarrangement` (NAJAAR2D), `/wellness-arrangement` (WELLNESS2026), `/oorlogsmuseum-arrangement` (OORLOGSMUSEUM),
+  `/limburg-arrangement` (LIMBURG), `/weekend-aanbieding` (WEEKEND, zonder zondagblok), `/golfarrangement` (GOLF).
+  Oude NL-pagina's: `/najaarsarrangement-oud` (najaar.template.html, oude config bee2f902) en `/wellness-arrangement-oud`
+  (wellness-arr-c.template.html), beide noindex; hun EN/DE (`-en`/`-de`) zijn ongewijzigd. De preview-adressen
+  `/najaarsarrangement-v2`, `/wellness-arrangement-v3`, `/oorlogsmuseum-arrangement-v2`, `/limburg-arrangement-v2`,
+  `/weekend-aanbieding-v2`, `/golfarrangement-v2` sturen met een 301 door (`_redirects`); de HTML-bestanden zijn weg.
+  `/wellness-arrangement-v2` is een losse oude pagina (geen build-entry) en blijft staan.
+  `_andere` (Ook interessant) linkt naar elkaars visit.asteria.nl-adres; kerst blijft naar asteria.nl.
+- **Opbouw (wireframe-ideaal 14 okt 2026, bron `~/Documents/Parkhotel /Website ontwerp/asteria-arrangement-blokkenkiezer/bron/wireframe-ideaal.html`):**
+  1 hero + boekbalk met prijs-pil en chips, zijkaart (sticky, zonder foto) naast 2-5 die stopt na de kamers, 2 dit is inbegrepen
+  (ronde 2, 14 okt: gespiegeld Parkhotel-blok 'Het wellnessarrangement' van /wellness/: ivoren paneel vanaf de linker schermrand,
+  rechts een staande fotoslider die 47 px boven het paneel uitsteekt, bolletjes + pijlen; vinkjes in 2 kolommen vanaf 1440 (1280-1439: een kolom, foto 260 breed),
+  vanaf-prijs, knop + tekstlink asteria.nl/arrangementen; telefoon: paneel, daaronder de slider van 290 hoog; tijdenregel met hairline in het paneel onder de vinkjes; 14 okt: paneel loopt 61 px
+  onder de foto door zoals zd-alles, inhoud 56 px boven/onder, `display:flow-root` op het blok tegen margin-collapse),
+  3 zondagvoordeel (variant a9 zoals Parkhotel, zie onder), 4 waarom Asteria (vaste inhoud; draaiend wiel zoals de staging-homepage:
+  4 klonen voor en na, autoplay 2400 ms alleen in beeld, pijlen omhoog/omlaag pauzeren 6 s, foto wisselt mee met crossfade,
+  foto's `fotos/l26-waarom-<punt>.webp` met data-foto/data-pos in het sjabloon; geen autoplay bij reduced motion),
+  5 kamers, 6 reviewmuur, 7 FAQ + contactkaart, 8 ook interessant, 9 fotowolk. Geen tegelstrook
+  (b2a) en geen attentie-ster-split. Telefoon: boekkaart onder de hero (prijs, zondagregel, knop, codenoot), daarna de onderbalk.
+  Stijl in `arrangement.css` (prefix `ar-`), script `arrangement.js` (zijkaart bij het kamerraster, fotoslider, zondagopties,
+  wiel); beide alleen via het blok
+  `arrangement` geladen, dus flow-landers raken ze niet. Eén reviewgetal: `{{REVIEWS_AANTAL}}` = `aantal` uit
+  `content/reviews-google-asteria.json` (badge, zijkaart, reviewkop).
+- **Nieuw arrangement toevoegen:** kopieer `translations/najaarsarrangement-nl.json` naar `translations/<slug>-nl.json`,
+  pas teksten/foto's/VOUCHER/CANONICAL_URL aan, zet de slug in de arrangement-lijst in build.py en draai `python3 build.py <slug>`.
+  Velden:
+  - Hero: `ARR_PRIJS_PIL`, `_chips` (lijst van 3 korte teksten). `BOEKBALK_NOOT` = regel onder de boekbalk (bijv. aankomstdagen).
+  - `ARR_NACHTEN` (getal, standaard 1): vast aantal nachten (Limburg 3, Weekend 2). Build zet `data-nachten` op beide
+    `form[data-boekbalk]`; `arrangement.js` zet het vertrek op aankomst + N bij elke aankomstkeuze, corrigeert een te kort
+    vertrek en zet het vlak voor verzenden nog eens (capture-listener vóór de submit van lander-w1.js), zodat widget
+    (setStartDate/setEndDate) en URL-fallback (mewsStart/mewsEnd) N nachten krijgen. Knoppen zonder datum (zijkaart,
+    kamers) openen de widget zonder datums. Aankomstdag (bijv. alleen vr/za) dwingt de balk niet af: noem hem in `BOEKBALK_NOOT`.
+  - Actiecodeveld in de boekbalk: `arrangement.js` maakt het zo breed als de code (codes tot ±14 tekens passen op 1280/1440).
+  - Zijkaart/telefoonkaart: `KAART_KOP`, `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID` ("p.p. per nacht"), `ARR_VOORWAARDEN`
+    (annuleren alleen noemen als het vaststaat), `KAART_VINK_A..D`, `KAART_KNOP`, `KAART_TRUST`, `ARR_MOB_NOOT`.
+  - Inbegrepen: `INB_KOP_A/EM`, `ARR_INB_INTRO` (een of twee zinnen), `_inbegrepen` (lijst `{titel, regel, icoon}`; icoon =
+    svg-paden, in een zandvakje; 4 tot 8 punten), `_inbegrepen_fotos` (lijst `{img, alt, pos}`, 4 tot 6, anders stopt de build;
+    `pos` = object-position, want de foto is staand op het bureaublad en liggend op de telefoon), `_tijden` (lijst `{tekst, icoon}`
+    voor de tijdenstrook). Prijs en knop komen uit `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID`, `CTA`.
+  - Zondagvoordeel: `ZV_TOON` (true/false; uit bij kerst en oud en nieuw), `ZV_KOP_A/EM/B`, `ZV_PIL`, `ZV_ZONDAG_KOP`,
+    `ZV_ZONDAG_PRIJS`, `ZV_GEWOON_PRIJS`, `ZV_ZONDAG_REGEL`, `ZV_ANDERS_KOP`, `ZV_ANDERS_REGEL`, `ZV_VOETNOOT`,
+    `ZV_KAART_REGEL` (zondagregel in de zijkaart), gekozen vorm (14 okt): a9, zoals het Parkhotel-blok zondagvoordeel: ivoren paneel met kop, twee kaarten erin (zondag met terracotta rand en pil op de titelregel, gewone kaart kleiner/grijs), voetnoot in het paneel. Geen `?zv`-opties meer. Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en
+    doordeweekse aankomst); zit de korting niet in Mews, dan gewone prijs - EUR 10 p.p. en een regel in `_controleren`.
+  - Waarom Asteria: `WAAROM_TOON` (standaard true); inhoud staat vast in het sjabloon.
+  - Kamers: `_kamers` = welke kamers, volgorde, pil en prijsregel:
+    `{"deluxe": {"pil": "Inbegrepen", "soort": "inbegrepen", "prijs_label": "vanaf", "prijs": "€ 128,50 p.p."},
+      "suite": {"pil": "Upgrade", "soort": "upgrade", "prijs": "Upgrade mogelijk"}}` (soort `inbegrepen` = terracotta rand,
+    `upgrade` of `toeslag`). Vanaf 3 kamers de brede slider met lus zoals /bedankt (twee kaarten van 390 px in de zijkaartzone op
+    1440, teller en streepjes volgen het aantal); 1 of 2 kamers: raster `.ar-kamers` zonder slider/lus/teller. Plus `KAMER_KOP_*`, `KAMER_SUB`, `KAMER_NOOT`.
+  - Reviews: `_reviews_aantal` (8 of 12, anders stopt de build), `_reviews_voorkeur` (woorden; reviews die er een noemen eerst).
+  - FAQ: `_faq` (lijst `{q, a}`, 4 tot 8 vragen, eerste staat open; `"zondag": true` = alleen met ZV_TOON). Geen herhaling van de tijdenstrook.
+  - Ook interessant: `ANDERE_TOON` + `_andere` (lijst `{naam, url, img, alt, prijs?}`; prijs alleen als hij bekend is, url met
+    curl op 200 checken).
+  - Fotowolk: `_fotowolk` (optioneel, precies 12 items `{img, pos?}` of een pad) vervangt in volgorde de 12 vaste foto's van
+    blok 7a; `SLOT_FOTO_A/B` blijven. Volgorde/formaten: tall, tall, vierkant x3, staand 1:2 x3, vierkant x2, tall, tall;
+    op de telefoon zichtbaar: 1, 4, 9, 11, 12 (+ SLOT_FOTO_A). Zonder lijst de vaste set (wellness, bar). Limburg en Golf hebben er een.
+  - Verder `STICKY_KOP/SUB/KNOP` (onderbalk), `SLOT_*` (fotowolk), `POP_BADGE`, `REVIEW_KOP_*`. Onzekere feiten in
+    `_controleren` (lijst; `_`-keys en niet-tekstwaarden gaan niet de {{KEY}}-pass in).
+- Blokken in het sjabloon zijn zo geplaatst dat landers zonder blok `arrangement` byte-identiek blijven; controleer na
+  sjabloonwijzigingen: alle entries bouwen vóór en na en `cmp` (zo gedaan bij de invoering).
+- Test: `python3 scripts/test_lander_w1.py http://localhost:8765/najaarsarrangement.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50" [--schermafdruk qa/najaarsarrangement]`
+  (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk, zondagblok (paneel met kop,
+  2 kaarten, pil in de zondagkaart), Waarom Asteria (6 punten + 8 klonen, pijl verandert --active en
+  foto), kamerslider met lus bij 3 kamers, inbegrepen-paneel tot de linker schermrand + fotoslider (pijlen, bolletjes), reviewmuur
+  8/12, geen b2a, zijkaart met foto, zijkaart loopt mee en stopt na de kamers). Generiek sinds 14 okt: kamers = aantal op de pagina
+  (lus met 2n klonen vanaf 3, raster bij 1-2), FAQ 4-8, zondagchecks alleen met zondagblok (zonder: geen blok, geen zondagregel,
+  geen zondag-FAQ), actiecode volledig zichtbaar (ook 14 tekens), vertrek = aankomst + data-nachten en widget krijgt N nachten.
+  Gotcha: draait er op 8765 al een server uit een andere worktree, start dan een eigen server met `--directory` op een andere poort.
+- Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
+  Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
+  geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).
+
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 
 - Eén sjabloon voor alle seizoenen: `seizoen.template.html` + `seizoen.css` (laadt na `lander-w1.css`, blokken met prefix `hf-`)
@@ -213,5 +291,5 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   -> waarden in `PRIJS_*` van de JSON zetten en opnieuw bouwen.
 - Test: `python3 -m http.server 8765` + `python3 scripts/test_seizoen.py <seizoen> [--schermafdruk qa/<seizoen>]`
   (Playwright, 1440 en 390, 31 checks). `qa/` staat niet in git.
-- Open: rebooking-mail 04 (asteria-flows) linkt nog naar /najaarsarrangement; omzetten na livegang. Lente heeft nog geen
+- Rebooking-mail 04 (asteria-flows) en herfst `ARR_URL` linken naar /najaarsarrangement = sinds 14 okt het nieuwe arrangement. Lente heeft nog geen
   eigen aspergepagina (knop naar asteria.nl/arrangementen); Happy Summer-periode 2027 controleren.

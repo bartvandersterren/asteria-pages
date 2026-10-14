@@ -1,0 +1,233 @@
+{
+  "_controleren": [
+    "Zondagvoordeel: de zondagkorting is nog niet actief in Mews Asteria. Gemeten 14 okt 2026 (config 6dc9094c, NAJAAR2D, 2 volwassenen, 1 nacht): zondag 25 okt, 1, 8 en 15 nov en dinsdag 27 okt, 3, 10 en 17 nov allemaal EUR 257,00 voor 2 personen (EUR 128,50 p.p.). De zondagprijs op de pagina (EUR 118,50 p.p.) is berekend als gewone prijs min EUR 10 p.p. (EUR 20 per kamer). Eerst de korting in Mews zetten, anders ZV_TOON op false.",
+    "Periode: de huidige pagina zegt 'Boekbaar van 8 september t/m 30 november'. Is 30 november de laatste boekdatum of de laatste verblijfsdatum?",
+    "Annuleringsvoorwaarden van het arrangementstarief: onbekend. De zijkaart noemt daarom geen annuleren; de FAQ zegt: zie je bij het boeken.",
+    "Suite en Bruidssuite: geen toeslag meetbaar. Mews geeft met NAJAAR2D op config 6dc9094c alleen een tarief voor de Deluxe kamer (EUR 257,00 voor 2 personen). Volgens de vaste meerprijzen van de andere arrangementen zou de Suite EUR 10 en de Bruidssuite EUR 20 p.p. per nacht duurder zijn dan de Deluxe; bevestigen en in Mews zetten. Tot dan pil 'Upgrade' met 'Upgrade mogelijk'.",
+    "Tweede nacht: Mews geeft met NAJAAR2D voor 3 t/m 5 nov EUR 499,50 voor 2 personen (tweede nacht EUR 242,50). Wat zit er in de tweede nacht (diner?). De FAQ zegt alleen dat het kan en dat je de prijs bij het boeken ziet.",
+    "Ontbijttijden (doordeweeks 07.00-10.00, weekend 08.00-10.30) komen van Lastminute.com, niet van asteria.nl.",
+    "Tijdenstrook: inchecken vanaf 15.00, uitchecken tot 11.00 (FAQ visit.asteria.nl), diner tot 21.30 (restaurant-pop-up), gratis parkeren (staging). Graag bevestigen.",
+    "Wellness Top Floor: niet in het arrangement (alleen het wellnessarrangement noemt gratis toegang). De FAQ zegt: bijboeken via de receptie, openingstijden ma-do 16.00-22.00, vr-zo 12.00-22.00. Kosten voor hotelgasten onbekend.",
+    "Ook interessant: Wellness Arrangement vanaf EUR 139,50 en Golfarrangement vanaf EUR 185,50 gemeten in Mews (2026WELLNESS en GOLF, 3 nov 2026, Comfort/Royale, 2 volwassenen); visit.asteria.nl/wellness-arrangement zelf noemt EUR 124,50. Kerstarrangement zonder prijs (asteria.nl noemt EUR 130,- zonder context). Foto's golf en kerst komen van asteria.nl (fotos/l26-arr-golf.webp, l26-arr-kerst.webp).",
+    "De live /najaarsarrangement boekt nog via de oude config bee2f902; deze pagina gebruikt 6dc9094c.",
+    "Inbegrepen-fotoslider: l26-najaar-deluxe.webp (uit room-deluxe-4), l26-najaar-sauna.webp (uit room-deluxe-3, de infraroodcabine van een Deluxe kamer?) en l26-najaar-ontbijt.webp (uit restaurant-ontbijt, een opgemaakt bord; is dat het ontbijtbuffet?). Graag bevestigen dat deze foto's de Deluxe kamer en het arrangement tonen.",
+    "Waarom Asteria: de foto's per punt (fotos/l26-waarom-*.webp) komen uit de repo (care-receptie, l26-hotel-buiten, top-floor-1, l26-omg-bossen) en van de staging (restaurant-terras-1200, hotel-vijver-panorama). 'Gratis parkeren' toont de parkeerplaats voor het hotel; 'Eigen restaurant' toont wijnglazen op het terras."
+  ],
+  "PAGE_TITLE": "Najaarsarrangement met diner en ontbijt | Hotel Asteria Venray",
+  "META_DESC": "Najaarsarrangement bij Hotel Asteria in Venray: ontvangst met Limburgse vlaai, een Deluxe kamer met privé infraroodsauna, ontbijtbuffet en een drie-gangen diner. Vanaf € 128,50 p.p.",
+  "CANONICAL_URL": "https://visit.asteria.nl/najaarsarrangement",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-najaar-hero.webp",
+  "H_EEN_A": "Kom tot rust",
+  "H_EEN_EM": "in de herfst",
+  "SUB": "Een overnachting in een Deluxe kamer met privé infraroodsauna, ontvangst met Limburgse vlaai, ontbijt en een drie-gangen diner. Alles is geregeld, jij hoeft alleen te komen.",
+  "HERO_IMG": "fotos/l26-najaar-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:60%\"",
+  "HERO_ALT": "Stel wandelt over een bospad in de herfst bij Venray",
+  "VOUCHER": "NAJAAR2D",
+  "CODE_ATTR": "",
+  "CTA": "Boek het arrangement",
+  "ARR_PRIJS_PIL": "vanaf € 128,50 p.p.",
+  "ARR_PRIJS": "€ 128,50",
+  "ARR_PRIJS_EENHEID": "p.p.",
+  "KAART_KOP": "Najaarsarrangement",
+  "ARR_TRUST_A": "Beste prijs gegarandeerd",
+  "ARR_TRUST_B": "Directe bevestiging",
+  "KAART_IMG": "fotos/l26-najaar-deluxe.webp",
+  "KAART_ALT": "Deluxe kamer met eigen infraroodsauna bij Hotel Asteria",
+  "KAART_PIL": "Diner en ontbijt inbegrepen",
+  "KAART_VINK_A": "Vlaai en koffie bij aankomst",
+  "KAART_VINK_B": "Eigen infraroodsauna",
+  "KAART_VINK_C": "Drie-gangen diner",
+  "KAART_VINK_D": "Ontbijtbuffet",
+  "KAART_KNOP": "Boek het arrangement",
+  "KAART_TRUST": "Boek direct bij het hotel · Actiecode NAJAAR2D",
+  "BOEKBALK_KNOP": "Boek het arrangement",
+  "BOEKBALK_NOOT": "Actiecode NAJAAR2D staat al voor je ingevuld",
+  "KAMER_KOP_A": "In welke",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "slaap je?",
+  "KAMER_SUB": "Het arrangement is op basis van een Deluxe kamer met eigen infraroodsauna. Wil je meer ruimte, vraag dan naar een Suite of de Bruidssuite.",
+  "KAMER_PIL": "Inbegrepen",
+  "KAMER_NOOT": "Prijs per persoon op basis van een tweepersoonskamer, exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
+  "_kamers": {
+    "deluxe": {
+      "pil": "Inbegrepen",
+      "soort": "inbegrepen",
+      "prijs_label": "vanaf",
+      "prijs": "€ 128,50 p.p."
+    },
+    "suite": {
+      "pil": "Upgrade",
+      "soort": "upgrade",
+      "prijs": "Upgrade mogelijk"
+    },
+    "bruidssuite": {
+      "pil": "Upgrade",
+      "soort": "upgrade",
+      "prijs": "Upgrade mogelijk"
+    }
+  },
+  "POP_BADGE": "Najaarsarrangement",
+  "REVIEW_KOP_A": "Waarom gasten graag",
+  "REVIEW_KOP_EM": "terugkomen",
+  "SLOT_KOP_A": "Je",
+  "SLOT_KOP_EM": "herfstverblijf",
+  "SLOT_KOP_B": "staat klaar",
+  "SLOT_TEKST": "Boek het najaarsarrangement met code NAJAAR2D: ontvangst met Limburgse vlaai, een Deluxe kamer met privé infraroodsauna, diner en ontbijt. Vragen? We helpen je graag verder.",
+  "STICKY_KOP": "Najaarsarrangement",
+  "STICKY_SUB": "vanaf € 128,50 p.p.",
+  "STICKY_KNOP": "Boek nu",
+  "SLOT_FOTO_A": "fotos/l26-najaar-hero.webp",
+  "SLOT_FOTO_A_POS": "center center",
+  "SLOT_FOTO_B": "fotos/l26-najaar-vlaai.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p.p. per nacht",
+  "ARR_VOORWAARDEN": "Deluxe kamer, 2 personen · boekbaar t/m 30 november",
+  "ARR_MOB_NOOT": "Code NAJAAR2D staat al ingevuld",
+  "INB_KOP_A": "Dit is",
+  "INB_KOP_EM": "inbegrepen",
+  "ARR_INB_INTRO": "Eén keer boeken en de rest regelen wij, van de vlaai bij aankomst tot het ontbijt de volgende ochtend.",
+  "ZV_TOON": true,
+  "ZV_KOP_A": "Op zondag",
+  "ZV_KOP_EM": "€ 20 per kamer",
+  "ZV_KOP_B": "voordeliger",
+  "ZV_PIL": "− € 20 per kamer",
+  "ZV_ZONDAG_KOP": "Aankomst op zondag",
+  "ZV_ZONDAG_PRIJS": "€ 118,50",
+  "ZV_GEWOON_PRIJS": "€ 128,50",
+  "ZV_ZONDAG_REGEL": "Korting automatisch verrekend met code NAJAAR2D",
+  "ZV_ANDERS_KOP": "Aankomst ma t/m za",
+  "ZV_ANDERS_REGEL": "Gewone prijs op de andere aankomstdagen",
+  "ZV_VOETNOOT": "Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.",
+  "ZV_KAART_REGEL": "Op zondag <b>€ 20 per kamer</b> voordeliger",
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": true,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "sauna",
+    "diner",
+    "dinner",
+    "ontbijt"
+  ],
+  "_chips": [
+    "Eigen sauna op de kamer",
+    "Diner en ontbijt",
+    "Boekbaar t/m 30 nov"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Ontvangst met koffie of thee",
+      "regel": "met een punt Limburgse vlaai",
+      "icoon": "<path d=\"M17 8h1a4 4 0 1 1 0 8h-1\"/><path d=\"M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z\"/><line x1=\"6\" y1=\"2\" x2=\"6\" y2=\"4\"/><line x1=\"10\" y1=\"2\" x2=\"10\" y2=\"4\"/><line x1=\"14\" y1=\"2\" x2=\"14\" y2=\"4\"/>"
+    },
+    {
+      "titel": "Deluxe kamer",
+      "regel": "met eigen infraroodsauna",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Drie-gangen diner",
+      "regel": "seizoensgerechten in het restaurant",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Uitgebreid ontbijtbuffet",
+      "regel": "de volgende ochtend",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-najaar-vlaai.webp",
+      "alt": "Een punt Limburgse vlaai wordt geserveerd bij aankomst",
+      "pos": "40% 50%"
+    },
+    {
+      "img": "fotos/l26-najaar-deluxe.webp",
+      "alt": "Deluxe kamer met tweepersoonsbed en zithoek",
+      "pos": "60% 50%"
+    },
+    {
+      "img": "fotos/l26-najaar-sauna.webp",
+      "alt": "Eigen infraroodsauna in de Deluxe kamer",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-najaar-diner.webp",
+      "alt": "Gast aan tafel in het restaurant tijdens het diner",
+      "pos": "55% 50%"
+    },
+    {
+      "img": "fotos/l26-najaar-ontbijt.webp",
+      "alt": "Ontbijtbord met croissant, kaas, vleeswaren en druiven",
+      "pos": "45% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Inchecken vanaf 15.00",
+      "icoon": "<path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\"/><polyline points=\"10 17 15 12 10 7\"/><line x1=\"15\" y1=\"12\" x2=\"3\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Uitchecken tot 11.00",
+      "icoon": "<path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><polyline points=\"16 17 21 12 16 7\"/><line x1=\"21\" y1=\"12\" x2=\"9\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Diner tot 21.30",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Gratis parkeren",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Wat zit er in het najaarsarrangement?",
+      "a": "Ontvangst met koffie of thee en een punt Limburgse vlaai, een overnachting in een Deluxe kamer met eigen infraroodsauna, een drie-gangen diner met seizoensgerechten en de volgende ochtend het uitgebreide ontbijtbuffet. Vanaf € 128,50 per persoon, op basis van twee personen; de verblijfsbelasting van € 2,– per persoon per nacht komt erbij."
+    },
+    {
+      "q": "Hoe laat is het ontbijt?",
+      "a": "Het ontbijtbuffet staat doordeweeks klaar van 07.00 tot 10.00 uur en in het weekend van 08.00 tot 10.30 uur."
+    },
+    {
+      "q": "Kan ik een tweede nacht bijboeken?",
+      "a": "Ja. Kies bij het boeken een latere vertrekdatum; de prijs voor de extra nacht zie je direct in het boekingsscherm. Wil je iets anders combineren, bel dan even met de receptie."
+    },
+    {
+      "q": "Kan ik de wellness op de Top Floor gebruiken?",
+      "a": "De wellness zit niet in het najaarsarrangement, maar je kunt hem wel bijboeken. Reserveer vooraf bij de receptie. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Je eigen infraroodsauna op de kamer kun je altijd gebruiken."
+    },
+    {
+      "q": "Is er korting op zondag?",
+      "a": "Ja. Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met code NAJAAR2D en geldt eenmalig per kamer per verblijf dat op zondag begint.",
+      "zondag": true
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    }
+  ],
+  "_andere": [
+    {
+      "naam": "Wellness Arrangement",
+      "url": "https://visit.asteria.nl/wellness-arrangement",
+      "img": "fotos/wt-arr.webp",
+      "alt": "Gast in badjas leest een tijdschrift in de relaxruimte",
+      "prijs": "vanaf € 139,50 p.p."
+    },
+    {
+      "naam": "Golfarrangement",
+      "url": "https://visit.asteria.nl/golfarrangement",
+      "img": "fotos/l26-arr-golf.webp",
+      "alt": "Golfer op de fairway met een golftas op de voorgrond",
+      "prijs": "vanaf € 185,50 p.p."
+    },
+    {
+      "naam": "Kerstarrangement",
+      "url": "https://www.asteria.nl/arrangementen/kerstarrangement-hotel",
+      "img": "fotos/l26-arr-kerst.webp",
+      "alt": "Kerstbal met de Asteria-ster tussen dennentakken"
+    }
+  ]
+}

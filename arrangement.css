@@ -1,0 +1,278 @@
+/* Arrangementsjabloon op lander-w1 (visit.asteria.nl/<arrangement>-v2). Laadt na lander-w1.css, alleen via het
+   build-blok 'arrangement' in lander-w1.template.html; flow-landers laden dit bestand niet.
+   Opbouw (wireframe-ideaal, okt 2026): 1 hero + chips, zijkaart zonder foto naast 2-5, 2 dit is inbegrepen (paneel + fotoslider) + tijdenstrook,
+   3 zondagvoordeel (ontwerp a9, zoals Parkhotel), 4 waarom Asteria (draaiend wiel met wisselende foto), 5 kamers (slider vanaf 3, raster bij 1-2),
+   6 reviewmuur (8 of 12 kaarten), 7 FAQ, 8 ook interessant, 9 fotowolk. Klassen met prefix ar-. */
+
+/* ---------- 1: chips onder de sub op de hero ---------- */
+.lp .ar-chips{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.lp .ar-chips li{display:inline-flex;align-items:center;gap:7px;padding:7px 14px 7px 10px;border-radius:var(--radius-pill);
+    background:rgba(255,250,241,.14);border:1px solid rgba(255,250,241,.34);color:var(--on-ink);font-size:14px;font-weight:600;line-height:1.3;
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.lp .ar-chips .as-icoon{width:17px;height:17px;color:var(--on-ink)}
+@media (max-width:719px){
+  .lp .ar-chips{margin-top:14px;gap:6px}
+  .lp .ar-chips li{font-size:12.5px;padding:5px 11px 5px 8px}
+  .lp .ar-chips .as-icoon{width:15px;height:15px}
+}
+
+/* ---------- 1: actiecodeveld in de boekbalk groeit mee met de code (breedte zet arrangement.js) ---------- */
+@media (min-width:720px){
+  .lp .as-booking-card.b1a-balk .b1a-code{flex:1 0 auto}
+  .lp .as-booking-card.b1a-balk .b1a-codeveld{min-width:9.5ch;max-width:100%}
+}
+
+/* ---------- zijkaart en telefoonkaart: prijs groot bovenaan, geen foto ---------- */
+.lp .ar-kaart .b1k-body{padding:24px 26px 22px}
+.lp .ar-kaart-naam{font-size:var(--text-sm);font-weight:600;color:var(--ink-soft);line-height:1.3}
+.lp .ar-kaart-prijs{margin-top:6px;align-items:baseline}
+.lp .ar-kaart-prijs .b1k-prijs-bedrag{font-size:46px;line-height:1;color:var(--ink);letter-spacing:-.01em}
+.lp .ar-kaart-prijs .b1k-prijs-pp{font-size:var(--text-sm)}
+.lp .ar-zondagregel{margin-top:16px;padding:3px 0 3px 12px;border-left:3px solid var(--terracotta);font-size:var(--text-sm);line-height:1.45;color:var(--ink)}
+.lp .ar-zondagregel b{color:var(--terracotta-text)}
+.lp .ar-kaart .ar-zondagregel{font-size:14px}
+.lp .ar-zondagregel b{white-space:nowrap}
+.lp .ar-voorwaarden{margin-top:12px;font-size:13px;line-height:1.5;color:var(--ink-soft)}
+.lp .ar-kaart .b1k-vinkjes{margin-top:18px;gap:10px}
+.lp .ar-kaart .b1k-knop{margin-top:20px}
+.lp .ar-score{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--hairline);font-size:13px;line-height:1.3;color:var(--ink-soft)}
+.lp .ar-score>span:first-child{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--ink)}
+.lp .ar-ster{width:15px;height:15px;flex:none;fill:var(--star)}
+.lp .ar-codenoot{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px;font-size:13px;line-height:1.35;color:var(--ink-soft)}
+.lp .ar-codenoot .as-icoon{width:16px;height:16px;color:var(--terracotta)}
+@media (min-width:720px) and (max-width:1023px){
+  .lp .ar-kaart.b1k-kaart--vast{display:block;max-width:460px}
+}
+@media (max-width:719px){
+  .lp .ar-kaart .b1k-body{padding:20px 20px 18px}
+  .lp .ar-kaart-prijs .b1k-prijs-bedrag{font-size:40px}
+  .lp .ar-kaart .b1k-knop{margin-top:16px}
+}
+
+/* ---------- zone: volgorde op tablet, lucht op bureaublad ---------- */
+@media (max-width:1023px){
+  .lp .lp-zone .ar-inb{order:1}
+  .lp .lp-zone .lp-zone-kant{order:2}
+  .lp .lp-zone .ar-zv{order:3}
+  .lp .lp-zone .ar-waarom{order:4}
+  .lp .lp-zone .b4b{order:5}
+}
+@media (min-width:1024px){
+  .lp .lp-zone .ar-sec{padding-block:44px}
+  .lp .lp-zone .ar-inb{padding-top:var(--gap-section)}
+  .lp .lp-zone .b4b{padding-top:44px}
+  /* 4: waarom Asteria uitgelijnd als het attentieblok op /verblijfsverjaardag (lander-w1.css op main, PR #164):
+     breedte tussen kolom en kolom + tegelmarge in (1440: 100-944 px); identiek aan die regel, dus na merge van main overbodig maar onschadelijk */
+  .lp .lp-zone .ar-waarom>.wrap{--links:max(0px,(100vw - 1120px) / 2 - 80px);width:calc(100% + var(--links) / 2);margin-left:calc(-.75 * var(--links))}
+}
+
+/* ---------- 2: dit is inbegrepen. Gespiegeld Parkhotel-blok 'Het wellnessarrangement' (/wellness/, .wv-arr + .zd-alles):
+   ivoren paneel vanaf de linker schermrand, rechts een staande fotoslider die 47 px boven het paneel uitsteekt; het paneel
+   loopt 61 px onder de foto door (zd-alles: foto 378 breed, paneel tot 317 px van rechts) en minstens 47 px onder de foto.
+   Inhoud verticaal gecentreerd met 56 px boven en onder (wv-arr); de tijdenregel staat in het paneel onder de vinkjes.
+   Telefoon: paneel, daaronder de fotoslider (290 hoog). ---------- */
+.lp .lp-zone{overflow-x:clip}
+.lp .ar-inb{--bleed:max(var(--gutter),(100vw - 1120px) / 2)}
+.lp .ar-inb-blok{position:relative}
+.lp .ar-inb-inhoud{position:relative;z-index:1}
+.lp .ar-inb-intro{margin-top:16px;font-size:var(--text-sm);line-height:1.65;color:var(--ink);max-width:56ch}
+.lp .ar-inb-lijst{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:14px 22px}
+.lp .ar-inb-punt{display:flex;align-items:center;gap:14px}
+.lp .ar-vak{display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;border-radius:var(--radius-chip);background:var(--paper);color:var(--terracotta)}
+.lp .ar-vak .as-icoon{width:22px;height:22px;stroke-width:1.8}
+.lp .ar-inb-tekst{display:flex;flex-direction:column;gap:2px;min-width:0;line-height:1.3}
+.lp .ar-inb-tekst b{font-size:15px;color:var(--ink)}
+.lp .ar-inb-tekst span{font-size:13.5px;color:var(--ink-soft)}
+.lp .ar-inb-prijs{margin-top:24px;font-size:14px;color:var(--ink-soft)}
+.lp .ar-inb-prijs b{margin:0 3px;font-family:var(--font-display);font-size:28px;line-height:1;color:var(--ink)}
+.lp .ar-inb-acties{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:20px}
+.lp .ar-inb-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--terracotta-text)}
+.lp .ar-inb-link .as-icoon{width:16px;height:16px;transition:transform .25s var(--ease-soft)}
+.lp .ar-inb-link:hover .as-icoon{transform:translateX(4px)}
+.lp .ar-inb-link:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px;border-radius:4px}
+/* fotoslider (Parkhotel .wv-fs): vegen = scroll-snap; pijlen rondlopend en bolletjes via arrangement.js; geen autoplay */
+.lp .ar-fs{position:relative;overflow:hidden;border-radius:var(--radius-image);background:var(--ink);box-shadow:var(--shadow-card)}
+.lp .ar-fs-spoor{display:flex;width:100%;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.lp .ar-fs-spoor::-webkit-scrollbar{display:none}
+.lp .ar-fs-spoor:focus-visible{outline:3px solid var(--terracotta);outline-offset:-3px}
+.lp .ar-fs-dia{flex:0 0 100%;height:100%;margin:0;scroll-snap-align:start;scroll-snap-stop:always}
+.lp .ar-fs-dia img{display:block;width:100%;height:100%;object-fit:cover}
+.lp .ar-fs-pijlen{position:absolute;right:14px;bottom:14px;z-index:2;display:flex;gap:8px}
+.lp .ar-fs-pijl{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;border-radius:50%;
+    background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:var(--shadow-card);transition:background .25s var(--ease-soft),color .25s var(--ease-soft)}
+.lp .ar-fs-pijl:hover{background:var(--ink);color:var(--surface)}
+.lp .ar-fs-pijl:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
+.lp .ar-fs-pijl .as-icoon{width:18px;height:18px}
+.lp .ar-fs-bollen{position:absolute;left:10px;bottom:24px;z-index:2;display:flex}
+.lp .ar-fs-bol{display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:0;background:none;cursor:pointer}
+.lp .ar-fs-bol::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,250,241,.62);transition:background .2s,transform .2s}
+.lp .ar-fs-bol.is-aan::before{background:var(--surface);transform:scale(1.35)}
+.lp .ar-fs-bol:focus-visible{outline:2px solid var(--surface);outline-offset:0;border-radius:50%}
+@media (min-width:720px){
+  /* flow-root: anders zakt de 47 px marge van de inhoud door het blok heen en plakt de kop tegen de paneelrand */
+  .lp .ar-inb-blok{--fb:280px;--fh:410px;--overlap:61px;display:flow-root}
+  .lp .ar-inb-bg{position:absolute;top:47px;bottom:0;left:calc(-1 * var(--bleed));right:calc(var(--fb) - var(--overlap));background:var(--surface);border-radius:0 var(--radius-card) var(--radius-card) 0}
+  .lp .ar-inb-inhoud{display:flex;flex-direction:column;justify-content:center;box-sizing:border-box;min-height:var(--fh);margin:47px calc(var(--fb) + 40px) 0 0;padding:56px 0}
+  .lp .ar-inb-foto{position:absolute;top:0;right:0;z-index:2;width:var(--fb);height:var(--fh)}
+}
+@media (min-width:1024px) and (max-width:1279px){
+  .lp .ar-inb-blok{--fb:240px;--fh:360px}
+}
+/* 1280-1439: de kolom naast de zijkaart is smal, dus smallere foto en de vinkjes in een kolom */
+@media (min-width:1280px){
+  .lp .ar-inb-blok{--fb:260px;--fh:400px}
+}
+@media (min-width:1440px){
+  .lp .ar-inb-blok{--fb:320px;--fh:470px}
+  .lp .ar-inb-lijst{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:719px){
+  .lp .ar-inb-bg{display:none}
+  .lp .ar-inb-inhoud{padding:28px 20px 26px;background:var(--surface);border-radius:var(--radius-card) var(--radius-card) 0 0}
+  .lp .ar-inb-lijst{margin-top:20px;gap:12px}
+  .lp .ar-inb-prijs{margin-top:20px}
+  .lp .ar-inb-acties{flex-direction:column;align-items:stretch;gap:14px}
+  .lp .ar-inb-acties .btn{width:100%}
+  .lp .ar-inb-link{justify-content:center}
+  .lp .ar-inb-foto{height:290px;border-radius:0 0 var(--radius-card) var(--radius-card);box-shadow:none}
+}
+/* tijdenregel in het paneel, onder de vinkjes: hairline erboven, compacte lijniconen */
+.lp .ar-tijden{list-style:none;margin:22px 0 0;padding:16px 0 0;display:flex;flex-wrap:wrap;gap:8px 22px;border-top:1px solid var(--hairline)}
+.lp .ar-tijden li{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;line-height:1.3;color:var(--ink-soft)}
+.lp .ar-tijden .as-icoon{width:16px;height:16px;flex:none;color:var(--terracotta)}
+@media (max-width:719px){
+  .lp .ar-tijden{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-top:20px;padding-top:14px}
+  .lp .ar-tijden li{font-size:13px}
+}
+
+/* ---------- 3: zondagvoordeel, ontwerp a9 (14 okt), precies zoals Parkhotel blok-zondagvoordeel: ivoren paneel met rand en
+   de kop erin, twee kaarten in het paneel, voetnoot onderin. Zondagkaart: 2 px terracotta rand op zand, titel en pil op een
+   regel, vanaf + grote prijs + p.p. per nacht op een regel, doorgestreepte prijs eronder. Gewone kaart: dunne rand, prijs
+   kleiner en grijs. Telefoon: kaarten onder elkaar. ---------- */
+.lp .ar-zv-paneel{background:var(--surface);border:1px solid var(--hairline-strong);border-radius:var(--radius-card);padding:28px 24px 24px}
+.lp .ar-zv-kop{font-size:32px;line-height:1.1;letter-spacing:-.01em;margin:0 0 22px;text-wrap:balance}
+.lp .ar-zv-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.lp .ar-zv-kaart{min-width:0;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--hairline-strong);border-radius:12px;padding:20px 22px 22px}
+.lp .ar-zv-kaart--zondag{border:2px solid var(--terracotta);background:var(--paper-shade-2);padding:19px 21px 21px}
+.lp .ar-zv-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px 10px}
+.lp .ar-zv-top h3{flex:1 1 auto;min-width:0}
+.lp .ar-zv-top .ar-zv-pil{flex:none;margin-top:2px}
+@media (min-width:720px) and (max-width:1199px){ .lp .ar-zv-top{flex-wrap:wrap} }
+.lp .ar-zv-kaart h3{font-family:var(--font-display);font-weight:700;font-size:19px;line-height:1.2;letter-spacing:0;margin:0}
+.lp .ar-zv-pil{display:inline-flex;align-items:center;padding:4px 8px;border-radius:6px;background:var(--terracotta);color:var(--surface);
+    font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;white-space:nowrap}
+.lp .ar-zv-prijs{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;margin-top:14px}
+.lp .ar-zv-vanaf{font-size:14px;color:var(--ink-soft)}
+.lp .ar-zv-prijs b{font-family:var(--font-display);font-size:38px;line-height:1;color:var(--ink);white-space:nowrap}
+.lp .ar-zv-kaart:not(.ar-zv-kaart--zondag) .ar-zv-prijs b{font-size:28px;color:var(--ink-soft)}
+.lp .ar-zv-prijs span:last-child{font-size:14px;color:var(--ink-soft)}
+.lp .ar-zv-was{margin-top:8px;font-size:14px;color:var(--ink-soft);min-height:1.5em}
+.lp .ar-zv-regel{margin-top:auto;padding-top:14px;font-size:15px;line-height:1.45;color:var(--ink-soft)}
+.lp .ar-zv-noot{margin-top:18px;font-size:13px;line-height:1.5;color:var(--ink-soft);max-width:68ch}
+@media (max-width:719px){
+  .lp .ar-zv-paneel{padding:22px 16px 20px}
+  .lp .ar-zv-kop{font-size:26px}
+  .lp .ar-zv-grid{grid-template-columns:minmax(0,1fr)}
+  .lp .ar-zv-prijs b{font-size:38px}
+  .lp .ar-zv-was:empty{display:none}
+}
+
+/* ---------- 4: waarom Asteria. Draaiend wiel zoals de staging-homepage (.usp-wheel + .usp-photo): 4 klonen voor en na,
+   --active schuift het spoor (72 px per punt), foto wisselt mee met een crossfade van 800 ms. arrangement.js zet .is-wiel;
+   zonder JS een gewone lijst. ---------- */
+.lp .ar-wiel-foto{position:relative}
+.lp .ar-wiel-foto .ar-wiel-laag{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s var(--ease-soft)}
+.lp .ar-wiel-foto .ar-wiel-laag.is-actief{opacity:1}
+.lp .ar-wiel-knop{display:none}
+.lp .ar-wiel-spoor{gap:12px}
+.lp .ar-wiel-item{box-sizing:border-box;height:60px;min-height:60px;gap:14px;padding:10px 16px 10px 10px;line-height:1.25;background:var(--surface);box-shadow:var(--as-schaduw);
+    transition:box-shadow .5s var(--ease-soft),opacity .6s var(--ease-soft)}
+.lp .ar-wiel-wrap.is-wiel{display:grid;justify-items:center;gap:8px;align-self:center}
+.lp .is-wiel .ar-wiel{position:relative;width:100%;height:420px;overflow:hidden;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.6) 10%,#000 25%,#000 75%,rgba(0,0,0,.6) 90%,transparent 100%);
+            mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.6) 10%,#000 25%,#000 75%,rgba(0,0,0,.6) 90%,transparent 100%)}
+.lp .is-wiel .ar-wiel-spoor{position:absolute;top:50%;left:0;right:0;margin:0;padding:0 12px;--active:0;
+    transform:translate3d(0,calc(-30px - var(--active) * 72px),0);transition:transform 1s cubic-bezier(.32,.72,0,1);will-change:transform}
+.lp .is-wiel .ar-wiel-spoor.no-transition,.lp .is-wiel .ar-wiel-spoor.no-transition .ar-wiel-item{transition:none !important}
+.lp .is-wiel .ar-wiel-item{box-shadow:none}
+.lp .is-wiel .ar-wiel-item.is-active{box-shadow:var(--shadow-card)}
+.lp .is-wiel .ar-wiel-knop{display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid var(--hairline);border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer;
+    transition:background .25s var(--ease-soft),color .25s var(--ease-soft)}
+.lp .ar-wiel-knop:hover{background:var(--ink);color:var(--surface)}
+.lp .ar-wiel-knop:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
+.lp .ar-wiel-knop .as-icoon{width:16px;height:16px}
+@media (max-width:719px){
+  .lp .ar-waarom .b3a-foto{height:240px}
+  .lp .ar-waarom .ar-wiel-wrap{margin:0}
+  .lp .is-wiel .ar-wiel{height:320px}
+  .lp .ar-wiel-item{font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  .lp .is-wiel .ar-wiel-spoor,.lp .ar-wiel-foto .ar-wiel-laag,.lp .ar-wiel-item{transition:none}
+  .lp .ar-fs-spoor{scroll-behavior:auto}
+}
+
+/* ---------- 5: kamers. Prijsregel per kaart; vanaf 3 kamers de brede slider met lus zoals /bedankt (lander-w1.css/.js),
+   1 of 2 kamers een raster (.ar-kamers) ---------- */
+.lp .ar-kprijs{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid var(--hairline);font-size:13px;color:var(--ink-soft)}
+.lp .ar-kprijs b{font-family:var(--font-display);font-size:22px;line-height:1.1;color:var(--ink);text-align:right}
+.lp .ar-kprijs--upgrade b,.lp .ar-kprijs--toeslag b{font-family:var(--font-body);font-size:14px;font-weight:700}
+.lp .ar-kprijs + .b4b-knoppen{margin-top:0;padding-top:12px;border-top:0}
+.lp .b4b-kaart.ar-kaart-inbegrepen{box-shadow:0 0 0 2px var(--terracotta),var(--shadow-card)}
+.lp .b4b .wrap{container-type:inline-size}
+.lp .ar-kamers{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin:-10px calc(-1 * var(--gutter)) 0;padding:10px var(--gutter) 20px;scroll-padding-left:var(--gutter)}
+.lp .ar-kamers .b4b-kaart{flex:0 0 min(320px,calc(100% - 48px));scroll-snap-align:start}
+.lp .ar-kamers .b4b-inhoud{padding:18px 8px 8px;gap:12px}
+.lp .ar-kamers .b4b-inhoud h3{font-size:24px}
+.lp .ar-kamers .b4b-spec{font-size:13.5px}
+.lp .ar-kamers .b4b-knoppen{flex-wrap:wrap}
+.lp .ar-kamers .b4b-knoppen .btn{flex:1 1 auto}
+@container (min-width:720px){
+  .lp .ar-kamers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;overflow:visible;margin:0;padding:10px 0 20px}
+  .lp .ar-kamers[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lp .ar-kamers[data-n="1"]{grid-template-columns:minmax(0,420px)}
+  .lp .ar-kamers .b4b-kaart{flex:none}
+}
+@media (max-width:719px){
+  .lp .ar-kamers .b4b-knoppen{flex-direction:column}
+}
+
+/* ---------- 6: reviewmuur. Statisch (zonder JS of bij reduced motion) 8 kaarten: 4 x 2 of 2 x 4 ---------- */
+.lp .b5a-muur:not(.is-loop) .b5a-kaart:nth-child(9){display:none}
+@media (min-width:1200px){ .lp .b5a-muur:not(.is-loop){grid-template-columns:repeat(4,minmax(0,1fr))} }
+@media (min-width:720px) and (max-width:1199px){ .lp .b5a-muur:not(.is-loop){grid-template-columns:repeat(2,minmax(0,1fr))} }
+
+/* ---------- 8: ook interessant (o2: foto vol, tekst over een verloop). 2 tot 4 naast elkaar, 5 of 6 als veegrij met peek ---------- */
+.lp .ar-andere-rij{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:24px;margin-top:32px}
+.lp .ar-ander{position:relative;display:block;aspect-ratio:1/1;border-radius:var(--radius-card);overflow:hidden;box-shadow:var(--shadow-card);
+    color:var(--on-ink);isolation:isolate}
+.lp .ar-ander-foto{position:absolute;inset:0;z-index:-1;transition:transform .6s var(--ease-soft)}
+.lp .ar-ander-foto img{width:100%;height:100%;object-fit:cover}
+.lp .ar-ander:hover .ar-ander-foto{transform:scale(1.04)}
+.lp .ar-ander::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(40,24,4,0) 34%,rgba(40,24,4,.6) 62%,rgba(40,24,4,.9) 100%)}
+.lp .ar-ander:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
+.lp .ar-ander-tekst{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:4px 14px;padding:24px}
+.lp .ar-ander-naam{grid-column:1;font-family:var(--font-display);font-weight:700;font-size:30px;line-height:1.1;letter-spacing:-.01em;color:var(--on-ink)}
+.lp .ar-ander-prijs{grid-column:1;font-size:14px;color:var(--on-ink-body)}
+.lp .ar-ander-prijs b{font-weight:700;color:var(--on-ink)}
+.lp .ar-ander-rond{grid-column:2;grid-row:1/span 2;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;
+    background:var(--terracotta);color:var(--surface);transition:background .25s var(--ease-soft)}
+.lp .ar-ander-rond .as-icoon{width:18px;height:18px;transition:transform .25s var(--ease-soft)}
+.lp .ar-ander:hover .ar-ander-rond .as-icoon{transform:translateX(3px)}
+/* Bureaublad: blok 48 px breder dan de FAQ erboven (1120 -> 1216), kop op dezelfde lijn als de tegels */
+@media (min-width:720px){ .lp .ar-andere>.wrap{width:min(1216px,100% - 2 * var(--gutter))} }
+/* 5 of 6: veegrij met peek op elke breedte */
+.lp .ar-andere-rij:has(>.ar-ander:nth-child(5)){display:flex;overflow-x:auto;scroll-snap-type:x mandatory;
+    margin-left:calc(-1 * var(--gutter));margin-right:calc(-1 * var(--gutter));padding:4px var(--gutter) 16px;scroll-padding-left:var(--gutter)}
+.lp .ar-andere-rij:has(>.ar-ander:nth-child(5))>.ar-ander{flex:0 0 calc((100% - 72px) / 3.4);scroll-snap-align:start}
+@media (max-width:719px){
+  .lp .ar-andere-rij,.lp .ar-andere-rij:has(>.ar-ander:nth-child(5)){display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:22px calc(-1 * var(--gutter)) 0;
+      padding:4px var(--gutter) 16px;scroll-padding-left:var(--gutter)}
+  .lp .ar-ander,.lp .ar-andere-rij:has(>.ar-ander:nth-child(5))>.ar-ander{flex:0 0 calc(100% - 64px);aspect-ratio:4/5;scroll-snap-align:start}
+  .lp .ar-ander-naam{font-size:26px}
+  .lp .ar-ander-tekst{padding:20px}
+}
+.lp .ar-kaart .b1k-vinkjes.ar-trust{margin-top:16px;gap:8px}
+.lp .ar-kaart .ar-trust li{font-size:14px}

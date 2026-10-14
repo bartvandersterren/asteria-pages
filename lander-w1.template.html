@@ -36,6 +36,7 @@
   <link rel="preload" as="image" href="{{HERO_IMG}}" type="image/webp">
   <link rel="stylesheet" href="lander-w1.css">
   <script src="lander-w1.js" defer></script>
+  <!--[arrangement[--><link rel="stylesheet" href="arrangement.css"><script src="arrangement.js" defer></script><!--]arrangement]-->
 
   <!-- GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
@@ -137,10 +138,13 @@
   <section class="sec b1a" data-toon="paper">
     <div class="b1a-foto">
       <img src="{{HERO_IMG}}"{{HERO_ATTR}} alt="{{HERO_ALT}}" width="1400" height="932" fetchpriority="high">
-      <div class="review-badge review-badge--hoek b1a-rb" role="img" aria-label="4,2 sterren op basis van ruim 2.200 Google reviews"><span class="rb-rating"><svg class="b1a-rbster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="rb-score">4,2</span></span><span class="rb-divider"></span><span class="rb-source"><svg class="b1a-rbg" viewBox="0 0 48 48" aria-hidden="true"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/><path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/><path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/><path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/></svg><span class="rb-source-text"><span class="rb-reviews">2.200+ reviews</span><span class="rb-brand">Google</span></span></span></div>
+      <!--[!arrangement[--><div class="review-badge review-badge--hoek b1a-rb" role="img" aria-label="4,2 sterren op basis van ruim 2.200 Google reviews"><span class="rb-rating"><svg class="b1a-rbster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="rb-score">4,2</span></span><span class="rb-divider"></span><span class="rb-source"><svg class="b1a-rbg" viewBox="0 0 48 48" aria-hidden="true"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/><path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/><path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/><path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/></svg><span class="rb-source-text"><span class="rb-reviews">2.200+ reviews</span><span class="rb-brand">Google</span></span></span></div><!--]!arrangement]-->
+      <!--[arrangement[--><div class="review-badge review-badge--hoek b1a-rb" role="img" aria-label="4,2 sterren op basis van {{REVIEWS_AANTAL}} Google reviews"><span class="rb-rating"><svg class="b1a-rbster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="rb-score">4,2</span></span><span class="rb-divider"></span><span class="rb-source"><svg class="b1a-rbg" viewBox="0 0 48 48" aria-hidden="true"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/><path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/><path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/><path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/></svg><span class="rb-source-text"><span class="rb-reviews">{{REVIEWS_AANTAL}} reviews</span><span class="rb-brand">Google</span></span></span></div><!--]arrangement]-->
       <div class="wrap b1a-tekst">
+        <!--[arrangement[--><span class="b1a-prijspil">{{ARR_PRIJS_PIL}}</span><!--]arrangement]-->
         <h1>{{H_EEN_A}} <span class="g">{{H_EEN_EM}}</span></h1>
         <p class="b1a-sub">{{SUB}}</p>
+        <!--[arrangement[--><ul class="ar-chips" aria-label="Kern van het arrangement"><!-- ARR_CHIPS --></ul><!--]arrangement]-->
       </div>
     </div>
     <div class="wrap b1a-onder">
@@ -154,6 +158,7 @@
       <p class="b1a-regel"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{BOEKBALK_NOOT}}</span></p>
       <!-- telefoon: de boekkaart in plaats van de datumbalk (zoals Parkhotel); bureaublad houdt de balk -->
       <div class="b1a-mobkaart">
+        <!--[!arrangement[-->
         <div class="b1k-kaart b1k-kaart--vast b1k-kaart--mob">
           <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="933" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
           <div class="b1k-body">
@@ -165,6 +170,19 @@
             <p class="b1k-trust">{{KAART_TRUST}}</p>
           </div>
         </div>
+        <!--]!arrangement]-->
+        <!--[arrangement[-->
+        <div class="b1k-kaart b1k-kaart--vast b1k-kaart--mob ar-kaart">
+          <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="935" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
+          <div class="b1k-body">
+            <p class="ar-kaart-naam">{{KAART_KOP}}</p>
+            <div class="b1k-prijs ar-kaart-prijs"><b class="b1k-prijs-bedrag">{{ARR_PRIJS}}</b> <span class="b1k-prijs-pp">{{ARR_PRIJS_KAART_EENHEID}}</span></div>
+            <!--[zondag[--><p class="ar-zondagregel">{{ZV_KAART_REGEL}}</p><!--]zondag]-->
+            <a class="btn btn-primary b1k-knop mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{KAART_KNOP}}</a>
+            <ul class="b1k-vinkjes ar-trust"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_TRUST_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_TRUST_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{ARR_MOB_NOOT}}</span></li></ul>
+          </div>
+        </div>
+        <!--]arrangement]-->
       </div>
     </div>
   </section>
@@ -175,6 +193,81 @@
   <div class="lp-zone" data-toon="paper">
     <div class="lp-zone-hoofd">
   <!--]zijkaart]-->
+  <!--[arrangement[-->
+  <!-- ══ ARRANGEMENT 2: DIT IS INBEGREPEN. Gespiegeld Parkhotel-blok (wellnessarrangement): ivoren paneel vanaf de linker
+       schermrand, rechts een staande fotoslider die 47 px boven het paneel uitsteekt (bolletjes + pijlen, arrangement.js).
+       Foto's uit '_inbegrepen_fotos', punten uit '_inbegrepen', tijdenregel (in het paneel, onder de vinkjes) uit '_tijden' (build.py) ══ -->
+  <section class="sec ar-sec ar-inb" data-toon="paper" aria-labelledby="inb-kop">
+    <div class="wrap">
+      <div class="ar-inb-blok">
+        <div class="ar-inb-bg" aria-hidden="true"></div>
+        <div class="ar-inb-inhoud">
+          <h2 id="inb-kop">{{INB_KOP_A}} <span class="g">{{INB_KOP_EM}}</span></h2>
+          <p class="ar-inb-intro">{{ARR_INB_INTRO}}</p>
+          <ul class="ar-inb-lijst">
+<!-- ARR_INBEGREPEN -->
+          </ul>
+          <ul class="ar-tijden" aria-label="Praktisch"><!-- ARR_TIJDEN --></ul>
+          <p class="ar-inb-prijs">vanaf <b>{{ARR_PRIJS}}</b> {{ARR_PRIJS_KAART_EENHEID}}</p>
+          <div class="ar-inb-acties"><a class="btn btn-primary mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{CTA}}</a><a class="ar-inb-link" href="https://www.asteria.nl/arrangementen">Alle arrangementen<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+        <div class="ar-inb-foto ar-fs" data-ar-fs>
+          <div class="ar-fs-spoor" data-fs-spoor tabindex="0" aria-label="Foto's van het arrangement, schuif voor meer">
+<!-- ARR_INB_FOTOS -->
+          </div>
+          <div class="ar-fs-bollen"><!-- ARR_INB_BOLLEN --></div>
+          <div class="ar-fs-pijlen"><button type="button" class="ar-fs-pijl" data-fs-stap="-1" aria-label="Vorige foto"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="ar-fs-pijl" data-fs-stap="1" aria-label="Volgende foto"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--[zondag[-->
+  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a9 (14 okt), precies
+       zoals Parkhotel blok-zondagvoordeel: een ivoren paneel met de kop erin, twee kaarten in het paneel (zondagkaart met
+       terracotta rand op zand, titel + pil op een regel, grote prijs; gewone kaart met dunne rand, prijs klein en grijs),
+       voetnoot onderin het paneel. Telefoon: kaarten onder elkaar. ══ -->
+  <section class="sec ar-sec ar-zv" data-toon="paper" aria-label="Zondagvoordeel">
+    <div class="wrap">
+      <div class="ar-zv-paneel">
+        <h2 class="ar-zv-kop">{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
+        <div class="ar-zv-grid">
+          <div class="ar-zv-kaart ar-zv-kaart--zondag">
+            <div class="ar-zv-top"><h3>{{ZV_ZONDAG_KOP}}</h3><span class="ar-zv-pil">{{ZV_PIL}}</span></div>
+            <p class="ar-zv-prijs"><span class="ar-zv-vanaf">vanaf</span><b>{{ZV_ZONDAG_PRIJS}}</b><span>{{ARR_PRIJS_KAART_EENHEID}}</span></p>
+            <p class="ar-zv-was"><s>{{ZV_GEWOON_PRIJS}}</s></p>
+            <p class="ar-zv-regel">{{ZV_ZONDAG_REGEL}}</p>
+          </div>
+          <div class="ar-zv-kaart">
+            <div class="ar-zv-top"><h3>{{ZV_ANDERS_KOP}}</h3></div>
+            <p class="ar-zv-prijs"><span class="ar-zv-vanaf">vanaf</span><b>{{ZV_GEWOON_PRIJS}}</b><span>{{ARR_PRIJS_KAART_EENHEID}}</span></p>
+            <p class="ar-zv-was" aria-hidden="true"></p>
+            <p class="ar-zv-regel">{{ZV_ANDERS_REGEL}}</p>
+          </div>
+        </div>
+        <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
+      </div>
+    </div>
+  </section>
+  <!--]zondag]-->
+  <!--[waarom[-->
+  <!-- ══ ARRANGEMENT 4: WAAROM ASTERIA (build-blok 'waarom', aan met WAAROM_TOON). Vaste inhoud, zoals de staging-homepage
+       (.usp-statement + .usp-wheel): het wiel draait (4 klonen voor en na, arrangement.js), de foto wisselt mee met het
+       actieve punt (data-foto, data-pos), pijlen omhoog/omlaag pauzeren 6 s. Zonder JS een gewone lijst. ══ -->
+  <section class="sec b3a ar-sec ar-waarom" data-toon="paper" aria-labelledby="waarom-kop">
+    <div class="wrap"><div class="b3a-grid">
+      <div class="b3a-tekst"><svg class="b3a-ster" viewBox="-515 0 2841 2973" fill="none" aria-hidden="true"><path d="M2326.3 844.054C1971.04 683.274 1569.16 654.676 1197.04 761.897C693.44 256.226 260.538 1.99826e-05 260.538 1.99826e-05C285.237 390.639 354.425 766.419 468.775 1140.02C171.892 1343.36 -221.438 1665.22 -515.148 2101.06C-514.595 2191.32 -450.336 2146.81 -406.138 2113.61C-19.8775 1851.23 332.681 1701.15 640.888 1621.12C820.582 2060.08 1062.53 2503.67 1368.99 2972.4C1195.3 2294.84 1248.65 1724.99 1248.65 1724.99C1248.65 1724.99 1231.79 1755.64 1197.35 1734.48C1169.88 1835.13 1180.46 2278.62 1162.91 2023.06C1154.65 1903.22 1177.6 1714.55 1205.01 1541.85C1604.09 1535.18 1861.25 1641.15 1926.51 1671.51C1932.18 1674.18 1937.51 1676.78 1942.98 1679.57C1743.99 1374.25 1527.59 1109.91 1318 887.113C1943.46 678.278 2326.1 844.182 2326.1 844.182M484.13 332.439C692.344 466.352 894.517 635.446 1073.03 803.037C1008.51 827.479 945.051 855.812 883.155 888.848C846.69 908.3 742.96 963.058 602.262 1052.12C542.831 817.741 503.929 581.725 484.13 332.439ZM-16.9162 1761.59C170.947 1578.75 351.147 1428.99 522.41 1306.27C543.821 1369.04 566.832 1431.65 590.707 1494.27C409.307 1549.63 207.473 1634.49 -16.7139 1761.46M1071.96 2250.35C954.771 2019.32 856.261 1802.06 774.68 1590.01C886.274 1567.3 991.031 1553.49 1088.86 1546.65C1062.19 1705.77 1053.78 1889.19 1071.96 2250.35ZM1718.96 1501.56C1611.22 1469.1 1449.6 1416.16 1227.88 1406.23C1252.34 1270.45 1274.7 1163.07 1278.87 1137.91C1288.99 1075.64 1246.25 1070.01 1246.25 1070.01L1196.58 1244.31C1196.58 1244.31 1178.55 1306.2 1171.38 1184.52C1151.09 1269.21 1133.02 1339.09 1117.57 1405.04C1001.4 1407.58 870.922 1422.9 725.745 1457.53C697.625 1377.94 671.693 1298.67 648.485 1219.66C847.594 1088.95 1033.18 995.034 1203.09 928.738C1509.17 1233.3 1718.96 1501.56 1718.96 1501.56Z" fill="var(--terracotta)"/></svg><h2 id="waarom-kop">Voor de grote dagen en de <span class="g">gewone zondagen</span>.</h2><p>Eén familie runt Asteria sinds 1993. Een feest krijgt hier evenveel aandacht als je koffie op het terras.</p></div>
+      <div class="b3a-knop"><a class="btn btn-primary mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{CTA}}</a></div>
+      <div class="b3a-foto ar-wiel-foto"><img class="ar-wiel-laag is-actief" src="fotos/l26-waarom-ontvangst.webp" alt="Receptioniste heet een gast welkom aan de balie" style="object-position:70% 50%" loading="lazy"><img class="ar-wiel-laag" src="fotos/l26-waarom-ontvangst.webp" alt="" aria-hidden="true" style="object-position:70% 50%" loading="lazy"></div>
+      <div class="b3a-rechts ar-wiel-wrap">
+        <button type="button" class="ar-wiel-knop" data-wiel-stap="-1" aria-label="Vorig pluspunt"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg></button>
+        <div class="ar-wiel"><ul class="as-usp-wheel ar-wiel-spoor"><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-ontvangst.webp" data-pos="70% 50%" data-alt="Receptioniste heet een gast welkom aan de balie"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>Persoonlijke ontvangst</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-hotel.webp" data-pos="50% 50%" data-alt="Hotel Asteria met de vijver en fontein ervoor"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21A2 2 0 0 0 8 20v2"/><path d="M14 14.66V17c0 .55.47.98.97 1.21A2 2 0 0 1 16 20v2"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></span><span>Vier sterren familiehotel</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-restaurant.webp" data-pos="45% 50%" data-alt="Twee glazen rode wijn op het terras"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h1v11"/><path d="M8 2v20"/><path d="M6 11h2"/><path d="M17 2c-2 0-3.5 3-3.5 6s1.5 5 3.5 5v9"/></svg></span><span>Eigen restaurant</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-wellness.webp" data-pos="40% 50%" data-alt="Bubbelbad onder de lichtkoepel in de wellness op de Top Floor"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span><span>Wellness van 300 m² op de Top Floor</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-bos.webp" data-pos="45% 50%" data-alt="Beek door het bos in de Maasduinen"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M8 17h8l-4-7z"/><path d="M9 10h6l-3-6z"/></svg></span><span>Bos en Maasduinen om de hoek</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-parkeren.webp" data-pos="88% 50%" data-alt="Parkeerplaats voor de deur van Hotel Asteria"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg></span><span>Gratis parkeren</span></li></ul></div>
+        <button type="button" class="ar-wiel-knop" data-wiel-stap="1" aria-label="Volgend pluspunt"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      </div>
+    </div></div>
+  </section>
+  <!--]waarom]-->
+  <!--]arrangement]-->
+  <!--[!arrangement[-->
   <!-- ══ BLOK 2a: TEGELSTROOK (staging .tile) ══ -->
   <section class="sec b2a" data-toon="paper" aria-label="Je verblijf">
     <div class="wrap">
@@ -232,6 +325,7 @@
   <!--]!ladder]-->
   <!--]!cadeau]-->
   </section>
+  <!--]!arrangement]-->
 
   <!-- ══ BLOK 4b: KAMERS, TWEE KAARTEN MET PEEK (zand, ivoren kaarten) ══ -->
   <section class="sec b4b" id="kamers" data-toon="paper" aria-labelledby="kamers-kop">
@@ -312,6 +406,7 @@
   <!--[zijkaart[-->
     </div>
     <aside class="lp-zone-kant" aria-label="Boek met code {{VOUCHER}}">
+      <!--[!arrangement[-->
       <div class="b1k-kaart b1k-kaart--vast">
         <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="933" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
         <div class="b1k-body">
@@ -323,6 +418,22 @@
           <p class="b1k-trust">{{KAART_TRUST}}</p>
         </div>
       </div>
+      <!--]!arrangement]-->
+      <!--[arrangement[-->
+      <div class="b1k-kaart b1k-kaart--vast ar-kaart">
+        <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="935" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
+        <div class="b1k-body">
+          <p class="ar-kaart-naam">{{KAART_KOP}}</p>
+          <div class="b1k-prijs ar-kaart-prijs"><b class="b1k-prijs-bedrag">{{ARR_PRIJS}}</b> <span class="b1k-prijs-pp">{{ARR_PRIJS_KAART_EENHEID}}</span></div>
+          <!--[zondag[--><p class="ar-zondagregel">{{ZV_KAART_REGEL}}</p><!--]zondag]-->
+          <p class="ar-voorwaarden">{{ARR_VOORWAARDEN}}</p>
+          <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_C}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_D}}</span></li></ul>
+          <a class="btn btn-primary b1k-knop mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{KAART_KNOP}}</a>
+          <p class="b1k-trust">{{KAART_TRUST}}</p>
+          <div class="ar-score"><span><svg class="ar-ster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>4,2 op Google</span><span>{{REVIEWS_AANTAL}} reviews</span></div>
+        </div>
+      </div>
+      <!--]arrangement]-->
     </aside>
   </div>
   <!--]zijkaart]-->
@@ -332,7 +443,7 @@
     <div class="wrap">
       <div class="b5a-kop">
         <h2 id="reviews-kop">{{REVIEW_KOP_A}} <span class="g">{{REVIEW_KOP_EM}}</span></h2>
-        <a class="g-sticker" href="{{GOOGLE_PROFIEL}}" target="_blank" rel="noopener" aria-label="Hotel Asteria op Google: 4,2 uit 5, 2.280 reviews"><span class="g-sticker__score"><svg class="g-sticker__ster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span>4,2</span></span><span class="g-sticker__lijn" aria-hidden="true"></span><span class="g-sticker__bron"><svg class="g-sticker__g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="g-sticker__tekst"><span class="g-sticker__rev">Reviews</span><span class="g-sticker__merk">Google</span></span></span></a>
+        <a class="g-sticker" href="{{GOOGLE_PROFIEL}}" target="_blank" rel="noopener" aria-label="Hotel Asteria op Google: 4,2 uit 5, 2.280 reviews"><span class="g-sticker__score"><svg class="g-sticker__ster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span>4,2</span></span><span class="g-sticker__lijn" aria-hidden="true"></span><span class="g-sticker__bron"><svg class="g-sticker__g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="g-sticker__tekst"><!--[!arrangement[--><span class="g-sticker__rev">Reviews</span><!--]!arrangement]--><!--[arrangement[--><span class="g-sticker__rev">{{REVIEWS_AANTAL}} reviews</span><!--]arrangement]--><span class="g-sticker__merk">Google</span></span></span></a>
       </div>
     </div>
     <div class="b5a-muur" data-reviewmuur>
@@ -359,6 +470,7 @@
             <li><a href="mailto:info@asteria.nl"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@asteria.nl</a></li>
           </ul>
         </div>
+        <!--[!arrangement[-->
         <div class="as-accordeon as-accordeon--kaart">
           <details class="as-accordeon__item" open><summary class="as-accordeon__kop">{{FAQ_EEN_Q}}</summary><div class="as-accordeon__paneel"><p>{{FAQ_EEN_A}}</p></div></details>
           <details class="as-accordeon__item"><summary class="as-accordeon__kop">Hoe laat kan ik inchecken?</summary><div class="as-accordeon__paneel"><p>Inchecken kan vanaf 15.00 uur; uitchecken doe je uiterlijk om 11.00 uur. Ben je eerder, dan kun je je bagage bij de receptie achterlaten en alvast van de wellness genieten.</p></div></details>
@@ -367,10 +479,27 @@
           <details class="as-accordeon__item"><summary class="as-accordeon__kop">{{FAQ_VIJF_Q}}</summary><div class="as-accordeon__paneel"><p>{{FAQ_VIJF_A}}</p></div></details>
           <details class="as-accordeon__item"><summary class="as-accordeon__kop">Kan ik kosteloos annuleren?</summary><div class="as-accordeon__paneel"><p>Ja, tot 24 uur voor aankomst annuleer je kosteloos.</p></div></details>
         </div>
+        <!--]!arrangement]-->
+        <!--[arrangement[-->
+        <div class="as-accordeon as-accordeon--kaart">
+<!-- ARR_FAQ -->
+        </div>
+        <!--]arrangement]-->
       </div>
     </div>
   </section>
 
+  <!--[andere[-->
+  <!-- ══ ARRANGEMENT 8: ANDERE ARRANGEMENTEN (build-blok 'andere', lijst '_andere' in de JSON) ══ -->
+  <section class="sec ar-andere" data-toon="surface" aria-labelledby="andere-kop">
+    <div class="wrap">
+      <h2 id="andere-kop">Ook <span class="g">interessant</span></h2>
+      <div class="ar-andere-rij strook-scroll">
+<!-- ARR_ANDERE -->
+      </div>
+    </div>
+  </section>
+  <!--]andere]-->
   <!-- ══ BLOK 7a: SLOT, FOTOWOLK MET COMPACTE BOEKBALK (zand), raster zoals staging .fc-grid ══ -->
   <section class="sec b7a" data-toon="paper" aria-labelledby="slot-kop">
     <div class="b7a-grid">
@@ -429,9 +558,10 @@
         <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="933" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
         <div class="b1k-body">
           <h2 class="b1k-kop">{{KAART_KOP}}</h2>
-          <p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>{{KAART_CADEAU}}</span></p>
+          <!--[!arrangement[--><p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>{{KAART_CADEAU}}</span></p><!--]!arrangement]-->
+          <!--[arrangement[--><div class="b1k-prijs"><span class="b1k-prijs-vanaf">{{ARR_PRIJS_VANAF}}</span> <b class="b1k-prijs-bedrag">{{ARR_PRIJS}}</b> <span class="b1k-prijs-pp">{{ARR_PRIJS_EENHEID}}</span><span class="b1k-prijs-basis">{{ARR_PRIJS_BASIS}}</span></div><p class="b1k-periode"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>{{ARR_PERIODE}}</span></p><!--]arrangement]-->
           <div class="b1k-score"><span class="b1k-cijfer">4,2</span><span class="b1k-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1k-aantal">{{KAART_REVIEWS}}</span></div>
-          <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_C}}</span></li></ul>
+          <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_C}}</span></li><!--[arrangement[--><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_D}}</span></li><!--]arrangement]--></ul>
           <a class="btn btn-primary b1k-knop mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{KAART_KNOP}}</a>
           <p class="b1k-trust">{{KAART_TRUST}}</p>
         </div>

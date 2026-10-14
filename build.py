@@ -11,6 +11,8 @@ Gebruik:
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
   python3 build.py bedankt welkom-terug gemist verjaardag   # flow-landers op lander-w1 met zijkaart (zoals verblijfsverjaardag-v3)
   python3 build.py welkom-v2           # welkomstlander (code WELKOM) op lander-w1 met zijkaart -> welkom.html (live /welkom; oude NL -> welkom-oud.html)
+  python3 build.py najaarsarrangement   # arrangementsjabloon: lander-w1 met blokken zijkaart + arrangement (ook wellness-arrangement,
+                                        # oorlogsmuseum-arrangement, limburg-arrangement, weekend-aanbieding, golfarrangement)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -19,10 +21,13 @@ import json, os, re, sys
 base = os.path.dirname(os.path.abspath(__file__))
 
 TEMPLATES = {
+    # NL-uitvoer van 'wellness' en 'najaar' is sinds de promotie van de arrangementen (okt 2026) -oud + noindex;
+    # /wellness-arrangement en /najaarsarrangement zijn nu de lander-w1-arrangementen. EN/DE ongewijzigd.
     'wellness': {
         'template': 'wellness-arr-c.template.html',
+        'noindex': ('nl',),
         'langs': {
-            'nl': ('wellness-arrangement.html',    'translations/nl.json'),
+            'nl': ('wellness-arrangement-oud.html', 'translations/nl.json'),   # sinds de promotie (okt 2026) -oud, noindex
             'en': ('wellness-arrangement-en.html', 'translations/en.json'),
             'de': ('wellness-arrangement-de.html', 'translations/de.json'),
         },
@@ -45,8 +50,9 @@ TEMPLATES = {
     },
     'najaar': {
         'template': 'najaar.template.html',
+        'noindex': ('nl',),
         'langs': {
-            'nl': ('najaarsarrangement.html',    'translations/najaar-nl.json'),
+            'nl': ('najaarsarrangement-oud.html', 'translations/najaar-nl.json'),   # sinds de promotie (okt 2026) -oud, noindex
             'en': ('najaarsarrangement-en.html', 'translations/najaar-en.json'),
             'de': ('najaarsarrangement-de.html', 'translations/najaar-de.json'),
         },
@@ -125,6 +131,20 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True},
     },
+    # Arrangementen op lander-w1 (blokken 'zijkaart' + 'arrangement'; arrangement.css/.js): alleen NL, noindex, niet in sitemap.
+    # Live sinds okt 2026 op de nette adressen (oude -v2/-v3 301 in _redirects; oude najaar/wellness-NL -> -oud).
+    # Nieuw arrangement = translations/<slug>-nl.json (kopie van najaarsarrangement-nl.json) + slug in deze lijst.
+    # Opbouw en velden: zie CLAUDE.md (Arrangementen op lander-w1) en apply_arrangement(). Schakelaars in de JSON:
+    # ZV_TOON (zondagvoordeel), WAAROM_TOON (Waarom Asteria, standaard aan), ANDERE_TOON (+ lijst '_andere').
+    # Keys met een '_' vooraan en niet-tekstwaarden gaan niet de {{KEY}}-pass in.
+    **{s: {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': (f'{s}.html', f'translations/{s}-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'zijkaart': True, 'arrangement': True},
+    } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement')},
     # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
     # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
     # Per seizoen een entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.
@@ -289,20 +309,26 @@ def inject_welkom_booking():
         print(f'  [welkom-booking/{suffix or "nl"}] geinjecteerd (voucher {voucher})')
 
 
-def inject_reviews(html, reviews_file, max_kaarten=24, max_tekens=260):
+def inject_reviews(html, reviews_file, max_kaarten=24, max_tekens=260, voorkeur=None):
     """Vul de reviewmuur (lander-w1, blok 5a) uit een Google-reviews-JSON
     (formaat zoals zaalzeven-pages/content/reviews-google.json). Vervangt
     <!-- REVIEWS --> door maximaal 24 kaarten en vult {{GOOGLE_PROFIEL}} /
     {{GOOGLE_REVIEW_URL}} met profiel_url / review_url uit de JSON als de
     vertalings-JSON ze niet al gaf. Lange teksten worden op een woordgrens
-    afgekapt (ongeveer 260 tekens) met een beletselteken."""
+    afgekapt (ongeveer 260 tekens) met een beletselteken.
+    Arrangementen: 'voorkeur' = woorden (bijv. sauna, diner, ontbijt); reviews die er een noemen komen eerst
+    (verder de volgorde van de JSON). {{REVIEWS_AANTAL}} wordt het aantal Google-reviews uit de JSON (2.280)."""
     from html import escape
     with open(os.path.join(base, reviews_file), encoding='utf-8') as f:
         data = json.load(f)
     ster = ('<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 '
             '17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>')
     kaarten = []
-    for r in (data.get('reviews') or [])[:max_kaarten]:
+    reviews = list(data.get('reviews') or [])
+    if voorkeur:
+        noemt = lambda r: any(w in (r.get('tekst') or '').lower() for w in voorkeur)
+        reviews = [r for r in reviews if noemt(r)] + [r for r in reviews if not noemt(r)]
+    for r in reviews[:max_kaarten]:
         tekst = ' '.join((r.get('tekst') or '').split())
         if len(tekst) > max_tekens:
             tekst = tekst[:max_tekens].rsplit(' ', 1)[0].rstrip(' ,.;:!?') + ' \u2026'
@@ -320,6 +346,8 @@ def inject_reviews(html, reviews_file, max_kaarten=24, max_tekens=260):
     html = html.replace('<!-- REVIEWS -->', '\n'.join(kaarten))
     profiel = data.get('profiel_url') or 'https://www.google.com/maps/search/?api=1&query=Hotel+Asteria+Venray'
     schrijf = data.get('review_url') or profiel
+    if data.get('aantal'):
+        html = html.replace('{{REVIEWS_AANTAL}}', f"{int(data['aantal']):,}".replace(',', '.'))
     html = html.replace('{{GOOGLE_PROFIEL}}', escape(profiel)).replace('{{GOOGLE_REVIEW_URL}}', escape(schrijf))
     return html
 
@@ -438,6 +466,137 @@ def apply_blokken(html, aan):
     return html
 
 
+# Pil-iconen per soort in de kamerslider van een arrangement (blok 4b)
+PIL_ICOON = {
+    'inbegrepen': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>',
+    'upgrade': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
+    'toeslag': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+}
+
+
+VINK_SVG = ('<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/>'
+            '<path d="M8 12.5l2.5 2.5 5.5-6"/></svg>')
+
+
+def icoon(paden, cls='as-icoon'):
+    return f'<svg class="{cls}" viewBox="0 0 24 24" aria-hidden="true">{paden}</svg>'
+
+
+def apply_arrangement(html, data):
+    """Arrangementblokken uit de lijsten in de JSON (alleen met blok 'arrangement'):
+    - '_kamers': welke kamers (blok 4b), in welke volgorde, met pil en prijsregel per kaart, bijv.
+      {"deluxe": {"pil": "Inbegrepen", "soort": "inbegrepen", "prijs_label": "vanaf", "prijs": "€ 128,50 p.p."},
+       "suite": {"pil": "Upgrade", "soort": "upgrade", "prijs": "Upgrade mogelijk"}}.
+      Sleutels = data-kamer in het sjabloon (comfort, comfort-3, royale, deluxe, junior-suite, suite, bruidssuite,
+      mindervalide); soort inbegrepen (terracotta rand), upgrade of toeslag. 1 of 2 kamers: raster zonder
+      slider, teller en lus (.ar-kamers; telefoon veegbaar met peek). Vanaf 3: de brede slider met lus zoals /bedankt,
+      teller en streepjes volgen het aantal.
+    - '_chips' (hero), '_inbegrepen' ({titel, regel, icoon}; vakje met lijnicoon, 2 kolommen),
+      '_inbegrepen_fotos' ({img, alt, pos?}; fotoslider in het inbegrepen-blok, 4 tot 6), '_tijden' ({tekst, icoon}), '_faq' ({q, a}; eerste open;
+      "zondag": true = alleen met ZV_TOON), '_andere' ({naam, url, img, alt, prijs?}).
+    - 'ARR_NACHTEN' (getal, standaard 1): vast aantal nachten. Bij meer dan 1 krijgen de boekbalken
+      data-nachten; arrangement.js zet het vertrek dan op aankomst + N (balk, widget en URL-fallback).
+    - '_fotowolk': 12 foto's ({img, pos?} of een pad) die de vaste foto's van de fotowolk (blok 7a)
+      in volgorde vervangen; SLOT_FOTO_A/B blijven staan. Zonder lijst blijft de vaste set."""
+    from html import escape
+    kamers = data.get('_kamers')
+    if kamers:
+        s = html.index('<div class="b4b-strook')
+        voet = html.index('<div class="b4b-voet">', s)
+        start = html.index('<article class="b4b-kaart">', s)
+        eind = html.rindex('</article>', s, voet) + len('</article>')
+        kaarten = {}
+        for m in re.finditer(r'<article class="b4b-kaart">.*?</article>', html[start:eind], re.S):
+            kaarten[re.search(r'data-kamer="([^"]+)"', m.group(0)).group(1)] = m.group(0)
+        nieuw = []
+        for key, cfg in kamers.items():
+            if key not in kaarten:
+                sys.exit(f'apply_arrangement: onbekende kamer {key!r} (kies uit {", ".join(kaarten)})')
+            soort = cfg.get('soort', 'inbegrepen')
+            pil = f'<span class="b4b-pil b4b-pil--{soort}">{PIL_ICOON[soort]}{escape(cfg["pil"], quote=False)}</span>'
+            k = re.sub(r'<span class="b4b-pil">.*?</span>', lambda _: pil, kaarten[key], count=1, flags=re.S)
+            if cfg.get('prijs'):
+                lab = f'<span>{escape(cfg["prijs_label"], quote=False)}</span>' if cfg.get('prijs_label') else ''
+                regel = f'<div class="ar-kprijs ar-kprijs--{soort}">{lab}<b>{escape(cfg["prijs"], quote=False)}</b></div>\n          '
+                k = k.replace('<div class="b4b-knoppen">', regel + '<div class="b4b-knoppen">', 1)
+            if soort == 'inbegrepen':
+                k = k.replace('<article class="b4b-kaart">', '<article class="b4b-kaart ar-kaart-inbegrepen">', 1)
+            nieuw.append(k)
+        html = html[:start] + '\n        '.join(nieuw) + html[eind:]
+        n = len(nieuw)
+        if n <= 2:
+            # raster: geen teller/streepjes/pijlen, geen .b4b-strook (dan laat lander-w1.js lus() hem met rust)
+            html = re.sub(r'<div class="b4b-teller">.*?</button></div></div>', '', html, count=1, flags=re.S)
+            html = html.replace('<div class="b4b-strook strook-scroll" tabindex="0" aria-label="Kamers, schuif voor meer">',
+                                f'<div class="ar-kamers strook-scroll" data-n="{n}" aria-label="Kamers">', 1)
+        else:
+            html = html.replace('van <b>8</b></span>', f'van <b>{n}</b></span>', 1)
+            stippen = ''.join(
+                f'<button type="button" class="b4b-dot{" is-active" if i == 0 else ""}" role="tab" aria-selected="{"true" if i == 0 else "false"}" aria-label="Kamer {i + 1}"></button>'
+                for i in range(n))
+            html = re.sub(r'(<div class="b4b-dots"[^>]*>).*?(</div>)', lambda m: m.group(1) + stippen + m.group(2), html, count=1, flags=re.S)
+
+    chips = ''.join(f'<li>{VINK_SVG}<span>{c}</span></li>' for c in data.get('_chips', []))
+    html = html.replace('<!-- ARR_CHIPS -->', chips)
+    inb = '\n'.join(
+        f'            <li class="ar-inb-punt"><span class="ar-vak">{icoon(p.get("icoon", ""))}</span>'
+        f'<span class="ar-inb-tekst"><b>{p["titel"]}</b><span>{p.get("regel", "")}</span></span></li>'
+        for p in data.get('_inbegrepen', []))
+    html = html.replace('<!-- ARR_INBEGREPEN -->', inb)
+    fotos = data.get('_inbegrepen_fotos', [])
+    if '<!-- ARR_INB_FOTOS -->' in html and not 4 <= len(fotos) <= 6:
+        sys.exit(f'_inbegrepen_fotos: 4 tot 6 foto\'s nodig, niet {len(fotos)}')
+    html = html.replace('<!-- ARR_INB_FOTOS -->', '\n'.join(
+        f'            <figure class="ar-fs-dia"><img src="{escape(f["img"])}" alt="{escape(f.get("alt", ""))}"'
+        + (f' style="object-position:{escape(f["pos"])}"' if f.get('pos') else '')
+        + (' loading="lazy"' if i else '') + '></figure>'
+        for i, f in enumerate(fotos)))
+    html = html.replace('<!-- ARR_INB_BOLLEN -->', ''.join(
+        f'<button type="button" class="ar-fs-bol{" is-aan" if i == 0 else ""}" data-fs-naar="{i}" aria-label="Foto {i + 1}"'
+        + (' aria-current="true"' if i == 0 else '') + '></button>'
+        for i in range(len(fotos))))
+    tijden = ''.join(f'<li>{icoon(p.get("icoon", ""))}<span>{p["tekst"]}</span></li>' for p in data.get('_tijden', []))
+    html = html.replace('<!-- ARR_TIJDEN -->', tijden)
+    faq = [f for f in data.get('_faq', []) if data.get('ZV_TOON') or not f.get('zondag')]
+    html = html.replace('<!-- ARR_FAQ -->', '\n'.join(
+        f'          <details class="as-accordeon__item"{" open" if i == 0 else ""}><summary class="as-accordeon__kop">{f["q"]}</summary>'
+        f'<div class="as-accordeon__paneel"><p>{f["a"]}</p></div></details>'
+        for i, f in enumerate(faq)))
+    pijl = '<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+    html = html.replace('<!-- ARR_ANDERE -->', '\n'.join(
+        f'        <a class="ar-ander" href="{escape(a["url"])}">'
+        f'<span class="ar-ander-foto"><img src="{escape(a["img"])}" alt="{escape(a.get("alt", ""))}" loading="lazy"></span>'
+        f'<span class="ar-ander-tekst"><b class="ar-ander-naam">{a["naam"]}</b>'
+        + (f'<span class="ar-ander-prijs">{re.sub(r"(€\s?[0-9.,]+)", r"<b>\1</b>", a["prijs"])}</span>' if a.get('prijs') else '')
+        + f'<span class="ar-ander-rond">{pijl}</span></span></a>'
+        for a in data.get('_andere', [])))
+
+    nachten = data.get('ARR_NACHTEN', 1)
+    if not isinstance(nachten, int) or nachten < 1:
+        sys.exit(f'ARR_NACHTEN moet een heel getal van 1 of meer zijn, niet {nachten!r}')
+    if nachten > 1:
+        html = html.replace(' data-boekbalk ', f' data-boekbalk data-nachten="{nachten}" ')
+
+    wolk = data.get('_fotowolk')
+    if wolk:
+        s = html.index('<section class="sec b7a"')
+        e = html.index('<div class="b7a-inhoud">', s)
+        vast = [m for m in re.finditer(r'<img class="b7a-foto[^"]*" data-h="[^"]+" src="[^"]+" alt="" loading="lazy">', html[s:e])]
+        if len(wolk) != len(vast):
+            sys.exit(f'_fotowolk: precies {len(vast)} foto\'s nodig, niet {len(wolk)}')
+        stuk = html[s:e]
+        for m, f in reversed(list(zip(vast, wolk))):
+            f = {'img': f} if isinstance(f, str) else f
+            if not os.path.exists(os.path.join(base, f['img'])):
+                sys.exit(f'_fotowolk: {f["img"]} bestaat niet')
+            tag = re.sub(r'src="[^"]+"', lambda _: f'src="{escape(f["img"])}"', m.group(0), count=1)
+            if f.get('pos'):
+                tag = tag[:-1] + f' style="object-position:{escape(f["pos"])}">'
+            stuk = stuk[:m.start()] + tag + stuk[m.end():]
+        html = html[:s] + stuk + html[e:]
+    return html
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -465,7 +624,13 @@ def build(template_name, lang):
     aan = ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
-    # Variantblokken (bijv. zijkaart, ladder, cadeau) vóór de {{KEY}}-pass
+    if 'arrangement' in aan:
+        # arrangementblokken aan/uit per arrangement in de JSON
+        if translations.get('ZV_TOON'): aan.add('zondag')
+        if translations.get('WAAROM_TOON', True): aan.add('waarom')
+        if translations.get('ANDERE_TOON') and translations.get('_andere'): aan.add('andere')
+
+    # Variantblokken (bijv. zijkaart, ladder, cadeau, arrangement) vóór de {{KEY}}-pass
     html = apply_blokken(html, aan)
     if ladder:
         html = html.replace('<!-- UPGRADE_LADDER -->', render_ladder(ladder))
@@ -473,7 +638,12 @@ def build(template_name, lang):
         html = html.replace('<!-- CADEAU_ITEMS -->', render_cadeau(cadeau, cadeau_voet))
 
     for key, value in translations.items():
-        html = html.replace('{{' + key + '}}', value)
+        if isinstance(value, str) and not key.startswith('_'):
+            html = html.replace('{{' + key + '}}', value)
+
+    # Arrangement: kamers + pillen uit '_kamers' (alleen met blok 'arrangement')
+    if 'arrangement' in aan:
+        html = apply_arrangement(html, translations)
 
     # Letterlijke (hardcoded) NL-strings vertalen, in lijstvolgorde: langste/
     # meest specifieke strings staan vooraan zodat substrings niet half raken.
@@ -485,13 +655,25 @@ def build(template_name, lang):
 
     # Reviewmuur uit de Google-reviews-JSON (alleen templates met 'reviews')
     if config.get('reviews'):
-        html = inject_reviews(html, config['reviews'])
+        if 'arrangement' in aan:
+            n = translations.get('_reviews_aantal', 12)
+            if n not in (8, 12):
+                sys.exit(f'_reviews_aantal moet 8 of 12 zijn, niet {n!r}')
+            html = inject_reviews(html, config['reviews'], max_kaarten=n, voorkeur=translations.get('_reviews_voorkeur'))
+        else:
+            html = inject_reviews(html, config['reviews'])
 
     # Mews-boekingslinks in de juiste taal openen (alleen EN/DE)
     html = add_mews_language(html, lang)
 
     # Kamer-media in ROOMS gelijk aan de detailpagina's (video + volledige fotoset)
     html = fix_room_media(html)
+
+    # Oude pagina's (-oud) niet indexeren: robots-meta direct na de charset-regel
+    if lang in config.get('noindex', ()) and 'name="robots"' not in html:
+        html = re.sub(r'(<meta charset="[^"]*">)', r'\1\n  <meta name="robots" content="noindex, follow">', html, count=1)
+        if 'name="robots"' not in html:
+            sys.exit(f'noindex: geen <meta charset> in {output_file}')
 
     # Sanity check: no unreplaced markers
     remaining = re.findall(r'\{\{[A-Z_0-9]+\}\}', html)
