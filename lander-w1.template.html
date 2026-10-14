@@ -175,11 +175,11 @@
         </div>
         <div class="b2a-tegel b2a-wellness">
           <img src="fotos/l26-wellness-staand.webp" alt="Voetenbad in de wellness op de Top Floor" loading="lazy">
-          <div class="b2a-label"><h3>{{TEGEL_WELLNESS_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_WELLNESS_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_WELLNESS_HREF}}">{{TEGEL_WELLNESS_KNOP}}</a></div></div></div>
+          <div class="b2a-label"><h3>{{TEGEL_WELLNESS_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_WELLNESS_TEKST}}</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="wellness" aria-haspopup="dialog" aria-label="Meer info over de wellness">{{TEGEL_WELLNESS_KNOP}}</button></div></div></div>
         </div>
         <div class="b2a-tegel b2a-terras">
           <img src="fotos/l26-terras.webp" alt="Twee glazen rode wijn op het terras" loading="lazy">
-          <div class="b2a-label"><h3>{{TEGEL_RESTAURANT_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_RESTAURANT_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_RESTAURANT_HREF}}">{{TEGEL_RESTAURANT_KNOP}}</a></div></div></div>
+          <div class="b2a-label"><h3>{{TEGEL_RESTAURANT_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_RESTAURANT_TEKST}}</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="restaurant" aria-haspopup="dialog" aria-label="Meer info over het restaurant en terras">{{TEGEL_RESTAURANT_KNOP}}</button></div></div></div>
         </div>
         <div class="b2a-tegel">
           <img src="fotos/l26-omg-bossen.webp" alt="Beekje met houten brug in het bos achter het hotel" loading="lazy">
@@ -429,9 +429,62 @@
       </div>
     </div>
   </dialog>
+  <!-- ══ POP-UP faciliteit (knoppen Wellness en Restaurant in de tegelstrook, blok 2a). Overgenomen uit lander-2026
+       (#lp-pop-fac + #lp-facdata); zelfde lp-pop-CSS en open/sluit-logica als de kamer-pop-up. ══ -->
+  <dialog class="lp-pop lp-pop--fac" id="lp-pop-fac" aria-modal="true" aria-labelledby="lp-pop-fac-titel">
+    <button type="button" class="lp-pop__sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="lp-pop__binnen">
+      <div class="lp-pop__media"><img class="lp-pop__hero" alt=""></div>
+      <div class="lp-pop__fotos"></div>
+      <div class="lp-pop__body">
+        <h3 class="lp-pop__titel" id="lp-pop-fac-titel"></h3>
+        <p class="lp-pop__tekst"></p>
+        <ul class="lp-pop__chips" aria-label="Kenmerken"></ul>
+        <div class="lp-pop__acties"><a class="btn btn-secondary lp-pop__meer" href="https://www.asteria.nl/faciliteiten">Meer op asteria.nl</a></div>
+      </div>
+    </div>
+  </dialog>
   <div class="lp-pop-overlay" hidden></div>
   <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>
 
+  <script type="application/json" id="lp-facdata">
+{
+ "wellness": {
+  "titel": "Wellness op de Top Floor",
+  "link": "https://www.asteria.nl/wellness",
+  "fotos": [
+   "fotos/wellness-spa.webp",
+   "fotos/wp-sauna-fins.webp",
+   "fotos/wp-sauna-zoutsteen.webp",
+   "fotos/l26-wellness-dompelbad.webp"
+  ],
+  "tekst": "Op de Top Floor van het hotel ligt de wellness van ruim 300 m², met vier sauna's, een stoomcabine, belevenisdouches, een dompel- en kruidenbad, voetenbaden en een relaxruimte. Dinsdag is badkledingdag, op de andere dagen ga je zonder badkleding. Reserveer vooraf bij de receptie.",
+  "chips": [
+   "Ruim 300 m²",
+   "Vier sauna's en stoomcabine",
+   "Ma-do 16.00-22.00 uur",
+   "Vr-zo 12.00-22.00 uur"
+  ]
+ },
+ "restaurant": {
+  "titel": "Restaurant en terras",
+  "link": "https://www.asteria.nl/restaurant",
+  "fotos": [
+   "fotos/l26-fac-restaurant-1.webp",
+   "fotos/l26-fac-restaurant-2.webp",
+   "fotos/l26-fac-restaurant-3.webp",
+   "fotos/l26-terras.webp"
+  ],
+  "tekst": "In het restaurant koken we met de seizoenen, met dagverse streekproducten. In de brasserie met open haard schuif je aan voor lunch, diner of een drankje; het diner serveren we tot 21.30 uur. Bij mooi weer zit je op ons zonnige terras aan de bossen. Op vaste data is er een zondagsbrunch met live cooking.",
+  "chips": [
+   "Brasserie ma-vr 07.00-00.00 uur",
+   "Za-zo 08.00-01.00 uur",
+   "Diner tot 21.30 uur",
+   "Zondagsbrunch op vaste data"
+  ]
+ }
+}
+  </script>
   <script type="application/json" id="lp-kamerdata">
 {
  "comfort": {

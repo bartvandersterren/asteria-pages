@@ -381,8 +381,8 @@
     if (e.key === 'Escape') { sluitDrawer(); sluitSubs(null); }
   });
 
-  /* ── pop-up: kamer (Bekijk kamer, blok 4b) ──
-     Eén <dialog>, gevuld uit de JSON in het sjabloon (#lp-kamerdata).
+  /* ── pop-ups: kamer (Bekijk kamer, blok 4b) en faciliteit (Wellness/Restaurant in de tegelstrook, blok 2a) ──
+     Eén <dialog> per soort, gevuld uit de JSON in het sjabloon (#lp-kamerdata, #lp-facdata).
      Native showModal (Escape, top layer, ::backdrop); zonder showModal een div met hidden + overlay.
      Video pas laden bij openen, leegmaken bij sluiten. Focus terug naar de knop die opende. */
   function leesJson(id) {
@@ -391,14 +391,16 @@
     try { return JSON.parse(el.textContent); } catch (e) { return null; }
   }
   var kamerData = leesJson('lp-kamerdata') || {};
+  var facData = leesJson('lp-facdata') || {};
   var popKamer = document.getElementById('lp-pop-kamer');
+  var popFac = document.getElementById('lp-pop-fac');
   var popOverlay = document.querySelector('.lp-pop-overlay');
   var vinkSjabloon = document.getElementById('lp-pop-vink');
   var kanModal = !!(popKamer && typeof popKamer.showModal === 'function');
   var rustig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var openPop = null, opener = null;
 
-  if (!kanModal) [popKamer].forEach(function (d) { if (d) d.hidden = true; });
+  if (!kanModal) [popKamer, popFac].forEach(function (d) { if (d) d.hidden = true; });
 
   function maak(tag, cls, tekst) {
     var el = document.createElement(tag);
@@ -452,7 +454,7 @@
     }
   }
 
-  [popKamer].forEach(function (d) {
+  [popKamer, popFac].forEach(function (d) {
     if (!d) return;
     if (kanModal) {
       d.addEventListener('close', function () { var stil = d._stil; d._stil = false; opruimen(d, stil); });
@@ -521,10 +523,40 @@
     return true;
   }
 
+  function vulFac(key) {
+    var f = facData[key];
+    if (!f || !popFac) return false;
+    /* grote foto + drie kleine eronder (zelfde .lp-pop__fotos als de kamer-pop-up) */
+    var fotos = f.fotos || [];
+    var hero = popFac.querySelector('.lp-pop__hero');
+    hero.src = fotos[0] || '';
+    hero.alt = f.titel + ' bij Hotel Asteria';
+    var rij = popFac.querySelector('.lp-pop__fotos');
+    rij.textContent = '';
+    var rijFotos = fotos.slice(1, 4);
+    rij.setAttribute('data-n', rijFotos.length);
+    rijFotos.forEach(function (src, i) {
+      var img = maak('img');
+      img.src = src; img.alt = f.titel + ', foto ' + (i + 2); img.loading = 'lazy'; img.decoding = 'async';
+      rij.appendChild(img);
+    });
+    popFac.querySelector('.lp-pop__titel').textContent = f.titel;
+    popFac.querySelector('.lp-pop__tekst').textContent = f.tekst;
+    var chips = popFac.querySelector('.lp-pop__chips');
+    chips.textContent = '';
+    (f.chips || []).forEach(function (t) { chips.appendChild(maak('li', null, t)); });
+    var meer = popFac.querySelector('.lp-pop__meer');
+    meer.setAttribute('href', f.link);
+    meer.setAttribute('aria-label', 'Meer over ' + f.titel.toLowerCase() + ' op asteria.nl');
+    return true;
+  }
+
   document.addEventListener('click', function (e) {
     if (!e.target.closest) return;
     var kk = e.target.closest('[data-kamer]');
-    if (kk) { e.preventDefault(); if (vulKamer(kk.getAttribute('data-kamer'))) toonPop(popKamer, kk); }
+    if (kk) { e.preventDefault(); if (vulKamer(kk.getAttribute('data-kamer'))) toonPop(popKamer, kk); return; }
+    var fk = e.target.closest('[data-fac]');
+    if (fk) { e.preventDefault(); if (vulFac(fk.getAttribute('data-fac'))) toonPop(popFac, fk); }
   });
 
   /* ── reviewmuur (blok 5a, zoals Zaal Zeven b6d): Google-reviews in 1-5 kolommen die verticaal doorlopen

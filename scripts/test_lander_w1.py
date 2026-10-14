@@ -8,7 +8,8 @@ Gebruik:
 Standaard basis-url: http://localhost:8765/verblijfsverjaardag-v2.html
 Checks (1440 en 390): geen horizontale overloop, boekbalk (voucher, datums, reisgezelschap naar
 Mews-widget of URL-fallback), kamerslider (teller 1 van 8, pijlen, lus), Bekijk kamer-pop-up
-met data-room, reviewmuur (4 kolommen op 1440, 1 op 390, pauze bij hover, statisch bij
+met data-room, Wellness-/Restaurant-pop-up uit de tegelstrook (titel, link, foto's, past in beeld, Escape/kruisje/
+achtergrond sluiten, focus terug), reviewmuur (4 kolommen op 1440, 1 op 390, pauze bij hover, statisch bij
 prefers-reduced-motion), eerste FAQ open, onderbalk na de hero op 390, uitklaptab (>= 720: na de hero,
 weg bij 7a, open/Escape/buiten/sluitknop, Mews met voucher; niet op 390), overloop ook 1100/800, geen consolefouten.
 
@@ -102,6 +103,45 @@ with sync_playwright() as p:
               pg.evaluate("document.getElementById('lp-pop-kamer').open") and titel == 'Royale kamer'
               and room == 'a8fd7310-0d61-422f-89e6-af1d00ffc315', f'{titel} / {room}')
         pg.keyboard.press('Escape'); pg.wait_for_timeout(300)
+
+        # tegelstrook: Wellness- en Restaurant-knop -> faciliteiten-pop-up
+        for key, titel_v, link_v in (('wellness', 'Wellness op de Top Floor', 'https://www.asteria.nl/wellness'),
+                                     ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')):
+            fk = pg.locator(f'.b2a-strook [data-fac="{key}"]').first
+            tegel = pg.locator(f'.b2a-strook .b2a-tegel:has([data-fac="{key}"])').first
+            tegel.scroll_into_view_if_needed()
+            if not mob: tegel.hover()
+            pg.wait_for_timeout(700)
+            fk.click(); pg.wait_for_timeout(1200)
+            f = pg.evaluate("""()=>{const d=document.getElementById('lp-pop-fac'),r=d.getBoundingClientRect(),bi=d.querySelector('.lp-pop__binnen');
+                const imgs=[...d.querySelectorAll('.lp-pop__hero,.lp-pop__fotos img')];
+                return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),
+                  fotos:imgs.length,geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length,chips:d.querySelectorAll('.lp-pop__chips li').length,
+                  t:Math.round(r.top),b:Math.round(r.bottom),l:Math.round(r.left),r:Math.round(r.right),
+                  scroll:bi.scrollHeight-bi.clientHeight,sw:document.documentElement.scrollWidth}}""")
+            check(f'{tag} {key}-knop opent pop-up met juiste titel, link en geladen foto\'s',
+                  f['open'] and f['titel'] == titel_v and f['link'] == link_v and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
+            check(f'{tag} {key}-pop-up past in beeld' + (', zonder scrollen' if not mob else ''),
+                  f['t'] >= 0 and f['l'] >= 0 and f['r'] <= w and f['b'] <= h and f['sw'] <= w and (mob or f['scroll'] <= 1), str(f))
+            if shotdir:
+                pg.screenshot(path=f'{shotdir}/{NAAM}-fac-{key}-{w}.png')
+            pg.keyboard.press('Escape'); pg.wait_for_timeout(400)
+            dicht = pg.evaluate("""k=>({open:document.getElementById('lp-pop-fac').open,focus:document.activeElement===document.querySelector('.b2a-strook [data-fac="'+k+'"]')})""", key)
+            check(f'{tag} Escape sluit de {key}-pop-up, focus terug op de knop', not dicht['open'] and dicht['focus'], str(dicht))
+        # sluiten via kruisje en via de achtergrond
+        def open_wellness():
+            tegel = pg.locator('.b2a-strook .b2a-wellness').first
+            tegel.scroll_into_view_if_needed()
+            if not mob: tegel.hover()
+            pg.wait_for_timeout(700)
+            pg.locator('.b2a-strook [data-fac="wellness"]').first.click(); pg.wait_for_timeout(500)
+        open_wellness()
+        pg.locator('#lp-pop-fac .lp-pop__sluit').click(); pg.wait_for_timeout(400)
+        x1 = pg.evaluate("document.getElementById('lp-pop-fac').open")
+        open_wellness()
+        pg.mouse.click(3, 3); pg.wait_for_timeout(400)
+        x2 = pg.evaluate("document.getElementById('lp-pop-fac').open")
+        check(f'{tag} kruisje en klik op de achtergrond sluiten de pop-up', not x1 and not x2, f'{x1}/{x2}')
 
         # reviewmuur
         kol = pg.evaluate("document.querySelectorAll('.b5a-muur.is-loop .b5a-kol').length")
