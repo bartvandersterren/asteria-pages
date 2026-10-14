@@ -10,6 +10,7 @@ Gebruik:
   python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' -> verblijfsverjaardag.html (live sinds 14 okt 2026; oude lander -> verblijfsverjaardag-oud.html)
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
   python3 build.py bedankt welkom-terug gemist verjaardag   # flow-landers op lander-w1 met zijkaart (zoals verblijfsverjaardag-v3)
+  python3 build.py welkom-v2           # welkomstlander (code WELKOM) op lander-w1 met zijkaart; oude /welkom blijft
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -111,6 +112,17 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True},
     } for s in ('bedankt', 'welkom-terug', 'gemist', 'verjaardag')},
+    # Welkomstlander (welkomstflow na nieuwsbriefaanmelding) op lander-w1 met zijkaart: code WELKOM,
+    # welkomstgeschenk (bubbels, badjas, badlaken) bij het eerste verblijf. Alleen NL, noindex.
+    # De oude /welkom (welkom.template.html, NL/EN/DE) blijft tot akkoord Stijn ongewijzigd.
+    'welkom-v2': {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': ('welkom-v2.html', 'translations/welkom-v2-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'zijkaart': True},
+    },
     # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
     # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
     # Per seizoen een entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.
