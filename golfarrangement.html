@@ -210,6 +210,19 @@
       </div>
     </div>
   </section>
+  <!-- ══ ARRANGEMENT 2b: GOLFBANEN (build-blok 'banen', aan zodra de JSON een lijst '_banen' heeft). Opzet van het
+       Parkhotel-blok 'Kies uw golfbaan' (/arrangement/golfarrangement/, .zd-golfbanen): kaart per baan met foto, naam,
+       plaats + rijtijd, omschrijving en link naar de baan; in de kaartstijl van de kamerkaarten. Bureaublad: kaarten naast
+       elkaar in de hoofdkolom; telefoon: veegrij met peek. Kaarten uit '_banen' (build.py) ══ -->
+  <section class="sec ar-sec ar-banen" data-toon="paper" aria-labelledby="banen-kop">
+    <div class="wrap">
+      <div class="ar-banen-kop"><h2 id="banen-kop">Kies je <span class="g">golfbaan</span></h2><p>Bij het arrangement hoort een greenfee voor 18 holes op een van deze twee banen. Je geeft je keuze telefonisch door aan de receptie, dan reserveren wij de baan voor je.</p></div>
+      <div class="ar-banen-rij" aria-label="Golfbanen">
+        <article class="ar-baan"><div class="ar-baan-foto"><img src="fotos/l26-golfarrangement-baan-bleijenbeek.webp" alt="Fairway van Golfbaan Landgoed Bleijenbeek met het clubhuis en een vijver op de achtergrond" style="object-position:60% 50%" loading="lazy"></div><div class="ar-baan-inhoud"><h3>Golfbaan Landgoed Bleijenbeek</h3><p class="ar-baan-plek"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span>Afferden · ca. 25 minuten rijden</span></p><p class="ar-baan-tekst">Gelegen in het natuurrijke Limburgse Maasduinengebied. Deze glooiende baan met waterpartijen, oude bomenlanen en een kasteelruïne vraagt om tactisch spel dankzij de slimme indeling en hoogteverschillen.</p><a class="ar-inb-link ar-baan-link" href="https://bleijenbeek.nl/" target="_blank" rel="noopener">Naar de website<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+        <article class="ar-baan"><div class="ar-baan-foto"><img src="fotos/l26-golfarrangement-baan-geijsteren.webp" alt="Green met vlag en een bunker tussen de bomen bij Golfclub Geijsteren" style="object-position:50% 60%" loading="lazy"></div><div class="ar-baan-inhoud"><h3>Golfclub Geijsteren</h3><p class="ar-baan-plek"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span>Geijsteren · ca. 15 minuten rijden</span></p><p class="ar-baan-tekst">Een sfeervolle, bosrijke baan op een historisch landgoed. De eerste 13 holes liggen verscholen tussen de bomen, gevolgd door 5 uitdagende waterholes. Een baan met karakter en uitdaging.</p><a class="ar-inb-link ar-baan-link" href="https://www.golfclubgeijsteren.nl/" target="_blank" rel="noopener">Naar de website<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+      </div>
+    </div>
+  </section>
   <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a9 (14 okt), precies
        zoals Parkhotel blok-zondagvoordeel: een ivoren paneel met de kop erin, twee kaarten in het paneel (zondagkaart met
        terracotta rand op zand, titel + pil op een regel, grote prijs; gewone kaart met dunne rand, prijs klein en grijs),

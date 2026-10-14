@@ -147,7 +147,8 @@ TEMPLATES = {
     # Live sinds okt 2026 op de nette adressen (oude -v2/-v3 301 in _redirects; oude najaar/wellness-NL -> -oud).
     # Nieuw arrangement = translations/<slug>-nl.json (kopie van najaarsarrangement-nl.json) + slug in deze lijst.
     # Opbouw en velden: zie CLAUDE.md (Arrangementen op lander-w1) en apply_arrangement(). Schakelaars in de JSON:
-    # ZV_TOON (zondagvoordeel), WAAROM_TOON (Waarom Asteria, standaard aan), ANDERE_TOON (+ lijst '_andere').
+    # ZV_TOON (zondagvoordeel), WAAROM_TOON (Waarom Asteria, standaard aan), ANDERE_TOON (+ lijst '_andere'),
+    # lijst '_banen' (golfbanen na Dit is inbegrepen; alleen golf).
     # Keys met een '_' vooraan en niet-tekstwaarden gaan niet de {{KEY}}-pass in.
     **{s: {
         'template': 'lander-w1.template.html',
@@ -506,6 +507,8 @@ def apply_arrangement(html, data):
     - '_chips' (hero), '_inbegrepen' ({titel, regel, icoon}; vakje met lijnicoon, 2 kolommen),
       '_inbegrepen_fotos' ({img, alt, pos?}; fotoslider in het inbegrepen-blok, 4 tot 6), '_tijden' ({tekst, icoon}), '_faq' ({q, a}; eerste open;
       "zondag": true = alleen met ZV_TOON), '_andere' ({naam, url, img, alt, prijs?}).
+    - '_banen' (optioneel, 1 tot 4; build-blok 'banen' na 'Dit is inbegrepen'): {naam, plaats, tekst, rijtijd, url, foto, alt,
+      pos?, link?}; kaart per golfbaan met foto, naam, plaats · rijtijd, tekst en link (nieuw tabblad). Kop BANEN_KOP_A/EM, BANEN_INTRO.
     - 'ARR_NACHTEN' (getal, standaard 1): vast aantal nachten. Bij meer dan 1 krijgen de boekbalken
       data-nachten; arrangement.js zet het vertrek dan op aankomst + N (balk, widget en URL-fallback).
     - '_fotowolk': 12 foto's ({img, pos?} of een pad) die de vaste foto's van de fotowolk (blok 7a)
@@ -582,6 +585,31 @@ def apply_arrangement(html, data):
         + (f'<span class="ar-ander-prijs">{re.sub(r"(€\s?[0-9.,]+)", r"<b>\1</b>", a["prijs"])}</span>' if a.get('prijs') else '')
         + f'<span class="ar-ander-rond">{pijl}</span></span></a>'
         for a in data.get('_andere', [])))
+
+    banen = data.get('_banen')
+    if banen:
+        if not 1 <= len(banen) <= 4:
+            sys.exit(f'_banen: 1 tot 4 banen nodig, niet {len(banen)}')
+        pin = ('<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0'
+               'c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>')
+        kaarten = []
+        for b in banen:
+            for veld in ('naam', 'plaats', 'tekst', 'rijtijd', 'url', 'foto', 'alt'):
+                if not b.get(veld):
+                    sys.exit(f'_banen: veld {veld!r} ontbreekt bij {b.get("naam", "?")!r}')
+            if not os.path.exists(os.path.join(base, b['foto'])):
+                sys.exit(f'_banen: {b["foto"]} bestaat niet')
+            kaarten.append(
+                f'        <article class="ar-baan">'
+                f'<div class="ar-baan-foto"><img src="{escape(b["foto"])}" alt="{escape(b["alt"])}"'
+                + (f' style="object-position:{escape(b["pos"])}"' if b.get('pos') else '')
+                + ' loading="lazy"></div>'
+                f'<div class="ar-baan-inhoud"><h3>{b["naam"]}</h3>'
+                f'<p class="ar-baan-plek">{pin}<span>{b["plaats"]} · {b["rijtijd"]}</span></p>'
+                f'<p class="ar-baan-tekst">{b["tekst"]}</p>'
+                f'<a class="ar-inb-link ar-baan-link" href="{escape(b["url"])}" target="_blank" rel="noopener">'
+                f'{b.get("link", "Naar de website")}{pijl}</a></div></article>')
+        html = html.replace('<!-- ARR_BANEN -->', '\n'.join(kaarten))
 
     nachten = data.get('ARR_NACHTEN', 1)
     if not isinstance(nachten, int) or nachten < 1:
@@ -729,6 +757,7 @@ def build(template_name, lang):
         if translations.get('ZV_TOON'): aan.add('zondag')
         if translations.get('WAAROM_TOON', True): aan.add('waarom')
         if translations.get('ANDERE_TOON') and translations.get('_andere'): aan.add('andere')
+        if translations.get('_banen'): aan.add('banen')
 
     # Variantblokken (bijv. zijkaart, ladder, cadeau, arrangement) vóór de {{KEY}}-pass
     html = apply_blokken(html, aan)

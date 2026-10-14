@@ -325,6 +325,37 @@ with sync_playwright() as p:
                 check(f'{tag} zonder zondagvoordeel: geen zondagblok, geen zondagregel in de kaarten, geen zondag-FAQ',
                       a['zvN'] == 0 and a['zvRegels'] == 0 and not any('zondag' in q.lower() for q in a['faq']), f"{a['zvN']} / {a['zvRegels']} / {a['faq']}")
             check(f'{tag} zondagblok: geen keuzeschakelaar of oude opties', not a['zvKiezer'])
+            # Golfbanen (build-blok 'banen', lijst '_banen' in de JSON): aantal kaarten = lengte van de lijst, anders geen blok
+            try:
+                with open(f'translations/{NAAM}-nl.json', encoding='utf-8') as fj:
+                    BANEN_N = len(json.load(fj).get('_banen') or [])
+            except OSError:
+                BANEN_N = 0
+            pg.evaluate("(()=>{const s=document.querySelector('.ar-banen');if(s){s.scrollIntoView({block:'center'});s.querySelectorAll('img').forEach(i=>i.loading='eager')}})()")
+            pg.wait_for_timeout(900)
+            bn = pg.evaluate("""(()=>{const s=document.querySelector('.ar-banen');if(!s)return {er:false,n:0};
+                const k=[...s.querySelectorAll('.ar-baan')],inb=document.querySelector('.ar-inb'),na=document.querySelector('.ar-zv, .ar-waarom, .b4b');
+                return {er:true,n:k.length,kop:s.querySelector('h2').innerText,
+                  kaarten:k.map(x=>{const i=x.querySelector('.ar-baan-foto img'),l=x.querySelector('a.ar-baan-link'),r=x.getBoundingClientRect();
+                    return {naam:(x.querySelector('h3')||{}).innerText||'',plek:(x.querySelector('.ar-baan-plek')||{}).innerText||'',
+                      href:l?l.getAttribute('href'):'',blank:!!l&&l.target==='_blank'&&/noopener/.test(l.rel),
+                      foto:!!i&&i.complete&&i.naturalWidth>0&&!!i.alt,top:Math.round(r.top),w:Math.round(r.width),l:Math.round(r.left),rechts:Math.round(r.right)}}),
+                  volgorde:!!inb&&!!(inb.compareDocumentPosition(s)&Node.DOCUMENT_POSITION_FOLLOWING)&&(!na||!!(s.compareDocumentPosition(na)&Node.DOCUMENT_POSITION_FOLLOWING)),
+                  ov:document.documentElement.scrollWidth-innerWidth}})()""")
+            if BANEN_N:
+                kk = bn.get('kaarten', [])
+                check(f'{tag} golfbanen: blok met kop en {BANEN_N} baankaarten, elk met naam, plaats/rijtijd, link (nieuw tabblad) en foto',
+                      bn['er'] and 'golfbaan' in bn['kop'] and bn['n'] == BANEN_N and all(x['naam'] and 'minuten' in x['plek'] and x['href'].startswith('https://') and x['blank'] and x['foto'] for x in kk), str(bn)[:400])
+                check(f'{tag} golfbanen: na Dit is inbegrepen, voor het zondagblok', bn['volgorde'], str(bn['volgorde']))
+                if mob:
+                    check(f'{tag} golfbanen: veegrij, eerste kaart in beeld, geen horizontale overloop van de pagina',
+                          kk and kk[0]['l'] >= 0 and kk[0]['rechts'] <= w and bn['ov'] <= 0, str(kk)[:200])
+                else:
+                    check(f'{tag} golfbanen: kaarten naast elkaar, even breed', len(kk) >= 2 and len({x['top'] for x in kk}) == 1 and abs(kk[0]['w'] - kk[1]['w']) <= 1, str(kk)[:200])
+            else:
+                check(f'{tag} geen golfbanenblok (geen _banen in de JSON)', not bn['er'] and not pg.locator('.ar-baan').count(), str(bn)[:120])
+            if shotdir and bn['er']:
+                pg.locator('.ar-banen').screenshot(path=f'{shotdir}/{NAAM}-{w}-golfbanen.png')
             check(f'{tag} Waarom Asteria: kop, zes punten, foto geladen, knop met {VOUCHER}',
                   a['wKop'].startswith('Voor de grote dagen') and a['wPunten'] == 6 and a['wFoto'] and a['wKnop'] == VOUCHER, str(a)[:300])
             check(f'{tag} zijkaart met foto en prijs', a['kantFoto'] == 1 and a['kantPrijs'], str(a)[:200])

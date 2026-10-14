@@ -221,6 +221,20 @@
       </div>
     </div>
   </section>
+  <!--[banen[-->
+  <!-- ══ ARRANGEMENT 2b: GOLFBANEN (build-blok 'banen', aan zodra de JSON een lijst '_banen' heeft). Opzet van het
+       Parkhotel-blok 'Kies uw golfbaan' (/arrangement/golfarrangement/, .zd-golfbanen): kaart per baan met foto, naam,
+       plaats + rijtijd, omschrijving en link naar de baan; in de kaartstijl van de kamerkaarten. Bureaublad: kaarten naast
+       elkaar in de hoofdkolom; telefoon: veegrij met peek. Kaarten uit '_banen' (build.py) ══ -->
+  <section class="sec ar-sec ar-banen" data-toon="paper" aria-labelledby="banen-kop">
+    <div class="wrap">
+      <div class="ar-banen-kop"><h2 id="banen-kop">{{BANEN_KOP_A}} <span class="g">{{BANEN_KOP_EM}}</span></h2><p>{{BANEN_INTRO}}</p></div>
+      <div class="ar-banen-rij" aria-label="Golfbanen">
+<!-- ARR_BANEN -->
+      </div>
+    </div>
+  </section>
+  <!--]banen]-->
   <!--[zondag[-->
   <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a9 (14 okt), precies
        zoals Parkhotel blok-zondagvoordeel: een ivoren paneel met de kop erin, twee kaarten in het paneel (zondagkaart met
