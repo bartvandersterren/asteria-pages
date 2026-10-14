@@ -58,11 +58,11 @@ with sync_playwright() as p:
             check(f'[{w}] geen horizontale overloop', sw <= w, f'scrollWidth {sw}')
             if w == 1100:
                 pg.evaluate("window.scrollTo(0, document.querySelector('.b2a').getBoundingClientRect().top + scrollY - 150)"); pg.wait_for_timeout(700)
-                z = pg.evaluate("""()=>{const k=document.querySelector('.b1k-kaart--vast').getBoundingClientRect(),s=document.querySelector('.b2a-strook').getBoundingClientRect();
+                z = pg.evaluate("""()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect(),s=document.querySelector('.b2a-strook').getBoundingClientRect();
                     return {kl:k.left,kr:k.right,kt:k.top,sr:s.right,st:s.top,sb:s.bottom}}""")
                 check(f'[{w}] kaart naast de tegels', z['kl'] > z['sr'] and z['kr'] <= w and z['kt'] < z['sb'], str(z))
             if w == 800:
-                z = pg.evaluate("""()=>{const k=document.querySelector('.b1k-kaart--vast'),r=k.getBoundingClientRect(),a=document.querySelector('.b3a').getBoundingClientRect(),
+                z = pg.evaluate("""()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast'),r=k.getBoundingClientRect(),a=document.querySelector('.b3a').getBoundingClientRect(),
                     m=document.querySelector('.b4b').getBoundingClientRect();return {w:r.width,pos:getComputedStyle(k).position,na3a:r.top+scrollY>=a.bottom+scrollY-1,voor4b:r.bottom<=m.top+1}}""")
                 check(f'[{w}] kaart als blok tussen attentie en kamers', z['w'] > 0 and z['pos'] != 'sticky' and z['na3a'] and z['voor4b'], str(z))
         else:
@@ -175,10 +175,10 @@ with sync_playwright() as p:
             geen = pg.evaluate("!document.querySelector('.b1k-uitklap, .b1k-tab, .b1k-paneel')")
             check(f'{tag} geen uitklaptab in de pagina', geen)
             if mob:
-                zk = pg.evaluate("document.querySelector('.b1k-kaart--vast').getBoundingClientRect().width")
+                zk = pg.evaluate("document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect().width")
                 check(f'{tag} geen zijkaart op de telefoon', zk == 0, str(zk))
             else:
-                kaart = """()=>{const k=document.querySelector('.b1k-kaart--vast').getBoundingClientRect(),kop=document.querySelector('.top-stack').getBoundingClientRect().bottom,
+                kaart = """()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect(),kop=document.querySelector('.top-stack').getBoundingClientRect().bottom,
                     s=document.querySelector('.b2a-strook').getBoundingClientRect(),m=document.querySelector('.b5a').getBoundingClientRect();
                     return {l:Math.round(k.left),r:Math.round(k.right),t:Math.round(k.top),b:Math.round(k.bottom),kop:Math.round(kop),sr:Math.round(s.right),st:Math.round(s.top),sb:Math.round(s.bottom),m5:Math.round(m.top)}}"""
                 pg.evaluate("window.scrollTo(0, document.querySelector('.b2a-strook').getBoundingClientRect().top + scrollY - document.querySelector('.top-stack').offsetHeight - 24)"); pg.wait_for_timeout(700)
@@ -188,7 +188,7 @@ with sync_playwright() as p:
                 pg.evaluate("(()=>{const s=document.querySelector('.b4b-strook');window.scrollTo(0, s.getBoundingClientRect().top + scrollY + s.offsetHeight/2 - innerHeight/2)})()"); pg.wait_for_timeout(700)
                 z = pg.evaluate(kaart)
                 check(f'{tag} kaart in beeld midden kamerslider', z['b'] > z['kop'] + 200 and z['t'] <= z['kop'] + 40, str(z))
-                eind = pg.evaluate("(()=>{const k=document.querySelector('.lp-zone .b4b-kaart:not([data-kloon])');window.scrollTo(0, k.getBoundingClientRect().bottom + scrollY - innerHeight + 150);const a=document.querySelector('.b1k-kaart--vast').getBoundingClientRect().bottom,b=k.getBoundingClientRect().bottom;return [Math.round(a),Math.round(b)]})()")
+                eind = pg.evaluate("(()=>{const k=document.querySelector('.lp-zone .b4b-kaart:not([data-kloon])');window.scrollTo(0, k.getBoundingClientRect().bottom + scrollY - innerHeight + 150);const a=document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect().bottom,b=k.getBoundingClientRect().bottom;return [Math.round(a),Math.round(b)]})()")
                 check(f'{tag} kaart stopt gelijk met de kamerkaarten', abs(eind[0] - eind[1]) <= 3, str(eind))
                 if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-kamerslider.png')
                 pg.evaluate("window.scrollTo(0, document.querySelector('.b5a').getBoundingClientRect().top + scrollY - document.querySelector('.top-stack').offsetHeight)"); pg.wait_for_timeout(700)
@@ -197,7 +197,7 @@ with sync_playwright() as p:
                 if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-reviewmuur.png')
                 pg.evaluate("window.scrollTo(0, document.querySelector('.b3a').getBoundingClientRect().top + scrollY - 150)"); pg.wait_for_timeout(700)
                 pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
-                pg.locator('.b1k-kaart--vast .b1k-knop').click(); pg.wait_for_timeout(300)
+                pg.locator('.lp-zone-kant .b1k-knop').click(); pg.wait_for_timeout(300)
                 r = pg.evaluate('window._mews.slice()')
                 check(f'{tag} knop in de kaart opent Mews met voucher JUBILEUM', r == ['v:JUBILEUM', 'open'], str(r))
                 pg.evaluate("delete window.mewsApi")
@@ -240,7 +240,7 @@ with sync_playwright() as p:
             # Mews-poort met voucher (gestubde widget-API, geen netwerk)
             pg.locator('.b1k-tab').click(); pg.wait_for_timeout(600)
             pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
-            pg.locator('.b1k-knop').click(); pg.wait_for_timeout(300)
+            pg.locator('.b1k-paneel .b1k-knop').click(); pg.wait_for_timeout(300)
             r = pg.evaluate('window._mews.slice()')
             check(f'{tag} knop in de kaart opent Mews met voucher JUBILEUM', r == ['v:JUBILEUM', 'open'], str(r))
             pg.evaluate("delete window.mewsApi")
@@ -251,29 +251,37 @@ with sync_playwright() as p:
             check(f'{tag} uitklaptab weg bij het slotblok en daarna', not t2['zicht'] and not t3['zicht'] and t2['aria'] == 'true', f"{t2} / {t3}")
         pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(400)
 
-        # boekbalk (laatst, laadt de Mews-widget)
-        a = date.today() + timedelta(days=30)
-        pg.fill('#bb-aankomst', a.isoformat())
-        vert = pg.input_value('#bb-vertrek')
-        check(f'{tag} vertrek volgt aankomst + 1 nacht', vert == (a + timedelta(days=1)).isoformat(), vert)
-        pg.fill('#bb-vertrek', (a + timedelta(days=2)).isoformat())
-        pg.select_option('#bb-gasten', '3')
-        zicht = pg.locator('.b1a-balk .value').all_inner_texts()
-        check(f'{tag} zichtbare waarden volgen de invoer', zicht[2] == '3 volwassenen' and zicht[0] != 'Kies datum', ' | '.join(zicht[:3]))
-        popups = []
-        ctx.on('page', lambda np: popups.append(np.url))
-        pg.locator('.b1a-balk button[type=submit]').click()
-        pg.wait_for_timeout(7000)
-        log = pg.evaluate('window.lpBoekbalk') or {}
-        u = log.get('url', '')
-        check(f'{tag} boekbalk-URL bevat JUBILEUM, mewsStart, mewsEnd, mewsAdultCount=3',
-              'mewsVoucherCode=JUBILEUM' in u and f'mewsStart={a.isoformat()}' in u
-              and f'mewsEnd={(a + timedelta(days=2)).isoformat()}' in u and 'mewsAdultCount=3' in u, u)
-        widget = pg.evaluate("!!document.querySelector('iframe[src*=\"mews\"], .mews-distributor, [class*=\"mews\"] iframe')")
-        check(f'{tag} boekbalk opent Mews (widget of URL-fallback)',
-              log.get('route') in ('widget', 'url (geen datum-methodes)') or len(popups) > 0,
-              f"route={log.get('route')} methodes={log.get('methodes')} iframe={widget} popups={popups}")
-        print('     boekbalk-log:', json.dumps(log, ensure_ascii=False))
+        if mob:
+            # telefoon: boekkaart in plaats van de datumbalk
+            mk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),f=document.querySelector('.b1a-balk'),h=document.querySelector('.b1a-tekst h1, .b1a h1');
+                const r=k.getBoundingClientRect(),kn=k.querySelector('.b1k-knop');
+                return {kaart:r.height>300&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
+                        knop:kn&&kn.classList.contains('mews-open')&&kn.dataset.voucher==='JUBILEUM'}})()""")
+            check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
+        else:
+            # boekbalk (laatst, laadt de Mews-widget)
+            a = date.today() + timedelta(days=30)
+            pg.fill('#bb-aankomst', a.isoformat())
+            vert = pg.input_value('#bb-vertrek')
+            check(f'{tag} vertrek volgt aankomst + 1 nacht', vert == (a + timedelta(days=1)).isoformat(), vert)
+            pg.fill('#bb-vertrek', (a + timedelta(days=2)).isoformat())
+            pg.select_option('#bb-gasten', '3')
+            zicht = pg.locator('.b1a-balk .value').all_inner_texts()
+            check(f'{tag} zichtbare waarden volgen de invoer', zicht[2] == '3 volwassenen' and zicht[0] != 'Kies datum', ' | '.join(zicht[:3]))
+            popups = []
+            ctx.on('page', lambda np: popups.append(np.url))
+            pg.locator('.b1a-balk button[type=submit]').click()
+            pg.wait_for_timeout(7000)
+            log = pg.evaluate('window.lpBoekbalk') or {}
+            u = log.get('url', '')
+            check(f'{tag} boekbalk-URL bevat JUBILEUM, mewsStart, mewsEnd, mewsAdultCount=3',
+                  'mewsVoucherCode=JUBILEUM' in u and f'mewsStart={a.isoformat()}' in u
+                  and f'mewsEnd={(a + timedelta(days=2)).isoformat()}' in u and 'mewsAdultCount=3' in u, u)
+            widget = pg.evaluate("!!document.querySelector('iframe[src*=\"mews\"], .mews-distributor, [class*=\"mews\"] iframe')")
+            check(f'{tag} boekbalk opent Mews (widget of URL-fallback)',
+                  log.get('route') in ('widget', 'url (geen datum-methodes)') or len(popups) > 0,
+                  f"route={log.get('route')} methodes={log.get('methodes')} iframe={widget} popups={popups}")
+            print('     boekbalk-log:', json.dumps(log, ensure_ascii=False))
 
         eigen = [f for f in pg._fouten if 'mews' not in f.lower()]
         check(f'{tag} geen consolefouten (eigen code)', not eigen, '; '.join(eigen)[:300])

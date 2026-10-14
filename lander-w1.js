@@ -277,8 +277,7 @@
       document.documentElement.classList.toggle('mob-cta-aan', weg);
       document.documentElement.style.setProperty('--mob-cta-h', balk.offsetHeight + 'px');
       balk.setAttribute('aria-hidden', weg ? 'false' : 'true');
-      var a = balk.querySelector('a');
-      if (a) a.setAttribute('tabindex', weg ? '0' : '-1');
+      balk.querySelectorAll('a').forEach(function (a) { a.setAttribute('tabindex', weg ? '0' : '-1'); });
     }).observe(hero);
   }
 

@@ -133,7 +133,7 @@ with sync_playwright() as p:
             vooraf = pg.evaluate("document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
             pg.evaluate("window.scrollTo(0, document.querySelector('.hf-intro').offsetTop + 400)"); pg.wait_for_timeout(700)
             na_ = pg.evaluate("document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
-            href = pg.evaluate("document.querySelector('.mob-cta a').getAttribute('href')")
+            href = pg.evaluate("document.querySelector('.mob-cta .btn').getAttribute('href')")
             check(f'{tag} onderbalk verschijnt na de hero en wijst naar #kamers', (not vooraf) and na_ and href == '#kamers', f'voor {vooraf}, na {na_}, {href}')
             pg.wait_for_timeout(400)
             echt = pg.evaluate("""(()=>{const m=document.querySelector('.mob-cta'),r=m.getBoundingClientRect(),c=getComputedStyle(m);return c.display!=='none'&&c.visibility==='visible'&&r.height>40&&r.bottom<=innerHeight+1&&r.top<innerHeight})()""")

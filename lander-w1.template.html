@@ -152,6 +152,20 @@
         <button type="submit" class="btn btn-primary">{{BOEKBALK_KNOP}}</button>
       </form>
       <p class="b1a-regel"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{BOEKBALK_NOOT}}</span></p>
+      <!-- telefoon: de boekkaart in plaats van de datumbalk (zoals Parkhotel); bureaublad houdt de balk -->
+      <div class="b1a-mobkaart">
+        <div class="b1k-kaart b1k-kaart--vast b1k-kaart--mob">
+          <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="933" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
+          <div class="b1k-body">
+            <h2 class="b1k-kop">{{KAART_KOP}}</h2>
+            <p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>{{KAART_CADEAU}}</span></p>
+            <div class="b1k-score"><span class="b1k-cijfer">4,2</span><span class="b1k-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1k-aantal">{{KAART_REVIEWS}}</span></div>
+            <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_C}}</span></li></ul>
+            <a class="btn btn-primary b1k-knop mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{KAART_KNOP}}</a>
+            <p class="b1k-trust">{{KAART_TRUST}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -738,6 +752,7 @@
 
 <!-- ══ ONDERBALK TELEFOON ══ -->
 <div class="mob-cta" aria-hidden="true">
+  <a class="mob-cta-bel" href="tel:+31478511466" aria-label="Bel Hotel Asteria: 0478 511466" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
   <div><b>{{STICKY_KOP}}</b><span class="om">{{STICKY_SUB}}</span></div>
   <a class="btn btn-primary mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}" tabindex="-1">{{STICKY_KNOP}}</a>
 </div>
