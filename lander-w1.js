@@ -69,8 +69,10 @@
       var api = window.mewsApi;
       if (voucher && api.setVoucherCode) api.setVoucherCode(voucher);
       if (api.setLanguageCode) api.setLanguageCode('nl-NL');
+      /* showRates() kiest alleen de kamer en opent de widget niet (live vastgesteld 14 okt 2026 op config 6dc9094c):
+         daarna altijd open(), dan opent hij op de kamerstap. */
       if (kamer && api.showRates) api.showRates(kamer);
-      else api.open();
+      api.open();
     }
     viaMews(open, href);
   });
