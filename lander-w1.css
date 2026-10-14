@@ -1032,9 +1032,16 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .lp-zone-kant{display:block;padding:var(--gap-section) 0 var(--kant-onder,var(--gap-section))}
   .lp .b1k-kaart--vast{position:sticky;top:calc(var(--kop-h,114px) + 24px)}
   /* 3a: drie kolommen passen niet naast de kaart; opbouw zoals tablet */
-  .lp .lp-zone .b3a-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"tekst tekst" "foto lijst" "knop knop";grid-template-rows:none;row-gap:32px}
-  .lp .lp-zone .b3a-foto{height:420px}
+  /* 3a: redenenwiel zoals /herfst (2d): staande foto, de punten schuiven er half overheen in een boog */
+  .lp .lp-zone .b3a-grid{grid-template-columns:300px minmax(0,1fr);grid-template-areas:"tekst tekst" "foto lijst" "knop knop";grid-template-rows:none;row-gap:32px;column-gap:0;align-items:center}
+  .lp .lp-zone .b3a-foto{height:auto;aspect-ratio:391/618;position:relative;z-index:1}
   .lp .lp-zone .b3a-knop{padding-top:0}
+  .lp .lp-zone .b3a-rechts{position:relative;z-index:2;margin-left:-40px}
+  .lp .lp-zone .b3a-lijst{gap:14px}
+  .lp .lp-zone .b3a-lijst .as-usp-wheel-item{background:var(--surface);box-shadow:var(--as-schaduw)}
+  .lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(1),.lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(5){margin-left:44px;opacity:.78}
+  .lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(2),.lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(4){margin-left:14px}
+  .lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(3){box-shadow:var(--shadow-card)}
   /* 4b: strook loopt links door tot de schermrand (vorige kamers in beeld, eindeloos), rechts stopt hij bij de kaart met precies twee hele kamers in de kolom */
   .lp .lp-zone .b4b-strook{--bleed:max(var(--gutter),(100vw - 1120px) / 2);margin:-10px -10px 0 calc(-1 * var(--bleed));padding:10px 10px 20px var(--bleed);width:calc(100% + 10px + var(--bleed));scroll-padding-left:var(--bleed)}
   .lp .lp-zone .b4b-kaart{flex-basis:calc((100% - 24px) / 2)}
