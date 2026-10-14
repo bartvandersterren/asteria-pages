@@ -176,14 +176,20 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - LIVE sinds 14 okt 2026: build-entry `verblijfsverjaardag-v3` (blok `zijkaart`) schrijft `verblijfsverjaardag.html` = visit.asteria.nl/verblijfsverjaardag
   (link uit de jubileummail). Oude lander-2026-versie bewaard als `verblijfsverjaardag-oud.html`; `/verblijfsverjaardag-v3` 301 in `_redirects`.
   v2 (uitklaptab) blijft als variant op /verblijfsverjaardag-v2. Alles noindex.
-- Upgradeblok A · Ladder-slider (14 okt 2026, alleen /bedankt, wacht op akkoord Stijn): blok 3a-variant `ladder` in
+- Upgradeblok A · Ladder-slider (14 okt 2026, /bedankt en /gemist; 5 stappen Comfort > Royale > Deluxe > Junior Suite > Suite > Bruidssuite): blok 3a-variant `ladder` in
   `lander-w1.template.html` (`<!--[ladder[-->` / `<!--[!ladder[-->`), staat aan zodra de JSON een `UPGRADE_LADDER` heeft
   (kamers, stappen, winstregels, labels, voet; build.py `render_ladder`) + `UPGRADE_INTRO`. CSS/JS prefix `b3l-`. Andere landers
   ook? = `UPGRADE_LADDER` + `UPGRADE_INTRO` in hun JSON. Test: `... /bedankt.html --v3 --voucher BEDANKT --ladder` (zonder `--ladder`: blok afwezig).
-- Cadeaublok (14 okt 2026, alleen /welkom-v2): blok 3a-variant `cadeau` (`<!--[cadeau[-->` / `<!--[!cadeau[-->` om de ster-split),
+- Cadeaublok (14 okt 2026, /welkom): blok 3a-variant `cadeau` (`<!--[cadeau[-->` / `<!--[!cadeau[-->` om de ster-split),
   aan zodra de JSON `CADEAU_ITEMS` heeft (lijst naam/regel/foto/alt, optioneel badge, standaard Gratis) + `CADEAU_INTRO` + `CADEAU_VOET`;
   build.py `render_cadeau`. Drie kaarten in b3l-kaartstijl (CSS `b3c-`, breedte via `.b3l-wrap`), geen knop. Foto's `fotos/l26-welkom-cadeau-*.webp`.
-  Test: `... /welkom-v2.html --v3 --voucher WELKOM --cadeau` (zonder `--cadeau`: blok afwezig).
+  Test: `... /welkom.html --v3 --voucher WELKOM --cadeau` (zonder `--cadeau`: blok afwezig).
+- LIVE-promotie welkom (14 okt 2026): build-entry `welkom-v2` schrijft `welkom.html` = visit.asteria.nl/welkom; entry `welkom` schrijft
+  NL nu naar `welkom-oud.html` (EN/DE ongewijzigd welkom-en/-de, taalkeuze daar wijst naar /welkom = nieuwe pagina); `/welkom-v2` 301 in `_redirects`.
+- Ster-split (blok 3a) per JSON: `PUNT_EEN..VIJF_ICOON` (svg-inhoud; TWEE/DRIE/VIJF hebben een standaard in build.py
+  `ATTENTIE_ICOON_STANDAARD`) en `ATTENTIE_KNOP` (ontbreekt = tekst van CTA, leeg = geen knop; build-blok `attentie-knop`).
+- Vaste feiten (Stijn, 14 okt 2026): Royale en Deluxe 25 m²; badjas te leen; ontbijt ma-vr 07.00-10.00, za-zo 08.00-10.30;
+  VERJAARDAG = verblijf rond je verjaardag, verjaardag melden bij het boeken; Google-reviews 2.280 (hero-badge mag "2.200+").
 
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 

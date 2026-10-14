@@ -3,7 +3,7 @@
   "HTML_LANG": "nl",
   "PAGE_TITLE": "Welkom bij Hotel Asteria",
   "META_DESC": "Fijn dat je erbij bent. Je welkomstgeschenk staat klaar bij Hotel Asteria in Venray, met code 'WELKOM'.",
-  "CANONICAL_URL": "https://visit.asteria.nl/welkom",
+  "CANONICAL_URL": "https://visit.asteria.nl/welkom-oud",
   "OG_LOCALE": "nl_NL",
   "LANG_DETECT_SCRIPT": "<!-- ══ TAALDETECTIE ══════════════════════════════════════════ -->\n<script>\n(function() {\n  var stored = localStorage.getItem('asteria_lang');\n  if (stored === 'en') { window.location.replace('/welkom-en'); return; }\n  if (stored === 'de') { window.location.replace('/welkom-de'); return; }\n  if (!stored) {\n    var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();\n    if (lang.indexOf('de') === 0) {\n      localStorage.setItem('asteria_lang', 'de');\n      window.location.replace('/welkom-de');\n    } else if (lang.indexOf('nl') !== 0) {\n      localStorage.setItem('asteria_lang', 'en');\n      window.location.replace('/welkom-en');\n    }\n  }\n})();\n</script>",
   "LANG_SELECT_OPTIONS": "<option value=\"nl\" selected>nl</option>\n          <option value=\"en\">en</option>\n          <option value=\"de\">de</option>",

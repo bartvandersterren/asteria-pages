@@ -22,14 +22,14 @@ Flow-landers (zelfde sjabloon als v3):  ... http://localhost:8765/bedankt.html -
 (--voucher, standaard JUBILEUM, is de code die de Mews-knoppen en de boekbalk moeten meegeven; bij een andere
 code dan JUBILEUM checkt de test ook dat JUBILEUM en 'verblijfsverjaardag' niet in de zichtbare tekst staan.)
 
-Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER in de JSON, nu alleen bedankt):
+Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER in de JSON: bedankt en gemist):
   ... http://localhost:8765/bedankt.html --v3 --voucher BEDANKT --ladder
-Met --ladder: blok aanwezig (ster-split weg, kop blijft), teller 1 van 4, beginstand (vorige uit), volgende/vorige,
+Met --ladder: blok aanwezig (ster-split weg, kop blijft), teller 1 van 5, beginstand (vorige uit), volgende/vorige,
 geen lus aan het eind (volgende uit), streepjes, pijltjestoetsen, swipe (scrollpositie), alleen de actieve stap voor
 schermlezers, kaarten passen in de kolom (1440: links van de zijkaart; 390: onder elkaar). Zonder --ladder: blok afwezig.
 
-Cadeaublok (blok 3a-variant 'cadeau', aan via CADEAU_ITEMS in de JSON, nu alleen welkom-v2):
-  ... http://localhost:8765/welkom-v2.html --v3 --voucher WELKOM --cadeau
+Cadeaublok (blok 3a-variant 'cadeau', aan via CADEAU_ITEMS in de JSON, welkom, sinds 14 okt op /welkom):
+  ... http://localhost:8765/welkom.html --v3 --voucher WELKOM --cadeau
 Met --cadeau: blok aanwezig (ster-split weg, ster en kop blijven), 3 kaarten met badge, voetregel, geen knop of link in het
 blok, kaarten passen in de kolom zonder overloop (>= 720: naast elkaar, >= 1024 links van de zijkaart; 390: onder elkaar,
 foto links). Zonder --cadeau: blok afwezig.
@@ -43,6 +43,7 @@ shotdir = None
 V3 = '--v3' in args
 if V3: args.remove('--v3')
 LADDER = '--ladder' in args
+LADDER_N = 5   # stappen in het upgradeblok: Comfort > Royale > Deluxe > Junior Suite > Suite > Bruidssuite
 if LADDER: args.remove('--ladder')
 CADEAU = '--cadeau' in args
 if CADEAU: args.remove('--cadeau')
@@ -141,7 +142,7 @@ with sync_playwright() as p:
         else:
             check(f'{tag} upgradeblok aanwezig in #attentie, ster-split weg, kop blijft',
                   pg.locator('#attentie .b3l').count() == 1 and pg.locator('.b3a-grid').count() == 0 and pg.locator('#attentie .b3a-ster').count() == 1
-                  and 'de upgrade' in pg.locator('#attentie h2').inner_text() and pg.locator('.b3l-stap').count() == 4)
+                  and 'de upgrade' in pg.locator('#attentie h2').inner_text() and pg.locator('.b3l-stap').count() == LADDER_N)
             check(f'{tag} upgradeblok zonder boekknop en zonder prijzen',
                   pg.locator('#attentie a, #attentie .mews-open').count() == 0 and '\u20ac' not in pg.locator('#attentie').inner_text())
             pg.locator('#attentie').scroll_into_view_if_needed(); pg.wait_for_timeout(400)
@@ -152,18 +153,20 @@ with sync_playwright() as p:
                   zicht:[...b.querySelectorAll('.b3l-stap')].map((s,i)=>s.hasAttribute('aria-hidden')?0:i+1).filter(Boolean).join(','),
                   pos:Math.round(sp.scrollLeft/sp.clientWidth*100)/100}}""")
             s0 = ls()
-            check(f'{tag} ladder beginstand: 1 van 4, vorige uit, volgende aan', s0['nu'] == '1' and '4' in s0['tot'] and s0['vorige'] == 'true'
+            check(f'{tag} ladder beginstand: 1 van {LADDER_N}, vorige uit, volgende aan', s0['nu'] == '1' and str(LADDER_N) in s0['tot'] and s0['vorige'] == 'true'
                   and s0['volgende'] == 'false' and s0['dot'] == '1' and s0['zicht'] == '1' and s0['pos'] == 0, str(s0))
             pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900); s1 = ls()
-            check(f'{tag} ladder volgende: 2 van 4, streepje 2, vorige aan', s1['nu'] == '2' and s1['dot'] == '2' and s1['zicht'] == '2'
+            check(f'{tag} ladder volgende: 2 van {LADDER_N}, streepje 2, vorige aan', s1['nu'] == '2' and s1['dot'] == '2' and s1['zicht'] == '2'
                   and s1['vorige'] == 'false' and s1['pos'] == 1, str(s1))
-            pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900)
+            for _ in range(LADDER_N - 3):
+                pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900)
             pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900); s3 = ls()
             pg.locator('.b3l-volgende').click(force=True); pg.wait_for_timeout(900); s4 = ls()   # aria-disabled: klik moet niets doen
-            check(f'{tag} ladder eindstand: 4 van 4, volgende uit, geen lus', s3['nu'] == '4' and s3['volgende'] == 'true' and s4['nu'] == '4'
-                  and s4['pos'] == 3 and s4['zicht'] == '4', f'{s3} / {s4}')
+            check(f'{tag} ladder eindstand: {LADDER_N} van {LADDER_N}, volgende uit, geen lus', s3['nu'] == str(LADDER_N) and s3['volgende'] == 'true'
+                  and s4['nu'] == str(LADDER_N) and s4['pos'] == LADDER_N - 1 and s4['zicht'] == str(LADDER_N), f'{s3} / {s4}')
             pg.locator('.b3l-vorige').click(); pg.wait_for_timeout(900); s5 = ls()
-            check(f'{tag} ladder vorige: 3 van 4, volgende weer aan', s5['nu'] == '3' and s5['volgende'] == 'false' and s5['dot'] == '3', str(s5))
+            check(f'{tag} ladder vorige: {LADDER_N - 1} van {LADDER_N}, volgende weer aan', s5['nu'] == str(LADDER_N - 1) and s5['volgende'] == 'false'
+                  and s5['dot'] == str(LADDER_N - 1), str(s5))
             pg.locator('.b3l-dot').nth(0).click(); pg.wait_for_timeout(1100); s6 = ls()
             check(f'{tag} ladder streepje 1 springt terug naar het begin', s6['nu'] == '1' and s6['vorige'] == 'true' and s6['pos'] == 0, str(s6))
             pg.locator('.b3l-spoor').focus(); pg.keyboard.press('ArrowRight'); pg.wait_for_timeout(900); k1 = ls()

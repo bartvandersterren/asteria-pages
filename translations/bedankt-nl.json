@@ -18,7 +18,7 @@
   "KAART_PIL": "Op basis van beschikbaarheid",
   "KAART_KOP": "Bedankt voor je beoordeling",
   "KAART_CADEAU": "Gratis upgrade naar een hoger kamertype",
-  "KAART_REVIEWS": "2.219 Google reviews",
+  "KAART_REVIEWS": "2.280 Google reviews",
   "KAART_VINK_A": "Beste prijs gegarandeerd",
   "KAART_VINK_B": "Kosteloos annuleren tot 24 uur voor aankomst",
   "KAART_VINK_C": "Directe bevestiging",
@@ -191,6 +191,25 @@
             "eigen infraroodsauna"
           ]
         ]
+      },
+      "bruidssuite": {
+        "naam": "Bruidssuite",
+        "foto": "fotos/l26-vk-bruidssuite.webp",
+        "alt": "Bruidssuite bij Hotel Asteria",
+        "specs": [
+          [
+            "m2",
+            "36 m²"
+          ],
+          [
+            "bed",
+            "kingsize bed"
+          ],
+          [
+            "bad",
+            "vrijstaand ligbad"
+          ]
+        ]
       }
     },
     "stappen": [
@@ -213,6 +232,11 @@
         "van": "junior",
         "naar": "suite",
         "winst": "je eigen infraroodsauna en nog wat meer ruimte"
+      },
+      {
+        "van": "suite",
+        "naar": "bruidssuite",
+        "winst": "een ruim vrijstaand ligbad, een inloopdouche en de romantische sfeer van de bruidssuite"
       }
     ],
     "voet": "Welk kamertype voor je vrij is, hoor je bij aankomst. Zonder bijbetaling, en annuleren kan kosteloos tot 24 uur vooraf."
