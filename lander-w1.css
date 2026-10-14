@@ -1092,6 +1092,7 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
 @media (max-width:719px){
   .lp .b1a-onder .b1a-balk,.lp .b1a-onder .b1a-regel{display:none}
   .lp .b1a-mobkaart{display:block}
+  .lp .b1a-onder{margin-top:24px}
   .lp .b1k-kaart--mob{position:static;box-shadow:var(--shadow-card)}
 }
 
