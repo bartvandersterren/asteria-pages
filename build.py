@@ -8,6 +8,7 @@ Gebruik:
   python3 build.py feedback           # alleen feedback template
   python3 build.py verblijfsverjaardag-v2   # lander W1 (reviewmuur uit content/)
   python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' (sticky boekkaart)
+  python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -97,6 +98,16 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True},
     },
+    # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
+    # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
+    # Per seizoen een entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.
+    **{s: {
+        'template': 'seizoen.template.html',
+        'langs': {
+            'nl': (f'{s}.html', f'translations/{s}-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+    } for s in ('herfst', 'lente', 'zomer', 'winter')},
 }
 
 def add_mews_language(html, lang):
