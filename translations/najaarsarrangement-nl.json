@@ -1,6 +1,6 @@
 {
   "_controleren": [
-    "Zondagvoordeel: de zondagkorting is nog niet actief in Mews Asteria. Gemeten 14 okt 2026 (config 6dc9094c, NAJAAR2D, 2 volwassenen, 1 nacht): zondag 25 okt, 1, 8 en 15 nov en dinsdag 27 okt, 3, 10 en 17 nov allemaal EUR 257,00 voor 2 personen (EUR 128,50 p.p.). De zondagprijs op de pagina (EUR 118,50 p.p.) is berekend als gewone prijs min EUR 10 p.p. (EUR 20 per kamer). Eerst de korting in Mews zetten, anders ZV_TOON op false.",
+    "Zondagtarief in Mews gemeten 14 okt 2026: € 118,50 p.p. (tarief 'Najaarsarrangement, aankomst op zondag', NAJAAR2D, 2 volwassenen, 1 nacht, Deluxe: zondag 25 okt, 1, 8, 22 en 29 nov, 6 dec EUR 237 voor 2 p.; dinsdag 27 okt, 3 en 10 nov EUR 257 = € 128,50 p.p.). Korting in Mews = EUR 20 per kamer, gelijk aan de pagina. Na 27 dec 2026 geeft Mews op zondag de gewone prijs (3 en 10 jan 2027: EUR 257).",
     "Periode: de huidige pagina zegt 'Boekbaar van 8 september t/m 30 november'. Is 30 november de laatste boekdatum of de laatste verblijfsdatum?",
     "Annuleringsvoorwaarden van het arrangementstarief: onbekend. De zijkaart noemt daarom geen annuleren; de FAQ zegt: zie je bij het boeken.",
     "Suite en Bruidssuite: geen toeslag meetbaar. Mews geeft met NAJAAR2D op config 6dc9094c alleen een tarief voor de Deluxe kamer (EUR 257,00 voor 2 personen). Volgens de vaste meerprijzen van de andere arrangementen zou de Suite EUR 10 en de Bruidssuite EUR 20 p.p. per nacht duurder zijn dan de Deluxe; bevestigen en in Mews zetten. Tot dan pil 'Upgrade' met 'Upgrade mogelijk'.",
