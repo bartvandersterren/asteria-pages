@@ -63,15 +63,17 @@
     },
     {
       "naam": "Zachte badjas",
-      "regel": "Te leen tijdens je verblijf",
+      "regel": "Voor de wellness of een ochtend op je gemak",
       "foto": "fotos/l26-welkom-cadeau-badjas.webp",
-      "alt": "Gast in een witte badjas leest een tijdschrift in een relaxstoel in de wellness van Hotel Asteria"
+      "alt": "Gast in een witte badjas leest een tijdschrift in een relaxstoel in de wellness van Hotel Asteria",
+      "badge": "Te leen"
     },
     {
       "naam": "Badlaken",
       "regel": "Voor de wellness op de Top Floor",
       "foto": "fotos/l26-welkom-cadeau-badlaken.webp",
-      "alt": "Opgerolde witte handdoeken op de houten bank van de Finse sauna"
+      "alt": "Opgerolde witte handdoeken op de houten bank van de Finse sauna",
+      "badge": "Te leen"
     }
   ],
   "CADEAU_VOET": "Bij je eerste verblijf, op basis van beschikbaarheid. Annuleren kan kosteloos tot 24 uur vooraf.",

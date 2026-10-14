@@ -200,8 +200,8 @@ with sync_playwright() as p:
             zicht = pg.evaluate("""()=>[...document.querySelectorAll('#attentie .b3c-kaart')].map(k=>{const p=[...k.querySelectorAll('.b3l-pil')].filter(x=>x.offsetParent);
                 return {pil:p.length===1?p[0].innerText.trim():p.length, h3:k.querySelector('h3').innerText, regel:k.querySelector('.b3c-regel').innerText,
                   foto:k.querySelector('img').complete&&k.querySelector('img').naturalWidth>0}})""")
-            check(f'{tag} elke kaart: één zichtbare badge Gratis, naam, regel, foto geladen',
-                  all(z['pil'].upper() == 'GRATIS' if isinstance(z['pil'], str) else False for z in zicht) and all(z['h3'] and z['regel'] and z['foto'] for z in zicht), str(zicht))
+            check(f'{tag} elke kaart: één zichtbare badge (Gratis of Te leen), naam, regel, foto geladen',
+                  all(z['pil'].upper() in ('GRATIS', 'TE LEEN') if isinstance(z['pil'], str) else False for z in zicht) and all(z['h3'] and z['regel'] and z['foto'] for z in zicht), str(zicht))
             check(f'{tag} voetregel onder de kaarten', 'eerste verblijf' in pg.locator('#attentie .b3c-voet').inner_text()
                   and pg.evaluate("document.querySelector('#attentie .b3c-voet').getBoundingClientRect().top>=document.querySelector('#attentie .b3c-rij').getBoundingClientRect().bottom"))
             cadeau_layout(pg, w)
