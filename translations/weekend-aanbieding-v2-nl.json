@@ -1,0 +1,240 @@
+{
+  "_controleren": [
+    "Aankomstdagen: Mews geeft met WEEKEND (config 6dc9094c, 2 volwassenen) alleen een tarief bij aankomst op vrijdag of zaterdag en precies 2 nachten (gemeten 14 okt 2026: 1 en 3 nachten en aankomst zo t/m do geven niets). Daarom geen zondagvoordeel (ZV_TOON false). asteria.nl noemt de aankomstdagen niet; graag bevestigen dat vr/za klopt.",
+    "Beschikbaarheid: in Mews geven de weekenden 16/17, 23/24 en 30/31 okt en 6/7 en 13/14 nov 2026 geen enkel tarief (ook geen gewone kamer: vol of gesloten?), net als 12, 26 mrt en 14 mei 2027. Vanaf 20 nov 2026 t/m juni 2027 wel boekbaar. Periode staat niet op asteria.nl; de pagina noemt daarom geen einddatum.",
+    "Prijzen gemeten 14 okt 2026 (20/21 nov en 4/5 dec 2026, 15 jan 2027, 2 nachten, 2 volwassenen): Comfort en Mindervalide EUR 332 (EUR 166 p.p.), Comfort 3 pers. en Royale EUR 352 (EUR 176 p.p.), Deluxe EUR 372 (EUR 186 p.p.), Junior Suite EUR 392 (EUR 196 p.p.), Suite EUR 412 (EUR 206 p.p.), Bruidssuite EUR 452 (EUR 226 p.p.). Prijs p.p. geldt voor het hele verblijf van 2 nachten. Suite en Bruidssuite: per weekend vaak maar 1 kamer of uitverkocht.",
+    "Eenpersoonskamer EUR 254 p.p. komt van asteria.nl en de staging, niet gemeten in Mews (AdultCount 1 niet bevraagd).",
+    "Late checkout: asteria.nl zegt 'op zondag en maandag tot 14:00 uur (op basis van beschikbaarheid)'. Maandag past niet bij aankomst vr/za met 2 nachten (vertrek zo of ma: maandag dus bij aankomst zaterdag). Graag bevestigen.",
+    "Welkomstdrankje: asteria.nl zegt 'een glas huiswijn of speciaal bier' (tekst boven de lijst noemt 'feestelijke welkomstcocktail'). De pagina volgt de lijst.",
+    "Annuleringsvoorwaarden van het weekendtarief: onbekend. De zijkaart noemt geen annuleren; de FAQ zegt: zie je bij het boeken.",
+    "Tijdenstrook: inchecken vanaf 15.00 (FAQ visit.asteria.nl), uitchecken tot 14.00 (late checkout van het arrangement, op basis van beschikbaarheid), diner tot 21.30 (restaurant-pop-up), gratis parkeren (staging). Ontbijttijden (doordeweeks 07.00-10.00, weekend 08.00-10.30) komen van Lastminute.com.",
+    "Wellness Top Floor: niet in het arrangement. FAQ zegt bijboeken via de receptie, open ma-do 16.00-22.00, vr-zo 12.00-22.00; kosten voor hotelgasten onbekend.",
+    "Foto's: hero l26-weekend-aanbieding-hero.webp (uit l26-bubbels-proost) toont een stel met een glas bubbels, niet de huiswijn of het speciaal bier uit het arrangement. Welkom-foto (uit l26-terras) toont rode wijn op het terras. Kamer/uitslapen uit kamer-comfort-a/-b en l26-limburg-arrangement-comfort, diner uit l26-fac-restaurant-2 (800 px breed), ontbijt uit arr-c-ontbijt.",
+    "Ook interessant: prijzen zelf gemeten 14 okt 2026 (3 nov 2026, 2 volwassenen): Oorlogsmuseum EUR 262 voor 1 nacht Comfort (EUR 131 p.p.), Golf EUR 371 voor 1 nacht Comfort 3 pers. (EUR 185,50 p.p.), Limburgs arrangement EUR 830 voor 3 nachten Comfort (EUR 415 p.p., alleen 3 nachten boekbaar). Foto's oorlogsmuseum en limburg komen uit de bestanden van de andere arrangementpagina's (l26-oorlogsmuseum-arrangement-sherman, l26-limburg-arrangement-fietsroute).",
+    "De live pagina asteria.nl/arrangementen/weekend-aanbieding boekt nog via de oude config bee2f902; deze pagina gebruikt 6dc9094c."
+  ],
+  "PAGE_TITLE": "Weekend aanbieding: 2 nachten met diner en ontbijt | Hotel Asteria Venray",
+  "META_DESC": "Weekendje weg in Noord-Limburg: 2 nachten in een Comfort kamer bij Hotel Asteria in Venray, welkomstdrankje, drie-gangen diner, 2x ontbijtbuffet en uitchecken tot 14.00. Vanaf € 166 p.p.",
+  "CANONICAL_URL": "https://visit.asteria.nl/weekend-aanbieding-v2",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-weekend-aanbieding-hero.webp",
+  "H_EEN_A": "Een weekend weg",
+  "H_EEN_EM": "in Noord-Limburg",
+  "SUB": "Twee nachten in een Comfort kamer, een welkomstdrankje, een drie-gangen diner op de eerste avond en twee keer ontbijt. Op je vertrekdag mag je uitslapen: uitchecken kan tot 14.00 uur.",
+  "HERO_IMG": "fotos/l26-weekend-aanbieding-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:70%\"",
+  "HERO_ALT": "Stel proost met een glas in de lounge van Hotel Asteria",
+  "VOUCHER": "WEEKEND",
+  "CODE_ATTR": "",
+  "CTA": "Boek het weekend",
+  "ARR_PRIJS_PIL": "vanaf € 166 p.p.",
+  "ARR_PRIJS": "€ 166",
+  "ARR_PRIJS_EENHEID": "p.p.",
+  "KAART_KOP": "Weekend aanbieding",
+  "ARR_TRUST_A": "Beste prijs gegarandeerd",
+  "ARR_TRUST_B": "Directe bevestiging",
+  "KAART_IMG": "fotos/l26-weekend-aanbieding-comfort.webp",
+  "KAART_ALT": "Comfort kamer met tweepersoonsbed bij Hotel Asteria",
+  "KAART_PIL": "2 nachten met diner en ontbijt",
+  "KAART_VINK_A": "Welkomstdrankje bij aankomst",
+  "KAART_VINK_B": "2 nachten in een Comfort kamer",
+  "KAART_VINK_C": "Drie-gangen diner en 2x ontbijt",
+  "KAART_VINK_D": "Uitchecken tot 14.00",
+  "KAART_KNOP": "Boek het weekend",
+  "KAART_TRUST": "Boek direct bij het hotel · Actiecode WEEKEND",
+  "BOEKBALK_KNOP": "Boek het weekend",
+  "BOEKBALK_NOOT": "Actiecode WEEKEND staat al voor je ingevuld",
+  "KAMER_KOP_A": "In welke",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "slaap je?",
+  "KAMER_SUB": "Het weekend is op basis van een Comfort kamer. Wil je meer ruimte, kies dan tegen een toeslag een Royale of Deluxe kamer.",
+  "KAMER_PIL": "Inbegrepen",
+  "KAMER_NOOT": "Prijs per persoon voor 2 nachten op basis van een tweepersoonskamer, exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
+  "_kamers": {
+    "comfort": {
+      "pil": "Inbegrepen",
+      "soort": "inbegrepen",
+      "prijs_label": "vanaf",
+      "prijs": "€ 166 p.p."
+    },
+    "royale": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 176 p.p."
+    },
+    "deluxe": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 186 p.p."
+    }
+  },
+  "POP_BADGE": "Weekend aanbieding",
+  "REVIEW_KOP_A": "Waarom gasten graag",
+  "REVIEW_KOP_EM": "terugkomen",
+  "SLOT_KOP_A": "Je",
+  "SLOT_KOP_EM": "weekend weg",
+  "SLOT_KOP_B": "staat klaar",
+  "SLOT_TEKST": "Boek de weekend aanbieding met code WEEKEND: 2 nachten in een Comfort kamer, een welkomstdrankje, diner en twee keer ontbijt. Vragen? We helpen je graag verder.",
+  "STICKY_KOP": "Weekend aanbieding",
+  "STICKY_SUB": "vanaf € 166 p.p.",
+  "STICKY_KNOP": "Boek nu",
+  "SLOT_FOTO_A": "fotos/l26-weekend-aanbieding-hero.webp",
+  "SLOT_FOTO_A_POS": "70% 50%",
+  "SLOT_FOTO_B": "fotos/l26-weekend-aanbieding-ontbijt.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p.p. voor 2 nachten",
+  "ARR_VOORWAARDEN": "Comfort kamer, 2 personen · aankomst op vrijdag of zaterdag",
+  "ARR_MOB_NOOT": "Code WEEKEND staat al ingevuld",
+  "INB_KOP_A": "Dit is",
+  "INB_KOP_EM": "inbegrepen",
+  "ARR_INB_INTRO": "Eén keer boeken voor het hele weekend, van het drankje bij aankomst tot het ontbijt op je vertrekdag.",
+  "ZV_TOON": false,
+  "ZV_KOP_A": "",
+  "ZV_KOP_EM": "",
+  "ZV_KOP_B": "",
+  "ZV_PIL": "",
+  "ZV_ZONDAG_KOP": "",
+  "ZV_ZONDAG_PRIJS": "",
+  "ZV_GEWOON_PRIJS": "",
+  "ZV_ZONDAG_REGEL": "",
+  "ZV_ANDERS_KOP": "",
+  "ZV_ANDERS_REGEL": "",
+  "ZV_VOETNOOT": "",
+  "ZV_KAART_REGEL": "",
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": true,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "weekend",
+    "diner",
+    "dinner",
+    "ontbijt"
+  ],
+  "_chips": [
+    "2 nachten, vr of za",
+    "Diner en 2x ontbijt",
+    "Uitchecken tot 14.00"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Welkomstdrankje",
+      "regel": "een glas huiswijn of speciaal bier",
+      "icoon": "<path d=\"M8 22h8\"/><path d=\"M12 15v7\"/><path d=\"M5 3h14l-1 7a6 6 0 0 1-12 0z\"/>"
+    },
+    {
+      "titel": "2 nachten in een Comfort kamer",
+      "regel": "aankomst op vrijdag of zaterdag",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Drie-gangen diner",
+      "regel": "op de dag van aankomst",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "2x uitgebreid ontbijtbuffet",
+      "regel": "op beide ochtenden",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    },
+    {
+      "titel": "Late checkout tot 14.00",
+      "regel": "op basis van beschikbaarheid",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-weekend-aanbieding-welkom.webp",
+      "alt": "Twee glazen rode wijn op het terras",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-weekend-aanbieding-kamer.webp",
+      "alt": "Comfort kamer met tweepersoonsbed en raam",
+      "pos": "40% 50%"
+    },
+    {
+      "img": "fotos/l26-weekend-aanbieding-diner.webp",
+      "alt": "Hoofdgerecht met groenten tijdens het diner",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-weekend-aanbieding-ontbijt.webp",
+      "alt": "Ontbijtbord met croissant, kaas, vleeswaren en een ei",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-weekend-aanbieding-uitslapen.webp",
+      "alt": "Zithoek en bureau in de Comfort kamer",
+      "pos": "30% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Inchecken vanaf 15.00",
+      "icoon": "<path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\"/><polyline points=\"10 17 15 12 10 7\"/><line x1=\"15\" y1=\"12\" x2=\"3\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Uitchecken tot 14.00",
+      "icoon": "<path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><polyline points=\"16 17 21 12 16 7\"/><line x1=\"21\" y1=\"12\" x2=\"9\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Diner tot 21.30",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Gratis parkeren",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Wat zit er in het weekendarrangement?",
+      "a": "Een glas huiswijn of speciaal bier bij aankomst, 2 overnachtingen in een Comfort kamer, een drie-gangen diner op de dag van aankomst, 2x het uitgebreide ontbijtbuffet en late checkout tot 14.00 uur (op basis van beschikbaarheid). Vanaf € 166 per persoon voor het hele verblijf, op basis van twee personen; de verblijfsbelasting van € 2,– per persoon per nacht komt erbij. Op basis van een eenpersoonskamer betaal je € 254 per persoon."
+    },
+    {
+      "q": "Op welke dagen kan ik aankomen?",
+      "a": "Het arrangement boek je voor 2 nachten met aankomst op vrijdag of zaterdag. Zoek je andere data, bel dan even met de receptie."
+    },
+    {
+      "q": "Hoe laat is het ontbijt?",
+      "a": "Het ontbijtbuffet staat in het weekend klaar van 08.00 tot 10.30 uur en doordeweeks van 07.00 tot 10.00 uur."
+    },
+    {
+      "q": "Wat is er te doen in de buurt?",
+      "a": "In de omgeving kun je wandelen en fietsen. Het centrum van Venray ligt op korte afstand, met winkelstraten, bars en restaurants. Ook de Kasteeltuinen in Arcen en het Oorlogsmuseum in Overloon zijn een bezoek waard."
+    },
+    {
+      "q": "Kan ik de wellness op de Top Floor gebruiken?",
+      "a": "De wellness zit niet in de weekend aanbieding, maar je kunt hem wel bijboeken. Reserveer vooraf bij de receptie. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur."
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    }
+  ],
+  "_andere": [
+    {
+      "naam": "Oorlogsmuseum arrangement",
+      "url": "https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement",
+      "img": "fotos/l26-oorlogsmuseum-arrangement-sherman.webp",
+      "alt": "Sherman-tank in het groen bij het Oorlogsmuseum Overloon",
+      "prijs": "vanaf € 131 p.p."
+    },
+    {
+      "naam": "Golfarrangement",
+      "url": "https://www.asteria.nl/arrangementen/golfarrangement",
+      "img": "fotos/l26-arr-golf.webp",
+      "alt": "Golfer op de fairway met een golftas op de voorgrond",
+      "prijs": "vanaf € 185,50 p.p."
+    },
+    {
+      "naam": "Limburgs arrangement",
+      "url": "https://www.asteria.nl/arrangementen/limburg-arrangement",
+      "img": "fotos/l26-limburg-arrangement-fietsroute.webp",
+      "alt": "Stel met fietsen bij het startpunt van het fietsnetwerk voor Hotel Asteria",
+      "prijs": "vanaf € 415 p.p., 3 nachten"
+    }
+  ]
+}

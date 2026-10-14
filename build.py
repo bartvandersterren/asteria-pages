@@ -124,7 +124,7 @@ TEMPLATES = {
         },
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
-    } for s in ('najaarsarrangement-v2',)},
+    } for s in ('najaarsarrangement-v2', 'wellness-arrangement-v3', 'oorlogsmuseum-arrangement-v2', 'limburg-arrangement-v2', 'weekend-aanbieding-v2', 'golfarrangement-v2')},
     # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
     # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
     # Per seizoen een entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.

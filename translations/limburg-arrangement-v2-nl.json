@@ -1,0 +1,258 @@
+{
+  "_controleren": [
+    "Prijzen gemeten 14 okt 2026 via Mews getAvailability (config 6dc9094c, voucher LIMBURG, 2 volwassenen, 3 nachten), aankomst 25 okt, 30 okt, 1, 3 en 15 nov, 6 dec 2026, 7 mrt, 13 en 15 jun 2027: overal gelijk. Comfort en Mindervalide EUR 830 voor 2 p. (EUR 415 p.p.), Comfort 3 pers. en Royale EUR 860 (EUR 430), Deluxe EUR 890 (EUR 445), Junior suite EUR 920 (EUR 460), Suite EUR 950 (EUR 475), Bruidssuite EUR 1.010 (EUR 505). Tarief 'Limburgs arrangement'.",
+    "Aantal nachten: Mews geeft met LIMBURG alleen een tarief bij precies 3 nachten (1, 2 en 4 nachten: geen tarief). De boekknop opent de Mews-widget zonder vertrekdatum; de gast moet zelf 3 nachten kiezen. De FAQ en de voorwaardenregel zeggen dat.",
+    "Zondagvoordeel: niet actief in Mews. Zondag 25 okt, 1 en 15 nov en dinsdag 3 nov 2026 geven allemaal EUR 830 voor 2 p. De zondagprijs op de pagina (EUR 405 p.p.) is berekend als gewone prijs min EUR 10 p.p. (EUR 20 per kamer, eenmalig per verblijf). Eerst de korting in Mews zetten, anders ZV_TOON op false. Ook bevestigen dat de korting bij een 4-daags arrangement EUR 20 per kamer per verblijf is en niet per nacht.",
+    "Periode: asteria.nl noemt geen boekingsperiode; Mews geeft het tarief van okt 2026 tot en met jun 2027. De pagina noemt daarom geen einddatum. Is het arrangement het hele jaar boekbaar?",
+    "Eenpersoonsprijs EUR 583,- komt van asteria.nl (niet gemeten in Mews); staat alleen in de FAQ.",
+    "Elektrische fiets: asteria.nl zegt 'Elektrische fietshuur voor 3 dagen' en 'gratis elektrische fietsen'. Reserveren nodig, aantal fietsen beperkt, minimumleeftijd? De FAQ zegt nu: geef het door bij de receptie.",
+    "3-gangenmenu 'samengesteld met verse streekproducten' komt letterlijk van asteria.nl; geen keuzemenu of dieetwensen bekend.",
+    "Annuleringsvoorwaarden van het arrangementstarief: onbekend. De zijkaart noemt geen annuleren; de FAQ zegt: zie je bij het boeken.",
+    "Tijdenstrook (inchecken 15.00, uitchecken 11.00, diner tot 21.30) zijn overgenomen van de najaarspagina (bron daar: Lastminute.com en visit.asteria.nl-FAQ). Graag bevestigen.",
+    "Wellness Top Floor: niet in het arrangement en niet genoemd op de pagina (de FAQ-test van het sjabloon wil precies 6 vragen; ontbijttijden en wellness zijn daarvoor weggelaten).",
+    "Foto's: hero = de Maasduinen-vlonder van de asteria.nl-pagina van dit arrangement (upload/heading/limburg-arrangement-1600x800_10.jpg, 1600 breed, dus wat zacht op groot scherm). Fietsen, fietsroutebord en Comfort kamer uit de Fotobank; vlaai uit arr-c-vlaai, ontbijt uit restaurant-ontbijt, diner uit Fotobank Gerechten/P1092704. Zijn de fietsen op de foto's de e-bikes van het arrangement?",
+    "Ook interessant: Oorlogsmuseum arrangement vanaf EUR 131 en Golfarrangement vanaf EUR 185,50 gemeten in Mews (OORLOGSMUSEUM en GOLF, 1 nacht, 3 nov 2026, 2 volwassenen). Weekend aanbieding zonder prijs: WEEKEND gaf voor vrijdag 6 en 13 nov (2 nachten) geen tarief. Foto's oorlogsmuseum en weekend komen van asteria.nl."
+  ],
+  "PAGE_TITLE": "4-daags Limburg Arrangement met diner en e-bike | Hotel Asteria Venray",
+  "META_DESC": "4-daags Limburg Arrangement bij Hotel Asteria in Venray: 3 nachten, elke avond een 3-gangenmenu, ontbijtbuffet, Limburgse vlaai bij aankomst en 3 dagen een elektrische fiets. Vanaf € 415 p.p.",
+  "CANONICAL_URL": "https://visit.asteria.nl/limburg-arrangement-v2",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-limburg-arrangement-hero.webp",
+  "H_EEN_A": "Vier dagen",
+  "H_EEN_EM": "Limburg op de fiets",
+  "SUB": "Drie nachten in Venray, elke avond een 3-gangenmenu en drie dagen een elektrische fiets. Je begint met koffie en Limburgse vlaai.",
+  "HERO_IMG": "fotos/l26-limburg-arrangement-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:50%\"",
+  "HERO_ALT": "Houten vlonder over een ven in Nationaal Park De Maasduinen",
+  "VOUCHER": "LIMBURG",
+  "CODE_ATTR": "",
+  "CTA": "Boek het arrangement",
+  "ARR_PRIJS_PIL": "vanaf € 415 p.p. voor 3 nachten",
+  "ARR_PRIJS": "€ 415",
+  "ARR_PRIJS_EENHEID": "p.p.",
+  "KAART_KOP": "4-daags Limburg Arrangement",
+  "ARR_TRUST_A": "Beste prijs gegarandeerd",
+  "ARR_TRUST_B": "Directe bevestiging",
+  "KAART_IMG": "fotos/l26-limburg-arrangement-fietsroute.webp",
+  "KAART_ALT": "Stel met fietsen bij het fietsroutebord voor Hotel Asteria",
+  "KAART_PIL": "3 dagen een e-bike",
+  "KAART_VINK_A": "3 nachten met ontbijt",
+  "KAART_VINK_B": "Elke avond een 3-gangenmenu",
+  "KAART_VINK_C": "Elektrische fiets voor 3 dagen",
+  "KAART_VINK_D": "Koffie en vlaai bij aankomst",
+  "KAART_KNOP": "Boek het arrangement",
+  "KAART_TRUST": "Boek direct bij het hotel · Actiecode LIMBURG",
+  "BOEKBALK_KNOP": "Boek het arrangement",
+  "BOEKBALK_NOOT": "Actiecode LIMBURG staat al voor je ingevuld",
+  "KAMER_KOP_A": "In welke",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "slaap je?",
+  "KAMER_SUB": "Het arrangement is op basis van een Comfort kamer. Wil je meer ruimte, kies dan een Royale of Deluxe kamer of een Suite. De prijs is per persoon voor 3 nachten.",
+  "KAMER_PIL": "Inbegrepen",
+  "KAMER_NOOT": "Prijs per persoon voor 3 nachten op basis van een tweepersoonskamer, exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
+  "_kamers": {
+    "comfort": {
+      "pil": "Inbegrepen",
+      "soort": "inbegrepen",
+      "prijs_label": "vanaf",
+      "prijs": "€ 415 p.p."
+    },
+    "royale": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 430 p.p."
+    },
+    "deluxe": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 445 p.p."
+    },
+    "suite": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 475 p.p."
+    }
+  },
+  "POP_BADGE": "Limburg Arrangement",
+  "REVIEW_KOP_A": "Waarom gasten graag",
+  "REVIEW_KOP_EM": "terugkomen",
+  "SLOT_KOP_A": "Je",
+  "SLOT_KOP_EM": "dagen in Limburg",
+  "SLOT_KOP_B": "staan klaar",
+  "SLOT_TEKST": "Boek het 4-daags Limburg Arrangement met code LIMBURG: 3 nachten, elke avond diner, elke ochtend ontbijt en drie dagen een elektrische fiets. Vragen? We helpen je graag verder.",
+  "STICKY_KOP": "Limburg Arrangement",
+  "STICKY_SUB": "vanaf € 415 p.p. voor 3 nachten",
+  "STICKY_KNOP": "Boek nu",
+  "SLOT_FOTO_A": "fotos/l26-limburg-arrangement-hero.webp",
+  "SLOT_FOTO_A_POS": "center center",
+  "SLOT_FOTO_B": "fotos/l26-limburg-arrangement-hotel-fietsen.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p.p. voor 3 nachten",
+  "ARR_VOORWAARDEN": "Comfort kamer, 2 personen · 3 nachten",
+  "ARR_MOB_NOOT": "Code LIMBURG staat al ingevuld · kies 3 nachten",
+  "INB_KOP_A": "Dit is",
+  "INB_KOP_EM": "inbegrepen",
+  "ARR_INB_INTRO": "Vier dagen met alles geregeld: je fietst overdag door Noord-Limburg en schuift 's avonds aan voor het diner.",
+  "ZV_TOON": true,
+  "ZV_KOP_A": "Op zondag",
+  "ZV_KOP_EM": "€ 20 per kamer",
+  "ZV_KOP_B": "voordeliger",
+  "ZV_PIL": "− € 20 per kamer",
+  "ZV_ZONDAG_KOP": "Aankomst op zondag",
+  "ZV_ZONDAG_PRIJS": "€ 405",
+  "ZV_GEWOON_PRIJS": "€ 415",
+  "ZV_ZONDAG_REGEL": "Korting automatisch verrekend met code LIMBURG",
+  "ZV_ANDERS_KOP": "Aankomst ma t/m za",
+  "ZV_ANDERS_REGEL": "Gewone prijs op de andere aankomstdagen",
+  "ZV_VOETNOOT": "Prijzen per persoon voor 3 nachten, op basis van 2 personen in een Comfort kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.",
+  "ZV_KAART_REGEL": "Op zondag <b>€ 20 per kamer</b> voordeliger",
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": true,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "fiets",
+    "bike",
+    "diner",
+    "dinner",
+    "ontbijt",
+    "omgeving"
+  ],
+  "_chips": [
+    "3 nachten, 4 dagen",
+    "Elke avond diner",
+    "3 dagen een e-bike"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Ontvangst met koffie of thee",
+      "regel": "met een stuk Limburgse vlaai",
+      "icoon": "<path d=\"M17 8h1a4 4 0 1 1 0 8h-1\"/><path d=\"M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z\"/><line x1=\"6\" y1=\"2\" x2=\"6\" y2=\"4\"/><line x1=\"10\" y1=\"2\" x2=\"10\" y2=\"4\"/><line x1=\"14\" y1=\"2\" x2=\"14\" y2=\"4\"/>"
+    },
+    {
+      "titel": "3 overnachtingen",
+      "regel": "in een Comfort kamer",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Elke ochtend ontbijtbuffet",
+      "regel": "drie keer, uitgebreid",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    },
+    {
+      "titel": "Elke avond een 3-gangenmenu",
+      "regel": "met verse streekproducten",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Elektrische fiets",
+      "regel": "drie dagen te gebruiken",
+      "icoon": "<circle cx=\"5.5\" cy=\"17.5\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17.5\" r=\"3.5\"/><circle cx=\"15\" cy=\"5\" r=\"1\"/><path d=\"M12 17.5V14l-3-3 4-3 2 3h2\"/>"
+    },
+    {
+      "titel": "Fiets- en wandelroutes",
+      "regel": "gratis bij de receptie",
+      "icoon": "<polygon points=\"1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"18\"/><line x1=\"16\" y1=\"6\" x2=\"16\" y2=\"22\"/>"
+    },
+    {
+      "titel": "Wifi en parkeren",
+      "regel": "gratis",
+      "icoon": "<path d=\"M5 12.55a11 11 0 0 1 14.08 0\"/><path d=\"M1.42 9a16 16 0 0 1 21.16 0\"/><path d=\"M8.53 16.11a6 6 0 0 1 6.95 0\"/><line x1=\"12\" y1=\"20\" x2=\"12.01\" y2=\"20\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-limburg-arrangement-vlaai.webp",
+      "alt": "Een stuk Limburgse vlaai wordt geserveerd bij aankomst",
+      "pos": "62% 50%"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-comfort.webp",
+      "alt": "Comfort kamer met tweepersoonsbed",
+      "pos": "35% 50%"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-fietsen.webp",
+      "alt": "Stel fietst over een fietspad door het bos",
+      "pos": "38% 50%"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-diner.webp",
+      "alt": "Hoofdgerecht van het 3-gangenmenu in het restaurant",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-ontbijt.webp",
+      "alt": "Ontbijtbord met croissant, kaas, vleeswaren en druiven",
+      "pos": "45% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Inchecken vanaf 15.00",
+      "icoon": "<path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\"/><polyline points=\"10 17 15 12 10 7\"/><line x1=\"15\" y1=\"12\" x2=\"3\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Uitchecken tot 11.00",
+      "icoon": "<path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><polyline points=\"16 17 21 12 16 7\"/><line x1=\"21\" y1=\"12\" x2=\"9\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Diner tot 21.30",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Gratis parkeren",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Wat zit er in het 4-daagse arrangement?",
+      "a": "Ontvangst met koffie of thee en een stuk Limburgse vlaai, 3 overnachtingen in een Comfort kamer, elke ochtend het ontbijtbuffet, elke avond een 3-gangenmenu, drie dagen een elektrische fiets en gratis fiets- en wandelroutes. Wifi en parkeren zijn gratis. Vanaf € 415 per persoon voor 3 nachten, op basis van twee personen; de verblijfsbelasting van € 2,– per persoon per nacht komt erbij."
+    },
+    {
+      "q": "Hoeveel nachten moet ik boeken?",
+      "a": "Het arrangement geldt voor precies 3 nachten. Kies in het boekingsscherm een aankomstdatum en een vertrekdatum 3 nachten later; dan zie je het tarief met code LIMBURG."
+    },
+    {
+      "q": "Kan ik het arrangement alleen boeken?",
+      "a": "Ja. Op basis van een eenpersoonskamer kost het arrangement € 583,– per persoon. Bel of mail de receptie als je alleen komt."
+    },
+    {
+      "q": "Hoe werkt het met de elektrische fiets?",
+      "a": "Je kunt drie dagen een elektrische fiets gebruiken. Geef bij aankomst aan de receptie door wanneer je wilt fietsen. Daar krijg je ook fiets- en wandelroutes mee, bijvoorbeeld naar Nationaal Park De Maasduinen."
+    },
+    {
+      "q": "Is er korting op zondag?",
+      "a": "Ja. Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met code LIMBURG en geldt eenmalig per kamer per verblijf dat op zondag begint.",
+      "zondag": true
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    }
+  ],
+  "_andere": [
+    {
+      "naam": "Oorlogsmuseum arrangement",
+      "url": "https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement",
+      "img": "fotos/l26-limburg-arrangement-ander-oorlogsmuseum.webp",
+      "alt": "Legervoertuig in de expositie van het Oorlogsmuseum Overloon",
+      "prijs": "vanaf € 131 p.p."
+    },
+    {
+      "naam": "Golfarrangement",
+      "url": "https://www.asteria.nl/arrangementen/golfarrangement",
+      "img": "fotos/l26-arr-golf.webp",
+      "alt": "Golfer op de fairway met een golftas op de voorgrond",
+      "prijs": "vanaf € 185,50 p.p."
+    },
+    {
+      "naam": "Weekend aanbieding",
+      "url": "https://www.asteria.nl/arrangementen/weekend-aanbieding",
+      "img": "fotos/l26-limburg-arrangement-ander-weekend.webp",
+      "alt": "Hotel Asteria met de vijver en fontein ervoor"
+    }
+  ]
+}

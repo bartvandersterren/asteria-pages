@@ -1,0 +1,264 @@
+{
+  "_controleren": [
+    "Voucher: CLAUDE.md noemt 2026WELLNESS, asteria.nl en de huidige wellness-arrangement.html gebruiken WELLNESS2026. Beide werken op config 6dc9094c en geven elk een eigen tarief 'Wellness arrangement' (dubbele rate in Mews). Gemeten 14 okt 2026 (2 volwassenen, 1 nacht, Comfort): WELLNESS2026 EUR 249,00 voor 2 p. (EUR 124,50 p.p., gelijk aan asteria.nl), 2026WELLNESS EUR 279,00 (EUR 139,50 p.p.). Deze pagina gebruikt WELLNESS2026. hotel-venray.html, lander-google.html en de andere -v2-JSON's (_andere) noemen nog 2026WELLNESS / EUR 139,50. Welke rate is de bedoelde?",
+    "Zondagvoordeel: de zondagkorting zit niet in Mews. Gemeten 14 okt 2026 met WELLNESS2026: zondag 18 okt, 1 nov, 13 dec en 17 jan en dinsdag 20 okt, 3 nov en 19 jan allemaal EUR 249,00 voor 2 p. in een Comfort kamer. De zondagprijs op de pagina (EUR 114,50 p.p.) is berekend als gewone prijs min EUR 10 p.p. Eerst de korting in Mews zetten, anders ZV_TOON op false.",
+    "Periode en aantal nachten: asteria.nl noemt geen periode. Mews geeft het tarief voor elke gemeten datum van 18 okt 2026 t/m 19 jan 2027 (za 24 okt: geen beschikbaarheid). Is het arrangement het hele jaar boekbaar? De pagina noemt daarom geen einddatum.",
+    "Diner: de arrangementpagina op asteria.nl zegt drie-gangen diner, de pagina asteria.nl/wellness zegt bij 'Boek het Wellnessarrangement' vier-gangen diner. Deze pagina zegt drie-gangen.",
+    "Annuleringsvoorwaarden: onbekend. De oude visit-pagina (wellness-arrangement.html) zegt 'Gratis annuleren'; asteria.nl noemt niets. De zijkaart noemt geen annuleren; de FAQ zegt: zie je bij het boeken.",
+    "Kamerprijzen: alle uit Mews met WELLNESS2026 (14 okt 2026, 2 volwassenen, 1 nacht, gelijk op alle gemeten datums): Comfort EUR 249 (124,50 p.p.), Royale EUR 259 (129,50), Deluxe EUR 269 (134,50), Junior Suite EUR 279 (139,50), Suite EUR 289 (144,50), Bruidssuite EUR 309 (154,50). Comfort-3 (EUR 259) en Mindervalide (EUR 249) staan niet op de pagina: drie personen en rolstoelkamer passen niet bij een wellness die alleen via een trap bereikbaar is.",
+    "Tweede nacht: Mews geeft met WELLNESS2026 voor 3 t/m 5 nov EUR 440,50 voor 2 p. in een Comfort kamer (tweede nacht EUR 191,50). Wat zit er in de tweede nacht (diner, wellness)? De FAQ zegt alleen dat het kan en dat je de prijs bij het boeken ziet.",
+    "Wellness: openingstijden (ma-do 16.00-22.00, vr-zo 12.00-22.00), badkledingdag op dinsdag en 'reserveer vooraf bij de receptie' komen uit de vaste FAQ/faciliteitenteksten van lander-w1, niet van asteria.nl. Moeten arrangementsgasten ook een tijdslot reserveren? Niet rolstoeltoegankelijk (alleen via trap) staat op asteria.nl/wellness.",
+    "Tijdenstrook: inchecken vanaf 15.00, uitchecken tot 11.00, diner tot 21.30 en gratis parkeren komen uit de FAQ op asteria.nl.",
+    "De Reserveer-knop op asteria.nl/arrangementen/wellnessarrangement gaat nog naar de oude config bee2f902; deze pagina gebruikt 6dc9094c.",
+    "Foto's: hero = Boscabine (Fotobank Wellness/Boscabine/_O0A0038-HDR), zijkaart = relaxruimte (Relaxruimte/P1058158), fotoslider: arr-c-badjas (stel in badjas met ontbijt op bed, uit de huidige wellnesspagina), Zoutsteensauna/148A4079, Infraroodsauna/P1068226, arr-c-diner, arr-c-ontbijt; fotowolk: hero + Relaxruimte/P1058120. Ook interessant: oorlogsmuseum-foto van de asteria.nl-kop (tank in het museum), golf l26-arr-golf, najaar l26-najaar-hero.",
+    "Ook interessant: prijzen gemeten in Mews 14 okt 2026 (3 nov, 2 volwassenen): NAJAAR2D Deluxe EUR 257 (128,50 p.p.), GOLF Comfort-3/Royale EUR 371 (185,50 p.p.), OORLOGSMUSEUM Comfort EUR 262 (131 p.p., gelijk aan asteria.nl)."
+  ],
+  "PAGE_TITLE": "Wellnessarrangement met diner en ontbijt | Hotel Asteria Venray",
+  "META_DESC": "Wellnessarrangement bij Hotel Asteria in Venray: een overnachting met vrije toegang tot de 300 m² wellness op de Top Floor, welkomstdrankje, drie-gangen diner en ontbijtbuffet. Vanaf € 124,50 p.p.",
+  "CANONICAL_URL": "https://visit.asteria.nl/wellness-arrangement-v3",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-wellness-arrangement-hero.webp",
+  "H_EEN_A": "Even helemaal",
+  "H_EEN_EM": "tot rust komen",
+  "SUB": "Een overnachting met vrije toegang tot de wellness op de Top Floor, een welkomstdrankje op je kamer, een drie-gangen diner en het ontbijtbuffet. Badjas en slippers liggen voor je klaar.",
+  "HERO_IMG": "fotos/l26-wellness-arrangement-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:70%\"",
+  "HERO_ALT": "Boscabine in de wellness op de Top Floor van Hotel Asteria",
+  "VOUCHER": "WELLNESS2026",
+  "CODE_ATTR": "",
+  "CTA": "Boek het arrangement",
+  "ARR_PRIJS_PIL": "vanaf € 124,50 p.p.",
+  "ARR_PRIJS": "€ 124,50",
+  "ARR_PRIJS_EENHEID": "p.p.",
+  "KAART_KOP": "Wellnessarrangement",
+  "ARR_TRUST_A": "Beste prijs gegarandeerd",
+  "ARR_TRUST_B": "Directe bevestiging",
+  "KAART_IMG": "fotos/l26-wellness-arrangement-relax.webp",
+  "KAART_ALT": "Gast in badjas leest een tijdschrift in de relaxruimte van de wellness",
+  "KAART_PIL": "Wellness, diner en ontbijt inbegrepen",
+  "KAART_VINK_A": "Vrije toegang tot de wellness",
+  "KAART_VINK_B": "Welkomstdrankje op de kamer",
+  "KAART_VINK_C": "Drie-gangen diner",
+  "KAART_VINK_D": "Ontbijtbuffet",
+  "KAART_KNOP": "Boek het arrangement",
+  "KAART_TRUST": "Boek direct bij het hotel · Actiecode WELLNESS2026",
+  "BOEKBALK_KNOP": "Boek het arrangement",
+  "BOEKBALK_NOOT": "Actiecode WELLNESS2026 staat al voor je ingevuld",
+  "KAMER_KOP_A": "In welke",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "slaap je?",
+  "KAMER_SUB": "Het arrangement is op basis van een Comfort kamer. Wil je meer ruimte of een eigen infraroodsauna, kies dan een andere kamer. Per kamer zie je de prijs.",
+  "KAMER_PIL": "Inbegrepen",
+  "KAMER_NOOT": "Prijs per persoon op basis van een tweepersoonskamer, exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
+  "_kamers": {
+    "comfort": {
+      "pil": "Inbegrepen",
+      "soort": "inbegrepen",
+      "prijs_label": "vanaf",
+      "prijs": "€ 124,50 p.p."
+    },
+    "royale": {
+      "pil": "Upgrade",
+      "soort": "upgrade",
+      "prijs_label": "vanaf",
+      "prijs": "€ 129,50 p.p."
+    },
+    "deluxe": {
+      "pil": "Upgrade",
+      "soort": "upgrade",
+      "prijs_label": "vanaf",
+      "prijs": "€ 134,50 p.p."
+    },
+    "junior-suite": {
+      "pil": "Upgrade",
+      "soort": "upgrade",
+      "prijs_label": "vanaf",
+      "prijs": "€ 139,50 p.p."
+    },
+    "suite": {
+      "pil": "Upgrade",
+      "soort": "upgrade",
+      "prijs_label": "vanaf",
+      "prijs": "€ 144,50 p.p."
+    },
+    "bruidssuite": {
+      "pil": "Upgrade",
+      "soort": "upgrade",
+      "prijs_label": "vanaf",
+      "prijs": "€ 154,50 p.p."
+    }
+  },
+  "POP_BADGE": "Wellnessarrangement",
+  "REVIEW_KOP_A": "Waarom gasten graag",
+  "REVIEW_KOP_EM": "terugkomen",
+  "SLOT_KOP_A": "Je",
+  "SLOT_KOP_EM": "wellnessmoment",
+  "SLOT_KOP_B": "staat klaar",
+  "SLOT_TEKST": "Boek het wellnessarrangement met code WELLNESS2026: een overnachting, vrije toegang tot de wellness, een welkomstdrankje, diner en ontbijt. Vragen? We helpen je graag verder.",
+  "STICKY_KOP": "Wellnessarrangement",
+  "STICKY_SUB": "vanaf € 124,50 p.p.",
+  "STICKY_KNOP": "Boek nu",
+  "SLOT_FOTO_A": "fotos/l26-wellness-arrangement-hero.webp",
+  "SLOT_FOTO_A_POS": "70% center",
+  "SLOT_FOTO_B": "fotos/l26-wellness-arrangement-relax-stel.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p.p. per nacht",
+  "ARR_VOORWAARDEN": "Comfort kamer, 2 personen · 1 nacht",
+  "ARR_MOB_NOOT": "Code WELLNESS2026 staat al ingevuld",
+  "INB_KOP_A": "Dit is",
+  "INB_KOP_EM": "inbegrepen",
+  "ARR_INB_INTRO": "Eén keer boeken en de rest regelen wij, van het drankje op je kamer tot het ontbijt de volgende ochtend.",
+  "ZV_TOON": true,
+  "ZV_KOP_A": "Op zondag",
+  "ZV_KOP_EM": "€ 20 per kamer",
+  "ZV_KOP_B": "voordeliger",
+  "ZV_PIL": "− € 20 per kamer",
+  "ZV_ZONDAG_KOP": "Aankomst op zondag",
+  "ZV_ZONDAG_PRIJS": "€ 114,50",
+  "ZV_GEWOON_PRIJS": "€ 124,50",
+  "ZV_ZONDAG_REGEL": "Korting automatisch verrekend met code WELLNESS2026",
+  "ZV_ANDERS_KOP": "Aankomst ma t/m za",
+  "ZV_ANDERS_REGEL": "Gewone prijs op de andere aankomstdagen",
+  "ZV_VOETNOOT": "Prijzen op basis van 2 personen in een Comfort kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.",
+  "ZV_KAART_REGEL": "Op zondag <b>€ 20 per kamer</b> voordeliger",
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": true,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "wellness",
+    "sauna",
+    "diner",
+    "ontbijt"
+  ],
+  "_chips": [
+    "Vrije toegang tot de wellness",
+    "Diner en ontbijt",
+    "Badjas en slippers"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Overnachting",
+      "regel": "in een Comfort kamer",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Welkomstdrankje",
+      "regel": "een flesje Botega op je kamer",
+      "icoon": "<path d=\"M8 22h8\"/><path d=\"M12 15v7\"/><path d=\"M6 2h12l-1 8a5 5 0 0 1-10 0z\"/><path d=\"M6.5 6h11\"/>"
+    },
+    {
+      "titel": "Badjas en slippers",
+      "regel": "met een handdoekpakket",
+      "icoon": "<path d=\"M12 6a2 2 0 1 1 2-2\"/><path d=\"M12 6v1.5L2.7 15.2A1 1 0 0 0 3.3 17h17.4a1 1 0 0 0 .6-1.8L12 7.5\"/>"
+    },
+    {
+      "titel": "Vrije toegang tot de wellness",
+      "regel": "300 m² op de Top Floor",
+      "icoon": "<path d=\"M12 2.7l5.7 5.7a8 8 0 1 1-11.4 0z\"/>"
+    },
+    {
+      "titel": "Drie-gangen diner",
+      "regel": "met streekproducten en seizoensgerechten",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Uitgebreid ontbijtbuffet",
+      "regel": "de volgende ochtend",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-wellness-arrangement-badjas.webp",
+      "alt": "Stel in badjas op de hotelkamer",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-zoutsteen.webp",
+      "alt": "Zoutsteensauna met verlichte zoutwand en uitzicht op de bomen",
+      "pos": "50% 60%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-infrarood.webp",
+      "alt": "Gast ontspant in de infraroodcabine van de wellness",
+      "pos": "50% 40%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-diner.webp",
+      "alt": "Gast aan tafel in het restaurant tijdens het diner",
+      "pos": "55% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-ontbijt.webp",
+      "alt": "Ontbijtbord met croissant, kaas, vleeswaren en druiven",
+      "pos": "45% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Inchecken vanaf 15.00",
+      "icoon": "<path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\"/><polyline points=\"10 17 15 12 10 7\"/><line x1=\"15\" y1=\"12\" x2=\"3\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Uitchecken tot 11.00",
+      "icoon": "<path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><polyline points=\"16 17 21 12 16 7\"/><line x1=\"21\" y1=\"12\" x2=\"9\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Diner tot 21.30",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Gratis parkeren",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Wat zit er in het wellnessarrangement?",
+      "a": "Een overnachting in een Comfort kamer, een welkomstdrankje (een flesje Botega) op je kamer, badjas, slippers en een handdoekpakket, vrije toegang tot de wellness op de Top Floor, een drie-gangen diner en de volgende ochtend het uitgebreide ontbijtbuffet. Vanaf € 124,50 per persoon, op basis van twee personen; de verblijfsbelasting van € 2,– per persoon per nacht komt erbij."
+    },
+    {
+      "q": "Wat vind ik in de wellness en wanneer is hij open?",
+      "a": "De wellness op de Top Floor is ruim 300 m², met vier sauna's (infrarood, bos, zoutsteen en notenhout), een stoomcabine, belevenisdouches, een dompel- en kruidenbad, voetenbaden en een relaxruimte. Open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Reserveer je tijd vooraf bij de receptie. De wellness is alleen via een trap bereikbaar en daarom niet toegankelijk voor rolstoelgebruikers."
+    },
+    {
+      "q": "Moet ik badkleding meenemen?",
+      "a": "Dinsdag is badkledingdag. Op de andere dagen ga je zonder badkleding. Badjas, slippers en handdoeken liggen op je kamer klaar."
+    },
+    {
+      "q": "Kan ik een tweede nacht bijboeken?",
+      "a": "Ja. Kies bij het boeken een latere vertrekdatum; de prijs voor de extra nacht zie je direct in het boekingsscherm. Wil je iets anders combineren, bel dan even met de receptie."
+    },
+    {
+      "q": "Is er korting op zondag?",
+      "a": "Ja. Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met code WELLNESS2026 en geldt eenmalig per kamer per verblijf dat op zondag begint.",
+      "zondag": true
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    }
+  ],
+  "_andere": [
+    {
+      "naam": "Najaarsarrangement",
+      "url": "https://www.asteria.nl/arrangementen/najaarsarrangement",
+      "img": "fotos/l26-najaar-hero.webp",
+      "alt": "Stel wandelt over een bospad in de herfst bij Venray",
+      "prijs": "vanaf € 128,50 p.p."
+    },
+    {
+      "naam": "Golfarrangement",
+      "url": "https://www.asteria.nl/arrangementen/golfarrangement",
+      "img": "fotos/l26-arr-golf.webp",
+      "alt": "Golfer op de fairway met een golftas op de voorgrond",
+      "prijs": "vanaf € 185,50 p.p."
+    },
+    {
+      "naam": "Oorlogsmuseum Arrangement",
+      "url": "https://www.asteria.nl/arrangementen/oorlogsmuseum-arrangement",
+      "img": "fotos/l26-wellness-arrangement-andere-oorlogsmuseum.webp",
+      "alt": "Tank in een nagebouwde oorlogsscène in het Oorlogsmuseum Overloon",
+      "prijs": "vanaf € 131,00 p.p."
+    }
+  ]
+}

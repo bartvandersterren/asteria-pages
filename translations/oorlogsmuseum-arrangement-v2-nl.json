@@ -1,0 +1,265 @@
+{
+  "_controleren": [
+    "Zondagvoordeel: de zondagkorting zit niet in Mews Asteria. Gemeten 14 okt 2026 (config 6dc9094c, OORLOGSMUSEUM, 2 volwassenen, 1 nacht, Comfort kamer): zondag 25 okt, 1 en 8 nov, 6 dec, 17 jan, 7 mrt en dinsdag 27 okt, 3 en 10 nov, 8 dec, 19 jan allemaal EUR 262,00 voor 2 personen (EUR 131 p.p.). De zondagprijs op de pagina (EUR 121 p.p.) is berekend als gewone prijs min EUR 10 p.p. (EUR 20 per kamer). Eerst de korting in Mews zetten, anders ZV_TOON op false.",
+    "Periode: asteria.nl noemt geen periode of einddatum. Mews geeft het tarief van okt 2026 t/m in elk geval mrt 2027. Op 6, 7 en 14 nov 2026 gaf Mews geen tarief (vol of restrictie?). De pagina noemt daarom geen periode.",
+    "Annuleringsvoorwaarden van het arrangementstarief: onbekend. De zijkaart noemt geen annuleren; de FAQ zegt: zie je bij het boeken.",
+    "Kamerprijzen gemeten in Mews (3 nov 2026, 1 nacht, 2 volwassenen, OORLOGSMUSEUM): Comfort EUR 262, Royale 272, Deluxe 282, Junior Suite 292, Suite 302, Bruidssuite 322 voor 2 personen. Dat is de vaste meerprijs (+5/+10/+15/+20/+30 p.p.). Comfort 3 personen (272) en Mindervalide (262) staan niet op de pagina.",
+    "Tweede nacht: Mews geeft met OORLOGSMUSEUM voor 3 t/m 5 nov EUR 488 voor 2 personen (tweede nacht EUR 226). Wat zit er in de tweede nacht (diner? tweede museumbezoek niet)? De FAQ zegt alleen dat het kan en dat je de prijs bij het boeken ziet.",
+    "Eenpersoonskamer EUR 189 p.p. komt van asteria.nl, niet gemeten in Mews.",
+    "Tickets: asteria.nl zegt 'kijk voordat je reserveert naar de beschikbaarheid van de entreetickets bij het oorlogsmuseum' en 'geef je gewenste dag aan ons door'. Hoe geeft de gast de dag door (opmerking bij het boeken, mail, bellen)? De FAQ zegt nu: bij het boeken of via de receptie.",
+    "Tijdenstrook en FAQ: inchecken vanaf 15.00, uitchecken tot 11.00, diner tot 21.30, gratis parkeren overgenomen van het najaarsarrangement (zelfde bronnen). Openingstijden van het museum en de afstand hotel-museum staan bewust niet op de pagina.",
+    "Foto's museum: hero (l26-oorlogsmuseum-arrangement-hero.webp, legervoertuig in een strandscène) en sherman (Sherman-tank buiten) komen van asteria.nl (arrangementkop en omgevingspagina) en zijn klein (600x400 voor de sherman). Bevestigen dat het Oorlogsmuseum Overloon is en dat we ze mogen gebruiken; liefst scherpere foto's van het museum.",
+    "Fietshuur en de Venray Remembers Fietsroute: tip van asteria.nl, niet inbegrepen. Prijs fietshuur onbekend.",
+    "Ook interessant: Weekend Aanbieding EUR 332 voor 2 p. (2 nachten, 20-22 nov 2026, Comfort, WEEKEND), 4-daags Limburg Arrangement EUR 830 voor 2 p. (3 nachten, 3-6 nov, Comfort, LIMBURG), Wellness Arrangement EUR 279 voor 2 p. (3 nov, Comfort, 2026WELLNESS). Foto's weekend en limburg komen van asteria.nl.",
+    "De live asteria.nl-knop boekt nog via de oude config bee2f902; deze pagina gebruikt 6dc9094c."
+  ],
+  "PAGE_TITLE": "Oorlogsmuseum Arrangement Overloon | Hotel Asteria Venray",
+  "META_DESC": "Oorlogsmuseum Arrangement bij Hotel Asteria in Venray: entree voor Oorlogsmuseum Overloon met koffie of thee, een Comfort kamer, drie-gangen diner en ontbijtbuffet. Vanaf € 131 p.p.",
+  "CANONICAL_URL": "https://visit.asteria.nl/oorlogsmuseum-arrangement-v2",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+  "H_EEN_A": "Beleef de geschiedenis",
+  "H_EEN_EM": "van Overloon",
+  "SUB": "Een overnachting in een Comfort kamer, entree voor Oorlogsmuseum Overloon met koffie of thee in het museumcafé, een drie-gangen diner en ontbijt. Op je kamer liggen een welkomstbrief en een presentje van het museum klaar.",
+  "HERO_IMG": "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:55%\"",
+  "HERO_ALT": "Legervoertuig in een nagebouwde strandscène uit de Tweede Wereldoorlog in Oorlogsmuseum Overloon",
+  "VOUCHER": "OORLOGSMUSEUM",
+  "CODE_ATTR": "",
+  "CTA": "Boek het arrangement",
+  "ARR_PRIJS_PIL": "vanaf € 131 p.p.",
+  "ARR_PRIJS": "€ 131",
+  "ARR_PRIJS_EENHEID": "p.p.",
+  "KAART_KOP": "Oorlogsmuseum Arrangement",
+  "ARR_TRUST_A": "Beste prijs gegarandeerd",
+  "ARR_TRUST_B": "Directe bevestiging",
+  "KAART_IMG": "fotos/l26-oorlogsmuseum-arrangement-comfort.webp",
+  "KAART_ALT": "Comfort kamer met tweepersoonsbed bij Hotel Asteria",
+  "KAART_PIL": "Entree museum inbegrepen",
+  "KAART_VINK_A": "Entree Oorlogsmuseum Overloon",
+  "KAART_VINK_B": "Koffie of thee in het museum",
+  "KAART_VINK_C": "Drie-gangen diner",
+  "KAART_VINK_D": "Ontbijtbuffet",
+  "KAART_KNOP": "Boek het arrangement",
+  "KAART_TRUST": "Boek direct bij het hotel · Actiecode OORLOGSMUSEUM",
+  "BOEKBALK_KNOP": "Boek het arrangement",
+  "BOEKBALK_NOOT": "Actiecode OORLOGSMUSEUM staat al voor je ingevuld",
+  "KAMER_KOP_A": "In welke",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "slaap je?",
+  "KAMER_SUB": "Het arrangement is op basis van een Comfort kamer. Wil je meer ruimte, kies dan een ander kamertype. De prijs per persoon staat bij elke kamer.",
+  "KAMER_PIL": "Inbegrepen",
+  "KAMER_NOOT": "Prijs per persoon op basis van een tweepersoonskamer, exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
+  "_kamers": {
+    "comfort": {
+      "pil": "Inbegrepen",
+      "soort": "inbegrepen",
+      "prijs_label": "vanaf",
+      "prijs": "€ 131 p.p."
+    },
+    "royale": {
+      "pil": "€ 5 p.p.",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 136 p.p."
+    },
+    "deluxe": {
+      "pil": "€ 10 p.p.",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 141 p.p."
+    },
+    "junior-suite": {
+      "pil": "€ 15 p.p.",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 146 p.p."
+    },
+    "suite": {
+      "pil": "€ 20 p.p.",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 151 p.p."
+    },
+    "bruidssuite": {
+      "pil": "€ 30 p.p.",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 161 p.p."
+    }
+  },
+  "POP_BADGE": "Oorlogsmuseum Arrangement",
+  "REVIEW_KOP_A": "Waarom gasten graag",
+  "REVIEW_KOP_EM": "terugkomen",
+  "SLOT_KOP_A": "Je",
+  "SLOT_KOP_EM": "dag in Overloon",
+  "SLOT_KOP_B": "staat klaar",
+  "SLOT_TEKST": "Boek het Oorlogsmuseum Arrangement met code OORLOGSMUSEUM: entree voor het museum, een Comfort kamer, diner en ontbijt. Vragen? We helpen je graag verder.",
+  "STICKY_KOP": "Oorlogsmuseum Arrangement",
+  "STICKY_SUB": "vanaf € 131 p.p.",
+  "STICKY_KNOP": "Boek nu",
+  "SLOT_FOTO_A": "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+  "SLOT_FOTO_A_POS": "55% center",
+  "SLOT_FOTO_B": "fotos/l26-oorlogsmuseum-arrangement-fietsen.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p.p. per nacht",
+  "ARR_VOORWAARDEN": "Comfort kamer, 2 personen · museumdag geef je aan ons door",
+  "ARR_MOB_NOOT": "Code OORLOGSMUSEUM staat al ingevuld",
+  "INB_KOP_A": "Dit is",
+  "INB_KOP_EM": "inbegrepen",
+  "ARR_INB_INTRO": "Samengesteld met Oorlogsmuseum Overloon. Jij kiest de dag van je museumbezoek, wij reserveren je tickets.",
+  "ZV_TOON": true,
+  "ZV_KOP_A": "Op zondag",
+  "ZV_KOP_EM": "€ 20 per kamer",
+  "ZV_KOP_B": "voordeliger",
+  "ZV_PIL": "− € 20 per kamer",
+  "ZV_ZONDAG_KOP": "Aankomst op zondag",
+  "ZV_ZONDAG_PRIJS": "€ 121",
+  "ZV_GEWOON_PRIJS": "€ 131",
+  "ZV_ZONDAG_REGEL": "Korting automatisch verrekend met code OORLOGSMUSEUM",
+  "ZV_ANDERS_KOP": "Aankomst ma t/m za",
+  "ZV_ANDERS_REGEL": "Gewone prijs op de andere aankomstdagen",
+  "ZV_VOETNOOT": "Prijzen op basis van 2 personen in een Comfort kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.",
+  "ZV_KAART_REGEL": "Op zondag <b>€ 20 per kamer</b> voordeliger",
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": true,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "museum",
+    "overloon",
+    "diner",
+    "dinner",
+    "ontbijt"
+  ],
+  "_chips": [
+    "Entree Oorlogsmuseum",
+    "Diner en ontbijt",
+    "Presentje op je kamer"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Entreeticket Oorlogsmuseum",
+      "regel": "wij reserveren je tickets",
+      "icoon": "<path d=\"M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0 0 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-6z\"/><path d=\"M13 5v2\"/><path d=\"M13 17v2\"/><path d=\"M13 11v2\"/>"
+    },
+    {
+      "titel": "Koffie of thee",
+      "regel": "bij ontvangst in het museum",
+      "icoon": "<path d=\"M17 8h1a4 4 0 1 1 0 8h-1\"/><path d=\"M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z\"/><line x1=\"6\" y1=\"2\" x2=\"6\" y2=\"4\"/><line x1=\"10\" y1=\"2\" x2=\"10\" y2=\"4\"/><line x1=\"14\" y1=\"2\" x2=\"14\" y2=\"4\"/>"
+    },
+    {
+      "titel": "Welkomstenvelop",
+      "regel": "brief en QR-code met video",
+      "icoon": "<rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/><path d=\"M22 7l-10 6L2 7\"/>"
+    },
+    {
+      "titel": "Presentje op je kamer",
+      "regel": "van het Oorlogsmuseum",
+      "icoon": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13\"/><path d=\"M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>"
+    },
+    {
+      "titel": "Comfort kamer",
+      "regel": "een overnachting",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Drie-gangen diner",
+      "regel": "in het restaurant van het hotel",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Uitgebreid ontbijtbuffet",
+      "regel": "de volgende ochtend",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-oorlogsmuseum-arrangement-sherman.webp",
+      "alt": "Sherman-tank bij Oorlogsmuseum Overloon",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-oorlogsmuseum-arrangement-comfort.webp",
+      "alt": "Comfort kamer met tweepersoonsbed en zithoek",
+      "pos": "55% 50%"
+    },
+    {
+      "img": "fotos/l26-oorlogsmuseum-arrangement-diner.webp",
+      "alt": "Hoofdgerecht in een diep bord in het restaurant",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-oorlogsmuseum-arrangement-ontbijt.webp",
+      "alt": "Ontbijtbord met croissant, kaas, vleeswaren en druiven",
+      "pos": "45% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Inchecken vanaf 15.00",
+      "icoon": "<path d=\"M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4\"/><polyline points=\"10 17 15 12 10 7\"/><line x1=\"15\" y1=\"12\" x2=\"3\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Uitchecken tot 11.00",
+      "icoon": "<path d=\"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4\"/><polyline points=\"16 17 21 12 16 7\"/><line x1=\"21\" y1=\"12\" x2=\"9\" y2=\"12\"/>"
+    },
+    {
+      "tekst": "Diner tot 21.30",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Gratis parkeren",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Wat zit er in dit arrangement?",
+      "a": "Een welkomstenvelop met een brief van Hotel Asteria en het Oorlogsmuseum en een QR-code met een video over het museum, een presentje van het museum op je kamer, een entreeticket voor Oorlogsmuseum Overloon met een kop koffie of thee bij ontvangst in het museum, een overnachting in een Comfort kamer, een drie-gangen diner en de volgende ochtend het uitgebreide ontbijtbuffet. Vanaf € 131 per persoon, op basis van twee personen; de verblijfsbelasting van € 2,– per persoon per nacht komt erbij."
+    },
+    {
+      "q": "Hoe regel ik de tickets voor het museum?",
+      "a": "Kijk voordat je boekt op de website van het Oorlogsmuseum of er tickets beschikbaar zijn op de dag dat je wilt gaan. Geef die dag daarna aan ons door, dan reserveren wij je tickets. Je kunt het museum op de dag van aankomst of op de dag van vertrek bezoeken."
+    },
+    {
+      "q": "Kan ik alleen komen?",
+      "a": "Ja. Op basis van een eenpersoonskamer kost het arrangement € 189,– per persoon, exclusief verblijfsbelasting. Tip: huur een fiets bij Hotel Asteria en fiets de Venray Remembers Fietsroute richting het museum; de fietshuur zit niet in het arrangement."
+    },
+    {
+      "q": "Kan ik een tweede nacht bijboeken?",
+      "a": "Ja. Kies bij het boeken een latere vertrekdatum; de prijs voor de extra nacht zie je direct in het boekingsscherm. Wil je iets anders combineren, bel dan even met de receptie."
+    },
+    {
+      "q": "Is er korting op zondag?",
+      "a": "Ja. Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met code OORLOGSMUSEUM en geldt eenmalig per kamer per verblijf dat op zondag begint.",
+      "zondag": true
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    }
+  ],
+  "_andere": [
+    {
+      "naam": "Weekend Aanbieding",
+      "url": "https://www.asteria.nl/arrangementen/weekend-aanbieding",
+      "img": "fotos/l26-oorlogsmuseum-arrangement-weekend.webp",
+      "alt": "Hotel Asteria met de vijver en fontein voor de ingang",
+      "prijs": "vanaf € 166 p.p. · 2 nachten"
+    },
+    {
+      "naam": "4-daags Limburg Arrangement",
+      "url": "https://www.asteria.nl/arrangementen/limburg-arrangement",
+      "img": "fotos/l26-oorlogsmuseum-arrangement-limburg.webp",
+      "alt": "Houten vlonderpad over een ven in de Limburgse natuur",
+      "prijs": "vanaf € 415 p.p. · 3 nachten"
+    },
+    {
+      "naam": "Wellness Arrangement",
+      "url": "https://visit.asteria.nl/wellness-arrangement",
+      "img": "fotos/wt-arr.webp",
+      "alt": "Gast in badjas leest een tijdschrift in de relaxruimte",
+      "prijs": "vanaf € 139,50 p.p."
+    }
+  ]
+}
