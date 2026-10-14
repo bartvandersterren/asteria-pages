@@ -1,0 +1,85 @@
+/* Feedbackpagina v2 (visit.asteria.nl/feedback-v2): nieuwe huisstijl op lander-w1.css.
+   Alleen paginaspecifieke regels, prefix fb2-; tokens uit lander-w1.css. Werking gelijk aan feedback.template.html. */
+
+/* ── sectie en kaart ── */
+.lp .fb2-sec{padding:var(--space-16) 0}
+@media (min-width: 1024px){.lp .fb2-sec{padding:var(--space-24) 0}}
+.lp .fb2-card{max-width:560px;margin-inline:auto;padding:var(--space-12) var(--space-10);text-align:center;overflow:visible}
+@media (max-width: 719px){.lp .fb2-card{padding:var(--space-8) var(--space-5)}}
+
+/* ── taalkeuze: in de kop (langswitch) via hover/focus open; onder 720 px losse keuze boven de kaart ── */
+.fb2-pagina .langswitch__code{text-transform:uppercase}
+.fb2-pagina .langswitch:hover .langswitch__menu,
+.fb2-pagina .langswitch:focus-within .langswitch__menu{display:block}
+.fb2-pagina .langswitch__menu::before{content:"";position:absolute;left:0;right:0;top:-8px;height:8px}
+.lp .fb2-lang{display:none}
+@media (max-width: 719px){
+  .lp .fb2-lang{display:flex;justify-content:center;gap:var(--space-2);margin:0 0 var(--space-6);font-size:var(--text-xs)}
+  .lp .fb2-lang a{color:var(--ink-soft);padding:6px 10px;border-radius:var(--radius-btn);font-weight:var(--weight-medium);letter-spacing:0.04em}
+  .lp .fb2-lang a:hover,.lp .fb2-lang a.active{color:var(--ink)}
+  .lp .fb2-lang a.active{font-weight:var(--weight-bold);background:var(--surface)}
+}
+
+/* ── logo, kop, subregel ── */
+.lp .fb2-logo{width:160px;height:auto;margin:0 auto var(--space-8)}
+.lp .fb2-heading{font-family:var(--font-display);font-size:2.5rem;font-weight:700;line-height:var(--leading-snug);letter-spacing:-.02em;text-transform:none;margin:0 0 var(--space-2);color:var(--ink)}
+.lp .fb2-sub{font-family:var(--font-body);font-size:var(--text-sm);color:var(--ink-soft);margin:0 0 var(--space-8)}
+@media (max-width: 719px){.lp .fb2-heading{font-size:2rem}}
+
+/* ── sterren ── */
+.lp .fb2-stars{display:flex;justify-content:center;gap:var(--space-2);margin-bottom:var(--space-2)}
+.lp .fb2-star{cursor:pointer;width:48px;height:48px;padding:0;border:0;background:none;border-radius:var(--radius-btn);transition:transform var(--duration-fast) var(--ease-soft);-webkit-tap-highlight-color:transparent}
+.lp .fb2-star:hover{transform:scale(1.12)}
+.lp .fb2-star:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+.lp .fb2-star svg{display:block;width:100%;height:100%}
+.lp .fb2-star .fb2-star-fill{fill:#E1CFB8;transition:fill var(--duration-normal) var(--ease-soft)}
+.lp .fb2-star.active .fb2-star-fill{fill:var(--star)}
+@media (max-width: 719px){.lp .fb2-star{width:44px;height:44px}}
+
+.lp .fb2-star-labels{display:flex;justify-content:center;margin-bottom:var(--space-8);min-height:20px}
+.lp .fb2-star-label{font-size:var(--text-xs);color:var(--ink-soft);opacity:0;transition:opacity var(--duration-normal) var(--ease-soft)}
+.lp .fb2-star-label.visible{opacity:1}
+
+/* ── toestanden ── */
+.lp .fb2-state{display:none;opacity:0;transform:translateY(12px)}
+.lp .fb2-state.active{display:block;animation:fb2-fadeUp var(--duration-slow) var(--ease-out) forwards}
+@keyframes fb2-fadeUp{to{opacity:1;transform:translateY(0)}}
+
+.lp .fb2-state-heading{font-family:var(--font-display);font-size:var(--h3);font-weight:700;line-height:var(--leading-snug);text-transform:none;letter-spacing:-.01em;margin:0 0 var(--space-3);color:var(--ink)}
+.lp .fb2-state-text{font-size:var(--text-sm);color:var(--ink-soft);line-height:var(--leading-body);margin:0 0 var(--space-6)}
+
+/* positief */
+.lp .fb2-review-links{display:flex;flex-direction:column;gap:var(--space-3);align-items:center;margin-bottom:var(--space-4)}
+.lp .fb2-knop{min-width:220px}
+.lp .fb2-skip{cursor:pointer;color:var(--ink-soft)}
+
+/* negatief: formulier */
+.lp .fb2-form{text-align:left}
+.lp .fb2-textarea,
+.lp .fb2-input{display:block;width:100%;box-sizing:border-box;background:var(--surface);color:var(--ink);border:1px solid var(--hairline-strong);border-radius:var(--radius-btn);
+  font-family:var(--font-body);font-size:var(--text-sm);font-weight:500;line-height:1.5;padding:12px 14px;outline:none;
+  transition:border-color var(--duration-fast) var(--ease-soft),box-shadow var(--duration-fast) var(--ease-soft)}
+.lp .fb2-input{min-height:var(--touch-min)}
+.lp .fb2-textarea{min-height:120px;resize:vertical;margin-bottom:var(--space-4)}
+.lp .fb2-textarea::placeholder,.lp .fb2-input::placeholder{color:var(--ink-soft);opacity:1}
+.lp .fb2-textarea:focus,.lp .fb2-input:focus{border-color:var(--terracotta);box-shadow:var(--focus-ring)}
+.lp .fb2-field{margin-bottom:var(--space-3)}
+.lp .fb2-label{display:block;font-size:var(--text-xs);color:var(--ink-soft);margin-bottom:var(--space-1)}
+.lp .fb2-submit-wrap{text-align:center;margin-top:var(--space-5)}
+.lp .fb2-submit{width:100%}
+.lp .fb2-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.lp .fb2-error{color:var(--red);font-size:var(--text-xs);margin-top:var(--space-2);display:none}
+
+/* honeypot */
+.lp .fb2-hp{position:absolute;left:-9999px}
+
+/* bedankt */
+.lp .fb2-checkmark{width:56px;height:56px;margin:0 auto var(--space-5);color:var(--success-ink)}
+.lp .fb2-checkmark svg{width:100%;height:100%}
+.lp .fb2-back{margin-top:var(--space-2)}
+
+/* minder beweging */
+@media (prefers-reduced-motion: reduce){
+  .lp .fb2-state.active{animation:none;opacity:1;transform:none}
+  .lp .fb2-star{transition:none}
+}
