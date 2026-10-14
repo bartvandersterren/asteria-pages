@@ -1048,7 +1048,8 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .lp-zone .b4b-kop{flex-wrap:wrap;gap:20px 32px}
   .lp .lp-zone .b4b-inhoud h3{font-size:26px}
   /* 2a: vier tegels (het bos valt weg) zodat de smalle tegels hun kop heel houden; uitschuiven blijft */
-  .lp .lp-zone .b2a-strook{gap:12px}
+  /* 2a: de strook neemt links de marge naast de kolom in (tot 40 px van de schermrand), rechts stopt hij bij de kolom */
+  .lp .lp-zone .b2a-strook{gap:12px;--links:max(0px,(100vw - 1120px) / 2 - 40px);margin-left:calc(-1 * var(--links));width:calc(100% + var(--links))}
   .lp .lp-zone .b2a-tegel:nth-child(5){display:none}
   .lp .lp-zone .b2a-tegel.is-active{flex:1.9}
   .lp .lp-zone .b2a-tegel:not(.is-active) .b2a-label,.lp .lp-zone .b2a-tegel:first-child:not(.is-active) .b2a-label{left:14px;right:14px;bottom:20px}
