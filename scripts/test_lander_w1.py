@@ -27,9 +27,10 @@ Arrangementen (blokken zijkaart + arrangement):
 Extra: robots noindex, alle Mews-links met de voucher, geen oude config bee2f902 in de bron, prijs zichtbaar in de
 zijkaart (1440) en in de onderbalk (390). Kamerslider-checks volgen het aantal kamers op de pagina (8 of minder);
 vanaf 3 kamers de slider met lus (klonen), bij 1-2 het raster. Inbegrepen-blok: paneel loopt links tot de schermrand,
-fotoslider met 4-6 dia's, bolletjes en pijlen (pijlklik schuift een dia). Zondagblok (ontwerp a2): precies 2 kaarten,
-de zondagkaart breder dan de andere op 1440 (een kolom op 390), zondagprijs met doorgestreepte gewone prijs, geen
-keuzeschakelaar (ook niet met ?zv=). Waarom Asteria: wiel met 6 echte punten en 8 klonen, pijlklik verandert --active en
+fotoslider met 4-6 dia's, bolletjes en pijlen (pijlklik schuift een dia). Zondagblok (ontwerp a9): ivoren paneel met kop,
+2 kaarten en voetnoot erin, pil in de zondagkaart, even breed (een kolom op 390), zondagprijs met doorgestreepte gewone
+prijs, geen keuzeschakelaar (ook niet met ?zv=). Ook interessant (o2): 3 kaarten als link, foto over de volle kaart,
+ivoren sectie, geen overloop op 390. Waarom Asteria: wiel met 6 echte punten en 8 klonen, pijlklik verandert --active en
 de foto. Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
 """
 import sys, json
@@ -173,26 +174,36 @@ with sync_playwright() as p:
                   zvN:zk.length,zvKop:zv?zv.querySelector('h2').innerText.replace(/\\u00a0/g,' '):'',
                   zvPrijs:zz?zz.querySelector('.ar-zv-prijs b').innerText.replace(/\\u00a0/g,' '):'',zvWas:zz?zz.querySelector('s').innerText.replace(/\\u00a0/g,' '):'',
                   zvW:zz?Math.round(zz.getBoundingClientRect().width):0,zvWa:za?Math.round(za.getBoundingClientRect().width):0,
+                  zvPaneel:(()=>{const pn=zv&&zv.querySelector('.ar-zv-paneel');return !!pn&&!!pn.querySelector('h2.ar-zv-kop')&&pn.querySelectorAll('.ar-zv-grid > .ar-zv-kaart').length===2&&!!pn.querySelector('.ar-zv-noot')&&!!(zz&&zz.querySelector('.ar-zv-top .ar-zv-pil'))})(),
                   zvKiezer:!!document.querySelector('.ar-zv-kiezer,.ar-zv-optie,[data-zv-schakel],.ar-zv-zondagknop'),
                   wKop:wa?wa.querySelector('h2').innerText:'',wPunten:wa?wa.querySelectorAll('.ar-wiel-item:not([data-kloon])').length:0,
                   wFoto:wa?(i=>i.complete&&i.naturalWidth>0)(wa.querySelector('.b3a-foto img.is-actief')):false,
                   wKnop:wa?wa.querySelector('.mews-open').dataset.voucher:'',
                   kantFoto:kant?kant.querySelectorAll('img').length:-1,kantPrijs:kant?!!kant.querySelector('.b1k-prijs'):false,
                   andere:an?[...an.querySelectorAll('a.ar-ander')].map(x=>x.getAttribute('href')):[],
+                  anVol:an?[...an.querySelectorAll('a.ar-ander')].every(k=>{const i=k.querySelector('.ar-ander-foto img'),r=k.getBoundingClientRect(),f=i&&i.getBoundingClientRect();
+                    return !!f&&Math.abs(f.width-r.width)<=2&&Math.abs(f.height-r.height)<=2&&!!k.querySelector('.ar-ander-naam')&&!!k.querySelector('.ar-ander-rond')}):false,
+                  anBg:an?getComputedStyle(an).backgroundColor:'',anToon:an?an.dataset.toon:'',
+                  anOv:document.documentElement.scrollWidth-innerWidth,
                   chips:document.querySelectorAll('.ar-chips li').length,
                   faq:[...document.querySelectorAll('.b6c summary')].map(s=>s.innerText)}})()""")
-            check(f'{tag} zondagblok (a2): kop, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
+            check(f'{tag} zondagblok (a9): paneel met kop, 2 kaarten en voetnoot erin, pil in de zondagkaart', a['zvPaneel'])
+            check(f'{tag} zondagblok: kop, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
             check(f'{tag} zondagblok: precies 2 kaarten', a['zvN'] == 2, str(a['zvN']))
             check(f'{tag} zondagblok: zondagprijs staat er (lager dan {PRIJS}, die doorgestreept)', a['zvPrijs'].startswith('€') and a['zvPrijs'] != PRIJS and a['zvWas'] == PRIJS, f"{a['zvPrijs']} / {a['zvWas']}")
             if mob:
                 check(f'{tag} zondagblok: een kolom (kaarten even breed)', a['zvW'] > 0 and a['zvW'] == a['zvWa'], f"{a['zvW']} / {a['zvWa']}")
             else:
-                check(f'{tag} zondagblok: zondagkaart breder dan de andere', a['zvW'] > a['zvWa'] * 1.4, f"{a['zvW']} / {a['zvWa']}")
+                check(f'{tag} zondagblok: twee kaarten naast elkaar, even breed', a['zvW'] > 0 and abs(a['zvW'] - a['zvWa']) <= 1, f"{a['zvW']} / {a['zvWa']}")
             check(f'{tag} zondagblok: geen keuzeschakelaar of oude opties', not a['zvKiezer'])
             check(f'{tag} Waarom Asteria: kop, zes punten, foto geladen, knop met {VOUCHER}',
                   a['wKop'].startswith('Voor de grote dagen') and a['wPunten'] == 6 and a['wFoto'] and a['wKnop'] == VOUCHER, str(a)[:300])
             check(f'{tag} zijkaart met foto en prijs', a['kantFoto'] == 1 and a['kantPrijs'], str(a)[:200])
-            check(f'{tag} drie andere arrangementen met link', len(a['andere']) == 3 and all(h.startswith('https://') for h in a['andere']), str(a['andere']))
+            check(f'{tag} ook interessant (o2): 3 kaarten als link', len(a['andere']) == 3 and all(h.startswith('https://') for h in a['andere']), str(a['andere']))
+            check(f'{tag} ook interessant: foto over de volle kaart, naam en pijlknop erop', a['anVol'])
+            check(f'{tag} ook interessant: ivoren achtergrond (surface)', a['anToon'] == 'surface' and a['anBg'] == 'rgb(255, 250, 241)', f"{a['anToon']} / {a['anBg']}")
+            if mob:
+                check(f'{tag} geen horizontale overloop', a['anOv'] <= 0, str(a['anOv']))
             check(f'{tag} drie chips onder de hero', a['chips'] == 3, str(a['chips']))
             check(f'{tag} FAQ: zes vragen, eerste over het arrangement', len(a['faq']) == 6 and 'arrangement' in a['faq'][0], ' | '.join(a['faq']))
             ok_rev = pg.evaluate("(()=>{const m=document.querySelector('.b5a-muur');return m.classList.contains('is-loop')?[...m.querySelectorAll('.b5a-baan .b5a-kaart:not([aria-hidden])')].length:m.querySelectorAll('.b5a-kaart').length})()")

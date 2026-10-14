@@ -209,31 +209,30 @@
       </div>
     </div>
   </section>
-  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a2 (14 okt):
-       zondagkaart groot (1,65fr) met pil, grote prijs en doorgestreepte gewone prijs; gewone kaart klein en transparant.
-       Telefoon: een kolom. ══ -->
+  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a9 (14 okt), precies
+       zoals Parkhotel blok-zondagvoordeel: een ivoren paneel met de kop erin, twee kaarten in het paneel (zondagkaart met
+       terracotta rand op zand, titel + pil op een regel, grote prijs; gewone kaart met dunne rand, prijs klein en grijs),
+       voetnoot onderin het paneel. Telefoon: kaarten onder elkaar. ══ -->
   <section class="sec ar-sec ar-zv" data-toon="paper" aria-label="Zondagvoordeel">
     <div class="wrap">
-      <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
-      <div class="ar-zv-grid">
-        <div class="ar-zv-kaart ar-zv-kaart--zondag">
-          <span class="ar-zv-pil">− € 20 per kamer</span>
-          <h3>Aankomst op zondag</h3>
-          <p class="ar-zv-vanaf">vanaf</p>
-          <div class="ar-zv-rij">
-            <p class="ar-zv-prijs"><b>€ 118,50</b> <span>p.p.</span></p>
+      <div class="ar-zv-paneel">
+        <h2 class="ar-zv-kop">Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
+        <div class="ar-zv-grid">
+          <div class="ar-zv-kaart ar-zv-kaart--zondag">
+            <div class="ar-zv-top"><h3>Aankomst op zondag</h3><span class="ar-zv-pil">− € 20 per kamer</span></div>
+            <p class="ar-zv-prijs"><span class="ar-zv-vanaf">vanaf</span><b>€ 118,50</b><span>p.p. per nacht</span></p>
             <p class="ar-zv-was"><s>€ 128,50</s></p>
+            <p class="ar-zv-regel">Korting automatisch verrekend met code NAJAAR2D</p>
           </div>
-          <p class="ar-zv-regel"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Automatisch verrekend met code NAJAAR2D</p>
+          <div class="ar-zv-kaart">
+            <div class="ar-zv-top"><h3>Aankomst ma t/m za</h3></div>
+            <p class="ar-zv-prijs"><span class="ar-zv-vanaf">vanaf</span><b>€ 128,50</b><span>p.p. per nacht</span></p>
+            <p class="ar-zv-was" aria-hidden="true"></p>
+            <p class="ar-zv-regel">Gewone prijs op de andere aankomstdagen</p>
+          </div>
         </div>
-        <div class="ar-zv-kaart">
-          <h3>Aankomst ma t/m za</h3>
-          <p class="ar-zv-vanaf">vanaf</p>
-          <p class="ar-zv-prijs"><b>€ 128,50</b> <span>p.p.</span></p>
-          <p class="ar-zv-regel">Gewone prijs op de andere dagen</p>
-        </div>
+        <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
       </div>
-      <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
     </div>
   </section>
   <!-- ══ ARRANGEMENT 4: WAAROM ASTERIA (build-blok 'waarom', aan met WAAROM_TOON). Vaste inhoud, zoals de staging-homepage
@@ -417,9 +416,9 @@
     <div class="wrap">
       <h2 id="andere-kop">Ook <span class="g">interessant</span></h2>
       <div class="ar-andere-rij strook-scroll">
-        <a class="ar-ander" href="https://visit.asteria.nl/wellness-arrangement"><span class="ar-ander-foto"><img src="fotos/wt-arr.webp" alt="Gast in badjas leest een tijdschrift in de relaxruimte" loading="lazy"></span><span class="ar-ander-tekst"><b class="ar-ander-naam">Wellness Arrangement</b><span class="ar-ander-prijs">vanaf € 139,50 p.p.</span><span class="ar-ander-link">Bekijk het arrangement<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-        <a class="ar-ander" href="https://www.asteria.nl/arrangementen/golfarrangement"><span class="ar-ander-foto"><img src="fotos/l26-arr-golf.webp" alt="Golfer op de fairway met een golftas op de voorgrond" loading="lazy"></span><span class="ar-ander-tekst"><b class="ar-ander-naam">Golfarrangement</b><span class="ar-ander-prijs">vanaf € 185,50 p.p.</span><span class="ar-ander-link">Bekijk het arrangement<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
-        <a class="ar-ander" href="https://www.asteria.nl/arrangementen/kerstarrangement-hotel"><span class="ar-ander-foto"><img src="fotos/l26-arr-kerst.webp" alt="Kerstbal met de Asteria-ster tussen dennentakken" loading="lazy"></span><span class="ar-ander-tekst"><b class="ar-ander-naam">Kerstarrangement</b><span class="ar-ander-link">Bekijk het arrangement<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+        <a class="ar-ander" href="https://visit.asteria.nl/wellness-arrangement"><span class="ar-ander-foto"><img src="fotos/wt-arr.webp" alt="Gast in badjas leest een tijdschrift in de relaxruimte" loading="lazy"></span><span class="ar-ander-tekst"><b class="ar-ander-naam">Wellness Arrangement</b><span class="ar-ander-prijs">vanaf <b>€ 139,50</b> p.p.</span><span class="ar-ander-rond"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+        <a class="ar-ander" href="https://www.asteria.nl/arrangementen/golfarrangement"><span class="ar-ander-foto"><img src="fotos/l26-arr-golf.webp" alt="Golfer op de fairway met een golftas op de voorgrond" loading="lazy"></span><span class="ar-ander-tekst"><b class="ar-ander-naam">Golfarrangement</b><span class="ar-ander-prijs">vanaf <b>€ 185,50</b> p.p.</span><span class="ar-ander-rond"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
+        <a class="ar-ander" href="https://www.asteria.nl/arrangementen/kerstarrangement-hotel"><span class="ar-ander-foto"><img src="fotos/l26-arr-kerst.webp" alt="Kerstbal met de Asteria-ster tussen dennentakken" loading="lazy"></span><span class="ar-ander-tekst"><b class="ar-ander-naam">Kerstarrangement</b><span class="ar-ander-rond"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></a>
       </div>
     </div>
   </section>

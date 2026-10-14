@@ -450,8 +450,8 @@ def apply_arrangement(html, data):
         f'        <a class="ar-ander" href="{escape(a["url"])}">'
         f'<span class="ar-ander-foto"><img src="{escape(a["img"])}" alt="{escape(a.get("alt", ""))}" loading="lazy"></span>'
         f'<span class="ar-ander-tekst"><b class="ar-ander-naam">{a["naam"]}</b>'
-        + (f'<span class="ar-ander-prijs">{a["prijs"]}</span>' if a.get('prijs') else '')
-        + f'<span class="ar-ander-link">Bekijk het arrangement{pijl}</span></span></a>'
+        + (f'<span class="ar-ander-prijs">{re.sub(r"(€\s?[0-9.,]+)", r"<b>\1</b>", a["prijs"])}</span>' if a.get('prijs') else '')
+        + f'<span class="ar-ander-rond">{pijl}</span></span></a>'
         for a in data.get('_andere', [])))
     return html
 

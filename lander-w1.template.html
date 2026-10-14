@@ -222,31 +222,30 @@
     </div>
   </section>
   <!--[zondag[-->
-  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a2 (14 okt):
-       zondagkaart groot (1,65fr) met pil, grote prijs en doorgestreepte gewone prijs; gewone kaart klein en transparant.
-       Telefoon: een kolom. ══ -->
+  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a9 (14 okt), precies
+       zoals Parkhotel blok-zondagvoordeel: een ivoren paneel met de kop erin, twee kaarten in het paneel (zondagkaart met
+       terracotta rand op zand, titel + pil op een regel, grote prijs; gewone kaart met dunne rand, prijs klein en grijs),
+       voetnoot onderin het paneel. Telefoon: kaarten onder elkaar. ══ -->
   <section class="sec ar-sec ar-zv" data-toon="paper" aria-label="Zondagvoordeel">
     <div class="wrap">
-      <h2>{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
-      <div class="ar-zv-grid">
-        <div class="ar-zv-kaart ar-zv-kaart--zondag">
-          <span class="ar-zv-pil">{{ZV_PIL}}</span>
-          <h3>{{ZV_ZONDAG_KOP}}</h3>
-          <p class="ar-zv-vanaf">vanaf</p>
-          <div class="ar-zv-rij">
-            <p class="ar-zv-prijs"><b>{{ZV_ZONDAG_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span></p>
+      <div class="ar-zv-paneel">
+        <h2 class="ar-zv-kop">{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
+        <div class="ar-zv-grid">
+          <div class="ar-zv-kaart ar-zv-kaart--zondag">
+            <div class="ar-zv-top"><h3>{{ZV_ZONDAG_KOP}}</h3><span class="ar-zv-pil">{{ZV_PIL}}</span></div>
+            <p class="ar-zv-prijs"><span class="ar-zv-vanaf">vanaf</span><b>{{ZV_ZONDAG_PRIJS}}</b><span>{{ARR_PRIJS_KAART_EENHEID}}</span></p>
             <p class="ar-zv-was"><s>{{ZV_GEWOON_PRIJS}}</s></p>
+            <p class="ar-zv-regel">{{ZV_ZONDAG_REGEL}}</p>
           </div>
-          <p class="ar-zv-regel"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>{{ZV_ZONDAG_REGEL}}</p>
+          <div class="ar-zv-kaart">
+            <div class="ar-zv-top"><h3>{{ZV_ANDERS_KOP}}</h3></div>
+            <p class="ar-zv-prijs"><span class="ar-zv-vanaf">vanaf</span><b>{{ZV_GEWOON_PRIJS}}</b><span>{{ARR_PRIJS_KAART_EENHEID}}</span></p>
+            <p class="ar-zv-was" aria-hidden="true"></p>
+            <p class="ar-zv-regel">{{ZV_ANDERS_REGEL}}</p>
+          </div>
         </div>
-        <div class="ar-zv-kaart">
-          <h3>{{ZV_ANDERS_KOP}}</h3>
-          <p class="ar-zv-vanaf">vanaf</p>
-          <p class="ar-zv-prijs"><b>{{ZV_GEWOON_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span></p>
-          <p class="ar-zv-regel">{{ZV_ANDERS_REGEL}}</p>
-        </div>
+        <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
       </div>
-      <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
     </div>
   </section>
   <!--]zondag]-->
