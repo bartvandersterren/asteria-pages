@@ -135,6 +135,9 @@ with sync_playwright() as p:
             na_ = pg.evaluate("document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
             href = pg.evaluate("document.querySelector('.mob-cta a').getAttribute('href')")
             check(f'{tag} onderbalk verschijnt na de hero en wijst naar #kamers', (not vooraf) and na_ and href == '#kamers', f'voor {vooraf}, na {na_}, {href}')
+            pg.wait_for_timeout(400)
+            echt = pg.evaluate("""(()=>{const m=document.querySelector('.mob-cta'),r=m.getBoundingClientRect(),c=getComputedStyle(m);return c.display!=='none'&&c.visibility==='visible'&&r.height>40&&r.bottom<=innerHeight+1&&r.top<innerHeight})()""")
+            check(f'{tag} onderbalk echt zichtbaar onderin beeld', echt)
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
 
         # Kies deze kamer -> Mews-poort (laatst, laadt de widget)

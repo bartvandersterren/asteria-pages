@@ -610,6 +610,12 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
     .lp .b4b-tel{font-size:var(--text-xs);font-weight:600;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft);white-space:nowrap}
     .lp .b4b-tel b{font-weight:700;color:var(--ink)}
     .lp .b4b-pijlen{display:flex;gap:8px}
+    /* streepjes zoals staging .pagination-dots */
+    .lp .b4b-dots{display:flex;gap:6px;align-items:center}
+    .lp .b4b-dot{display:block;height:9px;width:25px;border-radius:5px;background:var(--hairline-strong);border:0;padding:0;cursor:pointer;
+      transition:background var(--duration-normal) var(--ease-soft),width var(--duration-normal) var(--ease-soft)}
+    .lp .b4b-dot.is-active{width:39px;background:var(--terracotta)}
+    .lp .b4b-dot:focus-visible{outline:2px solid var(--terracotta);outline-offset:3px}
     /* de strook loopt links en rechts door tot de schermrand (zoals de oude lander): kaart 1 staat op de
        wrap-lijn, de volgende kaarten lopen tot de rand van het scherm */
     .lp .b4b-strook{--bleed:max(var(--gutter), (100vw - 1120px) / 2);display:flex;gap:24px;overflow:hidden;margin:-10px calc(-1 * var(--bleed)) 0;padding:10px var(--bleed) 20px;width:calc(100% + 2 * var(--bleed));scroll-padding-left:var(--bleed)}
@@ -630,7 +636,10 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
     .lp .b4b-voet .btn{flex:none}
     @media (max-width:719px){
       .lp .b4b-kop{flex-direction:column;align-items:flex-start;gap:18px;margin-bottom:24px}
-      .lp .b4b-teller{width:100%;justify-content:space-between}
+      .lp .b4b-teller{width:100%;justify-content:space-between;gap:12px}
+      .lp .b4b-dots{gap:4px;flex:1;justify-content:center;min-width:0}
+      .lp .b4b-dot{width:12px;height:8px}
+      .lp .b4b-dot.is-active{width:22px}
       .lp .b4b-strook{gap:14px}
       .lp .b4b-kaart{flex-basis:calc(100% - 36px)}
       .lp .b4b-inhoud{padding:18px 8px 8px}
@@ -895,6 +904,11 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .mob-cta .om{display:block;font-size:13px;color:var(--ink-soft)}
 .mob-cta .btn{font-size:14px;padding:12px 16px;min-height:44px;white-space:nowrap;flex:none}
 .mob-cta-ruimte{display:none}
+/* telefoon: na de basisregels, anders wint display:none hierboven van de regel in het telefoonblok */
+@media (max-width:719px){
+  .mob-cta{display:flex;z-index:1600}
+  .mob-cta-ruimte{display:block;height:72px;background:var(--ink)}
+}
 
 /* ---------- cookiemelding (markup zoals welkom, in de nieuwe huisstijl) ---------- */
 .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:1500;background:var(--ink);color:var(--on-ink-body);font-family:var(--font-body);font-weight:500;font-size:13px;line-height:1.5;padding:16px 22px;display:none;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}

@@ -92,6 +92,12 @@ with sync_playwright() as p:
         pg.locator('.b4b-vorige').click(); pg.wait_for_timeout(900)
         t8 = tel()
         check(f'{tag} pijlen werken (volgende 2, vorige 1, vorige 8)', (t2, t1, t8) == ('2', '1', '8'), f'{t2},{t1},{t8}')
+        actief = lambda: pg.evaluate("[...document.querySelectorAll('.b4b-dot')].map((d,i)=>d.classList.contains('is-active')?i+1:0).filter(Boolean).join(',')")
+        check(f'{tag} streepjes volgen de teller (8 stuks, actief 8)', pg.locator('.b4b-dot').count() == 8 and actief() == '8', actief())
+        pg.locator('.b4b-dot').nth(3).click(); pg.wait_for_timeout(1100)
+        t4 = tel(); a4 = actief()
+        check(f'{tag} klik op streepje 4 springt naar kamer 4', t4 == '4' and a4 == '4', f'{t4} / {a4}')
+        pg.locator('.b4b-dot').nth(7).click(); pg.wait_for_timeout(1100)
         pg.locator('.b4b-volgende').click(); pg.wait_for_timeout(900)
 
         # Bekijk kamer -> pop-up
@@ -160,6 +166,9 @@ with sync_playwright() as p:
             pg.evaluate("window.scrollTo(0, document.querySelector('.b2a').offsetTop + 400)"); pg.wait_for_timeout(700)
             na = pg.evaluate("document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
             check(f'{tag} onderbalk verschijnt na de hero', (not vooraf) and na, f'voor {vooraf}, na {na}')
+            pg.wait_for_timeout(400)
+            echt = pg.evaluate("""(()=>{const m=document.querySelector('.mob-cta'),r=m.getBoundingClientRect(),c=getComputedStyle(m);return c.display!=='none'&&c.visibility==='visible'&&r.height>40&&r.bottom<=innerHeight+1&&r.top<innerHeight})()""")
+            check(f'{tag} onderbalk echt zichtbaar onderin beeld', echt)
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
 
         if V3:

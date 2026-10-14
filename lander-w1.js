@@ -230,11 +230,14 @@
     echt.forEach(function (k) { strook.insertBefore(kloon(k), echt[0]); });
     echt.forEach(function (k) { strook.appendChild(kloon(k)); });
     var alle = strook.children, tellers = cfg.tellers ? document.querySelectorAll(cfg.tellers) : [], huidig = 0;
+    /* streepjes (staging .pagination-dots): actieve lang + terracotta, klik springt naar die kamer */
+    var stippen = cfg.stippen ? document.querySelectorAll(cfg.stippen) : [];
     var stapK = function () { return alle[off + 1].offsetLeft - alle[off].offsetLeft || strook.clientWidth; };
     var positie = function () { return Math.round(strook.scrollLeft / stapK()) - off; };
     var update = function () {
       var i = ((positie() % n) + n) % n + 1; huidig = i - 1;
       for (var t = 0; t < tellers.length; t++) tellers[t].textContent = cfg.formaat ? cfg.formaat(i, n) : i + '/' + n;
+      for (var d = 0; d < stippen.length; d++) { var aan = d === i - 1; stippen[d].classList.toggle('is-active', aan); stippen[d].setAttribute('aria-selected', aan ? 'true' : 'false'); }
     };
     var zetStart = function () { strook.scrollLeft = (off + huidig) * stapK(); };
     var wacht, wachtMaat, maatWissel = false, breedte = window.innerWidth;
@@ -254,11 +257,14 @@
     }, { passive: true });
     if (cfg.volgende) document.querySelectorAll(cfg.volgende).forEach(function (b) { b.addEventListener('click', function () { strook.scrollBy({ left: stapK(), behavior: 'smooth' }); }); });
     if (cfg.vorige) document.querySelectorAll(cfg.vorige).forEach(function (b) { b.addEventListener('click', function () { strook.scrollBy({ left: -stapK(), behavior: 'smooth' }); }); });
+    Array.prototype.forEach.call(stippen, function (st, d) {
+      st.addEventListener('click', function () { strook.scrollBy({ left: (d - huidig) * stapK(), behavior: 'smooth' }); });
+    });
     zetStart(); update();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(zetStart);
     window.addEventListener('load', zetStart);
   }
-  lus(document.querySelector('.b4b-strook'), { tellers: '.b4b-nu', volgende: '.b4b-volgende', vorige: '.b4b-vorige', formaat: function (i) { return String(i); } });
+  lus(document.querySelector('.b4b-strook'), { tellers: '.b4b-nu', stippen: '.b4b-dot', volgende: '.b4b-volgende', vorige: '.b4b-vorige', formaat: function (i) { return String(i); } });
 
   /* ── onderbalk op de telefoon zodra de hero uit beeld is ── */
   var balk = document.querySelector('.mob-cta');
