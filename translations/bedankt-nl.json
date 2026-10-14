@@ -53,6 +53,7 @@
   "ATTENTIE_KOP_A": "Boek een kamer,",
   "ATTENTIE_KOP_EM": "de upgrade",
   "ATTENTIE_KOP_B": "is van ons",
+  "UPGRADE_INTRO": "Boek een kamer met code BEDANKT: bij het inchecken zet onze receptie je kosteloos in een hoger kamertype, op basis van beschikbaarheid.",
   "ATTENTIE_TEKST": "Geen arrangement en geen kleine lettertjes: je boekt gewoon een kamer, met code BEDANKT. Bij het inchecken kijkt onze receptie welk hoger kamertype nog vrij is en zet je daar kosteloos in. Bijvoorbeeld van een Comfort kamer naar een Royale kamer, of van Royale naar Deluxe met eigen infraroodsauna.",
   "ATTENTIE_IMG": "fotos/l26-bedankt-attentie.webp",
   "ATTENTIE_ALT": "Badkamer van een Deluxe kamer met eigen infraroodsauna en inloopdouche",
@@ -88,5 +89,132 @@
   "SLOT_FOTO_A": "fotos/l26-bedankt-hero.webp",
   "SLOT_FOTO_A_POS": "center center",
   "SLOT_FOTO_B": "fotos/l26-bedankt-attentie.webp",
-  "SLOT_FOTO_B_POS": "center center"
+  "SLOT_FOTO_B_POS": "center center",
+  "UPGRADE_LADDER": {
+    "labels": {
+      "boekt": "Je boekt",
+      "upgrade": "Upgrade",
+      "erbij": "Je krijgt erbij:"
+    },
+    "kamers": {
+      "comfort": {
+        "naam": "Comfort kamer",
+        "foto": "fotos/l26-vk-comfort.webp",
+        "alt": "Comfort kamer bij Hotel Asteria",
+        "specs": [
+          [
+            "m2",
+            "22 m²"
+          ],
+          [
+            "bed",
+            "twinbeds"
+          ],
+          [
+            "personen",
+            "2 personen"
+          ]
+        ]
+      },
+      "royale": {
+        "naam": "Royale kamer",
+        "foto": "fotos/l26-vk-royale.webp",
+        "alt": "Royale kamer bij Hotel Asteria",
+        "specs": [
+          [
+            "m2",
+            "25 m²"
+          ],
+          [
+            "zit",
+            "ruime zithoek"
+          ],
+          [
+            "personen",
+            "2 personen"
+          ]
+        ]
+      },
+      "deluxe": {
+        "naam": "Deluxe kamer",
+        "foto": "fotos/l26-vk-deluxe.webp",
+        "alt": "Deluxe kamer bij Hotel Asteria",
+        "specs": [
+          [
+            "m2",
+            "25 m²"
+          ],
+          [
+            "sauna",
+            "eigen infraroodsauna"
+          ],
+          [
+            "personen",
+            "2 personen"
+          ]
+        ]
+      },
+      "junior": {
+        "naam": "Junior Suite",
+        "foto": "fotos/l26-vk-junior-suite.webp",
+        "alt": "Junior Suite bij Hotel Asteria",
+        "specs": [
+          [
+            "m2",
+            "37 m²"
+          ],
+          [
+            "bed",
+            "kingsize bed"
+          ],
+          [
+            "bad",
+            "bad en douche"
+          ]
+        ]
+      },
+      "suite": {
+        "naam": "Suite",
+        "foto": "fotos/l26-vk-suite.webp",
+        "alt": "Suite bij Hotel Asteria",
+        "specs": [
+          [
+            "m2",
+            "40 m²"
+          ],
+          [
+            "bed",
+            "kingsize bed"
+          ],
+          [
+            "sauna",
+            "eigen infraroodsauna"
+          ]
+        ]
+      }
+    },
+    "stappen": [
+      {
+        "van": "comfort",
+        "naar": "royale",
+        "winst": "meer ruimte en een ruime zithoek"
+      },
+      {
+        "van": "royale",
+        "naar": "deluxe",
+        "winst": "je eigen infraroodsauna op de kamer"
+      },
+      {
+        "van": "deluxe",
+        "naar": "junior",
+        "winst": "meer ruimte, een kingsize bed en een bad"
+      },
+      {
+        "van": "junior",
+        "naar": "suite",
+        "winst": "je eigen infraroodsauna en nog wat meer ruimte"
+      }
+    ],
+    "voet": "Welk kamertype voor je vrij is, hoor je bij aankomst. Zonder bijbetaling, en annuleren kan kosteloos tot 24 uur vooraf."
+  }
 }

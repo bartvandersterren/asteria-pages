@@ -176,6 +176,10 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - LIVE sinds 14 okt 2026: build-entry `verblijfsverjaardag-v3` (blok `zijkaart`) schrijft `verblijfsverjaardag.html` = visit.asteria.nl/verblijfsverjaardag
   (link uit de jubileummail). Oude lander-2026-versie bewaard als `verblijfsverjaardag-oud.html`; `/verblijfsverjaardag-v3` 301 in `_redirects`.
   v2 (uitklaptab) blijft als variant op /verblijfsverjaardag-v2. Alles noindex.
+- Upgradeblok A · Ladder-slider (14 okt 2026, alleen /bedankt, wacht op akkoord Stijn): blok 3a-variant `ladder` in
+  `lander-w1.template.html` (`<!--[ladder[-->` / `<!--[!ladder[-->`), staat aan zodra de JSON een `UPGRADE_LADDER` heeft
+  (kamers, stappen, winstregels, labels, voet; build.py `render_ladder`) + `UPGRADE_INTRO`. CSS/JS prefix `b3l-`. Andere landers
+  ook? = `UPGRADE_LADDER` + `UPGRADE_INTRO` in hun JSON. Test: `... /bedankt.html --v3 --voucher BEDANKT --ladder` (zonder `--ladder`: blok afwezig).
 
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 

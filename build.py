@@ -310,6 +310,72 @@ def inject_reviews(html, reviews_file, max_kaarten=24, max_tekens=260):
     return html
 
 
+LADDER_ICOON = {
+    'm2': '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',
+    'bed': '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/>',
+    'personen': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+    'sauna': '<path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/>',
+    'bad': '<path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/>',
+    'zit': '<path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM6 19v2M18 19v2"/>',
+}
+
+
+def render_ladder(cfg):
+    """Upgradeblok 'A · Ladder-slider' (blok 3a-variant 'ladder') uit UPGRADE_LADDER in de vertalings-JSON:
+    per stap twee kamerkaarten 'Je boekt' -> 'Upgrade' met een pijl, de winstregel eronder; teller,
+    streepjes en vorige/volgende-knoppen erboven, één vaste voetregel. Eén stap per keer, geen lus,
+    geen boekknop, geen prijzen. Vervangt <!-- UPGRADE_LADDER --> in lander-w1.template.html."""
+    from html import escape
+    e = lambda s: escape(s or '', quote=False)
+    a = lambda s: escape(s or '')
+    ic = lambda pad, kl='as-icoon': f'<svg class="{kl}" viewBox="0 0 24 24" aria-hidden="true">{pad}</svg>'
+    lab = cfg.get('labels', {})
+    kamers, stappen = cfg['kamers'], cfg['stappen']
+    n = len(stappen)
+
+    def kaart(sleutel, upgrade):
+        k = kamers[sleutel]
+        specs = ''.join(f'<li><span class="b3l-ic">{ic(LADDER_ICOON[s[0]])}</span>{e(s[1])}</li>' for s in k['specs'])
+        pil = (f'<span class="b3l-pil b3l-pil--up">{ic(LADDER_PIJL["op"])}{e(lab.get("upgrade", "Upgrade"))}</span>'
+               if upgrade else f'<span class="b3l-pil">{e(lab.get("boekt", "Je boekt"))}</span>')
+        return (f'<article class="b3l-kaart{" b3l-kaart--up" if upgrade else ""}">'
+                f'<div class="b3l-foto"><img src="{a(k["foto"])}" alt="{a(k["alt"])}" width="1400" height="933" loading="lazy">{pil}</div>'
+                f'<div class="b3l-inhoud">{pil}<h3>{e(k["naam"])}</h3><ul class="b3l-specs">{specs}</ul></div></article>')
+
+    blokken = []
+    for i, s in enumerate(stappen):
+        van, naar = kamers[s['van']]['naam'], kamers[s['naar']]['naam']
+        blokken.append(
+            f'        <div class="b3l-stap" role="group" aria-roledescription="stap" aria-label="Stap {i + 1} van {n}: {a(van)} naar {a(naar)}"'
+            + ('' if i == 0 else ' aria-hidden="true"') + '>\n'
+            f'          <div class="b3l-route">{kaart(s["van"], False)}<span class="b3l-pijl" aria-hidden="true">'
+            f'{ic(LADDER_PIJL["rechts"], "as-icoon b3l-pijl-r")}{ic(LADDER_PIJL["omlaag"], "as-icoon b3l-pijl-o")}</span>{kaart(s["naar"], True)}</div>\n'
+            f'          <p class="b3l-winst"><span class="b3l-vink">{ic(LADDER_PIJL["vink"])}</span><span><b>{e(lab.get("erbij", "Je krijgt erbij:"))}</b> {e(s["winst"])}</span></p>\n'
+            '        </div>')
+    dots = ''.join(
+        f'<button type="button" class="b3l-dot{" is-active" if i == 0 else ""}" role="tab" aria-selected="{"true" if i == 0 else "false"}" '
+        f'aria-label="Stap {i + 1}: {a(kamers[s["van"]]["naam"])} naar {a(kamers[s["naar"]]["naam"])}"></button>'
+        for i, s in enumerate(stappen))
+    nav = (f'      <div class="b3l-nav"><span class="b3l-tel" aria-live="polite"><b class="b3l-nu">1</b> van <b>{n}</b></span>'
+           f'<div class="b3l-dots" role="tablist" aria-label="Upgradestappen">{dots}</div>'
+           f'<div class="b3l-pijlen"><button type="button" class="as-pijl b3l-vorige" aria-label="Vorige stap" aria-disabled="true">{ic(LADDER_PIJL["links"])}</button>'
+           f'<button type="button" class="as-pijl b3l-volgende" aria-label="Volgende stap">{ic(LADDER_PIJL["chev-r"])}</button></div></div>\n')
+    return ('<div class="b3l" aria-roledescription="carrousel" aria-label="Zo ziet je upgrade eruit">\n' + nav
+            + '      <div class="b3l-spoor strook-scroll" tabindex="0" aria-label="Upgradestappen, schuif of gebruik de pijltjestoetsen">\n'
+            + '\n'.join(blokken) + '\n      </div>\n'
+            + f'      <p class="b3l-voet">{e(cfg.get("voet"))}</p>\n    </div>')
+
+
+LADDER_PIJL = {
+    'links': '<path d="M15 18l-6-6 6-6"/>',
+    'chev-r': '<path d="M9 18l6-6-6-6"/>',
+    'rechts': '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    'omlaag': '<path d="M12 5v14M6 13l6 6 6-6"/>',
+    'op': '<path d="M12 19V5M5 12l7-7 7 7"/>',
+    'vink': '<path d="M20 6L9 17l-5-5"/>',
+}
+
+
 def apply_blokken(html, aan):
     """Varianten binnen een sjabloon zonder template-taal. Een blok staat tussen
     <!--[naam[--> en <!--]naam]-->; <!--[!naam[--> ... <!--]!naam]--> is het omgekeerde.
@@ -345,8 +411,14 @@ def build(template_name, lang):
     with open(json_path, encoding='utf-8') as f:
         translations = json.load(f)
 
-    # Variantblokken (bijv. zijkaart) vóór de {{KEY}}-pass
-    html = apply_blokken(html, {k for k, v in config.get('blokken', {}).items() if v})
+    # Optioneel upgradeblok (ladder) staat aan zodra de JSON een UPGRADE_LADDER heeft (geen tekst-key)
+    ladder = translations.pop('UPGRADE_LADDER', None)
+    aan = {k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+
+    # Variantblokken (bijv. zijkaart, ladder) vóór de {{KEY}}-pass
+    html = apply_blokken(html, aan)
+    if ladder:
+        html = html.replace('<!-- UPGRADE_LADDER -->', render_ladder(ladder))
 
     for key, value in translations.items():
         html = html.replace('{{' + key + '}}', value)
