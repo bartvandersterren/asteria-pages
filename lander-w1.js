@@ -261,6 +261,52 @@
     }).observe(hero);
   }
 
+  /* ── uitklaptab (≥720): zichtbaar tussen hero en slotblok 7a; klik klapt de boekkaart uit ── */
+  var uitklap = document.querySelector('.b1k-uitklap');
+  var slot = document.querySelector('.b7a');
+  if (uitklap && hero && 'IntersectionObserver' in window) {
+    var tab = uitklap.querySelector('.b1k-tab');
+    var paneel = uitklap.querySelector('.b1k-paneel');
+    var breed = window.matchMedia('(min-width: 720px)');
+    var heroWeg = false, slotBereikt = false;
+    var zetOpen = function (aan, focus) {
+      uitklap.classList.toggle('is-open', aan);
+      tab.setAttribute('aria-expanded', aan ? 'true' : 'false');
+      if (aan && focus) { var s = paneel.querySelector('.b1k-sluit'); setTimeout(function () { s.focus({ preventScroll: true }); }, 30); }
+      if (!aan && focus) tab.focus({ preventScroll: true });
+    };
+    var zetTab = function () {
+      var aan = breed.matches && heroWeg && !slotBereikt;
+      uitklap.classList.toggle('is-zichtbaar', aan);
+      uitklap.setAttribute('aria-hidden', aan ? 'false' : 'true');
+      tab.setAttribute('tabindex', aan ? '0' : '-1');
+      if (!aan && uitklap.classList.contains('is-open')) zetOpen(false, false);
+    };
+    new IntersectionObserver(function (items) {
+      var it = items[0];
+      heroWeg = !it.isIntersecting && it.boundingClientRect.top < 0;
+      zetTab();
+    }).observe(hero);
+    if (slot) {
+      new IntersectionObserver(function (items) {
+        var it = items[0];
+        slotBereikt = it.isIntersecting || it.boundingClientRect.top < 0;
+        zetTab();
+      }).observe(slot);
+    }
+    if (breed.addEventListener) breed.addEventListener('change', zetTab);
+    else if (breed.addListener) breed.addListener(zetTab);
+    tab.addEventListener('click', function () { zetOpen(!uitklap.classList.contains('is-open'), true); });
+    paneel.querySelector('.b1k-sluit').addEventListener('click', function () { zetOpen(false, true); });
+    paneel.querySelector('.mews-open').addEventListener('click', function () { zetOpen(false, false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && uitklap.classList.contains('is-open')) zetOpen(false, true);
+    });
+    document.addEventListener('click', function (e) {
+      if (uitklap.classList.contains('is-open') && !uitklap.contains(e.target)) zetOpen(false, false);
+    });
+  }
+
   /* ── mobiele drawer ── */
   var drawer = document.getElementById('nav-drawer');
   var hamburger = document.querySelector('.nav-hamburger');

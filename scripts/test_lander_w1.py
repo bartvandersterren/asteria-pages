@@ -9,7 +9,8 @@ Standaard basis-url: http://localhost:8765/verblijfsverjaardag-v2.html
 Checks (1440 en 390): geen horizontale overloop, boekbalk (voucher, datums, reisgezelschap naar
 Mews-widget of URL-fallback), kamerslider (teller 1 van 8, pijlen, lus), Bekijk kamer-pop-up
 met data-room, reviewmuur (4 kolommen op 1440, 1 op 390, pauze bij hover, statisch bij
-prefers-reduced-motion), eerste FAQ open, onderbalk na de hero op 390, geen consolefouten.
+prefers-reduced-motion), eerste FAQ open, onderbalk na de hero op 390, uitklaptab (>= 720: na de hero,
+weg bij 7a, open/Escape/buiten/sluitknop, Mews met voucher; niet op 390), overloop ook 1100/800, geen consolefouten.
 """
 import sys, json
 from datetime import date, timedelta
@@ -40,6 +41,15 @@ def nieuwe_pagina(b, w, h, mob, rustig=False):
 
 with sync_playwright() as p:
     b = p.chromium.launch()
+    for w in (1100, 800):
+        ctx, pg = nieuwe_pagina(b, w, 900, False)
+        pg.evaluate("window.scrollTo(0, document.querySelector('.b4b').offsetTop)"); pg.wait_for_timeout(800)
+        pg.locator('.b1k-tab').click(); pg.wait_for_timeout(700)
+        sw = pg.evaluate('document.documentElement.scrollWidth')
+        check(f'[{w}] geen horizontale overloop (tab + open kaart)', sw <= w, f'scrollWidth {sw}')
+        eigen = [f for f in pg._fouten if 'mews' not in f.lower()]
+        check(f'[{w}] geen consolefouten (eigen code)', not eigen, '; '.join(eigen)[:300])
+        ctx.close()
     for w, h, mob in [(1440, 900, False), (390, 844, True)]:
         tag = f'[{w}]'
         ctx, pg = nieuwe_pagina(b, w, h, mob)
@@ -90,6 +100,51 @@ with sync_playwright() as p:
             na = pg.evaluate("document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
             check(f'{tag} onderbalk verschijnt na de hero', (not vooraf) and na, f'voor {vooraf}, na {na}')
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
+
+        # uitklaptab (alleen >= 720): verborgen bovenaan, zichtbaar na de hero, weg bij slotblok 7a
+        tabst = lambda: pg.evaluate("""()=>{const u=document.querySelector('.b1k-uitklap'),t=u.querySelector('.b1k-tab'),r=t.getBoundingClientRect(),cs=getComputedStyle(t);
+            return {zicht:cs.display!=='none'&&cs.visibility==='visible'&&r.width>0&&r.left<innerWidth,aria:u.getAttribute('aria-hidden'),tab:t.getAttribute('tabindex')}}""")
+        pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(600)
+        t0 = tabst()
+        pg.evaluate("window.scrollTo(0, document.querySelector('.b4b').offsetTop)"); pg.wait_for_timeout(900)
+        t1 = tabst()
+        if mob:
+            check(f'{tag} uitklaptab niet zichtbaar op de telefoon', not t0['zicht'] and not t1['zicht'], f"{t0} / {t1}")
+        else:
+            check(f'{tag} uitklaptab verborgen bovenaan (aria-hidden, tabindex -1)', not t0['zicht'] and t0['aria'] == 'true' and t0['tab'] == '-1', str(t0))
+            check(f'{tag} uitklaptab zichtbaar na de hero', t1['zicht'] and t1['aria'] == 'false' and t1['tab'] == '0', str(t1))
+            pg.locator('.b1k-tab').click(); pg.wait_for_timeout(700)
+            k = pg.evaluate("""()=>{const r=document.querySelector('.b1k-paneel').getBoundingClientRect(),kop=document.querySelector('.top-stack').getBoundingClientRect().bottom;
+                return {exp:document.querySelector('.b1k-tab').getAttribute('aria-expanded'),l:r.left,r:r.right,t:r.top,b:r.bottom,kop,vis:getComputedStyle(document.querySelector('.b1k-paneel')).visibility}}""")
+            check(f'{tag} klik op de tab opent de kaart in beeld, onder de kop', k['exp'] == 'true' and k['vis'] == 'visible' and k['l'] >= 0
+                  and k['r'] <= w and k['t'] >= k['kop'] and k['b'] <= h, str(k))
+            if shotdir:
+                pg.screenshot(path=f'{shotdir}/verblijfsverjaardag-v2-{w}-kaart-open.png')
+            pg.keyboard.press('Escape'); pg.wait_for_timeout(600)
+            ex = pg.evaluate("[document.querySelector('.b1k-tab').getAttribute('aria-expanded'),getComputedStyle(document.querySelector('.b1k-paneel')).visibility]")
+            check(f'{tag} Escape klapt de kaart in', ex == ['false', 'hidden'], str(ex))
+            if shotdir:
+                pg.screenshot(path=f'{shotdir}/verblijfsverjaardag-v2-{w}-tab-dicht.png')
+            pg.locator('.b1k-tab').click(); pg.wait_for_timeout(600)
+            pg.mouse.click(200, h - 100); pg.wait_for_timeout(600)
+            ex2 = pg.evaluate("document.querySelector('.b1k-tab').getAttribute('aria-expanded')")
+            pg.locator('.b1k-tab').click(); pg.wait_for_timeout(600)
+            pg.locator('.b1k-sluit').click(); pg.wait_for_timeout(600)
+            ex3 = pg.evaluate("document.querySelector('.b1k-tab').getAttribute('aria-expanded')")
+            check(f'{tag} klik buiten de kaart en sluitknop klappen in', ex2 == 'false' and ex3 == 'false', f'{ex2}/{ex3}')
+            # Mews-poort met voucher (gestubde widget-API, geen netwerk)
+            pg.locator('.b1k-tab').click(); pg.wait_for_timeout(600)
+            pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
+            pg.locator('.b1k-knop').click(); pg.wait_for_timeout(300)
+            r = pg.evaluate('window._mews.slice()')
+            check(f'{tag} knop in de kaart opent Mews met voucher JUBILEUM', r == ['v:JUBILEUM', 'open'], str(r))
+            pg.evaluate("delete window.mewsApi")
+            pg.evaluate("document.querySelector('.b7a').scrollIntoView({block:'center'})"); pg.wait_for_timeout(900)
+            t2 = tabst()
+            pg.evaluate("window.scrollTo(0, document.documentElement.scrollHeight)"); pg.wait_for_timeout(900)
+            t3 = tabst()
+            check(f'{tag} uitklaptab weg bij het slotblok en daarna', not t2['zicht'] and not t3['zicht'] and t2['aria'] == 'true', f"{t2} / {t3}")
+        pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(400)
 
         # boekbalk (laatst, laadt de Mews-widget)
         a = date.today() + timedelta(days=30)

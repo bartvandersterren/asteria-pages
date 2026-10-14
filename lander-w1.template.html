@@ -363,6 +363,25 @@
     </div>
   </section>
 
+  <!-- ══ UITKLAPTAB (≥720): tab aan de rechterrand tussen hero en slotblok 7a; klik = boekkaart (live b1a-kaart, prefix b1k-) ══ -->
+  <div class="b1k-uitklap" aria-hidden="true">
+    <aside class="b1k-paneel" id="b1k-paneel" aria-label="Boek met code {{VOUCHER}}">
+      <div class="b1k-kaart">
+        <button type="button" class="b1k-sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="933" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
+        <div class="b1k-body">
+          <h2 class="b1k-kop">{{KAART_KOP}}</h2>
+          <p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>{{KAART_CADEAU}}</span></p>
+          <div class="b1k-score"><span class="b1k-cijfer">4,2</span><span class="b1k-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1k-aantal">{{KAART_REVIEWS}}</span></div>
+          <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_C}}</span></li></ul>
+          <a class="btn btn-primary b1k-knop mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{KAART_KNOP}}</a>
+          <p class="b1k-trust">{{KAART_TRUST}}</p>
+        </div>
+      </div>
+    </aside>
+    <button type="button" class="b1k-tab" aria-expanded="false" aria-controls="b1k-paneel" tabindex="-1"><span>{{KAART_TAB}}</span></button>
+  </div>
+
   <!-- ══ POP-UP kamer (Bekijk kamer, blok 4b). Inhoud uit de JSON hieronder, vulling door lander-w1.js.
        Let op: geen key "imgs" in de kamerdata, anders overschrijft build.py fix_room_media() de media. ══ -->
   <dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam">
