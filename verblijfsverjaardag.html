@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <!--
-  Hotel Asteria, lander-sjabloon 2026 (nieuwe huisstijl asteria.nl)
-  ------------------------------------------------------------------
+  Hotel Asteria, lander-sjabloon W1 Thuiskomst (nieuwe huisstijl asteria.nl)
+  --------------------------------------------------------------------------
   Eén sjabloon voor de flow-landers (verblijfsverjaardag, bedankt, welkom-terug, gemist):
   alleen de JSON in translations/ en de foto's wisselen. Kop en voet 1:1 van de staging.
-  Opbouw: kop, hoofdraster (titelband, hero + meelopende zijkaart, cadeaublok, praktisch,
-  kamerslider), reviews, faciliteiten, voordelen direct boeken, veelgestelde vragen,
-  slot met fotowolk, voet, onderbalk op de telefoon.
+  Opbouw (blokkenkiezer W1, keuze 1a-2a-3a-4b-5a-6c-7a): hero vol beeld met boekbalk,
+  tegelstrook, onze attentie (ster-split), kamers (twee kaarten met peek), reviewmuur
+  (Google-reviews uit content/reviews-google-asteria.json, ingevuld door build.py),
+  veelgestelde vragen met contactkaart, slot met fotowolk en compacte boekbalk, voet,
+  onderbalk op de telefoon.
 
-  Bouwen:  python3 build.py verblijfsverjaardag
-  Stijl:   lander-2026.css   Script: lander-2026.js   Fonts: fonts/
+  Bouwen:  python3 build.py verblijfsverjaardag-v2
+  Stijl:   lander-w1.css   Script: lander-w1.js   Fonts: fonts/
 -->
 <html lang="nl">
 <head>
@@ -32,8 +34,8 @@
   <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="fotos/l26-bubbels-hero.webp" type="image/webp">
-  <link rel="stylesheet" href="lander-2026.css">
-  <script src="lander-2026.js" defer></script>
+  <link rel="stylesheet" href="lander-w1.css">
+  <script src="lander-w1.js" defer></script>
 
   <!-- GA4 + Google Ads -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
@@ -56,7 +58,7 @@
     "telephone": "+31478511466",
     "email": "info@asteria.nl",
     "image": "https://visit.asteria.nl/fotos/l26-bubbels-hero.webp",
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "2219", "bestRating": "5" }
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "2280", "bestRating": "5" }
   }
   </script>
 </head>
@@ -131,315 +133,323 @@
 
 <main class="lp">
 
-  <!-- ══ HOOFDRASTER: titelband, hero + zijkaart, cadeaublok, praktisch, kamerslider ══ -->
-  <section class="lp-hoofd" data-toon="paper">
-    <div class="wrap hoofd">
-
-      <div class="lp-waas" aria-hidden="true"><img class="aanbod-bg" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIyOTczIiB2aWV3Qm94PSIwIDAgMTkyMCAyOTczIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yMzI2LjMgODQ0LjA1NEMxOTcxLjA0IDY4My4yNzQgMTU2OS4xNiA2NTQuNjc2IDExOTcuMDQgNzYxLjg5N0M2OTMuNDQgMjU2LjIyNiAyNjAuNTM4IDEuOTk4MjZlLTA1IDI2MC41MzggMS45OTgyNmUtMDVDMjg1LjIzNyAzOTAuNjM5IDM1NC40MjUgNzY2LjQxOSA0NjguNzc1IDExNDAuMDJDMTcxLjg5MiAxMzQzLjM2IC0yMjEuNDM4IDE2NjUuMjIgLTUxNS4xNDggMjEwMS4wNkMtNTE0LjU5NSAyMTkxLjMyIC00NTAuMzM2IDIxNDYuODEgLTQwNi4xMzggMjExMy42MUMtMTkuODc3NSAxODUxLjIzIDMzMi42ODEgMTcwMS4xNSA2NDAuODg4IDE2MjEuMTJDODIwLjU4MiAyMDYwLjA4IDEwNjIuNTMgMjUwMy42NyAxMzY4Ljk5IDI5NzIuNEMxMTk1LjMgMjI5NC44NCAxMjQ4LjY1IDE3MjQuOTkgMTI0OC42NSAxNzI0Ljk5QzEyNDguNjUgMTcyNC45OSAxMjMxLjc5IDE3NTUuNjQgMTE5Ny4zNSAxNzM0LjQ4QzExNjkuODggMTgzNS4xMyAxMTgwLjQ2IDIyNzguNjIgMTE2Mi45MSAyMDIzLjA2QzExNTQuNjUgMTkwMy4yMiAxMTc3LjYgMTcxNC41NSAxMjA1LjAxIDE1NDEuODVDMTYwNC4wOSAxNTM1LjE4IDE4NjEuMjUgMTY0MS4xNSAxOTI2LjUxIDE2NzEuNTFDMTkzMi4xOCAxNjc0LjE4IDE5MzcuNTEgMTY3Ni43OCAxOTQyLjk4IDE2NzkuNTdDMTc0My45OSAxMzc0LjI1IDE1MjcuNTkgMTEwOS45MSAxMzE4IDg4Ny4xMTNDMTk0My40NiA2NzguMjc4IDIzMjYuMSA4NDQuMTgyIDIzMjYuMSA4NDQuMTgyTTQ4NC4xMyAzMzIuNDM5QzY5Mi4zNDQgNDY2LjM1MiA4OTQuNTE3IDYzNS40NDYgMTA3My4wMyA4MDMuMDM3QzEwMDguNTEgODI3LjQ3OSA5NDUuMDUxIDg1NS44MTIgODgzLjE1NSA4ODguODQ4Qzg0Ni42OSA5MDguMyA3NDIuOTYgOTYzLjA1OCA2MDIuMjYyIDEwNTIuMTJDNTQyLjgzMSA4MTcuNzQxIDUwMy45MjkgNTgxLjcyNSA0ODQuMTMgMzMyLjQzOVpNLTE2LjkxNjIgMTc2MS41OUMxNzAuOTQ3IDE1NzguNzUgMzUxLjE0NyAxNDI4Ljk5IDUyMi40MSAxMzA2LjI3QzU0My44MjEgMTM2OS4wNCA1NjYuODMyIDE0MzEuNjUgNTkwLjcwNyAxNDk0LjI3QzQwOS4zMDcgMTU0OS42MyAyMDcuNDczIDE2MzQuNDkgLTE2LjcxMzkgMTc2MS40Nk0xMDcxLjk2IDIyNTAuMzVDOTU0Ljc3MSAyMDE5LjMyIDg1Ni4yNjEgMTgwMi4wNiA3NzQuNjggMTU5MC4wMUM4ODYuMjc0IDE1NjcuMyA5OTEuMDMxIDE1NTMuNDkgMTA4OC44NiAxNTQ2LjY1QzEwNjIuMTkgMTcwNS43NyAxMDUzLjc4IDE4ODkuMTkgMTA3MS45NiAyMjUwLjM1Wk0xNzE4Ljk2IDE1MDEuNTZDMTYxMS4yMiAxNDY5LjEgMTQ0OS42IDE0MTYuMTYgMTIyNy44OCAxNDA2LjIzQzEyNTIuMzQgMTI3MC40NSAxMjc0LjcgMTE2My4wNyAxMjc4Ljg3IDExMzcuOTFDMTI4OC45OSAxMDc1LjY0IDEyNDYuMjUgMTA3MC4wMSAxMjQ2LjI1IDEwNzAuMDFMMTE5Ni41OCAxMjQ0LjMxQzExOTYuNTggMTI0NC4zMSAxMTc4LjU1IDEzMDYuMiAxMTcxLjM4IDExODQuNTJDMTE1MS4wOSAxMjY5LjIxIDExMzMuMDIgMTMzOS4wOSAxMTE3LjU3IDE0MDUuMDRDMTAwMS40IDE0MDcuNTggODcwLjkyMiAxNDIyLjkgNzI1Ljc0NSAxNDU3LjUzQzY5Ny42MjUgMTM3Ny45NCA2NzEuNjkzIDEyOTguNjcgNjQ4LjQ4NSAxMjE5LjY2Qzg0Ny41OTQgMTA4OC45NSAxMDMzLjE4IDk5NS4wMzQgMTIwMy4wOSA5MjguNzM4QzE1MDkuMTcgMTIzMy4zIDE3MTguOTYgMTUwMS41NiAxNzE4Ljk2IDE1MDEuNTZaIiBmaWxsPSIjQzc2RTRFIi8+PC9zdmc+" alt=""></div>
-
-      <div class="b1a-band">
-        <p class="b1a-kruimel"><a href="https://www.asteria.nl/">Home</a> / <span>Bubbels op de kamer</span></p>
+  <!-- ══ BLOK 1a: HERO VOL BEELD MET BOEKBALK (staging .hero + .booking-card) ══ -->
+  <section class="sec b1a" data-toon="paper">
+    <div class="b1a-foto">
+      <img src="fotos/l26-bubbels-hero.webp" alt="Proosten met bubbels bij Hotel Asteria" width="1400" height="932" fetchpriority="high">
+      <div class="review-badge review-badge--hoek b1a-rb" role="img" aria-label="4,2 sterren op basis van ruim 2.200 Google reviews"><span class="rb-rating"><svg class="b1a-rbster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="rb-score">4,2</span></span><span class="rb-divider"></span><span class="rb-source"><svg class="b1a-rbg" viewBox="0 0 48 48" aria-hidden="true"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/><path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/><path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/><path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/></svg><span class="rb-source-text"><span class="rb-reviews">2.200+ reviews</span><span class="rb-brand">Google</span></span></span></div>
+      <div class="wrap b1a-tekst">
         <h1>Gratis <span class="g">bubbels op de kamer</span></h1>
         <p class="b1a-sub">Rond deze tijd vorig jaar was je onze gast. Boek gewoon een kamer met code JUBILEUM en er staat bij aankomst een fles bubbels koud op je kamer.</p>
       </div>
-
-      <div class="b1a-hero"><img src="fotos/l26-bubbels-hero.webp" alt="Proosten met bubbels bij Hotel Asteria" width="1400" height="932" fetchpriority="high"><span class="b1a-badge">Gratis bij code JUBILEUM</span></div>
-
-      <aside class="b1a-zijkol" aria-label="Boek met code JUBILEUM">
-        <div class="b1a-kaart">
-          <div class="b1a-kfoto"><img src="fotos/l26-bubbels-kamer.webp" alt="Fles bubbels in een ijsemmer op de kamer" width="1400" height="933"><span class="b1a-pill">Gratis bij elke kamer</span></div>
-          <div class="b1a-body">
-            <h2 class="b1a-kop">Onze attentie voor jou</h2>
-            <p class="b1a-cadeau"><span class="b1a-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>Fles bubbels koud op de kamer</span></p>
-            <div class="b1a-score"><span class="b1a-cijfer">4,2</span><span class="sterren" data-vol="4.5" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1a-aantal">2.219 Google reviews</span></div>
-            <ul class="vinkjes b1a-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Beste prijs gegarandeerd</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Kosteloos annuleren tot 24 uur voor aankomst</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Directe bevestiging</span></li></ul>
-            <a class="btn btn-primary b1a-knop mews-open" data-voucher="JUBILEUM" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM">Boek een kamer met code JUBILEUM</a>
-            <p class="b1a-trust">Boek direct bij het hotel · Actiecode JUBILEUM</p>
+    </div>
+    <div class="wrap b1a-onder">
+      <form class="as-booking-card b1a-balk" data-boekbalk action="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" method="get" target="_blank" aria-label="Boek een kamer met code JUBILEUM">
+        <div class="field field--datum"><label class="field__label" for="bb-aankomst">Aankomst</label><span class="value" data-leeg="Kies datum">Kies datum</span><input class="field__invoer" type="date" id="bb-aankomst" name="mewsStart" data-rol="aankomst"></div>
+        <div class="field field--datum"><label class="field__label" for="bb-vertrek">Vertrek</label><span class="value" data-leeg="Kies datum">Kies datum</span><input class="field__invoer" type="date" id="bb-vertrek" name="mewsEnd" data-rol="vertrek"></div>
+        <div class="field"><label class="field__label" for="bb-gasten">Reisgezelschap</label><span class="value">2 volwassenen</span><select class="field__invoer" id="bb-gasten" name="mewsAdultCount" data-rol="gasten"><option value="1">1 volwassene</option><option value="2" selected>2 volwassenen</option><option value="3">3 volwassenen</option><option value="4">4 volwassenen</option></select></div>
+        <div class="field b1a-code"><label class="field__label" for="bb-code">Actiecode</label><span class="value"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><input class="b1a-codeveld" type="text" id="bb-code" name="mewsVoucherCode" value="JUBILEUM" readonly size="10"></span></div>
+        <button type="submit" class="btn btn-primary">Boek met code JUBILEUM</button>
+      </form>
+      <p class="b1a-regel"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Actiecode JUBILEUM staat al voor je ingevuld</span></p>
+      <!-- telefoon: de boekkaart in plaats van de datumbalk (zoals Parkhotel); bureaublad houdt de balk -->
+      <div class="b1a-mobkaart">
+        <div class="b1k-kaart b1k-kaart--vast b1k-kaart--mob">
+          <div class="b1k-kfoto"><img src="fotos/l26-bubbels-kamer.webp" alt="Fles bubbels in een ijsemmer op de kamer" width="1400" height="933" loading="lazy"><span class="b1k-pill">Gratis bij elke kamer</span></div>
+          <div class="b1k-body">
+            <h2 class="b1k-kop">Onze attentie voor jou</h2>
+            <p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>Fles bubbels koud op de kamer</span></p>
+            <div class="b1k-score"><span class="b1k-cijfer">4,2</span><span class="b1k-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1k-aantal">2.219 Google reviews</span></div>
+            <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Beste prijs gegarandeerd</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Kosteloos annuleren tot 24 uur voor aankomst</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Directe bevestiging</span></li></ul>
+            <a class="btn btn-primary b1k-knop mews-open" data-voucher="JUBILEUM" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM">Boek een kamer met code JUBILEUM</a>
+            <p class="b1k-trust">Boek direct bij het hotel · Actiecode JUBILEUM</p>
           </div>
         </div>
-      </aside>
-
-      <!-- blok 2a: cadeaublok -->
-      <section class="sec b2a">
-        <div class="wrap">
-          <div class="b2a-paneel">
-            <div class="b2a-kop">
-              <h2>Boek een kamer, <span class="g">de bubbels</span> zijn van ons</h2>
-              <p class="b2a-intro">Geen arrangement en geen kleine lettertjes: je boekt gewoon een kamer met ontbijt via onze website, met code JUBILEUM. Onze receptie zorgt dat de fles bij aankomst gekoeld op je kamer staat.</p>
-            </div>
-            <div class="b2a-beeld"><img src="fotos/l26-bubbels-proost.webp" alt="Proosten met bubbels op de kamer, Hotel Asteria" width="1400" height="932" loading="lazy"></div>
-            <div class="b2a-kaart">
-              <span class="b2a-tag">Gratis</span>
-              <h3>Fles bubbels</h3>
-              <p>Gekoeld op je kamer bij aankomst, bij elk kamertype en zonder toeslag.</p>
-              <div class="b2a-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Je hoeft er verder niets voor te doen</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- blok 3a: praktisch -->
-      <section class="sec b3a">
-        <div class="wrap">
-          <div class="b3a-blok">
-            <div class="b3a-paneel">
-              <h2>Aan de rand van <span class="g">het bos</span></h2>
-              <p class="b3a-tekst">Hotel Asteria ligt aan de rand van Venray, direct aan de A73 en met de bossen achter het hotel. Wandelen, fietsen door de Maasduinen of lekker niets doen: het kan hier allemaal.</p>
-              <ul class="b3a-checks">
-                <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Inchecken vanaf 15.00 uur</span></li>
-                <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Uitchecken tot 11.00 uur</span></li>
-                <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Diner tot 21.30 uur</span></li>
-                <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Ontbijt ma t/m vr 07.00-10.00 uur<br>za en zo 08.00-10.30 uur</span></li>
-                <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Wellness op de Top Floor</span></li>
-                <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Gratis parkeren, 4 laadpunten</span></li>
-                <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Gratis wifi</span></li>
-                <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Actiecode JUBILEUM</span></li>
-              </ul>
-            </div>
-            <div class="b3a-foto"><img src="fotos/l26-hotel-vijver.webp" alt="Hotel Asteria aan de vijver" width="1400" height="700" loading="lazy"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- blok 4a: kamerslider -->
-      <section class="sec b4a" aria-label="Kamers">
-        <div class="wrap">
-          <div class="b4a-kop">
-            <div class="b4a-titels">
-              <h2>In welke <span class="g">kamer</span> slaap je?</h2>
-              <p>Elke kamer, dezelfde attentie. Kies de kamer die bij je past en boek met code JUBILEUM; de actuele kamerprijs zie je bij het boeken.</p>
-            </div>
-            <div class="b4a-teller"><span class="b4a-telgetal" aria-live="polite">1/8</span><button type="button" class="as-pijl b4a-vorige" aria-label="Vorige kamers"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="as-pijl b4a-volgende" aria-label="Volgende kamers"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
-          </div>
-          <div class="b4a-strook strook-scroll" tabindex="0" aria-label="Kamers, schuif voor meer">
-            <article class="b4a-kaart">
-              <div class="b4a-foto"><img src="fotos/kamer-comfort-a.webp" alt="Comfort kamer bij Hotel Asteria" loading="lazy"></div>
-              <div class="b4a-inhoud">
-                <h3>Comfort kamer</h3>
-                <p class="b4a-specs">22 m² · twinbeds · 2 personen</p>
-                <div class="b4a-acties"><button type="button" class="btn btn-secondary btn--klein" data-kamer="comfort" aria-haspopup="dialog" aria-label="Meer info over Comfort kamer">Meer info</button><a class="btn btn-tertiary mews-open" data-voucher="JUBILEUM" data-room="98900f3b-e5e2-49c9-9776-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms">Boek deze kamer</a></div>
-              </div>
-            </article>
-            <article class="b4a-kaart">
-              <div class="b4a-foto"><img src="fotos/room-comfort-3-1.webp" alt="Comfort kamer 3 personen bij Hotel Asteria" loading="lazy"></div>
-              <div class="b4a-inhoud">
-                <h3>Comfort kamer 3 personen</h3>
-                <p class="b4a-specs">22 m² · drie bedden · 3 personen</p>
-                <div class="b4a-acties"><button type="button" class="btn btn-secondary btn--klein" data-kamer="comfort-3" aria-haspopup="dialog" aria-label="Meer info over Comfort kamer 3 personen">Meer info</button><a class="btn btn-tertiary mews-open" data-voucher="JUBILEUM" data-room="85ca19d7-eea5-41c8-8b93-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=85ca19d7-eea5-41c8-8b93-af1d00ffc315&amp;mewsRoute=rooms">Boek deze kamer</a></div>
-              </div>
-            </article>
-            <article class="b4a-kaart">
-              <div class="b4a-foto"><img src="fotos/room-mindervalide-1.webp" alt="Mindervalide kamer bij Hotel Asteria" loading="lazy"></div>
-              <div class="b4a-inhoud">
-                <h3>Mindervalide kamer</h3>
-                <p class="b4a-specs">37 m² · twinbeds · aangepaste badkamer</p>
-                <div class="b4a-acties"><button type="button" class="btn btn-secondary btn--klein" data-kamer="mindervalide" aria-haspopup="dialog" aria-label="Meer info over Mindervalide kamer">Meer info</button><a class="btn btn-tertiary mews-open" data-voucher="JUBILEUM" data-room="fa5b6540-7234-49ce-beb1-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=fa5b6540-7234-49ce-beb1-af1d00ffc315&amp;mewsRoute=rooms">Boek deze kamer</a></div>
-              </div>
-            </article>
-            <article class="b4a-kaart">
-              <div class="b4a-foto"><img src="fotos/room-royale-1.webp" alt="Royale kamer bij Hotel Asteria" loading="lazy"></div>
-              <div class="b4a-inhoud">
-                <h3>Royale kamer</h3>
-                <p class="b4a-specs">26 m² · ruime zithoek · 2 personen</p>
-                <div class="b4a-acties"><button type="button" class="btn btn-secondary btn--klein" data-kamer="royale" aria-haspopup="dialog" aria-label="Meer info over Royale kamer">Meer info</button><a class="btn btn-tertiary mews-open" data-voucher="JUBILEUM" data-room="a8fd7310-0d61-422f-89e6-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms">Boek deze kamer</a></div>
-              </div>
-            </article>
-            <article class="b4a-kaart">
-              <div class="b4a-foto"><img src="fotos/room-deluxe-1.webp" alt="Deluxe kamer bij Hotel Asteria" loading="lazy"></div>
-              <div class="b4a-inhoud">
-                <h3>Deluxe kamer</h3>
-                <p class="b4a-specs">26 m² · eigen infraroodsauna · 2 personen</p>
-                <div class="b4a-acties"><button type="button" class="btn btn-secondary btn--klein" data-kamer="deluxe" aria-haspopup="dialog" aria-label="Meer info over Deluxe kamer">Meer info</button><a class="btn btn-tertiary mews-open" data-voucher="JUBILEUM" data-room="c737de50-e41e-4c8d-a818-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms">Boek deze kamer</a></div>
-              </div>
-            </article>
-            <article class="b4a-kaart">
-              <div class="b4a-foto"><img src="fotos/kamer-junior-suite.webp" alt="Junior Suite bij Hotel Asteria" loading="lazy"></div>
-              <div class="b4a-inhoud">
-                <h3>Junior Suite</h3>
-                <p class="b4a-specs">37 m² · kingsize · bad en douche</p>
-                <div class="b4a-acties"><button type="button" class="btn btn-secondary btn--klein" data-kamer="junior-suite" aria-haspopup="dialog" aria-label="Meer info over Junior Suite">Meer info</button><a class="btn btn-tertiary mews-open" data-voucher="JUBILEUM" data-room="27ea8deb-ded5-4856-8fdd-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms">Boek deze kamer</a></div>
-              </div>
-            </article>
-            <article class="b4a-kaart">
-              <div class="b4a-foto"><img src="fotos/room-suite-1.webp" alt="Suite bij Hotel Asteria" loading="lazy"></div>
-              <div class="b4a-inhoud">
-                <h3>Suite</h3>
-                <p class="b4a-specs">40 m² · kingsize · eigen infraroodsauna</p>
-                <div class="b4a-acties"><button type="button" class="btn btn-secondary btn--klein" data-kamer="suite" aria-haspopup="dialog" aria-label="Meer info over Suite">Meer info</button><a class="btn btn-tertiary mews-open" data-voucher="JUBILEUM" data-room="4a642b66-68e6-444c-beeb-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms">Boek deze kamer</a></div>
-              </div>
-            </article>
-            <article class="b4a-kaart">
-              <div class="b4a-foto"><img src="fotos/room-bruidssuite-1.webp" alt="Bruidssuite bij Hotel Asteria" loading="lazy"></div>
-              <div class="b4a-inhoud">
-                <h3>Bruidssuite</h3>
-                <p class="b4a-specs">36 m² · kingsize · vrijstaand ligbad</p>
-                <div class="b4a-acties"><button type="button" class="btn btn-secondary btn--klein" data-kamer="bruidssuite" aria-haspopup="dialog" aria-label="Meer info over Bruidssuite">Meer info</button><a class="btn btn-tertiary mews-open" data-voucher="JUBILEUM" data-room="a9f18d18-561b-47a9-8ba7-b2a800cfd0e2" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms">Boek deze kamer</a></div>
-              </div>
-            </article>
-          </div>
-          <div class="b4a-teller b4a-teller--onder"><span class="b4a-telgetal">1/8</span><button type="button" class="as-pijl b4a-vorige" aria-label="Vorige kamers"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="as-pijl b4a-volgende" aria-label="Volgende kamers"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
-          <p class="b4a-noot">Alle kamers zijn inclusief ontbijtbuffet. De prijs hangt af van je aankomstdatum en zie je direct bij het boeken; de fles bubbels zit er bij elke kamer bij.</p>
-        </div>
-      </section>
-
+      </div>
     </div>
   </section>
 
-  <!-- ══ BLOK 5a: REVIEWS (ivoor) ══ -->
-  <section class="sec b5a" data-toon="surface">
+  <!-- ══ ZIJKAART-ZONE (variant v3, build-blok 'zijkaart'): 2a, 3a en 4b in de linker kolom, rechts de boekkaart
+       (zelfde b1k-kaart als de uitklaptab) die vanaf de tegelstrook meeloopt tot de onderkant van de kamerslider ══ -->
+  <div class="lp-zone" data-toon="paper">
+    <div class="lp-zone-hoofd">
+  <!-- ══ BLOK 2a: TEGELSTROOK (staging .tile) ══ -->
+  <section class="sec b2a" data-toon="paper" aria-label="Je verblijf">
+    <div class="wrap">
+      <div class="b2a-strook strook-scroll">
+        <div class="b2a-tegel b2a-kamer is-active">
+          <img src="fotos/l26-kamer-royale-2.webp" alt="Royale kamer met bed en ronde verlichte spiegel" loading="lazy">
+          <div class="b2a-label"><h3>Je kamer</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Kamers en suites, van Comfort tot Bruidssuite.</p><a class="btn btn-outline-light btn--klein" href="#kamers">Bekijk kamers</a></div></div></div>
+        </div>
+        <div class="b2a-tegel b2a-bubbels">
+          <img src="fotos/l26-bubbels-kamer.webp" alt="Fles bubbels in een ijsemmer met twee glazen" loading="lazy">
+          <div class="b2a-label"><h3>De bubbels</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Koud op je kamer bij aankomst.</p><a class="btn btn-outline-light btn--klein" href="#attentie">Zo werkt het</a></div></div></div>
+        </div>
+        <div class="b2a-tegel b2a-wellness">
+          <img src="fotos/l26-wellness-staand.webp" alt="Voetenbad in de wellness op de Top Floor" loading="lazy">
+          <div class="b2a-label"><h3>Wellness Top Floor</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Vier sauna's, stoomcabine en belevenisdouches.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="wellness" aria-haspopup="dialog" aria-label="Meer info over de wellness">Wellness</button></div></div></div>
+        </div>
+        <div class="b2a-tegel b2a-terras">
+          <img src="fotos/l26-terras.webp" alt="Twee glazen rode wijn op het terras" loading="lazy">
+          <div class="b2a-label"><h3>Restaurant en terras</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Seizoensgerechten en een goed glas.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="restaurant" aria-haspopup="dialog" aria-label="Meer info over het restaurant en terras">Restaurant</button></div></div></div>
+        </div>
+        <div class="b2a-tegel">
+          <img src="fotos/l26-omg-bossen.webp" alt="Beekje met houten brug in het bos achter het hotel" loading="lazy">
+          <div class="b2a-label"><h3>Het bos</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Wandelen en fietsen vanaf de deur.</p><a class="btn btn-outline-light btn--klein" href="https://www.asteria.nl/omgeving/">Omgeving</a></div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BLOK 3a: ONZE ATTENTIE VOOR JOU (staging .usp-statement + .usp-wheel) ══ -->
+  <section class="sec b3a" id="attentie" data-toon="paper">
+    <div class="wrap"><div class="b3a-grid">
+      <div class="b3a-tekst"><svg class="b3a-ster" viewBox="-515 0 2841 2973" fill="none" aria-hidden="true"><path d="M2326.3 844.054C1971.04 683.274 1569.16 654.676 1197.04 761.897C693.44 256.226 260.538 1.99826e-05 260.538 1.99826e-05C285.237 390.639 354.425 766.419 468.775 1140.02C171.892 1343.36 -221.438 1665.22 -515.148 2101.06C-514.595 2191.32 -450.336 2146.81 -406.138 2113.61C-19.8775 1851.23 332.681 1701.15 640.888 1621.12C820.582 2060.08 1062.53 2503.67 1368.99 2972.4C1195.3 2294.84 1248.65 1724.99 1248.65 1724.99C1248.65 1724.99 1231.79 1755.64 1197.35 1734.48C1169.88 1835.13 1180.46 2278.62 1162.91 2023.06C1154.65 1903.22 1177.6 1714.55 1205.01 1541.85C1604.09 1535.18 1861.25 1641.15 1926.51 1671.51C1932.18 1674.18 1937.51 1676.78 1942.98 1679.57C1743.99 1374.25 1527.59 1109.91 1318 887.113C1943.46 678.278 2326.1 844.182 2326.1 844.182M484.13 332.439C692.344 466.352 894.517 635.446 1073.03 803.037C1008.51 827.479 945.051 855.812 883.155 888.848C846.69 908.3 742.96 963.058 602.262 1052.12C542.831 817.741 503.929 581.725 484.13 332.439ZM-16.9162 1761.59C170.947 1578.75 351.147 1428.99 522.41 1306.27C543.821 1369.04 566.832 1431.65 590.707 1494.27C409.307 1549.63 207.473 1634.49 -16.7139 1761.46M1071.96 2250.35C954.771 2019.32 856.261 1802.06 774.68 1590.01C886.274 1567.3 991.031 1553.49 1088.86 1546.65C1062.19 1705.77 1053.78 1889.19 1071.96 2250.35ZM1718.96 1501.56C1611.22 1469.1 1449.6 1416.16 1227.88 1406.23C1252.34 1270.45 1274.7 1163.07 1278.87 1137.91C1288.99 1075.64 1246.25 1070.01 1246.25 1070.01L1196.58 1244.31C1196.58 1244.31 1178.55 1306.2 1171.38 1184.52C1151.09 1269.21 1133.02 1339.09 1117.57 1405.04C1001.4 1407.58 870.922 1422.9 725.745 1457.53C697.625 1377.94 671.693 1298.67 648.485 1219.66C847.594 1088.95 1033.18 995.034 1203.09 928.738C1509.17 1233.3 1718.96 1501.56 1718.96 1501.56Z" fill="var(--terracotta)"/></svg><h2>Onze <span class="g">attentie</span> voor jou</h2><p>Geen arrangement en geen kleine lettertjes: je boekt gewoon een kamer met ontbijt, met code JUBILEUM. Onze receptie zorgt dat de fles bij aankomst gekoeld op je kamer staat.</p></div>
+      <div class="b3a-knop"><a class="btn btn-primary mews-open" data-voucher="JUBILEUM" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM">Boek een kamer met code JUBILEUM</a></div>
+      <div class="b3a-foto"><img src="fotos/l26-bubbels-kamer.webp" alt="Fles bubbels in een ijsemmer op de kamer" loading="lazy"></div>
+      <div class="b3a-rechts"><ul class="as-usp-wheel b3a-lijst"><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg></span><span>Koud op de kamer bij aankomst</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg></span><span>Bij elk kamertype</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span><span>Geen toeslag</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span><span>Ontbijt inbegrepen</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg></span><span>Annuleren tot 24 uur vooraf</span></li></ul></div>
+    </div></div>
+  </section>
+
+  <!-- ══ BLOK 4b: KAMERS, TWEE KAARTEN MET PEEK (zand, ivoren kaarten) ══ -->
+  <section class="sec b4b" id="kamers" data-toon="paper" aria-labelledby="kamers-kop">
+    <div class="wrap">
+      <div class="b4b-kop">
+        <div class="b4b-intro"><h2 id="kamers-kop">In welke <span class="g">kamer</span> slaap je?</h2><p>Elke kamer, dezelfde attentie. Kies de kamer die bij je past en boek met code JUBILEUM; de actuele kamerprijs zie je bij het boeken.</p></div>
+        <div class="b4b-teller"><span class="b4b-tel" aria-live="polite"><b class="b4b-nu">1</b> van <b>8</b></span><div class="b4b-dots" role="tablist" aria-label="Kamers"><button type="button" class="b4b-dot is-active" role="tab" aria-selected="true" aria-label="Kamer 1"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 2"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 3"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 4"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 5"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 6"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 7"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 8"></button></div><div class="b4b-pijlen"><button type="button" class="as-pijl b4b-vorige" aria-label="Vorige kamer"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="as-pijl b4b-volgende" aria-label="Volgende kamer"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div></div>
+      </div>
+      <div class="b4b-strook strook-scroll" tabindex="0" aria-label="Kamers, schuif voor meer">
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-comfort.webp" alt="Comfort kamer bij Hotel Asteria"><span class="b4b-pil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>Incl. fles bubbels</span></div>
+        <div class="b4b-inhoud">
+          <h3>Comfort kamer</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>22 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>twinbeds</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>2 personen</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-voucher="JUBILEUM" data-room="98900f3b-e5e2-49c9-9776-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Comfort kamer">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="comfort" aria-haspopup="dialog" aria-label="Bekijk de Comfort kamer">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-royale.webp" alt="Royale kamer bij Hotel Asteria"><span class="b4b-pil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>Incl. fles bubbels</span></div>
+        <div class="b4b-inhoud">
+          <h3>Royale kamer</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>26 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM6 19v2M18 19v2"/></svg></span>ruime zithoek</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>2 personen</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-voucher="JUBILEUM" data-room="a8fd7310-0d61-422f-89e6-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Royale kamer">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="royale" aria-haspopup="dialog" aria-label="Bekijk de Royale kamer">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-deluxe.webp" alt="Deluxe kamer bij Hotel Asteria"><span class="b4b-pil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>Incl. fles bubbels</span></div>
+        <div class="b4b-inhoud">
+          <h3>Deluxe kamer</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>26 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg></span>eigen infraroodsauna</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>2 personen</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-voucher="JUBILEUM" data-room="c737de50-e41e-4c8d-a818-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Deluxe kamer">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="deluxe" aria-haspopup="dialog" aria-label="Bekijk de Deluxe kamer">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-junior-suite.webp" alt="Junior Suite bij Hotel Asteria"><span class="b4b-pil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>Incl. fles bubbels</span></div>
+        <div class="b4b-inhoud">
+          <h3>Junior Suite</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>37 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>kingsize</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/></svg></span>bad en douche</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-voucher="JUBILEUM" data-room="27ea8deb-ded5-4856-8fdd-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Junior Suite">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="junior-suite" aria-haspopup="dialog" aria-label="Bekijk de Junior Suite">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-suite.webp" alt="Suite bij Hotel Asteria"><span class="b4b-pil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>Incl. fles bubbels</span></div>
+        <div class="b4b-inhoud">
+          <h3>Suite</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>40 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>kingsize</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg></span>eigen infraroodsauna</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-voucher="JUBILEUM" data-room="4a642b66-68e6-444c-beeb-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Suite">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="suite" aria-haspopup="dialog" aria-label="Bekijk de Suite">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-bruidssuite.webp" alt="Bruidssuite bij Hotel Asteria"><span class="b4b-pil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>Incl. fles bubbels</span></div>
+        <div class="b4b-inhoud">
+          <h3>Bruidssuite</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>36 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>kingsize</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/></svg></span>vrijstaand ligbad</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-voucher="JUBILEUM" data-room="a9f18d18-561b-47a9-8ba7-b2a800cfd0e2" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" aria-label="Boek de Bruidssuite">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="bruidssuite" aria-haspopup="dialog" aria-label="Bekijk de Bruidssuite">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-comfort-3.webp" alt="Comfort kamer 3 personen bij Hotel Asteria"><span class="b4b-pil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>Incl. fles bubbels</span></div>
+        <div class="b4b-inhoud">
+          <h3>Comfort kamer 3 personen</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>22 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>drie bedden</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>3 personen</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-voucher="JUBILEUM" data-room="85ca19d7-eea5-41c8-8b93-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=85ca19d7-eea5-41c8-8b93-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Comfort kamer 3 personen">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="comfort-3" aria-haspopup="dialog" aria-label="Bekijk de Comfort kamer 3 personen">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-mindervalide.webp" alt="Mindervalide kamer bij Hotel Asteria"><span class="b4b-pil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>Incl. fles bubbels</span></div>
+        <div class="b4b-inhoud">
+          <h3>Mindervalide kamer</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>37 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>twinbeds</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/></svg></span>aangepaste badkamer</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-voucher="JUBILEUM" data-room="fa5b6540-7234-49ce-beb1-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM&amp;mewsRoom=fa5b6540-7234-49ce-beb1-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Mindervalide kamer">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="mindervalide" aria-haspopup="dialog" aria-label="Bekijk de Mindervalide kamer">Bekijk kamer</button></div>
+        </div>
+      </article>
+      </div>
+      <div class="b4b-voet"><p class="b4b-noot">Alle kamers zijn inclusief ontbijtbuffet. De prijs hangt af van je aankomstdatum en zie je direct bij het boeken; de fles bubbels zit er bij elke kamer bij.</p><a class="btn btn-secondary" href="https://www.asteria.nl/kamers/">Bekijk alle kamers</a></div>
+    </div>
+  </section>
+    </div>
+    <aside class="lp-zone-kant" aria-label="Boek met code JUBILEUM">
+      <div class="b1k-kaart b1k-kaart--vast">
+        <div class="b1k-kfoto"><img src="fotos/l26-bubbels-kamer.webp" alt="Fles bubbels in een ijsemmer op de kamer" width="1400" height="933" loading="lazy"><span class="b1k-pill">Gratis bij elke kamer</span></div>
+        <div class="b1k-body">
+          <h2 class="b1k-kop">Onze attentie voor jou</h2>
+          <p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>Fles bubbels koud op de kamer</span></p>
+          <div class="b1k-score"><span class="b1k-cijfer">4,2</span><span class="b1k-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1k-aantal">2.219 Google reviews</span></div>
+          <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Beste prijs gegarandeerd</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Kosteloos annuleren tot 24 uur voor aankomst</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Directe bevestiging</span></li></ul>
+          <a class="btn btn-primary b1k-knop mews-open" data-voucher="JUBILEUM" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM">Boek een kamer met code JUBILEUM</a>
+          <p class="b1k-trust">Boek direct bij het hotel · Actiecode JUBILEUM</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ══ BLOK 5a: REVIEWMUUR (ivoor), structuur Zaal Zeven b6d: kop + Google-sticker, lopende kolommen ══ -->
+  <section class="sec b5a" data-toon="surface" aria-labelledby="reviews-kop">
     <div class="wrap">
       <div class="b5a-kop">
-        <h2>Wat gasten zeggen op <span class="g">Google</span></h2>
-        <p class="b5a-kopscore"><b>4,2</b> <span class="b5a-sterren" role="img" aria-label="4,2 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><span class="b5a-half"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></span></span> <span>2.219 reviews</span></p>
+        <h2 id="reviews-kop">Waarom gasten graag <span class="g">terugkomen</span></h2>
+        <a class="g-sticker" href="https://www.google.com/maps?cid=10392502528258527703" target="_blank" rel="noopener" aria-label="Hotel Asteria op Google: 4,2 uit 5, 2.280 reviews"><span class="g-sticker__score"><svg class="g-sticker__ster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span>4,2</span></span><span class="g-sticker__lijn" aria-hidden="true"></span><span class="g-sticker__bron"><svg class="g-sticker__g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="g-sticker__tekst"><span class="g-sticker__rev">Reviews</span><span class="g-sticker__merk">Google</span></span></span></a>
       </div>
-      <div class="b5a-rij">
-        <div class="b5a-paneel">
-          <p class="b5a-merk"><svg class="b5a-g" viewBox="0 0 48 48" role="img" aria-label="Google"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Beoordelingen op Google</p>
-          <div class="b5a-score">
-            <span class="b5a-cijfer">4,2</span>
-            <div>
-              <p class="b5a-woord">Goed</p>
-              <span class="b5a-sterren b5a-sterren--groot" role="img" aria-label="4,2 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><span class="b5a-half"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span></span></span>
-              <p class="b5a-aantal">2.219 reviews</p>
-            </div>
-          </div>
-          <span class="b5a-lijn"></span>
-          <ul class="vinkjes">
-            <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg>Persoonlijke aandacht</li>
-            <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg>Alles onder één dak</li>
-            <li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg>Limburgse gastvrijheid</li>
-          </ul>
-        </div>
-        <div class="b5a-spoor strook-scroll" tabindex="0" aria-label="Reviews">
-          <article class="b5a-kaart">
-        <span class="b5a-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span>
-        <p class="b5a-titel">Zeer goed!</p>
-        <p class="b5a-tekst">Ruime kamers met heerlijke sauna. Ontbijt super en diner zeer goed!</p>
-        <p class="b5a-naam">Rob <span>&middot; december 2025</span></p>
-        <p class="b5a-bron">Beoordeling op Google</p>
+    </div>
+    <div class="b5a-muur" data-reviewmuur>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Uitstekend in alle opzichten: personeel, accommodaties, eten, kamers en prijzen”</p>
+        <p class="b5a-naam">Wilson Varela<span>een maand geleden &middot; Google</span></p>
       </article>
-      <article class="b5a-kaart">
-        <span class="b5a-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span>
-        <p class="b5a-titel">Perfecte uitvalsbasis voor fietsroutes!</p>
-        <p class="b5a-tekst">Verzorgd en lekker ontbijt. Mooi en proper hotel met ruime parking en afgesloten fietsstalling. Perfecte uitvalbasis om mooie fietsroutes de maken of om omliggende steden te bezoeken.</p><a class="b5a-meer" href="https://www.asteria.nl/beoordelingen">Meer lezen</a>
-        <p class="b5a-naam">Luc <span>&middot; september 2025</span></p>
-        <p class="b5a-bron">Beoordeling op Google</p>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Personeel was behulpzaam en vriendelijke. Onze kamer en badkamer was top.”</p>
+        <p class="b5a-naam">Fia Sardar<span>2 maanden geleden &middot; Google</span></p>
       </article>
-      <article class="b5a-kaart">
-        <span class="b5a-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span>
-        <p class="b5a-titel">Personeel heel vriendelijk!</p>
-        <p class="b5a-tekst">We hebben 2 heerlijke dagen Venray gehad met 1 overnachting, diner, ontbijt en late check out. [...] Wij komen hier zeker nog eens terug. [...]</p><a class="b5a-meer" href="https://www.asteria.nl/beoordelingen">Meer lezen</a>
-        <p class="b5a-naam">Danielle <span>&middot; augustus 2025</span></p>
-        <p class="b5a-bron">Beoordeling op Google</p>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="4 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Mooi hotel. Kamers netjes, niet al te groot. Wel 2 fauteuils met tafeltje en een grote inloopdouche. Fijne airco. Geen koelkastje, wel koffie en thee op de kamer. Ontbijt is prima. Diner is heerlijk. Mankeert niets aan.”</p>
+        <p class="b5a-naam">Karin Van Zonneveld<span>3 maanden geleden &middot; Google</span></p>
       </article>
-      <article class="b5a-kaart">
-        <span class="b5a-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span>
-        <p class="b5a-titel">ZALIG..!!!</p>
-        <p class="b5a-tekst">Héérlijke 4-nachten bij Venray : ZALIG..!!! Ligging van het hotel is perfect: pal naast afrit snelweg en toch dicht bij de stad. [...]</p><a class="b5a-meer" href="https://www.asteria.nl/beoordelingen">Meer lezen</a>
-        <p class="b5a-naam">Eddy <span>&middot; juni 2025</span></p>
-        <p class="b5a-bron">Beoordeling op Google</p>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Prima plek om daar te zijn. Te eten en te overnachten. Gastvrije en leuke mensen die daar werken. Maakt het erg aangenaam als je een paar dagen bij huis en haard vandaan bent.”</p>
+        <p class="b5a-naam">Bart Bouwers<span>4 maanden geleden &middot; Google</span></p>
       </article>
-      <article class="b5a-kaart">
-        <span class="b5a-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span>
-        <p class="b5a-titel">Comfortabel</p>
-        <p class="b5a-tekst">Comfortabele bedden, ruime kamer, schone badkamer.</p>
-        <p class="b5a-naam">Suus <span>&middot; juli 2024</span></p>
-        <p class="b5a-bron">Beoordeling op Google</p>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Hele fijne plek om geweest te zijn. Mooi hotel, aardige medewerkers, nette kamers, mooi restaurant met buiten. Heerlijk wat drinken buiten met prima uitzicht...op de (snel)weg na. Maar ikzelf had daar niet heel veel last van.”</p>
+        <p class="b5a-naam">vanessa kors<span>4 maanden geleden &middot; Google</span></p>
       </article>
-      <article class="b5a-kaart">
-        <span class="b5a-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span>
-        <p class="b5a-titel">Kamers: 5/5 | Service: 5/5 | Locatie 4/5</p>
-        <p class="b5a-tekst">Het was heerlijk vertoeven in het hotel. Zeker voor fietsfanaten. En omdat we geen tv konden kijken, kregen we een andere tv op een zuil aangeboden. Konden we savonds toch nog even kijken.</p><a class="b5a-meer" href="https://www.asteria.nl/beoordelingen">Meer lezen</a>
-        <p class="b5a-naam">Ingrid Kortekaas <span>&middot; juni 2024</span></p>
-        <p class="b5a-bron">Beoordeling op Google</p>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Mijn partner en ik hebben bij Asteria ons huwelijk voltrokken. Asteria was zeer behulpzaam in aanloop naar en op de dag van het huwelijk. De manager dacht goed met ons mee over welke ruimtes gebruikt konden worden, het diner was heerlijk en het personeel …”</p>
+        <p class="b5a-naam">Richard Franssen<span>4 maanden geleden &middot; Google</span></p>
       </article>
-      <article class="b5a-kaart">
-        <span class="b5a-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4 6.1 20.5l1.2-6.5L2.5 9.4l6.6-.9z"/></svg></span>
-        <p class="b5a-titel">Kamers: 5/5 | Service: 5/5 | Locatie: 5/5</p>
-        <p class="b5a-tekst">Was super goed fijne bedden. Koffie apparaat op je kamer. Top hotel</p>
-        <p class="b5a-naam">Cornelia Oogjes <span>&middot; juni 2024</span></p>
-        <p class="b5a-bron">Beoordeling op Google</p>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Uitstekend Lekker bed, kamers schoon en netjes. Locatie prima als uitvalsbasis, in ons geval event in Overloon”</p>
+        <p class="b5a-naam">Dennis Vandervelde<span>4 maanden geleden &middot; Google</span></p>
       </article>
-        </div>
-        <button type="button" class="as-pijl b5a-pijl" aria-label="Volgende reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heerlijk hotel, zalig ontbijt en heerlijke dinner keuzes!”</p>
+        <p class="b5a-naam">arthur goulooze<span>6 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Het is altijd 1 rustpunt als wij van België of Duitsland komen en vooral gastvrij en vriendelijke bediening”</p>
+        <p class="b5a-naam">B Kruize<span>6 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heel goed hotel. Nette, ruime kamers. Grote gratis parkeerplaats. Uitgebreid ontbijt. Vriendelijk en behulpzaam personeel.”</p>
+        <p class="b5a-naam">Nicole Scholte<span>7 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Geweldig mooi hotel en omgeving. Goed eten prachtige kamers en behulpzaam personeel. Geweest tijdens Horst Schaaktoernooi.”</p>
+        <p class="b5a-naam">Rick Wagemakers<span>8 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heerlijk genoten van een mooi dartweekend. Kamers top, medewerkers vriendelijk, ontbijt genoeg variatie. Gratis parkeren. Top geregeld”</p>
+        <p class="b5a-naam">Roger Vogelzang<span>9 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heel aangenaam hotel, supervriendelijk. Verzorgde kamers en lekker ontbijt. De elektrische fiets is aan te raden om leuke tripjes te maken in de buurt.”</p>
+        <p class="b5a-naam">Davy Tollenaere<span>11 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Mooi ingericht hotel met goed eten en vriendelijk personeel.”</p>
+        <p class="b5a-naam">Erwin Van Dijck<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Fijn hotel, vriendelijk en behulpzaam personeel, heerlijk gegeten. Schoon hotel. Prachtige, ruime kamer. Voor mij een dikke 10!!”</p>
+        <p class="b5a-naam">Thea Sjoerdstra<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heerlijk eten Schone kamers Service is prima Locatie is goed”</p>
+        <p class="b5a-naam">Pj Zanten<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Fijn hotel. Goed eten en redelijke prijzen. Bediening erg vriendelijk en hulpvaardig. Aanbevolen!”</p>
+        <p class="b5a-naam">Leon Boer<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Bruiloft gevierd hier, mooie locatie, goede service en vriendelijk personeel.”</p>
+        <p class="b5a-naam">Surilicious13<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Mooie ruime kamers ,netjes en heerlijk uitgebreid ontbijt. Enorm leuke locatie om iets te vieren.”</p>
+        <p class="b5a-naam">Bianca Smeets<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Zeer mooie nette kamers, lekker restaurant”</p>
+        <p class="b5a-naam">Bram<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Een schitterend hotel,echt 4 sterren waardig, ook een top ontbijt”</p>
+        <p class="b5a-naam">Chris Heemstra<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Mooie kamers, vriendelijk deskundig personeel. Een mooi restaurant. Het restaurant heeft veel plaatsen maar voelt toch knus aan.”</p>
+        <p class="b5a-naam">Gabriëlle Ton<span>2 jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Geweldig hotel.Vriendelijk personeel. Goed eten, goed ontbijt. Alles top. Al heel wat boekingen gedaan, dit was tot nu toe het allerbeste. Gr.Rose en PietVlecken.”</p>
+        <p class="b5a-naam">Piet Vlecken<span>2 jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Fantastisch goede service en fijne kamers. Leuke tijd gehad met mijn zus.”</p>
+        <p class="b5a-naam">Jenny Dello<span>2 jaar geleden &middot; Google</span></p>
+      </article>
+    </div>
+    <div class="wrap">
+      <div class="b5a-voet">
+        <a class="btn btn-secondary" href="https://www.google.com/maps?cid=10392502528258527703" target="_blank" rel="noopener">Alle reviews op Google</a>
+        <a class="btn btn-secondary" href="https://search.google.com/local/writereview?placeid=ChIJ8QbzR7lqx0cR19Ey1PyVOZA" target="_blank" rel="noopener">Laat een review achter</a>
       </div>
     </div>
   </section>
 
-  <!-- ══ BLOK 6a: FACILITEITEN (zand) ══ -->
-  <section class="sec b6a" data-toon="paper">
+  <!-- ══ BLOK 6c: VEELGESTELDE VRAGEN MET CONTACTKAART (zand) ══ -->
+  <section class="sec b6c" data-toon="paper">
     <div class="wrap">
-      <div class="b6a-grid">
-        <div class="b6a-kaart">
-          <h2>Onze faciliteiten</h2>
-          <p>Bij Hotel Asteria vind je alles onder één dak. Ontspan in de wellness op de Top Floor met vier sauna's en een stoomcabine, train in de fitnessruimte of neem een drankje op het terras. Sluit de dag af in ons restaurant, met seizoensgerechten van dagverse streekproducten.</p>
-          <a class="btn btn-primary btn--klein" href="https://www.asteria.nl/faciliteiten">Ontdek alle faciliteiten</a>
-        </div>
-        <div class="b6a-tegel">
-          <img src="fotos/l26-wellness-staand.webp" alt="Voetenbad in de wellness op de Top Floor van Hotel Asteria" loading="lazy">
-          <div class="b6a-tekst"><h3>Wellness</h3><p>Vier sauna's, stoomcabine en belevenisdouches op de Top Floor.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="wellness" aria-haspopup="dialog" aria-label="Meer info over Wellness">Wellness</button></div>
-        </div>
-        <div class="b6a-tegel b6a-breed">
-          <img src="fotos/l26-fitness.webp" alt="Fitnessruimte van Hotel Asteria" loading="lazy">
-          <div class="b6a-tekst"><h3>Fitness</h3><p>Moderne fitnessruimte, vrij toegankelijk voor hotelgasten.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="fitness" aria-haspopup="dialog" aria-label="Meer info over Fitness">Fitness</button></div>
-        </div>
-        <div class="b6a-tegel b6a-breed">
-          <img src="fotos/l26-omg-bossen.webp" alt="Bos met beekje en houten brug achter Hotel Asteria" loading="lazy">
-          <div class="b6a-tekst"><h3>Omgeving</h3><p>Wandelen en fietsen in de Maasduinen en de Peel.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="omgeving" aria-haspopup="dialog" aria-label="Meer info over de omgeving">Ontdek de omgeving</button></div>
-        </div>
-        <div class="b6a-tegel b6a-brasserie">
-          <img src="fotos/l26-brasserie.webp" alt="Bar in de brasserie van Hotel Asteria" loading="lazy">
-          <div class="b6a-tekst"><h3>Restaurant</h3><p>Seizoensgerechten met dagverse streekproducten, in een sfeervolle brasserie met open haard.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="restaurant" aria-haspopup="dialog" aria-label="Meer info over het restaurant">Restaurant</button></div>
-        </div>
-        <div class="b6a-tegel">
-          <img src="fotos/l26-terras.webp" alt="Twee glazen rode wijn op het terras van Hotel Asteria" loading="lazy">
-          <div class="b6a-tekst"><h3>Terras</h3><p>Zonnig terras, een goed glas en de rust van de bossen.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="terras" aria-haspopup="dialog" aria-label="Meer info over het terras">Terras</button></div>
-        </div>
-        <div class="b6a-tegel b6a-breed b6a-extra" hidden>
-          <img src="fotos/l26-ontbijt.webp" alt="Ontbijtbuffet bij Hotel Asteria" loading="lazy">
-          <div class="b6a-tekst"><h3>Ontbijt</h3><p>Uitgebreid ontbijtbuffet, ma t/m vr 07.00-10.00 uur, za en zo 08.00-10.30 uur.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="ontbijt" aria-haspopup="dialog" aria-label="Meer info over het ontbijt">Ontbijt</button></div>
-        </div>
-        <div class="b6a-tegel b6a-breed b6a-extra" hidden>
-          <img src="fotos/l26-borrel-terras.webp" alt="Borrel op het terras van Hotel Asteria" loading="lazy">
-          <div class="b6a-tekst"><h3>Borrel en bar</h3><p>Brasserie en bar, ook voor een borrel of een glas aan de haard.</p><button type="button" class="btn btn-outline-light btn--klein" data-fac="borrel" aria-haspopup="dialog" aria-label="Meer info over borrel en bar">Borrel en bar</button></div>
-        </div>
-      </div>
-      <div class="b6a-meer"><button type="button" class="btn btn-secondary b6a-laadmeer" aria-expanded="false">Laad meer faciliteiten<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button></div>
-    </div>
-  </section>
-
-  <!-- ══ BLOK 7b: VOORDELEN VAN DIRECT BOEKEN (ivoor, ster-watermerk) ══ -->
-  <section class="sec b7b" data-toon="surface">
-    <svg class="ster-bg" viewBox="0 0 1920 2973" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M2326.3 844.054C1971.04 683.274 1569.16 654.676 1197.04 761.897C693.44 256.226 260.538 1.99826e-05 260.538 1.99826e-05C285.237 390.639 354.425 766.419 468.775 1140.02C171.892 1343.36 -221.438 1665.22 -515.148 2101.06C-514.595 2191.32 -450.336 2146.81 -406.138 2113.61C-19.8775 1851.23 332.681 1701.15 640.888 1621.12C820.582 2060.08 1062.53 2503.67 1368.99 2972.4C1195.3 2294.84 1248.65 1724.99 1248.65 1724.99C1248.65 1724.99 1231.79 1755.64 1197.35 1734.48C1169.88 1835.13 1180.46 2278.62 1162.91 2023.06C1154.65 1903.22 1177.6 1714.55 1205.01 1541.85C1604.09 1535.18 1861.25 1641.15 1926.51 1671.51C1932.18 1674.18 1937.51 1676.78 1942.98 1679.57C1743.99 1374.25 1527.59 1109.91 1318 887.113C1943.46 678.278 2326.1 844.182 2326.1 844.182M484.13 332.439C692.344 466.352 894.517 635.446 1073.03 803.037C1008.51 827.479 945.051 855.812 883.155 888.848C846.69 908.3 742.96 963.058 602.262 1052.12C542.831 817.741 503.929 581.725 484.13 332.439ZM-16.9162 1761.59C170.947 1578.75 351.147 1428.99 522.41 1306.27C543.821 1369.04 566.832 1431.65 590.707 1494.27C409.307 1549.63 207.473 1634.49 -16.7139 1761.46M1071.96 2250.35C954.771 2019.32 856.261 1802.06 774.68 1590.01C886.274 1567.3 991.031 1553.49 1088.86 1546.65C1062.19 1705.77 1053.78 1889.19 1071.96 2250.35ZM1718.96 1501.56C1611.22 1469.1 1449.6 1416.16 1227.88 1406.23C1252.34 1270.45 1274.7 1163.07 1278.87 1137.91C1288.99 1075.64 1246.25 1070.01 1246.25 1070.01L1196.58 1244.31C1196.58 1244.31 1178.55 1306.2 1171.38 1184.52C1151.09 1269.21 1133.02 1339.09 1117.57 1405.04C1001.4 1407.58 870.922 1422.9 725.745 1457.53C697.625 1377.94 671.693 1298.67 648.485 1219.66C847.594 1088.95 1033.18 995.034 1203.09 928.738C1509.17 1233.3 1718.96 1501.56 1718.96 1501.56Z"/></svg>
-    <div class="wrap">
-      <div class="b7b-grid">
-        <div class="b7b-statement">
-          <img class="b7b-ster" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIxIiBoZWlnaHQ9IjExNCIgdmlld0JveD0iMCAwIDEyMSAxMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxtYXNrIGlkPSJtYXNrMF8xNzhfNDE2IiBzdHlsZT0ibWFzay10eXBlOmx1bWluYW5jZSIgbWFza1VuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeD0iMTkiIHk9IjEwIiB3aWR0aD0iODQiIGhlaWdodD0iODQiPgo8cGF0aCBkPSJNMTkuNjY4IDUxLjgwNzVDMTkuNjY4IDc0Ljc1NTQgMzguMTg5NiA5My4zNjc2IDYxLjA0NDkgOTMuMzY3NkM4My45MDAxIDkzLjM2NzYgMTAyLjQyMiA3NC43NjM5IDEwMi40MjIgNTEuODA3NUMxMDIuNDIyIDI4Ljg1MSA4My44OTE2IDEwLjI0NzMgNjEuMDQ0OSAxMC4yNDczQzM4LjE5ODEgMTAuMjQ3MyAxOS42NjggMjguODUxIDE5LjY2OCA1MS44MDc1WiIgZmlsbD0id2hpdGUiLz4KPC9tYXNrPgo8ZyBtYXNrPSJ1cmwoI21hc2swXzE3OF80MTYpIj4KPHBhdGggZD0iTTEwMi40MjIgMTAuMjQ3M0gxOS42NjhWOTMuMzY3NkgxMDIuNDIyVjEwLjI0NzNaIiBmaWxsPSJ1cmwoI3BhaW50MF9yYWRpYWxfMTc4XzQxNikiLz4KPC9nPgo8cGF0aCBkPSJNMTA5LjI4NyA2NC40NDg1QzEwMS43MjIgNTIuODk3OCA5MC4yNTY3IDQ0LjQxMzcgNzcuMTAzMiA0MC41NTVDNzEuNjUwMiAxNS44Nzc5IDYzLjU3NjcgMCA2My41NzY3IDBDNTYuOTAyNCAxMi4xNDY5IDUxLjgzOTUgMjQuNjk0MiA0OC4xNjc0IDM4LjAzMzZDMzUuNDM4IDM4LjQ3NjYgMTcuNTc3OSA0MC42MzE3IDAuNTMxODM1IDQ4LjA4NTFDLTEuMTY0MjkgNTAuNzkzOSAxLjYwMDM5IDUwLjY4MzEgMy41NTA5MyA1MC41Mjk4QzIwLjA3MTIgNTAuMDE4NyAzMy40NTM2IDUyLjIyNDkgNDQuMTgxNSA1NS42ODMzQzQxLjIyMTggNzIuMjE3MSA0MC4wMzQ1IDkwLjA3MTEgNDAuMjk3NCAxMDkuOTAxQzQ3Ljk2MzkgODYuMzQ4NyA2MC4zNzEgNzAuMzI2IDYwLjM3MSA3MC4zMjZDNjAuMzcxIDcwLjMyNiA1OS4yODU1IDcwLjkyMjMgNTguNjU3OSA2OS42MzZDNTUuOTI3MiA3Mi4xMjM0IDQ3LjgyODIgODUuNTgyMSA1Mi4xNTMzIDc3LjYwOTFDNTQuMTgwMiA3My44Njk2IDU4LjQ0NTkgNjguNjY1IDYyLjU0MiA2NC4wMjI2Qzc0LjU5MyA3MS4zOTkzIDgwLjI2NjUgNzkuNDQ5IDgxLjY0MDQgODEuNTk1NkM4MS43NTkxIDgxLjc4MyA4MS44Njk0IDgxLjk2MTggODEuOTc5NiA4Mi4xNDkyQzgxLjgyNyA2OS4yNDQyIDgwLjM3NjggNTcuMjMzNiA3OC4zNDE0IDQ2LjU5NDRDMTAwLjk5MyA1Mi4yMjQ5IDEwOS4yNzkgNjQuNDQ4NSAxMDkuMjc5IDY0LjQ0ODVNNjMuOTQ5OCAxNC4xODI4QzY3LjYzMDQgMjIuMTM4NyA3MC40NjI5IDMxLjAzMTcgNzIuNjE3IDM5LjQzMDZDNzAuMjI1NSAzOC45MzY2IDY3Ljc5MTUgMzguNTc4OCA2NS4zMTUyIDM4LjM5MTRDNjMuODU2NSAzOC4yODA3IDU5LjcxOCAzNy45NDg1IDUzLjgyNCAzNy45Mzk5QzU2LjQ5NTQgMjkuODA1MSA1OS44MTEzIDIyLjAxMSA2My45NDk4IDE0LjE4MjhaTTIxLjg2MDYgNDcuMzk1MUMzMC45NDMzIDQ1LjQ5NTUgMzkuMTY5NSA0NC40MzkzIDQ2LjYxNTUgNDQuMDIxOUM0Ni4wNjQyIDQ2LjMwNDggNDUuNTYzOSA0OC42MTMyIDQ1LjA4OSA1MC45Mzg3QzM4LjYxODIgNDkuMTQ5OCAzMC45NzcyIDQ3Ljg1NTEgMjEuODY5IDQ3LjM5NTFNNDUuMTIyOSA4Mi42Nzc0QzQ2LjAwNDkgNzMuNTQ1OSA0Ny4xODM3IDY1LjE4MSA0OC43Njk1IDU3LjI5MzJDNTIuNTM0OSA1OC43MzI4IDU1LjkyNzIgNjAuMzA4NiA1OC45ODAyIDYxLjk2MTJDNTUuMTYzOSA2Ni4yMTE3IDUxLjQzMjQgNzEuNTM1NiA0NS4xMjI5IDgyLjY3NzRaTTc4LjY2MzcgNzIuNTc0OEM3Ni4wNjAxIDY5LjU1OTQgNzIuMjM1NCA2NC45MDg1IDY1Ljc5ODYgNjAuNDAyNEM2OS4xMDYgNTYuODA3NyA3MS44MTEzIDU0LjAyMjIgNzIuNDEzNSA1My4zNDkzQzczLjg5NzYgNTEuNjc5NyA3Mi43MjczIDUwLjcwMDIgNzIuNzI3MyA1MC43MDAyTDY3LjkzNTcgNTQuOTY3OEM2Ny45MzU3IDU0Ljk2NzggNjYuMjIyNiA1Ni40NzU1IDY4LjMxNzMgNTIuNzAxOUM2Ni4xMDM5IDU0Ljg0ODUgNjQuMjM4MiA1Ni41OTQ3IDYyLjUyNTEgNTguMjcyOEM1OS4wMDU2IDU2LjE0MzMgNTQuODE2MiA1NC4xMjQ1IDQ5LjgyMTEgNTIuNDAzOEM1MC40OTExIDQ5LjQ5MDYgNTEuMjIwNCA0Ni42Mjg1IDUyLjAyNjEgNDMuODI2QzYwLjQ1NTggNDMuNjk4MiA2Ny43ODMxIDQ0LjQxMzcgNzQuMTE4MSA0NS42NTc0Qzc3LjQ4NDkgNjAuNTcyNyA3OC42NjM3IDcyLjU3NDggNzguNjYzNyA3Mi41NzQ4WiIgZmlsbD0iI0MxMkIyQiIvPgo8ZGVmcz4KPHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzE3OF80MTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoNTIuMDAyOCAyOC45OTE3KSBzY2FsZSg2NC43Nzk4IDY1LjA2NjcpIj4KPHN0b3Agc3RvcC1jb2xvcj0id2hpdGUiLz4KPHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPgo8c3RvcCBvZmZzZXQ9IjAuMTkiIHN0b3AtY29sb3I9IiNGRUYxRTIiLz4KPHN0b3Agb2Zmc2V0PSIwLjQiIHN0b3AtY29sb3I9IiNGRERDQjYiLz4KPHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+CjxzdG9wIG9mZnNldD0iMC41NyIgc3RvcC1jb2xvcj0iI0ZDRDI5RiIvPgo8c3RvcCBvZmZzZXQ9IjAuNjUiIHN0b3AtY29sb3I9IiNGQkNDOTEiLz4KPHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+CjxzdG9wIG9mZnNldD0iMC44MyIgc3RvcC1jb2xvcj0iI0Y4QjQ1NiIvPgo8c3RvcCBvZmZzZXQ9IjAuOTIiIHN0b3AtY29sb3I9IiNGNUEzMkEiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+CjwvcmFkaWFsR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+Cg==" alt="" width="121" height="114" loading="lazy">
-          <h2>Voordelen van <span class="g">direct boeken</span></h2>
-          <p>Rechtstreeks boeken bij Hotel Asteria is altijd de voordeligste keuze.</p>
-          <a class="btn btn-primary mews-open" data-voucher="JUBILEUM" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM">Boek een kamer met code JUBILEUM</a>
-        </div>
-        <div class="b7b-media">
-          <div class="b7b-foto"><img src="fotos/l26-hotel-buiten.webp" alt="Hotel Asteria met de vijver en fontein" loading="lazy"></div>
-          <ul class="as-usp-wheel b7b-wiel">
-            <li class="as-usp-wheel-item is-active"><span class="as-usp-icon"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span><span><span class="b7b-kop">Beste prijs gegarandeerd</span><span class="b7b-tekst">Rechtstreeks boeken is altijd de voordeligste keuze, en alleen hier krijg je dit cadeau erbij</span></span></li>
-            <li class="as-usp-wheel-item"><span class="as-usp-icon"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span><span class="b7b-kop">Spaar loyaltypunten</span><span class="b7b-tekst">Elke directe boeking levert punten op voor leuke beloningen</span></span></li>
-            <li class="as-usp-wheel-item"><span class="as-usp-icon"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg></span><span><span class="b7b-kop">Flexibel annuleren</span><span class="b7b-tekst">Kosteloos annuleren tot 24 uur voor aankomst</span></span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══ BLOK 8c: VEELGESTELDE VRAGEN (zand) ══ -->
-  <section class="sec b8c" data-toon="paper">
-    <div class="wrap">
-      <div class="b8c-grid">
-        <div class="kaart b8c-kaart">
+      <div class="b6c-grid">
+        <div class="kaart b6c-kaart">
           <h2>Veelgestelde vragen</h2>
           <p>Alles wat je wilt weten over je verblijf, van inchecktijd tot annuleren. Staat je vraag er niet tussen? Onze collega's van de receptie helpen je graag verder.</p>
-          <a class="btn btn-primary" href="https://www.asteria.nl/contact">Neem contact op</a>
-          <ul class="b8c-contact">
+          <a class="btn btn-primary" href="https://www.asteria.nl/contact/">Neem contact op</a>
+          <ul class="b6c-contact">
             <li><a href="tel:+31478511466"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0478 511466</a></li>
             <li><a href="mailto:info@asteria.nl"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@asteria.nl</a></li>
           </ul>
@@ -456,57 +466,57 @@
     </div>
   </section>
 
-  <!-- ══ BLOK 9b: SLOT MET FOTOWOLK (ivoor), raster zoals staging .fc-grid ══ -->
-  <section class="sec b9b" data-toon="surface" aria-labelledby="slot-kop">
-    <div class="fc-grid">
-      <div class="fc-col fc-col--outer" aria-hidden="true">
-        <img class="fc-photo" data-h="tall" src="fotos/room-suite-1.webp" alt="" loading="lazy">
-        <img class="fc-photo" data-h="tall" src="fotos/l26-wellness-boscabine.webp" alt="" loading="lazy" style="object-position:30% center">
+  <!-- ══ BLOK 7a: SLOT, FOTOWOLK MET COMPACTE BOEKBALK (zand), raster zoals staging .fc-grid ══ -->
+  <section class="sec b7a" data-toon="paper" aria-labelledby="slot-kop">
+    <div class="b7a-grid">
+      <div class="b7a-col b7a-col--buiten" aria-hidden="true">
+        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/l26-vk-suite.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="tall" src="fotos/l26-ontbijt.webp" alt="" loading="lazy">
       </div>
-      <div class="fc-col fc-col--outer fc-col--offset" aria-hidden="true">
-        <img class="fc-photo" data-h="medium" src="fotos/l26-terras.webp" alt="" loading="lazy">
-        <img class="fc-photo" data-h="medium" src="fotos/l26-ontbijt.webp" alt="" loading="lazy">
-        <img class="fc-photo" data-h="medium" src="fotos/l26-wellness-dompelbad.webp" alt="" loading="lazy" style="object-position:0% center">
+      <div class="b7a-col b7a-col--buiten b7a-col--offset" aria-hidden="true">
+        <img class="b7a-foto" data-h="medium" src="fotos/l26-brasserie.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="medium" src="fotos/l26-wellness-boscabine.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="fotos/l26-kamer-royale-2.webp" alt="" loading="lazy">
       </div>
-      <div class="fc-col fc-col--middle" aria-hidden="true">
-        <img class="fc-photo" data-h="very-tall" src="fotos/l26-wellness-staand.webp" alt="" loading="lazy" style="object-position:42% center">
+      <div class="b7a-col b7a-col--midden" aria-hidden="true">
+        <img class="b7a-foto b7a-m" data-h="very-tall" src="fotos/l26-bubbels-hero.webp" alt="" loading="lazy" style="object-position:72% center">
       </div>
-      <div class="fc-col fc-col--middle fc-col--offset" aria-hidden="true">
-        <img class="fc-photo" data-h="very-tall" src="fotos/l26-brasserie.webp" alt="" loading="lazy" style="object-position:76% center">
+      <div class="b7a-col b7a-col--midden b7a-col--offset" aria-hidden="true">
+        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-wellness-staand.webp" alt="" loading="lazy">
       </div>
-      <div class="fc-col fc-col--middle fc-col--offset" aria-hidden="true">
-        <img class="fc-photo" data-h="very-tall" src="fotos/l26-bubbels-koppel.webp" alt="" loading="lazy" style="object-position:66% center">
+      <div class="b7a-col b7a-col--midden b7a-col--offset" aria-hidden="true">
+        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-hotel-zonsondergang.webp" alt="" loading="lazy">
       </div>
-      <div class="fc-col fc-col--middle" aria-hidden="true">
-        <img class="fc-photo" data-h="very-tall" src="fotos/l26-hotel-zonsondergang.webp" alt="" loading="lazy" style="object-position:48% center">
+      <div class="b7a-col b7a-col--midden" aria-hidden="true">
+        <img class="b7a-foto" data-h="very-tall" src="fotos/l26-vk-bruidssuite.webp" alt="" loading="lazy">
       </div>
-      <div class="fc-col fc-col--outer fc-col--offset" aria-hidden="true">
-        <img class="fc-photo" data-h="medium" src="fotos/l26-bubbels-hero.webp" alt="" loading="lazy" style="object-position:40% center">
-        <img class="fc-photo" data-h="medium" src="fotos/l26-omg-bossen.webp" alt="" loading="lazy">
-        <img class="fc-photo" data-h="medium" src="fotos/l26-fitness.webp" alt="" loading="lazy">
+      <div class="b7a-col b7a-col--buiten b7a-col--offset" aria-hidden="true">
+        <img class="b7a-foto b7a-m" data-h="medium" src="fotos/l26-terras.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="fotos/l26-fitness.webp" alt="" loading="lazy">
+        <img class="b7a-foto" data-h="medium" src="fotos/l26-bubbels-koppel.webp" alt="" loading="lazy" style="object-position:right center">
       </div>
-      <div class="fc-col fc-col--outer" aria-hidden="true">
-        <img class="fc-photo" data-h="tall" src="fotos/l26-hotel-vijver.webp" alt="" loading="lazy" style="object-position:42% center">
-        <img class="fc-photo" data-h="tall" src="fotos/l26-borrel-terras.webp" alt="" loading="lazy" style="object-position:45% center">
+      <div class="b7a-col b7a-col--buiten" aria-hidden="true">
+        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/l26-omg-bossen.webp" alt="" loading="lazy">
+        <img class="b7a-foto b7a-m" data-h="tall" src="fotos/l26-hotel-buiten.webp" alt="" loading="lazy">
       </div>
-      <div class="fc-mobile-photos" aria-hidden="true">
-        <img src="fotos/l26-bubbels-koppel.webp" alt="" loading="lazy" style="object-position:66% center">
-        <img src="fotos/l26-wellness-boscabine.webp" alt="" loading="lazy" style="object-position:30% center">
-        <img src="fotos/l26-terras.webp" alt="" loading="lazy">
-      </div>
-      <div class="fc-content">
+      <div class="b7a-inhoud">
         <h2 id="slot-kop">Je <span class="g">bubbels</span> staan klaar</h2>
-        <p class="b9b-tekst">Boek een kamer met code JUBILEUM en er staat bij aankomst een fles bubbels koud op je kamer. Vragen? We helpen je graag verder.</p>
-        <a class="btn btn-primary mews-open" data-voucher="JUBILEUM" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM">Boek een kamer met code JUBILEUM</a>
-        <div class="b9b-regels">
-          <a class="b9b-regel" href="mailto:info@asteria.nl"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@asteria.nl</a>
-          <a class="b9b-regel" href="tel:+31478511466"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0478 511466</a>
+        <p class="b7a-tekst">Boek een kamer met code JUBILEUM en er staat bij aankomst een fles bubbels koud op je kamer. Vragen? We helpen je graag verder.</p>
+        <form class="b7a-balk as-booking-card--compact" data-boekbalk action="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" method="get" target="_blank" aria-label="Boek een kamer met code JUBILEUM">
+          <input type="hidden" name="mewsVoucherCode" value="JUBILEUM">
+          <div class="b7a-veld"><label class="b7a-label" for="bb2-gasten">Reisgezelschap</label><span class="b7a-waarde value">2 volwassenen</span><select class="field__invoer" id="bb2-gasten" name="mewsAdultCount" data-rol="gasten"><option value="1">1 volwassene</option><option value="2" selected>2 volwassenen</option><option value="3">3 volwassenen</option><option value="4">4 volwassenen</option></select></div>
+          <button type="submit" class="btn btn-primary">Boek met code JUBILEUM</button>
+        </form>
+        <div class="b7a-regels">
+          <a class="b7a-regel" href="mailto:info@asteria.nl"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@asteria.nl</a>
+          <a class="b7a-regel" href="tel:+31478511466"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>0478 511466</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══ POP-UPS: kamer (blok 4a) en faciliteit (blok 6a). Inhoud uit de JSON hieronder, vulling door lander-2026.js.
+
+  <!-- ══ POP-UP kamer (Bekijk kamer, blok 4b). Inhoud uit de JSON hieronder, vulling door lander-w1.js.
        Let op: geen key "imgs" in de kamerdata, anders overschrijft build.py fix_room_media() de media. ══ -->
   <dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam">
     <button type="button" class="lp-pop__sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -528,7 +538,8 @@
       </div>
     </div>
   </dialog>
-
+  <!-- ══ POP-UP faciliteit (knoppen Wellness en Restaurant in de tegelstrook, blok 2a). Overgenomen uit lander-2026
+       (#lp-pop-fac + #lp-facdata); zelfde lp-pop-CSS en open/sluit-logica als de kamer-pop-up. ══ -->
   <dialog class="lp-pop lp-pop--fac" id="lp-pop-fac" aria-modal="true" aria-labelledby="lp-pop-fac-titel">
     <button type="button" class="lp-pop__sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div class="lp-pop__binnen">
@@ -545,6 +556,44 @@
   <div class="lp-pop-overlay" hidden></div>
   <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>
 
+  <script type="application/json" id="lp-facdata">
+{
+ "wellness": {
+  "titel": "Wellness op de Top Floor",
+  "link": "https://www.asteria.nl/wellness",
+  "fotos": [
+   "fotos/wellness-spa.webp",
+   "fotos/wp-sauna-fins.webp",
+   "fotos/wp-sauna-zoutsteen.webp",
+   "fotos/l26-wellness-dompelbad.webp"
+  ],
+  "tekst": "Op de Top Floor van het hotel ligt de wellness van ruim 300 m², met vier sauna's, een stoomcabine, belevenisdouches, een dompel- en kruidenbad, voetenbaden en een relaxruimte. Dinsdag is badkledingdag, op de andere dagen ga je zonder badkleding. Reserveer vooraf bij de receptie.",
+  "chips": [
+   "Ruim 300 m²",
+   "Vier sauna's en stoomcabine",
+   "Ma-do 16.00-22.00 uur",
+   "Vr-zo 12.00-22.00 uur"
+  ]
+ },
+ "restaurant": {
+  "titel": "Restaurant en terras",
+  "link": "https://www.asteria.nl/restaurant",
+  "fotos": [
+   "fotos/l26-fac-restaurant-1.webp",
+   "fotos/l26-fac-restaurant-2.webp",
+   "fotos/l26-fac-restaurant-3.webp",
+   "fotos/l26-terras.webp"
+  ],
+  "tekst": "In het restaurant koken we met de seizoenen, met dagverse streekproducten. In de brasserie met open haard schuif je aan voor lunch, diner of een drankje; het diner serveren we tot 21.30 uur. Bij mooi weer zit je op ons zonnige terras aan de bossen. Op vaste data is er een zondagsbrunch met live cooking.",
+  "chips": [
+   "Brasserie ma-vr 07.00-00.00 uur",
+   "Za-zo 08.00-01.00 uur",
+   "Diner tot 21.30 uur",
+   "Zondagsbrunch op vaste data"
+  ]
+ }
+}
+  </script>
   <script type="application/json" id="lp-kamerdata">
 {
  "comfort": {
@@ -732,129 +781,6 @@
  }
 }
   </script>
-  <script type="application/json" id="lp-facdata">
-{
- "wellness": {
-  "titel": "Wellness op de Top Floor",
-  "link": "https://www.asteria.nl/wellness",
-  "fotos": [
-   "fotos/wellness-spa.webp",
-   "fotos/wp-sauna-fins.webp",
-   "fotos/wp-sauna-zoutsteen.webp",
-   "fotos/l26-wellness-dompelbad.webp"
-  ],
-  "tekst": "Op de Top Floor van het hotel ligt de wellness van ruim 300 m², met vier sauna's, een stoomcabine, belevenisdouches, een dompel- en kruidenbad, voetenbaden en een relaxruimte. Dinsdag is badkledingdag, op de andere dagen ga je zonder badkleding. Reserveer vooraf bij de receptie.",
-  "chips": [
-   "Ruim 300 m²",
-   "Vier sauna's en stoomcabine",
-   "Ma-do 16.00-22.00 uur",
-   "Vr-zo 12.00-22.00 uur"
-  ]
- },
- "fitness": {
-  "titel": "Fitness",
-  "link": "https://www.asteria.nl/wellnessfaciliteiten",
-  "fotos": [
-   "fotos/wp-gym.webp",
-   "fotos/l26-fac-fitness-2.webp",
-   "fotos/l26-fac-fitness-3.webp",
-   "fotos/l26-fac-fitness-4.webp"
-  ],
-  "tekst": "In de moderne fitnessruimte van het hotel train je op cardio- en krachtapparatuur. De ruimte is vrij toegankelijk voor hotelgasten.",
-  "chips": [
-   "Vrij toegankelijk",
-   "Voor hotelgasten",
-   "Cardio",
-   "Kracht"
-  ]
- },
- "restaurant": {
-  "titel": "Restaurant en brasserie",
-  "link": "https://www.asteria.nl/restaurant",
-  "fotos": [
-   "fotos/l26-fac-restaurant-1.webp",
-   "fotos/l26-fac-restaurant-2.webp",
-   "fotos/l26-fac-restaurant-3.webp",
-   "fotos/l26-fac-restaurant-4.webp"
-  ],
-  "tekst": "In het restaurant koken we met de seizoenen, met dagverse streekproducten. In de brasserie met open haard schuif je aan voor lunch, diner of een drankje; het diner serveren we tot 21.30 uur. Op vaste data is er een zondagsbrunch met live cooking.",
-  "chips": [
-   "Brasserie ma-vr 07.00-00.00 uur",
-   "Za-zo 08.00-01.00 uur",
-   "Diner tot 21.30 uur",
-   "Zondagsbrunch op vaste data"
-  ]
- },
- "terras": {
-  "titel": "Terras",
-  "link": "https://www.asteria.nl/restaurant",
-  "fotos": [
-   "fotos/l26-terras.webp",
-   "fotos/l26-fac-terras-2.webp",
-   "fotos/l26-fac-terras-3.webp",
-   "fotos/l26-fac-terras-4.webp"
-  ],
-  "tekst": "Bij mooi weer zit je op ons zonnige terras aan de bossen. Je kunt er terecht voor lunch, een borrel of het diner.",
-  "chips": [
-   "Aan de bossen",
-   "Open bij mooi weer",
-   "Lunch en borrel",
-   "Diner"
-  ]
- },
- "omgeving": {
-  "titel": "Omgeving",
-  "link": "https://www.asteria.nl/omgeving",
-  "fotos": [
-   "fotos/l26-omg-bossen.webp",
-   "fotos/omgeving-maasduinen.webp",
-   "fotos/omgeving-kasteeltuinen.webp",
-   "fotos/l26-fac-omgeving-4.webp"
-  ],
-  "tekst": "Hotel Asteria ligt direct aan de A73, afrit 8. Vanuit het hotel wandel en fiets je naar Nationaal Park De Maasduinen en De Groote Peel, en het centrum van Venray ligt op fietsafstand. Gratis fiets- en wandelroutes haal je bij de receptie.",
-  "chips": [
-   "A73, afrit 8",
-   "Nationaal Park De Maasduinen",
-   "Kasteeltuinen Arcen op 25 km",
-   "Gratis routes bij de receptie"
-  ]
- },
- "ontbijt": {
-  "titel": "Ontbijt",
-  "link": "https://www.asteria.nl/restaurant",
-  "fotos": [
-   "fotos/restaurant-ontbijt.webp",
-   "fotos/l26-fac-ontbijt-2.webp",
-   "fotos/l26-fac-ontbijt-3.webp",
-   "fotos/l26-ontbijt.webp"
-  ],
-  "tekst": "Je dag begint met een uitgebreid ontbijtbuffet. Het ontbijt is bij elke kamer inbegrepen.",
-  "chips": [
-   "Ontbijtbuffet",
-   "Inbegrepen bij je kamer",
-   "Ma t/m vr 07.00-10.00 uur",
-   "Za en zo 08.00-10.30 uur"
-  ]
- },
- "borrel": {
-  "titel": "Borrel en bar",
-  "link": "https://www.asteria.nl/restaurant",
-  "fotos": [
-   "fotos/l26-fac-borrel-1.webp",
-   "fotos/l26-fac-borrel-2.webp",
-   "fotos/l26-fac-borrel-3.webp",
-   "fotos/l26-fac-borrel-4.webp"
-  ],
-  "tekst": "In de brasserie en bar drink je een borrel of een glas aan de open haard. Bij mooi weer schuif je aan op het terras.",
-  "chips": [
-   "Brasserie en bar",
-   "Open haard",
-   "Ma-vr tot 00.00 uur",
-   "Za-zo tot 01.00 uur"
-  ]
- }
-}
-  </script>
 
 </main>
 
@@ -921,7 +847,8 @@
 
 <!-- ══ ONDERBALK TELEFOON ══ -->
 <div class="mob-cta" aria-hidden="true">
-  <div><b>Fles bubbels op de kamer</b><span class="om">Gratis met code JUBILEUM</span></div>
+  <a class="mob-cta-bel" href="tel:+31478511466" aria-label="Bel Hotel Asteria: 0478 511466" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
+  <div><b>Gratis bubbels</b><span class="om">code JUBILEUM</span></div>
   <a class="btn btn-primary mews-open" data-voucher="JUBILEUM" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM" tabindex="-1">Boek een kamer</a>
 </div>
 
