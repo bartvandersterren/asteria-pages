@@ -904,7 +904,7 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .cookie-banner button:hover{background:var(--terracotta-hover)}
 
 /* ===================================================================================
-   POP-UP (kamer): <dialog class="lp-pop">, gevuld door lander-w1.js.
+   POP-UPS (kamer en faciliteit): <dialog class="lp-pop">, gevuld door lander-w1.js.
    Ivoor, radius 14, shadow-deep, max 760 px; telefoon volle breedte met 12 px marge.
    Fallback zonder showModal: .lp-pop.is-open + .lp-pop-overlay.
    =================================================================================== */
@@ -1026,8 +1026,8 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .b1k-kaart--vast .b1k-kfoto img{position:absolute;inset:0}
 }
 @media (min-width:1024px){
-  /* rechts schuift de kaart mee naar buiten (tot 40 px van de rand), zodat tegelstrook + kaart samen gecentreerd staan en de kolom breder wordt */
-  .lp .lp-zone{display:grid;grid-template-columns:minmax(0,1fr) 352px;column-gap:44px;padding-inline:max(var(--gutter),(100% - 1120px) / 2) calc(max(var(--gutter),(100% - 1120px) / 2) - max(0px,(100vw - 1120px) / 2 - 40px))}
+  /* rechts schuift de kaart mee naar buiten (tot 80 px van de rand), zodat tegelstrook + kaart samen gecentreerd staan en de kolom breder wordt */
+  .lp .lp-zone{display:grid;grid-template-columns:minmax(0,1fr) 352px;column-gap:44px;padding-inline:max(var(--gutter),(100% - 1120px) / 2) calc(max(var(--gutter),(100% - 1120px) / 2) - max(0px,(100vw - 1120px) / 2 - 80px))}
   .lp .lp-zone-hoofd{min-width:0}
   .lp .lp-zone .wrap{width:100%}
   .lp .lp-zone-kant{display:block;padding:var(--gap-section) 0 var(--kant-onder,var(--gap-section))}
@@ -1035,6 +1035,10 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   /* 3a: drie kolommen passen niet naast de kaart; opbouw zoals tablet */
   /* 3a: redenenwiel zoals /herfst (2d): staande foto, de punten schuiven er half overheen in een boog */
   .lp .lp-zone .b3a-grid{grid-template-columns:300px minmax(0,1fr);grid-template-areas:"tekst tekst" "foto lijst" "knop knop";grid-template-rows:none;row-gap:32px;column-gap:0;align-items:center}
+  /* 3a: minder lucht boven en onder (was 2 x 96 = 192 px tussen 2a/3a en 3a/4b, nu 2 x 36 = 72 px) */
+  .lp .lp-zone .b2a{padding-bottom:36px}
+  .lp .lp-zone .b3a{padding-block:36px}
+  .lp .lp-zone .b4b{padding-top:36px}
   .lp .lp-zone .b3a-foto{height:auto;aspect-ratio:391/618;position:relative;z-index:1}
   .lp .lp-zone .b3a-knop{padding-top:0}
   .lp .lp-zone .b3a-rechts{position:relative;z-index:2;margin-left:-40px}
@@ -1049,8 +1053,8 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .lp-zone .b4b-kop{flex-wrap:wrap;gap:20px 32px}
   .lp .lp-zone .b4b-inhoud h3{font-size:26px}
   /* 2a: vier tegels (het bos valt weg) zodat de smalle tegels hun kop heel houden; uitschuiven blijft */
-  /* 2a: de strook neemt links de marge naast de kolom in (tot 40 px van de schermrand), rechts stopt hij bij de kolom */
-  .lp .lp-zone .b2a-strook{gap:12px;--links:max(0px,(100vw - 1120px) / 2 - 40px);margin-left:calc(-1 * var(--links));width:calc(100% + var(--links))}
+  /* 2a: de strook neemt links de marge naast de kolom in (tot 80 px van de schermrand), rechts stopt hij bij de kolom */
+  .lp .lp-zone .b2a-strook{gap:12px;--links:max(0px,(100vw - 1120px) / 2 - 80px);margin-left:calc(-1 * var(--links));width:calc(100% + var(--links))}
   .lp .lp-zone .b2a-tegel:nth-child(5){display:none}
   .lp .lp-zone .b2a-tegel.is-active{flex:1.9}
   .lp .lp-zone .b2a-tegel:not(.is-active) .b2a-label,.lp .lp-zone .b2a-tegel:first-child:not(.is-active) .b2a-label{left:14px;right:14px;bottom:20px}
