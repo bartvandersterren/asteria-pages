@@ -34,6 +34,7 @@ ivoren sectie, geen overloop op 390. Waarom Asteria: wiel met 6 echte punten en 
 de foto. FAQ: 4 tot 8 vragen, eerste open. Zondagblok alleen als de pagina het heeft (ZV_TOON); zonder: geen blok, geen
 zondagregel in zij- en telefoonkaart, geen zondag-FAQ. Boekbalk: actiecode volledig zichtbaar (ook een code van 14 tekens),
 vertrek = aankomst + data-nachten (ARR_NACHTEN, standaard 1), widget krijgt N nachten ook als het vertrek te kort stond.
+De prijskalender (arrangement-kalender.js) staat in deze test uit (eigen test: scripts/test_arr_kalender.py).
 Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
 
 Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER in de JSON: bedankt en gemist):
@@ -108,6 +109,10 @@ def nieuwe_pagina(b, w, h, mob, rustig=False):
                         reduced_motion='reduce' if rustig else 'no-preference')
     ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
     ctx.add_init_script(ANKERS)
+    if PRIJS:
+        # De prijskalender (arrangement-kalender.js) vangt de boekknoppen en de boekbalk af; die heeft een eigen test
+        # (scripts/test_arr_kalender.py). Hier staat hij uit, zodat de checks de onderliggende Mews-flow zien.
+        ctx.route('**/arrangement-kalender.js', lambda r: r.fulfill(status=200, content_type='application/javascript', body=''))
     pg = ctx.new_page()
     pg._fouten = []
     pg.on('console', lambda m: pg._fouten.append(m.text) if m.type == 'error' else None)
@@ -128,6 +133,8 @@ with sync_playwright() as p:
         check('[bron] één reviewgetal (2.280) in badge, zijkaart en reviewkop, geen 2.200',
               '2.200' not in bron and bron.count('2.280 reviews') >= 3, str(bron.count('2.280 reviews')))
         check('[bron] geen tegelstrook (b2a)', 'class="sec b2a"' not in bron)
+        check('[bron] prijskalender aanwezig (dialoog #ar-kal + arrangement-kalender.js/.css)',
+              'id="ar-kal"' in bron and 'arrangement-kalender.js' in bron and 'arrangement-kalender.css' in bron and '{{KAL_' not in bron)
         ctx, pg = nieuwe_pagina(b, 1440, 900, False)
         links = pg.evaluate("[...document.querySelectorAll('a[href*=\"app.mews.com\"]')].map(a=>a.getAttribute('href'))")
         zonder = [l for l in links if 'mewsVoucherCode=' + VOUCHER not in l or '6dc9094c-76e3-4fd8-83a7-af1d00ffc556' not in l]

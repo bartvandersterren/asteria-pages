@@ -26,6 +26,7 @@
   "HERO_ALT": "Stel proost met een glas in de lounge van Hotel Asteria",
   "VOUCHER": "WEEKEND",
   "ARR_NACHTEN": 2,
+  "ARR_AANKOMSTDAGEN": [5, 6],
   "CODE_ATTR": "",
   "CTA": "Boek het weekend",
   "ARR_PRIJS_PIL": "vanaf € 166 p.p.",

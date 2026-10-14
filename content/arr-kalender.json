@@ -1,0 +1,47 @@
+{
+  "GOLF": {
+    "slug": "golfarrangement",
+    "nachten": 1,
+    "aankomstdagen": null,
+    "zondag": true,
+    "standaardkamer": "a8fd7310-0d61-422f-89e6-af1d00ffc315"
+  },
+  "LIMBURG": {
+    "slug": "limburg-arrangement",
+    "nachten": 3,
+    "aankomstdagen": null,
+    "zondag": true,
+    "standaardkamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
+  },
+  "NAJAAR2D": {
+    "slug": "najaarsarrangement",
+    "nachten": 1,
+    "aankomstdagen": null,
+    "zondag": true,
+    "standaardkamer": "c737de50-e41e-4c8d-a818-af1d00ffc315"
+  },
+  "OORLOGSMUSEUM": {
+    "slug": "oorlogsmuseum-arrangement",
+    "nachten": 1,
+    "aankomstdagen": null,
+    "zondag": true,
+    "standaardkamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
+  },
+  "WEEKEND": {
+    "slug": "weekend-aanbieding",
+    "nachten": 2,
+    "aankomstdagen": [
+      5,
+      6
+    ],
+    "zondag": false,
+    "standaardkamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
+  },
+  "WELLNESS2026": {
+    "slug": "wellness-arrangement",
+    "nachten": 1,
+    "aankomstdagen": null,
+    "zondag": true,
+    "standaardkamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
+  }
+}
