@@ -198,16 +198,16 @@
         "alt": "Bruidssuite bij Hotel Asteria",
         "specs": [
           [
-            "m2",
-            "36 m²"
-          ],
-          [
             "bed",
             "kingsize bed"
           ],
           [
             "bad",
             "vrijstaand ligbad"
+          ],
+          [
+            "bad",
+            "inloopdouche"
           ]
         ]
       }
