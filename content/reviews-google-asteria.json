@@ -1,0 +1,204 @@
+{
+ "bron": "Google Maps",
+ "profiel_url": "https://www.google.com/maps?cid=10392502528258527703",
+ "review_url": "https://search.google.com/local/writereview?placeid=ChIJ8QbzR7lqx0cR19Ey1PyVOZA",
+ "place_id": "ChIJ8QbzR7lqx0cR19Ey1PyVOZA",
+ "opgehaald": "2026-10-13",
+ "gemiddelde": 4.2,
+ "aantal": 2280,
+ "toelichting": "Opgehaald via Playwright van de Google-hotelweergave (google.com/travel, tab Reviews, gesorteerd op Meest recent, 400 reviews geladen, volledige tekst). De Maps-weergave toont voor dit hotelprofiel geen reviews. Alleen Google-reviews (geen Tripadvisor) met 4-5 sterren, Nederlandstalig, minimaal 40 tekens, tekst letterlijk; geselecteerd op concrete inhoud uit de nieuwste 400. 'datum' is de relatieve datum zoals Google die op de ophaaldatum toonde. Uitgesloten: door Google vertaalde reviews, reviews met emoji, niet-Nederlands, off-topic of negatief getinte reviews. review_id is zelf afgeleid (contributor-id + hash van de tekst) omdat de hotelweergave geen Google-review-id toont.",
+ "reviews": [
+  {
+   "naam": "Wilson Varela",
+   "sterren": 5,
+   "tekst": "Uitstekend in alle opzichten: personeel, accommodaties, eten, kamers en prijzen",
+   "datum": "een maand geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib102912969408948409843-c991d62f11"
+  },
+  {
+   "naam": "Fia Sardar",
+   "sterren": 5,
+   "tekst": "Personeel was behulpzaam en vriendelijke. Onze kamer en badkamer was top.",
+   "datum": "2 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib113675757738235719358-f48b85c875"
+  },
+  {
+   "naam": "Karin Van Zonneveld",
+   "sterren": 4,
+   "tekst": "Mooi hotel. Kamers netjes, niet al te groot. Wel 2 fauteuils met tafeltje en een grote inloopdouche. Fijne airco. Geen koelkastje, wel koffie en thee op de kamer. Ontbijt is prima. Diner is heerlijk. Mankeert niets aan.",
+   "datum": "3 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib110591471051581720373-a3f249bca5"
+  },
+  {
+   "naam": "Bart Bouwers",
+   "sterren": 5,
+   "tekst": "Prima plek om daar te zijn. Te eten en te overnachten. Gastvrije en leuke mensen die daar werken. Maakt het erg aangenaam als je een paar dagen bij huis en haard vandaan bent.",
+   "datum": "4 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib108988988870737080546-0da2a9e566"
+  },
+  {
+   "naam": "vanessa kors",
+   "sterren": 5,
+   "tekst": "Hele fijne plek om geweest te zijn. Mooi hotel, aardige medewerkers, nette kamers, mooi restaurant met buiten. Heerlijk wat drinken buiten met prima uitzicht...op de (snel)weg na. Maar ikzelf had daar niet heel veel last van.",
+   "datum": "4 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib111036789361445213314-85eb477121"
+  },
+  {
+   "naam": "Richard Franssen",
+   "sterren": 5,
+   "tekst": "Mijn partner en ik hebben bij Asteria ons huwelijk voltrokken. Asteria was zeer behulpzaam in aanloop naar en op de dag van het huwelijk. De manager dacht goed met ons mee over welke ruimtes gebruikt konden worden, het diner was heerlijk en het personeel dacht goed mee bij onverwachte dingen op de dag zelf. De prijs was uitstekend voor wat we kregen. Vooraf hadden we op de website al enkele prijzen gezien en in tegenstelling tot andere locaties die we bezocht hebben waren er geen verassingen rondom kosten. We zijn blij dat we hier onze bijzondere dag hebben kunnen volbrengen. Dank aan Yorick en het team van Asteria voor de bijzondere dag.",
+   "datum": "4 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib116192539111491299800-ac6b8dc13e"
+  },
+  {
+   "naam": "Dennis Vandervelde",
+   "sterren": 5,
+   "tekst": "Uitstekend Lekker bed, kamers schoon en netjes. Locatie prima als uitvalsbasis, in ons geval event in Overloon",
+   "datum": "4 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib103272463437568539133-33d1ac5c55"
+  },
+  {
+   "naam": "arthur goulooze",
+   "sterren": 5,
+   "tekst": "Heerlijk hotel, zalig ontbijt en heerlijke dinner keuzes!",
+   "datum": "6 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib109771684089062602338-fe0c3eda82"
+  },
+  {
+   "naam": "B Kruize",
+   "sterren": 5,
+   "tekst": "Het is altijd 1 rustpunt als wij van België of Duitsland komen en vooral gastvrij en vriendelijke bediening",
+   "datum": "6 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib101533139615374766796-c7f8abf3f6"
+  },
+  {
+   "naam": "Nicole Scholte",
+   "sterren": 5,
+   "tekst": "Heel goed hotel. Nette, ruime kamers. Grote gratis parkeerplaats. Uitgebreid ontbijt. Vriendelijk en behulpzaam personeel.",
+   "datum": "7 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib104356757383451231296-d2b33c8bef"
+  },
+  {
+   "naam": "Rick Wagemakers",
+   "sterren": 5,
+   "tekst": "Geweldig mooi hotel en omgeving. Goed eten prachtige kamers en behulpzaam personeel. Geweest tijdens Horst Schaaktoernooi.",
+   "datum": "8 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib117819524481482968541-4979d921f0"
+  },
+  {
+   "naam": "Roger Vogelzang",
+   "sterren": 5,
+   "tekst": "Heerlijk genoten van een mooi dartweekend. Kamers top, medewerkers vriendelijk, ontbijt genoeg variatie. Gratis parkeren. Top geregeld",
+   "datum": "9 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib100518923122107664989-7b4df40ce4"
+  },
+  {
+   "naam": "Davy Tollenaere",
+   "sterren": 5,
+   "tekst": "Heel aangenaam hotel, supervriendelijk. Verzorgde kamers en lekker ontbijt. De elektrische fiets is aan te raden om leuke tripjes te maken in de buurt.",
+   "datum": "11 maanden geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib109437040538617435101-da1183c9fb"
+  },
+  {
+   "naam": "Erwin Van Dijck",
+   "sterren": 5,
+   "tekst": "Mooi ingericht hotel met goed eten en vriendelijk personeel.",
+   "datum": "een jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib100435369788483829426-c5ce1249ff"
+  },
+  {
+   "naam": "Thea Sjoerdstra",
+   "sterren": 5,
+   "tekst": "Fijn hotel, vriendelijk en behulpzaam personeel, heerlijk gegeten. Schoon hotel. Prachtige, ruime kamer. Voor mij een dikke 10!!",
+   "datum": "een jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib116959902167356785519-57c0f988fb"
+  },
+  {
+   "naam": "Pj Zanten",
+   "sterren": 5,
+   "tekst": "Heerlijk eten Schone kamers Service is prima Locatie is goed",
+   "datum": "een jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib108985159377666280418-b716f9fb8f"
+  },
+  {
+   "naam": "Leon Boer",
+   "sterren": 5,
+   "tekst": "Fijn hotel. Goed eten en redelijke prijzen. Bediening erg vriendelijk en hulpvaardig. Aanbevolen!",
+   "datum": "een jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib115883109732701410679-7a5717ab57"
+  },
+  {
+   "naam": "Surilicious13",
+   "sterren": 5,
+   "tekst": "Bruiloft gevierd hier, mooie locatie, goede service en vriendelijk personeel.",
+   "datum": "een jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib117279828011546979292-f070be1c87"
+  },
+  {
+   "naam": "Bianca Smeets",
+   "sterren": 5,
+   "tekst": "Mooie ruime kamers ,netjes en heerlijk uitgebreid ontbijt. Enorm leuke locatie om iets te vieren.",
+   "datum": "een jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib112225403805364124785-e3771e501a"
+  },
+  {
+   "naam": "Bram",
+   "sterren": 5,
+   "tekst": "Zeer mooie nette kamers, lekker restaurant",
+   "datum": "een jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib101732067067497163440-a1aa920ec6"
+  },
+  {
+   "naam": "Chris Heemstra",
+   "sterren": 5,
+   "tekst": "Een schitterend hotel,echt 4 sterren waardig, ook een top ontbijt",
+   "datum": "een jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib101509797085744828893-03e09fd774"
+  },
+  {
+   "naam": "Gabriëlle Ton",
+   "sterren": 5,
+   "tekst": "Mooie kamers, vriendelijk deskundig personeel. Een mooi restaurant. Het restaurant heeft veel plaatsen maar voelt toch knus aan.",
+   "datum": "2 jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib113712219620385249255-a629946745"
+  },
+  {
+   "naam": "Piet Vlecken",
+   "sterren": 5,
+   "tekst": "Geweldig hotel.Vriendelijk personeel. Goed eten, goed ontbijt. Alles top. Al heel wat boekingen gedaan, dit was tot nu toe het allerbeste. Gr.Rose en PietVlecken.",
+   "datum": "2 jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib114325028788912104589-37cd58a054"
+  },
+  {
+   "naam": "Jenny Dello",
+   "sterren": 5,
+   "tekst": "Fantastisch goede service en fijne kamers. Leuke tijd gehad met mijn zus.",
+   "datum": "2 jaar geleden",
+   "bron": "https://www.google.com/maps?cid=10392502528258527703",
+   "review_id": "contrib102755085631954898075-46bd0a4d55"
+  }
+ ]
+}
