@@ -167,7 +167,8 @@ with sync_playwright() as p:
                 wat:document.querySelector('#ar-kal .ark-wat').textContent,btn:!document.querySelector('#ar-kal .ark-btn').disabled})""")
             bd = ad + timedelta(days=N)
             check(f'{tag} één klik = aankomst + {N} nachten (reeks gemarkeerd, knop aan)',
-                  len(k['sel']) == N and k['vertrek'] and k['vertrek'].get('d') == bd.isoformat() and f'{N} nachten' in k['wat'] and k['btn'], str(k))
+                  len(k['sel']) == N and ((k['vertrek'] and k['vertrek'].get('d') == bd.isoformat())
+                  or (not k['vertrek'] and not pg.evaluate(f"!!document.querySelector('#ar-kal .ark-d[data-d=\"{bd.isoformat()}\"]')"))) and f'{N} nachten' in k['wat'] and k['btn'], str(k))
         else:
             na = eerste_kiesbare(pg, na=a)
             bd = date.fromisoformat(na) if na else ad + timedelta(days=1)
@@ -215,8 +216,8 @@ with sync_playwright() as p:
                 pg.evaluate(STUB)
                 pg.locator('#ar-kal .ark-btn').click(); pg.wait_for_timeout(500)
                 m = pg.evaluate('window._mews.slice()')
-                check(f'{tag} bevestigen met kamer: widget krijgt datums, voucher en showRates(kamer)',
-                      m[:2] == [f's:{a2}', f'e:{b2}'] and f'v:{CODE}' in m and f'r:{kk["room"]}' in m, str(m))
+                check(f'{tag} bevestigen met kamer: widget krijgt datums, voucher, showRates(kamer) en open',
+                      m[:2] == [f's:{a2}', f'e:{b2}'] and f'v:{CODE}' in m and f'r:{kk["room"]}' in m and m[-1] == 'open', str(m))
                 print('     widget-log kamer:', json.dumps(m))
             else:
                 check(f'{tag} kamerknop: kiesbare dag gevonden', False, 'geen kiesbare dag voor deze kamer')

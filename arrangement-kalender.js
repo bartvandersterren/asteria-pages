@@ -318,11 +318,16 @@
     door.href = url;
     door.hidden = true;
     document.body.appendChild(door);
-    if (window.mewsApi) datums();
+    /* showRates() alleen opent de widget niet (getest 14 okt 2026 op config 6dc9094c): daarna nog open(), dan staat
+       hij op stap Tarieven met de datums. lander-w1.js doet bij de kamerknoppen alleen showRates; dat laten we daar. */
+    function openNa() { var api = window.mewsApi; if (api && api.open) api.open(); }
+    var klaarApi = !!window.mewsApi;
+    if (klaarApi) datums();
     door.click();
-    if (window._mewsPending) {
+    if (klaarApi) openNa();
+    else if (window._mewsPending) {
       var wachtend = window._mewsPending;
-      window._mewsPending = function () { datums(); wachtend(); };
+      window._mewsPending = function () { datums(); wachtend(); openNa(); };
     }
     setTimeout(function () { if (door.parentNode) door.parentNode.removeChild(door); }, 0);
   }
