@@ -266,6 +266,57 @@
   }
   lus(document.querySelector('.b4b-strook'), { tellers: '.b4b-nu', stippen: '.b4b-dot', volgende: '.b4b-volgende', vorige: '.b4b-vorige', formaat: function (i) { return String(i); } });
 
+  /* ── upgradeblok A · Ladder-slider (blok 3a-variant 'ladder'): één stap per keer, géén lus. Het spoor scrollt
+     native (swipe + scroll-snap, zoals de kamerslider); teller, streepjes en knoppen volgen de scrollpositie.
+     Vorige/volgende zijn aria-disabled aan het begin/eind (focus blijft op de knop), pijltjestoetsen werken
+     op het spoor en de knoppen. ── */
+  document.querySelectorAll('.b3l').forEach(function (blok) {
+    var spoor = blok.querySelector('.b3l-spoor'), stappen = spoor ? spoor.children : [], n = stappen.length;
+    if (!n) return;
+    var nu = blok.querySelector('.b3l-nu'), stippen = blok.querySelectorAll('.b3l-dot'),
+        vorige = blok.querySelector('.b3l-vorige'), volgende = blok.querySelector('.b3l-volgende'), huidig = 0;
+    var rustig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var breedte = function () { return spoor.clientWidth || 1; };
+    var toon = function (i) {
+      huidig = i;
+      if (nu) nu.textContent = String(i + 1);
+      Array.prototype.forEach.call(stippen, function (st, d) { st.classList.toggle('is-active', d === i); st.setAttribute('aria-selected', d === i ? 'true' : 'false'); });
+      Array.prototype.forEach.call(stappen, function (s, d) { if (d === i) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true'); });
+      if (vorige) vorige.setAttribute('aria-disabled', i === 0 ? 'true' : 'false');
+      if (volgende) volgende.setAttribute('aria-disabled', i === n - 1 ? 'true' : 'false');
+    };
+    var ga = function (i) {
+      i = Math.max(0, Math.min(n - 1, i));
+      if (i === huidig) return;
+      toon(i);
+      spoor.scrollTo({ left: i * breedte(), behavior: rustig ? 'auto' : 'smooth' });
+    };
+    var wacht;
+    spoor.addEventListener('scroll', function () {
+      clearTimeout(wacht);
+      wacht = setTimeout(function () {
+        var i = Math.max(0, Math.min(n - 1, Math.round(spoor.scrollLeft / breedte())));
+        if (i !== huidig) toon(i);
+      }, 80);
+    }, { passive: true });
+    if (vorige) vorige.addEventListener('click', function () { ga(huidig - 1); });
+    if (volgende) volgende.addEventListener('click', function () { ga(huidig + 1); });
+    Array.prototype.forEach.call(stippen, function (st, d) { st.addEventListener('click', function () { ga(d); }); });
+    blok.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      if (!(e.target === spoor || e.target.closest('.b3l-pijlen') || e.target.closest('.b3l-dots'))) return;
+      e.preventDefault();
+      ga(huidig + (e.key === 'ArrowRight' ? 1 : -1));
+      if (e.target.classList.contains('b3l-dot') && stippen[huidig]) stippen[huidig].focus();
+    });
+    var breed = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === breed) return;
+      breed = window.innerWidth; spoor.scrollLeft = huidig * breedte();
+    });
+    toon(0);
+  });
+
   /* ── onderbalk op de telefoon zodra de hero uit beeld is ── */
   var balk = document.querySelector('.mob-cta');
   /* op de telefoon staat de boekkaart onder de hero: de balk komt zodra die kaart (tot en met de trustregel) uit beeld is */

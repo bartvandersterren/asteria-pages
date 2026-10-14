@@ -10,6 +10,7 @@ Gebruik:
   python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' -> verblijfsverjaardag.html (live sinds 14 okt 2026; oude lander -> verblijfsverjaardag-oud.html)
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
   python3 build.py bedankt welkom-terug gemist verjaardag   # flow-landers op lander-w1 met zijkaart (zoals verblijfsverjaardag-v3)
+  python3 build.py welkom-v2           # welkomstlander (code WELKOM) op lander-w1 met zijkaart -> welkom.html (live /welkom; oude NL -> welkom-oud.html)
   python3 build.py najaarsarrangement-v2   # arrangementsjabloon: lander-w1 met blokken zijkaart + arrangement
   python3 build.py wellness nl        # wellness, alleen NL
 """
@@ -54,7 +55,7 @@ TEMPLATES = {
     'welkom': {
         'template': 'welkom.template.html',
         'langs': {
-            'nl': ('welkom.html',    'translations/welkom-nl.json'),
+            'nl': ('welkom-oud.html', 'translations/welkom-nl.json'),   # oude NL-lander; /welkom = welkom-v2 (sinds 14 okt 2026)
             'en': ('welkom-en.html', 'translations/welkom-en.json'),
             'de': ('welkom-de.html', 'translations/welkom-de.json'),
         },
@@ -112,6 +113,19 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True},
     } for s in ('bedankt', 'welkom-terug', 'gemist', 'verjaardag')},
+    # Welkomstlander (welkomstflow na nieuwsbriefaanmelding) op lander-w1 met zijkaart: code WELKOM,
+    # welkomstgeschenk (bubbels, badjas, badlaken) bij het eerste verblijf. Alleen NL, noindex.
+    # Blok 3a is het cadeaublok (variant 'cadeau', aan via CADEAU_ITEMS in de JSON, render_cadeau).
+    # Sinds 14 okt 2026 de live /welkom (welkom.html); oude NL-lander -> welkom-oud.html (entry 'welkom'),
+    # EN/DE blijven welkom-en/-de. /welkom-v2 -> 301 naar /welkom in _redirects.
+    'welkom-v2': {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': ('welkom.html', 'translations/welkom-v2-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'zijkaart': True},
+    },
     # Arrangementen op lander-w1 (blokken 'zijkaart' + 'arrangement'; arrangement.css/.js): alleen NL, noindex, niet in sitemap.
     # Nieuw arrangement = translations/<slug>-nl.json (kopie van najaarsarrangement-v2-nl.json) + slug in deze lijst.
     # Opbouw en velden: zie CLAUDE.md (Arrangementen op lander-w1) en apply_arrangement(). Schakelaars in de JSON:
@@ -226,7 +240,7 @@ def inject_welkom_booking():
     Idempotent via <!--WELKOM-BK--> markers; CTA-deeplinks worden herbedraad
     naar window.openBookingPopup(). Draait als post-stap na build('welkom')."""
     SRC = {
-        '':    ('happy-summer-arrangement.html',    'WELKOM'),
+        '-oud': ('happy-summer-arrangement.html',   'WELKOM'),   # oude NL-lander (welkom-oud.html)
         '-en': ('happy-summer-arrangement-en.html', 'WELCOME'),
         '-de': ('happy-summer-arrangement-de.html', 'WILLKOMMEN'),
     }
@@ -330,6 +344,99 @@ def inject_reviews(html, reviews_file, max_kaarten=24, max_tekens=260, voorkeur=
         html = html.replace('{{REVIEWS_AANTAL}}', f"{int(data['aantal']):,}".replace(',', '.'))
     html = html.replace('{{GOOGLE_PROFIEL}}', escape(profiel)).replace('{{GOOGLE_REVIEW_URL}}', escape(schrijf))
     return html
+
+
+LADDER_ICOON = {
+    'm2': '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',
+    'bed': '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/>',
+    'personen': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+    'sauna': '<path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/>',
+    'bad': '<path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/>',
+    'zit': '<path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM6 19v2M18 19v2"/>',
+}
+
+
+def render_ladder(cfg):
+    """Upgradeblok 'A · Ladder-slider' (blok 3a-variant 'ladder') uit UPGRADE_LADDER in de vertalings-JSON:
+    per stap twee kamerkaarten 'Je boekt' -> 'Upgrade' met een pijl, de winstregel eronder; teller,
+    streepjes en vorige/volgende-knoppen erboven, één vaste voetregel. Eén stap per keer, geen lus,
+    geen boekknop, geen prijzen. Vervangt <!-- UPGRADE_LADDER --> in lander-w1.template.html."""
+    from html import escape
+    e = lambda s: escape(s or '', quote=False)
+    a = lambda s: escape(s or '')
+    ic = lambda pad, kl='as-icoon': f'<svg class="{kl}" viewBox="0 0 24 24" aria-hidden="true">{pad}</svg>'
+    lab = cfg.get('labels', {})
+    kamers, stappen = cfg['kamers'], cfg['stappen']
+    n = len(stappen)
+
+    def kaart(sleutel, upgrade):
+        k = kamers[sleutel]
+        specs = ''.join(f'<li><span class="b3l-ic">{ic(LADDER_ICOON[s[0]])}</span>{e(s[1])}</li>' for s in k['specs'])
+        pil = (f'<span class="b3l-pil b3l-pil--up">{ic(LADDER_PIJL["op"])}{e(lab.get("upgrade", "Upgrade"))}</span>'
+               if upgrade else f'<span class="b3l-pil">{e(lab.get("boekt", "Je boekt"))}</span>')
+        return (f'<article class="b3l-kaart{" b3l-kaart--up" if upgrade else ""}">'
+                f'<div class="b3l-foto"><img src="{a(k["foto"])}" alt="{a(k["alt"])}" width="1400" height="933" loading="lazy">{pil}</div>'
+                f'<div class="b3l-inhoud">{pil}<h3>{e(k["naam"])}</h3><ul class="b3l-specs">{specs}</ul></div></article>')
+
+    blokken = []
+    for i, s in enumerate(stappen):
+        van, naar = kamers[s['van']]['naam'], kamers[s['naar']]['naam']
+        blokken.append(
+            f'        <div class="b3l-stap" role="group" aria-roledescription="stap" aria-label="Stap {i + 1} van {n}: {a(van)} naar {a(naar)}"'
+            + ('' if i == 0 else ' aria-hidden="true"') + '>\n'
+            f'          <div class="b3l-route">{kaart(s["van"], False)}<span class="b3l-pijl" aria-hidden="true">'
+            f'{ic(LADDER_PIJL["rechts"], "as-icoon b3l-pijl-r")}{ic(LADDER_PIJL["omlaag"], "as-icoon b3l-pijl-o")}</span>{kaart(s["naar"], True)}</div>\n'
+            f'          <p class="b3l-winst"><span class="b3l-vink">{ic(LADDER_PIJL["vink"])}</span><span><b>{e(lab.get("erbij", "Je krijgt erbij:"))}</b> {e(s["winst"])}</span></p>\n'
+            '        </div>')
+    dots = ''.join(
+        f'<button type="button" class="b3l-dot{" is-active" if i == 0 else ""}" role="tab" aria-selected="{"true" if i == 0 else "false"}" '
+        f'aria-label="Stap {i + 1}: {a(kamers[s["van"]]["naam"])} naar {a(kamers[s["naar"]]["naam"])}"></button>'
+        for i, s in enumerate(stappen))
+    nav = (f'      <div class="b3l-nav"><span class="b3l-tel" aria-live="polite"><b class="b3l-nu">1</b> van <b>{n}</b></span>'
+           f'<div class="b3l-dots" role="tablist" aria-label="Upgradestappen">{dots}</div>'
+           f'<div class="b3l-pijlen"><button type="button" class="as-pijl b3l-vorige" aria-label="Vorige stap" aria-disabled="true">{ic(LADDER_PIJL["links"])}</button>'
+           f'<button type="button" class="as-pijl b3l-volgende" aria-label="Volgende stap">{ic(LADDER_PIJL["chev-r"])}</button></div></div>\n')
+    return ('<div class="b3l" aria-roledescription="carrousel" aria-label="Zo ziet je upgrade eruit">\n' + nav
+            + '      <div class="b3l-spoor strook-scroll" tabindex="0" aria-label="Upgradestappen, schuif of gebruik de pijltjestoetsen">\n'
+            + '\n'.join(blokken) + '\n      </div>\n'
+            + f'      <p class="b3l-voet">{e(cfg.get("voet"))}</p>\n    </div>')
+
+
+def render_cadeau(items, voet):
+    """Cadeaublok (blok 3a-variant 'cadeau') uit CADEAU_ITEMS in de vertalings-JSON: drie fotokaarten naast
+    elkaar in de kaartstijl van het upgradeblok (b3l-kaart) met badge (standaard 'Gratis'), naam en één regel,
+    daaronder één voetregel (CADEAU_VOET). Geen boekknop, geen prijzen. Telefoon: kaarten onder elkaar, foto
+    links. Vervangt <!-- CADEAU_ITEMS --> in lander-w1.template.html; de intro is de tekst-key CADEAU_INTRO."""
+    from html import escape
+    e = lambda s: escape(s or '', quote=False)
+    a = lambda s: escape(s or '')
+
+    def kaart(it):
+        pil = f'<span class="b3l-pil b3l-pil--up">{e(it.get("badge", "Gratis"))}</span>'
+        return (f'        <article class="b3l-kaart b3c-kaart" role="listitem">'
+                f'<div class="b3l-foto"><img src="{a(it["foto"])}" alt="{a(it["alt"])}" width="1200" height="800" loading="lazy">{pil}</div>'
+                f'<div class="b3l-inhoud">{pil}<h3>{e(it["naam"])}</h3><p class="b3c-regel">{e(it["regel"])}</p></div></article>')
+
+    return ('<div class="b3c">\n      <div class="b3c-rij" role="list">\n'
+            + '\n'.join(kaart(it) for it in items) + '\n      </div>\n'
+            + f'      <p class="b3l-voet b3c-voet">{e(voet)}</p>\n    </div>')
+
+
+LADDER_PIJL = {
+    'links': '<path d="M15 18l-6-6 6-6"/>',
+    'chev-r': '<path d="M9 18l6-6-6-6"/>',
+    'rechts': '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    'omlaag': '<path d="M12 5v14M6 13l6 6 6-6"/>',
+    'op': '<path d="M12 19V5M5 12l7-7 7 7"/>',
+    'vink': '<path d="M20 6L9 17l-5-5"/>',
+}
+
+
+ATTENTIE_ICOON_STANDAARD = {
+    'PUNT_TWEE_ICOON': '<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>',
+    'PUNT_DRIE_ICOON': '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
+    'PUNT_VIJF_ICOON': '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/>',
+}
 
 
 def apply_blokken(html, aan):
@@ -498,14 +605,31 @@ def build(template_name, lang):
     with open(json_path, encoding='utf-8') as f:
         translations = json.load(f)
 
-    # Variantblokken (bijv. zijkaart) vóór de {{KEY}}-pass
-    aan = {k for k, v in config.get('blokken', {}).items() if v}
+    # Optioneel upgradeblok (ladder) staat aan zodra de JSON een UPGRADE_LADDER heeft (geen tekst-key)
+    ladder = translations.pop('UPGRADE_LADDER', None)
+    # Optioneel cadeaublok (cadeau) staat aan zodra de JSON CADEAU_ITEMS heeft (lijst; CADEAU_VOET hoort erbij)
+    cadeau = translations.pop('CADEAU_ITEMS', None)
+    cadeau_voet = translations.pop('CADEAU_VOET', '') if cadeau else None
+    # Ster-split (blok 3a): iconen van punt 2, 3 en 5 zijn per JSON te kiezen (standaard sleutel, label, kalender);
+    # de knop onder het blok volgt ATTENTIE_KNOP (ontbreekt = tekst van CTA, leeg = geen knop).
+    for k, v in ATTENTIE_ICOON_STANDAARD.items():
+        translations.setdefault(k, v)
+    translations.setdefault('ATTENTIE_KNOP', translations.get('CTA', ''))
+    aan = ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+           | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
+
     if 'arrangement' in aan:
         # arrangementblokken aan/uit per arrangement in de JSON
         if translations.get('ZV_TOON'): aan.add('zondag')
         if translations.get('WAAROM_TOON', True): aan.add('waarom')
         if translations.get('ANDERE_TOON') and translations.get('_andere'): aan.add('andere')
+
+    # Variantblokken (bijv. zijkaart, ladder, cadeau, arrangement) vóór de {{KEY}}-pass
     html = apply_blokken(html, aan)
+    if ladder:
+        html = html.replace('<!-- UPGRADE_LADDER -->', render_ladder(ladder))
+    if cadeau:
+        html = html.replace('<!-- CADEAU_ITEMS -->', render_cadeau(cadeau, cadeau_voet))
 
     for key, value in translations.items():
         if isinstance(value, str) and not key.startswith('_'):

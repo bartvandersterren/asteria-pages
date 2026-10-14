@@ -35,6 +35,18 @@ de foto. FAQ: 4 tot 8 vragen, eerste open. Zondagblok alleen als de pagina het h
 zondagregel in zij- en telefoonkaart, geen zondag-FAQ. Boekbalk: actiecode volledig zichtbaar (ook een code van 14 tekens),
 vertrek = aankomst + data-nachten (ARR_NACHTEN, standaard 1), widget krijgt N nachten ook als het vertrek te kort stond.
 Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
+
+Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER in de JSON: bedankt en gemist):
+  ... http://localhost:8765/bedankt.html --v3 --voucher BEDANKT --ladder
+Met --ladder: blok aanwezig (ster-split weg, kop blijft), teller 1 van 5, beginstand (vorige uit), volgende/vorige,
+geen lus aan het eind (volgende uit), streepjes, pijltjestoetsen, swipe (scrollpositie), alleen de actieve stap voor
+schermlezers, kaarten passen in de kolom (1440: links van de zijkaart; 390: onder elkaar). Zonder --ladder: blok afwezig.
+
+Cadeaublok (blok 3a-variant 'cadeau', aan via CADEAU_ITEMS in de JSON, welkom, sinds 14 okt op /welkom):
+  ... http://localhost:8765/welkom.html --v3 --voucher WELKOM --cadeau
+Met --cadeau: blok aanwezig (ster-split weg, ster en kop blijven), 3 kaarten met badge, voetregel, geen knop of link in het
+blok, kaarten passen in de kolom zonder overloop (>= 720: naast elkaar, >= 1024 links van de zijkaart; 390: onder elkaar,
+foto links). Zonder --cadeau: blok afwezig.
 """
 import sys, json
 from datetime import date, timedelta
@@ -44,6 +56,11 @@ args = [a for a in sys.argv[1:]]
 shotdir = None
 V3 = '--v3' in args
 if V3: args.remove('--v3')
+LADDER = '--ladder' in args
+LADDER_N = 5   # stappen in het upgradeblok: Comfort > Royale > Deluxe > Junior Suite > Suite > Bruidssuite
+if LADDER: args.remove('--ladder')
+CADEAU = '--cadeau' in args
+if CADEAU: args.remove('--cadeau')
 VOUCHER = 'JUBILEUM'
 if '--voucher' in args:
     i = args.index('--voucher'); VOUCHER = args[i + 1]; del args[i:i + 2]
@@ -65,6 +82,26 @@ ANKERS = ("window.__anker='.ar-inb .wrap';window.__ankerSec='.ar-inb';window.__v
 def check(naam, ok, info=''):
     resultaten.append((naam, ok, info))
     print(('OK   ' if ok else 'FOUT ') + naam + (f'  ({info})' if info else ''))
+
+def cadeau_layout(pg, w):
+    """Cadeaublok: 3 kaarten binnen de rij, geen overloop; >= 720 naast elkaar (>= 1024 links van de zijkaart), < 720 onder elkaar met de foto links."""
+    pg.evaluate("window.scrollTo(0, document.querySelector('#attentie').getBoundingClientRect().top + scrollY - 120)"); pg.wait_for_timeout(500)
+    m = pg.evaluate("""()=>{const rij=document.querySelector('#attentie .b3c-rij'),r=rij.getBoundingClientRect(),
+        k=[...rij.querySelectorAll('.b3c-kaart')],kr=k.map(x=>x.getBoundingClientRect()),
+        f=k.map(x=>x.querySelector('.b3l-foto').getBoundingClientRect()),i=k.map(x=>x.querySelector('.b3l-inhoud').getBoundingClientRect()),
+        z=document.querySelector('.lp-zone-kant .b1k-kaart--vast'),zr=z?z.getBoundingClientRect():null;
+        return {over:Math.max(rij.scrollWidth-rij.clientWidth,...k.map(x=>x.scrollWidth-x.clientWidth)),
+          inRij:kr.every(q=>q.left>=r.left-1&&q.right<=r.right+1),
+          naast:kr[1].left>kr[0].right&&kr[2].left>kr[1].right&&Math.abs(kr[0].top-kr[2].top)<2,
+          onder:kr[1].top>=kr[0].bottom&&kr[2].top>=kr[1].bottom, fotoLinks:f.every((q,j)=>q.right<=i[j].left+1),
+          zijL:zr&&zr.width&&getComputedStyle(z).position==='sticky'?Math.round(zr.left):null, kR:Math.round(Math.max(...kr.map(q=>q.right))),
+          L:Math.round(r.left), R:Math.round(r.right)}}""")
+    if w >= 720:
+        ok = m['over'] <= 0 and m['inRij'] and m['naast'] and (w < 1024 or (m['zijL'] is not None and m['kR'] < m['zijL']))
+        check(f'[{w}] cadeaukaarten naast elkaar in de kolom' + (', links van de zijkaart' if w >= 1024 else '') + ', geen overloop', ok, str(m))
+    else:
+        check(f'[{w}] cadeaukaarten onder elkaar, foto links, geen overloop', m['over'] <= 0 and m['inRij'] and m['onder'] and m['fotoLinks'], str(m))
+    return m
 
 def nieuwe_pagina(b, w, h, mob, rustig=False):
     ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob,
@@ -117,6 +154,8 @@ with sync_playwright() as p:
             pg.locator('.b1k-tab').click(); pg.wait_for_timeout(700)
             sw = pg.evaluate('document.documentElement.scrollWidth')
             check(f'[{w}] geen horizontale overloop (tab + open kaart)', sw <= w, f'scrollWidth {sw}')
+        if CADEAU:
+            cadeau_layout(pg, w)
         eigen = [f for f in pg._fouten if 'mews' not in f.lower()]
         check(f'[{w}] geen consolefouten (eigen code)', not eigen, '; '.join(eigen)[:300])
         ctx.close()
@@ -134,6 +173,80 @@ with sync_playwright() as p:
         # FAQ
         open_ = pg.evaluate("[...document.querySelectorAll('.b6c details')].map(d=>d.open)")
         check(f'{tag} eerste FAQ open, rest dicht', open_[0] and not any(open_[1:]), str(open_))
+
+        # upgradeblok A · Ladder-slider
+        if not LADDER:
+            if CADEAU or PRIJS:   # cadeaublok of arrangement: geen ster-split
+                check(f'{tag} geen upgradeblok (ladder)', pg.locator('.b3l').count() == 0)
+            else:
+                check(f'{tag} geen upgradeblok (ladder), ster-split aanwezig', pg.locator('.b3l').count() == 0 and pg.locator('#attentie .b3a-grid').count() == 1)
+        else:
+            check(f'{tag} upgradeblok aanwezig in #attentie, ster-split weg, kop blijft',
+                  pg.locator('#attentie .b3l').count() == 1 and pg.locator('.b3a-grid').count() == 0 and pg.locator('#attentie .b3a-ster').count() == 1
+                  and 'de upgrade' in pg.locator('#attentie h2').inner_text() and pg.locator('.b3l-stap').count() == LADDER_N)
+            check(f'{tag} upgradeblok zonder boekknop en zonder prijzen',
+                  pg.locator('#attentie a, #attentie .mews-open').count() == 0 and '\u20ac' not in pg.locator('#attentie').inner_text())
+            pg.locator('#attentie').scroll_into_view_if_needed(); pg.wait_for_timeout(400)
+            ls = lambda: pg.evaluate("""()=>{const b=document.querySelector('.b3l'),sp=b.querySelector('.b3l-spoor');
+                return {nu:b.querySelector('.b3l-nu').textContent, tot:b.querySelector('.b3l-tel').innerText,
+                  vorige:b.querySelector('.b3l-vorige').getAttribute('aria-disabled'), volgende:b.querySelector('.b3l-volgende').getAttribute('aria-disabled'),
+                  dot:[...b.querySelectorAll('.b3l-dot')].map((d,i)=>d.classList.contains('is-active')&&d.getAttribute('aria-selected')==='true'?i+1:0).filter(Boolean).join(','),
+                  zicht:[...b.querySelectorAll('.b3l-stap')].map((s,i)=>s.hasAttribute('aria-hidden')?0:i+1).filter(Boolean).join(','),
+                  pos:Math.round(sp.scrollLeft/sp.clientWidth*100)/100}}""")
+            s0 = ls()
+            check(f'{tag} ladder beginstand: 1 van {LADDER_N}, vorige uit, volgende aan', s0['nu'] == '1' and str(LADDER_N) in s0['tot'] and s0['vorige'] == 'true'
+                  and s0['volgende'] == 'false' and s0['dot'] == '1' and s0['zicht'] == '1' and s0['pos'] == 0, str(s0))
+            pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900); s1 = ls()
+            check(f'{tag} ladder volgende: 2 van {LADDER_N}, streepje 2, vorige aan', s1['nu'] == '2' and s1['dot'] == '2' and s1['zicht'] == '2'
+                  and s1['vorige'] == 'false' and s1['pos'] == 1, str(s1))
+            for _ in range(LADDER_N - 3):
+                pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900)
+            pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900); s3 = ls()
+            pg.locator('.b3l-volgende').click(force=True); pg.wait_for_timeout(900); s4 = ls()   # aria-disabled: klik moet niets doen
+            check(f'{tag} ladder eindstand: {LADDER_N} van {LADDER_N}, volgende uit, geen lus', s3['nu'] == str(LADDER_N) and s3['volgende'] == 'true'
+                  and s4['nu'] == str(LADDER_N) and s4['pos'] == LADDER_N - 1 and s4['zicht'] == str(LADDER_N), f'{s3} / {s4}')
+            pg.locator('.b3l-vorige').click(); pg.wait_for_timeout(900); s5 = ls()
+            check(f'{tag} ladder vorige: {LADDER_N - 1} van {LADDER_N}, volgende weer aan', s5['nu'] == str(LADDER_N - 1) and s5['volgende'] == 'false'
+                  and s5['dot'] == str(LADDER_N - 1), str(s5))
+            pg.locator('.b3l-dot').nth(0).click(); pg.wait_for_timeout(1100); s6 = ls()
+            check(f'{tag} ladder streepje 1 springt terug naar het begin', s6['nu'] == '1' and s6['vorige'] == 'true' and s6['pos'] == 0, str(s6))
+            pg.locator('.b3l-spoor').focus(); pg.keyboard.press('ArrowRight'); pg.wait_for_timeout(900); k1 = ls()
+            pg.keyboard.press('ArrowLeft'); pg.wait_for_timeout(900); k2 = ls()
+            check(f'{tag} ladder pijltjestoetsen (rechts 2, links 1)', (k1['nu'], k2['nu']) == ('2', '1'), f"{k1['nu']},{k2['nu']}")
+            pg.evaluate("(()=>{const sp=document.querySelector('.b3l-spoor');sp.scrollTo({left:sp.clientWidth*2,behavior:'auto'})})()"); pg.wait_for_timeout(700); sw2 = ls()
+            check(f'{tag} ladder volgt swipe/scroll (stap 3)', sw2['nu'] == '3' and sw2['dot'] == '3', str(sw2))
+            m = pg.evaluate("""()=>{const st=[...document.querySelectorAll('.b3l-stap')],sp=document.querySelector('.b3l-spoor').getBoundingClientRect(),
+                k=[...document.querySelectorAll('.b3l-stap:nth-child(3) .b3l-kaart')].map(x=>x.getBoundingClientRect()),
+                z=document.querySelector('.lp-zone-kant .b1k-kaart--vast'),zr=z?z.getBoundingClientRect():null;
+                return {over:st.map(s=>s.scrollWidth-s.clientWidth).reduce((a,b)=>Math.max(a,b)),inSpoor:k.every(r=>r.left>=sp.left-1&&r.right<=sp.right+1),
+                  naast:k[1].left>k[0].right, onder:k[1].top>k[0].bottom, zijL:zr&&zr.width?zr.left:null, kR:Math.max(k[0].right,k[1].right)}}""")
+            if w >= 1024:
+                check(f'{tag} ladderkaarten naast elkaar in de kolom, links van de zijkaart, geen overloop',
+                      m['over'] <= 0 and m['inSpoor'] and m['naast'] and m['zijL'] is not None and m['kR'] < m['zijL'], str(m))
+            else:
+                check(f'{tag} ladderkaarten onder elkaar, geen overloop', m['over'] <= 0 and m['inSpoor'] and m['onder'], str(m))
+            pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(300)
+
+        # cadeaublok (blok 3a-variant 'cadeau')
+        if not CADEAU:
+            check(f'{tag} geen cadeaublok', pg.locator('.b3c').count() == 0)
+        else:
+            check(f'{tag} cadeaublok aanwezig in #attentie, ster-split weg, ster en kop blijven, 3 kaarten',
+                  pg.locator('#attentie .b3c').count() == 1 and pg.locator('.b3a-grid').count() == 0 and pg.locator('#attentie .b3a-foto, #attentie .b3a-lijst').count() == 0
+                  and pg.locator('#attentie .b3a-ster').count() == 1 and 'het cadeau' in pg.locator('#attentie h2').inner_text()
+                  and pg.locator('#attentie .b3c-kaart').count() == 3)
+            check(f'{tag} cadeaublok zonder knop of link en zonder prijzen',
+                  pg.locator('#attentie a, #attentie button, #attentie .btn, #attentie .mews-open').count() == 0 and '\u20ac' not in pg.locator('#attentie').inner_text())
+            pg.locator('#attentie').scroll_into_view_if_needed(); pg.wait_for_timeout(600)
+            zicht = pg.evaluate("""()=>[...document.querySelectorAll('#attentie .b3c-kaart')].map(k=>{const p=[...k.querySelectorAll('.b3l-pil')].filter(x=>x.offsetParent);
+                return {pil:p.length===1?p[0].innerText.trim():p.length, h3:k.querySelector('h3').innerText, regel:k.querySelector('.b3c-regel').innerText,
+                  foto:k.querySelector('img').complete&&k.querySelector('img').naturalWidth>0}})""")
+            check(f'{tag} elke kaart: één zichtbare badge (Gratis of Te leen), naam, regel, foto geladen',
+                  all(z['pil'].upper() in ('GRATIS', 'TE LEEN') if isinstance(z['pil'], str) else False for z in zicht) and all(z['h3'] and z['regel'] and z['foto'] for z in zicht), str(zicht))
+            check(f'{tag} voetregel onder de kaarten', 'eerste verblijf' in pg.locator('#attentie .b3c-voet').inner_text()
+                  and pg.evaluate("document.querySelector('#attentie .b3c-voet').getBoundingClientRect().top>=document.querySelector('#attentie .b3c-rij').getBoundingClientRect().bottom"))
+            cadeau_layout(pg, w)
+            pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(300)
 
         raster = pg.evaluate("!!document.querySelector('.ar-kamers')")
         if raster:
