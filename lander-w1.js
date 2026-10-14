@@ -268,7 +268,8 @@
 
   /* ── onderbalk op de telefoon zodra de hero uit beeld is ── */
   var balk = document.querySelector('.mob-cta');
-  var hero = document.querySelector('.b1a');
+  /* op de telefoon staat de boekkaart onder de hero: de balk komt zodra die kaart (tot en met de trustregel) uit beeld is */
+  var hero = document.querySelector('.b1a-mobkaart .b1k-kaart') || document.querySelector('.b1a');
   if (balk && hero && 'IntersectionObserver' in window) {
     new IntersectionObserver(function (items) {
       var it = items[0];
