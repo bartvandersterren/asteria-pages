@@ -17,6 +17,16 @@ Variant v3 (zijkaart):  python3 scripts/test_lander_w1.py http://localhost:8765/
 In plaats van de uitklaptab-checks: geen tab in de DOM, kaart naast de tegels (1440 en 1100), sticky in beeld
 midden kamerslider, weg en zonder overlap bij de reviewmuur, knop opent Mews met JUBILEUM, op 800 als blok na 3a,
 op 390 geen kaart; overloop ook 1280/1100/1024/800.
+
+Flow-landers (zelfde sjabloon als v3):  ... http://localhost:8765/bedankt.html --v3 --voucher BEDANKT
+(--voucher, standaard JUBILEUM, is de code die de Mews-knoppen en de boekbalk moeten meegeven; bij een andere
+code dan JUBILEUM checkt de test ook dat JUBILEUM en 'verblijfsverjaardag' niet in de zichtbare tekst staan.)
+
+Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER in de JSON, nu alleen bedankt):
+  ... http://localhost:8765/bedankt.html --v3 --voucher BEDANKT --ladder
+Met --ladder: blok aanwezig (ster-split weg, kop blijft), teller 1 van 4, beginstand (vorige uit), volgende/vorige,
+geen lus aan het eind (volgende uit), streepjes, pijltjestoetsen, swipe (scrollpositie), alleen de actieve stap voor
+schermlezers, kaarten passen in de kolom (1440: links van de zijkaart; 390: onder elkaar). Zonder --ladder: blok afwezig.
 """
 import sys, json
 from datetime import date, timedelta
@@ -26,6 +36,11 @@ args = [a for a in sys.argv[1:]]
 shotdir = None
 V3 = '--v3' in args
 if V3: args.remove('--v3')
+LADDER = '--ladder' in args
+if LADDER: args.remove('--ladder')
+VOUCHER = 'JUBILEUM'
+if '--voucher' in args:
+    i = args.index('--voucher'); VOUCHER = args[i + 1]; del args[i:i + 2]
 if '--schermafdruk' in args:
     i = args.index('--schermafdruk'); shotdir = args[i + 1]; del args[i:i + 2]
 URL = args[0] if args else 'http://localhost:8765/verblijfsverjaardag-v2.html'
@@ -77,10 +92,63 @@ with sync_playwright() as p:
         ctx, pg = nieuwe_pagina(b, w, h, mob)
         sw = pg.evaluate('document.documentElement.scrollWidth')
         check(f'{tag} geen horizontale overloop', sw <= w, f'scrollWidth {sw}')
+        if VOUCHER != 'JUBILEUM':
+            tekst = pg.evaluate('document.body.innerText')
+            rest = [t for t in ('JUBILEUM', 'verblijfsverjaardag', 'Verblijfsverjaardag') if t in tekst]
+            check(f'{tag} geen resten van de verblijfsverjaardag in de tekst', not rest, ', '.join(rest))
+            check(f'{tag} code {VOUCHER} in de tekst', VOUCHER in tekst)
 
         # FAQ
         open_ = pg.evaluate("[...document.querySelectorAll('.b6c details')].map(d=>d.open)")
         check(f'{tag} eerste FAQ open, rest dicht', open_[0] and not any(open_[1:]), str(open_))
+
+        # upgradeblok A · Ladder-slider
+        if not LADDER:
+            check(f'{tag} geen upgradeblok (ladder), ster-split aanwezig', pg.locator('.b3l').count() == 0 and pg.locator('#attentie .b3a-grid').count() == 1)
+        else:
+            check(f'{tag} upgradeblok aanwezig in #attentie, ster-split weg, kop blijft',
+                  pg.locator('#attentie .b3l').count() == 1 and pg.locator('.b3a-grid').count() == 0 and pg.locator('#attentie .b3a-ster').count() == 1
+                  and 'de upgrade' in pg.locator('#attentie h2').inner_text() and pg.locator('.b3l-stap').count() == 4)
+            check(f'{tag} upgradeblok zonder boekknop en zonder prijzen',
+                  pg.locator('#attentie a, #attentie .mews-open').count() == 0 and '\u20ac' not in pg.locator('#attentie').inner_text())
+            pg.locator('#attentie').scroll_into_view_if_needed(); pg.wait_for_timeout(400)
+            ls = lambda: pg.evaluate("""()=>{const b=document.querySelector('.b3l'),sp=b.querySelector('.b3l-spoor');
+                return {nu:b.querySelector('.b3l-nu').textContent, tot:b.querySelector('.b3l-tel').innerText,
+                  vorige:b.querySelector('.b3l-vorige').getAttribute('aria-disabled'), volgende:b.querySelector('.b3l-volgende').getAttribute('aria-disabled'),
+                  dot:[...b.querySelectorAll('.b3l-dot')].map((d,i)=>d.classList.contains('is-active')&&d.getAttribute('aria-selected')==='true'?i+1:0).filter(Boolean).join(','),
+                  zicht:[...b.querySelectorAll('.b3l-stap')].map((s,i)=>s.hasAttribute('aria-hidden')?0:i+1).filter(Boolean).join(','),
+                  pos:Math.round(sp.scrollLeft/sp.clientWidth*100)/100}}""")
+            s0 = ls()
+            check(f'{tag} ladder beginstand: 1 van 4, vorige uit, volgende aan', s0['nu'] == '1' and '4' in s0['tot'] and s0['vorige'] == 'true'
+                  and s0['volgende'] == 'false' and s0['dot'] == '1' and s0['zicht'] == '1' and s0['pos'] == 0, str(s0))
+            pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900); s1 = ls()
+            check(f'{tag} ladder volgende: 2 van 4, streepje 2, vorige aan', s1['nu'] == '2' and s1['dot'] == '2' and s1['zicht'] == '2'
+                  and s1['vorige'] == 'false' and s1['pos'] == 1, str(s1))
+            pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900)
+            pg.locator('.b3l-volgende').click(); pg.wait_for_timeout(900); s3 = ls()
+            pg.locator('.b3l-volgende').click(force=True); pg.wait_for_timeout(900); s4 = ls()   # aria-disabled: klik moet niets doen
+            check(f'{tag} ladder eindstand: 4 van 4, volgende uit, geen lus', s3['nu'] == '4' and s3['volgende'] == 'true' and s4['nu'] == '4'
+                  and s4['pos'] == 3 and s4['zicht'] == '4', f'{s3} / {s4}')
+            pg.locator('.b3l-vorige').click(); pg.wait_for_timeout(900); s5 = ls()
+            check(f'{tag} ladder vorige: 3 van 4, volgende weer aan', s5['nu'] == '3' and s5['volgende'] == 'false' and s5['dot'] == '3', str(s5))
+            pg.locator('.b3l-dot').nth(0).click(); pg.wait_for_timeout(1100); s6 = ls()
+            check(f'{tag} ladder streepje 1 springt terug naar het begin', s6['nu'] == '1' and s6['vorige'] == 'true' and s6['pos'] == 0, str(s6))
+            pg.locator('.b3l-spoor').focus(); pg.keyboard.press('ArrowRight'); pg.wait_for_timeout(900); k1 = ls()
+            pg.keyboard.press('ArrowLeft'); pg.wait_for_timeout(900); k2 = ls()
+            check(f'{tag} ladder pijltjestoetsen (rechts 2, links 1)', (k1['nu'], k2['nu']) == ('2', '1'), f"{k1['nu']},{k2['nu']}")
+            pg.evaluate("(()=>{const sp=document.querySelector('.b3l-spoor');sp.scrollTo({left:sp.clientWidth*2,behavior:'auto'})})()"); pg.wait_for_timeout(700); sw2 = ls()
+            check(f'{tag} ladder volgt swipe/scroll (stap 3)', sw2['nu'] == '3' and sw2['dot'] == '3', str(sw2))
+            m = pg.evaluate("""()=>{const st=[...document.querySelectorAll('.b3l-stap')],sp=document.querySelector('.b3l-spoor').getBoundingClientRect(),
+                k=[...document.querySelectorAll('.b3l-stap:nth-child(3) .b3l-kaart')].map(x=>x.getBoundingClientRect()),
+                z=document.querySelector('.lp-zone-kant .b1k-kaart--vast'),zr=z?z.getBoundingClientRect():null;
+                return {over:st.map(s=>s.scrollWidth-s.clientWidth).reduce((a,b)=>Math.max(a,b)),inSpoor:k.every(r=>r.left>=sp.left-1&&r.right<=sp.right+1),
+                  naast:k[1].left>k[0].right, onder:k[1].top>k[0].bottom, zijL:zr&&zr.width?zr.left:null, kR:Math.max(k[0].right,k[1].right)}}""")
+            if w >= 1024:
+                check(f'{tag} ladderkaarten naast elkaar in de kolom, links van de zijkaart, geen overloop',
+                      m['over'] <= 0 and m['inSpoor'] and m['naast'] and m['zijL'] is not None and m['kR'] < m['zijL'], str(m))
+            else:
+                check(f'{tag} ladderkaarten onder elkaar, geen overloop', m['over'] <= 0 and m['inSpoor'] and m['onder'], str(m))
+            pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(300)
 
         # kamerslider
         tel = lambda: pg.locator('.b4b-nu').inner_text()
@@ -199,7 +267,7 @@ with sync_playwright() as p:
                 pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
                 pg.locator('.lp-zone-kant .b1k-knop').click(); pg.wait_for_timeout(300)
                 r = pg.evaluate('window._mews.slice()')
-                check(f'{tag} knop in de kaart opent Mews met voucher JUBILEUM', r == ['v:JUBILEUM', 'open'], str(r))
+                check(f'{tag} knop in de kaart opent Mews met voucher {VOUCHER}', r == ['v:' + VOUCHER, 'open'], str(r))
                 pg.evaluate("delete window.mewsApi")
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(400)
 
@@ -242,7 +310,7 @@ with sync_playwright() as p:
             pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
             pg.locator('.b1k-paneel .b1k-knop').click(); pg.wait_for_timeout(300)
             r = pg.evaluate('window._mews.slice()')
-            check(f'{tag} knop in de kaart opent Mews met voucher JUBILEUM', r == ['v:JUBILEUM', 'open'], str(r))
+            check(f'{tag} knop in de kaart opent Mews met voucher {VOUCHER}', r == ['v:' + VOUCHER, 'open'], str(r))
             pg.evaluate("delete window.mewsApi")
             pg.evaluate("document.querySelector('.b7a').scrollIntoView({block:'center'})"); pg.wait_for_timeout(900)
             t2 = tabst()
@@ -256,7 +324,7 @@ with sync_playwright() as p:
             mk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),f=document.querySelector('.b1a-balk'),h=document.querySelector('.b1a-tekst h1, .b1a h1');
                 const r=k.getBoundingClientRect(),kn=k.querySelector('.b1k-knop');
                 return {kaart:r.height>300&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
-                        knop:kn&&kn.classList.contains('mews-open')&&kn.dataset.voucher==='JUBILEUM'}})()""")
+                        knop:kn&&kn.classList.contains('mews-open')&&kn.dataset.voucher===%r}})()""" % VOUCHER)
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
         else:
             # boekbalk (laatst, laadt de Mews-widget)
@@ -274,8 +342,8 @@ with sync_playwright() as p:
             pg.wait_for_timeout(7000)
             log = pg.evaluate('window.lpBoekbalk') or {}
             u = log.get('url', '')
-            check(f'{tag} boekbalk-URL bevat JUBILEUM, mewsStart, mewsEnd, mewsAdultCount=3',
-                  'mewsVoucherCode=JUBILEUM' in u and f'mewsStart={a.isoformat()}' in u
+            check(f'{tag} boekbalk-URL bevat {VOUCHER}, mewsStart, mewsEnd, mewsAdultCount=3',
+                  f'mewsVoucherCode={VOUCHER}' in u and f'mewsStart={a.isoformat()}' in u
                   and f'mewsEnd={(a + timedelta(days=2)).isoformat()}' in u and 'mewsAdultCount=3' in u, u)
             widget = pg.evaluate("!!document.querySelector('iframe[src*=\"mews\"], .mews-distributor, [class*=\"mews\"] iframe')")
             check(f'{tag} boekbalk opent Mews (widget of URL-fallback)',
