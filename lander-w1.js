@@ -269,8 +269,9 @@
   /* ── onderbalk op de telefoon zodra de hero uit beeld is ── */
   var balk = document.querySelector('.mob-cta');
   /* op de telefoon staat de boekkaart onder de hero: de balk komt zodra die kaart (tot en met de trustregel) uit beeld is */
-  var hero = document.querySelector('.b1a-mobkaart .b1k-kaart') || document.querySelector('.b1a');
-  if (balk && hero && 'IntersectionObserver' in window) {
+  var hero = document.querySelector('.b1a');
+  var balkDoel = document.querySelector('.b1a-mobkaart .b1k-kaart') || hero;
+  if (balk && balkDoel && 'IntersectionObserver' in window) {
     new IntersectionObserver(function (items) {
       var it = items[0];
       var weg = !it.isIntersecting && it.boundingClientRect.top < 0;
@@ -279,7 +280,7 @@
       document.documentElement.style.setProperty('--mob-cta-h', balk.offsetHeight + 'px');
       balk.setAttribute('aria-hidden', weg ? 'false' : 'true');
       balk.querySelectorAll('a').forEach(function (a) { a.setAttribute('tabindex', weg ? '0' : '-1'); });
-    }).observe(hero);
+    }).observe(balkDoel);
   }
 
   /* ── uitklaptab (≥720): zichtbaar tussen hero en slotblok 7a; klik klapt de boekkaart uit ── */
