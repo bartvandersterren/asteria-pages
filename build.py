@@ -114,6 +114,7 @@ TEMPLATES = {
     } for s in ('bedankt', 'welkom-terug', 'gemist', 'verjaardag')},
     # Welkomstlander (welkomstflow na nieuwsbriefaanmelding) op lander-w1 met zijkaart: code WELKOM,
     # welkomstgeschenk (bubbels, badjas, badlaken) bij het eerste verblijf. Alleen NL, noindex.
+    # Blok 3a is het cadeaublok (variant 'cadeau', aan via CADEAU_ITEMS in de JSON, render_cadeau).
     # De oude /welkom (welkom.template.html, NL/EN/DE) blijft tot akkoord Stijn ongewijzigd.
     'welkom-v2': {
         'template': 'lander-w1.template.html',
@@ -378,6 +379,26 @@ def render_ladder(cfg):
             + f'      <p class="b3l-voet">{e(cfg.get("voet"))}</p>\n    </div>')
 
 
+def render_cadeau(items, voet):
+    """Cadeaublok (blok 3a-variant 'cadeau') uit CADEAU_ITEMS in de vertalings-JSON: drie fotokaarten naast
+    elkaar in de kaartstijl van het upgradeblok (b3l-kaart) met badge (standaard 'Gratis'), naam en één regel,
+    daaronder één voetregel (CADEAU_VOET). Geen boekknop, geen prijzen. Telefoon: kaarten onder elkaar, foto
+    links. Vervangt <!-- CADEAU_ITEMS --> in lander-w1.template.html; de intro is de tekst-key CADEAU_INTRO."""
+    from html import escape
+    e = lambda s: escape(s or '', quote=False)
+    a = lambda s: escape(s or '')
+
+    def kaart(it):
+        pil = f'<span class="b3l-pil b3l-pil--up">{e(it.get("badge", "Gratis"))}</span>'
+        return (f'        <article class="b3l-kaart b3c-kaart" role="listitem">'
+                f'<div class="b3l-foto"><img src="{a(it["foto"])}" alt="{a(it["alt"])}" width="1200" height="800" loading="lazy">{pil}</div>'
+                f'<div class="b3l-inhoud">{pil}<h3>{e(it["naam"])}</h3><p class="b3c-regel">{e(it["regel"])}</p></div></article>')
+
+    return ('<div class="b3c">\n      <div class="b3c-rij" role="list">\n'
+            + '\n'.join(kaart(it) for it in items) + '\n      </div>\n'
+            + f'      <p class="b3l-voet b3c-voet">{e(voet)}</p>\n    </div>')
+
+
 LADDER_PIJL = {
     'links': '<path d="M15 18l-6-6 6-6"/>',
     'chev-r': '<path d="M9 18l6-6-6-6"/>',
@@ -425,12 +446,18 @@ def build(template_name, lang):
 
     # Optioneel upgradeblok (ladder) staat aan zodra de JSON een UPGRADE_LADDER heeft (geen tekst-key)
     ladder = translations.pop('UPGRADE_LADDER', None)
-    aan = {k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+    # Optioneel cadeaublok (cadeau) staat aan zodra de JSON CADEAU_ITEMS heeft (lijst; CADEAU_VOET hoort erbij)
+    cadeau = translations.pop('CADEAU_ITEMS', None)
+    cadeau_voet = translations.pop('CADEAU_VOET', '') if cadeau else None
+    aan = ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+           | ({'cadeau'} if cadeau else set()))
 
-    # Variantblokken (bijv. zijkaart, ladder) vóór de {{KEY}}-pass
+    # Variantblokken (bijv. zijkaart, ladder, cadeau) vóór de {{KEY}}-pass
     html = apply_blokken(html, aan)
     if ladder:
         html = html.replace('<!-- UPGRADE_LADDER -->', render_ladder(ladder))
+    if cadeau:
+        html = html.replace('<!-- CADEAU_ITEMS -->', render_cadeau(cadeau, cadeau_voet))
 
     for key, value in translations.items():
         html = html.replace('{{' + key + '}}', value)

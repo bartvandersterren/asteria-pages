@@ -1216,3 +1216,23 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .b3l-ic{width:24px;height:24px}
   .lp .b3l-ic .as-icoon{width:12px;height:12px}
 }
+
+/* ---------- blok 3a-variant 'cadeau': cadeaublok met drie fotokaarten (alleen als de JSON CADEAU_ITEMS heeft) ----------
+   Kop van 3a blijft (ster + h2 + intro), daaronder drie kaarten naast elkaar in de kaartstijl van het upgradeblok
+   (b3l-kaart, badge b3l-pil--up) en één voetregel (b3l-voet). Geen knop. Breedte en positie via .b3l-wrap (>= 1024 in de
+   zijkaart-zone: 1440 = 100-944 px). Telefoon: onder elkaar, compact met de foto links (b3l-kaart-regels <= 719). */
+.lp .b3c-rij{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:28px 0 20px}
+.lp .b3c-kaart .b3l-inhoud{gap:8px;padding:14px 8px 8px}
+.lp .b3c-kaart h3{font-size:24px;line-height:1.05}
+.lp .b3c-regel{margin:0;font-size:14px;line-height:1.45;color:var(--ink-soft)}
+@media (min-width:720px) and (max-width:1279px){
+  .lp .b3c-rij{gap:12px}
+  .lp .b3c-kaart h3{font-size:21px}
+  .lp .b3c-regel{font-size:13px}
+}
+@media (max-width:719px){
+  .lp .b3c-rij{grid-template-columns:minmax(0,1fr);gap:12px;margin:22px 0 16px}
+  .lp .b3c-kaart .b3l-foto{min-height:112px}
+  .lp .b3c-kaart .b3l-inhoud{padding:8px 6px 8px 12px;gap:6px}
+  .lp .b3c-kaart h3{font-size:22px}
+}
