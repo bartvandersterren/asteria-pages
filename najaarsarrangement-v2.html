@@ -208,90 +208,31 @@
       <ul class="ar-tijden" aria-label="Praktisch"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg><span>Inchecken vanaf 15.00</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Uitchecken tot 11.00</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Diner tot 21.30</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg><span>Gratis parkeren</span></li></ul>
     </div>
   </section>
-  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Vijf designopties a-e in de HTML;
-       zichtbaar is de optie uit de class ar-zv-optie-X op de sectie (standaard a). arrangement.js leest ?zv=a..e en toont dan
-       rechtsonder een keuzeschakelaar. Na de keuze blijft alleen de gekozen optie over. ══ -->
-  <section class="sec ar-sec ar-zv ar-zv-optie-a" data-toon="paper" aria-label="Zondagvoordeel">
+  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a2 (14 okt):
+       zondagkaart groot (1,65fr) met pil, grote prijs en doorgestreepte gewone prijs; gewone kaart klein en transparant.
+       Telefoon: een kolom. ══ -->
+  <section class="sec ar-sec ar-zv" data-toon="paper" aria-label="Zondagvoordeel">
     <div class="wrap">
-      <!-- a: twee kaarten -->
-      <div class="ar-zv-optie ar-zv-optie--a" data-zv="a">
-        <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
-        <div class="ar-zv-grid">
-          <div class="ar-zv-kaart ar-zv-kaart--zondag">
-            <span class="ar-zv-pil">− € 20 per kamer</span>
-            <h3>Aankomst op zondag</h3>
-            <p class="ar-zv-vanaf">vanaf</p>
+      <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
+      <div class="ar-zv-grid">
+        <div class="ar-zv-kaart ar-zv-kaart--zondag">
+          <span class="ar-zv-pil">− € 20 per kamer</span>
+          <h3>Aankomst op zondag</h3>
+          <p class="ar-zv-vanaf">vanaf</p>
+          <div class="ar-zv-rij">
             <p class="ar-zv-prijs"><b>€ 118,50</b> <span>p.p.</span></p>
             <p class="ar-zv-was"><s>€ 128,50</s></p>
-            <p class="ar-zv-regel">Automatisch verrekend met code NAJAAR2D</p>
           </div>
-          <div class="ar-zv-kaart">
-            <h3>Aankomst ma t/m za</h3>
-            <p class="ar-zv-vanaf">vanaf</p>
-            <p class="ar-zv-prijs"><b>€ 128,50</b> <span>p.p.</span></p>
-            <p class="ar-zv-regel">Gewone prijs op de andere dagen</p>
-          </div>
+          <p class="ar-zv-regel"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Automatisch verrekend met code NAJAAR2D</p>
         </div>
-        <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
-      </div>
-      <!-- b: weekstrook, zondag uitgelicht -->
-      <div class="ar-zv-optie ar-zv-optie--b" data-zv="b">
-        <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
-        <ol class="ar-zv-week" aria-label="Vanafprijs per aankomstdag">
-          <li><span class="ar-zv-dag">Ma</span><b>€ 128,50</b></li>
-          <li><span class="ar-zv-dag">Di</span><b>€ 128,50</b></li>
-          <li><span class="ar-zv-dag">Wo</span><b>€ 128,50</b></li>
-          <li><span class="ar-zv-dag">Do</span><b>€ 128,50</b></li>
-          <li><span class="ar-zv-dag">Vr</span><b>€ 128,50</b></li>
-          <li><span class="ar-zv-dag">Za</span><b>€ 128,50</b></li>
-          <li class="is-zondag"><span class="ar-zv-dag">Zo</span><b>€ 118,50</b><s>€ 128,50</s><span class="ar-zv-pil">− € 20 per kamer</span></li>
-        </ol>
-        <p class="ar-zv-uitleg">Vanafprijs per aankomstdag, p.p. per nacht. Automatisch verrekend met code NAJAAR2D.</p>
-        <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
-      </div>
-      <!-- c: brede band met prijs en knop -->
-      <div class="ar-zv-optie ar-zv-optie--c" data-zv="c">
-        <div class="ar-zv-band">
-          <div class="ar-zv-band-tekst">
-            <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
-            <p class="ar-zv-regel"><b>Aankomst op zondag</b><br>Automatisch verrekend met code NAJAAR2D.</p>
-            <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
-          </div>
-          <div class="ar-zv-band-prijs">
-            <span class="ar-zv-pil">− € 20 per kamer</span>
-            <p class="ar-zv-prijs"><b>€ 118,50</b> <span>p.p.</span></p>
-            <p class="ar-zv-was">in plaats van <s>€ 128,50</s></p>
-            <a class="btn btn-primary ar-zv-zondagknop" data-voucher="NAJAAR2D" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=NAJAAR2D" target="_blank" rel="noopener">Boek een zondag</a>
-          </div>
-        </div>
-      </div>
-      <!-- d: foto-split met prijsvergelijking -->
-      <div class="ar-zv-optie ar-zv-optie--d" data-zv="d">
-        <div class="ar-zv-split">
-          <div class="ar-zv-split-foto"><img src="fotos/zm-ontbijt.webp" alt="Stel lacht samen aan een uitgebreide brunch met jus d’orange" loading="lazy"></div>
-          <div class="ar-zv-split-tekst">
-            <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
-            <p class="ar-zv-regel">Automatisch verrekend met code NAJAAR2D.</p>
-            <dl class="ar-zv-vergelijk">
-              <div class="is-zondag"><dt>Aankomst op zondag</dt><dd><b>€ 118,50</b> <span>p.p.</span></dd></div>
-              <div><dt>Aankomst ma t/m za</dt><dd><b>€ 128,50</b> <span>p.p.</span></dd></div>
-            </dl>
-            <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
-          </div>
-        </div>
-      </div>
-      <!-- e: schakelaar zondag / andere dag (zonder JS staat zondag aan) -->
-      <div class="ar-zv-optie ar-zv-optie--e" data-zv="e">
-        <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
-        <div class="ar-zv-schakel is-zondag" data-zv-schakel>
-          <div class="ar-zv-seg" role="group" aria-label="Aankomstdag"><button type="button" class="ar-zv-segknop" data-dag="zondag" aria-pressed="true">Zondag</button><button type="button" class="ar-zv-segknop" data-dag="anders" aria-pressed="false">Andere dag</button></div>
+        <div class="ar-zv-kaart">
+          <h3>Aankomst ma t/m za</h3>
           <p class="ar-zv-vanaf">vanaf</p>
-          <p class="ar-zv-prijs" aria-live="polite"><b data-zondag="€ 118,50" data-anders="€ 128,50">€ 118,50</b> <span>p.p.</span> <s class="ar-zv-alleen-zondag">€ 128,50</s></p>
-          <p class="ar-zv-regel" data-zondag="Automatisch verrekend met code NAJAAR2D" data-anders="Gewone prijs op de andere dagen">Automatisch verrekend met code NAJAAR2D</p>
-          <span class="ar-zv-pil ar-zv-alleen-zondag">− € 20 per kamer</span>
+          <p class="ar-zv-prijs"><b>€ 128,50</b> <span>p.p.</span></p>
+          <p class="ar-zv-regel">Gewone prijs op de andere dagen</p>
         </div>
-        <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
       </div>
+      <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
     </div>
   </section>
   <!-- ══ ARRANGEMENT 4: WAAROM ASTERIA (build-blok 'waarom', aan met WAAROM_TOON). Vaste inhoud, zoals de staging-homepage

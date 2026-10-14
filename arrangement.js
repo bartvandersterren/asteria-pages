@@ -2,9 +2,7 @@
    1. Kamerraster (.ar-kamers, 1 of 2 kamers): de meelopende zijkaart stopt gelijk met de onderkant van de kamerkaarten
       (--kant-onder op .lp-zone, zoals lander-w1.js dat voor de slider doet). Vanaf 3 kamers doet lander-w1.js alles.
    2. Fotoslider in 'Dit is inbegrepen' (Parkhotel .wv-fs): vegen = scroll-snap, pijlen rondlopend, bolletjes; geen autoplay.
-   3. Zondagvoordeel: ?zv=a..e kiest de designoptie en toont rechtsonder een keuzeschakelaar; optie e wisselt zondag/andere dag;
-      'Boek een zondag' (optie c) vult de boekbalk met de eerstvolgende zondag.
-   4. Waarom Asteria: draaiend wiel zoals de staging-homepage (4 klonen voor en na, autoplay 2400 ms alleen in beeld,
+   3. Waarom Asteria: draaiend wiel zoals de staging-homepage (4 klonen voor en na, autoplay 2400 ms alleen in beeld,
       pijlen pauzeren 6 s, foto wisselt mee met crossfade). Bij prefers-reduced-motion geen autoplay. */
 (function () {
   'use strict';
@@ -64,67 +62,7 @@
     bij();
   });
 
-  /* 3. zondagvoordeel */
-  (function () {
-    var zv = document.querySelector('.ar-zv');
-    if (!zv) return;
-    var OPTIES = ['a', 'b', 'c', 'd', 'e'];
-    function kies(o) {
-      OPTIES.forEach(function (x) { zv.classList.toggle('ar-zv-optie-' + x, x === o); });
-    }
-    var m = /[?&]zv=([a-e])\b/.exec(window.location.search);
-    if (m) {
-      kies(m[1]);
-      var kiezer = document.createElement('div');
-      kiezer.className = 'ar-zv-kiezer';
-      kiezer.setAttribute('role', 'group');
-      kiezer.setAttribute('aria-label', 'Kies een ontwerp voor het zondagblok');
-      kiezer.innerHTML = '<span>Zondag</span>' + OPTIES.map(function (x) {
-        return '<button type="button" data-zv-kies="' + x + '" aria-pressed="' + (x === m[1]) + '">' + x + '</button>';
-      }).join('');
-      kiezer.addEventListener('click', function (e) {
-        var b = e.target.closest ? e.target.closest('[data-zv-kies]') : null;
-        if (!b) return;
-        var o = b.getAttribute('data-zv-kies');
-        kies(o);
-        Array.prototype.forEach.call(kiezer.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-        try { history.replaceState(null, '', window.location.pathname + '?zv=' + o + window.location.hash); } catch (err) {}
-        zv.scrollIntoView({ block: 'start', behavior: rustig ? 'auto' : 'smooth' });
-      });
-      document.body.appendChild(kiezer);
-    }
-
-    /* optie e: segmentknop zondag / andere dag */
-    Array.prototype.forEach.call(zv.querySelectorAll('[data-zv-schakel]'), function (s) {
-      var velden = s.querySelectorAll('[data-zondag]');
-      Array.prototype.forEach.call(s.querySelectorAll('.ar-zv-segknop'), function (k) {
-        k.addEventListener('click', function () {
-          var dag = k.getAttribute('data-dag');
-          s.classList.toggle('is-zondag', dag === 'zondag');
-          Array.prototype.forEach.call(s.querySelectorAll('.ar-zv-segknop'), function (x) { x.setAttribute('aria-pressed', x === k ? 'true' : 'false'); });
-          Array.prototype.forEach.call(velden, function (v) { v.textContent = v.getAttribute('data-' + dag); });
-        });
-      });
-    });
-
-    /* optie c: 'Boek een zondag' vult de boekbalk in de hero met de eerstvolgende zondag (1 nacht) en verstuurt hem;
-       lander-w1.js opent dan de Mews-widget met voucher en datums. Zonder boekbalk of JS: de link naar Mews. */
-    Array.prototype.forEach.call(zv.querySelectorAll('.ar-zv-zondagknop'), function (k) {
-      k.addEventListener('click', function (e) {
-        var form = document.querySelector('form[data-boekbalk]');
-        var aankomst = form && form.querySelector('[data-rol="aankomst"]');
-        if (!form || !aankomst) return;
-        e.preventDefault();
-        var d = new Date(); d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + ((7 - d.getDay()) % 7));
-        var tw = function (x) { return (x < 10 ? '0' : '') + x; };
-        aankomst.value = d.getFullYear() + '-' + tw(d.getMonth() + 1) + '-' + tw(d.getDate());
-        aankomst.dispatchEvent(new Event('change'));
-        if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable: true }));
-      });
-    });
-  })();
-
-  /* 4. waarom Asteria: draaiend wiel */
+  /* 3. waarom Asteria: draaiend wiel */
   Array.prototype.forEach.call(document.querySelectorAll('.ar-waarom'), function (sec) {
     var wrap = sec.querySelector('.ar-wiel-wrap');
     var spoor = sec.querySelector('.ar-wiel-spoor');

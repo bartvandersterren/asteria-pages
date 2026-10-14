@@ -1,7 +1,7 @@
 /* Arrangementsjabloon op lander-w1 (visit.asteria.nl/<arrangement>-v2). Laadt na lander-w1.css, alleen via het
    build-blok 'arrangement' in lander-w1.template.html; flow-landers laden dit bestand niet.
    Opbouw (wireframe-ideaal, okt 2026): 1 hero + chips, zijkaart zonder foto naast 2-5, 2 dit is inbegrepen (paneel + fotoslider) + tijdenstrook,
-   3 zondagvoordeel (opties a-e), 4 waarom Asteria (draaiend wiel met wisselende foto), 5 kamers (slider vanaf 3, raster bij 1-2),
+   3 zondagvoordeel (ontwerp a2), 4 waarom Asteria (draaiend wiel met wisselende foto), 5 kamers (slider vanaf 3, raster bij 1-2),
    6 reviewmuur (8 of 12 kaarten), 7 FAQ, 8 ook interessant, 9 fotowolk. Klassen met prefix ar-. */
 
 /* ---------- 1: chips onder de sub op de hero ---------- */
@@ -133,91 +133,32 @@
   .lp .ar-tijden li{font-size:13px}
 }
 
-/* ---------- 3: zondagvoordeel, vijf designopties (a-e). Alleen de optie uit de class ar-zv-optie-X op de sectie is zichtbaar;
-   ?zv=a..e in de URL zet de keuzeschakelaar (.ar-zv-kiezer, arrangement.js) aan. ---------- */
-.lp .ar-zv-optie{display:none}
-.lp .ar-zv-optie-a .ar-zv-optie--a,.lp .ar-zv-optie-b .ar-zv-optie--b,.lp .ar-zv-optie-c .ar-zv-optie--c,
-.lp .ar-zv-optie-d .ar-zv-optie--d,.lp .ar-zv-optie-e .ar-zv-optie--e{display:block}
-.lp .ar-zv-pil{display:inline-flex;align-items:center;margin-bottom:12px;padding:4px 11px;border-radius:var(--radius-pill);background:var(--terracotta);color:var(--surface);
+/* ---------- 3: zondagvoordeel, ontwerp a2 (14 okt): zondagkaart groot (1,65fr) met terracotta rand, pil en grote prijs met
+   de gewone prijs doorgestreept ernaast; de gewone kaart is transparant met een hairline en een kleine prijs. Telefoon: een kolom. ---------- */
+.lp .ar-zv-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:16px;align-items:center;margin-top:28px}
+.lp .ar-zv-kaart{min-width:0;background:transparent;border:1px solid var(--hairline-strong);border-radius:var(--radius-card);padding:22px 22px 20px}
+.lp .ar-zv-kaart--zondag{background:var(--surface);border:2px solid var(--terracotta);box-shadow:var(--shadow-card);padding:28px 30px 26px}
+.lp .ar-zv-kaart h3{font-family:var(--font-body);font-size:16px;font-weight:700;letter-spacing:0;line-height:1.3}
+.lp .ar-zv-kaart--zondag h3{font-size:18px}
+.lp .ar-zv-pil{display:inline-flex;align-items:center;margin-bottom:14px;padding:4px 11px;border-radius:var(--radius-pill);background:var(--terracotta);color:var(--surface);
     font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.4;white-space:nowrap}
 .lp .ar-zv-vanaf{margin-top:16px;font-size:13px;color:var(--ink-soft)}
 .lp .ar-zv-prijs{margin-top:2px;display:flex;align-items:baseline;flex-wrap:wrap;gap:6px}
-.lp .ar-zv-prijs b{font-family:var(--font-display);font-size:40px;line-height:1;color:var(--ink)}
+.lp .ar-zv-prijs b{font-family:var(--font-display);font-size:30px;line-height:1;color:var(--ink);white-space:nowrap}
 .lp .ar-zv-prijs span{font-size:14px;color:var(--ink-soft)}
-.lp .ar-zv-was{margin-top:6px;font-size:14px;color:var(--ink-soft)}
+.lp .ar-zv-rij{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 14px;margin-top:2px}
+.lp .ar-zv-rij .ar-zv-prijs{margin:0}
+.lp .ar-zv-kaart--zondag .ar-zv-prijs b{font-size:64px;color:var(--terracotta-text)}
+.lp .ar-zv-was{margin:0;font-size:16px;color:var(--ink-soft)}
 .lp .ar-zv-regel{margin-top:10px;font-size:14px;line-height:1.45;color:var(--ink)}
+.lp .ar-zv-kaart--zondag .ar-zv-regel{display:flex;gap:8px;align-items:flex-start}
+.lp .ar-zv-regel .as-icoon{width:18px;height:18px;margin-top:1px;color:var(--terracotta-text)}
 .lp .ar-zv-noot{margin-top:16px;font-size:13px;line-height:1.5;color:var(--ink-soft);max-width:68ch}
-/* a: twee kaarten */
-.lp .ar-zv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
-.lp .ar-zv-kaart{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:24px 24px 22px}
-.lp .ar-zv-kaart--zondag{border:2px solid var(--terracotta)}
-.lp .ar-zv-kaart h3{font-family:var(--font-body);font-size:16px;font-weight:700;letter-spacing:0;line-height:1.3}
-.lp .ar-zv-kaart--zondag .ar-zv-prijs b{color:var(--terracotta-text)}
-/* b: weekstrook ma t/m zo, zondag uitgelicht */
-.lp .ar-zv-week{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr)) minmax(0,1.9fr);gap:8px}
-.lp .ar-zv-week li{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px 4px;text-align:center;
-    background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius-chip)}
-.lp .ar-zv-dag{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
-.lp .ar-zv-week b{font-family:var(--font-display);font-size:18px;line-height:1.1;color:var(--ink);white-space:nowrap}
-.lp .ar-zv-week .is-zondag{gap:4px;background:var(--terracotta);border-color:var(--terracotta);box-shadow:var(--shadow-card)}
-.lp .ar-zv-week .is-zondag .ar-zv-dag,.lp .ar-zv-week .is-zondag b,.lp .ar-zv-week .is-zondag s{color:var(--surface)}
-.lp .ar-zv-week .is-zondag b{font-size:30px}
-.lp .ar-zv-week .is-zondag s{font-size:13px;opacity:.85}
-.lp .ar-zv-week .is-zondag .ar-zv-pil{margin:6px 0 0;background:var(--surface);color:var(--terracotta-text)}
-.lp .ar-zv-uitleg{margin-top:16px;font-size:14px;line-height:1.5;color:var(--ink)}
-/* c: brede band, prijs en knop rechts */
-.lp .ar-zv-band{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:center;padding:32px 36px;
-    background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card)}
-.lp .ar-zv-band .ar-zv-regel{margin-top:14px}
-.lp .ar-zv-band-prijs{display:flex;flex-direction:column;align-items:flex-start;padding-left:32px;border-left:1px solid var(--hairline)}
-.lp .ar-zv-band .ar-zv-prijs b{font-size:52px;color:var(--terracotta-text)}
-.lp .ar-zv-band .btn{margin-top:18px}
-/* d: foto-split met prijsvergelijking */
-.lp .ar-zv-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:36px;align-items:center}
-.lp .ar-zv-split-foto{aspect-ratio:4/5;border-radius:var(--radius-image);overflow:hidden;box-shadow:var(--shadow-card)}
-.lp .ar-zv-split-foto img{width:100%;height:100%;object-fit:cover;object-position:62% 50%}
-.lp .ar-zv-split .ar-zv-regel{margin-top:14px}
-.lp .ar-zv-vergelijk{margin:22px 0 0;border-top:1px solid var(--hairline)}
-.lp .ar-zv-vergelijk>div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--hairline)}
-.lp .ar-zv-vergelijk dt{font-size:15px;font-weight:600;color:var(--ink)}
-.lp .ar-zv-vergelijk dd{margin:0;white-space:nowrap;font-size:13px;color:var(--ink-soft)}
-.lp .ar-zv-vergelijk dd b{font-family:var(--font-display);font-size:26px;line-height:1;color:var(--ink)}
-.lp .ar-zv-vergelijk .is-zondag dt,.lp .ar-zv-vergelijk .is-zondag dd b{color:var(--terracotta-text)}
-/* e: schakelaar zondag / andere dag */
-.lp .ar-zv-schakel{position:relative;max-width:480px;margin-top:24px;padding:22px 24px 24px;background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card)}
-.lp .ar-zv-seg{display:inline-flex;gap:4px;padding:4px;border-radius:var(--radius-pill);background:var(--paper)}
-.lp .ar-zv-segknop{min-height:40px;padding:9px 18px;border:0;border-radius:var(--radius-pill);background:transparent;font:600 14px/1.2 var(--font-body);color:var(--ink);cursor:pointer;
-    transition:background .2s var(--ease-soft),color .2s var(--ease-soft)}
-.lp .ar-zv-segknop[aria-pressed="true"]{background:var(--terracotta);color:var(--surface)}
-.lp .ar-zv-segknop:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
-.lp .ar-zv-schakel .ar-zv-prijs s{font-size:15px;color:var(--ink-soft)}
-.lp .ar-zv-schakel.is-zondag .ar-zv-prijs b{color:var(--terracotta-text)}
-.lp .ar-zv-schakel:not(.is-zondag) .ar-zv-alleen-zondag{visibility:hidden}
-.lp .ar-zv-schakel .ar-zv-pil{position:absolute;top:28px;right:24px;margin:0}
 @media (max-width:719px){
-  .lp .ar-zv-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:22px}
-  .lp .ar-zv-kaart{padding:20px}
-  .lp .ar-zv-prijs b{font-size:34px}
-  .lp .ar-zv-week{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px}
-  .lp .ar-zv-week .is-zondag{grid-column:1 / -1;order:-1;padding:16px}
-  .lp .ar-zv-week li:not(.is-zondag){padding:12px 4px}
-  .lp .ar-zv-band{grid-template-columns:minmax(0,1fr);gap:20px;padding:24px 20px}
-  .lp .ar-zv-band-prijs{padding:20px 0 0;border-left:0;border-top:1px solid var(--hairline)}
-  .lp .ar-zv-band .ar-zv-prijs b{font-size:44px}
-  .lp .ar-zv-band .btn{width:100%}
-  .lp .ar-zv-split{grid-template-columns:minmax(0,1fr);gap:22px}
-  .lp .ar-zv-split-foto{aspect-ratio:4/3}
-  .lp .ar-zv-schakel{padding:20px}
-  .lp .ar-zv-schakel .ar-zv-pil{position:static;margin-top:12px}
+  .lp .ar-zv-grid{grid-template-columns:minmax(0,1fr);margin-top:22px}
+  .lp .ar-zv-kaart--zondag{padding:22px 20px}
+  .lp .ar-zv-kaart--zondag .ar-zv-prijs b{font-size:52px}
 }
-/* keuzeschakelaar (alleen met ?zv= in de URL) */
-.ar-zv-kiezer{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;align-items:center;gap:4px;padding:6px 6px 6px 14px;border-radius:999px;
-    background:#442A06;box-shadow:0 12px 32px rgba(68,42,6,.28);font-family:"Montserrat",system-ui,sans-serif;color:#FFFAF1}
-.mob-cta-aan .ar-zv-kiezer{bottom:calc(var(--mob-cta-h,72px) + 12px)}
-.ar-zv-kiezer span{margin-right:6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-.ar-zv-kiezer button{width:36px;height:36px;padding:0;border:0;border-radius:50%;background:rgba(255,250,241,.12);color:#FFFAF1;font:700 14px/1 "Montserrat",system-ui,sans-serif;cursor:pointer}
-.ar-zv-kiezer button[aria-pressed="true"]{background:#C76E4E}
-.ar-zv-kiezer button:focus-visible{outline:2px solid #FFFAF1;outline-offset:2px}
 
 /* ---------- 4: waarom Asteria. Draaiend wiel zoals de staging-homepage (.usp-wheel + .usp-photo): 4 klonen voor en na,
    --active schuift het spoor (72 px per punt), foto wisselt mee met een crossfade van 800 ms. arrangement.js zet .is-wiel;

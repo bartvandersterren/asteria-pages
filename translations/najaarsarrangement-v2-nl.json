@@ -11,8 +11,7 @@
     "Ook interessant: Wellness Arrangement vanaf EUR 139,50 en Golfarrangement vanaf EUR 185,50 gemeten in Mews (2026WELLNESS en GOLF, 3 nov 2026, Comfort/Royale, 2 volwassenen); visit.asteria.nl/wellness-arrangement zelf noemt EUR 124,50. Kerstarrangement zonder prijs (asteria.nl noemt EUR 130,- zonder context). Foto's golf en kerst komen van asteria.nl (fotos/l26-arr-golf.webp, l26-arr-kerst.webp).",
     "De live /najaarsarrangement boekt nog via de oude config bee2f902; deze pagina gebruikt 6dc9094c.",
     "Inbegrepen-fotoslider: l26-najaar-deluxe.webp (uit room-deluxe-4), l26-najaar-sauna.webp (uit room-deluxe-3, de infraroodcabine van een Deluxe kamer?) en l26-najaar-ontbijt.webp (uit restaurant-ontbijt, een opgemaakt bord; is dat het ontbijtbuffet?). Graag bevestigen dat deze foto's de Deluxe kamer en het arrangement tonen.",
-    "Waarom Asteria: de foto's per punt (fotos/l26-waarom-*.webp) komen uit de repo (care-receptie, l26-hotel-buiten, top-floor-1, l26-omg-bossen) en van de staging (restaurant-terras-1200, hotel-vijver-panorama). 'Gratis parkeren' toont de parkeerplaats voor het hotel; 'Eigen restaurant' toont wijnglazen op het terras.",
-    "Zondagoptie d (foto-split) gebruikt fotos/zm-ontbijt.webp, een brunch buiten in de zomer. Kiest Stijn d, dan een herfst- of binnenfoto zoeken."
+    "Waarom Asteria: de foto's per punt (fotos/l26-waarom-*.webp) komen uit de repo (care-receptie, l26-hotel-buiten, top-floor-1, l26-omg-bossen) en van de staging (restaurant-terras-1200, hotel-vijver-panorama). 'Gratis parkeren' toont de parkeerplaats voor het hotel; 'Eigen restaurant' toont wijnglazen op het terras."
   ],
   "PAGE_TITLE": "Najaarsarrangement met diner en ontbijt | Hotel Asteria Venray",
   "META_DESC": "Najaarsarrangement bij Hotel Asteria in Venray: ontvangst met Limburgse vlaai, een Deluxe kamer met privé infraroodsauna, ontbijtbuffet en een drie-gangen diner. Vanaf € 128,50 p.p.",
@@ -99,8 +98,6 @@
   "ZV_ANDERS_REGEL": "Gewone prijs op de andere dagen",
   "ZV_VOETNOOT": "Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.",
   "ZV_KAART_REGEL": "Op zondag <b>€ 20 per kamer</b> voordeliger",
-  "ZV_IMG": "fotos/zm-ontbijt.webp",
-  "ZV_ALT": "Stel lacht samen aan een uitgebreide brunch met jus d’orange",
   "WAAROM_TOON": true,
   "ANDERE_TOON": true,
   "_reviews_aantal": 12,

@@ -221,90 +221,31 @@
     </div>
   </section>
   <!--[zondag[-->
-  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Vijf designopties a-e in de HTML;
-       zichtbaar is de optie uit de class ar-zv-optie-X op de sectie (standaard a). arrangement.js leest ?zv=a..e en toont dan
-       rechtsonder een keuzeschakelaar. Na de keuze blijft alleen de gekozen optie over. ══ -->
-  <section class="sec ar-sec ar-zv ar-zv-optie-a" data-toon="paper" aria-label="Zondagvoordeel">
+  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a2 (14 okt):
+       zondagkaart groot (1,65fr) met pil, grote prijs en doorgestreepte gewone prijs; gewone kaart klein en transparant.
+       Telefoon: een kolom. ══ -->
+  <section class="sec ar-sec ar-zv" data-toon="paper" aria-label="Zondagvoordeel">
     <div class="wrap">
-      <!-- a: twee kaarten -->
-      <div class="ar-zv-optie ar-zv-optie--a" data-zv="a">
-        <h2>{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
-        <div class="ar-zv-grid">
-          <div class="ar-zv-kaart ar-zv-kaart--zondag">
-            <span class="ar-zv-pil">{{ZV_PIL}}</span>
-            <h3>{{ZV_ZONDAG_KOP}}</h3>
-            <p class="ar-zv-vanaf">vanaf</p>
+      <h2>{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
+      <div class="ar-zv-grid">
+        <div class="ar-zv-kaart ar-zv-kaart--zondag">
+          <span class="ar-zv-pil">{{ZV_PIL}}</span>
+          <h3>{{ZV_ZONDAG_KOP}}</h3>
+          <p class="ar-zv-vanaf">vanaf</p>
+          <div class="ar-zv-rij">
             <p class="ar-zv-prijs"><b>{{ZV_ZONDAG_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span></p>
             <p class="ar-zv-was"><s>{{ZV_GEWOON_PRIJS}}</s></p>
-            <p class="ar-zv-regel">{{ZV_ZONDAG_REGEL}}</p>
           </div>
-          <div class="ar-zv-kaart">
-            <h3>{{ZV_ANDERS_KOP}}</h3>
-            <p class="ar-zv-vanaf">vanaf</p>
-            <p class="ar-zv-prijs"><b>{{ZV_GEWOON_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span></p>
-            <p class="ar-zv-regel">{{ZV_ANDERS_REGEL}}</p>
-          </div>
+          <p class="ar-zv-regel"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>{{ZV_ZONDAG_REGEL}}</p>
         </div>
-        <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
-      </div>
-      <!-- b: weekstrook, zondag uitgelicht -->
-      <div class="ar-zv-optie ar-zv-optie--b" data-zv="b">
-        <h2>{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
-        <ol class="ar-zv-week" aria-label="Vanafprijs per aankomstdag">
-          <li><span class="ar-zv-dag">Ma</span><b>{{ZV_GEWOON_PRIJS}}</b></li>
-          <li><span class="ar-zv-dag">Di</span><b>{{ZV_GEWOON_PRIJS}}</b></li>
-          <li><span class="ar-zv-dag">Wo</span><b>{{ZV_GEWOON_PRIJS}}</b></li>
-          <li><span class="ar-zv-dag">Do</span><b>{{ZV_GEWOON_PRIJS}}</b></li>
-          <li><span class="ar-zv-dag">Vr</span><b>{{ZV_GEWOON_PRIJS}}</b></li>
-          <li><span class="ar-zv-dag">Za</span><b>{{ZV_GEWOON_PRIJS}}</b></li>
-          <li class="is-zondag"><span class="ar-zv-dag">Zo</span><b>{{ZV_ZONDAG_PRIJS}}</b><s>{{ZV_GEWOON_PRIJS}}</s><span class="ar-zv-pil">{{ZV_PIL}}</span></li>
-        </ol>
-        <p class="ar-zv-uitleg">Vanafprijs per aankomstdag, {{ARR_PRIJS_KAART_EENHEID}}. {{ZV_ZONDAG_REGEL}}.</p>
-        <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
-      </div>
-      <!-- c: brede band met prijs en knop -->
-      <div class="ar-zv-optie ar-zv-optie--c" data-zv="c">
-        <div class="ar-zv-band">
-          <div class="ar-zv-band-tekst">
-            <h2>{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
-            <p class="ar-zv-regel"><b>{{ZV_ZONDAG_KOP}}</b><br>{{ZV_ZONDAG_REGEL}}.</p>
-            <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
-          </div>
-          <div class="ar-zv-band-prijs">
-            <span class="ar-zv-pil">{{ZV_PIL}}</span>
-            <p class="ar-zv-prijs"><b>{{ZV_ZONDAG_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span></p>
-            <p class="ar-zv-was">in plaats van <s>{{ZV_GEWOON_PRIJS}}</s></p>
-            <a class="btn btn-primary ar-zv-zondagknop" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}" target="_blank" rel="noopener">Boek een zondag</a>
-          </div>
-        </div>
-      </div>
-      <!-- d: foto-split met prijsvergelijking -->
-      <div class="ar-zv-optie ar-zv-optie--d" data-zv="d">
-        <div class="ar-zv-split">
-          <div class="ar-zv-split-foto"><img src="{{ZV_IMG}}" alt="{{ZV_ALT}}" loading="lazy"></div>
-          <div class="ar-zv-split-tekst">
-            <h2>{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
-            <p class="ar-zv-regel">{{ZV_ZONDAG_REGEL}}.</p>
-            <dl class="ar-zv-vergelijk">
-              <div class="is-zondag"><dt>{{ZV_ZONDAG_KOP}}</dt><dd><b>{{ZV_ZONDAG_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span></dd></div>
-              <div><dt>{{ZV_ANDERS_KOP}}</dt><dd><b>{{ZV_GEWOON_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span></dd></div>
-            </dl>
-            <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
-          </div>
-        </div>
-      </div>
-      <!-- e: schakelaar zondag / andere dag (zonder JS staat zondag aan) -->
-      <div class="ar-zv-optie ar-zv-optie--e" data-zv="e">
-        <h2>{{ZV_KOP_A}} <span class="g">{{ZV_KOP_EM}}</span> {{ZV_KOP_B}}</h2>
-        <div class="ar-zv-schakel is-zondag" data-zv-schakel>
-          <div class="ar-zv-seg" role="group" aria-label="Aankomstdag"><button type="button" class="ar-zv-segknop" data-dag="zondag" aria-pressed="true">Zondag</button><button type="button" class="ar-zv-segknop" data-dag="anders" aria-pressed="false">Andere dag</button></div>
+        <div class="ar-zv-kaart">
+          <h3>{{ZV_ANDERS_KOP}}</h3>
           <p class="ar-zv-vanaf">vanaf</p>
-          <p class="ar-zv-prijs" aria-live="polite"><b data-zondag="{{ZV_ZONDAG_PRIJS}}" data-anders="{{ZV_GEWOON_PRIJS}}">{{ZV_ZONDAG_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span> <s class="ar-zv-alleen-zondag">{{ZV_GEWOON_PRIJS}}</s></p>
-          <p class="ar-zv-regel" data-zondag="{{ZV_ZONDAG_REGEL}}" data-anders="{{ZV_ANDERS_REGEL}}">{{ZV_ZONDAG_REGEL}}</p>
-          <span class="ar-zv-pil ar-zv-alleen-zondag">{{ZV_PIL}}</span>
+          <p class="ar-zv-prijs"><b>{{ZV_GEWOON_PRIJS}}</b> <span>{{ARR_PRIJS_EENHEID}}</span></p>
+          <p class="ar-zv-regel">{{ZV_ANDERS_REGEL}}</p>
         </div>
-        <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
       </div>
+      <p class="ar-zv-noot">{{ZV_VOETNOOT}}</p>
     </div>
   </section>
   <!--]zondag]-->

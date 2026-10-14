@@ -27,10 +27,10 @@ Arrangementen (blokken zijkaart + arrangement):
 Extra: robots noindex, alle Mews-links met de voucher, geen oude config bee2f902 in de bron, prijs zichtbaar in de
 zijkaart (1440) en in de onderbalk (390). Kamerslider-checks volgen het aantal kamers op de pagina (8 of minder);
 vanaf 3 kamers de slider met lus (klonen), bij 1-2 het raster. Inbegrepen-blok: paneel loopt links tot de schermrand,
-fotoslider met 4-6 dia's, bolletjes en pijlen (pijlklik schuift een dia). Zondagblok: optie a zonder ?zv en zonder
-keuzeschakelaar; ?zv=b..e toont precies die ene optie plus de schakelaar; optie e wisselt de prijs. Waarom Asteria:
-wiel met 6 echte punten en 8 klonen, pijlklik verandert --active en de foto. Met --schermafdruk ook: kamerslider na
-twee pijlklikken, inbegrepen-blok, zondagopties a-e en het wiel in twee standen.
+fotoslider met 4-6 dia's, bolletjes en pijlen (pijlklik schuift een dia). Zondagblok (ontwerp a2): precies 2 kaarten,
+de zondagkaart breder dan de andere op 1440 (een kolom op 390), zondagprijs met doorgestreepte gewone prijs, geen
+keuzeschakelaar (ook niet met ?zv=). Waarom Asteria: wiel met 6 echte punten en 8 klonen, pijlklik verandert --active en
+de foto. Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
 """
 import sys, json
 from datetime import date, timedelta
@@ -168,9 +168,12 @@ with sync_playwright() as p:
 
         if PRIJS:
             a = pg.evaluate("""(()=>{const q=s=>document.querySelector(s),zv=q('.ar-zv'),wa=q('.ar-waarom'),kant=q('.lp-zone-kant'),an=q('.ar-andere');
-                const za=zv&&zv.querySelector('.ar-zv-optie--a');
-                return {zv:!!za&&za.offsetParent!==null&&za.querySelectorAll('.ar-zv-kaart').length===2&&!!za.querySelector('.ar-zv-kaart--zondag .ar-zv-pil')&&!!za.querySelector('.ar-zv-noot')&&!!za.querySelector('s'),
-                  zvKop:za?za.querySelector('h2').innerText.replace(/\\u00a0/g,' '):'',
+                const zk=zv?[...zv.querySelectorAll('.ar-zv-kaart')]:[],zz=zv&&zv.querySelector('.ar-zv-kaart--zondag'),za=zk.find(k=>k!==zz);
+                return {zv:!!zv&&zv.offsetParent!==null&&!!zz&&!!zz.querySelector('.ar-zv-pil')&&!!zv.querySelector('.ar-zv-noot')&&!!zz.querySelector('s'),
+                  zvN:zk.length,zvKop:zv?zv.querySelector('h2').innerText.replace(/\\u00a0/g,' '):'',
+                  zvPrijs:zz?zz.querySelector('.ar-zv-prijs b').innerText.replace(/\\u00a0/g,' '):'',zvWas:zz?zz.querySelector('s').innerText.replace(/\\u00a0/g,' '):'',
+                  zvW:zz?Math.round(zz.getBoundingClientRect().width):0,zvWa:za?Math.round(za.getBoundingClientRect().width):0,
+                  zvKiezer:!!document.querySelector('.ar-zv-kiezer,.ar-zv-optie,[data-zv-schakel],.ar-zv-zondagknop'),
                   wKop:wa?wa.querySelector('h2').innerText:'',wPunten:wa?wa.querySelectorAll('.ar-wiel-item:not([data-kloon])').length:0,
                   wFoto:wa?(i=>i.complete&&i.naturalWidth>0)(wa.querySelector('.b3a-foto img.is-actief')):false,
                   wKnop:wa?wa.querySelector('.mews-open').dataset.voucher:'',
@@ -178,7 +181,14 @@ with sync_playwright() as p:
                   andere:an?[...an.querySelectorAll('a.ar-ander')].map(x=>x.getAttribute('href')):[],
                   chips:document.querySelectorAll('.ar-chips li').length,
                   faq:[...document.querySelectorAll('.b6c summary')].map(s=>s.innerText)}})()""")
-            check(f'{tag} zondagblok (optie a, standaard): twee kaarten, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
+            check(f'{tag} zondagblok (a2): kop, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
+            check(f'{tag} zondagblok: precies 2 kaarten', a['zvN'] == 2, str(a['zvN']))
+            check(f'{tag} zondagblok: zondagprijs staat er (lager dan {PRIJS}, die doorgestreept)', a['zvPrijs'].startswith('€') and a['zvPrijs'] != PRIJS and a['zvWas'] == PRIJS, f"{a['zvPrijs']} / {a['zvWas']}")
+            if mob:
+                check(f'{tag} zondagblok: een kolom (kaarten even breed)', a['zvW'] > 0 and a['zvW'] == a['zvWa'], f"{a['zvW']} / {a['zvWa']}")
+            else:
+                check(f'{tag} zondagblok: zondagkaart breder dan de andere', a['zvW'] > a['zvWa'] * 1.4, f"{a['zvW']} / {a['zvWa']}")
+            check(f'{tag} zondagblok: geen keuzeschakelaar of oude opties', not a['zvKiezer'])
             check(f'{tag} Waarom Asteria: kop, zes punten, foto geladen, knop met {VOUCHER}',
                   a['wKop'].startswith('Voor de grote dagen') and a['wPunten'] == 6 and a['wFoto'] and a['wKnop'] == VOUCHER, str(a)[:300])
             check(f'{tag} zijkaart met foto en prijs', a['kantFoto'] == 1 and a['kantPrijs'], str(a)[:200])
@@ -217,9 +227,6 @@ with sync_playwright() as p:
             if shotdir:
                 pg.evaluate("window.scrollTo(0, document.querySelector('.ar-inb').getBoundingClientRect().top + scrollY - (innerWidth < 720 ? 40 : 110))"); pg.wait_for_timeout(700)
                 pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-inbegrepen.png')
-            # zondag zonder ?zv: geen keuzeschakelaar, optie a zichtbaar
-            zv0 = pg.evaluate("({kiezer:!!document.querySelector('.ar-zv-kiezer'),zicht:[...document.querySelectorAll('.ar-zv-optie')].filter(o=>o.offsetParent).map(o=>o.dataset.zv)})")
-            check(f'{tag} zondag zonder ?zv: geen keuzeschakelaar, alleen optie a', not zv0['kiezer'] and zv0['zicht'] == ['a'], str(zv0))
             # waarom: wiel met klonen, pijl verandert --active en de foto
             pg.evaluate("window.scrollTo(0, document.querySelector('.ar-waarom').getBoundingClientRect().top + scrollY - 80)"); pg.wait_for_timeout(600)
             wl = lambda: pg.evaluate("(()=>{const s=document.querySelector('.ar-wiel-spoor');return {echt:s.querySelectorAll('.ar-wiel-item:not([data-kloon])').length,klonen:s.querySelectorAll('[data-kloon]').length,"
@@ -459,32 +466,18 @@ with sync_playwright() as p:
         ctx.close()
     if PRIJS:
         for w, h, mob in [(1440, 900, False), (390, 844, True)]:
-            for o in 'abcde':
-                ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob)
-                ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
-                pg = ctx.new_page(); fz = []
-                pg.on('pageerror', lambda e: fz.append(str(e)))
-                pg.goto(URL + f'?zv={o}', wait_until='networkidle'); pg.wait_for_timeout(400)
-                z = pg.evaluate("({zicht:[...document.querySelectorAll('.ar-zv-optie')].filter(o=>o.offsetParent).map(o=>o.dataset.zv),"
-                                "kiezer:document.querySelectorAll('.ar-zv-kiezer button').length,aan:(document.querySelector('.ar-zv-kiezer [aria-pressed=true]')||{}).textContent,"
-                                "sw:document.documentElement.scrollWidth})")
-                check(f'[{w}] ?zv={o}: precies optie {o} zichtbaar, keuzeschakelaar a-e', z['zicht'] == [o] and z['kiezer'] == 5 and z['aan'] == o and z['sw'] <= w and not fz, str(z) + ' ' + '; '.join(fz))
-                if o == 'e':
-                    pg.locator('.ar-zv-optie--e .ar-zv-segknop[data-dag="anders"]').click(); pg.wait_for_timeout(200)
-                    p1 = pg.locator('.ar-zv-optie--e .ar-zv-prijs b').inner_text()
-                    pg.locator('.ar-zv-optie--e .ar-zv-segknop[data-dag="zondag"]').click(); pg.wait_for_timeout(200)
-                    p0 = pg.locator('.ar-zv-optie--e .ar-zv-prijs b').inner_text()
-                    check(f'[{w}] optie e: schakelaar wisselt de prijs', p1 != p0 and p0.replace('\u00a0', ' ') != PRIJS and p1.replace('\u00a0', ' ') == PRIJS, f'{p0} / {p1}')
-                if o == 'b':
-                    pg.locator('.ar-zv-kiezer [data-zv-kies="c"]').click(); pg.wait_for_timeout(300)
-                    z2 = pg.evaluate("[...document.querySelectorAll('.ar-zv-optie')].filter(o=>o.offsetParent).map(o=>o.dataset.zv)")
-                    check(f'[{w}] keuzeschakelaar wisselt de optie (b -> c)', z2 == ['c'], str(z2))
-                    pg.locator('.ar-zv-kiezer [data-zv-kies="b"]').click(); pg.wait_for_timeout(300)
-                if shotdir:
-                    pg.evaluate("document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager')")
-                    pg.locator('.ar-zv').scroll_into_view_if_needed(); pg.wait_for_timeout(900)
-                    pg.locator('.ar-zv').screenshot(path=f'{shotdir}/{NAAM}-{w}-zondag-{o}.png')
-                ctx.close()
+            # ?zv= doet niets meer: geen keuzeschakelaar, hetzelfde zondagblok
+            ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob)
+            ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
+            pg = ctx.new_page(); fz = []
+            pg.on('pageerror', lambda e: fz.append(str(e)))
+            pg.goto(URL + '?zv=c', wait_until='networkidle'); pg.wait_for_timeout(400)
+            z = pg.evaluate("({kiezer:!!document.querySelector('.ar-zv-kiezer,.ar-zv-optie'),n:document.querySelectorAll('.ar-zv .ar-zv-kaart').length,sw:document.documentElement.scrollWidth})")
+            check(f'[{w}] ?zv=c: geen keuzeschakelaar, zondagblok met 2 kaarten', not z['kiezer'] and z['n'] == 2 and z['sw'] <= w and not fz, str(z) + ' ' + '; '.join(fz))
+            if shotdir:
+                pg.locator('.ar-zv').scroll_into_view_if_needed(); pg.wait_for_timeout(900)
+                pg.locator('.ar-zv').screenshot(path=f'{shotdir}/{NAAM}-{w}-zondag.png')
+            ctx.close()
     b.close()
 
 mis = [r for r in resultaten if not r[1]]
