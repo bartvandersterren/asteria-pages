@@ -1035,8 +1035,8 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .lp-zone .b3a-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"tekst tekst" "foto lijst" "knop knop";grid-template-rows:none;row-gap:32px}
   .lp .lp-zone .b3a-foto{height:420px}
   .lp .lp-zone .b3a-knop{padding-top:0}
-  /* 4b: strook blijft binnen de kolom (geen doorloop tot de schermrand), ruim 1,7 kaart in beeld */
-  .lp .lp-zone .b4b-strook{--bleed:10px;margin:-10px -10px 0;padding:10px 10px 20px;width:calc(100% + 20px);scroll-padding-left:10px}
+  /* 4b: strook loopt links door tot de schermrand (vorige kamers in beeld, eindeloos), rechts stopt hij bij de kaart; ruim 1,7 kaart in beeld */
+  .lp .lp-zone .b4b-strook{--bleed:max(var(--gutter),(100vw - 1120px) / 2);margin:-10px -10px 0 calc(-1 * var(--bleed));padding:10px 10px 20px var(--bleed);width:calc(100% + 10px + var(--bleed));scroll-padding-left:var(--bleed)}
   .lp .lp-zone .b4b-kaart{flex-basis:calc((100% - 24px) / 1.7)}
   .lp .lp-zone .b4b-kop{flex-wrap:wrap;gap:20px 32px}
   .lp .lp-zone .b4b-inhoud h3{font-size:26px}
