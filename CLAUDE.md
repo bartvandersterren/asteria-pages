@@ -200,7 +200,13 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - **Nieuw arrangement toevoegen:** kopieer `translations/najaarsarrangement-v2-nl.json` naar `translations/<slug>-nl.json`,
   pas teksten/foto's/VOUCHER/CANONICAL_URL aan, zet de slug in de arrangement-lijst in build.py en draai `python3 build.py <slug>`.
   Velden:
-  - Hero: `ARR_PRIJS_PIL`, `_chips` (lijst van 3 korte teksten).
+  - Hero: `ARR_PRIJS_PIL`, `_chips` (lijst van 3 korte teksten). `BOEKBALK_NOOT` = regel onder de boekbalk (bijv. aankomstdagen).
+  - `ARR_NACHTEN` (getal, standaard 1): vast aantal nachten (Limburg 3, Weekend 2). Build zet `data-nachten` op beide
+    `form[data-boekbalk]`; `arrangement.js` zet het vertrek op aankomst + N bij elke aankomstkeuze, corrigeert een te kort
+    vertrek en zet het vlak voor verzenden nog eens (capture-listener vóór de submit van lander-w1.js), zodat widget
+    (setStartDate/setEndDate) en URL-fallback (mewsStart/mewsEnd) N nachten krijgen. Knoppen zonder datum (zijkaart,
+    kamers) openen de widget zonder datums. Aankomstdag (bijv. alleen vr/za) dwingt de balk niet af: noem hem in `BOEKBALK_NOOT`.
+  - Actiecodeveld in de boekbalk: `arrangement.js` maakt het zo breed als de code (codes tot ±14 tekens passen op 1280/1440).
   - Zijkaart/telefoonkaart: `KAART_KOP`, `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID` ("p.p. per nacht"), `ARR_VOORWAARDEN`
     (annuleren alleen noemen als het vaststaat), `KAART_VINK_A..D`, `KAART_KNOP`, `KAART_TRUST`, `ARR_MOB_NOOT`.
   - Inbegrepen: `INB_KOP_A/EM`, `ARR_INB_INTRO` (een of twee zinnen), `_inbegrepen` (lijst `{titel, regel, icoon}`; icoon =
@@ -218,9 +224,12 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
     `upgrade` of `toeslag`). Vanaf 3 kamers de brede slider met lus zoals /bedankt (twee kaarten van 390 px in de zijkaartzone op
     1440, teller en streepjes volgen het aantal); 1 of 2 kamers: raster `.ar-kamers` zonder slider/lus/teller. Plus `KAMER_KOP_*`, `KAMER_SUB`, `KAMER_NOOT`.
   - Reviews: `_reviews_aantal` (8 of 12, anders stopt de build), `_reviews_voorkeur` (woorden; reviews die er een noemen eerst).
-  - FAQ: `_faq` (lijst `{q, a}`, eerste staat open; `"zondag": true` = alleen met ZV_TOON). Geen herhaling van de tijdenstrook.
+  - FAQ: `_faq` (lijst `{q, a}`, 4 tot 8 vragen, eerste staat open; `"zondag": true` = alleen met ZV_TOON). Geen herhaling van de tijdenstrook.
   - Ook interessant: `ANDERE_TOON` + `_andere` (lijst `{naam, url, img, alt, prijs?}`; prijs alleen als hij bekend is, url met
     curl op 200 checken).
+  - Fotowolk: `_fotowolk` (optioneel, precies 12 items `{img, pos?}` of een pad) vervangt in volgorde de 12 vaste foto's van
+    blok 7a; `SLOT_FOTO_A/B` blijven. Volgorde/formaten: tall, tall, vierkant x3, staand 1:2 x3, vierkant x2, tall, tall;
+    op de telefoon zichtbaar: 1, 4, 9, 11, 12 (+ SLOT_FOTO_A). Zonder lijst de vaste set (wellness, bar). Limburg en Golf hebben er een.
   - Verder `STICKY_KOP/SUB/KNOP` (onderbalk), `SLOT_*` (fotowolk), `POP_BADGE`, `REVIEW_KOP_*`. Onzekere feiten in
     `_controleren` (lijst; `_`-keys en niet-tekstwaarden gaan niet de {{KEY}}-pass in).
 - Blokken in het sjabloon zijn zo geplaatst dat landers zonder blok `arrangement` byte-identiek blijven; controleer na
@@ -229,7 +238,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk, zondagblok (paneel met kop,
   2 kaarten, pil in de zondagkaart), Waarom Asteria (6 punten + 8 klonen, pijl verandert --active en
   foto), kamerslider met lus bij 3 kamers, inbegrepen-paneel tot de linker schermrand + fotoslider (pijlen, bolletjes), reviewmuur
-  8/12, geen b2a, zijkaart met foto, zijkaart loopt mee en stopt na de kamers).
+  8/12, geen b2a, zijkaart met foto, zijkaart loopt mee en stopt na de kamers). Generiek sinds 14 okt: kamers = aantal op de pagina
+  (lus met 2n klonen vanaf 3, raster bij 1-2), FAQ 4-8, zondagchecks alleen met zondagblok (zonder: geen blok, geen zondagregel,
+  geen zondag-FAQ), actiecode volledig zichtbaar (ook 14 tekens), vertrek = aankomst + data-nachten en widget krijgt N nachten.
   Gotcha: draait er op 8765 al een server uit een andere worktree, start dan een eigen server met `--directory` op een andere poort.
 - Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag

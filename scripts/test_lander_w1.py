@@ -31,7 +31,10 @@ fotoslider met 4-6 dia's, bolletjes en pijlen (pijlklik schuift een dia). Zondag
 2 kaarten en voetnoot erin, pil in de zondagkaart, even breed (een kolom op 390), zondagprijs met doorgestreepte gewone
 prijs, geen keuzeschakelaar (ook niet met ?zv=). Ook interessant (o2): 3 kaarten als link, foto over de volle kaart,
 ivoren sectie, geen overloop op 390. Waarom Asteria: wiel met 6 echte punten en 8 klonen, pijlklik verandert --active en
-de foto. Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
+de foto. FAQ: 4 tot 8 vragen, eerste open. Zondagblok alleen als de pagina het heeft (ZV_TOON); zonder: geen blok, geen
+zondagregel in zij- en telefoonkaart, geen zondag-FAQ. Boekbalk: actiecode volledig zichtbaar (ook een code van 14 tekens),
+vertrek = aankomst + data-nachten (ARR_NACHTEN, standaard 1), widget krijgt N nachten ook als het vertrek te kort stond.
+Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
 """
 import sys, json
 from datetime import date, timedelta
@@ -54,7 +57,8 @@ NAAM = URL.rstrip('/').rsplit('/', 1)[-1].replace('.html', '')
 fouten, resultaten = [], []
 # Ankers voor de zijkaart-checks: flow-landers meten tegen de tegelstrook (2a) en attentie (3a); de arrangementpagina
 # heeft geen tegelstrook en meet tegen 'Dit is inbegrepen' (.ar-inb) en het zondagblok (.ar-zv).
-ANKERS = ("window.__anker='.ar-inb .wrap';window.__ankerSec='.ar-inb';window.__voor='.ar-inb';window.__na='.ar-zv';window.__arr=true;"
+# __na is een selectorlijst: querySelector geeft het eerste blok na 'inbegrepen' (zondagblok, anders Waarom Asteria, anders kamers).
+ANKERS = ("window.__anker='.ar-inb .wrap';window.__ankerSec='.ar-inb';window.__voor='.ar-inb';window.__na='.ar-zv, .ar-waarom, .b4b';window.__arr=true;"
           if PRIJS else
           "window.__anker='.b2a-strook';window.__ankerSec='.b2a';window.__voor='.b3a';window.__na='.b4b';window.__arr=false;")
 
@@ -137,7 +141,7 @@ with sync_playwright() as p:
                 return {n:k.length,n_attr:+g.dataset.n,strook:!!document.querySelector('.b4b-strook, .b4b-teller, .b4b-dots'),klonen:document.querySelectorAll('[data-kloon]').length,
                   rij:k.every(x=>Math.abs(x.top-k[0].top)<2),peek:k.length>1&&k[1].left<innerWidth&&k[1].right>innerWidth,veeg:g.scrollWidth>g.clientWidth+10,
                   prijs:[...g.querySelectorAll('.ar-kprijs')].length,rand:getComputedStyle(g.querySelector('.ar-kaart-inbegrepen')).boxShadow.includes('199, 110, 78')}})()""")
-            check(f'{tag} kamerraster bij {r["n"]} kamers: geen slider, teller, streepjes of klonen', r['n'] <= 3 and r['n'] == r['n_attr'] and not r['strook'] and r['klonen'] == 0, str(r))
+            check(f'{tag} kamerraster bij {r["n"]} kamers: geen slider, teller, streepjes of klonen', r['n'] <= 2 and r['n'] == r['n_attr'] and not r['strook'] and r['klonen'] == 0, str(r))
             check(f'{tag} prijsregel op elke kamerkaart, inbegrepen kamer met terracotta rand', r['prijs'] == r['n'] and r['rand'], str(r))
             if mob: check(f'{tag} kamerraster veegbaar, volgende kaart piept in beeld', r['veeg'] and r['peek'], str(r))
             else: check(f'{tag} kamers naast elkaar in een rij', r['rij'] and not r['veeg'], str(r))
@@ -170,7 +174,7 @@ with sync_playwright() as p:
         if PRIJS:
             a = pg.evaluate("""(()=>{const q=s=>document.querySelector(s),zv=q('.ar-zv'),wa=q('.ar-waarom'),kant=q('.lp-zone-kant'),an=q('.ar-andere');
                 const zk=zv?[...zv.querySelectorAll('.ar-zv-kaart')]:[],zz=zv&&zv.querySelector('.ar-zv-kaart--zondag'),za=zk.find(k=>k!==zz);
-                return {zv:!!zv&&zv.offsetParent!==null&&!!zz&&!!zz.querySelector('.ar-zv-pil')&&!!zv.querySelector('.ar-zv-noot')&&!!zz.querySelector('s'),
+                return {zvEr:!!zv,zvRegels:document.querySelectorAll('.ar-zondagregel').length,zv:!!zv&&zv.offsetParent!==null&&!!zz&&!!zz.querySelector('.ar-zv-pil')&&!!zv.querySelector('.ar-zv-noot')&&!!zz.querySelector('s'),
                   zvN:zk.length,zvKop:zv?zv.querySelector('h2').innerText.replace(/\\u00a0/g,' '):'',
                   zvPrijs:zz?zz.querySelector('.ar-zv-prijs b').innerText.replace(/\\u00a0/g,' '):'',zvWas:zz?zz.querySelector('s').innerText.replace(/\\u00a0/g,' '):'',
                   zvW:zz?Math.round(zz.getBoundingClientRect().width):0,zvWa:za?Math.round(za.getBoundingClientRect().width):0,
@@ -187,14 +191,19 @@ with sync_playwright() as p:
                   anOv:document.documentElement.scrollWidth-innerWidth,
                   chips:document.querySelectorAll('.ar-chips li').length,
                   faq:[...document.querySelectorAll('.b6c summary')].map(s=>s.innerText)}})()""")
-            check(f'{tag} zondagblok (a9): paneel met kop, 2 kaarten en voetnoot erin, pil in de zondagkaart', a['zvPaneel'])
-            check(f'{tag} zondagblok: kop, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
-            check(f'{tag} zondagblok: precies 2 kaarten', a['zvN'] == 2, str(a['zvN']))
-            check(f'{tag} zondagblok: zondagprijs staat er (lager dan {PRIJS}, die doorgestreept)', a['zvPrijs'].startswith('€') and a['zvPrijs'] != PRIJS and a['zvWas'] == PRIJS, f"{a['zvPrijs']} / {a['zvWas']}")
-            if mob:
-                check(f'{tag} zondagblok: een kolom (kaarten even breed)', a['zvW'] > 0 and a['zvW'] == a['zvWa'], f"{a['zvW']} / {a['zvWa']}")
+            if a['zvEr']:
+                check(f'{tag} zondagblok (a9): paneel met kop, 2 kaarten en voetnoot erin, pil in de zondagkaart', a['zvPaneel'])
+                check(f'{tag} zondagblok: kop, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
+                check(f'{tag} zondagblok: precies 2 kaarten', a['zvN'] == 2, str(a['zvN']))
+                check(f'{tag} zondagblok: zondagprijs staat er (lager dan {PRIJS}, die doorgestreept)', a['zvPrijs'].startswith('€') and a['zvPrijs'] != PRIJS and a['zvWas'] == PRIJS, f"{a['zvPrijs']} / {a['zvWas']}")
+                if mob:
+                    check(f'{tag} zondagblok: een kolom (kaarten even breed)', a['zvW'] > 0 and a['zvW'] == a['zvWa'], f"{a['zvW']} / {a['zvWa']}")
+                else:
+                    check(f'{tag} zondagblok: twee kaarten naast elkaar, even breed', a['zvW'] > 0 and abs(a['zvW'] - a['zvWa']) <= 1, f"{a['zvW']} / {a['zvWa']}")
             else:
-                check(f'{tag} zondagblok: twee kaarten naast elkaar, even breed', a['zvW'] > 0 and abs(a['zvW'] - a['zvWa']) <= 1, f"{a['zvW']} / {a['zvWa']}")
+                # ZV_TOON false: geen zondagblok, geen zondagregel in zijkaart of telefoonkaart, geen zondag-FAQ
+                check(f'{tag} zonder zondagvoordeel: geen zondagblok, geen zondagregel in de kaarten, geen zondag-FAQ',
+                      a['zvN'] == 0 and a['zvRegels'] == 0 and not any('zondag' in q.lower() for q in a['faq']), f"{a['zvN']} / {a['zvRegels']} / {a['faq']}")
             check(f'{tag} zondagblok: geen keuzeschakelaar of oude opties', not a['zvKiezer'])
             check(f'{tag} Waarom Asteria: kop, zes punten, foto geladen, knop met {VOUCHER}',
                   a['wKop'].startswith('Voor de grote dagen') and a['wPunten'] == 6 and a['wFoto'] and a['wKnop'] == VOUCHER, str(a)[:300])
@@ -205,14 +214,15 @@ with sync_playwright() as p:
             if mob:
                 check(f'{tag} geen horizontale overloop', a['anOv'] <= 0, str(a['anOv']))
             check(f'{tag} drie chips onder de hero', a['chips'] == 3, str(a['chips']))
-            check(f'{tag} FAQ: zes vragen, eerste over het arrangement', len(a['faq']) == 6 and 'arrangement' in a['faq'][0], ' | '.join(a['faq']))
+            check(f'{tag} FAQ: 4 tot 8 vragen', 4 <= len(a['faq']) <= 8, f"{len(a['faq'])}: " + ' | '.join(a['faq']))
             ok_rev = pg.evaluate("(()=>{const m=document.querySelector('.b5a-muur');return m.classList.contains('is-loop')?[...m.querySelectorAll('.b5a-baan .b5a-kaart:not([aria-hidden])')].length:m.querySelectorAll('.b5a-kaart').length})()")
             check(f'{tag} reviewmuur: precies 8 of 12 kaarten', ok_rev in (8, 12), str(ok_rev))
 
             # kamerslider vanaf 3 kamers: brede kaarten met lus (zoals /bedankt)
             ks = pg.evaluate("""(()=>{const s=document.querySelector('.b4b-strook');if(!s)return null;const e=[...s.querySelectorAll('.b4b-kaart:not([data-kloon])')];
                 return {n:e.length,klonen:s.querySelectorAll('[data-kloon]').length,w:Math.round(e[0].getBoundingClientRect().width),raster:!!document.querySelector('.ar-kamers')}})()""")
-            check(f'{tag} kamerslider met lus bij 3 kamers (klonen voor en na, geen raster)', bool(ks) and ks['n'] == 3 and ks['klonen'] == 6 and not ks['raster'], str(ks))
+            if ks or not pg.evaluate("!!document.querySelector('.ar-kamers')"):
+                check(f'{tag} kamerslider met lus vanaf 3 kamers (klonen voor en na, geen raster)', bool(ks) and ks['n'] >= 3 and ks['klonen'] == 2 * ks['n'] and not ks['raster'], str(ks))
             # inbegrepen: paneel vanaf de linker schermrand, fotoslider met bolletjes en pijlen
             ib = pg.evaluate("""(()=>{const q=s=>document.querySelector(s),r=s=>{const e=q(s);if(!e)return null;const b=e.getBoundingClientRect();return {l:Math.round(b.left),t:Math.round(b.top+scrollY),b:Math.round(b.bottom+scrollY),r:Math.round(b.right),w:Math.round(b.width),h:Math.round(b.height),d:getComputedStyle(e).display}};
                 return {bg:r('.ar-inb-bg'),inhoud:r('.ar-inb-inhoud'),foto:r('.ar-inb-foto'),dias:document.querySelectorAll('.ar-fs-dia').length,
@@ -357,6 +367,7 @@ with sync_playwright() as p:
                 if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-tegels.png')
                 if PRIJS:
                     for sel, naam in (('.ar-zv', 'zondag'), ('.ar-waarom', 'waarom')):
+                        if not pg.evaluate(f"!!document.querySelector('{sel}')"): continue
                         pg.evaluate(f"window.scrollTo(0, document.querySelector('{sel}').getBoundingClientRect().top + scrollY - 140)"); pg.wait_for_timeout(700)
                         z = pg.evaluate(kaart)
                         check(f'{tag} zijkaart loopt mee bij {naam}', z['t'] <= z['kop'] + 40 and z['b'] > z['kop'] + 300, str(z))
@@ -436,11 +447,33 @@ with sync_playwright() as p:
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
         else:
             # boekbalk (laatst, laadt de Mews-widget)
+            if PRIJS:
+                cv = pg.evaluate("(()=>{const i=document.getElementById('bb-code'),f=i.closest('.field').getBoundingClientRect(),r=i.getBoundingClientRect();return {waarde:i.value,cw:i.clientWidth,sw:i.scrollWidth,binnen:r.right<=f.right+1}})()")
+                check(f'{tag} actiecode {VOUCHER} volledig zichtbaar in de boekbalk', cv['waarde'] == VOUCHER and cv['sw'] <= cv['cw'] + 1 and cv['binnen'], str(cv))
+                # 14 tekens moeten ook passen (en de balk blijft binnen beeld)
+                cv14 = pg.evaluate("(()=>{const i=document.getElementById('bb-code'),oud=i.value;i.value='OORLOGSMUSEUM2';window.dispatchEvent(new Event('resize'));"
+                                   "const f=i.closest('.field').getBoundingClientRect(),r=i.getBoundingClientRect(),b=i.closest('form').getBoundingClientRect(),"
+                                   "u={cw:i.clientWidth,sw:i.scrollWidth,binnen:r.right<=f.right+1,balk:b.right<=innerWidth,sw2:document.documentElement.scrollWidth};i.value=oud;window.dispatchEvent(new Event('resize'));return u})()")
+                check(f'{tag} actiecode van 14 tekens past ook', cv14['sw'] <= cv14['cw'] + 1 and cv14['binnen'] and cv14['balk'] and cv14['sw2'] <= w, str(cv14))
+            NACHTEN = int(pg.evaluate("document.querySelector('.b1a-balk').getAttribute('data-nachten') || '1'"))
             a = date.today() + timedelta(days=30)
             pg.fill('#bb-aankomst', a.isoformat())
             vert = pg.input_value('#bb-vertrek')
-            check(f'{tag} vertrek volgt aankomst + 1 nacht', vert == (a + timedelta(days=1)).isoformat(), vert)
-            pg.fill('#bb-vertrek', (a + timedelta(days=2)).isoformat())
+            zv_vert = pg.locator('.b1a-balk .value').all_inner_texts()[1]
+            check(f'{tag} vertrek volgt aankomst + {NACHTEN} nacht' + ('en' if NACHTEN > 1 else '') + ' (ook zichtbaar)',
+                  vert == (a + timedelta(days=NACHTEN)).isoformat() and zv_vert != 'Kies datum' and str((a + timedelta(days=NACHTEN)).day) in zv_vert, f'{vert} / {zv_vert}')
+            if NACHTEN > 1:
+                # te kort vertrek wordt bij verzenden rechtgezet (gestubde widget-API)
+                pg.fill('#bb-vertrek', (a + timedelta(days=1)).isoformat())
+                pg.evaluate("window._mews=[];window.mewsApi={setVoucherCode:()=>{},setLanguageCode:()=>{},setStartDate:d=>window._mews.push(d),setEndDate:d=>window._mews.push(d),setAdultCount:()=>{},open:()=>{}}")
+                pg.locator('.b1a-balk button[type=submit]').click(); pg.wait_for_timeout(300)
+                st = pg.evaluate("(()=>{const l=window.lpBoekbalk||{},m=window._mews;return {start:l.start,eind:l.eind,route:l.route,nachten:m.length==2?Math.round((m[1]-m[0])/864e5):null}})()")
+                pg.evaluate("delete window.mewsApi")
+                check(f'{tag} widget krijgt {NACHTEN} nachten, ook als het vertrek te kort stond',
+                      st['route'] == 'widget' and st['nachten'] == NACHTEN and st['eind'] == (a + timedelta(days=NACHTEN)).isoformat(), str(st))
+                print('     widget-log:', json.dumps(st))
+            ext = max(2, NACHTEN)
+            pg.fill('#bb-vertrek', (a + timedelta(days=ext)).isoformat())
             pg.select_option('#bb-gasten', '3')
             zicht = pg.locator('.b1a-balk .value').all_inner_texts()
             check(f'{tag} zichtbare waarden volgen de invoer', zicht[2] == '3 volwassenen' and zicht[0] != 'Kies datum', ' | '.join(zicht[:3]))
@@ -452,7 +485,7 @@ with sync_playwright() as p:
             u = log.get('url', '')
             check(f'{tag} boekbalk-URL bevat {VOUCHER}, mewsStart, mewsEnd, mewsAdultCount=3',
                   f'mewsVoucherCode={VOUCHER}' in u and f'mewsStart={a.isoformat()}' in u
-                  and f'mewsEnd={(a + timedelta(days=2)).isoformat()}' in u and 'mewsAdultCount=3' in u, u)
+                  and f'mewsEnd={(a + timedelta(days=ext)).isoformat()}' in u and 'mewsAdultCount=3' in u, u)
             widget = pg.evaluate("!!document.querySelector('iframe[src*=\"mews\"], .mews-distributor, [class*=\"mews\"] iframe')")
             check(f'{tag} boekbalk opent Mews (widget of URL-fallback)',
                   log.get('route') in ('widget', 'url (geen datum-methodes)') or len(popups) > 0,
@@ -487,9 +520,10 @@ with sync_playwright() as p:
             pg = ctx.new_page(); fz = []
             pg.on('pageerror', lambda e: fz.append(str(e)))
             pg.goto(URL + '?zv=c', wait_until='networkidle'); pg.wait_for_timeout(400)
-            z = pg.evaluate("({kiezer:!!document.querySelector('.ar-zv-kiezer,.ar-zv-optie'),n:document.querySelectorAll('.ar-zv .ar-zv-kaart').length,sw:document.documentElement.scrollWidth})")
-            check(f'[{w}] ?zv=c: geen keuzeschakelaar, zondagblok met 2 kaarten', not z['kiezer'] and z['n'] == 2 and z['sw'] <= w and not fz, str(z) + ' ' + '; '.join(fz))
-            if shotdir:
+            z = pg.evaluate("({kiezer:!!document.querySelector('.ar-zv-kiezer,.ar-zv-optie'),zv:!!document.querySelector('.ar-zv'),n:document.querySelectorAll('.ar-zv .ar-zv-kaart').length,sw:document.documentElement.scrollWidth})")
+            check(f'[{w}] ?zv=c: geen keuzeschakelaar, ' + ('zondagblok met 2 kaarten' if z['zv'] else 'geen zondagblok'),
+                  not z['kiezer'] and z['n'] == (2 if z['zv'] else 0) and z['sw'] <= w and not fz, str(z) + ' ' + '; '.join(fz))
+            if shotdir and z['zv']:
                 pg.locator('.ar-zv').scroll_into_view_if_needed(); pg.wait_for_timeout(900)
                 pg.locator('.ar-zv').screenshot(path=f'{shotdir}/{NAAM}-{w}-zondag.png')
             ctx.close()

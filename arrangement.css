@@ -16,6 +16,12 @@
   .lp .ar-chips .as-icoon{width:15px;height:15px}
 }
 
+/* ---------- 1: actiecodeveld in de boekbalk groeit mee met de code (breedte zet arrangement.js) ---------- */
+@media (min-width:720px){
+  .lp .as-booking-card.b1a-balk .b1a-code{flex:1 0 auto}
+  .lp .as-booking-card.b1a-balk .b1a-codeveld{min-width:9.5ch;max-width:100%}
+}
+
 /* ---------- zijkaart en telefoonkaart: prijs groot bovenaan, geen foto ---------- */
 .lp .ar-kaart .b1k-body{padding:24px 26px 22px}
 .lp .ar-kaart-naam{font-size:var(--text-sm);font-weight:600;color:var(--ink-soft);line-height:1.3}

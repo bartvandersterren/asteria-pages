@@ -380,7 +380,11 @@ def apply_arrangement(html, data):
       teller en streepjes volgen het aantal.
     - '_chips' (hero), '_inbegrepen' ({titel, regel, icoon}; vakje met lijnicoon, 2 kolommen),
       '_inbegrepen_fotos' ({img, alt, pos?}; fotoslider in het inbegrepen-blok, 4 tot 6), '_tijden' ({tekst, icoon}), '_faq' ({q, a}; eerste open;
-      "zondag": true = alleen met ZV_TOON), '_andere' ({naam, url, img, alt, prijs?})."""
+      "zondag": true = alleen met ZV_TOON), '_andere' ({naam, url, img, alt, prijs?}).
+    - 'ARR_NACHTEN' (getal, standaard 1): vast aantal nachten. Bij meer dan 1 krijgen de boekbalken
+      data-nachten; arrangement.js zet het vertrek dan op aankomst + N (balk, widget en URL-fallback).
+    - '_fotowolk': 12 foto's ({img, pos?} of een pad) die de vaste foto's van de fotowolk (blok 7a)
+      in volgorde vervangen; SLOT_FOTO_A/B blijven staan. Zonder lijst blijft de vaste set."""
     from html import escape
     kamers = data.get('_kamers')
     if kamers:
@@ -453,6 +457,30 @@ def apply_arrangement(html, data):
         + (f'<span class="ar-ander-prijs">{re.sub(r"(€\s?[0-9.,]+)", r"<b>\1</b>", a["prijs"])}</span>' if a.get('prijs') else '')
         + f'<span class="ar-ander-rond">{pijl}</span></span></a>'
         for a in data.get('_andere', [])))
+
+    nachten = data.get('ARR_NACHTEN', 1)
+    if not isinstance(nachten, int) or nachten < 1:
+        sys.exit(f'ARR_NACHTEN moet een heel getal van 1 of meer zijn, niet {nachten!r}')
+    if nachten > 1:
+        html = html.replace(' data-boekbalk ', f' data-boekbalk data-nachten="{nachten}" ')
+
+    wolk = data.get('_fotowolk')
+    if wolk:
+        s = html.index('<section class="sec b7a"')
+        e = html.index('<div class="b7a-inhoud">', s)
+        vast = [m for m in re.finditer(r'<img class="b7a-foto[^"]*" data-h="[^"]+" src="[^"]+" alt="" loading="lazy">', html[s:e])]
+        if len(wolk) != len(vast):
+            sys.exit(f'_fotowolk: precies {len(vast)} foto\'s nodig, niet {len(wolk)}')
+        stuk = html[s:e]
+        for m, f in reversed(list(zip(vast, wolk))):
+            f = {'img': f} if isinstance(f, str) else f
+            if not os.path.exists(os.path.join(base, f['img'])):
+                sys.exit(f'_fotowolk: {f["img"]} bestaat niet')
+            tag = re.sub(r'src="[^"]+"', lambda _: f'src="{escape(f["img"])}"', m.group(0), count=1)
+            if f.get('pos'):
+                tag = tag[:-1] + f' style="object-position:{escape(f["pos"])}">'
+            stuk = stuk[:m.start()] + tag + stuk[m.end():]
+        html = html[:s] + stuk + html[e:]
     return html
 
 

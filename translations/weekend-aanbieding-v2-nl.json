@@ -11,7 +11,8 @@
     "Wellness Top Floor: niet in het arrangement. FAQ zegt bijboeken via de receptie, open ma-do 16.00-22.00, vr-zo 12.00-22.00; kosten voor hotelgasten onbekend.",
     "Foto's: hero l26-weekend-aanbieding-hero.webp (uit l26-bubbels-proost) toont een stel met een glas bubbels, niet de huiswijn of het speciaal bier uit het arrangement. Welkom-foto (uit l26-terras) toont rode wijn op het terras. Kamer/uitslapen uit kamer-comfort-a/-b en l26-limburg-arrangement-comfort, diner uit l26-fac-restaurant-2 (800 px breed), ontbijt uit arr-c-ontbijt.",
     "Ook interessant: prijzen zelf gemeten 14 okt 2026 (3 nov 2026, 2 volwassenen): Oorlogsmuseum EUR 262 voor 1 nacht Comfort (EUR 131 p.p.), Golf EUR 371 voor 1 nacht Comfort 3 pers. (EUR 185,50 p.p.), Limburgs arrangement EUR 830 voor 3 nachten Comfort (EUR 415 p.p., alleen 3 nachten boekbaar). Foto's oorlogsmuseum en limburg komen uit de bestanden van de andere arrangementpagina's (l26-oorlogsmuseum-arrangement-sherman, l26-limburg-arrangement-fietsroute).",
-    "De live pagina asteria.nl/arrangementen/weekend-aanbieding boekt nog via de oude config bee2f902; deze pagina gebruikt 6dc9094c."
+    "De live pagina asteria.nl/arrangementen/weekend-aanbieding boekt nog via de oude config bee2f902; deze pagina gebruikt 6dc9094c.",
+    "Suite (EUR 206 p.p. voor 2 nachten, gemeten 14 okt 2026) staat weer als 4e kamer op de pagina; per weekend vaak maar 1 Suite of uitverkocht. ARR_NACHTEN 2: de boekbalk zet het vertrek automatisch 2 nachten na de aankomst; de aankomstdag (vr/za) dwingt de balk niet af, de hint onder de balk noemt hem."
   ],
   "PAGE_TITLE": "Weekend aanbieding: 2 nachten met diner en ontbijt | Hotel Asteria Venray",
   "META_DESC": "Weekendje weg in Noord-Limburg: 2 nachten in een Comfort kamer bij Hotel Asteria in Venray, welkomstdrankje, drie-gangen diner, 2x ontbijtbuffet en uitchecken tot 14.00. Vanaf € 166 p.p.",
@@ -24,6 +25,7 @@
   "HERO_ATTR": " style=\"--hero-x:70%\"",
   "HERO_ALT": "Stel proost met een glas in de lounge van Hotel Asteria",
   "VOUCHER": "WEEKEND",
+  "ARR_NACHTEN": 2,
   "CODE_ATTR": "",
   "CTA": "Boek het weekend",
   "ARR_PRIJS_PIL": "vanaf € 166 p.p.",
@@ -42,7 +44,7 @@
   "KAART_KNOP": "Boek het weekend",
   "KAART_TRUST": "Boek direct bij het hotel · Actiecode WEEKEND",
   "BOEKBALK_KNOP": "Boek het weekend",
-  "BOEKBALK_NOOT": "Actiecode WEEKEND staat al voor je ingevuld",
+  "BOEKBALK_NOOT": "Aankomst op vrijdag of zaterdag, 2 nachten · actiecode WEEKEND staat al voor je ingevuld",
   "KAMER_KOP_A": "In welke",
   "KAMER_KOP_EM": "kamer",
   "KAMER_KOP_B": "slaap je?",
@@ -67,6 +69,12 @@
       "soort": "toeslag",
       "prijs_label": "vanaf",
       "prijs": "€ 186 p.p."
+    },
+    "suite": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs_label": "vanaf",
+      "prijs": "€ 206 p.p."
     }
   },
   "POP_BADGE": "Weekend aanbieding",
@@ -190,12 +198,12 @@
   ],
   "_faq": [
     {
-      "q": "Wat zit er in het weekendarrangement?",
+      "q": "Wat zit er in de weekend aanbieding?",
       "a": "Een glas huiswijn of speciaal bier bij aankomst, 2 overnachtingen in een Comfort kamer, een drie-gangen diner op de dag van aankomst, 2x het uitgebreide ontbijtbuffet en late checkout tot 14.00 uur (op basis van beschikbaarheid). Vanaf € 166 per persoon voor het hele verblijf, op basis van twee personen; de verblijfsbelasting van € 2,– per persoon per nacht komt erbij. Op basis van een eenpersoonskamer betaal je € 254 per persoon."
     },
     {
       "q": "Op welke dagen kan ik aankomen?",
-      "a": "Het arrangement boek je voor 2 nachten met aankomst op vrijdag of zaterdag. Zoek je andere data, bel dan even met de receptie."
+      "a": "Het arrangement boek je voor 2 nachten met aankomst op vrijdag of zaterdag. Kies je in de boekbalk een aankomstdatum, dan staat de vertrekdatum al 2 nachten later. Zoek je andere data, bel dan even met de receptie."
     },
     {
       "q": "Hoe laat is het ontbijt?",

@@ -3,7 +3,11 @@
       (--kant-onder op .lp-zone, zoals lander-w1.js dat voor de slider doet). Vanaf 3 kamers doet lander-w1.js alles.
    2. Fotoslider in 'Dit is inbegrepen' (Parkhotel .wv-fs): vegen = scroll-snap, pijlen rondlopend, bolletjes; geen autoplay.
    3. Waarom Asteria: draaiend wiel zoals de staging-homepage (4 klonen voor en na, autoplay 2400 ms alleen in beeld,
-      pijlen pauzeren 6 s, foto wisselt mee met crossfade). Bij prefers-reduced-motion geen autoplay. */
+      pijlen pauzeren 6 s, foto wisselt mee met crossfade). Bij prefers-reduced-motion geen autoplay.
+   4. Actiecodeveld in de boekbalk zo breed als de code (lander-w1.css zet 9,5ch; WELLNESS2026 viel daarbuiten).
+   5. Vast aantal nachten (ARR_NACHTEN > 1 in de JSON -> data-nachten op form[data-boekbalk]): vertrek = aankomst + N
+      bij elke aankomstkeuze, en vlak voor verzenden (capture op document, dus vóór de submit van lander-w1.js), zodat
+      widget (setStartDate/setEndDate) en URL-fallback (mewsStart/mewsEnd) N nachten krijgen. lander-w1.js blijft ongewijzigd. */
 (function () {
   'use strict';
   var rustig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -152,4 +156,60 @@
       }).observe(sec);
     }
   });
+
+  /* 4. actiecodeveld zo breed als de code */
+  Array.prototype.forEach.call(document.querySelectorAll('.b1a-balk .b1a-codeveld'), function (veld) {
+    function maat() {
+      if (!veld.offsetParent) return;
+      veld.style.width = '0px';
+      veld.style.width = (veld.scrollWidth + 2) + 'px';
+    }
+    maat();
+    window.addEventListener('load', maat);
+    window.addEventListener('resize', maat);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(maat);
+  });
+
+  /* 5. vast aantal nachten */
+  function twee(n) { return (n < 10 ? '0' : '') + n; }
+  function ymd(d) { return d.getFullYear() + '-' + twee(d.getMonth() + 1) + '-' + twee(d.getDate()); }
+  function leesDatum(v) {
+    var p = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v || '');
+    return p ? new Date(+p[1], +p[2] - 1, +p[3]) : null;
+  }
+  function plusDagen(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+  var vandaag = new Date(); vandaag = new Date(vandaag.getFullYear(), vandaag.getMonth(), vandaag.getDate());
+  function nachtenVan(form) { return parseInt(form.getAttribute('data-nachten'), 10) || 1; }
+  /* waarde zetten en 'change' sturen: lander-w1.js werkt dan de zichtbare datum bij */
+  function zetDatum(invoer, d) {
+    invoer.value = ymd(d);
+    invoer.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  function vastVertrek(form, altijd) {
+    var n = nachtenVan(form);
+    var aankomst = form.querySelector('[data-rol="aankomst"]'), vertrek = form.querySelector('[data-rol="vertrek"]');
+    if (n < 2 || !aankomst || !vertrek) return;
+    var a = leesDatum(aankomst.value), v = leesDatum(vertrek.value);
+    if (!a && v) {
+      a = plusDagen(v, -n);
+      if (a < vandaag) return;
+      zetDatum(aankomst, a);
+    }
+    if (!a) return;
+    var doel = plusDagen(a, n);
+    vertrek.min = ymd(doel);
+    if (altijd || !v || v < doel) zetDatum(vertrek, doel);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('form[data-boekbalk][data-nachten]'), function (form) {
+    var aankomst = form.querySelector('[data-rol="aankomst"]'), vertrek = form.querySelector('[data-rol="vertrek"]');
+    if (!aankomst || !vertrek || nachtenVan(form) < 2) return;
+    vertrek.min = ymd(plusDagen(vandaag, nachtenVan(form)));
+    aankomst.addEventListener('change', function () { vastVertrek(form, true); });
+    /* te kort vertrek direct terugzetten (anders blokkeert min= het verzenden) */
+    vertrek.addEventListener('change', function () { vastVertrek(form, false); });
+  });
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (form && form.matches && form.matches('form[data-boekbalk][data-nachten]')) vastVertrek(form, false);
+  }, true);
 })();

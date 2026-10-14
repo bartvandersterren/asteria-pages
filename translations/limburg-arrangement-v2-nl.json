@@ -1,7 +1,7 @@
 {
   "_controleren": [
     "Prijzen gemeten 14 okt 2026 via Mews getAvailability (config 6dc9094c, voucher LIMBURG, 2 volwassenen, 3 nachten), aankomst 25 okt, 30 okt, 1, 3 en 15 nov, 6 dec 2026, 7 mrt, 13 en 15 jun 2027: overal gelijk. Comfort en Mindervalide EUR 830 voor 2 p. (EUR 415 p.p.), Comfort 3 pers. en Royale EUR 860 (EUR 430), Deluxe EUR 890 (EUR 445), Junior suite EUR 920 (EUR 460), Suite EUR 950 (EUR 475), Bruidssuite EUR 1.010 (EUR 505). Tarief 'Limburgs arrangement'.",
-    "Aantal nachten: Mews geeft met LIMBURG alleen een tarief bij precies 3 nachten (1, 2 en 4 nachten: geen tarief). De boekknop opent de Mews-widget zonder vertrekdatum; de gast moet zelf 3 nachten kiezen. De FAQ en de voorwaardenregel zeggen dat.",
+    "Aantal nachten: Mews geeft met LIMBURG alleen een tarief bij precies 3 nachten (1, 2 en 4 nachten: geen tarief). ARR_NACHTEN 3: de boekbalk zet het vertrek automatisch 3 nachten na de aankomst (ook in de widget en de URL-fallback). De boekknoppen zonder datum (zijkaart, kamers) openen de widget zonder datums; daar kiest de gast zelf 3 nachten. FAQ en voorwaardenregel zeggen dat.",
     "Zondagvoordeel: niet actief in Mews. Zondag 25 okt, 1 en 15 nov en dinsdag 3 nov 2026 geven allemaal EUR 830 voor 2 p. De zondagprijs op de pagina (EUR 405 p.p.) is berekend als gewone prijs min EUR 10 p.p. (EUR 20 per kamer, eenmalig per verblijf). Eerst de korting in Mews zetten, anders ZV_TOON op false. Ook bevestigen dat de korting bij een 4-daags arrangement EUR 20 per kamer per verblijf is en niet per nacht.",
     "Periode: asteria.nl noemt geen boekingsperiode; Mews geeft het tarief van okt 2026 tot en met jun 2027. De pagina noemt daarom geen einddatum. Is het arrangement het hele jaar boekbaar?",
     "Eenpersoonsprijs EUR 583,- komt van asteria.nl (niet gemeten in Mews); staat alleen in de FAQ.",
@@ -9,7 +9,7 @@
     "3-gangenmenu 'samengesteld met verse streekproducten' komt letterlijk van asteria.nl; geen keuzemenu of dieetwensen bekend.",
     "Annuleringsvoorwaarden van het arrangementstarief: onbekend. De zijkaart noemt geen annuleren; de FAQ zegt: zie je bij het boeken.",
     "Tijdenstrook (inchecken 15.00, uitchecken 11.00, diner tot 21.30) zijn overgenomen van de najaarspagina (bron daar: Lastminute.com en visit.asteria.nl-FAQ). Graag bevestigen.",
-    "Wellness Top Floor: niet in het arrangement en niet genoemd op de pagina (de FAQ-test van het sjabloon wil precies 6 vragen; ontbijttijden en wellness zijn daarvoor weggelaten).",
+    "Wellness Top Floor: niet in het arrangement. FAQ zegt bijboeken via de receptie, open ma-do 16.00-22.00, vr-zo 12.00-22.00 (zoals weekend en golf); kosten voor hotelgasten onbekend. Ontbijttijden in de FAQ (doordeweeks 07.00-10.00, weekend 08.00-10.30) komen van Lastminute.com, zoals op de najaarspagina.",
     "Foto's: hero = de Maasduinen-vlonder van de asteria.nl-pagina van dit arrangement (upload/heading/limburg-arrangement-1600x800_10.jpg, 1600 breed, dus wat zacht op groot scherm). Fietsen, fietsroutebord en Comfort kamer uit de Fotobank; vlaai uit arr-c-vlaai, ontbijt uit restaurant-ontbijt, diner uit Fotobank Gerechten/P1092704. Zijn de fietsen op de foto's de e-bikes van het arrangement?",
     "Ook interessant: Oorlogsmuseum arrangement vanaf EUR 131 en Golfarrangement vanaf EUR 185,50 gemeten in Mews (OORLOGSMUSEUM en GOLF, 1 nacht, 3 nov 2026, 2 volwassenen). Weekend aanbieding zonder prijs: WEEKEND gaf voor vrijdag 6 en 13 nov (2 nachten) geen tarief. Foto's oorlogsmuseum en weekend komen van asteria.nl."
   ],
@@ -24,6 +24,7 @@
   "HERO_ATTR": " style=\"--hero-x:50%\"",
   "HERO_ALT": "Houten vlonder over een ven in Nationaal Park De Maasduinen",
   "VOUCHER": "LIMBURG",
+  "ARR_NACHTEN": 3,
   "CODE_ATTR": "",
   "CTA": "Boek het arrangement",
   "ARR_PRIJS_PIL": "vanaf € 415 p.p. voor 3 nachten",
@@ -213,7 +214,7 @@
     },
     {
       "q": "Hoeveel nachten moet ik boeken?",
-      "a": "Het arrangement geldt voor precies 3 nachten. Kies in het boekingsscherm een aankomstdatum en een vertrekdatum 3 nachten later; dan zie je het tarief met code LIMBURG."
+      "a": "Het arrangement geldt voor precies 3 nachten. Kies je in de boekbalk een aankomstdatum, dan staat de vertrekdatum al 3 nachten later en zie je het tarief met code LIMBURG."
     },
     {
       "q": "Kan ik het arrangement alleen boeken?",
@@ -222,6 +223,14 @@
     {
       "q": "Hoe werkt het met de elektrische fiets?",
       "a": "Je kunt drie dagen een elektrische fiets gebruiken. Geef bij aankomst aan de receptie door wanneer je wilt fietsen. Daar krijg je ook fiets- en wandelroutes mee, bijvoorbeeld naar Nationaal Park De Maasduinen."
+    },
+    {
+      "q": "Hoe laat is het ontbijt?",
+      "a": "Het ontbijtbuffet staat doordeweeks klaar van 07.00 tot 10.00 uur en in het weekend van 08.00 tot 10.30 uur."
+    },
+    {
+      "q": "Kan ik de wellness op de Top Floor gebruiken?",
+      "a": "De wellness zit niet in het Limburg Arrangement, maar je kunt hem wel bijboeken. Reserveer vooraf bij de receptie. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur."
     },
     {
       "q": "Is er korting op zondag?",
@@ -253,6 +262,49 @@
       "url": "https://www.asteria.nl/arrangementen/weekend-aanbieding",
       "img": "fotos/l26-limburg-arrangement-ander-weekend.webp",
       "alt": "Hotel Asteria met de vijver en fontein ervoor"
+    }
+  ],
+  "_fotowolk": [
+    {
+      "img": "fotos/l26-limburg-arrangement-fietsen.webp"
+    },
+    {
+      "img": "fotos/l26-terras.webp"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-comfort.webp",
+      "pos": "40% center"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-fietsroute.webp",
+      "pos": "35% center"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-ontbijt.webp"
+    },
+    {
+      "img": "fotos/l26-omg-bossen.webp",
+      "pos": "45% center"
+    },
+    {
+      "img": "fotos/l26-hotel-zonsondergang.webp"
+    },
+    {
+      "img": "fotos/lt-bos.webp",
+      "pos": "62% center"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-diner.webp"
+    },
+    {
+      "img": "fotos/omgeving-maasduinen.webp"
+    },
+    {
+      "img": "fotos/l26-hotel-buiten.webp"
+    },
+    {
+      "img": "fotos/l26-limburg-arrangement-vlaai.webp",
+      "pos": "68% center"
     }
   ]
 }
