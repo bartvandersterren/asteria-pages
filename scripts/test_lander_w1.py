@@ -46,6 +46,11 @@ if '--schermafdruk' in args:
 URL = args[0] if args else 'http://localhost:8765/verblijfsverjaardag-v2.html'
 NAAM = URL.rstrip('/').rsplit('/', 1)[-1].replace('.html', '')
 fouten, resultaten = [], []
+# Ankers voor de zijkaart-checks: flow-landers meten tegen de tegelstrook (2a) en attentie (3a); de arrangementpagina
+# heeft geen tegelstrook en meet tegen 'Dit is inbegrepen' (.ar-inb) en het zondagblok (.ar-zv).
+ANKERS = ("window.__anker='.ar-inb .wrap';window.__ankerSec='.ar-inb';window.__voor='.ar-inb';window.__na='.ar-zv';window.__arr=true;"
+          if PRIJS else
+          "window.__anker='.b2a-strook';window.__ankerSec='.b2a';window.__voor='.b3a';window.__na='.b4b';window.__arr=false;")
 
 def check(naam, ok, info=''):
     resultaten.append((naam, ok, info))
@@ -55,6 +60,7 @@ def nieuwe_pagina(b, w, h, mob, rustig=False):
     ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob,
                         reduced_motion='reduce' if rustig else 'no-preference')
     ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
+    ctx.add_init_script(ANKERS)
     pg = ctx.new_page()
     pg._fouten = []
     pg.on('console', lambda m: pg._fouten.append(m.text) if m.type == 'error' else None)
@@ -70,6 +76,11 @@ with sync_playwright() as p:
         bron = urllib.request.urlopen(URL).read().decode('utf-8')
         check('[bron] robots noindex, follow', '<meta name="robots" content="noindex, follow">' in bron)
         check('[bron] geen oude Mews-config bee2f902', 'bee2f902' not in bron)
+        nrev = bron.count('<article class="kaart b5a-kaart">')
+        check('[bron] reviewmuur met 8 of 12 kaarten', nrev in (8, 12), str(nrev))
+        check('[bron] één reviewgetal (2.280) in badge, zijkaart en reviewkop, geen 2.200',
+              '2.200' not in bron and bron.count('2.280 reviews') >= 3, str(bron.count('2.280 reviews')))
+        check('[bron] geen tegelstrook (b2a)', 'class="sec b2a"' not in bron)
         ctx, pg = nieuwe_pagina(b, 1440, 900, False)
         links = pg.evaluate("[...document.querySelectorAll('a[href*=\"app.mews.com\"]')].map(a=>a.getAttribute('href'))")
         zonder = [l for l in links if 'mewsVoucherCode=' + VOUCHER not in l or '6dc9094c-76e3-4fd8-83a7-af1d00ffc556' not in l]
@@ -84,14 +95,14 @@ with sync_playwright() as p:
             sw = pg.evaluate('document.documentElement.scrollWidth')
             check(f'[{w}] geen horizontale overloop', sw <= w, f'scrollWidth {sw}')
             if w == 1100:
-                pg.evaluate("window.scrollTo(0, document.querySelector('.b2a').getBoundingClientRect().top + scrollY - 150)"); pg.wait_for_timeout(700)
-                z = pg.evaluate("""()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect(),s=document.querySelector('.b2a-strook').getBoundingClientRect();
+                pg.evaluate("window.scrollTo(0, document.querySelector(window.__ankerSec).getBoundingClientRect().top + scrollY - 150)"); pg.wait_for_timeout(700)
+                z = pg.evaluate("""()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect(),s=document.querySelector(window.__anker).getBoundingClientRect();
                     return {kl:k.left,kr:k.right,kt:k.top,sr:s.right,st:s.top,sb:s.bottom}}""")
                 check(f'[{w}] kaart naast de tegels', z['kl'] > z['sr'] and z['kr'] <= w and z['kt'] < z['sb'], str(z))
             if w == 800:
-                z = pg.evaluate("""()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast'),r=k.getBoundingClientRect(),a=document.querySelector('.b3a').getBoundingClientRect(),
-                    m=document.querySelector('.b4b').getBoundingClientRect();return {w:r.width,pos:getComputedStyle(k).position,na3a:r.top+scrollY>=a.bottom+scrollY-1,voor4b:r.bottom<=m.top+1}}""")
-                check(f'[{w}] kaart als blok tussen attentie en kamers', z['w'] > 0 and z['pos'] != 'sticky' and z['na3a'] and z['voor4b'], str(z))
+                z = pg.evaluate("""()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast'),r=k.getBoundingClientRect(),a=document.querySelector(window.__voor).getBoundingClientRect(),
+                    m=document.querySelector(window.__na).getBoundingClientRect();return {w:r.width,pos:getComputedStyle(k).position,na3a:r.top+scrollY>=a.bottom+scrollY-1,voor4b:r.bottom<=m.top+1}}""")
+                check(f'[{w}] kaart als blok tussen ' + ('inbegrepen en zondagblok' if PRIJS else 'attentie en kamers'), z['w'] > 0 and z['pos'] != 'sticky' and z['na3a'] and z['voor4b'], str(z))
         else:
             pg.locator('.b1k-tab').click(); pg.wait_for_timeout(700)
             sw = pg.evaluate('document.documentElement.scrollWidth')
@@ -114,25 +125,57 @@ with sync_playwright() as p:
         open_ = pg.evaluate("[...document.querySelectorAll('.b6c details')].map(d=>d.open)")
         check(f'{tag} eerste FAQ open, rest dicht', open_[0] and not any(open_[1:]), str(open_))
 
-        # kamerslider
-        tel = lambda: pg.locator('.b4b-nu').inner_text()
-        N = pg.evaluate("document.querySelectorAll('.b4b-strook .b4b-kaart:not([data-kloon])').length")
-        check(f'{tag} kamerteller start op 1 van {N}', tel() == '1' and f'van {N}' in pg.locator('.b4b-tel').inner_text().lower())
-        pg.locator('.b4b-volgende').click(); pg.wait_for_timeout(900)
-        t2 = tel()
-        pg.locator('.b4b-vorige').click(); pg.wait_for_timeout(900)
-        t1 = tel()
-        pg.locator('.b4b-vorige').click(); pg.wait_for_timeout(900)
-        t8 = tel()
-        check(f'{tag} pijlen werken (volgende 2, vorige 1, vorige {N})', (t2, t1, t8) == ('2', '1', str(N)), f'{t2},{t1},{t8}')
-        actief = lambda: pg.evaluate("[...document.querySelectorAll('.b4b-dot')].map((d,i)=>d.classList.contains('is-active')?i+1:0).filter(Boolean).join(',')")
-        check(f'{tag} streepjes volgen de teller ({N} stuks, actief {N})', pg.locator('.b4b-dot').count() == N and actief() == str(N), actief())
-        sd = min(4, N - 1)
-        pg.locator('.b4b-dot').nth(sd - 1).click(); pg.wait_for_timeout(1100)
-        t4 = tel(); a4 = actief()
-        check(f'{tag} klik op streepje {sd} springt naar kamer {sd}', t4 == str(sd) and a4 == str(sd), f'{t4} / {a4}')
-        pg.locator('.b4b-dot').nth(N - 1).click(); pg.wait_for_timeout(1100)
-        pg.locator('.b4b-volgende').click(); pg.wait_for_timeout(900)
+        raster = pg.evaluate("!!document.querySelector('.ar-kamers')")
+        if raster:
+            r = pg.evaluate("""(()=>{const g=document.querySelector('.ar-kamers'),k=[...g.querySelectorAll('.b4b-kaart')].map(x=>x.getBoundingClientRect());
+                return {n:k.length,n_attr:+g.dataset.n,strook:!!document.querySelector('.b4b-strook, .b4b-teller, .b4b-dots'),klonen:document.querySelectorAll('[data-kloon]').length,
+                  rij:k.every(x=>Math.abs(x.top-k[0].top)<2),peek:k.length>1&&k[1].left<innerWidth&&k[1].right>innerWidth,veeg:g.scrollWidth>g.clientWidth+10,
+                  prijs:[...g.querySelectorAll('.ar-kprijs')].length,rand:getComputedStyle(g.querySelector('.ar-kaart-inbegrepen')).boxShadow.includes('199, 110, 78')}})()""")
+            check(f'{tag} kamerraster bij {r["n"]} kamers: geen slider, teller, streepjes of klonen', r['n'] <= 3 and r['n'] == r['n_attr'] and not r['strook'] and r['klonen'] == 0, str(r))
+            check(f'{tag} prijsregel op elke kamerkaart, inbegrepen kamer met terracotta rand', r['prijs'] == r['n'] and r['rand'], str(r))
+            if mob: check(f'{tag} kamerraster veegbaar, volgende kaart piept in beeld', r['veeg'] and r['peek'], str(r))
+            else: check(f'{tag} kamers naast elkaar in een rij', r['rij'] and not r['veeg'], str(r))
+        else:
+            # kamerslider
+            tel = lambda: pg.locator('.b4b-nu').inner_text()
+            N = pg.evaluate("document.querySelectorAll('.b4b-strook .b4b-kaart:not([data-kloon])').length")
+            check(f'{tag} kamerteller start op 1 van {N}', tel() == '1' and f'van {N}' in pg.locator('.b4b-tel').inner_text().lower())
+            pg.locator('.b4b-volgende').click(); pg.wait_for_timeout(900)
+            t2 = tel()
+            pg.locator('.b4b-vorige').click(); pg.wait_for_timeout(900)
+            t1 = tel()
+            pg.locator('.b4b-vorige').click(); pg.wait_for_timeout(900)
+            t8 = tel()
+            check(f'{tag} pijlen werken (volgende 2, vorige 1, vorige {N})', (t2, t1, t8) == ('2', '1', str(N)), f'{t2},{t1},{t8}')
+            actief = lambda: pg.evaluate("[...document.querySelectorAll('.b4b-dot')].map((d,i)=>d.classList.contains('is-active')?i+1:0).filter(Boolean).join(',')")
+            check(f'{tag} streepjes volgen de teller ({N} stuks, actief {N})', pg.locator('.b4b-dot').count() == N and actief() == str(N), actief())
+            sd = min(4, N - 1)
+            pg.locator('.b4b-dot').nth(sd - 1).click(); pg.wait_for_timeout(1100)
+            t4 = tel(); a4 = actief()
+            check(f'{tag} klik op streepje {sd} springt naar kamer {sd}', t4 == str(sd) and a4 == str(sd), f'{t4} / {a4}')
+            pg.locator('.b4b-dot').nth(N - 1).click(); pg.wait_for_timeout(1100)
+            pg.locator('.b4b-volgende').click(); pg.wait_for_timeout(900)
+
+        if PRIJS:
+            a = pg.evaluate("""(()=>{const q=s=>document.querySelector(s),zv=q('.ar-zv'),wa=q('.ar-waarom'),kant=q('.lp-zone-kant'),an=q('.ar-andere');
+                return {zv:!!zv&&zv.querySelectorAll('.ar-zv-kaart').length===2&&!!zv.querySelector('.ar-zv-kaart--zondag .ar-zv-pil')&&!!zv.querySelector('.ar-zv-noot')&&!!zv.querySelector('s'),
+                  zvKop:zv?zv.querySelector('h2').innerText.replace(/\\u00a0/g,' '):'',
+                  wKop:wa?wa.querySelector('h2').innerText:'',wPunten:wa?wa.querySelectorAll('.as-usp-wheel-item').length:0,
+                  wFoto:wa?(i=>i.complete&&i.naturalWidth>0)(wa.querySelector('.b3a-foto img')):false,
+                  wKnop:wa?wa.querySelector('.mews-open').dataset.voucher:'',
+                  kantFoto:kant?kant.querySelectorAll('img').length:-1,kantPrijs:kant?!!kant.querySelector('.b1k-prijs'):false,
+                  andere:an?[...an.querySelectorAll('a.ar-ander')].map(x=>x.getAttribute('href')):[],
+                  chips:document.querySelectorAll('.ar-chips li').length,
+                  faq:[...document.querySelectorAll('.b6c summary')].map(s=>s.innerText)}})()""")
+            check(f'{tag} zondagblok: twee kaarten, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
+            check(f'{tag} Waarom Asteria: kop, zes punten, foto geladen, knop met {VOUCHER}',
+                  a['wKop'].startswith('Voor de grote dagen') and a['wPunten'] == 6 and a['wFoto'] and a['wKnop'] == VOUCHER, str(a)[:300])
+            check(f'{tag} zijkaart zonder foto, met prijs', a['kantFoto'] == 0 and a['kantPrijs'], str(a)[:200])
+            check(f'{tag} drie andere arrangementen met link', len(a['andere']) == 3 and all(h.startswith('https://') for h in a['andere']), str(a['andere']))
+            check(f'{tag} drie chips onder de hero', a['chips'] == 3, str(a['chips']))
+            check(f'{tag} FAQ: zes vragen, eerste over het arrangement', len(a['faq']) == 6 and 'arrangement' in a['faq'][0], ' | '.join(a['faq']))
+            ok_rev = pg.evaluate("(()=>{const m=document.querySelector('.b5a-muur');return m.classList.contains('is-loop')?[...m.querySelectorAll('.b5a-baan .b5a-kaart:not([aria-hidden])')].length:m.querySelectorAll('.b5a-kaart').length})()")
+            check(f'{tag} reviewmuur: precies 8 of 12 kaarten', ok_rev in (8, 12), str(ok_rev))
 
         # Bekijk kamer -> pop-up
         kk = pg.evaluate("""(()=>{const ks=[...document.querySelectorAll('.b4b-kaart:not([data-kloon]) [data-kamer]')].map(b=>b.dataset.kamer);
@@ -147,44 +190,47 @@ with sync_playwright() as p:
               and room == kd['kamer'], f'{titel} / {room}')
         pg.keyboard.press('Escape'); pg.wait_for_timeout(300)
 
-        # tegelstrook: Wellness- en Restaurant-knop -> faciliteiten-pop-up
-        for key, titel_v, link_v in (('wellness', 'Wellness op de Top Floor', 'https://www.asteria.nl/wellness'),
-                                     ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')):
-            fk = pg.locator(f'.b2a-strook [data-fac="{key}"]').first
-            tegel = pg.locator(f'.b2a-strook .b2a-tegel:has([data-fac="{key}"])').first
-            tegel.scroll_into_view_if_needed()
-            if not mob: tegel.hover()
-            pg.wait_for_timeout(700)
-            fk.click(); pg.wait_for_timeout(1200)
-            f = pg.evaluate("""()=>{const d=document.getElementById('lp-pop-fac'),r=d.getBoundingClientRect(),bi=d.querySelector('.lp-pop__binnen');
-                const imgs=[...d.querySelectorAll('.lp-pop__hero,.lp-pop__fotos img')];
-                return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),
-                  fotos:imgs.length,geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length,chips:d.querySelectorAll('.lp-pop__chips li').length,
-                  t:Math.round(r.top),b:Math.round(r.bottom),l:Math.round(r.left),r:Math.round(r.right),
-                  scroll:bi.scrollHeight-bi.clientHeight,sw:document.documentElement.scrollWidth}}""")
-            check(f'{tag} {key}-knop opent pop-up met juiste titel, link en geladen foto\'s',
-                  f['open'] and f['titel'] == titel_v and f['link'] == link_v and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
-            check(f'{tag} {key}-pop-up past in beeld' + (', zonder scrollen' if not mob else ''),
-                  f['t'] >= 0 and f['l'] >= 0 and f['r'] <= w and f['b'] <= h and f['sw'] <= w and (mob or f['scroll'] <= 1), str(f))
-            if shotdir:
-                pg.screenshot(path=f'{shotdir}/{NAAM}-fac-{key}-{w}.png')
-            pg.keyboard.press('Escape'); pg.wait_for_timeout(400)
-            dicht = pg.evaluate("""k=>({open:document.getElementById('lp-pop-fac').open,focus:document.activeElement===document.querySelector('.b2a-strook [data-fac="'+k+'"]')})""", key)
-            check(f'{tag} Escape sluit de {key}-pop-up, focus terug op de knop', not dicht['open'] and dicht['focus'], str(dicht))
-        # sluiten via kruisje en via de achtergrond
-        def open_wellness():
-            tegel = pg.locator('.b2a-strook .b2a-wellness').first
-            tegel.scroll_into_view_if_needed()
-            if not mob: tegel.hover()
-            pg.wait_for_timeout(700)
-            pg.locator('.b2a-strook [data-fac="wellness"]').first.click(); pg.wait_for_timeout(500)
-        open_wellness()
-        pg.locator('#lp-pop-fac .lp-pop__sluit').click(); pg.wait_for_timeout(400)
-        x1 = pg.evaluate("document.getElementById('lp-pop-fac').open")
-        open_wellness()
-        pg.mouse.click(3, 3); pg.wait_for_timeout(400)
-        x2 = pg.evaluate("document.getElementById('lp-pop-fac').open")
-        check(f'{tag} kruisje en klik op de achtergrond sluiten de pop-up', not x1 and not x2, f'{x1}/{x2}')
+        if PRIJS:
+            check(f'{tag} geen tegelstrook (b2a) op de arrangementpagina', pg.evaluate("!document.querySelector('.b2a, .b2a-strook')"))
+        else:
+            # tegelstrook: Wellness- en Restaurant-knop -> faciliteiten-pop-up
+            for key, titel_v, link_v in (('wellness', 'Wellness op de Top Floor', 'https://www.asteria.nl/wellness'),
+                                         ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')):
+                fk = pg.locator(f'.b2a-strook [data-fac="{key}"]').first
+                tegel = pg.locator(f'.b2a-strook .b2a-tegel:has([data-fac="{key}"])').first
+                tegel.scroll_into_view_if_needed()
+                if not mob: tegel.hover()
+                pg.wait_for_timeout(700)
+                fk.click(); pg.wait_for_timeout(1200)
+                f = pg.evaluate("""()=>{const d=document.getElementById('lp-pop-fac'),r=d.getBoundingClientRect(),bi=d.querySelector('.lp-pop__binnen');
+                    const imgs=[...d.querySelectorAll('.lp-pop__hero,.lp-pop__fotos img')];
+                    return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),
+                      fotos:imgs.length,geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length,chips:d.querySelectorAll('.lp-pop__chips li').length,
+                      t:Math.round(r.top),b:Math.round(r.bottom),l:Math.round(r.left),r:Math.round(r.right),
+                      scroll:bi.scrollHeight-bi.clientHeight,sw:document.documentElement.scrollWidth}}""")
+                check(f'{tag} {key}-knop opent pop-up met juiste titel, link en geladen foto\'s',
+                      f['open'] and f['titel'] == titel_v and f['link'] == link_v and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
+                check(f'{tag} {key}-pop-up past in beeld' + (', zonder scrollen' if not mob else ''),
+                      f['t'] >= 0 and f['l'] >= 0 and f['r'] <= w and f['b'] <= h and f['sw'] <= w and (mob or f['scroll'] <= 1), str(f))
+                if shotdir:
+                    pg.screenshot(path=f'{shotdir}/{NAAM}-fac-{key}-{w}.png')
+                pg.keyboard.press('Escape'); pg.wait_for_timeout(400)
+                dicht = pg.evaluate("""k=>({open:document.getElementById('lp-pop-fac').open,focus:document.activeElement===document.querySelector('.b2a-strook [data-fac="'+k+'"]')})""", key)
+                check(f'{tag} Escape sluit de {key}-pop-up, focus terug op de knop', not dicht['open'] and dicht['focus'], str(dicht))
+            # sluiten via kruisje en via de achtergrond
+            def open_wellness():
+                tegel = pg.locator('.b2a-strook .b2a-wellness').first
+                tegel.scroll_into_view_if_needed()
+                if not mob: tegel.hover()
+                pg.wait_for_timeout(700)
+                pg.locator('.b2a-strook [data-fac="wellness"]').first.click(); pg.wait_for_timeout(500)
+            open_wellness()
+            pg.locator('#lp-pop-fac .lp-pop__sluit').click(); pg.wait_for_timeout(400)
+            x1 = pg.evaluate("document.getElementById('lp-pop-fac').open")
+            open_wellness()
+            pg.mouse.click(3, 3); pg.wait_for_timeout(400)
+            x2 = pg.evaluate("document.getElementById('lp-pop-fac').open")
+            check(f'{tag} kruisje en klik op de achtergrond sluiten de pop-up', not x1 and not x2, f'{x1}/{x2}')
 
         # reviewmuur
         kol = pg.evaluate("document.querySelectorAll('.b5a-muur.is-loop .b5a-kol').length")
@@ -200,7 +246,7 @@ with sync_playwright() as p:
         if mob:
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(700)
             vooraf = pg.evaluate("document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
-            pg.evaluate("window.scrollTo(0, document.querySelector('.b2a').offsetTop + 400)"); pg.wait_for_timeout(700)
+            pg.evaluate("window.scrollTo(0, document.querySelector(window.__ankerSec).offsetTop + 400)"); pg.wait_for_timeout(700)
             na = pg.evaluate("document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
             check(f'{tag} onderbalk verschijnt na de hero', (not vooraf) and na, f'voor {vooraf}, na {na}')
             pg.wait_for_timeout(400)
@@ -219,9 +265,9 @@ with sync_playwright() as p:
                 check(f'{tag} geen zijkaart op de telefoon', zk == 0, str(zk))
             else:
                 kaart = """()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect(),kop=document.querySelector('.top-stack').getBoundingClientRect().bottom,
-                    s=document.querySelector('.b2a-strook').getBoundingClientRect(),m=document.querySelector('.b5a').getBoundingClientRect();
+                    s=document.querySelector(window.__anker).getBoundingClientRect(),m=document.querySelector('.b5a').getBoundingClientRect();
                     return {l:Math.round(k.left),r:Math.round(k.right),t:Math.round(k.top),b:Math.round(k.bottom),kop:Math.round(kop),sr:Math.round(s.right),st:Math.round(s.top),sb:Math.round(s.bottom),m5:Math.round(m.top)}}"""
-                pg.evaluate("window.scrollTo(0, document.querySelector('.b2a-strook').getBoundingClientRect().top + scrollY - document.querySelector('.top-stack').offsetHeight - 24)"); pg.wait_for_timeout(700)
+                pg.evaluate("window.scrollTo(0, document.querySelector(window.__anker).getBoundingClientRect().top + scrollY - document.querySelector('.top-stack').offsetHeight - 24)"); pg.wait_for_timeout(700)
                 z = pg.evaluate(kaart)
                 check(f'{tag} kaart zichtbaar naast de tegels', z['l'] > z['sr'] and z['r'] <= w and abs(z['t'] - z['st']) <= 4 and z['b'] <= h, str(z))
                 if PRIJS:
@@ -229,10 +275,16 @@ with sync_playwright() as p:
                         return e?{t:e.innerText.replace(/\\u00a0/g,' '),zicht:r.height>0&&r.top>=0&&r.bottom<=innerHeight}:null})()""")
                     check(f'{tag} prijs {PRIJS} zichtbaar in de zijkaart', bool(pz) and PRIJS in pz['t'] and pz['zicht'], str(pz))
                 if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-tegels.png')
-                pg.evaluate("(()=>{const s=document.querySelector('.b4b-strook');window.scrollTo(0, s.getBoundingClientRect().top + scrollY + s.offsetHeight/2 - innerHeight/2)})()"); pg.wait_for_timeout(700)
+                if PRIJS:
+                    for sel, naam in (('.ar-zv', 'zondag'), ('.ar-waarom', 'waarom')):
+                        pg.evaluate(f"window.scrollTo(0, document.querySelector('{sel}').getBoundingClientRect().top + scrollY - 140)"); pg.wait_for_timeout(700)
+                        z = pg.evaluate(kaart)
+                        check(f'{tag} zijkaart loopt mee bij {naam}', z['t'] <= z['kop'] + 40 and z['b'] > z['kop'] + 300, str(z))
+                        if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-{naam}.png')
+                pg.evaluate("(()=>{const s=document.querySelector('.b4b-strook, .ar-kamers');window.scrollTo(0, s.getBoundingClientRect().top + scrollY + s.offsetHeight/2 - innerHeight/2)})()"); pg.wait_for_timeout(700)
                 z = pg.evaluate(kaart)
                 check(f'{tag} kaart in beeld midden kamerslider', z['b'] > z['kop'] + 200 and z['t'] <= z['kop'] + 40, str(z))
-                eind = pg.evaluate("(()=>{const k=document.querySelector('.lp-zone .b4b-kaart:not([data-kloon])');window.scrollTo(0, k.getBoundingClientRect().bottom + scrollY - innerHeight + 150);const a=document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect().bottom,b=k.getBoundingClientRect().bottom;return [Math.round(a),Math.round(b)]})()")
+                eind = pg.evaluate("(()=>{const k=document.querySelector('.lp-zone .b4b-kaart:not([data-kloon])');window.scrollTo(0, k.getBoundingClientRect().bottom + scrollY - innerHeight + (window.__arr ? 500 : 150));const a=document.querySelector('.lp-zone-kant .b1k-kaart--vast').getBoundingClientRect().bottom,b=k.getBoundingClientRect().bottom;return [Math.round(a),Math.round(b)]})()")
                 check(f'{tag} kaart stopt gelijk met de kamerkaarten', abs(eind[0] - eind[1]) <= 3, str(eind))
                 if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-kamerslider.png')
                 pg.evaluate("window.scrollTo(0, document.querySelector('.b5a').getBoundingClientRect().top + scrollY - document.querySelector('.top-stack').offsetHeight)"); pg.wait_for_timeout(700)
@@ -299,7 +351,7 @@ with sync_playwright() as p:
             # telefoon: boekkaart in plaats van de datumbalk
             mk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),f=document.querySelector('.b1a-balk'),h=document.querySelector('.b1a-tekst h1, .b1a h1');
                 const r=k.getBoundingClientRect(),kn=k.querySelector('.b1k-knop');
-                return {kaart:r.height>300&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
+                return {kaart:r.height>(window.__arr?150:300)&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
                         knop:kn&&kn.classList.contains('mews-open')&&kn.dataset.voucher===%r}})()""" % VOUCHER)
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
         else:
@@ -337,7 +389,7 @@ with sync_playwright() as p:
         ctx, pg = nieuwe_pagina(b, w, h, mob, rustig=True)
         st = pg.evaluate("""()=>{const m=document.querySelector('.b5a-muur');
             return {loop:m.classList.contains('is-loop'),zicht:[...m.querySelectorAll('.b5a-kaart')].filter(k=>k.offsetParent).length}}""")
-        verwacht = 9 if w == 1440 else 5
+        verwacht = (8 if PRIJS else 9) if w == 1440 else 5
         totaal = pg.evaluate("document.querySelectorAll('.b5a-muur .b5a-kaart').length")
         check(f'{tag} reduced-motion: statische muur', not st['loop'] and st['zicht'] == min(verwacht, totaal), str(st))
         if shotdir:

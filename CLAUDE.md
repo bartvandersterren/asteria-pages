@@ -182,20 +182,47 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Zelfde sjabloon als de flow-landers, met build-blokken `zijkaart` + `arrangement`. Eerste pagina: `najaarsarrangement-v2`
   (`translations/najaarsarrangement-v2-nl.json`, voucher NAJAAR2D, foto's `fotos/l26-najaar-*.webp`). De live
   `/najaarsarrangement` (najaar.template.html, oude config bee2f902) blijft tot de promotie ongewijzigd.
+- **Opbouw (wireframe-ideaal 14 okt 2026, bron `~/Documents/Parkhotel /Website ontwerp/asteria-arrangement-blokkenkiezer/bron/wireframe-ideaal.html`):**
+  1 hero + boekbalk met prijs-pil en chips, zijkaart (sticky, zonder foto) naast 2-5 die stopt na de kamers, 2 dit is inbegrepen
+  (ivoren rijen + staande foto + tijdenstrook), 3 zondagvoordeel, 4 waarom Asteria (vaste inhoud, b3a-wiel met zes punten, foto
+  `fotos/l26-arr-bar-staand.webp`), 5 kamers, 6 reviewmuur, 7 FAQ + contactkaart, 8 ook interessant, 9 fotowolk. Geen tegelstrook
+  (b2a) en geen attentie-ster-split. Telefoon: boekkaart onder de hero (prijs, zondagregel, knop, codenoot), daarna de onderbalk.
+  Stijl in `arrangement.css` (prefix `ar-`), script `arrangement.js` (zijkaart stopt bij het kamerraster); beide alleen via het blok
+  `arrangement` geladen, dus flow-landers raken ze niet. Eén reviewgetal: `{{REVIEWS_AANTAL}}` = `aantal` uit
+  `content/reviews-google-asteria.json` (badge, zijkaart, reviewkop).
 - **Nieuw arrangement toevoegen:** kopieer `translations/najaarsarrangement-v2-nl.json` naar `translations/<slug>-nl.json`,
   pas teksten/foto's/VOUCHER/CANONICAL_URL aan, zet de slug in de arrangement-lijst in build.py en draai `python3 build.py <slug>`.
-  Arrangementvelden: `ARR_PRIJS_PIL` (hero), `ARR_PRIJS_VANAF`/`ARR_PRIJS`/`ARR_PRIJS_EENHEID`/`ARR_PRIJS_BASIS` + `ARR_PERIODE`
-  (boekkaart), `KAART_VINK_A..D` (vier inbegrepen-vinkjes), `TEGEL_{WELLNESS,RESTAURANT,BOS}_IMG/_ALT`, `PUNT_{EEN..VIJF}_ICOON`,
-  `FAQ_ZES_Q/A` (vervangt de vaste annuleer-FAQ), `STICKY_KOP/SUB/KNOP` (onderbalk) en `_kamers`: welke kamers, in welke
-  volgorde en met welke pil (`{"deluxe": {"pil": "Inbegrepen", "soort": "inbegrepen"}}`; soort `inbegrepen`, `upgrade` of
-  `toeslag`). Teller en streepjes volgen het aantal kamers. Onzekere feiten in `_controleren` (lijst; `_`-keys en
-  niet-tekstwaarden gaan niet de {{KEY}}-pass in).
+  Velden:
+  - Hero: `ARR_PRIJS_PIL`, `_chips` (lijst van 3 korte teksten).
+  - Zijkaart/telefoonkaart: `KAART_KOP`, `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID` ("p.p. per nacht"), `ARR_VOORWAARDEN`
+    (annuleren alleen noemen als het vaststaat), `KAART_VINK_A..D`, `KAART_KNOP`, `KAART_TRUST`, `ARR_MOB_NOOT`.
+  - Inbegrepen: `INB_KOP_A/EM`, `INB_IMG/ALT` (staand), `_inbegrepen` (lijst `{titel, regel, icoon}`; icoon = svg-paden,
+    4 tot 8 punten), `_tijden` (lijst `{tekst, icoon}` voor de tijdenstrook).
+  - Zondagvoordeel: `ZV_TOON` (true/false; uit bij kerst en oud en nieuw), `ZV_KOP_A/EM/B`, `ZV_PIL`, `ZV_ZONDAG_KOP`,
+    `ZV_ZONDAG_PRIJS`, `ZV_GEWOON_PRIJS`, `ZV_ZONDAG_REGEL`, `ZV_ANDERS_KOP`, `ZV_ANDERS_REGEL`, `ZV_VOETNOOT`,
+    `ZV_KAART_REGEL` (zondagregel in de zijkaart). Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en
+    doordeweekse aankomst); zit de korting niet in Mews, dan gewone prijs - EUR 10 p.p. en een regel in `_controleren`.
+  - Waarom Asteria: `WAAROM_TOON` (standaard true); inhoud staat vast in het sjabloon.
+  - Kamers: `_kamers` = welke kamers, volgorde, pil en prijsregel:
+    `{"deluxe": {"pil": "Inbegrepen", "soort": "inbegrepen", "prijs_label": "vanaf", "prijs": "€ 128,50 p.p."},
+      "suite": {"pil": "Upgrade", "soort": "upgrade", "prijs": "Upgrade mogelijk"}}` (soort `inbegrepen` = terracotta rand,
+    `upgrade` of `toeslag`). Tot en met 3 kamers: raster `.ar-kamers` zonder slider/lus/teller (telefoon veegbaar met peek);
+    vanaf 4 de bestaande slider (teller en streepjes volgen het aantal). Plus `KAMER_KOP_*`, `KAMER_SUB`, `KAMER_NOOT`.
+  - Reviews: `_reviews_aantal` (8 of 12, anders stopt de build), `_reviews_voorkeur` (woorden; reviews die er een noemen eerst).
+  - FAQ: `_faq` (lijst `{q, a}`, eerste staat open; `"zondag": true` = alleen met ZV_TOON). Geen herhaling van de tijdenstrook.
+  - Ook interessant: `ANDERE_TOON` + `_andere` (lijst `{naam, url, img, alt, prijs?}`; prijs alleen als hij bekend is, url met
+    curl op 200 checken).
+  - Verder `STICKY_KOP/SUB/KNOP` (onderbalk), `SLOT_*` (fotowolk), `POP_BADGE`, `REVIEW_KOP_*`. Onzekere feiten in
+    `_controleren` (lijst; `_`-keys en niet-tekstwaarden gaan niet de {{KEY}}-pass in).
 - Blokken in het sjabloon zijn zo geplaatst dat landers zonder blok `arrangement` byte-identiek blijven; controleer na
   sjabloonwijzigingen: alle entries bouwen vóór en na en `cmp` (zo gedaan bij de invoering).
-- Test: `python3 scripts/test_lander_w1.py http://localhost:8765/najaarsarrangement-v2.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50"`
-  (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk).
+- Test: `python3 scripts/test_lander_w1.py http://localhost:8765/najaarsarrangement-v2.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50" [--schermafdruk qa/najaarsarrangement-v2]`
+  (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk, zondagblok, Waarom
+  Asteria, kamerraster bij 3 kamers, reviewmuur 8/12, geen b2a, zijkaart zonder foto, zijkaart loopt mee en stopt na de kamers).
+  Gotcha: draait er op 8765 al een server uit een andere worktree, start dan een eigen server met `--directory` op een andere poort.
 - Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
-  Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is.
+  Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
+  geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).
 
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 
