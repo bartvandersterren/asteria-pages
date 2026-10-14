@@ -1080,3 +1080,9 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .b1k-kaart--vast .b1k-vinkjes{gap:8px;margin-top:14px}
   .lp .b1k-kaart--vast .b1k-knop{margin-top:16px}
 }
+
+/* 3a telefoon: de punten schuiven met het eerste regeltje over de onderkant van de foto (zoals /herfst 2d) */
+@media (max-width:719px){
+  .lp .b3a-rechts{position:relative;z-index:2;margin:-62px 14px 0}
+  .lp .b3a-foto{position:relative;z-index:1}
+}
