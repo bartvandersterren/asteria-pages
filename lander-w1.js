@@ -193,7 +193,8 @@
   if (zone && zoneStrook) {
     var zetKantOnder = function () {
       var kaart = zoneStrook.querySelector('.b4b-kaart:not([data-kloon])') || zoneStrook.firstElementChild;
-      var onder = zone.getBoundingClientRect().bottom - kaart.getBoundingClientRect().bottom;
+      /* meten tegen het kamerblok zelf, niet tegen de zone: die groeit mee met de padding van de zijkolom */
+      var onder = zoneStrook.closest('.b4b').getBoundingClientRect().bottom - kaart.getBoundingClientRect().bottom;
       zone.style.setProperty('--kant-onder', Math.max(0, Math.round(onder)) + 'px');
     };
     zetKantOnder();
