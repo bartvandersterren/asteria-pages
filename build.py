@@ -7,6 +7,7 @@ Gebruik:
   python3 build.py wellness           # alleen wellness template
   python3 build.py feedback           # alleen feedback template
   python3 build.py verblijfsverjaardag-v2   # lander W1 (reviewmuur uit content/)
+  python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' (sticky boekkaart)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -85,6 +86,16 @@ TEMPLATES = {
             'nl': ('verblijfsverjaardag-v2.html', 'translations/verblijfsverjaardag-v2-nl.json'),
         },
         'reviews': 'content/reviews-google-asteria.json',
+    },
+    # Variant v3 van dezelfde lander: zelfde sjabloon, blok 'zijkaart' aan = tegels, attentie en
+    # kamerslider in een linker kolom met rechts een meelopende (sticky) boekkaart, zonder uitklaptab.
+    'verblijfsverjaardag-v3': {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': ('verblijfsverjaardag-v3.html', 'translations/verblijfsverjaardag-v3-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'zijkaart': True},
     },
 }
 
@@ -275,6 +286,27 @@ def inject_reviews(html, reviews_file, max_kaarten=24, max_tekens=260):
     return html
 
 
+def apply_blokken(html, aan):
+    """Varianten binnen een sjabloon zonder template-taal. Een blok staat tussen
+    <!--[naam[--> en <!--]naam]-->; <!--[!naam[--> ... <!--]!naam]--> is het omgekeerde.
+    'aan' = de namen die in de build-config op True staan. Staat een blok aan, dan
+    verdwijnen alleen de markers; staat hij uit, dan verdwijnt het hele blok. Een marker
+    die alleen op zijn regel staat, neemt die regel mee (uitvoer zonder blok blijft dus
+    byte-gelijk aan het sjabloon zonder markers)."""
+    namen = set(re.findall(r'<!--\[(!?[a-z0-9-]+)\[-->', html))
+    for naam in namen:
+        kaal = naam.lstrip('!')
+        houden = (kaal in aan) != naam.startswith('!')
+        n = re.escape(naam)
+        if houden:
+            html = re.sub(r'(?m)^[ \t]*<!--[\[\]]' + n + r'[\[\]]-->[ \t]*\n', '', html)
+            html = re.sub(r'<!--[\[\]]' + n + r'[\[\]]-->', '', html)
+        else:
+            html = re.sub(r'(?ms)^[ \t]*<!--\[' + n + r'\[-->.*?<!--\]' + n + r'\]-->[ \t]*\n', '', html)
+            html = re.sub(r'(?s)<!--\[' + n + r'\[-->.*?<!--\]' + n + r'\]-->', '', html)
+    return html
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -288,6 +320,9 @@ def build(template_name, lang):
 
     with open(json_path, encoding='utf-8') as f:
         translations = json.load(f)
+
+    # Variantblokken (bijv. zijkaart) vóór de {{KEY}}-pass
+    html = apply_blokken(html, {k for k, v in config.get('blokken', {}).items() if v})
 
     for key, value in translations.items():
         html = html.replace('{{' + key + '}}', value)
@@ -311,7 +346,7 @@ def build(template_name, lang):
     html = fix_room_media(html)
 
     # Sanity check: no unreplaced markers
-    remaining = re.findall(r'\{\{[A-Z_]+\}\}', html)
+    remaining = re.findall(r'\{\{[A-Z_0-9]+\}\}', html)
     if remaining:
         print(f'  WARNING [{template_name}/{lang}]: unreplaced markers: {remaining}')
 
