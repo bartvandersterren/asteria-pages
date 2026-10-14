@@ -7,7 +7,7 @@ Gebruik:
   python3 build.py wellness           # alleen wellness template
   python3 build.py feedback           # alleen feedback template
   python3 build.py verblijfsverjaardag-v2   # lander W1 (reviewmuur uit content/)
-  python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' (sticky boekkaart)
+  python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' -> verblijfsverjaardag.html (live sinds 14 okt 2026; oude lander -> verblijfsverjaardag-oud.html)
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
   python3 build.py wellness nl        # wellness, alleen NL
 """
@@ -76,7 +76,7 @@ TEMPLATES = {
     'verblijfsverjaardag': {
         'template': 'lander-2026.template.html',
         'langs': {
-            'nl': ('verblijfsverjaardag.html', 'translations/verblijfsverjaardag-nl.json'),
+            'nl': ('verblijfsverjaardag-oud.html', 'translations/verblijfsverjaardag-nl.json'),
         },
     },
     # Lander-sjabloon W1 Thuiskomst (blokkenkiezer 1a-2a-3a-4b-5a-6c-7a): alleen NL, noindex.
@@ -93,7 +93,7 @@ TEMPLATES = {
     'verblijfsverjaardag-v3': {
         'template': 'lander-w1.template.html',
         'langs': {
-            'nl': ('verblijfsverjaardag-v3.html', 'translations/verblijfsverjaardag-v3-nl.json'),
+            'nl': ('verblijfsverjaardag.html', 'translations/verblijfsverjaardag-v3-nl.json'),
         },
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True},

@@ -2,3 +2,7 @@
 /wellness-arr-c-en /wellness-arrangement-en 301
 /wellness-arr-c-de /wellness-arrangement-de 301
 /feedback-nl /feedback 301
+
+# verblijfsverjaardag-v3 is sinds 14 okt 2026 de live /verblijfsverjaardag (oude lander op /verblijfsverjaardag-oud)
+/verblijfsverjaardag-v3 /verblijfsverjaardag 301
+/verblijfsverjaardag-v3.html /verblijfsverjaardag 301

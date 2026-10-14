@@ -13,7 +13,7 @@ achtergrond sluiten, focus terug), reviewmuur (4 kolommen op 1440, 1 op 390, pau
 prefers-reduced-motion), eerste FAQ open, onderbalk na de hero op 390, uitklaptab (>= 720: na de hero,
 weg bij 7a, open/Escape/buiten/sluitknop, Mews met voucher; niet op 390), overloop ook 1100/800, geen consolefouten.
 
-Variant v3 (zijkaart):  python3 scripts/test_lander_w1.py http://localhost:8765/verblijfsverjaardag-v3.html --v3
+Variant v3 (zijkaart):  python3 scripts/test_lander_w1.py http://localhost:8765/verblijfsverjaardag.html --v3   (v3 is sinds 14 okt de live /verblijfsverjaardag)
 In plaats van de uitklaptab-checks: geen tab in de DOM, kaart naast de tegels (1440 en 1100), sticky in beeld
 midden kamerslider, weg en zonder overlap bij de reviewmuur, knop opent Mews met JUBILEUM, op 800 als blok na 3a,
 op 390 geen kaart; overloop ook 1280/1100/1024/800.

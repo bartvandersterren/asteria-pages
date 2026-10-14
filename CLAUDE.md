@@ -172,7 +172,10 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `showRooms()` slaat die over); URL-fallback `mewsStart`, `mewsEnd`, `mewsAdultCount` op de distributor-URL.
 - Kop/voet komen uit de Effecty-staging (asteria.staging.effectytools.com) van sep 2026; de staging is sindsdien veranderd
   (menu-pijltjes, hogere mobiele voet), dus de pixelcheck geeft 4,6 % op 1440.
-- Test: `python3 scripts/test_lander_w1.py` (Playwright, 26 checks op 1440 en 390).
+- Test: `python3 scripts/test_lander_w1.py` (v2) en `python3 scripts/test_lander_w1.py http://localhost:8765/verblijfsverjaardag.html --v3`.
+- LIVE sinds 14 okt 2026: build-entry `verblijfsverjaardag-v3` (blok `zijkaart`) schrijft `verblijfsverjaardag.html` = visit.asteria.nl/verblijfsverjaardag
+  (link uit de jubileummail). Oude lander-2026-versie bewaard als `verblijfsverjaardag-oud.html`; `/verblijfsverjaardag-v3` 301 in `_redirects`.
+  v2 (uitklaptab) blijft als variant op /verblijfsverjaardag-v2. Alles noindex.
 
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 
