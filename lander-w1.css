@@ -895,6 +895,11 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .mob-cta .om{display:block;font-size:13px;color:var(--ink-soft)}
 .mob-cta .btn{font-size:14px;padding:12px 16px;min-height:44px;white-space:nowrap;flex:none}
 .mob-cta-ruimte{display:none}
+/* telefoon: na de basisregels, anders wint display:none hierboven van de regel in het telefoonblok */
+@media (max-width:719px){
+  .mob-cta{display:flex;z-index:1600}
+  .mob-cta-ruimte{display:block;height:72px;background:var(--ink)}
+}
 
 /* ---------- cookiemelding (markup zoals welkom, in de nieuwe huisstijl) ---------- */
 .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:1500;background:var(--ink);color:var(--on-ink-body);font-family:var(--font-body);font-weight:500;font-size:13px;line-height:1.5;padding:16px 22px;display:none;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}

@@ -160,6 +160,9 @@ with sync_playwright() as p:
             pg.evaluate("window.scrollTo(0, document.querySelector('.b2a').offsetTop + 400)"); pg.wait_for_timeout(700)
             na = pg.evaluate("document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
             check(f'{tag} onderbalk verschijnt na de hero', (not vooraf) and na, f'voor {vooraf}, na {na}')
+            pg.wait_for_timeout(400)
+            echt = pg.evaluate("""(()=>{const m=document.querySelector('.mob-cta'),r=m.getBoundingClientRect(),c=getComputedStyle(m);return c.display!=='none'&&c.visibility==='visible'&&r.height>40&&r.bottom<=innerHeight+1&&r.top<innerHeight})()""")
+            check(f'{tag} onderbalk echt zichtbaar onderin beeld', echt)
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
 
         if V3:
