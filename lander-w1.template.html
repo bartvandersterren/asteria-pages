@@ -155,29 +155,35 @@
     </div>
   </section>
 
+  <!--[zijkaart[-->
+  <!-- ══ ZIJKAART-ZONE (variant v3, build-blok 'zijkaart'): 2a, 3a en 4b in de linker kolom, rechts de boekkaart
+       (zelfde b1k-kaart als de uitklaptab) die vanaf de tegelstrook meeloopt tot de onderkant van de kamerslider ══ -->
+  <div class="lp-zone" data-toon="paper">
+    <div class="lp-zone-hoofd">
+  <!--]zijkaart]-->
   <!-- ══ BLOK 2a: TEGELSTROOK (staging .tile) ══ -->
   <section class="sec b2a" data-toon="paper" aria-label="Je verblijf">
     <div class="wrap">
       <div class="b2a-strook strook-scroll">
-        <div class="b2a-tegel b2a-kamer">
+        <div class="b2a-tegel b2a-kamer is-active">
           <img src="{{TEGEL_KAMER_IMG}}" alt="{{TEGEL_KAMER_ALT}}" loading="lazy">
-          <div class="b2a-label"><h3>{{TEGEL_KAMER_KOP}}</h3><p>{{TEGEL_KAMER_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_KAMER_HREF}}">{{TEGEL_KAMER_KNOP}}</a></div>
+          <div class="b2a-label"><h3>{{TEGEL_KAMER_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_KAMER_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_KAMER_HREF}}">{{TEGEL_KAMER_KNOP}}</a></div></div></div>
         </div>
         <div class="b2a-tegel b2a-bubbels">
           <img src="{{TEGEL_CADEAU_IMG}}" alt="{{TEGEL_CADEAU_ALT}}" loading="lazy">
-          <div class="b2a-label"><h3>{{TEGEL_CADEAU_KOP}}</h3><p>{{TEGEL_CADEAU_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_CADEAU_HREF}}">{{TEGEL_CADEAU_KNOP}}</a></div>
+          <div class="b2a-label"><h3>{{TEGEL_CADEAU_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_CADEAU_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_CADEAU_HREF}}">{{TEGEL_CADEAU_KNOP}}</a></div></div></div>
         </div>
         <div class="b2a-tegel b2a-wellness">
           <img src="fotos/l26-wellness-staand.webp" alt="Voetenbad in de wellness op de Top Floor" loading="lazy">
-          <div class="b2a-label"><h3>{{TEGEL_WELLNESS_KOP}}</h3><p>{{TEGEL_WELLNESS_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_WELLNESS_HREF}}">{{TEGEL_WELLNESS_KNOP}}</a></div>
+          <div class="b2a-label"><h3>{{TEGEL_WELLNESS_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_WELLNESS_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_WELLNESS_HREF}}">{{TEGEL_WELLNESS_KNOP}}</a></div></div></div>
         </div>
         <div class="b2a-tegel b2a-terras">
           <img src="fotos/l26-terras.webp" alt="Twee glazen rode wijn op het terras" loading="lazy">
-          <div class="b2a-label"><h3>{{TEGEL_RESTAURANT_KOP}}</h3><p>{{TEGEL_RESTAURANT_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_RESTAURANT_HREF}}">{{TEGEL_RESTAURANT_KNOP}}</a></div>
+          <div class="b2a-label"><h3>{{TEGEL_RESTAURANT_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_RESTAURANT_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_RESTAURANT_HREF}}">{{TEGEL_RESTAURANT_KNOP}}</a></div></div></div>
         </div>
         <div class="b2a-tegel">
           <img src="fotos/l26-omg-bossen.webp" alt="Beekje met houten brug in het bos achter het hotel" loading="lazy">
-          <div class="b2a-label"><h3>{{TEGEL_BOS_KOP}}</h3><p>{{TEGEL_BOS_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_BOS_HREF}}">{{TEGEL_BOS_KNOP}}</a></div>
+          <div class="b2a-label"><h3>{{TEGEL_BOS_KOP}}</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>{{TEGEL_BOS_TEKST}}</p><a class="btn btn-outline-light btn--klein" href="{{TEGEL_BOS_HREF}}">{{TEGEL_BOS_KNOP}}</a></div></div></div>
         </div>
       </div>
     </div>
@@ -269,6 +275,23 @@
       <div class="b4b-voet"><p class="b4b-noot">{{KAMER_NOOT}}</p><a class="btn btn-secondary" href="https://www.asteria.nl/kamers/">Bekijk alle kamers</a></div>
     </div>
   </section>
+  <!--[zijkaart[-->
+    </div>
+    <aside class="lp-zone-kant" aria-label="Boek met code {{VOUCHER}}">
+      <div class="b1k-kaart b1k-kaart--vast">
+        <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="933" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
+        <div class="b1k-body">
+          <h2 class="b1k-kop">{{KAART_KOP}}</h2>
+          <p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>{{KAART_CADEAU}}</span></p>
+          <div class="b1k-score"><span class="b1k-cijfer">4,2</span><span class="b1k-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1k-aantal">{{KAART_REVIEWS}}</span></div>
+          <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_C}}</span></li></ul>
+          <a class="btn btn-primary b1k-knop mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{KAART_KNOP}}</a>
+          <p class="b1k-trust">{{KAART_TRUST}}</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <!--]zijkaart]-->
 
   <!-- ══ BLOK 5a: REVIEWMUUR (ivoor), structuur Zaal Zeven b6d: kop + Google-sticker, lopende kolommen ══ -->
   <section class="sec b5a" data-toon="surface" aria-labelledby="reviews-kop">
@@ -362,6 +385,27 @@
       </div>
     </div>
   </section>
+
+  <!--[!zijkaart[-->
+  <!-- ══ UITKLAPTAB (≥720): tab aan de rechterrand tussen hero en slotblok 7a; klik = boekkaart (live b1a-kaart, prefix b1k-) ══ -->
+  <div class="b1k-uitklap" aria-hidden="true">
+    <aside class="b1k-paneel" id="b1k-paneel" aria-label="Boek met code {{VOUCHER}}">
+      <div class="b1k-kaart">
+        <button type="button" class="b1k-sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="933" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>
+        <div class="b1k-body">
+          <h2 class="b1k-kop">{{KAART_KOP}}</h2>
+          <p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>{{KAART_CADEAU}}</span></p>
+          <div class="b1k-score"><span class="b1k-cijfer">4,2</span><span class="b1k-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1k-aantal">{{KAART_REVIEWS}}</span></div>
+          <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_C}}</span></li></ul>
+          <a class="btn btn-primary b1k-knop mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}">{{KAART_KNOP}}</a>
+          <p class="b1k-trust">{{KAART_TRUST}}</p>
+        </div>
+      </div>
+    </aside>
+    <button type="button" class="b1k-tab" aria-expanded="false" aria-controls="b1k-paneel" tabindex="-1"><span>{{KAART_TAB}}</span></button>
+  </div>
+  <!--]!zijkaart]-->
 
   <!-- ══ POP-UP kamer (Bekijk kamer, blok 4b). Inhoud uit de JSON hieronder, vulling door lander-w1.js.
        Let op: geen key "imgs" in de kamerdata, anders overschrijft build.py fix_room_media() de media. ══ -->

@@ -159,25 +159,25 @@
   <section class="sec b2a" data-toon="paper" aria-label="Je verblijf">
     <div class="wrap">
       <div class="b2a-strook strook-scroll">
-        <div class="b2a-tegel b2a-kamer">
+        <div class="b2a-tegel b2a-kamer is-active">
           <img src="fotos/l26-kamer-royale-2.webp" alt="Royale kamer met bed en ronde verlichte spiegel" loading="lazy">
-          <div class="b2a-label"><h3>Je kamer</h3><p>Kamers en suites, van Comfort tot Bruidssuite.</p><a class="btn btn-outline-light btn--klein" href="#kamers">Bekijk kamers</a></div>
+          <div class="b2a-label"><h3>Je kamer</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Kamers en suites, van Comfort tot Bruidssuite.</p><a class="btn btn-outline-light btn--klein" href="#kamers">Bekijk kamers</a></div></div></div>
         </div>
         <div class="b2a-tegel b2a-bubbels">
           <img src="fotos/l26-bubbels-kamer.webp" alt="Fles bubbels in een ijsemmer met twee glazen" loading="lazy">
-          <div class="b2a-label"><h3>De bubbels</h3><p>Koud op je kamer bij aankomst.</p><a class="btn btn-outline-light btn--klein" href="#attentie">Zo werkt het</a></div>
+          <div class="b2a-label"><h3>De bubbels</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Koud op je kamer bij aankomst.</p><a class="btn btn-outline-light btn--klein" href="#attentie">Zo werkt het</a></div></div></div>
         </div>
         <div class="b2a-tegel b2a-wellness">
           <img src="fotos/l26-wellness-staand.webp" alt="Voetenbad in de wellness op de Top Floor" loading="lazy">
-          <div class="b2a-label"><h3>Wellness Top Floor</h3><p>Vier sauna's, stoomcabine en belevenisdouches.</p><a class="btn btn-outline-light btn--klein" href="https://www.asteria.nl/wellness/">Wellness</a></div>
+          <div class="b2a-label"><h3>Wellness Top Floor</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Vier sauna's, stoomcabine en belevenisdouches.</p><a class="btn btn-outline-light btn--klein" href="https://www.asteria.nl/wellness/">Wellness</a></div></div></div>
         </div>
         <div class="b2a-tegel b2a-terras">
           <img src="fotos/l26-terras.webp" alt="Twee glazen rode wijn op het terras" loading="lazy">
-          <div class="b2a-label"><h3>Restaurant en terras</h3><p>Seizoensgerechten en een goed glas.</p><a class="btn btn-outline-light btn--klein" href="https://www.asteria.nl/restaurant/">Restaurant</a></div>
+          <div class="b2a-label"><h3>Restaurant en terras</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Seizoensgerechten en een goed glas.</p><a class="btn btn-outline-light btn--klein" href="https://www.asteria.nl/restaurant/">Restaurant</a></div></div></div>
         </div>
         <div class="b2a-tegel">
           <img src="fotos/l26-omg-bossen.webp" alt="Beekje met houten brug in het bos achter het hotel" loading="lazy">
-          <div class="b2a-label"><h3>Het bos</h3><p>Wandelen en fietsen vanaf de deur.</p><a class="btn btn-outline-light btn--klein" href="https://www.asteria.nl/omgeving/">Omgeving</a></div>
+          <div class="b2a-label"><h3>Het bos</h3><div class="b2a-meer"><div class="b2a-meer-in"><p>Wandelen en fietsen vanaf de deur.</p><a class="btn btn-outline-light btn--klein" href="https://www.asteria.nl/omgeving/">Omgeving</a></div></div></div>
         </div>
       </div>
     </div>
@@ -481,6 +481,25 @@
       </div>
     </div>
   </section>
+
+  <!-- ══ UITKLAPTAB (≥720): tab aan de rechterrand tussen hero en slotblok 7a; klik = boekkaart (live b1a-kaart, prefix b1k-) ══ -->
+  <div class="b1k-uitklap" aria-hidden="true">
+    <aside class="b1k-paneel" id="b1k-paneel" aria-label="Boek met code JUBILEUM">
+      <div class="b1k-kaart">
+        <button type="button" class="b1k-sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <div class="b1k-kfoto"><img src="fotos/l26-bubbels-kamer.webp" alt="Fles bubbels in een ijsemmer op de kamer" width="1400" height="933" loading="lazy"><span class="b1k-pill">Gratis bij elke kamer</span></div>
+        <div class="b1k-body">
+          <h2 class="b1k-kop">Onze attentie voor jou</h2>
+          <p class="b1k-cadeau"><span class="b1k-cadeau-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span>Fles bubbels koud op de kamer</span></p>
+          <div class="b1k-score"><span class="b1k-cijfer">4,2</span><span class="b1k-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span class="b1k-aantal">2.219 Google reviews</span></div>
+          <ul class="b1k-vinkjes"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Beste prijs gegarandeerd</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Kosteloos annuleren tot 24 uur voor aankomst</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Directe bevestiging</span></li></ul>
+          <a class="btn btn-primary b1k-knop mews-open" data-voucher="JUBILEUM" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=JUBILEUM">Boek een kamer met code JUBILEUM</a>
+          <p class="b1k-trust">Boek direct bij het hotel · Actiecode JUBILEUM</p>
+        </div>
+      </div>
+    </aside>
+    <button type="button" class="b1k-tab" aria-expanded="false" aria-controls="b1k-paneel" tabindex="-1"><span>Gratis bubbels · Boek</span></button>
+  </div>
 
   <!-- ══ POP-UP kamer (Bekijk kamer, blok 4b). Inhoud uit de JSON hieronder, vulling door lander-w1.js.
        Let op: geen key "imgs" in de kamerdata, anders overschrijft build.py fix_room_media() de media. ══ -->

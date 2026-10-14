@@ -175,6 +175,34 @@
   });
 
   /* ── strook-hulp: één kaart verder of terug, met lus ── */
+  /* 2a: tegel onder de muis schuift breed open (staging .selector-strip) */
+  document.querySelectorAll('.b2a-strook').forEach(function (strook) {
+    var tegels = Array.prototype.slice.call(strook.querySelectorAll('.b2a-tegel'));
+    function zet(t) {
+      tegels.forEach(function (x) { x.classList.toggle('is-active', x === t); });
+    }
+    tegels.forEach(function (t) {
+      t.addEventListener('mouseenter', function () { zet(t); });
+      t.addEventListener('focusin', function () { zet(t); });
+      t.addEventListener('click', function () { zet(t); });
+    });
+  });
+
+  /* v3: de meelopende zijkaart stopt gelijk met de onderkant van de kamerkaarten (--kant-onder) */
+  var zone = document.querySelector('.lp-zone'), zoneStrook = zone && zone.querySelector('.b4b-strook');
+  if (zone && zoneStrook) {
+    var zetKantOnder = function () {
+      var kaart = zoneStrook.querySelector('.b4b-kaart:not([data-kloon])') || zoneStrook.firstElementChild;
+      /* meten tegen het kamerblok zelf, niet tegen de zone: die groeit mee met de padding van de zijkolom */
+      var onder = zoneStrook.closest('.b4b').getBoundingClientRect().bottom - kaart.getBoundingClientRect().bottom;
+      zone.style.setProperty('--kant-onder', Math.max(0, Math.round(onder)) + 'px');
+    };
+    zetKantOnder();
+    window.addEventListener('load', zetKantOnder);
+    window.addEventListener('resize', zetKantOnder);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(zetKantOnder);
+  }
+
   function stap(strook) {
     var kaart = strook.firstElementChild;
     if (!kaart) return 0;
@@ -246,6 +274,52 @@
       var a = balk.querySelector('a');
       if (a) a.setAttribute('tabindex', weg ? '0' : '-1');
     }).observe(hero);
+  }
+
+  /* ── uitklaptab (≥720): zichtbaar tussen hero en slotblok 7a; klik klapt de boekkaart uit ── */
+  var uitklap = document.querySelector('.b1k-uitklap');
+  var slot = document.querySelector('.b7a');
+  if (uitklap && hero && 'IntersectionObserver' in window) {
+    var tab = uitklap.querySelector('.b1k-tab');
+    var paneel = uitklap.querySelector('.b1k-paneel');
+    var breed = window.matchMedia('(min-width: 720px)');
+    var heroWeg = false, slotBereikt = false;
+    var zetOpen = function (aan, focus) {
+      uitklap.classList.toggle('is-open', aan);
+      tab.setAttribute('aria-expanded', aan ? 'true' : 'false');
+      if (aan && focus) { var s = paneel.querySelector('.b1k-sluit'); setTimeout(function () { s.focus({ preventScroll: true }); }, 30); }
+      if (!aan && focus) tab.focus({ preventScroll: true });
+    };
+    var zetTab = function () {
+      var aan = breed.matches && heroWeg && !slotBereikt;
+      uitklap.classList.toggle('is-zichtbaar', aan);
+      uitklap.setAttribute('aria-hidden', aan ? 'false' : 'true');
+      tab.setAttribute('tabindex', aan ? '0' : '-1');
+      if (!aan && uitklap.classList.contains('is-open')) zetOpen(false, false);
+    };
+    new IntersectionObserver(function (items) {
+      var it = items[0];
+      heroWeg = !it.isIntersecting && it.boundingClientRect.top < 0;
+      zetTab();
+    }).observe(hero);
+    if (slot) {
+      new IntersectionObserver(function (items) {
+        var it = items[0];
+        slotBereikt = it.isIntersecting || it.boundingClientRect.top < 0;
+        zetTab();
+      }).observe(slot);
+    }
+    if (breed.addEventListener) breed.addEventListener('change', zetTab);
+    else if (breed.addListener) breed.addListener(zetTab);
+    tab.addEventListener('click', function () { zetOpen(!uitklap.classList.contains('is-open'), true); });
+    paneel.querySelector('.b1k-sluit').addEventListener('click', function () { zetOpen(false, true); });
+    paneel.querySelector('.mews-open').addEventListener('click', function () { zetOpen(false, false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && uitklap.classList.contains('is-open')) zetOpen(false, true);
+    });
+    document.addEventListener('click', function (e) {
+      if (uitklap.classList.contains('is-open') && !uitklap.contains(e.target)) zetOpen(false, false);
+    });
   }
 
   /* ── mobiele drawer ── */

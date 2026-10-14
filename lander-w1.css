@@ -767,6 +767,26 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .lp .b7a-waarde{pointer-events:none;white-space:nowrap}
 .lp .b7a-balk .btn{border:0}
 
+/* 2a: bureaublad, uitschuiven zoals staging .selector-strip (lander-w1.js uitschuif()) */
+@media (min-width:1024px){
+  .lp .b2a-strook{display:flex;overflow:visible}
+  .lp .b2a-tegel{flex:1;min-width:80px;cursor:pointer;transition:flex var(--duration-strip) var(--ease-soft),box-shadow var(--duration-strip) var(--ease-soft)}
+  .lp .b2a-tegel.is-active{flex:2.34;box-shadow:var(--shadow-hover)}
+  .lp .b2a-tegel>img{transition:transform var(--duration-strip) var(--ease-soft)}
+  .lp .b2a-tegel.is-active>img{transform:scale(1.04)}
+  .lp .b2a-tegel:first-child .b2a-label{left:18px;right:18px;bottom:22px;gap:0}
+  .lp .b2a-tegel.is-active .b2a-label{left:32px;right:32px;bottom:32px;gap:0}
+  .lp .b2a-label{gap:0}
+  .lp .b2a-tegel:not(.is-active) .b2a-label h3{font-size:clamp(20px,1.8vw,26px)}
+  .lp .b2a-meer{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows var(--duration-strip) var(--ease-soft),opacity var(--duration-strip) var(--ease-soft)}
+  .lp .b2a-meer-in{overflow:hidden;min-height:0;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .lp .b2a-meer-in>p{margin-top:12px}
+  .lp .b2a-tegel.is-active .b2a-meer{grid-template-rows:1fr;opacity:1;transition-delay:160ms}
+}
+@media (min-width:1024px) and (prefers-reduced-motion:reduce){
+  .lp .b2a-tegel,.lp .b2a-tegel>img,.lp .b2a-meer{transition:none}
+}
+
 /* ---------- tablet (720-1023): kolommen terug naar wat past ---------- */
 @media (min-width:720px) and (max-width:1023px){
   .lp .b1a-foto{height:600px}
@@ -814,6 +834,56 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
   html.mob-cta-aan .cookie-banner{bottom:var(--mob-cta-h,66px)}
   .mob-cta-ruimte{display:block;height:72px;background:var(--ink)}
 }
+
+/* ---------- uitklaptab b1k (≥720): tab aan de rechterrand, klapt de boekkaart (live .b1a-kaart) uit ---------- */
+.lp .b1k-uitklap{display:none}
+@media (min-width:720px){
+  .lp .b1k-uitklap{display:block}
+  .lp .b1k-tab{position:fixed;right:0;top:60%;z-index:45;width:44px;padding:20px 0;margin:0;border:0;border-radius:var(--radius-chip) 0 0 var(--radius-chip);
+      background:var(--terracotta);color:var(--surface);font:700 14px/1 var(--font-body);letter-spacing:.02em;cursor:pointer;
+      box-shadow:-4px 6px 16px rgba(68,42,6,.18);display:flex;align-items:center;justify-content:center;
+      transform:translate(100%,-50%);visibility:hidden;
+      transition:transform var(--duration-normal) var(--ease-soft),background var(--duration-fast) var(--ease-soft),visibility 0s linear var(--duration-normal)}
+  .lp .b1k-tab span{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+  .lp .b1k-tab:hover,.lp .b1k-tab[aria-expanded="true"]{background:var(--terracotta-hover)}
+  .lp .b1k-tab:focus-visible{outline:0;box-shadow:var(--focus-ring)}
+  .lp .b1k-uitklap.is-zichtbaar .b1k-tab{transform:translate(0,-50%);visibility:visible;
+      transition:transform var(--duration-normal) var(--ease-soft),background var(--duration-fast) var(--ease-soft),visibility 0s}
+  .lp .b1k-paneel{position:fixed;right:56px;top:calc(var(--kop-h,114px) + 16px);bottom:16px;z-index:45;width:340px;height:fit-content;margin-block:auto;
+      max-height:calc(100dvh - var(--kop-h,114px) - 32px);overflow:auto;overscroll-behavior:contain;border-radius:var(--radius-card);box-shadow:var(--shadow-deep);
+      transform:translateX(calc(100% + 72px));visibility:hidden;
+      transition:transform var(--duration-slow) var(--ease-soft),visibility 0s linear var(--duration-slow)}
+  .lp .b1k-uitklap.is-open .b1k-paneel{transform:none;visibility:visible;transition:transform var(--duration-slow) var(--ease-soft),visibility 0s}
+}
+@media (prefers-reduced-motion:reduce){
+  .lp .b1k-tab,.lp .b1k-paneel,.lp .b1k-uitklap.is-zichtbaar .b1k-tab,.lp .b1k-uitklap.is-open .b1k-paneel{transition:none}
+}
+.lp .b1k-kaart{position:relative;background:var(--surface);border-radius:var(--radius-card);overflow:hidden;color:var(--ink)}
+.lp .b1k-sluit{position:absolute;top:10px;right:10px;z-index:2;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:var(--surface);color:var(--ink);
+    box-shadow:var(--shadow-card);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.lp .b1k-sluit svg{width:18px;height:18px}
+.lp .b1k-sluit:hover{color:var(--terracotta-text)}
+.lp .b1k-sluit:focus-visible{outline:0;box-shadow:var(--focus-ring)}
+.lp .b1k-kfoto{position:relative;height:170px}
+.lp .b1k-kfoto img{width:100%;height:100%;object-fit:cover;display:block}
+.lp .b1k-pill{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;background:var(--terracotta);color:var(--surface);border-radius:var(--radius-pill);padding:5px 12px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;line-height:1.4}
+.lp .b1k-body{padding:22px 24px 24px}
+.lp .b1k-kop{font-family:var(--font-display);font-weight:700;font-size:var(--h4);line-height:1.2;letter-spacing:0;color:var(--ink);margin:0}
+.lp .b1k-cadeau{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:var(--text-sm);line-height:1.35;font-weight:600;color:var(--terracotta-text)}
+.lp .b1k-cadeau-ic{display:inline-flex;align-items:center;justify-content:center;flex:none;width:36px;height:36px;border-radius:var(--radius-chip);background:var(--paper-shade-2);color:var(--terracotta)}
+.lp .b1k-cadeau-ic .as-icoon{width:19px;height:19px}
+.lp .b1k-score{display:flex;align-items:center;gap:10px;margin-top:18px;padding:14px 16px;border-radius:var(--radius-chip);background:var(--paper-shade-2)}
+.lp .b1k-cijfer{font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1;color:var(--ink)}
+.lp .b1k-sterren{--vol:4.5;--ster:16px;display:inline-block;flex:none;width:calc(var(--ster) * 5 + 8px);height:var(--ster);
+    --b1k-ster-masker:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon fill='%23000' points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E");
+    background:linear-gradient(90deg,var(--star) calc(var(--vol) / 5 * 100%),var(--hairline-strong) 0);
+    -webkit-mask:var(--b1k-ster-masker) 0 0/calc(var(--ster) + 2px) var(--ster) repeat-x;mask:var(--b1k-ster-masker) 0 0/calc(var(--ster) + 2px) var(--ster) repeat-x}
+.lp .b1k-aantal{margin-left:auto;font-size:var(--text-xs);line-height:1.3;color:var(--ink-soft);text-align:right}
+.lp .b1k-vinkjes{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:12px}
+.lp .b1k-vinkjes li{display:flex;align-items:flex-start;gap:12px;font-size:var(--text-sm);line-height:1.5}
+.lp .b1k-vinkjes li>.as-icoon{width:20px;height:20px;flex:none;margin-top:1px;color:var(--terracotta)}
+.lp .b1k-knop{width:100%;margin-top:24px;white-space:normal;text-align:center;line-height:1.25;padding:14px 16px}
+.lp .b1k-trust{margin-top:12px;font-size:var(--text-xs);line-height:1.4;color:var(--ink-soft);text-align:center;max-width:none}
 
 /* ---------- vaste onderbalk op de telefoon ---------- */
 .mob-cta{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;justify-content:space-between;align-items:center;gap:12px;
@@ -933,4 +1003,62 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .lp-pop__chips li{min-height:28px;padding:4px 10px;font-size:12px}
   .lp .lp-pop__acties{margin-top:14px;gap:10px}
   .lp .lp-pop--kamer .lp-pop__kenmerken li:nth-child(n+7){display:none}
+}
+
+/* ---------- zijkaart-zone (variant v3, build-blok 'zijkaart' in lander-w1.template.html) ----------
+   Bureaublad (>= 1024): 2a, 3a en 4b in de linker kolom, rechts de b1k-kaart (zelfde stijl als de uitklaptab)
+   sticky onder de kop. De kolom eindigt na 4b, dus de kaart stopt daar. Tablet: kaart als liggend blok na 3a.
+   Telefoon: geen kaart (de onderbalk .mob-cta doet het werk). */
+.lp .lp-zone-kant{display:none}
+.lp .b1k-kaart--vast{box-shadow:var(--shadow-card)}
+@media (max-width:1023px){
+  .lp .lp-zone{display:flex;flex-direction:column}
+  .lp .lp-zone-hoofd{display:contents}
+  .lp .lp-zone .b2a{order:1}
+  .lp .lp-zone .b3a{order:2}
+  .lp .lp-zone-kant{order:3}
+  .lp .lp-zone .b4b{order:4}
+}
+@media (min-width:720px) and (max-width:1023px){
+  .lp .lp-zone-kant{display:block;padding-inline:var(--gutter)}
+  .lp .b1k-kaart--vast{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);max-width:760px;margin-inline:auto}
+  .lp .b1k-kaart--vast .b1k-kfoto{height:auto;min-height:100%}
+  .lp .b1k-kaart--vast .b1k-kfoto img{position:absolute;inset:0}
+}
+@media (min-width:1024px){
+  /* rechts schuift de kaart mee naar buiten (tot 40 px van de rand), zodat tegelstrook + kaart samen gecentreerd staan en de kolom breder wordt */
+  .lp .lp-zone{display:grid;grid-template-columns:minmax(0,1fr) 352px;column-gap:44px;padding-inline:max(var(--gutter),(100% - 1120px) / 2) calc(max(var(--gutter),(100% - 1120px) / 2) - max(0px,(100vw - 1120px) / 2 - 40px))}
+  .lp .lp-zone-hoofd{min-width:0}
+  .lp .lp-zone .wrap{width:100%}
+  .lp .lp-zone-kant{display:block;padding:var(--gap-section) 0 var(--kant-onder,var(--gap-section))}
+  .lp .b1k-kaart--vast{position:sticky;top:calc(var(--kop-h,114px) + 24px)}
+  /* 3a: drie kolommen passen niet naast de kaart; opbouw zoals tablet */
+  /* 3a: redenenwiel zoals /herfst (2d): staande foto, de punten schuiven er half overheen in een boog */
+  .lp .lp-zone .b3a-grid{grid-template-columns:300px minmax(0,1fr);grid-template-areas:"tekst tekst" "foto lijst" "knop knop";grid-template-rows:none;row-gap:32px;column-gap:0;align-items:center}
+  .lp .lp-zone .b3a-foto{height:auto;aspect-ratio:391/618;position:relative;z-index:1}
+  .lp .lp-zone .b3a-knop{padding-top:0}
+  .lp .lp-zone .b3a-rechts{position:relative;z-index:2;margin-left:-40px}
+  .lp .lp-zone .b3a-lijst{gap:14px}
+  .lp .lp-zone .b3a-lijst .as-usp-wheel-item{background:var(--surface);box-shadow:var(--as-schaduw)}
+  .lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(1),.lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(5){margin-left:44px;opacity:.78}
+  .lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(2),.lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(4){margin-left:14px}
+  .lp .lp-zone .b3a-lijst .as-usp-wheel-item:nth-child(3){box-shadow:var(--shadow-card)}
+  /* 4b: strook loopt links door tot de schermrand (vorige kamers in beeld, eindeloos), rechts stopt hij bij de kaart met precies twee hele kamers in de kolom */
+  .lp .lp-zone .b4b-strook{--bleed:max(var(--gutter),(100vw - 1120px) / 2);margin:-10px -10px 0 calc(-1 * var(--bleed));padding:10px 10px 20px var(--bleed);width:calc(100% + 10px + var(--bleed));scroll-padding-left:var(--bleed)}
+  .lp .lp-zone .b4b-kaart{flex-basis:calc((100% - 24px) / 2)}
+  .lp .lp-zone .b4b-kop{flex-wrap:wrap;gap:20px 32px}
+  .lp .lp-zone .b4b-inhoud h3{font-size:26px}
+  /* 2a: vier tegels (het bos valt weg) zodat de smalle tegels hun kop heel houden; uitschuiven blijft */
+  /* 2a: de strook neemt links de marge naast de kolom in (tot 40 px van de schermrand), rechts stopt hij bij de kolom */
+  .lp .lp-zone .b2a-strook{gap:12px;--links:max(0px,(100vw - 1120px) / 2 - 40px);margin-left:calc(-1 * var(--links));width:calc(100% + var(--links))}
+  .lp .lp-zone .b2a-tegel:nth-child(5){display:none}
+  .lp .lp-zone .b2a-tegel.is-active{flex:1.9}
+  .lp .lp-zone .b2a-tegel:not(.is-active) .b2a-label,.lp .lp-zone .b2a-tegel:first-child:not(.is-active) .b2a-label{left:14px;right:14px;bottom:20px}
+  .lp .lp-zone .b2a-tegel.is-active .b2a-label{left:24px;right:24px;bottom:26px}
+  .lp .lp-zone .b2a-tegel:not(.is-active) .b2a-label h3{font-size:clamp(17px,1.45vw,21px);line-height:1.1}
+}
+@media (min-width:1024px) and (max-height:820px){
+  .lp .b1k-kaart--vast .b1k-kfoto{height:110px}
+  .lp .b1k-kaart--vast .b1k-vinkjes{gap:8px;margin-top:14px}
+  .lp .b1k-kaart--vast .b1k-knop{margin-top:16px}
 }
