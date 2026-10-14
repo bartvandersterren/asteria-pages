@@ -181,7 +181,7 @@ with sync_playwright() as p:
             check(f'{tag} zondagblok (optie a, standaard): twee kaarten, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
             check(f'{tag} Waarom Asteria: kop, zes punten, foto geladen, knop met {VOUCHER}',
                   a['wKop'].startswith('Voor de grote dagen') and a['wPunten'] == 6 and a['wFoto'] and a['wKnop'] == VOUCHER, str(a)[:300])
-            check(f'{tag} zijkaart zonder foto, met prijs', a['kantFoto'] == 0 and a['kantPrijs'], str(a)[:200])
+            check(f'{tag} zijkaart met foto en prijs', a['kantFoto'] == 1 and a['kantPrijs'], str(a)[:200])
             check(f'{tag} drie andere arrangementen met link', len(a['andere']) == 3 and all(h.startswith('https://') for h in a['andere']), str(a['andere']))
             check(f'{tag} drie chips onder de hero', a['chips'] == 3, str(a['chips']))
             check(f'{tag} FAQ: zes vragen, eerste over het arrangement', len(a['faq']) == 6 and 'arrangement' in a['faq'][0], ' | '.join(a['faq']))
