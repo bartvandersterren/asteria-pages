@@ -1070,8 +1070,8 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   /* 2a: de strook neemt links de marge naast de kolom in (tot 80 px van de schermrand), rechts stopt hij bij de kolom */
   .lp .lp-zone .b2a-strook{gap:12px;--links:max(0px,(100vw - 1120px) / 2 - 80px);margin-left:calc(-1 * var(--links));width:calc(100% + var(--links))}
   .lp .lp-zone .b2a-tegel:nth-child(5){display:none}
-  /* upgradeblok (ladder): begint links gelijk met de tegelstrook (tot 80 px van de schermrand), breedte blijft die van de kolom */
-  .lp .lp-zone .b3l-wrap{--links:max(0px,(100vw - 1120px) / 2 - 80px);margin-left:calc(-1 * var(--links));width:100%}
+  /* upgradeblok (ladder): breedte tussen de kolom en kolom + tegelmarge in, gecentreerd in die ruimte (1440: 100-944 px) */
+  .lp .lp-zone .b3l-wrap{--links:max(0px,(100vw - 1120px) / 2 - 80px);width:calc(100% + var(--links) / 2);margin-left:calc(-.75 * var(--links))}
   .lp .lp-zone .b2a-tegel.is-active{flex:1.9}
   .lp .lp-zone .b2a-tegel:not(.is-active) .b2a-label,.lp .lp-zone .b2a-tegel:first-child:not(.is-active) .b2a-label{left:14px;right:14px;bottom:20px}
   .lp .lp-zone .b2a-tegel.is-active .b2a-label{left:24px;right:24px;bottom:26px}
