@@ -174,53 +174,139 @@
        (zelfde b1k-kaart als de uitklaptab) die vanaf de tegelstrook meeloopt tot de onderkant van de kamerslider ══ -->
   <div class="lp-zone" data-toon="paper">
     <div class="lp-zone-hoofd">
-  <!-- ══ ARRANGEMENT 2: DIT IS INBEGREPEN. Lijst '_inbegrepen' en tijdenstrook '_tijden' uit de JSON (build.py) ══ -->
+  <!-- ══ ARRANGEMENT 2: DIT IS INBEGREPEN. Gespiegeld Parkhotel-blok (wellnessarrangement): ivoren paneel vanaf de linker
+       schermrand, rechts een staande fotoslider die 47 px boven het paneel uitsteekt (bolletjes + pijlen, arrangement.js).
+       Foto's uit '_inbegrepen_fotos', punten uit '_inbegrepen', tijdenstrook uit '_tijden' (build.py) ══ -->
   <section class="sec ar-sec ar-inb" data-toon="paper" aria-labelledby="inb-kop">
     <div class="wrap">
-      <h2 id="inb-kop">Dit is <span class="g">inbegrepen</span></h2>
-      <div class="ar-inb-grid">
-        <ul class="ar-inb-lijst">
-          <li class="ar-inb-rij"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg></span><span class="ar-inb-tekst"><b>Ontvangst met koffie of thee</b><span>met een punt Limburgse vlaai</span></span></li>
-          <li class="ar-inb-rij"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg></span><span class="ar-inb-tekst"><b>Deluxe kamer</b><span>met eigen infraroodsauna</span></span></li>
-          <li class="ar-inb-rij"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></span><span class="ar-inb-tekst"><b>Drie-gangen diner</b><span>seizoensgerechten in het restaurant</span></span></li>
-          <li class="ar-inb-rij"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v8"/><path d="M4.93 10.93l1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="M19.07 10.93l-1.41 1.41"/><path d="M22 22H2"/><path d="M8 6l4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><span class="ar-inb-tekst"><b>Uitgebreid ontbijtbuffet</b><span>de volgende ochtend</span></span></li>
-        </ul>
-        <div class="ar-inb-foto"><img src="fotos/l26-najaar-vlaai.webp" alt="Een punt Limburgse vlaai wordt geserveerd bij aankomst" loading="lazy"></div>
+      <div class="ar-inb-blok">
+        <div class="ar-inb-bg" aria-hidden="true"></div>
+        <div class="ar-inb-inhoud">
+          <h2 id="inb-kop">Dit is <span class="g">inbegrepen</span></h2>
+          <p class="ar-inb-intro">Eén keer boeken en de rest regelen wij, van de vlaai bij aankomst tot het ontbijt de volgende ochtend.</p>
+          <ul class="ar-inb-lijst">
+            <li class="ar-inb-punt"><span class="ar-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg></span><span class="ar-inb-tekst"><b>Ontvangst met koffie of thee</b><span>met een punt Limburgse vlaai</span></span></li>
+            <li class="ar-inb-punt"><span class="ar-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg></span><span class="ar-inb-tekst"><b>Deluxe kamer</b><span>met eigen infraroodsauna</span></span></li>
+            <li class="ar-inb-punt"><span class="ar-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></span><span class="ar-inb-tekst"><b>Drie-gangen diner</b><span>seizoensgerechten in het restaurant</span></span></li>
+            <li class="ar-inb-punt"><span class="ar-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v8"/><path d="M4.93 10.93l1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="M19.07 10.93l-1.41 1.41"/><path d="M22 22H2"/><path d="M8 6l4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><span class="ar-inb-tekst"><b>Uitgebreid ontbijtbuffet</b><span>de volgende ochtend</span></span></li>
+          </ul>
+          <p class="ar-inb-prijs">vanaf <b>€ 128,50</b> p.p. per nacht</p>
+          <div class="ar-inb-acties"><a class="btn btn-primary mews-open" data-voucher="NAJAAR2D" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=NAJAAR2D">Boek het arrangement</a><a class="ar-inb-link" href="https://www.asteria.nl/arrangementen">Alle arrangementen<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+        </div>
+        <div class="ar-inb-foto ar-fs" data-ar-fs>
+          <div class="ar-fs-spoor" data-fs-spoor tabindex="0" aria-label="Foto's van het arrangement, schuif voor meer">
+            <figure class="ar-fs-dia"><img src="fotos/l26-najaar-vlaai.webp" alt="Een punt Limburgse vlaai wordt geserveerd bij aankomst" style="object-position:40% 50%"></figure>
+            <figure class="ar-fs-dia"><img src="fotos/l26-najaar-deluxe.webp" alt="Deluxe kamer met tweepersoonsbed en zithoek" style="object-position:60% 50%" loading="lazy"></figure>
+            <figure class="ar-fs-dia"><img src="fotos/l26-najaar-sauna.webp" alt="Eigen infraroodsauna in de Deluxe kamer" style="object-position:45% 50%" loading="lazy"></figure>
+            <figure class="ar-fs-dia"><img src="fotos/l26-najaar-diner.webp" alt="Gast aan tafel in het restaurant tijdens het diner" style="object-position:55% 50%" loading="lazy"></figure>
+            <figure class="ar-fs-dia"><img src="fotos/l26-najaar-ontbijt.webp" alt="Ontbijtbord met croissant, kaas, vleeswaren en druiven" style="object-position:45% 50%" loading="lazy"></figure>
+          </div>
+          <div class="ar-fs-bollen"><button type="button" class="ar-fs-bol is-aan" data-fs-naar="0" aria-label="Foto 1" aria-current="true"></button><button type="button" class="ar-fs-bol" data-fs-naar="1" aria-label="Foto 2"></button><button type="button" class="ar-fs-bol" data-fs-naar="2" aria-label="Foto 3"></button><button type="button" class="ar-fs-bol" data-fs-naar="3" aria-label="Foto 4"></button><button type="button" class="ar-fs-bol" data-fs-naar="4" aria-label="Foto 5"></button></div>
+          <div class="ar-fs-pijlen"><button type="button" class="ar-fs-pijl" data-fs-stap="-1" aria-label="Vorige foto"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="ar-fs-pijl" data-fs-stap="1" aria-label="Volgende foto"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
+        </div>
       </div>
       <ul class="ar-tijden" aria-label="Praktisch"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg><span>Inchecken vanaf 15.00</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span>Uitchecken tot 11.00</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Diner tot 21.30</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg><span>Gratis parkeren</span></li></ul>
     </div>
   </section>
-  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON) ══ -->
-  <section class="sec ar-sec ar-zv" data-toon="paper" aria-labelledby="zv-kop">
+  <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Vijf designopties a-e in de HTML;
+       zichtbaar is de optie uit de class ar-zv-optie-X op de sectie (standaard a). arrangement.js leest ?zv=a..e en toont dan
+       rechtsonder een keuzeschakelaar. Na de keuze blijft alleen de gekozen optie over. ══ -->
+  <section class="sec ar-sec ar-zv ar-zv-optie-a" data-toon="paper" aria-label="Zondagvoordeel">
     <div class="wrap">
-      <h2 id="zv-kop">Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
-      <div class="ar-zv-grid">
-        <div class="ar-zv-kaart ar-zv-kaart--zondag">
-          <span class="ar-zv-pil">− € 20 per kamer</span>
-          <h3>Aankomst op zondag</h3>
-          <p class="ar-zv-vanaf">vanaf</p>
-          <p class="ar-zv-prijs"><b>€ 118,50</b> <span>p.p.</span></p>
-          <p class="ar-zv-was"><s>€ 128,50</s></p>
-          <p class="ar-zv-regel">Automatisch verrekend met code NAJAAR2D</p>
+      <!-- a: twee kaarten -->
+      <div class="ar-zv-optie ar-zv-optie--a" data-zv="a">
+        <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
+        <div class="ar-zv-grid">
+          <div class="ar-zv-kaart ar-zv-kaart--zondag">
+            <span class="ar-zv-pil">− € 20 per kamer</span>
+            <h3>Aankomst op zondag</h3>
+            <p class="ar-zv-vanaf">vanaf</p>
+            <p class="ar-zv-prijs"><b>€ 118,50</b> <span>p.p.</span></p>
+            <p class="ar-zv-was"><s>€ 128,50</s></p>
+            <p class="ar-zv-regel">Automatisch verrekend met code NAJAAR2D</p>
+          </div>
+          <div class="ar-zv-kaart">
+            <h3>Aankomst ma t/m za</h3>
+            <p class="ar-zv-vanaf">vanaf</p>
+            <p class="ar-zv-prijs"><b>€ 128,50</b> <span>p.p.</span></p>
+            <p class="ar-zv-regel">Gewone prijs op de andere dagen</p>
+          </div>
         </div>
-        <div class="ar-zv-kaart">
-          <h3>Aankomst ma t/m za</h3>
-          <p class="ar-zv-vanaf">vanaf</p>
-          <p class="ar-zv-prijs"><b>€ 128,50</b> <span>p.p.</span></p>
-          <p class="ar-zv-regel">Gewone prijs op de andere dagen</p>
+        <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
+      </div>
+      <!-- b: weekstrook, zondag uitgelicht -->
+      <div class="ar-zv-optie ar-zv-optie--b" data-zv="b">
+        <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
+        <ol class="ar-zv-week" aria-label="Vanafprijs per aankomstdag">
+          <li><span class="ar-zv-dag">Ma</span><b>€ 128,50</b></li>
+          <li><span class="ar-zv-dag">Di</span><b>€ 128,50</b></li>
+          <li><span class="ar-zv-dag">Wo</span><b>€ 128,50</b></li>
+          <li><span class="ar-zv-dag">Do</span><b>€ 128,50</b></li>
+          <li><span class="ar-zv-dag">Vr</span><b>€ 128,50</b></li>
+          <li><span class="ar-zv-dag">Za</span><b>€ 128,50</b></li>
+          <li class="is-zondag"><span class="ar-zv-dag">Zo</span><b>€ 118,50</b><s>€ 128,50</s><span class="ar-zv-pil">− € 20 per kamer</span></li>
+        </ol>
+        <p class="ar-zv-uitleg">Vanafprijs per aankomstdag, p.p. per nacht. Automatisch verrekend met code NAJAAR2D.</p>
+        <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
+      </div>
+      <!-- c: brede band met prijs en knop -->
+      <div class="ar-zv-optie ar-zv-optie--c" data-zv="c">
+        <div class="ar-zv-band">
+          <div class="ar-zv-band-tekst">
+            <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
+            <p class="ar-zv-regel"><b>Aankomst op zondag</b><br>Automatisch verrekend met code NAJAAR2D.</p>
+            <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
+          </div>
+          <div class="ar-zv-band-prijs">
+            <span class="ar-zv-pil">− € 20 per kamer</span>
+            <p class="ar-zv-prijs"><b>€ 118,50</b> <span>p.p.</span></p>
+            <p class="ar-zv-was">in plaats van <s>€ 128,50</s></p>
+            <a class="btn btn-primary ar-zv-zondagknop" data-voucher="NAJAAR2D" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=NAJAAR2D" target="_blank" rel="noopener">Boek een zondag</a>
+          </div>
         </div>
       </div>
-      <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
+      <!-- d: foto-split met prijsvergelijking -->
+      <div class="ar-zv-optie ar-zv-optie--d" data-zv="d">
+        <div class="ar-zv-split">
+          <div class="ar-zv-split-foto"><img src="fotos/zm-ontbijt.webp" alt="Stel lacht samen aan een uitgebreide brunch met jus d’orange" loading="lazy"></div>
+          <div class="ar-zv-split-tekst">
+            <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
+            <p class="ar-zv-regel">Automatisch verrekend met code NAJAAR2D.</p>
+            <dl class="ar-zv-vergelijk">
+              <div class="is-zondag"><dt>Aankomst op zondag</dt><dd><b>€ 118,50</b> <span>p.p.</span></dd></div>
+              <div><dt>Aankomst ma t/m za</dt><dd><b>€ 128,50</b> <span>p.p.</span></dd></div>
+            </dl>
+            <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
+          </div>
+        </div>
+      </div>
+      <!-- e: schakelaar zondag / andere dag (zonder JS staat zondag aan) -->
+      <div class="ar-zv-optie ar-zv-optie--e" data-zv="e">
+        <h2>Op zondag <span class="g">€ 20 per kamer</span> voordeliger</h2>
+        <div class="ar-zv-schakel is-zondag" data-zv-schakel>
+          <div class="ar-zv-seg" role="group" aria-label="Aankomstdag"><button type="button" class="ar-zv-segknop" data-dag="zondag" aria-pressed="true">Zondag</button><button type="button" class="ar-zv-segknop" data-dag="anders" aria-pressed="false">Andere dag</button></div>
+          <p class="ar-zv-vanaf">vanaf</p>
+          <p class="ar-zv-prijs" aria-live="polite"><b data-zondag="€ 118,50" data-anders="€ 128,50">€ 118,50</b> <span>p.p.</span> <s class="ar-zv-alleen-zondag">€ 128,50</s></p>
+          <p class="ar-zv-regel" data-zondag="Automatisch verrekend met code NAJAAR2D" data-anders="Gewone prijs op de andere dagen">Automatisch verrekend met code NAJAAR2D</p>
+          <span class="ar-zv-pil ar-zv-alleen-zondag">− € 20 per kamer</span>
+        </div>
+        <p class="ar-zv-noot">Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.</p>
+      </div>
     </div>
   </section>
   <!-- ══ ARRANGEMENT 4: WAAROM ASTERIA (build-blok 'waarom', aan met WAAROM_TOON). Vaste inhoud, zoals de staging-homepage
-       (.usp-statement + .usp-wheel); opbouw en stijl van blok 3a (ster-split met wiel) ══ -->
+       (.usp-statement + .usp-wheel): het wiel draait (4 klonen voor en na, arrangement.js), de foto wisselt mee met het
+       actieve punt (data-foto, data-pos), pijlen omhoog/omlaag pauzeren 6 s. Zonder JS een gewone lijst. ══ -->
   <section class="sec b3a ar-sec ar-waarom" data-toon="paper" aria-labelledby="waarom-kop">
     <div class="wrap"><div class="b3a-grid">
       <div class="b3a-tekst"><svg class="b3a-ster" viewBox="-515 0 2841 2973" fill="none" aria-hidden="true"><path d="M2326.3 844.054C1971.04 683.274 1569.16 654.676 1197.04 761.897C693.44 256.226 260.538 1.99826e-05 260.538 1.99826e-05C285.237 390.639 354.425 766.419 468.775 1140.02C171.892 1343.36 -221.438 1665.22 -515.148 2101.06C-514.595 2191.32 -450.336 2146.81 -406.138 2113.61C-19.8775 1851.23 332.681 1701.15 640.888 1621.12C820.582 2060.08 1062.53 2503.67 1368.99 2972.4C1195.3 2294.84 1248.65 1724.99 1248.65 1724.99C1248.65 1724.99 1231.79 1755.64 1197.35 1734.48C1169.88 1835.13 1180.46 2278.62 1162.91 2023.06C1154.65 1903.22 1177.6 1714.55 1205.01 1541.85C1604.09 1535.18 1861.25 1641.15 1926.51 1671.51C1932.18 1674.18 1937.51 1676.78 1942.98 1679.57C1743.99 1374.25 1527.59 1109.91 1318 887.113C1943.46 678.278 2326.1 844.182 2326.1 844.182M484.13 332.439C692.344 466.352 894.517 635.446 1073.03 803.037C1008.51 827.479 945.051 855.812 883.155 888.848C846.69 908.3 742.96 963.058 602.262 1052.12C542.831 817.741 503.929 581.725 484.13 332.439ZM-16.9162 1761.59C170.947 1578.75 351.147 1428.99 522.41 1306.27C543.821 1369.04 566.832 1431.65 590.707 1494.27C409.307 1549.63 207.473 1634.49 -16.7139 1761.46M1071.96 2250.35C954.771 2019.32 856.261 1802.06 774.68 1590.01C886.274 1567.3 991.031 1553.49 1088.86 1546.65C1062.19 1705.77 1053.78 1889.19 1071.96 2250.35ZM1718.96 1501.56C1611.22 1469.1 1449.6 1416.16 1227.88 1406.23C1252.34 1270.45 1274.7 1163.07 1278.87 1137.91C1288.99 1075.64 1246.25 1070.01 1246.25 1070.01L1196.58 1244.31C1196.58 1244.31 1178.55 1306.2 1171.38 1184.52C1151.09 1269.21 1133.02 1339.09 1117.57 1405.04C1001.4 1407.58 870.922 1422.9 725.745 1457.53C697.625 1377.94 671.693 1298.67 648.485 1219.66C847.594 1088.95 1033.18 995.034 1203.09 928.738C1509.17 1233.3 1718.96 1501.56 1718.96 1501.56Z" fill="var(--terracotta)"/></svg><h2 id="waarom-kop">Voor de grote dagen en de <span class="g">gewone zondagen</span>.</h2><p>Eén familie runt Asteria sinds 1993. Een feest krijgt hier evenveel aandacht als je koffie op het terras.</p></div>
       <div class="b3a-knop"><a class="btn btn-primary mews-open" data-voucher="NAJAAR2D" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode=NAJAAR2D">Boek het arrangement</a></div>
-      <div class="b3a-foto"><img src="fotos/l26-arr-bar-staand.webp" alt="Medewerker tapt een biertje achter de bar van de brasserie" loading="lazy"></div>
-      <div class="b3a-rechts"><ul class="as-usp-wheel b3a-lijst"><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>Persoonlijke ontvangst</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21A2 2 0 0 0 8 20v2"/><path d="M14 14.66V17c0 .55.47.98.97 1.21A2 2 0 0 1 16 20v2"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></span><span>Vier sterren familiehotel</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h1v11"/><path d="M8 2v20"/><path d="M6 11h2"/><path d="M17 2c-2 0-3.5 3-3.5 6s1.5 5 3.5 5v9"/></svg></span><span>Eigen restaurant</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span><span>Wellness van 300 m² op de Top Floor</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M8 17h8l-4-7z"/><path d="M9 10h6l-3-6z"/></svg></span><span>Bos en Maasduinen om de hoek</span></li><li class="as-usp-wheel-item"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg></span><span>Gratis parkeren</span></li></ul></div>
+      <div class="b3a-foto ar-wiel-foto"><img class="ar-wiel-laag is-actief" src="fotos/l26-waarom-ontvangst.webp" alt="Receptioniste heet een gast welkom aan de balie" style="object-position:70% 50%" loading="lazy"><img class="ar-wiel-laag" src="fotos/l26-waarom-ontvangst.webp" alt="" aria-hidden="true" style="object-position:70% 50%" loading="lazy"></div>
+      <div class="b3a-rechts ar-wiel-wrap">
+        <button type="button" class="ar-wiel-knop" data-wiel-stap="-1" aria-label="Vorig pluspunt"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg></button>
+        <div class="ar-wiel"><ul class="as-usp-wheel ar-wiel-spoor"><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-ontvangst.webp" data-pos="70% 50%" data-alt="Receptioniste heet een gast welkom aan de balie"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><span>Persoonlijke ontvangst</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-hotel.webp" data-pos="50% 50%" data-alt="Hotel Asteria met de vijver en fontein ervoor"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21A2 2 0 0 0 8 20v2"/><path d="M14 14.66V17c0 .55.47.98.97 1.21A2 2 0 0 1 16 20v2"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg></span><span>Vier sterren familiehotel</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-restaurant.webp" data-pos="45% 50%" data-alt="Twee glazen rode wijn op het terras"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h1v11"/><path d="M8 2v20"/><path d="M6 11h2"/><path d="M17 2c-2 0-3.5 3-3.5 6s1.5 5 3.5 5v9"/></svg></span><span>Eigen restaurant</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-wellness.webp" data-pos="40% 50%" data-alt="Bubbelbad onder de lichtkoepel in de wellness op de Top Floor"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></span><span>Wellness van 300 m² op de Top Floor</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-bos.webp" data-pos="45% 50%" data-alt="Beek door het bos in de Maasduinen"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22v-5"/><path d="M8 17h8l-4-7z"/><path d="M9 10h6l-3-6z"/></svg></span><span>Bos en Maasduinen om de hoek</span></li><li class="as-usp-wheel-item ar-wiel-item" data-foto="fotos/l26-waarom-parkeren.webp" data-pos="88% 50%" data-alt="Parkeerplaats voor de deur van Hotel Asteria"><span class="b3a-ic"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg></span><span>Gratis parkeren</span></li></ul></div>
+        <button type="button" class="ar-wiel-knop" data-wiel-stap="1" aria-label="Volgend pluspunt"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      </div>
     </div></div>
   </section>
 
@@ -229,9 +315,9 @@
     <div class="wrap">
       <div class="b4b-kop">
         <div class="b4b-intro"><h2 id="kamers-kop">In welke <span class="g">kamer</span> slaap je?</h2><p>Het arrangement is op basis van een Deluxe kamer met eigen infraroodsauna. Wil je meer ruimte, vraag dan naar een Suite of de Bruidssuite.</p></div>
-        
+        <div class="b4b-teller"><span class="b4b-tel" aria-live="polite"><b class="b4b-nu">1</b> van <b>3</b></span><div class="b4b-dots" role="tablist" aria-label="Kamers"><button type="button" class="b4b-dot is-active" role="tab" aria-selected="true" aria-label="Kamer 1"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 2"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 3"></button></div><div class="b4b-pijlen"><button type="button" class="as-pijl b4b-vorige" aria-label="Vorige kamer"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="as-pijl b4b-volgende" aria-label="Volgende kamer"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div></div>
       </div>
-      <div class="ar-kamers strook-scroll" data-n="3" aria-label="Kamers">
+      <div class="b4b-strook strook-scroll" tabindex="0" aria-label="Kamers, schuif voor meer">
         <article class="b4b-kaart ar-kaart-inbegrepen">
         <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-deluxe.webp" alt="Deluxe kamer bij Hotel Asteria"><span class="b4b-pil b4b-pil--inbegrepen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Inbegrepen</span></div>
         <div class="b4b-inhoud">

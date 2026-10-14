@@ -184,10 +184,16 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `/najaarsarrangement` (najaar.template.html, oude config bee2f902) blijft tot de promotie ongewijzigd.
 - **Opbouw (wireframe-ideaal 14 okt 2026, bron `~/Documents/Parkhotel /Website ontwerp/asteria-arrangement-blokkenkiezer/bron/wireframe-ideaal.html`):**
   1 hero + boekbalk met prijs-pil en chips, zijkaart (sticky, zonder foto) naast 2-5 die stopt na de kamers, 2 dit is inbegrepen
-  (ivoren rijen + staande foto + tijdenstrook), 3 zondagvoordeel, 4 waarom Asteria (vaste inhoud, b3a-wiel met zes punten, foto
-  `fotos/l26-arr-bar-staand.webp`), 5 kamers, 6 reviewmuur, 7 FAQ + contactkaart, 8 ook interessant, 9 fotowolk. Geen tegelstrook
+  (ronde 2, 14 okt: gespiegeld Parkhotel-blok 'Het wellnessarrangement' van /wellness/: ivoren paneel vanaf de linker schermrand,
+  rechts een staande fotoslider die 47 px boven het paneel uitsteekt, bolletjes + pijlen; vinkjes in 2 kolommen vanaf 1280,
+  vanaf-prijs, knop + tekstlink asteria.nl/arrangementen; telefoon: paneel, daaronder de slider van 290 hoog; plus tijdenstrook),
+  3 zondagvoordeel (vijf designopties a-e, zie onder), 4 waarom Asteria (vaste inhoud; draaiend wiel zoals de staging-homepage:
+  4 klonen voor en na, autoplay 2400 ms alleen in beeld, pijlen omhoog/omlaag pauzeren 6 s, foto wisselt mee met crossfade,
+  foto's `fotos/l26-waarom-<punt>.webp` met data-foto/data-pos in het sjabloon; geen autoplay bij reduced motion),
+  5 kamers, 6 reviewmuur, 7 FAQ + contactkaart, 8 ook interessant, 9 fotowolk. Geen tegelstrook
   (b2a) en geen attentie-ster-split. Telefoon: boekkaart onder de hero (prijs, zondagregel, knop, codenoot), daarna de onderbalk.
-  Stijl in `arrangement.css` (prefix `ar-`), script `arrangement.js` (zijkaart stopt bij het kamerraster); beide alleen via het blok
+  Stijl in `arrangement.css` (prefix `ar-`), script `arrangement.js` (zijkaart bij het kamerraster, fotoslider, zondagopties,
+  wiel); beide alleen via het blok
   `arrangement` geladen, dus flow-landers raken ze niet. Eén reviewgetal: `{{REVIEWS_AANTAL}}` = `aantal` uit
   `content/reviews-google-asteria.json` (badge, zijkaart, reviewkop).
 - **Nieuw arrangement toevoegen:** kopieer `translations/najaarsarrangement-v2-nl.json` naar `translations/<slug>-nl.json`,
@@ -196,18 +202,24 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   - Hero: `ARR_PRIJS_PIL`, `_chips` (lijst van 3 korte teksten).
   - Zijkaart/telefoonkaart: `KAART_KOP`, `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID` ("p.p. per nacht"), `ARR_VOORWAARDEN`
     (annuleren alleen noemen als het vaststaat), `KAART_VINK_A..D`, `KAART_KNOP`, `KAART_TRUST`, `ARR_MOB_NOOT`.
-  - Inbegrepen: `INB_KOP_A/EM`, `INB_IMG/ALT` (staand), `_inbegrepen` (lijst `{titel, regel, icoon}`; icoon = svg-paden,
-    4 tot 8 punten), `_tijden` (lijst `{tekst, icoon}` voor de tijdenstrook).
+  - Inbegrepen: `INB_KOP_A/EM`, `ARR_INB_INTRO` (een of twee zinnen), `_inbegrepen` (lijst `{titel, regel, icoon}`; icoon =
+    svg-paden, in een zandvakje; 4 tot 8 punten), `_inbegrepen_fotos` (lijst `{img, alt, pos}`, 4 tot 6, anders stopt de build;
+    `pos` = object-position, want de foto is staand op het bureaublad en liggend op de telefoon), `_tijden` (lijst `{tekst, icoon}`
+    voor de tijdenstrook). Prijs en knop komen uit `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID`, `CTA`.
   - Zondagvoordeel: `ZV_TOON` (true/false; uit bij kerst en oud en nieuw), `ZV_KOP_A/EM/B`, `ZV_PIL`, `ZV_ZONDAG_KOP`,
     `ZV_ZONDAG_PRIJS`, `ZV_GEWOON_PRIJS`, `ZV_ZONDAG_REGEL`, `ZV_ANDERS_KOP`, `ZV_ANDERS_REGEL`, `ZV_VOETNOOT`,
-    `ZV_KAART_REGEL` (zondagregel in de zijkaart). Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en
+    `ZV_KAART_REGEL` (zondagregel in de zijkaart), `ZV_IMG/ALT` (foto voor optie d). Designopties (ronde 2, 14 okt, nog te kiezen
+    door Stijn): a twee kaarten, b weekstrook ma-zo, c brede band met knop 'Boek een zondag' (vult de boekbalk met de eerstvolgende
+    zondag), d foto-split met prijsvergelijking, e schakelaar zondag/andere dag. Alle vijf staan in de HTML; de class
+    `ar-zv-optie-X` op de sectie bepaalt welke zichtbaar is (standaard a). `?zv=a..e` in de URL kiest een optie en toont rechtsonder
+    een keuzeschakelaar (zonder `?zv` nooit). Na de keuze: alleen de gekozen optie in het sjabloon laten staan. Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en
     doordeweekse aankomst); zit de korting niet in Mews, dan gewone prijs - EUR 10 p.p. en een regel in `_controleren`.
   - Waarom Asteria: `WAAROM_TOON` (standaard true); inhoud staat vast in het sjabloon.
   - Kamers: `_kamers` = welke kamers, volgorde, pil en prijsregel:
     `{"deluxe": {"pil": "Inbegrepen", "soort": "inbegrepen", "prijs_label": "vanaf", "prijs": "€ 128,50 p.p."},
       "suite": {"pil": "Upgrade", "soort": "upgrade", "prijs": "Upgrade mogelijk"}}` (soort `inbegrepen` = terracotta rand,
-    `upgrade` of `toeslag`). Tot en met 3 kamers: raster `.ar-kamers` zonder slider/lus/teller (telefoon veegbaar met peek);
-    vanaf 4 de bestaande slider (teller en streepjes volgen het aantal). Plus `KAMER_KOP_*`, `KAMER_SUB`, `KAMER_NOOT`.
+    `upgrade` of `toeslag`). Vanaf 3 kamers de brede slider met lus zoals /bedankt (twee kaarten van 390 px in de zijkaartzone op
+    1440, teller en streepjes volgen het aantal); 1 of 2 kamers: raster `.ar-kamers` zonder slider/lus/teller. Plus `KAMER_KOP_*`, `KAMER_SUB`, `KAMER_NOOT`.
   - Reviews: `_reviews_aantal` (8 of 12, anders stopt de build), `_reviews_voorkeur` (woorden; reviews die er een noemen eerst).
   - FAQ: `_faq` (lijst `{q, a}`, eerste staat open; `"zondag": true` = alleen met ZV_TOON). Geen herhaling van de tijdenstrook.
   - Ook interessant: `ANDERE_TOON` + `_andere` (lijst `{naam, url, img, alt, prijs?}`; prijs alleen als hij bekend is, url met
@@ -217,8 +229,10 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Blokken in het sjabloon zijn zo geplaatst dat landers zonder blok `arrangement` byte-identiek blijven; controleer na
   sjabloonwijzigingen: alle entries bouwen vóór en na en `cmp` (zo gedaan bij de invoering).
 - Test: `python3 scripts/test_lander_w1.py http://localhost:8765/najaarsarrangement-v2.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50" [--schermafdruk qa/najaarsarrangement-v2]`
-  (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk, zondagblok, Waarom
-  Asteria, kamerraster bij 3 kamers, reviewmuur 8/12, geen b2a, zijkaart zonder foto, zijkaart loopt mee en stopt na de kamers).
+  (extra: noindex, alle Mews-links op 6dc9094c met de voucher, geen bee2f902, prijs in zijkaart en onderbalk, zondagblok (optie a
+  zonder schakelaar, ?zv=a..e precies een optie, optie e wisselt), Waarom Asteria (6 punten + 8 klonen, pijl verandert --active en
+  foto), kamerslider met lus bij 3 kamers, inbegrepen-paneel tot de linker schermrand + fotoslider (pijlen, bolletjes), reviewmuur
+  8/12, geen b2a, zijkaart zonder foto, zijkaart loopt mee en stopt na de kamers).
   Gotcha: draait er op 8765 al een server uit een andere worktree, start dan een eigen server met `--directory` op een andere poort.
 - Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag

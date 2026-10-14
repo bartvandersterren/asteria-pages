@@ -25,7 +25,12 @@ code dan JUBILEUM checkt de test ook dat JUBILEUM en 'verblijfsverjaardag' niet 
 Arrangementen (blokken zijkaart + arrangement):
   ... http://localhost:8765/najaarsarrangement-v2.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50"
 Extra: robots noindex, alle Mews-links met de voucher, geen oude config bee2f902 in de bron, prijs zichtbaar in de
-zijkaart (1440) en in de onderbalk (390). Kamerslider-checks volgen het aantal kamers op de pagina (8 of minder).
+zijkaart (1440) en in de onderbalk (390). Kamerslider-checks volgen het aantal kamers op de pagina (8 of minder);
+vanaf 3 kamers de slider met lus (klonen), bij 1-2 het raster. Inbegrepen-blok: paneel loopt links tot de schermrand,
+fotoslider met 4-6 dia's, bolletjes en pijlen (pijlklik schuift een dia). Zondagblok: optie a zonder ?zv en zonder
+keuzeschakelaar; ?zv=b..e toont precies die ene optie plus de schakelaar; optie e wisselt de prijs. Waarom Asteria:
+wiel met 6 echte punten en 8 klonen, pijlklik verandert --active en de foto. Met --schermafdruk ook: kamerslider na
+twee pijlklikken, inbegrepen-blok, zondagopties a-e en het wiel in twee standen.
 """
 import sys, json
 from datetime import date, timedelta
@@ -155,19 +160,25 @@ with sync_playwright() as p:
             check(f'{tag} klik op streepje {sd} springt naar kamer {sd}', t4 == str(sd) and a4 == str(sd), f'{t4} / {a4}')
             pg.locator('.b4b-dot').nth(N - 1).click(); pg.wait_for_timeout(1100)
             pg.locator('.b4b-volgende').click(); pg.wait_for_timeout(900)
+            if shotdir and PRIJS:
+                pg.locator('.b4b-volgende').click(); pg.wait_for_timeout(900)
+                pg.locator('.b4b-volgende').click(); pg.wait_for_timeout(1100)
+                pg.evaluate("window.scrollTo(0, document.querySelector('.b4b').getBoundingClientRect().top + scrollY - (innerWidth < 720 ? 60 : 110))"); pg.wait_for_timeout(600)
+                pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-kamers-2klik.png')
 
         if PRIJS:
             a = pg.evaluate("""(()=>{const q=s=>document.querySelector(s),zv=q('.ar-zv'),wa=q('.ar-waarom'),kant=q('.lp-zone-kant'),an=q('.ar-andere');
-                return {zv:!!zv&&zv.querySelectorAll('.ar-zv-kaart').length===2&&!!zv.querySelector('.ar-zv-kaart--zondag .ar-zv-pil')&&!!zv.querySelector('.ar-zv-noot')&&!!zv.querySelector('s'),
-                  zvKop:zv?zv.querySelector('h2').innerText.replace(/\\u00a0/g,' '):'',
-                  wKop:wa?wa.querySelector('h2').innerText:'',wPunten:wa?wa.querySelectorAll('.as-usp-wheel-item').length:0,
-                  wFoto:wa?(i=>i.complete&&i.naturalWidth>0)(wa.querySelector('.b3a-foto img')):false,
+                const za=zv&&zv.querySelector('.ar-zv-optie--a');
+                return {zv:!!za&&za.offsetParent!==null&&za.querySelectorAll('.ar-zv-kaart').length===2&&!!za.querySelector('.ar-zv-kaart--zondag .ar-zv-pil')&&!!za.querySelector('.ar-zv-noot')&&!!za.querySelector('s'),
+                  zvKop:za?za.querySelector('h2').innerText.replace(/\\u00a0/g,' '):'',
+                  wKop:wa?wa.querySelector('h2').innerText:'',wPunten:wa?wa.querySelectorAll('.ar-wiel-item:not([data-kloon])').length:0,
+                  wFoto:wa?(i=>i.complete&&i.naturalWidth>0)(wa.querySelector('.b3a-foto img.is-actief')):false,
                   wKnop:wa?wa.querySelector('.mews-open').dataset.voucher:'',
                   kantFoto:kant?kant.querySelectorAll('img').length:-1,kantPrijs:kant?!!kant.querySelector('.b1k-prijs'):false,
                   andere:an?[...an.querySelectorAll('a.ar-ander')].map(x=>x.getAttribute('href')):[],
                   chips:document.querySelectorAll('.ar-chips li').length,
                   faq:[...document.querySelectorAll('.b6c summary')].map(s=>s.innerText)}})()""")
-            check(f'{tag} zondagblok: twee kaarten, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
+            check(f'{tag} zondagblok (optie a, standaard): twee kaarten, pil, doorgestreepte prijs, voetnoot', a['zv'] and 'Op zondag' in a['zvKop'] and '20 per kamer' in a['zvKop'], str(a)[:300])
             check(f'{tag} Waarom Asteria: kop, zes punten, foto geladen, knop met {VOUCHER}',
                   a['wKop'].startswith('Voor de grote dagen') and a['wPunten'] == 6 and a['wFoto'] and a['wKnop'] == VOUCHER, str(a)[:300])
             check(f'{tag} zijkaart zonder foto, met prijs', a['kantFoto'] == 0 and a['kantPrijs'], str(a)[:200])
@@ -176,6 +187,53 @@ with sync_playwright() as p:
             check(f'{tag} FAQ: zes vragen, eerste over het arrangement', len(a['faq']) == 6 and 'arrangement' in a['faq'][0], ' | '.join(a['faq']))
             ok_rev = pg.evaluate("(()=>{const m=document.querySelector('.b5a-muur');return m.classList.contains('is-loop')?[...m.querySelectorAll('.b5a-baan .b5a-kaart:not([aria-hidden])')].length:m.querySelectorAll('.b5a-kaart').length})()")
             check(f'{tag} reviewmuur: precies 8 of 12 kaarten', ok_rev in (8, 12), str(ok_rev))
+
+            # kamerslider vanaf 3 kamers: brede kaarten met lus (zoals /bedankt)
+            ks = pg.evaluate("""(()=>{const s=document.querySelector('.b4b-strook');if(!s)return null;const e=[...s.querySelectorAll('.b4b-kaart:not([data-kloon])')];
+                return {n:e.length,klonen:s.querySelectorAll('[data-kloon]').length,w:Math.round(e[0].getBoundingClientRect().width),raster:!!document.querySelector('.ar-kamers')}})()""")
+            check(f'{tag} kamerslider met lus bij 3 kamers (klonen voor en na, geen raster)', bool(ks) and ks['n'] == 3 and ks['klonen'] == 6 and not ks['raster'], str(ks))
+            # inbegrepen: paneel vanaf de linker schermrand, fotoslider met bolletjes en pijlen
+            ib = pg.evaluate("""(()=>{const q=s=>document.querySelector(s),r=s=>{const e=q(s);if(!e)return null;const b=e.getBoundingClientRect();return {l:Math.round(b.left),t:Math.round(b.top+scrollY),b:Math.round(b.bottom+scrollY),r:Math.round(b.right),w:Math.round(b.width),h:Math.round(b.height),d:getComputedStyle(e).display}};
+                return {bg:r('.ar-inb-bg'),inhoud:r('.ar-inb-inhoud'),foto:r('.ar-inb-foto'),dias:document.querySelectorAll('.ar-fs-dia').length,
+                  bollen:document.querySelectorAll('.ar-fs-bol').length,pijlen:document.querySelectorAll('.ar-fs-pijl').length,
+                  vink:document.querySelectorAll('.ar-inb-punt').length,prijs:(q('.ar-inb-prijs')||{}).innerText||'',
+                  knop:(q('.ar-inb-acties .mews-open')||{dataset:{}}).dataset.voucher,link:(q('.ar-inb-link')||{getAttribute:()=>''}).getAttribute('href')}})()""")
+            check(f'{tag} inbegrepen: fotoslider met 4-6 dia\'s, evenveel bolletjes, twee pijlen', 4 <= ib['dias'] <= 6 and ib['bollen'] == ib['dias'] and ib['pijlen'] == 2, str(ib)[:300])
+            check(f'{tag} inbegrepen: vinkjes, vanaf-prijs, knop met {VOUCHER}, tekstlink alle arrangementen',
+                  ib['vink'] >= 4 and PRIJS in ib['prijs'].replace('\u00a0', ' ') and ib['knop'] == VOUCHER and ib['link'] == 'https://www.asteria.nl/arrangementen', str(ib)[:300])
+            if mob:
+                check(f'{tag} inbegrepen: eerst het paneel, daaronder de fotoslider (290 hoog)', ib['bg']['d'] == 'none' and ib['inhoud']['b'] <= ib['foto']['t'] + 1 and ib['foto']['h'] == 290, str(ib)[:300])
+            else:
+                check(f'{tag} inbegrepen: paneel loopt links tot de schermrand, foto rechts 47 px hoger',
+                      ib['bg']['l'] <= 0 and ib['foto']['r'] > ib['bg']['r'] and ib['bg']['t'] - ib['foto']['t'] == 47 and ib['bg']['b'] - ib['foto']['b'] >= 47, str(ib)[:300])
+            pg.locator('.ar-fs').scroll_into_view_if_needed(); pg.wait_for_timeout(300)
+            pg.locator('.ar-fs-pijl[data-fs-stap="1"]').click(); pg.wait_for_timeout(900)
+            fs = pg.evaluate("(()=>{const s=document.querySelector('.ar-fs-spoor');return {i:Math.round(s.scrollLeft/s.clientWidth),bol:[...document.querySelectorAll('.ar-fs-bol')].findIndex(b=>b.classList.contains('is-aan'))}})()")
+            pg.locator('.ar-fs-pijl[data-fs-stap="-1"]').click(); pg.wait_for_timeout(900)
+            pg.locator('.ar-fs-pijl[data-fs-stap="-1"]').click(); pg.wait_for_timeout(900)
+            fs2 = pg.evaluate("(()=>{const s=document.querySelector('.ar-fs-spoor');return Math.round(s.scrollLeft/s.clientWidth)})()")
+            check(f'{tag} inbegrepen: pijl schuift een dia (bolletje volgt), terug vanaf de eerste naar de laatste', fs == {'i': 1, 'bol': 1} and fs2 == ib['dias'] - 1, f'{fs} / {fs2}')
+            pg.locator('.ar-fs-pijl[data-fs-stap="1"]').click(); pg.wait_for_timeout(900)
+            if shotdir:
+                pg.evaluate("window.scrollTo(0, document.querySelector('.ar-inb').getBoundingClientRect().top + scrollY - (innerWidth < 720 ? 40 : 110))"); pg.wait_for_timeout(700)
+                pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-inbegrepen.png')
+            # zondag zonder ?zv: geen keuzeschakelaar, optie a zichtbaar
+            zv0 = pg.evaluate("({kiezer:!!document.querySelector('.ar-zv-kiezer'),zicht:[...document.querySelectorAll('.ar-zv-optie')].filter(o=>o.offsetParent).map(o=>o.dataset.zv)})")
+            check(f'{tag} zondag zonder ?zv: geen keuzeschakelaar, alleen optie a', not zv0['kiezer'] and zv0['zicht'] == ['a'], str(zv0))
+            # waarom: wiel met klonen, pijl verandert --active en de foto
+            pg.evaluate("window.scrollTo(0, document.querySelector('.ar-waarom').getBoundingClientRect().top + scrollY - 80)"); pg.wait_for_timeout(600)
+            wl = lambda: pg.evaluate("(()=>{const s=document.querySelector('.ar-wiel-spoor');return {echt:s.querySelectorAll('.ar-wiel-item:not([data-kloon])').length,klonen:s.querySelectorAll('[data-kloon]').length,"
+                                     "active:+s.style.getPropertyValue('--active'),foto:document.querySelector('.ar-wiel-laag.is-actief').getAttribute('src'),wiel:document.querySelector('.ar-wiel-wrap').classList.contains('is-wiel')}})()")
+            w0 = wl()
+            check(f'{tag} wiel: 6 echte punten plus 8 klonen, draait', w0['echt'] == 6 and w0['klonen'] == 8 and w0['wiel'], str(w0))
+            if shotdir: pg.locator('.ar-waarom').screenshot(path=f'{shotdir}/{NAAM}-{w}-wiel-1.png')
+            pg.locator('.ar-wiel-knop[data-wiel-stap="1"]').click(); a1 = wl()['active']
+            pg.wait_for_timeout(1500); w1 = wl()
+            check(f'{tag} wiel: pijl omlaag verandert --active en de foto', a1 == w0['active'] + 1 and w1['foto'] != w0['foto'], f'{w0} -> {a1}, {w1}')
+            pg.locator('.ar-wiel-knop[data-wiel-stap="-1"]').click(); a2 = wl()['active']
+            check(f'{tag} wiel: pijl omhoog stapt terug', a2 == w1['active'] - 1, f'{w1["active"]} -> {a2}')
+            pg.locator('.ar-wiel-knop[data-wiel-stap="1"]').click(); pg.wait_for_timeout(1500)
+            if shotdir: pg.locator('.ar-waarom').screenshot(path=f'{shotdir}/{NAAM}-{w}-wiel-2.png')
 
         # Bekijk kamer -> pop-up
         kk = pg.evaluate("""(()=>{const ks=[...document.querySelectorAll('.b4b-kaart:not([data-kloon]) [data-kamer]')].map(b=>b.dataset.kamer);
@@ -399,6 +457,34 @@ with sync_playwright() as p:
             pg.set_viewport_size({'width': w, 'height': H}); pg.wait_for_timeout(600)
             pg.screenshot(path=f'{shotdir}/{NAAM}-{w}.png')
         ctx.close()
+    if PRIJS:
+        for w, h, mob in [(1440, 900, False), (390, 844, True)]:
+            for o in 'abcde':
+                ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob)
+                ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
+                pg = ctx.new_page(); fz = []
+                pg.on('pageerror', lambda e: fz.append(str(e)))
+                pg.goto(URL + f'?zv={o}', wait_until='networkidle'); pg.wait_for_timeout(400)
+                z = pg.evaluate("({zicht:[...document.querySelectorAll('.ar-zv-optie')].filter(o=>o.offsetParent).map(o=>o.dataset.zv),"
+                                "kiezer:document.querySelectorAll('.ar-zv-kiezer button').length,aan:(document.querySelector('.ar-zv-kiezer [aria-pressed=true]')||{}).textContent,"
+                                "sw:document.documentElement.scrollWidth})")
+                check(f'[{w}] ?zv={o}: precies optie {o} zichtbaar, keuzeschakelaar a-e', z['zicht'] == [o] and z['kiezer'] == 5 and z['aan'] == o and z['sw'] <= w and not fz, str(z) + ' ' + '; '.join(fz))
+                if o == 'e':
+                    pg.locator('.ar-zv-optie--e .ar-zv-segknop[data-dag="anders"]').click(); pg.wait_for_timeout(200)
+                    p1 = pg.locator('.ar-zv-optie--e .ar-zv-prijs b').inner_text()
+                    pg.locator('.ar-zv-optie--e .ar-zv-segknop[data-dag="zondag"]').click(); pg.wait_for_timeout(200)
+                    p0 = pg.locator('.ar-zv-optie--e .ar-zv-prijs b').inner_text()
+                    check(f'[{w}] optie e: schakelaar wisselt de prijs', p1 != p0 and p0.replace('\u00a0', ' ') != PRIJS and p1.replace('\u00a0', ' ') == PRIJS, f'{p0} / {p1}')
+                if o == 'b':
+                    pg.locator('.ar-zv-kiezer [data-zv-kies="c"]').click(); pg.wait_for_timeout(300)
+                    z2 = pg.evaluate("[...document.querySelectorAll('.ar-zv-optie')].filter(o=>o.offsetParent).map(o=>o.dataset.zv)")
+                    check(f'[{w}] keuzeschakelaar wisselt de optie (b -> c)', z2 == ['c'], str(z2))
+                    pg.locator('.ar-zv-kiezer [data-zv-kies="b"]').click(); pg.wait_for_timeout(300)
+                if shotdir:
+                    pg.evaluate("document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager')")
+                    pg.locator('.ar-zv').scroll_into_view_if_needed(); pg.wait_for_timeout(900)
+                    pg.locator('.ar-zv').screenshot(path=f'{shotdir}/{NAAM}-{w}-zondag-{o}.png')
+                ctx.close()
     b.close()
 
 mis = [r for r in resultaten if not r[1]]

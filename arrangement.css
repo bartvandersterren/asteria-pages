@@ -1,7 +1,7 @@
 /* Arrangementsjabloon op lander-w1 (visit.asteria.nl/<arrangement>-v2). Laadt na lander-w1.css, alleen via het
    build-blok 'arrangement' in lander-w1.template.html; flow-landers laden dit bestand niet.
-   Opbouw (wireframe-ideaal, okt 2026): 1 hero + chips, zijkaart zonder foto naast 2-5, 2 dit is inbegrepen + tijdenstrook,
-   3 zondagvoordeel, 4 waarom Asteria (b3a-wiel met zes punten), 5 kamers (raster tot 3, prijsregel per kaart),
+   Opbouw (wireframe-ideaal, okt 2026): 1 hero + chips, zijkaart zonder foto naast 2-5, 2 dit is inbegrepen (paneel + fotoslider) + tijdenstrook,
+   3 zondagvoordeel (opties a-e), 4 waarom Asteria (draaiend wiel met wisselende foto), 5 kamers (slider vanaf 3, raster bij 1-2),
    6 reviewmuur (8 of 12 kaarten), 7 FAQ, 8 ook interessant, 9 fotowolk. Klassen met prefix ar-. */
 
 /* ---------- 1: chips onder de sub op de hero ---------- */
@@ -57,59 +57,202 @@
   .lp .lp-zone .b4b{padding-top:44px}
 }
 
-/* ---------- 2: dit is inbegrepen + tijdenstrook ---------- */
-.lp .ar-inb-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:24px;margin-top:28px;align-items:center}
-.lp .ar-inb-lijst{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.lp .ar-inb-rij{display:flex;align-items:center;gap:14px;min-height:68px;padding:12px 16px 12px 12px;background:var(--surface);
-    border:1px solid var(--hairline);border-radius:var(--radius-chip);box-shadow:var(--as-schaduw)}
-.lp .ar-inb-tekst{display:flex;flex-direction:column;gap:2px;min-width:0;line-height:1.35}
+/* ---------- 2: dit is inbegrepen. Gespiegeld Parkhotel-blok 'Het wellnessarrangement' (/wellness/, .wv-arr + .zd-alles):
+   ivoren paneel vanaf de linker schermrand, rechts een staande fotoslider die 47 px boven het paneel uitsteekt; het paneel
+   loopt 47 px onder de foto door en een stuk onder de foto. Telefoon: paneel, daaronder de fotoslider (290 hoog). ---------- */
+.lp .lp-zone{overflow-x:clip}
+.lp .ar-inb{--bleed:max(var(--gutter),(100vw - 1120px) / 2)}
+.lp .ar-inb-blok{position:relative}
+.lp .ar-inb-inhoud{position:relative;z-index:1}
+.lp .ar-inb-intro{margin-top:16px;font-size:var(--text-sm);line-height:1.65;color:var(--ink);max-width:56ch}
+.lp .ar-inb-lijst{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:14px 22px}
+.lp .ar-inb-punt{display:flex;align-items:center;gap:14px}
+.lp .ar-vak{display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;border-radius:var(--radius-chip);background:var(--paper);color:var(--terracotta)}
+.lp .ar-vak .as-icoon{width:22px;height:22px;stroke-width:1.8}
+.lp .ar-inb-tekst{display:flex;flex-direction:column;gap:2px;min-width:0;line-height:1.3}
 .lp .ar-inb-tekst b{font-size:15px;color:var(--ink)}
 .lp .ar-inb-tekst span{font-size:13.5px;color:var(--ink-soft)}
-.lp .ar-inb-foto{aspect-ratio:4/5;border-radius:var(--radius-image);overflow:hidden;box-shadow:var(--shadow-card)}
-.lp .ar-inb-foto img{width:100%;height:100%;object-fit:cover}
+.lp .ar-inb-prijs{margin-top:24px;font-size:14px;color:var(--ink-soft)}
+.lp .ar-inb-prijs b{margin:0 3px;font-family:var(--font-display);font-size:28px;line-height:1;color:var(--ink)}
+.lp .ar-inb-acties{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:20px}
+.lp .ar-inb-link{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--terracotta-text)}
+.lp .ar-inb-link .as-icoon{width:16px;height:16px;transition:transform .25s var(--ease-soft)}
+.lp .ar-inb-link:hover .as-icoon{transform:translateX(4px)}
+.lp .ar-inb-link:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px;border-radius:4px}
+/* fotoslider (Parkhotel .wv-fs): vegen = scroll-snap; pijlen rondlopend en bolletjes via arrangement.js; geen autoplay */
+.lp .ar-fs{position:relative;overflow:hidden;border-radius:var(--radius-image);background:var(--ink);box-shadow:var(--shadow-card)}
+.lp .ar-fs-spoor{display:flex;width:100%;height:100%;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.lp .ar-fs-spoor::-webkit-scrollbar{display:none}
+.lp .ar-fs-spoor:focus-visible{outline:3px solid var(--terracotta);outline-offset:-3px}
+.lp .ar-fs-dia{flex:0 0 100%;height:100%;margin:0;scroll-snap-align:start;scroll-snap-stop:always}
+.lp .ar-fs-dia img{display:block;width:100%;height:100%;object-fit:cover}
+.lp .ar-fs-pijlen{position:absolute;right:14px;bottom:14px;z-index:2;display:flex;gap:8px}
+.lp .ar-fs-pijl{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:0;border-radius:50%;
+    background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:var(--shadow-card);transition:background .25s var(--ease-soft),color .25s var(--ease-soft)}
+.lp .ar-fs-pijl:hover{background:var(--ink);color:var(--surface)}
+.lp .ar-fs-pijl:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
+.lp .ar-fs-pijl .as-icoon{width:18px;height:18px}
+.lp .ar-fs-bollen{position:absolute;left:10px;bottom:24px;z-index:2;display:flex}
+.lp .ar-fs-bol{display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:0;background:none;cursor:pointer}
+.lp .ar-fs-bol::before{content:"";width:8px;height:8px;border-radius:50%;background:rgba(255,250,241,.62);transition:background .2s,transform .2s}
+.lp .ar-fs-bol.is-aan::before{background:var(--surface);transform:scale(1.35)}
+.lp .ar-fs-bol:focus-visible{outline:2px solid var(--surface);outline-offset:0;border-radius:50%}
+@media (min-width:720px){
+  .lp .ar-inb-blok{--fb:280px;--fh:400px;min-height:calc(var(--fh) + 47px)}
+  .lp .ar-inb-bg{position:absolute;top:47px;bottom:0;left:calc(-1 * var(--bleed));right:calc(var(--fb) * .6);background:var(--surface);border-radius:0 var(--radius-card) var(--radius-card) 0}
+  .lp .ar-inb-inhoud{display:flex;flex-direction:column;justify-content:center;min-height:var(--fh);margin:47px calc(var(--fb) + 40px) 0 0;padding:44px 0}
+  .lp .ar-inb-foto{position:absolute;top:0;right:0;z-index:2;width:var(--fb);height:var(--fh)}
+}
+@media (min-width:1024px) and (max-width:1279px){
+  .lp .ar-inb-blok{--fb:240px;--fh:380px}
+}
+@media (min-width:1280px){
+  .lp .ar-inb-blok{--fb:320px;--fh:420px}
+  .lp .ar-inb-lijst{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:719px){
+  .lp .ar-inb-bg{display:none}
+  .lp .ar-inb-inhoud{padding:28px 20px 26px;background:var(--surface);border-radius:var(--radius-card) var(--radius-card) 0 0}
+  .lp .ar-inb-lijst{margin-top:20px;gap:12px}
+  .lp .ar-inb-prijs{margin-top:20px}
+  .lp .ar-inb-acties{flex-direction:column;align-items:stretch;gap:14px}
+  .lp .ar-inb-acties .btn{width:100%}
+  .lp .ar-inb-link{justify-content:center}
+  .lp .ar-inb-foto{height:290px;border-radius:0 0 var(--radius-card) var(--radius-card);box-shadow:none}
+}
+/* tijdenstrook direct onder het blok */
 .lp .ar-tijden{list-style:none;margin:20px 0 0;padding:14px 18px;display:flex;flex-wrap:wrap;gap:10px 26px;background:var(--surface);
     border:1px solid var(--hairline);border-radius:var(--radius-chip)}
 .lp .ar-tijden li{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;line-height:1.3;color:var(--ink)}
 .lp .ar-tijden .as-icoon{width:18px;height:18px;color:var(--terracotta)}
 @media (max-width:719px){
-  .lp .ar-inb-grid{grid-template-columns:minmax(0,1fr);margin-top:22px}
-  .lp .ar-inb-foto{display:none}
   .lp .ar-tijden{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;padding:14px}
   .lp .ar-tijden li{font-size:13px}
 }
 
-/* ---------- 3: zondagvoordeel ---------- */
-.lp .ar-zv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
-.lp .ar-zv-kaart{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:24px 24px 22px}
-.lp .ar-zv-kaart--zondag{border:2px solid var(--terracotta)}
+/* ---------- 3: zondagvoordeel, vijf designopties (a-e). Alleen de optie uit de class ar-zv-optie-X op de sectie is zichtbaar;
+   ?zv=a..e in de URL zet de keuzeschakelaar (.ar-zv-kiezer, arrangement.js) aan. ---------- */
+.lp .ar-zv-optie{display:none}
+.lp .ar-zv-optie-a .ar-zv-optie--a,.lp .ar-zv-optie-b .ar-zv-optie--b,.lp .ar-zv-optie-c .ar-zv-optie--c,
+.lp .ar-zv-optie-d .ar-zv-optie--d,.lp .ar-zv-optie-e .ar-zv-optie--e{display:block}
 .lp .ar-zv-pil{display:inline-flex;align-items:center;margin-bottom:12px;padding:4px 11px;border-radius:var(--radius-pill);background:var(--terracotta);color:var(--surface);
-    font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.4}
-.lp .ar-zv-kaart h3{font-family:var(--font-body);font-size:16px;font-weight:700;letter-spacing:0;line-height:1.3}
+    font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.4;white-space:nowrap}
 .lp .ar-zv-vanaf{margin-top:16px;font-size:13px;color:var(--ink-soft)}
-.lp .ar-zv-prijs{margin-top:2px;display:flex;align-items:baseline;gap:6px}
+.lp .ar-zv-prijs{margin-top:2px;display:flex;align-items:baseline;flex-wrap:wrap;gap:6px}
 .lp .ar-zv-prijs b{font-family:var(--font-display);font-size:40px;line-height:1;color:var(--ink)}
-.lp .ar-zv-kaart--zondag .ar-zv-prijs b{color:var(--terracotta-text)}
 .lp .ar-zv-prijs span{font-size:14px;color:var(--ink-soft)}
 .lp .ar-zv-was{margin-top:6px;font-size:14px;color:var(--ink-soft)}
 .lp .ar-zv-regel{margin-top:10px;font-size:14px;line-height:1.45;color:var(--ink)}
 .lp .ar-zv-noot{margin-top:16px;font-size:13px;line-height:1.5;color:var(--ink-soft);max-width:68ch}
+/* a: twee kaarten */
+.lp .ar-zv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.lp .ar-zv-kaart{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:24px 24px 22px}
+.lp .ar-zv-kaart--zondag{border:2px solid var(--terracotta)}
+.lp .ar-zv-kaart h3{font-family:var(--font-body);font-size:16px;font-weight:700;letter-spacing:0;line-height:1.3}
+.lp .ar-zv-kaart--zondag .ar-zv-prijs b{color:var(--terracotta-text)}
+/* b: weekstrook ma t/m zo, zondag uitgelicht */
+.lp .ar-zv-week{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr)) minmax(0,1.9fr);gap:8px}
+.lp .ar-zv-week li{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:18px 4px;text-align:center;
+    background:var(--surface);border:1px solid var(--hairline);border-radius:var(--radius-chip)}
+.lp .ar-zv-dag{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.lp .ar-zv-week b{font-family:var(--font-display);font-size:18px;line-height:1.1;color:var(--ink);white-space:nowrap}
+.lp .ar-zv-week .is-zondag{gap:4px;background:var(--terracotta);border-color:var(--terracotta);box-shadow:var(--shadow-card)}
+.lp .ar-zv-week .is-zondag .ar-zv-dag,.lp .ar-zv-week .is-zondag b,.lp .ar-zv-week .is-zondag s{color:var(--surface)}
+.lp .ar-zv-week .is-zondag b{font-size:30px}
+.lp .ar-zv-week .is-zondag s{font-size:13px;opacity:.85}
+.lp .ar-zv-week .is-zondag .ar-zv-pil{margin:6px 0 0;background:var(--surface);color:var(--terracotta-text)}
+.lp .ar-zv-uitleg{margin-top:16px;font-size:14px;line-height:1.5;color:var(--ink)}
+/* c: brede band, prijs en knop rechts */
+.lp .ar-zv-band{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:center;padding:32px 36px;
+    background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card)}
+.lp .ar-zv-band .ar-zv-regel{margin-top:14px}
+.lp .ar-zv-band-prijs{display:flex;flex-direction:column;align-items:flex-start;padding-left:32px;border-left:1px solid var(--hairline)}
+.lp .ar-zv-band .ar-zv-prijs b{font-size:52px;color:var(--terracotta-text)}
+.lp .ar-zv-band .btn{margin-top:18px}
+/* d: foto-split met prijsvergelijking */
+.lp .ar-zv-split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:36px;align-items:center}
+.lp .ar-zv-split-foto{aspect-ratio:4/5;border-radius:var(--radius-image);overflow:hidden;box-shadow:var(--shadow-card)}
+.lp .ar-zv-split-foto img{width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+.lp .ar-zv-split .ar-zv-regel{margin-top:14px}
+.lp .ar-zv-vergelijk{margin:22px 0 0;border-top:1px solid var(--hairline)}
+.lp .ar-zv-vergelijk>div{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--hairline)}
+.lp .ar-zv-vergelijk dt{font-size:15px;font-weight:600;color:var(--ink)}
+.lp .ar-zv-vergelijk dd{margin:0;white-space:nowrap;font-size:13px;color:var(--ink-soft)}
+.lp .ar-zv-vergelijk dd b{font-family:var(--font-display);font-size:26px;line-height:1;color:var(--ink)}
+.lp .ar-zv-vergelijk .is-zondag dt,.lp .ar-zv-vergelijk .is-zondag dd b{color:var(--terracotta-text)}
+/* e: schakelaar zondag / andere dag */
+.lp .ar-zv-schakel{position:relative;max-width:480px;margin-top:24px;padding:22px 24px 24px;background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card)}
+.lp .ar-zv-seg{display:inline-flex;gap:4px;padding:4px;border-radius:var(--radius-pill);background:var(--paper)}
+.lp .ar-zv-segknop{min-height:40px;padding:9px 18px;border:0;border-radius:var(--radius-pill);background:transparent;font:600 14px/1.2 var(--font-body);color:var(--ink);cursor:pointer;
+    transition:background .2s var(--ease-soft),color .2s var(--ease-soft)}
+.lp .ar-zv-segknop[aria-pressed="true"]{background:var(--terracotta);color:var(--surface)}
+.lp .ar-zv-segknop:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
+.lp .ar-zv-schakel .ar-zv-prijs s{font-size:15px;color:var(--ink-soft)}
+.lp .ar-zv-schakel.is-zondag .ar-zv-prijs b{color:var(--terracotta-text)}
+.lp .ar-zv-schakel:not(.is-zondag) .ar-zv-alleen-zondag{visibility:hidden}
+.lp .ar-zv-schakel .ar-zv-pil{position:absolute;top:28px;right:24px;margin:0}
 @media (max-width:719px){
   .lp .ar-zv-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:22px}
   .lp .ar-zv-kaart{padding:20px}
   .lp .ar-zv-prijs b{font-size:34px}
+  .lp .ar-zv-week{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px}
+  .lp .ar-zv-week .is-zondag{grid-column:1 / -1;order:-1;padding:16px}
+  .lp .ar-zv-week li:not(.is-zondag){padding:12px 4px}
+  .lp .ar-zv-band{grid-template-columns:minmax(0,1fr);gap:20px;padding:24px 20px}
+  .lp .ar-zv-band-prijs{padding:20px 0 0;border-left:0;border-top:1px solid var(--hairline)}
+  .lp .ar-zv-band .ar-zv-prijs b{font-size:44px}
+  .lp .ar-zv-band .btn{width:100%}
+  .lp .ar-zv-split{grid-template-columns:minmax(0,1fr);gap:22px}
+  .lp .ar-zv-split-foto{aspect-ratio:4/3}
+  .lp .ar-zv-schakel{padding:20px}
+  .lp .ar-zv-schakel .ar-zv-pil{position:static;margin-top:12px}
+}
+/* keuzeschakelaar (alleen met ?zv= in de URL) */
+.ar-zv-kiezer{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;align-items:center;gap:4px;padding:6px 6px 6px 14px;border-radius:999px;
+    background:#442A06;box-shadow:0 12px 32px rgba(68,42,6,.28);font-family:"Montserrat",system-ui,sans-serif;color:#FFFAF1}
+.mob-cta-aan .ar-zv-kiezer{bottom:calc(var(--mob-cta-h,72px) + 12px)}
+.ar-zv-kiezer span{margin-right:6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.ar-zv-kiezer button{width:36px;height:36px;padding:0;border:0;border-radius:50%;background:rgba(255,250,241,.12);color:#FFFAF1;font:700 14px/1 "Montserrat",system-ui,sans-serif;cursor:pointer}
+.ar-zv-kiezer button[aria-pressed="true"]{background:#C76E4E}
+.ar-zv-kiezer button:focus-visible{outline:2px solid #FFFAF1;outline-offset:2px}
+
+/* ---------- 4: waarom Asteria. Draaiend wiel zoals de staging-homepage (.usp-wheel + .usp-photo): 4 klonen voor en na,
+   --active schuift het spoor (72 px per punt), foto wisselt mee met een crossfade van 800 ms. arrangement.js zet .is-wiel;
+   zonder JS een gewone lijst. ---------- */
+.lp .ar-wiel-foto{position:relative}
+.lp .ar-wiel-foto .ar-wiel-laag{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s var(--ease-soft)}
+.lp .ar-wiel-foto .ar-wiel-laag.is-actief{opacity:1}
+.lp .ar-wiel-knop{display:none}
+.lp .ar-wiel-spoor{gap:12px}
+.lp .ar-wiel-item{box-sizing:border-box;height:60px;min-height:60px;gap:14px;padding:10px 16px 10px 10px;line-height:1.25;background:var(--surface);box-shadow:var(--as-schaduw);
+    transition:box-shadow .5s var(--ease-soft),opacity .6s var(--ease-soft)}
+.lp .ar-wiel-wrap.is-wiel{display:grid;justify-items:center;gap:8px;align-self:center}
+.lp .is-wiel .ar-wiel{position:relative;width:100%;height:420px;overflow:hidden;
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.6) 10%,#000 25%,#000 75%,rgba(0,0,0,.6) 90%,transparent 100%);
+            mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.6) 10%,#000 25%,#000 75%,rgba(0,0,0,.6) 90%,transparent 100%)}
+.lp .is-wiel .ar-wiel-spoor{position:absolute;top:50%;left:0;right:0;margin:0;padding:0 12px;--active:0;
+    transform:translate3d(0,calc(-30px - var(--active) * 72px),0);transition:transform 1s cubic-bezier(.32,.72,0,1);will-change:transform}
+.lp .is-wiel .ar-wiel-spoor.no-transition,.lp .is-wiel .ar-wiel-spoor.no-transition .ar-wiel-item{transition:none !important}
+.lp .is-wiel .ar-wiel-item{box-shadow:none}
+.lp .is-wiel .ar-wiel-item.is-active{box-shadow:var(--shadow-card)}
+.lp .is-wiel .ar-wiel-knop{display:grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid var(--hairline);border-radius:50%;background:var(--surface);color:var(--ink);cursor:pointer;
+    transition:background .25s var(--ease-soft),color .25s var(--ease-soft)}
+.lp .ar-wiel-knop:hover{background:var(--ink);color:var(--surface)}
+.lp .ar-wiel-knop:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
+.lp .ar-wiel-knop .as-icoon{width:16px;height:16px}
+@media (max-width:719px){
+  .lp .ar-waarom .b3a-foto{height:240px}
+  .lp .ar-waarom .ar-wiel-wrap{margin:0}
+  .lp .is-wiel .ar-wiel{height:320px}
+  .lp .ar-wiel-item{font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  .lp .is-wiel .ar-wiel-spoor,.lp .ar-wiel-foto .ar-wiel-laag,.lp .ar-wiel-item{transition:none}
+  .lp .ar-fs-spoor{scroll-behavior:auto}
 }
 
-/* ---------- 4: waarom Asteria (b3a met zes punten in een boog) ---------- */
-@media (min-width:1024px){
-  .lp .lp-zone .ar-waarom .b3a-lijst .as-usp-wheel-item{margin-left:0;opacity:1;box-shadow:var(--as-schaduw)}
-  .lp .lp-zone .ar-waarom .b3a-lijst .as-usp-wheel-item:nth-child(1),
-  .lp .lp-zone .ar-waarom .b3a-lijst .as-usp-wheel-item:nth-child(6){margin-left:44px;opacity:.7}
-  .lp .lp-zone .ar-waarom .b3a-lijst .as-usp-wheel-item:nth-child(2),
-  .lp .lp-zone .ar-waarom .b3a-lijst .as-usp-wheel-item:nth-child(5){margin-left:16px}
-  .lp .lp-zone .ar-waarom .b3a-lijst .as-usp-wheel-item:nth-child(4){box-shadow:var(--shadow-card);outline:1.5px solid var(--hairline-strong);outline-offset:-1.5px}
-}
-
-/* ---------- 5: kamers. Prijsregel per kaart; tot 3 kamers een raster (.ar-kamers) in plaats van de slider ---------- */
+/* ---------- 5: kamers. Prijsregel per kaart; vanaf 3 kamers de brede slider met lus zoals /bedankt (lander-w1.css/.js),
+   1 of 2 kamers een raster (.ar-kamers) ---------- */
 .lp .ar-kprijs{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid var(--hairline);font-size:13px;color:var(--ink-soft)}
 .lp .ar-kprijs b{font-family:var(--font-display);font-size:22px;line-height:1.1;color:var(--ink);text-align:right}
 .lp .ar-kprijs--upgrade b,.lp .ar-kprijs--toeslag b{font-family:var(--font-body);font-size:14px;font-weight:700}

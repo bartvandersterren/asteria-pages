@@ -9,8 +9,10 @@
     "Tijdenstrook: inchecken vanaf 15.00, uitchecken tot 11.00 (FAQ visit.asteria.nl), diner tot 21.30 (restaurant-pop-up), gratis parkeren (staging). Graag bevestigen.",
     "Wellness Top Floor: niet in het arrangement (alleen het wellnessarrangement noemt gratis toegang). De FAQ zegt: bijboeken via de receptie, openingstijden ma-do 16.00-22.00, vr-zo 12.00-22.00. Kosten voor hotelgasten onbekend.",
     "Ook interessant: Wellness Arrangement vanaf EUR 139,50 en Golfarrangement vanaf EUR 185,50 gemeten in Mews (2026WELLNESS en GOLF, 3 nov 2026, Comfort/Royale, 2 volwassenen); visit.asteria.nl/wellness-arrangement zelf noemt EUR 124,50. Kerstarrangement zonder prijs (asteria.nl noemt EUR 130,- zonder context). Foto's golf en kerst komen van asteria.nl (fotos/l26-arr-golf.webp, l26-arr-kerst.webp).",
-    "Waarom Asteria: foto fotos/l26-arr-bar-staand.webp is een staande uitsnede van l26-brasserie.webp (zelfde foto als de staging-tegel 'Schuif aan').",
-    "De live /najaarsarrangement boekt nog via de oude config bee2f902; deze pagina gebruikt 6dc9094c."
+    "De live /najaarsarrangement boekt nog via de oude config bee2f902; deze pagina gebruikt 6dc9094c.",
+    "Inbegrepen-fotoslider: l26-najaar-deluxe.webp (uit room-deluxe-4), l26-najaar-sauna.webp (uit room-deluxe-3, de infraroodcabine van een Deluxe kamer?) en l26-najaar-ontbijt.webp (uit restaurant-ontbijt, een opgemaakt bord; is dat het ontbijtbuffet?). Graag bevestigen dat deze foto's de Deluxe kamer en het arrangement tonen.",
+    "Waarom Asteria: de foto's per punt (fotos/l26-waarom-*.webp) komen uit de repo (care-receptie, l26-hotel-buiten, top-floor-1, l26-omg-bossen) en van de staging (restaurant-terras-1200, hotel-vijver-panorama). 'Gratis parkeren' toont de parkeerplaats voor het hotel; 'Eigen restaurant' toont wijnglazen op het terras.",
+    "Zondagoptie d (foto-split) gebruikt fotos/zm-ontbijt.webp, een brunch buiten in de zomer. Kiest Stijn d, dan een herfst- of binnenfoto zoeken."
   ],
   "PAGE_TITLE": "Najaarsarrangement met diner en ontbijt | Hotel Asteria Venray",
   "META_DESC": "Najaarsarrangement bij Hotel Asteria in Venray: ontvangst met Limburgse vlaai, een Deluxe kamer met privé infraroodsauna, ontbijtbuffet en een drie-gangen diner. Vanaf € 128,50 p.p.",
@@ -80,8 +82,7 @@
   "ARR_MOB_NOOT": "Code NAJAAR2D staat al ingevuld",
   "INB_KOP_A": "Dit is",
   "INB_KOP_EM": "inbegrepen",
-  "INB_IMG": "fotos/l26-najaar-vlaai.webp",
-  "INB_ALT": "Een punt Limburgse vlaai wordt geserveerd bij aankomst",
+  "ARR_INB_INTRO": "Eén keer boeken en de rest regelen wij, van de vlaai bij aankomst tot het ontbijt de volgende ochtend.",
   "ZV_TOON": true,
   "ZV_KOP_A": "Op zondag",
   "ZV_KOP_EM": "€ 20 per kamer",
@@ -95,6 +96,8 @@
   "ZV_ANDERS_REGEL": "Gewone prijs op de andere dagen",
   "ZV_VOETNOOT": "Prijzen op basis van 2 personen in een Deluxe kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.",
   "ZV_KAART_REGEL": "Op zondag <b>€ 20 per kamer</b> voordeliger",
+  "ZV_IMG": "fotos/zm-ontbijt.webp",
+  "ZV_ALT": "Stel lacht samen aan een uitgebreide brunch met jus d’orange",
   "WAAROM_TOON": true,
   "ANDERE_TOON": true,
   "_reviews_aantal": 12,
@@ -129,6 +132,33 @@
       "titel": "Uitgebreid ontbijtbuffet",
       "regel": "de volgende ochtend",
       "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-najaar-vlaai.webp",
+      "alt": "Een punt Limburgse vlaai wordt geserveerd bij aankomst",
+      "pos": "40% 50%"
+    },
+    {
+      "img": "fotos/l26-najaar-deluxe.webp",
+      "alt": "Deluxe kamer met tweepersoonsbed en zithoek",
+      "pos": "60% 50%"
+    },
+    {
+      "img": "fotos/l26-najaar-sauna.webp",
+      "alt": "Eigen infraroodsauna in de Deluxe kamer",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-najaar-diner.webp",
+      "alt": "Gast aan tafel in het restaurant tijdens het diner",
+      "pos": "55% 50%"
+    },
+    {
+      "img": "fotos/l26-najaar-ontbijt.webp",
+      "alt": "Ontbijtbord met croissant, kaas, vleeswaren en druiven",
+      "pos": "45% 50%"
     }
   ],
   "_tijden": [

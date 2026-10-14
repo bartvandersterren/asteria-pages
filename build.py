@@ -375,9 +375,11 @@ def apply_arrangement(html, data):
       {"deluxe": {"pil": "Inbegrepen", "soort": "inbegrepen", "prijs_label": "vanaf", "prijs": "€ 128,50 p.p."},
        "suite": {"pil": "Upgrade", "soort": "upgrade", "prijs": "Upgrade mogelijk"}}.
       Sleutels = data-kamer in het sjabloon (comfort, comfort-3, royale, deluxe, junior-suite, suite, bruidssuite,
-      mindervalide); soort inbegrepen (terracotta rand), upgrade of toeslag. Tot en met 3 kamers: raster zonder
-      slider, teller en lus (.ar-kamers; telefoon veegbaar met peek). Vanaf 4: de slider, teller en streepjes volgen het aantal.
-    - '_chips' (hero), '_inbegrepen' ({titel, regel, icoon}), '_tijden' ({tekst, icoon}), '_faq' ({q, a}; eerste open;
+      mindervalide); soort inbegrepen (terracotta rand), upgrade of toeslag. 1 of 2 kamers: raster zonder
+      slider, teller en lus (.ar-kamers; telefoon veegbaar met peek). Vanaf 3: de brede slider met lus zoals /bedankt,
+      teller en streepjes volgen het aantal.
+    - '_chips' (hero), '_inbegrepen' ({titel, regel, icoon}; vakje met lijnicoon, 2 kolommen),
+      '_inbegrepen_fotos' ({img, alt, pos?}; fotoslider in het inbegrepen-blok, 4 tot 6), '_tijden' ({tekst, icoon}), '_faq' ({q, a}; eerste open;
       "zondag": true = alleen met ZV_TOON), '_andere' ({naam, url, img, alt, prijs?})."""
     from html import escape
     kamers = data.get('_kamers')
@@ -405,7 +407,7 @@ def apply_arrangement(html, data):
             nieuw.append(k)
         html = html[:start] + '\n        '.join(nieuw) + html[eind:]
         n = len(nieuw)
-        if n <= 3:
+        if n <= 2:
             # raster: geen teller/streepjes/pijlen, geen .b4b-strook (dan laat lander-w1.js lus() hem met rust)
             html = re.sub(r'<div class="b4b-teller">.*?</button></div></div>', '', html, count=1, flags=re.S)
             html = html.replace('<div class="b4b-strook strook-scroll" tabindex="0" aria-label="Kamers, schuif voor meer">',
@@ -420,10 +422,22 @@ def apply_arrangement(html, data):
     chips = ''.join(f'<li>{VINK_SVG}<span>{c}</span></li>' for c in data.get('_chips', []))
     html = html.replace('<!-- ARR_CHIPS -->', chips)
     inb = '\n'.join(
-        f'          <li class="ar-inb-rij"><span class="b3a-ic">{icoon(p.get("icoon", ""))}</span>'
+        f'            <li class="ar-inb-punt"><span class="ar-vak">{icoon(p.get("icoon", ""))}</span>'
         f'<span class="ar-inb-tekst"><b>{p["titel"]}</b><span>{p.get("regel", "")}</span></span></li>'
         for p in data.get('_inbegrepen', []))
     html = html.replace('<!-- ARR_INBEGREPEN -->', inb)
+    fotos = data.get('_inbegrepen_fotos', [])
+    if '<!-- ARR_INB_FOTOS -->' in html and not 4 <= len(fotos) <= 6:
+        sys.exit(f'_inbegrepen_fotos: 4 tot 6 foto\'s nodig, niet {len(fotos)}')
+    html = html.replace('<!-- ARR_INB_FOTOS -->', '\n'.join(
+        f'            <figure class="ar-fs-dia"><img src="{escape(f["img"])}" alt="{escape(f.get("alt", ""))}"'
+        + (f' style="object-position:{escape(f["pos"])}"' if f.get('pos') else '')
+        + (' loading="lazy"' if i else '') + '></figure>'
+        for i, f in enumerate(fotos)))
+    html = html.replace('<!-- ARR_INB_BOLLEN -->', ''.join(
+        f'<button type="button" class="ar-fs-bol{" is-aan" if i == 0 else ""}" data-fs-naar="{i}" aria-label="Foto {i + 1}"'
+        + (' aria-current="true"' if i == 0 else '') + '></button>'
+        for i in range(len(fotos))))
     tijden = ''.join(f'<li>{icoon(p.get("icoon", ""))}<span>{p["tekst"]}</span></li>' for p in data.get('_tijden', []))
     html = html.replace('<!-- ARR_TIJDEN -->', tijden)
     faq = [f for f in data.get('_faq', []) if data.get('ZV_TOON') or not f.get('zondag')]
