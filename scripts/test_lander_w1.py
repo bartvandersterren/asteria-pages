@@ -17,6 +17,10 @@ Variant v3 (zijkaart):  python3 scripts/test_lander_w1.py http://localhost:8765/
 In plaats van de uitklaptab-checks: geen tab in de DOM, kaart naast de tegels (1440 en 1100), sticky in beeld
 midden kamerslider, weg en zonder overlap bij de reviewmuur, knop opent Mews met JUBILEUM, op 800 als blok na 3a,
 op 390 geen kaart; overloop ook 1280/1100/1024/800.
+
+Flow-landers (zelfde sjabloon als v3):  ... http://localhost:8765/bedankt.html --v3 --voucher BEDANKT
+(--voucher, standaard JUBILEUM, is de code die de Mews-knoppen en de boekbalk moeten meegeven; bij een andere
+code dan JUBILEUM checkt de test ook dat JUBILEUM en 'verblijfsverjaardag' niet in de zichtbare tekst staan.)
 """
 import sys, json
 from datetime import date, timedelta
@@ -26,6 +30,9 @@ args = [a for a in sys.argv[1:]]
 shotdir = None
 V3 = '--v3' in args
 if V3: args.remove('--v3')
+VOUCHER = 'JUBILEUM'
+if '--voucher' in args:
+    i = args.index('--voucher'); VOUCHER = args[i + 1]; del args[i:i + 2]
 if '--schermafdruk' in args:
     i = args.index('--schermafdruk'); shotdir = args[i + 1]; del args[i:i + 2]
 URL = args[0] if args else 'http://localhost:8765/verblijfsverjaardag-v2.html'
@@ -77,6 +84,11 @@ with sync_playwright() as p:
         ctx, pg = nieuwe_pagina(b, w, h, mob)
         sw = pg.evaluate('document.documentElement.scrollWidth')
         check(f'{tag} geen horizontale overloop', sw <= w, f'scrollWidth {sw}')
+        if VOUCHER != 'JUBILEUM':
+            tekst = pg.evaluate('document.body.innerText')
+            rest = [t for t in ('JUBILEUM', 'verblijfsverjaardag', 'Verblijfsverjaardag') if t in tekst]
+            check(f'{tag} geen resten van de verblijfsverjaardag in de tekst', not rest, ', '.join(rest))
+            check(f'{tag} code {VOUCHER} in de tekst', VOUCHER in tekst)
 
         # FAQ
         open_ = pg.evaluate("[...document.querySelectorAll('.b6c details')].map(d=>d.open)")
@@ -199,7 +211,7 @@ with sync_playwright() as p:
                 pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
                 pg.locator('.lp-zone-kant .b1k-knop').click(); pg.wait_for_timeout(300)
                 r = pg.evaluate('window._mews.slice()')
-                check(f'{tag} knop in de kaart opent Mews met voucher JUBILEUM', r == ['v:JUBILEUM', 'open'], str(r))
+                check(f'{tag} knop in de kaart opent Mews met voucher {VOUCHER}', r == ['v:' + VOUCHER, 'open'], str(r))
                 pg.evaluate("delete window.mewsApi")
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(400)
 
@@ -242,7 +254,7 @@ with sync_playwright() as p:
             pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
             pg.locator('.b1k-paneel .b1k-knop').click(); pg.wait_for_timeout(300)
             r = pg.evaluate('window._mews.slice()')
-            check(f'{tag} knop in de kaart opent Mews met voucher JUBILEUM', r == ['v:JUBILEUM', 'open'], str(r))
+            check(f'{tag} knop in de kaart opent Mews met voucher {VOUCHER}', r == ['v:' + VOUCHER, 'open'], str(r))
             pg.evaluate("delete window.mewsApi")
             pg.evaluate("document.querySelector('.b7a').scrollIntoView({block:'center'})"); pg.wait_for_timeout(900)
             t2 = tabst()
@@ -256,7 +268,7 @@ with sync_playwright() as p:
             mk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),f=document.querySelector('.b1a-balk'),h=document.querySelector('.b1a-tekst h1, .b1a h1');
                 const r=k.getBoundingClientRect(),kn=k.querySelector('.b1k-knop');
                 return {kaart:r.height>300&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
-                        knop:kn&&kn.classList.contains('mews-open')&&kn.dataset.voucher==='JUBILEUM'}})()""")
+                        knop:kn&&kn.classList.contains('mews-open')&&kn.dataset.voucher===%r}})()""" % VOUCHER)
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
         else:
             # boekbalk (laatst, laadt de Mews-widget)
@@ -274,8 +286,8 @@ with sync_playwright() as p:
             pg.wait_for_timeout(7000)
             log = pg.evaluate('window.lpBoekbalk') or {}
             u = log.get('url', '')
-            check(f'{tag} boekbalk-URL bevat JUBILEUM, mewsStart, mewsEnd, mewsAdultCount=3',
-                  'mewsVoucherCode=JUBILEUM' in u and f'mewsStart={a.isoformat()}' in u
+            check(f'{tag} boekbalk-URL bevat {VOUCHER}, mewsStart, mewsEnd, mewsAdultCount=3',
+                  f'mewsVoucherCode={VOUCHER}' in u and f'mewsStart={a.isoformat()}' in u
                   and f'mewsEnd={(a + timedelta(days=2)).isoformat()}' in u and 'mewsAdultCount=3' in u, u)
             widget = pg.evaluate("!!document.querySelector('iframe[src*=\"mews\"], .mews-distributor, [class*=\"mews\"] iframe')")
             check(f'{tag} boekbalk opent Mews (widget of URL-fallback)',

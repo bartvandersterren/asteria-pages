@@ -1126,5 +1126,5 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
 @media (min-width:720px){ .lp .b1a-foto{height:clamp(680px,46vw,940px)} }
 @media (max-width:719px){
   .lp .b1a-foto{height:640px}
-  .lp .b1a-foto>img{object-position:18% var(--hero-focus,45%)}
+  .lp .b1a-foto>img{object-position:var(--hero-x,18%) var(--hero-focus,45%)}
 }
