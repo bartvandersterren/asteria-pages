@@ -237,6 +237,10 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
     svg-paden, in een zandvakje; 4 tot 8 punten), `_inbegrepen_fotos` (lijst `{img, alt, pos}`, 4 tot 6, anders stopt de build;
     `pos` = object-position, want de foto is staand op het bureaublad en liggend op de telefoon), `_tijden` (lijst `{tekst, icoon}`
     voor de tijdenstrook). Prijs en knop komen uit `ARR_PRIJS`, `ARR_PRIJS_KAART_EENHEID`, `CTA`.
+  - Golfbanen (optioneel, alleen golf): `_banen` (lijst `{naam, plaats, tekst, rijtijd, url, foto, alt, pos?, link?}`, 1 tot 4) +
+    `BANEN_KOP_A/EM`, `BANEN_INTRO` zet build-blok `banen` aan: kaart per baan (foto, naam, plaats · rijtijd, tekst, link in nieuw
+    tabblad) direct na Dit is inbegrepen, voor het zondagblok. Opzet van het Parkhotel-blok 'Kies uw golfbaan'; CSS `ar-banen`/`ar-baan`
+    in `arrangement.css` (2 naast elkaar vanaf 640 px kolombreedte, anders veegrij). Foto's `fotos/l26-golfarrangement-baan-*.webp`.
   - Zondagvoordeel: `ZV_TOON` (true/false; uit bij kerst en oud en nieuw), `ZV_KOP_A/EM/B`, `ZV_PIL`, `ZV_ZONDAG_KOP`,
     `ZV_ZONDAG_PRIJS`, `ZV_GEWOON_PRIJS`, `ZV_ZONDAG_REGEL`, `ZV_ANDERS_KOP`, `ZV_ANDERS_REGEL`, `ZV_VOETNOOT`,
     `ZV_KAART_REGEL` (zondagregel in de zijkaart), gekozen vorm (14 okt): a9, zoals het Parkhotel-blok zondagvoordeel: ivoren paneel met kop, twee kaarten erin (zondag met terracotta rand en pil op de titelregel, gewone kaart kleiner/grijs), voetnoot in het paneel. Geen `?zv`-opties meer. Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en

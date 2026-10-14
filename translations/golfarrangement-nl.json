@@ -16,7 +16,10 @@
     "Foto's: hero en golffoto zijn de stockfoto van asteria.nl (golfarrangement-bij-hotel-asteria-1600x800_4.jpg), geen foto van Bleijenbeek of Geijsteren; de golfer staat links in beeld, achter de koptekst. Royale kamer uit fotos/room-royale-1.webp; diner (gedekte tafel) en ontbijt (broodmand) van de staging. l26-golfarrangement-diner-gast.webp is een kopie van l26-najaar-diner.webp.",
     "Ook interessant: prijzen gemeten in Mews 14 okt 2026 (2 volwassenen, laagste kamer): Wellness EUR 279 (2026WELLNESS, 3 en 10 nov), Oorlogsmuseum EUR 262 (OORLOGSMUSEUM, 3 en 10 nov), Weekend aanbieding EUR 332 voor 2 nachten (WEEKEND, aankomst 20 nov; 6 en 13 nov gaven niets). Foto's oorlogsmuseum en weekend van de koppen op asteria.nl.",
     "Waarom Asteria: vaste inhoud uit het sjabloon (zie najaar).",
-    "FAQ ontbijttijden (doordeweeks 07.00-10.00, weekend 08.00-10.30) komen van Lastminute.com, zoals op de najaarspagina."
+    "FAQ ontbijttijden (doordeweeks 07.00-10.00, weekend 08.00-10.30) komen van Lastminute.com, zoals op de najaarspagina.",
+    "Golfbanen-blok (14 okt 2026): baanteksten letterlijk van asteria.nl/arrangementen/golfarrangement. Links bleijenbeek.nl en golfclubgeijsteren.nl gaven 200 (14 okt).",
+    "CONTROLEREN rijtijden golfbanen: berekend met OSRM (OpenStreetMap-routeplanner) vanaf Maasheseweg 80a, Venray, 14 okt 2026: Bleijenbeek 14, Afferden 17,4 km / 22,5 min -> 'ca. 25 minuten rijden'; Het Spekt 2, Geijsteren 10,6 km / 12 min -> 'ca. 15 minuten rijden'. Graag bevestigen.",
+    "Foto's golfbanen: l26-golfarrangement-baan-bleijenbeek.webp = bleijenbeek.nl/wp-content/uploads/2016/10/bleijenbeek-11.jpeg (fairway met clubhuis, site van de baan). l26-golfarrangement-baan-geijsteren.webp = parkhotel-site golfbanen/geijsteren-1.webp (bunker en green in het bos; volgens Parkhotel-notitie van de site van de club of golf.nl). Geen eigen materiaal; toestemming van de banen niet gevraagd."
   ],
   "PAGE_TITLE": "Golfarrangement met greenfee, diner en ontbijt | Hotel Asteria Venray",
   "META_DESC": "Golfarrangement bij Hotel Asteria in Venray: greenfee voor 18 holes op Golfbaan Bleijenbeek of Golfclub Geijsteren, een Royale kamer, drie-gangen diner en ontbijtbuffet. Vanaf € 185,50 p.p.",
@@ -106,6 +109,9 @@
   "INB_KOP_A": "Dit is",
   "INB_KOP_EM": "inbegrepen",
   "ARR_INB_INTRO": "Je kiest de golfbaan, wij regelen de rest: de greenfee, het diner, je kamer en het ontbijt de volgende ochtend.",
+  "BANEN_KOP_A": "Kies je",
+  "BANEN_KOP_EM": "golfbaan",
+  "BANEN_INTRO": "Bij het arrangement hoort een greenfee voor 18 holes op een van deze twee banen. Je geeft je keuze telefonisch door aan de receptie, dan reserveren wij de baan voor je.",
   "ZV_TOON": true,
   "ZV_KOP_A": "Op zondag",
   "ZV_KOP_EM": "€ 20 per kamer",
@@ -185,6 +191,28 @@
       "img": "fotos/l26-golfarrangement-ontbijt.webp",
       "alt": "Mand met verse broodjes op het ontbijtbuffet",
       "pos": "50% 50%"
+    }
+  ],
+  "_banen": [
+    {
+      "naam": "Golfbaan Landgoed Bleijenbeek",
+      "plaats": "Afferden",
+      "rijtijd": "ca. 25 minuten rijden",
+      "tekst": "Gelegen in het natuurrijke Limburgse Maasduinengebied. Deze glooiende baan met waterpartijen, oude bomenlanen en een kasteelruïne vraagt om tactisch spel dankzij de slimme indeling en hoogteverschillen.",
+      "url": "https://bleijenbeek.nl/",
+      "foto": "fotos/l26-golfarrangement-baan-bleijenbeek.webp",
+      "alt": "Fairway van Golfbaan Landgoed Bleijenbeek met het clubhuis en een vijver op de achtergrond",
+      "pos": "60% 50%"
+    },
+    {
+      "naam": "Golfclub Geijsteren",
+      "plaats": "Geijsteren",
+      "rijtijd": "ca. 15 minuten rijden",
+      "tekst": "Een sfeervolle, bosrijke baan op een historisch landgoed. De eerste 13 holes liggen verscholen tussen de bomen, gevolgd door 5 uitdagende waterholes. Een baan met karakter en uitdaging.",
+      "url": "https://www.golfclubgeijsteren.nl/",
+      "foto": "fotos/l26-golfarrangement-baan-geijsteren.webp",
+      "alt": "Green met vlag en een bunker tussen de bomen bij Golfclub Geijsteren",
+      "pos": "50% 60%"
     }
   ],
   "_tijden": [
