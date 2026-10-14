@@ -175,6 +175,19 @@
   });
 
   /* ── strook-hulp: één kaart verder of terug, met lus ── */
+  /* 2a: tegel onder de muis schuift breed open (staging .selector-strip) */
+  document.querySelectorAll('.b2a-strook').forEach(function (strook) {
+    var tegels = Array.prototype.slice.call(strook.querySelectorAll('.b2a-tegel'));
+    function zet(t) {
+      tegels.forEach(function (x) { x.classList.toggle('is-active', x === t); });
+    }
+    tegels.forEach(function (t) {
+      t.addEventListener('mouseenter', function () { zet(t); });
+      t.addEventListener('focusin', function () { zet(t); });
+      t.addEventListener('click', function () { zet(t); });
+    });
+  });
+
   function stap(strook) {
     var kaart = strook.firstElementChild;
     if (!kaart) return 0;

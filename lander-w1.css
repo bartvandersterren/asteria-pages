@@ -767,6 +767,26 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .lp .b7a-waarde{pointer-events:none;white-space:nowrap}
 .lp .b7a-balk .btn{border:0}
 
+/* 2a: bureaublad, uitschuiven zoals staging .selector-strip (lander-w1.js uitschuif()) */
+@media (min-width:1024px){
+  .lp .b2a-strook{display:flex;overflow:visible}
+  .lp .b2a-tegel{flex:1;min-width:80px;cursor:pointer;transition:flex var(--duration-strip) var(--ease-soft),box-shadow var(--duration-strip) var(--ease-soft)}
+  .lp .b2a-tegel.is-active{flex:2.34;box-shadow:var(--shadow-hover)}
+  .lp .b2a-tegel>img{transition:transform var(--duration-strip) var(--ease-soft)}
+  .lp .b2a-tegel.is-active>img{transform:scale(1.04)}
+  .lp .b2a-tegel:first-child .b2a-label{left:18px;right:18px;bottom:22px;gap:0}
+  .lp .b2a-tegel.is-active .b2a-label{left:32px;right:32px;bottom:32px;gap:0}
+  .lp .b2a-label{gap:0}
+  .lp .b2a-tegel:not(.is-active) .b2a-label h3{font-size:clamp(20px,1.8vw,26px)}
+  .lp .b2a-meer{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows var(--duration-strip) var(--ease-soft),opacity var(--duration-strip) var(--ease-soft)}
+  .lp .b2a-meer-in{overflow:hidden;min-height:0;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+  .lp .b2a-meer-in>p{margin-top:12px}
+  .lp .b2a-tegel.is-active .b2a-meer{grid-template-rows:1fr;opacity:1;transition-delay:160ms}
+}
+@media (min-width:1024px) and (prefers-reduced-motion:reduce){
+  .lp .b2a-tegel,.lp .b2a-tegel>img,.lp .b2a-meer{transition:none}
+}
+
 /* ---------- tablet (720-1023): kolommen terug naar wat past ---------- */
 @media (min-width:720px) and (max-width:1023px){
   .lp .b1a-foto{height:600px}
