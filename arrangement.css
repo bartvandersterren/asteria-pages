@@ -166,6 +166,8 @@
 .lp .ar-baan-link{align-self:flex-start;margin-top:auto;padding-top:18px}
 /* naast de zijkaart (1024-1279: kolom smaller dan 640) stopt de veegrij aan de kolomrand, niet onder de zijkaart */
 @media (min-width:1024px){ .lp .lp-zone .ar-banen-rij{margin-right:0;padding-right:0} }
+/* vanaf 1280 steekt de kaartenrij iets buiten de kolom (links tot 40 px, rechts 24 px in de ruimte naast de zijkaart), zodat hij breder is dan het zondagpaneel */
+@media (min-width:1280px){ .lp .lp-zone .ar-banen-rij{--links:max(0px,(100vw - 1120px) / 2 - 80px);margin-left:calc(-1 * min(40px, var(--links) / 2));margin-right:-24px;width:auto} }
 @container (min-width:640px){
   .lp .ar-banen-rij{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;overflow:visible;margin:0;padding:0 0 8px}
   .lp .ar-baan{flex:none}
