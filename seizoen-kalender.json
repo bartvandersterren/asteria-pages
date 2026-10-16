@@ -1,35 +1,59 @@
 {
-  "_uitleg": "Kalender voor /seizoen/ (functions/seizoen/[[path]].js). Periodes in MM-DD, inclusief; winter loopt over de jaargrens. Foto's: mail/seizoen/<slot>-<seizoen>.jpg, per slot overal dezelfde maat (hero 1200x520, sfeer 496x380). Per slot ook: maat, mails (labels uit asteria-flows/SEIZOEN.md), bron (origineel per seizoen) en landerfoto (seizoenen zonder eigen beeld, foto van de seizoenslander); die velden gebruikt alleen de overzichtspagina /seizoen/.",
+  "_uitleg": "Gebundelde kalender voor /seizoen/ (functions/seizoen/[[path]].js + seizoen-kern.js): de TERUGVAL. De echte bron is seizoen/asteria/actief.json op R2 (geschreven door OS > Mediabank > Seizoensfoto's), zelfde vorm, met per foto een 'key' (R2) in plaats van 'pad' (bestand in deze repo). Periodes in MM-DD, 'tot' inclusief, mag over de jaargrens; de periode met de hoogste 'prioriteit' die vandaag bevat wint, een periode zonder foto voor een slot valt terug op de volgende (bv. feest > winter). maat/label_nu/mails/bron/landerfoto dienen het overzicht en het OS; landerfoto = nog geen echt seizoensbeeld, foto van de seizoenslander.",
+  "versie": 1,
+  "hotel": "asteria",
   "tijdzone": "Europe/Amsterdam",
   "periodes": [
     {
-      "seizoen": "lente",
+      "id": "lente",
+      "naam": "Lente",
       "van": "03-01",
-      "tot": "05-31"
+      "tot": "05-31",
+      "prioriteit": 0
     },
     {
-      "seizoen": "zomer",
+      "id": "zomer",
+      "naam": "Zomer",
       "van": "06-01",
-      "tot": "08-31"
+      "tot": "08-31",
+      "prioriteit": 0
     },
     {
-      "seizoen": "herfst",
+      "id": "herfst",
+      "naam": "Herfst",
       "van": "09-01",
-      "tot": "11-30"
+      "tot": "11-30",
+      "prioriteit": 0
     },
     {
-      "seizoen": "winter",
+      "id": "winter",
+      "naam": "Winter",
       "van": "12-01",
-      "tot": "02-29"
+      "tot": "02-29",
+      "prioriteit": 0
     }
   ],
+  "links": {
+    "lander": {
+      "lente": "/lente",
+      "zomer": "/zomer",
+      "herfst": "/herfst",
+      "winter": "/winter"
+    },
+    "arrangement": {
+      "lente": "https://www.asteria.nl/arrangementen",
+      "zomer": "/happy-summer-arrangement",
+      "herfst": "/najaarsarrangement",
+      "winter": "https://www.asteria.nl/arrangementen"
+    }
+  },
   "slots": {
     "hero": {
-      "lente": "/mail/seizoen/hero-lente.jpg",
-      "zomer": "/mail/seizoen/hero-zomer.jpg",
-      "herfst": "/mail/seizoen/hero-herfst.jpg",
-      "winter": "/mail/seizoen/hero-winter.jpg",
-      "maat": "1200x520",
+      "maat": [
+        1200,
+        520
+      ],
+      "label_nu": false,
       "mails": [
         "01-verzoek (hero)",
         "01-bedankt",
@@ -39,50 +63,58 @@
         "08-2",
         "09-1"
       ],
-      "bron": {
-        "lente": "lt-hero.webp",
-        "zomer": "zm-hero.webp",
-        "herfst": "najaar-hotel-luchtfoto.jpg",
-        "winter": "wt-hero.webp"
-      },
-      "landerfoto": {
-        "lente": true,
-        "winter": true
+      "fotos": {
+        "lente": {
+          "pad": "/mail/seizoen/hero-lente.jpg",
+          "bron": "lt-hero.webp",
+          "landerfoto": true
+        },
+        "zomer": {
+          "pad": "/mail/seizoen/hero-zomer.jpg",
+          "bron": "zm-hero.webp"
+        },
+        "herfst": {
+          "pad": "/mail/seizoen/hero-herfst.jpg",
+          "bron": "najaar-hotel-luchtfoto.jpg"
+        },
+        "winter": {
+          "pad": "/mail/seizoen/hero-winter.jpg",
+          "bron": "wt-hero.webp",
+          "landerfoto": true
+        }
       }
     },
     "sfeer": {
-      "lente": "/mail/seizoen/sfeer-lente.jpg",
-      "zomer": "/mail/seizoen/sfeer-zomer.jpg",
-      "herfst": "/mail/seizoen/sfeer-herfst.jpg",
-      "winter": "/mail/seizoen/sfeer-winter.jpg",
-      "maat": "496x380",
+      "maat": [
+        496,
+        380
+      ],
+      "label_nu": false,
       "mails": [
         "04 (nu-foto)",
         "02-direct-voordelen (drieluik 1)",
         "06 (toen-kaart, terugval)"
       ],
-      "bron": {
-        "lente": "lt-bos.webp",
-        "zomer": "zm-fietsen.webp",
-        "herfst": "najaar-hero-boswandeling.jpg",
-        "winter": "wt-bos.webp"
-      },
-      "landerfoto": {
-        "lente": true,
-        "winter": true
+      "fotos": {
+        "lente": {
+          "pad": "/mail/seizoen/sfeer-lente.jpg",
+          "bron": "lt-bos.webp",
+          "landerfoto": true
+        },
+        "zomer": {
+          "pad": "/mail/seizoen/sfeer-zomer.jpg",
+          "bron": "zm-fietsen.webp"
+        },
+        "herfst": {
+          "pad": "/mail/seizoen/sfeer-herfst.jpg",
+          "bron": "najaar-hero-boswandeling.jpg"
+        },
+        "winter": {
+          "pad": "/mail/seizoen/sfeer-winter.jpg",
+          "bron": "wt-bos.webp",
+          "landerfoto": true
+        }
       }
     }
-  },
-  "lander": {
-    "lente": "/lente",
-    "zomer": "/zomer",
-    "herfst": "/herfst",
-    "winter": "/winter"
-  },
-  "arrangement": {
-    "lente": "https://www.asteria.nl/arrangementen",
-    "zomer": "/happy-summer-arrangement",
-    "herfst": "/najaarsarrangement",
-    "winter": "https://www.asteria.nl/arrangementen"
   }
 }
