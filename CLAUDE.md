@@ -321,3 +321,19 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   (Playwright, 1440 en 390, 31 checks). `qa/` staat niet in git.
 - Rebooking-mail 04 (asteria-flows) en herfst `ARR_URL` linken naar /najaarsarrangement = sinds 14 okt het nieuwe arrangement. Lente heeft nog geen
   eigen aspergepagina (knop naar asteria.nl/arrangementen); Happy Summer-periode 2027 controleren.
+
+## Seizoensroute /seizoen/ voor de flowmails (16 okt 2026)
+
+- `functions/seizoen/[[path]].js` (Pages Function) laat de flowmails (repo asteria-flows, zie daar `SEIZOEN.md`) één vaste URL
+  gebruiken die per seizoen iets anders teruggeeft:
+  - `/seizoen/hero.jpg` (1200x520) en `/seizoen/sfeer.jpg` (496x380): de foto zelf (geen redirect), `Cache-Control: public, max-age=3600`, header `X-Seizoen`.
+  - `/seizoen/lander/` -> 302 naar `/herfst`, `/winter`, `/lente` of `/zomer`; `/seizoen/arrangement/` -> 302 naar het seizoensarrangement
+    (herfst `/najaarsarrangement`, zomer `/happy-summer-arrangement`, winter en lente voorlopig `www.asteria.nl/arrangementen`). Beide `no-store`.
+  - Onbekend slot of pad: 404.
+- Kalender + doelen: `seizoen-kalender.json` in de repo-root (wordt in de Function geïmporteerd; niet in `content/`, dat is gitignored).
+  Seizoen op datum in Europe/Amsterdam: lente 03-01..05-31, zomer 06-01..08-31, herfst 09-01..11-30, winter 12-01..02-29.
+- Foto's: `mail/seizoen/<slot>-<seizoen>.jpg`. Foto ruilen = het jpg vervangen door een nieuw jpg met exact dezelfde maat
+  (center-crop, kwaliteit 82, geen EXIF), committen op main; geen mail aanraken. Nieuw slot = nieuwe sleutel in `slots` + 4 jpg's.
+  Winter heeft nog geen echt winterbeeld (hero = sauna van de winterlander, sfeer = bospad van de winterlander).
+- Testen: `?datum=YYYY-MM-DD` op elke URL, bv. `curl -sI "https://visit.asteria.nl/seizoen/hero.jpg?datum=2026-12-15"` (X-Seizoen: winter).
+  Lokaal: `~/projects/parkhotel-site/node_modules/.bin/wrangler pages dev . --compatibility-date=2026-06-01` (zonder datum weigert workerd 4.103 de datum van vandaag).

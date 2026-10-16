@@ -1,0 +1,36 @@
+{
+  "_uitleg": "Kalender voor /seizoen/ (functions/seizoen/[[path]].js). Periodes in MM-DD, inclusief; winter loopt over de jaargrens. Foto's: mail/seizoen/<slot>-<seizoen>.jpg, per slot overal dezelfde maat (hero 1200x520, sfeer 496x380).",
+  "tijdzone": "Europe/Amsterdam",
+  "periodes": [
+    { "seizoen": "lente",  "van": "03-01", "tot": "05-31" },
+    { "seizoen": "zomer",  "van": "06-01", "tot": "08-31" },
+    { "seizoen": "herfst", "van": "09-01", "tot": "11-30" },
+    { "seizoen": "winter", "van": "12-01", "tot": "02-29" }
+  ],
+  "slots": {
+    "hero": {
+      "lente":  "/mail/seizoen/hero-lente.jpg",
+      "zomer":  "/mail/seizoen/hero-zomer.jpg",
+      "herfst": "/mail/seizoen/hero-herfst.jpg",
+      "winter": "/mail/seizoen/hero-winter.jpg"
+    },
+    "sfeer": {
+      "lente":  "/mail/seizoen/sfeer-lente.jpg",
+      "zomer":  "/mail/seizoen/sfeer-zomer.jpg",
+      "herfst": "/mail/seizoen/sfeer-herfst.jpg",
+      "winter": "/mail/seizoen/sfeer-winter.jpg"
+    }
+  },
+  "lander": {
+    "lente":  "/lente",
+    "zomer":  "/zomer",
+    "herfst": "/herfst",
+    "winter": "/winter"
+  },
+  "arrangement": {
+    "lente":  "https://www.asteria.nl/arrangementen",
+    "zomer":  "/happy-summer-arrangement",
+    "herfst": "/najaarsarrangement",
+    "winter": "https://www.asteria.nl/arrangementen"
+  }
+}
