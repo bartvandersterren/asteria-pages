@@ -5,6 +5,7 @@
  *   GET /seizoen/lander[/]        -> 302 naar de seizoenslander van nu (/herfst, /winter, /lente, /zomer)
  *   GET /seizoen/arrangement[/]   -> 302 naar het seizoensarrangement van nu
  *   ?datum=YYYY-MM-DD             -> doet alsof het die dag is (testen)
+ *   GET en HEAD (HEAD: zelfde headers, lege body; mailproxy's en linkcheckers doen eerst HEAD), rest 405.
  *
  * Seizoen en doelen staan in seizoen-kalender.json (repo-root). Seizoen wordt bepaald op de datum in
  * Europe/Amsterdam. Foto ruilen = het jpg in mail/seizoen/ vervangen (zelfde maat); geen mail aanraken.
@@ -53,7 +54,7 @@ function doorsturen(doel, origin, seizoen) {
   });
 }
 
-export async function onRequestGet(context) {
+async function behandel(context) {
   const url = new URL(context.request.url);
   const opgegeven = url.searchParams.get('datum');
   const datum = opgegeven && DATUM_RE.test(opgegeven) ? opgegeven : vandaag(KALENDER.tijdzone);
@@ -83,4 +84,17 @@ export async function onRequestGet(context) {
       'X-Seizoen': seizoen,
     },
   });
+}
+
+export async function onRequest(context) {
+  const methode = context.request.method;
+  if (methode !== 'GET' && methode !== 'HEAD') {
+    return new Response('Methode niet toegestaan', {
+      status: 405,
+      headers: { Allow: 'GET, HEAD', 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
+    });
+  }
+  const antwoord = await behandel(context);
+  if (methode === 'HEAD') return new Response(null, { status: antwoord.status, headers: antwoord.headers });
+  return antwoord;
 }

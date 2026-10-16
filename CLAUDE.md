@@ -329,7 +329,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   - `/seizoen/hero.jpg` (1200x520) en `/seizoen/sfeer.jpg` (496x380): de foto zelf (geen redirect), `Cache-Control: public, max-age=3600`, header `X-Seizoen`.
   - `/seizoen/lander/` -> 302 naar `/herfst`, `/winter`, `/lente` of `/zomer`; `/seizoen/arrangement/` -> 302 naar het seizoensarrangement
     (herfst `/najaarsarrangement`, zomer `/happy-summer-arrangement`, winter en lente voorlopig `www.asteria.nl/arrangementen`). Beide `no-store`.
-  - Onbekend slot of pad: 404.
+  - Onbekend slot of pad: 404. GET en HEAD (HEAD = zelfde headers, lege body), andere methoden 405.
 - Kalender + doelen: `seizoen-kalender.json` in de repo-root (wordt in de Function geïmporteerd; niet in `content/`, dat is gitignored).
   Seizoen op datum in Europe/Amsterdam: lente 03-01..05-31, zomer 06-01..08-31, herfst 09-01..11-30, winter 12-01..02-29.
 - Foto's: `mail/seizoen/<slot>-<seizoen>.jpg`. Foto ruilen = het jpg vervangen door een nieuw jpg met exact dezelfde maat
