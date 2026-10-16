@@ -9,10 +9,12 @@
 # welkom-v2 is sinds 14 okt 2026 de live /welkom (oude NL-lander op /welkom-oud; EN/DE ongewijzigd op /welkom-en en /welkom-de)
 /welkom-v2 /welkom 301
 /welkom-v2.html /welkom 301
-# Arrangementen op lander-w1 sinds okt 2026 op de nette adressen (oude NL-pagina's najaar/wellness op /najaarsarrangement-oud
-# en /wellness-arrangement-oud; /wellness-arrangement-v2 is een losse oude pagina en blijft staan)
-/najaarsarrangement-v2 /najaarsarrangement 301
-/najaarsarrangement-v2.html /najaarsarrangement 301
+# Arrangementen op lander-w1 sinds okt 2026 op de nette adressen (oude NL-pagina wellness op /wellness-arrangement-oud;
+# /wellness-arrangement-v2 is een losse oude pagina en blijft staan).
+# Najaarsarrangement: sinds 16 okt 2026 staat de oude pagina weer op /najaarsarrangement (link in de campagnemail);
+# de lander-w1-versie staat op /najaarsarrangement-v2.
+/najaarsarrangement-oud /najaarsarrangement 301
+/najaarsarrangement-oud.html /najaarsarrangement 301
 /wellness-arrangement-v3 /wellness-arrangement 301
 /wellness-arrangement-v3.html /wellness-arrangement 301
 /oorlogsmuseum-arrangement-v2 /oorlogsmuseum-arrangement 301
