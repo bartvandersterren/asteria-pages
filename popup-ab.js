@@ -6,9 +6,14 @@
    De keuze wordt per bezoeker vastgezet (localStorage popup_variant),
    zodat een terugkerende bezoeker steeds dezelfde variant ziet.
    Insluiten met: <script src="/popup-ab.js" defer></script>
+
+   POPUP_UIT: sinds 16 okt 2026 staat de pop-up UIT op verzoek van Stijn
+   (hele site). Weer aanzetten = POPUP_UIT op false.
 ══════════════════════════════════════════════════════════ */
+var POPUP_UIT = true;
 (function () {
   'use strict';
+  if (POPUP_UIT) return;
 
   // Popup al aanwezig (inline op arrangementpagina's) of al aangemeld → niets doen
   if (document.getElementById('ecOverlay') || document.getElementById('scOverlay')) return;
