@@ -17,7 +17,7 @@
  * periode die de dag ook bevat (feest > winter); daarna de meegebundelde kalender.
  */
 
-export const R2_BASIS = "https://pub-6f4ac4e7df2b4c258d5fffc06c518bcc.r2.dev";
+export const R2_BASIS = "https://pub-c740ef36abd24be1aa637f4ee69d7a03.r2.dev";
 export const KALENDER_TTL = 300; // seconden dat actief.json in de Cache API blijft
 export const VERS_SLOT_TTL = 60; // `?vers=1` haalt hoogstens eens per minuut opnieuw op
 

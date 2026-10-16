@@ -332,7 +332,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   - `/seizoen/lander/` -> 302 naar `/herfst`, `/winter`, `/lente` of `/zomer`; `/seizoen/arrangement/` -> 302 naar het seizoensarrangement
     (herfst `/najaarsarrangement`, zomer `/happy-summer-arrangement`, winter en lente voorlopig `www.asteria.nl/arrangementen`). Beide `no-store`.
   - Onbekend slot of pad: 404. GET en HEAD (HEAD = zelfde headers, lege body), andere methoden 405.
-- **Bron = R2, repo = terugval.** `laadKalender()` haalt `https://pub-6f4ac4e7df2b4c258d5fffc06c518bcc.r2.dev/seizoen/asteria/actief.json`
+- **Bron = R2, repo = terugval.** `laadKalender()` haalt `https://pub-c740ef36abd24be1aa637f4ee69d7a03.r2.dev/seizoen/asteria/actief.json`
   (env `SEIZOEN_BASIS` overschrijft de basis, alleen voor lokaal testen), bewaart de uitkomst 300 s in de Cache API (eigen sleutel
   `/__seizoen-cache/asteria/actief.json`, ook een 404; `?vers=1` haalt opnieuw op, hoogstens eens per 60 s, via `context.waitUntil`).
   Geldig = JSON met `versie: 1`, `periodes` en `slots`; anders (404, netwerkfout, ongeldige JSON) geldt `seizoen-kalender.json`
