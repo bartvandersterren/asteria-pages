@@ -22,8 +22,9 @@ import json, os, re, sys
 base = os.path.dirname(os.path.abspath(__file__))
 
 TEMPLATES = {
-    # NL-uitvoer van 'wellness' en 'najaar' is sinds de promotie van de arrangementen (okt 2026) -oud + noindex;
-    # /wellness-arrangement en /najaarsarrangement zijn nu de lander-w1-arrangementen. EN/DE ongewijzigd.
+    # NL-uitvoer van 'wellness' is sinds de promotie van de arrangementen (okt 2026) -oud + noindex;
+    # /wellness-arrangement is nu het lander-w1-arrangement. 'najaar' NL staat sinds 16 okt 2026 weer op
+    # /najaarsarrangement (oude stijl, link in de campagnemail); de lander-w1-versie op /najaarsarrangement-v2. EN/DE ongewijzigd.
     'wellness': {
         'template': 'wellness-arr-c.template.html',
         'noindex': ('nl',),
@@ -62,9 +63,8 @@ TEMPLATES = {
     },
     'najaar': {
         'template': 'najaar.template.html',
-        'noindex': ('nl',),
         'langs': {
-            'nl': ('najaarsarrangement-oud.html', 'translations/najaar-nl.json'),   # sinds de promotie (okt 2026) -oud, noindex
+            'nl': ('najaarsarrangement.html', 'translations/najaar-nl.json'),   # sinds 16 okt 2026 weer live op /najaarsarrangement
             'en': ('najaarsarrangement-en.html', 'translations/najaar-en.json'),
             'de': ('najaarsarrangement-de.html', 'translations/najaar-de.json'),
         },
@@ -144,7 +144,9 @@ TEMPLATES = {
         'blokken': {'zijkaart': True},
     },
     # Arrangementen op lander-w1 (blokken 'zijkaart' + 'arrangement'; arrangement.css/.js): alleen NL, noindex, niet in sitemap.
-    # Live sinds okt 2026 op de nette adressen (oude -v2/-v3 301 in _redirects; oude najaar/wellness-NL -> -oud).
+    # Live sinds okt 2026 op de nette adressen (oude -v2/-v3 301 in _redirects; oude wellness-NL -> -oud).
+    # Uitzondering najaarsarrangement: sinds 16 okt 2026 staat de oude pagina ('najaar') weer op /najaarsarrangement;
+    # deze lander-w1-versie staat op /najaarsarrangement-v2 (canonical in de JSON wijst daarheen).
     # Nieuw arrangement = translations/<slug>-nl.json (kopie van najaarsarrangement-nl.json) + slug in deze lijst.
     # Opbouw en velden: zie CLAUDE.md (Arrangementen op lander-w1) en apply_arrangement(). Schakelaars in de JSON:
     # ZV_TOON (zondagvoordeel), WAAROM_TOON (Waarom Asteria, standaard aan), ANDERE_TOON (+ lijst '_andere'),
@@ -153,7 +155,7 @@ TEMPLATES = {
     **{s: {
         'template': 'lander-w1.template.html',
         'langs': {
-            'nl': (f'{s}.html', f'translations/{s}-nl.json'),
+            'nl': (f'{s}-v2.html' if s == 'najaarsarrangement' else f'{s}.html', f'translations/{s}-nl.json'),
         },
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
