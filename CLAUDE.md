@@ -335,5 +335,6 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Foto's: `mail/seizoen/<slot>-<seizoen>.jpg`. Foto ruilen = het jpg vervangen door een nieuw jpg met exact dezelfde maat
   (center-crop, kwaliteit 82, geen EXIF), committen op main; geen mail aanraken. Nieuw slot = nieuwe sleutel in `slots` + 4 jpg's.
   Winter heeft nog geen echt winterbeeld (hero = sauna van de winterlander, sfeer = bospad van de winterlander).
+- Overzichtspagina `/seizoen/` (ook `/seizoen`, noindex, `no-store`): kalender, per slot de 4 foto's met "Nu"-kader, mails, bron, en de link-doelen; leest `maat`/`mails`/`bron`/`landerfoto` per slot uit de kalender, `?datum=` simuleert.
 - Testen: `?datum=YYYY-MM-DD` op elke URL, bv. `curl -sI "https://visit.asteria.nl/seizoen/hero.jpg?datum=2026-12-15"` (X-Seizoen: winter).
   Lokaal: `~/projects/parkhotel-site/node_modules/.bin/wrangler pages dev . --compatibility-date=2026-06-01` (zonder datum weigert workerd 4.103 de datum van vandaag).
