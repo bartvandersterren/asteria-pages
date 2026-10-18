@@ -102,6 +102,10 @@
     + ".sc-h{font-family:'Montserrat',sans-serif;font-weight:600;font-size:34px;color:" + col.heading + ";line-height:1.1;margin:0 0 10px;letter-spacing:-0.5px;}"
     + ".sc-sub{font-size:15px;color:#555;font-weight:400;margin:0 0 26px;line-height:1.5;}"
     + ".sc-card{position:relative;width:280px;height:205px;border-radius:14px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,0.28);}"
+    + ".sc-scratch-zone{display:inline-block;padding:16px;cursor:grab;-webkit-tap-highlight-color:transparent;touch-action:none;}"
+    + ".sc-modal.sc-can-scratch{cursor:grab;}"
+    + ".sc-modal.sc-can-scratch:active{cursor:grabbing;}"
+    + ".sc-scratch-zone:active{cursor:grabbing;}"
     + ".sc-prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;background:#faf8f5;box-sizing:border-box;}"
     + ".sc-prize-title{font-weight:700;font-size:22px;color:" + col.heading + ";line-height:1.2;margin:0 0 10px;}"
     + ".sc-prize-list{list-style:none;padding:0;margin:12px auto 0;display:inline-block;text-align:left;}"
@@ -175,12 +179,14 @@
     +         '<img class="sc-logo" src="' + LOGO + '" alt="Hotel Asteria">'
     +         '<h2 class="sc-h">' + t.heading + '</h2>'
     +         '<p class="sc-sub">' + t.sub + '</p>'
+    +         '<div class="sc-scratch-zone" id="scZone">'
     +         '<div class="sc-card" id="scCard">'
     +           '<div class="sc-prize">'
     +             '<p class="sc-prize-title">' + t.prize + '</p>'
     +             '<ul class="sc-prize-list">' + perksHtml + '</ul>'
     +           '</div>'
     +           '<canvas class="sc-canvas" id="scCanvas"></canvas>'
+    +         '</div>'
     +         '</div>'
     +         '<div class="sc-claim" id="scClaim"><button class="sc-btn" id="scClaimBtn">' + t.claimBtn + '</button></div>'
     +       '</div>'
@@ -327,20 +333,35 @@
     return { x: p.clientX - rect.left, y: p.clientY - rect.top };
   }
 
-  canvas.addEventListener('pointerdown', function (e) {
-    e.preventDefault(); drawing = true; canvas.setPointerCapture(e.pointerId);
+  // Krassen mag BUITEN de kaart beginnen: luister op de zone rondom de kaart,
+  // zodat een muisdruk/veeg die net naast de kaart start en eroverheen sleept
+  // gewoon doorkrast. posFromEvent rekent t.o.v. de canvas; punten buiten de
+  // canvas markeren simpelweg niets tot de aanwijzer op de kaart komt.
+  // Startgebied = de HELE pop-up (foto + paneel), niet alleen de kaart. Zo kun
+  // je overal in de pop-up indrukken en naar de kaart slepen om te krassen.
+  // Knoppen/velden (sluiten, claim, inputs) zijn uitgesloten.
+  var scModal = document.querySelector('.sc-modal');
+  var scratchTarget = scModal || document.getElementById('scStageScratch') || canvas;
+  if (scModal) scModal.classList.add('sc-can-scratch');
+
+  scratchTarget.addEventListener('pointerdown', function (e) {
+    if (revealed) return;
+    if (e.target.closest && e.target.closest('.sc-close, .sc-claim, button, a, input, select, textarea')) return;
+    e.preventDefault(); drawing = true;
+    try { scratchTarget.setPointerCapture(e.pointerId); } catch (err) {}
     if (!scratchStarted) { scratchStarted = true; track('scratch_start'); }
     var p = posFromEvent(e); lastX = p.x; lastY = p.y; scratchLine(p.x, p.y, p.x, p.y);
   });
-  canvas.addEventListener('pointermove', function (e) {
+  scratchTarget.addEventListener('pointermove', function (e) {
     if (!drawing) return; e.preventDefault();
     var p = posFromEvent(e); scratchLine(lastX, lastY, p.x, p.y); lastX = p.x; lastY = p.y;
   });
-  canvas.addEventListener('pointerup', function () { drawing = false; lastX = lastY = null; });
-  canvas.addEventListener('pointercancel', function () { drawing = false; lastX = lastY = null; });
+  scratchTarget.addEventListener('pointerup', function () { drawing = false; lastX = lastY = null; });
+  scratchTarget.addEventListener('pointercancel', function () { drawing = false; lastX = lastY = null; });
 
   function reveal() {
     revealed = true;
+    if (scModal) scModal.classList.remove('sc-can-scratch');
     canvas.style.opacity = '0';
     setTimeout(function () { canvas.style.display = 'none'; }, 450);
     claim.classList.add('is-visible');
