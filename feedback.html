@@ -321,6 +321,21 @@
       setStars(rating);
     });
 
+    // Ster kiezen (klik of ?rating= uit de review-mail)
+    function chooseRating(r) {
+      rating = r;
+      setStars(r);
+      window.track('feedback_rating', { variant_price: String(r) });
+
+      if (r >= 4) {
+        showState('statePositive');
+      } else {
+        showState('stateNegative');
+        var ta = document.querySelector('.fb2-textarea');
+        if (ta) setTimeout(function(){ ta.focus(); }, 300);
+      }
+    }
+
     // Star click
     stars.forEach(function(star) {
       star.addEventListener('click', function() {
@@ -332,19 +347,13 @@
           showState(null);
           return;
         }
-        rating = r;
-        setStars(r);
-        window.track('feedback_rating', { variant_price: String(r) });
-
-        if (r >= 4) {
-          showState('statePositive');
-        } else {
-          showState('stateNegative');
-          var ta = document.querySelector('.fb2-textarea');
-          if (ta) setTimeout(function(){ ta.focus(); }, 300);
-        }
+        chooseRating(r);
       });
     });
+
+    // ?rating=1 t/m 5 uit de review-mail: ster vooraf kiezen
+    var urlRating = new URLSearchParams(location.search).get('rating');
+    if (urlRating && /^[1-5]$/.test(urlRating.trim())) chooseRating(parseInt(urlRating, 10));
 
     // No thanks → bedankt
     document.getElementById('btnNoThanks').addEventListener('click', function() {
