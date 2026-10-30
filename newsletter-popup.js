@@ -122,6 +122,21 @@
   styleEl.textContent = CSS;
   document.head.appendChild(styleEl);
 
+  // Klaviyo = single opt-in: geen bevestigingsstap, dus andere succestekst.
+  // In de revinate-stand blijft alles zoals hierboven.
+  var COPY_KLAVIYO = {
+    nl: { titel: 'Je staat op de lijst',
+          tekst: 'Leuk dat je erbij bent. Je eerste mail van Hotel Asteria komt eraan, met daarin je welkomstcode. Vermeld hem bij het boeken.' },
+    en: { titel: 'You\u2019re on the list',
+          tekst: 'Lovely to have you. Your first email from Hotel Asteria is on its way, with your welcome code inside. Mention it when you book.' },
+    de: { titel: 'Sie stehen auf der Liste',
+          tekst: 'Schön, dass Sie dabei sind. Ihre erste E-Mail von Hotel Asteria ist unterwegs, darin finden Sie Ihren Willkommenscode. Nennen Sie ihn bei der Buchung.' }
+  };
+  if (viaKlaviyo()) {
+    t.successTitle = COPY_KLAVIYO[lang].titel;
+    t.successSub = COPY_KLAVIYO[lang].tekst;
+  }
+
   // ── Markup ─────────────────────────────────────────────
   var perksHtml = t.perks.map(function (p) { return '<li>' + p + '</li>'; }).join('');
   var markup = ''
@@ -136,6 +151,7 @@
     +         '<p class="nlp-terms">' + t.terms + '</p>'
     +         '<label class="nlp-label" for="ecEmail">' + t.label + '</label>'
     +         '<input class="nlp-email-input" type="email" id="ecEmail" placeholder="' + t.placeholder + '" autocomplete="email">'
+    +         '<input type="text" name="website" id="ecWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">'
     +         '<p class="nlp-error" id="ecError">' + t.error + '</p>'
     +         '<button class="nlp-submit-btn" id="ecSubmit">' + t.submit + '</button>'
     +         '<p class="nlp-consent">' + t.consent + '</p>'
@@ -160,8 +176,11 @@
   holder.innerHTML = markup;
   while (holder.firstChild) document.body.appendChild(holder.firstChild);
 
-  // ── Revinate Contact API script laden (indien nog niet aanwezig) ──
-  if (!document.querySelector('script[src*="revinatecontactapi"]')) {
+  // Schakelaar in /nieuwsbrief.js (geladen door popup-ab.js). Ontbreekt die: Revinate.
+  function viaKlaviyo() { return !!(window.AsteriaNieuwsbrief && window.AsteriaNieuwsbrief.klaviyo()); }
+
+  // ── Revinate Contact API script laden (indien nog niet aanwezig en backend = revinate) ──
+  if (!viaKlaviyo() && !document.querySelector('script[src*="revinatecontactapi"]')) {
     var rev = document.createElement('script');
     rev.src = '//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1';
     rev.defer = true;
@@ -181,6 +200,7 @@
 
   var shown = false;
   var submitting = false;
+  var openedAt = 0;
 
   // Variant toewijzen vóór triggers
   var variant = sessionStorage.getItem('ec_variant');
@@ -194,6 +214,7 @@
     if (sessionStorage.getItem('ec_shown')) return;
     shown = true;
     sessionStorage.setItem('ec_shown', '1');
+    openedAt = Date.now();
     overlay.classList.add('is-open');
     if (window.track) window.track('email_popup_open', { variant_email: 'A_whitecard' });
     setTimeout(function () { emailInput && emailInput.focus(); }, 350);
@@ -243,6 +264,15 @@
     submitBtn.textContent = '...';
     errorEl.classList.remove('is-visible');
     if (window.track) window.track('email_submit', { variant_email: 'A_whitecard' });
+
+    // Klaviyo-backend: via /api/nieuwsbrief, succes pas na een ok van de server
+    if (viaKlaviyo()) {
+      var hp = document.getElementById('ecWebsite');
+      window.AsteriaNieuwsbrief.aanmelden(email, {
+        taal: lang, bron: 'popup', website: hp ? hp.value : '', ts: openedAt
+      }).then(function (ok) { if (ok) showSuccess(); else showError(); });
+      return;
+    }
 
     // Kopieer email naar verborgen Revinate-form
     var hiddenEmail = document.getElementById('ec_hidden_email');
