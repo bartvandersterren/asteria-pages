@@ -166,6 +166,21 @@
   }
 
   // ── Markup ─────────────────────────────────────────────
+  // Klaviyo = single opt-in: geen bevestigingsstap, dus andere succestekst.
+  // In de revinate-stand blijft alles zoals hierboven.
+  var COPY_KLAVIYO = {
+    nl: { titel: 'Je staat op de lijst',
+          tekst: 'Leuk dat je erbij bent. Je eerste mail van Hotel Asteria komt eraan, met daarin je welkomstcode. Vermeld hem bij het boeken.' },
+    en: { titel: 'You\u2019re on the list',
+          tekst: 'Lovely to have you. Your first email from Hotel Asteria is on its way, with your welcome code inside. Mention it when you book.' },
+    de: { titel: 'Sie stehen auf der Liste',
+          tekst: 'Schön, dass Sie dabei sind. Ihre erste E-Mail von Hotel Asteria ist unterwegs, darin finden Sie Ihren Willkommenscode. Nennen Sie ihn bei der Buchung.' }
+  };
+  if (viaKlaviyo()) {
+    t.successHeading = COPY_KLAVIYO[lang].titel;
+    t.successSub = COPY_KLAVIYO[lang].tekst;
+  }
+
   var perksHtml = t.prizeItems.map(function (x) { return '<li>' + x + '</li>'; }).join('');
   var wrap = document.createElement('div');
   wrap.innerHTML = ''
