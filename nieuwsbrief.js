@@ -8,7 +8,7 @@
    Omschakelen = alleen de regel hieronder aanpassen.
    Wordt geladen door popup-ab.js vóór de pop-up zelf.
 ══════════════════════════════════════════════════════════ */
-var NIEUWSBRIEF_BACKEND = 'revinate'; // 'revinate' | 'klaviyo'
+var NIEUWSBRIEF_BACKEND = 'klaviyo'; // 'revinate' | 'klaviyo'
 
 (function () {
   'use strict';
