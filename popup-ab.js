@@ -27,10 +27,13 @@ var POPUP_UIT = true;
   }
   window.POPUP_VARIANT = v;
 
-  // Gekozen variant laden
+  // Eerst de nieuwsbrief-schakelaar (/nieuwsbrief.js), dan de gekozen variant.
+  // async = false: dynamische scripts draaien dan in volgorde van toevoegen.
   var src = (v === 'B') ? '/scratchcard-popup.js' : '/newsletter-popup.js';
-  var s = document.createElement('script');
-  s.src = src;
-  s.defer = true;
-  document.head.appendChild(s);
+  [ '/nieuwsbrief.js', src ].forEach(function (u) {
+    var s = document.createElement('script');
+    s.src = u;
+    s.async = false;
+    document.head.appendChild(s);
+  });
 })();

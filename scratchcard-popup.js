@@ -142,9 +142,12 @@
   styleEl.textContent = css;
   document.head.appendChild(styleEl);
 
-  // ── Verborgen Revinate-form + script ───────────────────
+  // Schakelaar in /nieuwsbrief.js (geladen door popup-ab.js). Ontbreekt die: Revinate.
+  function viaKlaviyo() { return !!(window.AsteriaNieuwsbrief && window.AsteriaNieuwsbrief.klaviyo()); }
+
+  // ── Verborgen Revinate-form + script (alleen bij backend = revinate) ──
   var revForm = document.getElementById('revinate_contact_api_form');
-  if (!revForm) {
+  if (!revForm && !viaKlaviyo()) {
     var f = document.createElement('form');
     f.id = 'revinate_contact_api_form';
     f.setAttribute('token', TOKEN[lang]);
@@ -155,7 +158,7 @@
     document.body.appendChild(f);
     revForm = f;
   }
-  if (!document.querySelector('script[src*="revinatecontactapi"]')) {
+  if (!viaKlaviyo() && !document.querySelector('script[src*="revinatecontactapi"]')) {
     var rev = document.createElement('script');
     rev.src = '//contact-api.inguest.com/bundles/revinatecontactapi/js/revinate-form.js?v=1';
     rev.defer = true;
@@ -189,6 +192,7 @@
     +         '<h2 class="sc-h" style="font-size:26px;margin-bottom:20px;">' + t.emailHeading + '</h2>'
     +         '<div class="sc-form">'
     +           '<input class="sc-input" type="email" id="scEmail" placeholder="' + t.emailPlaceholder + '" autocomplete="email">'
+    +           '<input type="text" name="website" id="scWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">'
     +           '<button class="sc-btn" id="scSubmit">' + t.emailBtn + '</button>'
     +           '<p class="sc-error" id="scError">' + t.errorText + '</p>'
     +           '<p class="sc-terms">' + t.terms + '</p>'
@@ -355,6 +359,7 @@
   });
 
   var submitting = false;
+  var openedAt = 0;
   function showSuccess() {
     submitting = false;
     stEmail.classList.remove('is-active');
@@ -377,6 +382,14 @@
     submitBtn.disabled = true; submitBtn.textContent = '...';
     errorEl.classList.remove('is-visible');
     track('email_submit');
+    // Klaviyo-backend: via /api/nieuwsbrief, succes pas na een ok van de server
+    if (viaKlaviyo()) {
+      var hp = document.getElementById('scWebsite');
+      window.AsteriaNieuwsbrief.aanmelden(email, {
+        taal: lang, bron: 'scratchcard', website: hp ? hp.value : '', ts: openedAt
+      }).then(function (ok) { if (ok) showSuccess(); else showError(); });
+      return;
+    }
     var hidden = document.getElementById('sc_hidden_email');
     if (hidden) hidden.value = email;
     try {
@@ -394,6 +407,7 @@
     if (shown || sessionStorage.getItem('ec_shown')) return;
     shown = true;
     sessionStorage.setItem('ec_shown', '1');
+    openedAt = Date.now();
     overlay.classList.add('is-open');
     drawCover();
     track('email_popup_open');
