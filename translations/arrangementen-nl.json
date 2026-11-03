@@ -4,7 +4,7 @@
     "Najaarsarrangement: de kaart linkt naar /najaarsarrangement (de oude pagina op config bee2f902), maar titel, prijs (€ 128,50 p.p. per nacht), foto en vinkjes komen uit translations/najaarsarrangement-nl.json (= /najaarsarrangement-v2). De oude pagina noemt ook € 128,50. Boekbaar t/m 30 november: na die datum de kaart weghalen (slug uit '_arrangementen').",
     "Feestdagen (bron www.asteria.nl/arrangementen, 3 nov 2026): Kerstarrangement (/arrangementen/kerstarrangement-hotel) noemt 'v.a. € 130,- p.p.' zonder eenheid of aantal nachten (aankomst 23, 24, 25 of 26 december; vertrek zelf kiezen); Oud & Nieuw arrangement (/arrangementen/oud-en-nieuw-arrangement) 3-daags € 347,- p.p., 4-daags € 460,- p.p.; Oud en Nieuw Bridge arrangement (/arrangementen/oud-en-nieuw-bridgearrangement) 28 dec - 1 jan, € 520,- p.p. (tweepersoonskamer), € 705,- p.p. (eenpersoonskamer). De Mews-links op die pagina's staan op 2025-data en op config 4483536c; prijzen en jaar bevestigen voor 2026.",
     "Foto's feestdagen: Kerst = de kopfoto van de kerstpagina op asteria.nl (kerstbal met Asteria-ster, omgezet naar fotos/l26-arr-kerst-breed.webp, zelfde beeld als l26-arr-kerst.webp); bevestigen dat dit geen AI-beeld is. Bridge = de kopfoto van de bridgepagina (speelkaarten en vuurwerk, fotos/l26-arr-oudennieuw-bridge.webp). Oud & Nieuw = l26-bubbels-hero.webp uit de repo; de kopfoto van de O&N-pagina (bubbels, oliebollen, fles met Asteria-ster) lijkt bewerkt en is daarom niet gebruikt.",
-    "Bij elk arrangement (intropaneel): ontbijtbuffet en drie-gangen diner zitten in alle zes de arrangementen (bij de Weekend aanbieding één diner, op de aankomstdag). 'Gratis parkeren' komt uit de tijdenstrook van de arrangementen (bron staging). 'Beste prijs als je direct boekt' volgt 'Beste prijs gegarandeerd' (ARR_TRUST_A van het najaarsarrangement). Graag bevestigen.",
+    "Bij elk arrangement (intropaneel): ontbijtbuffet en drie-gangen diner zitten in alle zes de arrangementen (bij de Weekend aanbieding één diner, op de aankomstdag). Tegel 'Zondagvoordeel' vervangt 'Gratis parkeren' (Stijn 3 nov); geldt niet bij Weekend aanbieding en feestdagen, staat daarom in de tegeltekst niet als 'bij elk'. 'Beste prijs als je direct boekt' volgt 'Beste prijs gegarandeerd' (ARR_TRUST_A van het najaarsarrangement). Graag bevestigen.",
     "Wellness staat niet als tegel in het intropaneel (plan: wellness, ontbijt, parkeren, beste prijs): alleen het Wellness Arrangement heeft vrije toegang tot de wellness, dus 'bij elk arrangement' klopt niet. In plaats daarvan de tegel Drie-gangen diner. Wellness staat bij Goed om te weten en in de FAQ.",
     "Zondagtarieven: volgens Stijn staan ze sinds 14 okt 2026 in Mews en lopen ze t/m aankomst 27 dec 2026 (na 27 dec gaf Mews bij de meting de gewone prijs). Daarna Mews of de pagina bijwerken (ZV_TOON en ZV_ZONDAG_PRIJS in de arrangement-JSON's).",
     "In- en uitchecken: inchecken vanaf 15.00, uitchecken tot 11.00 (FAQ visit.asteria.nl); Weekend aanbieding uitchecken tot 14.00 op basis van beschikbaarheid (weekend-aanbieding-nl.json).",
@@ -38,9 +38,9 @@
       "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
     },
     {
-      "titel": "Gratis parkeren",
-      "tekst": "direct bij het hotel",
-      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+      "titel": "Zondagvoordeel",
+      "tekst": "€ 20 per kamer minder bij aankomst op zondag",
+      "icoon": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><line x1=\"16\" y1=\"2\" x2=\"16\" y2=\"6\"/><line x1=\"8\" y1=\"2\" x2=\"8\" y2=\"6\"/><line x1=\"3\" y1=\"10\" x2=\"21\" y2=\"10\"/><path d=\"M9 16l2 2 4-4\"/>"
     },
     {
       "titel": "Beste prijs",
