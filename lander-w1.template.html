@@ -173,6 +173,7 @@
       <!-- telefoon: de boekkaart in plaats van de datumbalk (zoals Parkhotel); bureaublad houdt de balk -->
       <div class="b1a-mobkaart">
         <!--[!arrangement[-->
+        <!--[!boekkaart[-->
         <div class="b1k-kaart b1k-kaart--vast b1k-kaart--mob<!--[trustkaart[--> b1k-kaart--trust<!--]trustkaart]-->">
           <!--[!trustkaart[--><div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="933" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div><!--]!trustkaart]-->
           <div class="b1k-body">
@@ -184,7 +185,19 @@
             <p class="b1k-trust">{{KAART_TRUST}}</p>
           </div>
         </div>
+        <!--]!boekkaart]-->
         <!--]!arrangement]-->
+        <!--[boekkaart[-->
+        <!-- telefoon, algemene lander: de boekkaart van de staging-homepage (.booking-bar--stacked: drie velden met hairlines en chevron,
+             knop met pijl), gekoppeld aan de boekbalklogica van lander-w1.js (data-boekbalk; kamertype = data-rol="kamer" -> Mews met kamer) -->
+        <form class="hb-kaart" data-boekbalk action="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" method="get" target="_blank" aria-label="Bekijk beschikbaarheid">
+          <div class="hb-veld hb-veld--periode"><span class="hb-stack"><span class="hb-label" id="hb-periode-label">Aankomst en vertrek</span><span class="hb-waarde is-leeg" data-periode data-leeg="Kies een periode">Kies een periode</span></span><span class="hb-helft hb-helft--a"><input class="field__invoer" type="date" id="hb-aankomst" name="mewsStart" data-rol="aankomst" aria-label="Aankomst"></span><span class="hb-helft hb-helft--v"><input class="field__invoer" type="date" id="hb-vertrek" name="mewsEnd" data-rol="vertrek" aria-label="Vertrek"></span></div>
+          <div class="hb-veld"><span class="hb-stack"><label class="hb-label" for="hb-gasten">Reisgezelschap</label><span class="hb-waarde value">2 volwassenen</span></span><select class="field__invoer" id="hb-gasten" name="mewsAdultCount" data-rol="gasten"><option value="1">1 volwassene</option><option value="2" selected>2 volwassenen</option><option value="3">3 volwassenen</option><option value="4">4 volwassenen</option></select></div>
+          <div class="hb-veld"><span class="hb-stack"><label class="hb-label" for="hb-kamer">Type kamer</label><span class="hb-waarde value is-leeg">Alle types</span></span><select class="field__invoer" id="hb-kamer" name="mewsRoom" data-rol="kamer"><option value="" selected>Alle types</option><option value="98900f3b-e5e2-49c9-9776-af1d00ffc315">Comfort kamer</option><option value="85ca19d7-eea5-41c8-8b93-af1d00ffc315">Comfort kamer 3 personen</option><option value="fa5b6540-7234-49ce-beb1-af1d00ffc315">Mindervalide kamer</option><option value="a8fd7310-0d61-422f-89e6-af1d00ffc315">Royale kamer</option><option value="c737de50-e41e-4c8d-a818-af1d00ffc315">Deluxe kamer</option><option value="27ea8deb-ded5-4856-8fdd-af1d00ffc315">Junior Suite</option><option value="4a642b66-68e6-444c-beeb-af1d00ffc315">Suite</option><option value="a9f18d18-561b-47a9-8ba7-b2a800cfd0e2">Bruidssuite</option></select></div>
+          <button type="submit" class="hb-knop">Bekijk beschikbaarheid<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </form>
+        <ul class="hb-trust" aria-label="Direct bij het hotel"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_A}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_B}}</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{KAART_VINK_C}}</span></li></ul>
+        <!--]boekkaart]-->
         <!--[arrangement[-->
         <div class="b1k-kaart b1k-kaart--vast b1k-kaart--mob ar-kaart">
           <div class="b1k-kfoto"><img src="{{KAART_IMG}}" alt="{{KAART_ALT}}" width="1400" height="935" loading="lazy"><span class="b1k-pill">{{KAART_PIL}}</span></div>

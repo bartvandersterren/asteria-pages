@@ -206,11 +206,16 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Gesloten: logo naar `GESLOTEN_LOGO_URL` (standaard /hotel-venray-v2). Herofoto `fotos/l26-kamertypes-hero.webp` (P1081257).
 - Optionele herovideo op lander-w1 (blok `video`, aan met `HERO_VIDEO` in de JSON; `HERO_VIDEO_MOBIEL` = staande bron < 720 px via
   `<source media>`, `HERO_VIDEO_POSTER`; terugval HERO_VIDEO/HERO_IMG). Video van de staging-homepage op staging-kwaliteit:
-  `videos/hero-asteria-building-sunset.mp4` = staging-origineel 1:1 (1280x720, stream copy + faststart, zonder audio), `-mobiel.mp4` = 406x720
-  uitsnede op bronresolutie (crf 16), poster `fotos/hero-asteria-building-sunset.webp` = frame 0, 1280x720, webp 90.
+  `videos/hero-asteria-building-sunset.mp4` = staging-origineel 1:1 (1280x720, stream copy + faststart, zonder audio), ook op de
+  telefoon (zelfde uitsnede 50% 50% als de staging; de staande -mobiel.mp4 is vervallen), poster `fotos/hero-asteria-building-sunset.webp` = frame 0, 1280x720, webp 90.
   Reduced motion = alleen HERO_IMG (lander-w1.css `.b1a-video`).
 - Trustkaart (blok `trustkaart`, aan met lege `KAART_IMG` in de JSON): boekkaart onder de hero (telefoon) en zijkaart zonder foto,
   pil, titel en Google-scorevak (de score staat al in de herobadge); begint met de vinkjes (`.b1k-kaart--trust`). Alleen hotel-venray-v2.
+- Staging-boekkaart op de telefoon (blok `boekkaart`, aan met blok `hotel`): vervangt op hotel-venray-v2 de boekkaart onder de hero door
+  de kaart van de staging-homepage (.booking-bar--stacked: Aankomst en vertrek / Reisgezelschap / Type kamer + Bekijk beschikbaarheid,
+  24 px over de hero van 490 px, kop 44 px; CSS `hb-` in hotel.css). Velden = form[data-boekbalk] van lander-w1.js; nieuw daar
+  (alleen actief als de elementen bestaan): `[data-periode]` (één regel met aankomst en vertrek, linker/rechter helft = twee native
+  datumvelden) en `[data-rol="kamer"]` (kamertype -> mewsRoom/mewsRoute=rooms en showRates). Trust-vinkjes als compacte rij eronder.
 - Scratchcard-pop-up op lander-w1 (blok `scratchcard`, aan met `"_popup_scratchcard": true` in de JSON; nu alleen hotel-venray-v2):
   zet `window.ScratchcardConfig = {stijl:'2026'}` en laadt `scratchcard-2026.css`, `analytics-d1.js` (window.track, zelfde D1-events
   als hotel-venray.html), `nieuwsbrief.js` (backend klaviyo) en `scratchcard-popup.js`. Stijl 2026 = overlay `data-stijl="2026"`,
@@ -225,7 +230,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle kamers, omgevingsregels zonder asteria-link;
   kamerknoppen (kaart + pop-up) = Bekijk beschikbaarheid (Mews met data-room), geen link naar de kamerpagina's (oude stijl).
   Overzichtsknoppen naar de nieuwe-stijlpagina's via JSON: `OVERZICHT_ARR_URL` (nu /arrangementen-v2, PR #180) en
-  `OVERZICHT_KAMERS_URL` (nu /kamertypes-v2, tak feature/kamers-v2); 404 op de preview tot die gemerged zijn.
+  `OVERZICHT_KAMERS_URL` (nu leeg = geen knop; later bv. /kamertypes-v2, tak feature/kamers-v2). Leeg veld = geen knop.
 - Faciliteit-pop-up met video: `_fac_video` {sleutel: pad} in de JSON (hotel-venray-v2: wellness -> videos/wellness-walk-pop.mp4,
   fitness -> videos/gym-pop.mp4, lichte H.264-varianten 960 px zonder audio); lander-w1.js vulFac maakt het `<video>` pas aan als er
   een video is (HTML van andere pagina's gelijk), poster = eerste foto, reduced motion = foto. Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.

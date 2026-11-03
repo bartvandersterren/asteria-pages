@@ -120,6 +120,15 @@
     var vertrek = form.querySelector('[data-rol="vertrek"]');
     var gasten = form.querySelector('[data-rol="gasten"]');
     var code = form.querySelector('[name="mewsVoucherCode"]');
+    /* staging-boekkaart (hotel-venray-v2): één veld 'Aankomst en vertrek' met twee datums en een kamertype-keuze */
+    var periode = form.querySelector('[data-periode]');
+    var kamer = form.querySelector('[data-rol="kamer"]');
+    function zetPeriode() {
+      if (!periode) return;
+      var a = aankomst ? leesDatum(aankomst.value) : null, v = vertrek ? leesDatum(vertrek.value) : null;
+      periode.textContent = a ? toonDatum(a) + (v ? ' \u2013 ' + toonDatum(v) : '') : (periode.getAttribute('data-leeg') || '');
+      periode.classList.toggle('is-leeg', !a);
+    }
     if (aankomst) aankomst.min = ymd(vandaag);
     if (vertrek) vertrek.min = ymd(plusDagen(vandaag, 1));
     form.querySelectorAll('.field__invoer').forEach(function (invoer) {
@@ -133,6 +142,8 @@
           }
         }
         waardeVan(invoer);
+        zetPeriode();
+        if (invoer === kamer) { var w = kamer.parentNode.querySelector('.value'); if (w) w.classList.toggle('is-leeg', !kamer.value); }
       });
       /* klik op het veld opent de kalender of keuzelijst direct (Chrome/Edge/Safari 16+) */
       if (invoer.type === 'date') {
@@ -149,10 +160,13 @@
       if (a && (!v || v <= a)) v = plusDagen(a, 1);
       if (!a && v) { a = plusDagen(v, -1); if (a < vandaag) { a = vandaag; v = plusDagen(a, 1); } }
       var n = gasten ? parseInt(gasten.value, 10) || 2 : 2;
+      var k = kamer ? kamer.value : '';
       var url = MEWS_URL + '?mewsVoucherCode=' + encodeURIComponent(voucher)
         + (a ? '&mewsStart=' + ymd(a) + '&mewsEnd=' + ymd(v) : '')
-        + '&mewsAdultCount=' + n;
+        + '&mewsAdultCount=' + n
+        + (k ? '&mewsRoom=' + k + '&mewsRoute=rooms' : '');
       var log = { voucher: voucher, start: a ? ymd(a) : null, eind: v ? ymd(v) : null, volwassenen: n, url: url, route: 'wacht' };
+      if (kamer) log.kamer = k;
       window.lpBoekbalk = log;
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'boekbalk_submit', { voucher: voucher, start: log.start || '', nachten: a ? Math.round((v - a) / 864e5) : 0, volwassenen: n });
@@ -170,6 +184,8 @@
         if (api.setLanguageCode) api.setLanguageCode('nl-NL');
         if (a) { api.setStartDate(a); api.setEndDate(v); }
         if (api.setAdultCount) api.setAdultCount(n);
+        /* kamertype gekozen: showRates kiest de kamer, open() opent de widget op die kamer (zoals de kamerknoppen) */
+        if (k && api.showRates) api.showRates(k);
         log.route = 'widget';
         api.open();
       }, url);

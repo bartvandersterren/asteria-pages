@@ -1014,6 +1014,10 @@ def build(template_name, lang):
     aan = ({'gesloten'} if translations.get('GESLOTEN_LANDER') is True else set()) | ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
+    # Staging-boekkaart op de telefoon (blok 'boekkaart'): op de algemene lander (blok 'hotel') vervangt hij de boekkaart onder de hero
+    if 'hotel' in aan:
+        aan.add('boekkaart')
+
     if 'arrangement' in aan:
         # arrangementblokken aan/uit per arrangement in de JSON
         if translations.get('ZV_TOON'): aan.add('zondag')
@@ -1065,6 +1069,9 @@ def build(template_name, lang):
     # geen link naar de kamerpagina's (oude stijl), de kamerinformatie staat in de pop-up.
     if 'gesloten' in aan:
         html = re.sub(r'(aria-label="Boek de [^"]*">)Boek nu(</a>)', r'\1Bekijk beschikbaarheid\2', html)
+        # lege OVERZICHT_*_URL = geen overzichtsknop (later met één regel terug)
+        html = html.replace('<a class="btn btn-secondary" href="">Bekijk alle kamers</a>', '')
+        html = html.replace('<a class="btn btn-secondary" href="">' + translations.get('AANBOD_KNOP', '') + '</a>', '')
         if 'kamertypes' not in aan:   # kamertypes-v2: de kaartknop blijft 'Boek deze kamer' (staging)
             html = html.replace('>Boek deze kamer</a>', '>Bekijk beschikbaarheid</a>')
 

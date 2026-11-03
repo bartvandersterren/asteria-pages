@@ -39,13 +39,13 @@ Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondag
 
 Algemene hotellander (blok 'hotel', zonder actiecode; hotel-venray-v2):
   ... http://localhost:8765/hotel-venray-v2.html --hotel [--schermafdruk map]
-Trustkaart (blok 'trustkaart', KAART_IMG leeg): telefoonkaart zonder foto/label/titel/scorevak, begint met de vinkjes.
+Telefoon (blok 'boekkaart'): staging-boekkaart over de hero (maten zoals de staging), periode/reisgezelschap/kamertype -> Mews.
 Met --hotel: voucher leeg (geen setVoucherCode, geen mewsVoucherCode/data-voucher in de links, geen actiecodeveld),
 geen tegelstrook, geen uitklaptab en geen zijkaart; ster-split aanwezig; blokvolgorde kamers > faciliteiten > omgeving >
 arrangementen > reviews > FAQ > slot; faciliteiten = tekstkaart + 5 tegels (Wellness/Restaurant openen de faciliteit-pop-up,
 dezelfde pop-upchecks als de tegelstrook), omgeving 3-5 rijen, arrangementkaarten naar bestaande lander-w1-pagina's
 (visit.asteria.nl, bestand in de repo), geen prijzen in die blokken; tags GA4 + Google Ads zoals hotel-venray.html. Met herovideo (blok 'video'): speelt
-af op 1440 (desktopbron) en 390 (staande mobiele bron), dekt de hero onder de overlay; reduced motion = alleen de foto.
+af op 1440 en 390 (zelfde liggende bron als de staging), dekt de hero onder de overlay; reduced motion = alleen de foto.
 
 Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER in de JSON: bedankt en gemist):
   ... http://localhost:8765/bedankt.html --v3 --voucher BEDANKT --ladder
@@ -195,8 +195,8 @@ with sync_playwright() as p:
                                                                            'royale-kamer', 'deluxe-kamer', 'junior-suite', 'suite', 'bruidssuite')]
         check('[bron] geen links naar /kamertypes of de oude kamerpagina\'s, geen kamerpaginalink in de pop-up',
               not kamerp and 'lp-pop__link' not in bron, str(kamerp))
-        check('[bron] overzichtsknoppen naar de nieuwe-stijlpagina\'s (OVERZICHT_ARR_URL, OVERZICHT_KAMERS_URL)',
-              '<a class="btn btn-secondary" href="/arrangementen-v2">Alle arrangementen</a>' in bron and '<a class="btn btn-secondary" href="/kamertypes-v2">Bekijk alle kamers</a>' in bron)
+        check('[bron] Alle arrangementen -> /arrangementen-v2; geen Bekijk alle kamers (OVERZICHT_KAMERS_URL leeg)',
+              '<a class="btn btn-secondary" href="/arrangementen-v2">Alle arrangementen</a>' in bron and 'Bekijk alle kamers' not in bron and 'href=""' not in bron)
         check('[bron] kamerknoppen heten Bekijk beschikbaarheid (8 kaarten + pop-up), met data-room',
               len(_re.findall(r'data-room="[^"]+"[^>]*>Bekijk beschikbaarheid</a>', bron)) >= 8 and '>Boek deze kamer<' not in bron and '>Boek nu</a><button' not in bron)
         check('[bron] voet alleen logo, adres, contact en juridisch (geen kolommen, geen socials)',
@@ -570,7 +570,7 @@ with sync_playwright() as p:
                 o=getComputedStyle(f,'::after');return {t:v.currentTime,paused:v.paused,muted:v.muted,loop:v.loop,err:v.error&&v.error.code,
                 src:v.currentSrc.split('/').pop(),poster:v.getAttribute('poster'),dekt:Math.abs(r.width-fr.width)<2&&Math.abs(r.height-fr.height)<2,
                 overlay:o.backgroundImage.includes('gradient'),tekstBoven:+getComputedStyle(document.querySelector('.b1a-tekst')).zIndex>=2}})()""")
-            bron = 'hero-asteria-building-sunset-mobiel.mp4' if w < 720 else 'hero-asteria-building-sunset.mp4'
+            bron = 'hero-asteria-building-sunset.mp4'   # ook op de telefoon de liggende video, uitsnede 50% 50% zoals de staging
             check(f'{tag} herovideo speelt af (gedempt, lus), bron {bron}, dekt de hero, overlay + tekst erboven',
                   hv['t'] > 0.5 and not hv['paused'] and hv['muted'] and hv['loop'] and not hv['err'] and hv['src'] == bron and hv['dekt'] and hv['overlay'] and hv['tekstBoven'], str(hv))
             if shotdir:
@@ -739,31 +739,50 @@ with sync_playwright() as p:
             check(f'{tag} uitklaptab weg bij het slotblok en daarna', not t2['zicht'] and not t3['zicht'] and t2['aria'] == 'true', f"{t2} / {t3}")
         pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(400)
 
-        if mob:
+        if mob and HOTEL:
+            # telefoon, algemene lander: de staging-boekkaart (hero 490, kop 44 px, kaart 24 px over de hero, 3 velden + knop)
+            sb = pg.evaluate("""(()=>{const r=e=>{const b=e.getBoundingClientRect();return [Math.round(b.left),Math.round(b.top+scrollY),Math.round(b.width),Math.round(b.height)]};
+                const k=document.querySelector('.b1a-mobkaart .hb-kaart'),f=document.querySelector('.b1a-foto'),h=document.querySelector('.b1a-tekst h1'),g=document.querySelector('.b1a-rb');
+                const kr=k.getBoundingClientRect(),fr=f.getBoundingClientRect(),hr=h.getBoundingClientRect(),gr=g.getBoundingClientRect();
+                return {oudeKaart:document.querySelectorAll('.b1a-mobkaart .b1k-kaart').length,balkWeg:getComputedStyle(document.querySelector('.b1a-balk')).display==='none',
+                  hero:r(f),h1fs:getComputedStyle(h).fontSize,kaart:r(k),overlap:Math.round(fr.bottom-kr.top),kopVrij:Math.round(kr.top-hr.bottom),
+                  badge:gr.bottom<=kr.top,rad:getComputedStyle(k).borderRadius,
+                  labels:[...k.querySelectorAll('.hb-label')].map(x=>x.innerText.trim().toLowerCase()),waarden:[...k.querySelectorAll('.hb-waarde')].map(x=>x.innerText.trim()),
+                  velden:[...k.querySelectorAll('.hb-veld')].map(x=>Math.round(x.getBoundingClientRect().height)),knop:k.querySelector('.hb-knop').innerText.trim(),
+                  trust:[...document.querySelectorAll('.b1a-mobkaart .hb-trust li')].map(x=>x.innerText.trim()),
+                  trustOnder:document.querySelector('.hb-trust').getBoundingClientRect().top>=kr.bottom}})()""")
+            check(f'{tag} staging-boekkaart in plaats van de oude kaart en de datumbalk', sb['oudeKaart'] == 0 and sb['balkWeg'], str(sb))
+            check(f'{tag} hero als de staging: 490 hoog, kop 44 px, kaart 24 px over de hero, kop en badge vrij, afronding 14',
+                  sb['hero'][3] == 490 and sb['h1fs'] == '44px' and sb['overlap'] == 24 and sb['kopVrij'] >= 0 and sb['badge'] and sb['rad'] == '14px', str(sb))
+            check(f'{tag} kaart: Aankomst en vertrek / Reisgezelschap / Type kamer, velden 56-57 px, knop Bekijk beschikbaarheid',
+                  sb['labels'] == ['aankomst en vertrek', 'reisgezelschap', 'type kamer'] and sb['waarden'] == ['Kies een periode', '2 volwassenen', 'Alle types']
+                  and all(56 <= x <= 57 for x in sb['velden']) and sb['knop'] == 'Bekijk beschikbaarheid' and sb['kaart'][3] == 262, str(sb))
+            check(f'{tag} trust-vinkjes als compacte rij onder de kaart', len(sb['trust']) == 3 and sb['trustOnder'], str(sb['trust']))
+            if shotdir:
+                pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-kaart.png')
+            # koppeling met Mews: periode, reisgezelschap en kamertype (gestubde widget-API)
+            a = date.today() + timedelta(days=30)
+            pg.fill('#hb-aankomst', a.isoformat())
+            per = pg.locator('[data-periode]').inner_text()
+            check(f'{tag} periode toont aankomst en vertrek (+1 nacht)', str(a.day) in per and str((a + timedelta(days=1)).day) in per and '\u2013' in per, per)
+            pg.select_option('#hb-gasten', '3'); pg.select_option('#hb-kamer', 'a8fd7310-0d61-422f-89e6-af1d00ffc315')
+            zicht = [x.strip() for x in pg.locator('.hb-kaart .hb-waarde').all_inner_texts()]
+            check(f'{tag} zichtbare waarden volgen de keuze', zicht[1] == '3 volwassenen' and zicht[2] == 'Royale kamer', str(zicht))
+            pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},setStartDate:d=>window._mews.push('start'),
+                setEndDate:d=>window._mews.push('eind'),setAdultCount:n=>window._mews.push('n:'+n),showRates:r=>window._mews.push('rates:'+r),showRooms:()=>{},open:()=>window._mews.push('open')}}""")
+            pg.locator('.hb-knop').click(); pg.wait_for_timeout(300)
+            r = pg.evaluate('window._mews.slice()'); log = pg.evaluate('window.lpBoekbalk') or {}
+            check(f'{tag} knop opent Mews met datums, 3 volwassenen en de Royale kamer voorgeselecteerd',
+                  r == ['start', 'eind', 'n:3', 'rates:a8fd7310-0d61-422f-89e6-af1d00ffc315', 'open'] and 'mewsRoom=a8fd7310' in log.get('url', '')
+                  and f'mewsStart={a.isoformat()}' in log.get('url', '') and 'mewsAdultCount=3' in log.get('url', ''), f"{r} {log.get('url')}")
+            pg.evaluate("delete window.mewsApi")
+        elif mob:
             # telefoon: boekkaart in plaats van de datumbalk
             mk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),f=document.querySelector('.b1a-balk'),h=document.querySelector('.b1a-tekst h1, .b1a h1');
                 const r=k.getBoundingClientRect(),kn=k.querySelector('.b1k-knop');
                 return {kaart:r.height>(window.__arr||window.__trust?150:300)&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
                         knop:kn&&kn.classList.contains('mews-open')&&(kn.dataset.voucher||'')===%r}})()""" % VOUCHER)
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
-            if HOTEL:
-                tk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),b=k.querySelector('.b1k-body'),c=getComputedStyle(b),
-                    s=b.firstElementChild;return {trust:k.classList.contains('b1k-kaart--trust'),foto:k.querySelectorAll('img, .b1k-kfoto, .b1k-pill').length,
-                    titel:k.querySelectorAll('h2, .b1k-kop').length,eerste:s.className,vink:k.querySelectorAll('.b1k-vinkjes li').length,
-                    knop:(k.querySelector('.b1k-knop')||{}).innerText,regel:(k.querySelector('.b1k-trust')||{}).innerText,
-                    score:k.querySelectorAll('.b1k-score').length,pt:c.paddingTop,pl:c.paddingLeft,mt:getComputedStyle(s).marginTop}})()""")
-                check(f'{tag} trustkaart: geen foto, label, titel of scorevak; begint met de vinkjes, padding boven = zijkant; 3 vinkjes, knop, regel',
-                      tk['trust'] and tk['foto'] == 0 and tk['titel'] == 0 and tk['eerste'] == 'b1k-vinkjes' and tk['pt'] == tk['pl'] and tk['mt'] == '0px'
-                      and tk['vink'] == 3 and tk['knop'] == 'Bekijk beschikbaarheid' and tk['regel'] == 'Boek direct bij het hotel' and tk['score'] == 0, str(tk))
-                ov = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart').getBoundingClientRect(),f=document.querySelector('.b1a-foto').getBoundingClientRect(),
-                    t=document.querySelector('.b1a-tekst h1').getBoundingClientRect(),g=document.querySelector('.b1a-rb').getBoundingClientRect(),
-                    z=+getComputedStyle(document.querySelector('.b1a-onder')).zIndex;
-                    return {overlap:Math.round(f.bottom-k.top),tekstVrij:Math.round(k.top-t.bottom),badge:g.bottom<=k.top||g.top>=k.bottom,z}})()""")
-                check(f'{tag} trustkaart overlapt de hero (60-80 px), herotekst en Google-badge blijven vrij, kaart boven de video',
-                      60 <= ov['overlap'] <= 80 and ov['tekstVrij'] >= 16 and ov['badge'] and ov['z'] >= 3, str(ov))
-                if shotdir:
-                    pg.evaluate("window.scrollTo(0, document.querySelector('.b1a-mobkaart').getBoundingClientRect().top + scrollY - 260)"); pg.wait_for_timeout(500)
-                    pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-kaart.png')
         else:
             # boekbalk (laatst, laadt de Mews-widget)
             if PRIJS:
