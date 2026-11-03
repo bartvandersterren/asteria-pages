@@ -518,6 +518,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
     .lp .b1a-foto{position:relative;height:680px;overflow:hidden;background:var(--ink);display:flex;align-items:flex-end}
     .lp .b1a-foto>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%}
     @media (max-width:719px){ .lp .b1a-foto>img{object-position:18% 45%} }
+    /* optionele herovideo (blok 'video', zoals de staging-hero): ligt over de foto, onder de overlay; reduced motion = alleen de foto */
+    .lp .b1a-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;pointer-events:none}
+    @media (prefers-reduced-motion:reduce){ .lp .b1a-video{display:none} }
     .lp .b1a-foto::after{content:"";position:absolute;inset:0;pointer-events:none;
       background:linear-gradient(185deg,rgba(68,42,6,.10) 0%,rgba(68,42,6,0) 30%,rgba(68,42,6,.80) 100%),linear-gradient(90deg,rgba(68,42,6,.45) 0%,rgba(68,42,6,0) 55%)}
     .lp .b1a-tekst{position:relative;z-index:2;padding-bottom:100px}
@@ -877,6 +880,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .lp .b1k-kfoto img{width:100%;height:100%;object-fit:cover;display:block}
 .lp .b1k-pill{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;background:var(--terracotta);color:var(--surface);border-radius:var(--radius-pill);padding:5px 12px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;line-height:1.4}
 .lp .b1k-body{padding:22px 24px 24px}
+/* trustkaart (blok 'trustkaart', KAART_IMG leeg): geen foto, titel en scorevak, de kaart begint met de vinkjes; bovenin even veel ruimte als opzij */
+.lp .b1k-kaart--trust .b1k-body{padding-top:24px}
+.lp .b1k-kaart--trust .b1k-score,.lp .b1k-kaart--trust .b1k-body>.b1k-vinkjes:first-child{margin-top:0}
 .lp .b1k-kop{font-family:var(--font-display);font-weight:700;font-size:var(--h4);line-height:1.2;letter-spacing:0;color:var(--ink);margin:0}
 .lp .b1k-cadeau{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:var(--text-sm);line-height:1.35;font-weight:600;color:var(--terracotta-text)}
 .lp .b1k-cadeau-ic{display:inline-flex;align-items:center;justify-content:center;flex:none;width:36px;height:36px;border-radius:var(--radius-chip);background:var(--paper-shade-2);color:var(--terracotta)}
@@ -1097,6 +1103,15 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .b1a-onder{margin-top:24px}
   .lp .b1k-kaart--mob{position:static;box-shadow:var(--shadow-card)}
 }
+/* Trustkaart op de telefoon (blok 'trustkaart'): de kaart overlapt de onderrand van de hero zoals de boekbalk-kaarten op de
+   staging (72 px omhoog, diepere schaduw); de herotekst krijgt evenveel extra ruimte onderaan. Alleen met .b1k-kaart--trust. */
+@media (max-width:719px){
+  .lp .b1a:has(.b1k-kaart--trust) .b1a-tekst{padding-bottom:calc(52px + 72px)}
+  .lp .b1a-onder:has(.b1k-kaart--trust){margin-top:-72px;position:relative;z-index:3}
+  .lp .b1k-kaart--mob.b1k-kaart--trust{box-shadow:var(--shadow-deep)}
+}
+/* Hero zonder introalinea (SUB leeg, zoals de staging-homepage): geen lege regel onder de kop */
+.lp .b1a-sub:empty{display:none}
 
 /* onderbalk telefoon als zwevende balk met belknop (huisstijlhoeken): 60 px hoog, 6 px binnenrand,
    knoppen 48 px; buitenhoek = knophoek (--radius-btn 4) + 6 = 10 px, zodat de rondingen meelopen. Belknop rond. */
@@ -1259,3 +1274,13 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
 .lp .b1k-prijs-basis{flex-basis:100%;margin-top:4px;font-size:var(--text-xs);line-height:1.4;color:var(--ink-soft)}
 .lp .b1k-periode{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:var(--text-sm);font-weight:600;line-height:1.35;color:var(--ink)}
 .lp .b1k-periode .as-icoon{width:18px;height:18px;flex:none;color:var(--terracotta)}
+
+/* ── Gesloten lander (blok 'gesloten', GESLOTEN_LANDER: true): ingekorte staging-kop (logo, telefoon, Boek nu; geen menu
+      of utility-balk) en ingekorte voet (logo, adres, contact, juridisch). Zelfde hoogte en logo als de staging-kop. ── */
+.top-stack--gesloten .main-nav .inner{grid-template-columns:1fr auto auto}
+@media (min-width: 1024px){.top-stack--gesloten .main-nav .inner{grid-template-columns:1fr auto auto}}
+@media (max-width: 1023px){.top-stack--gesloten .nav-cta{display:inline-flex;padding:10px 16px;font-size:14px;min-height:44px}}
+@media (max-width: 380px){.top-stack--gesloten .nav-cta{padding:10px 12px}}
+.footer--gesloten .inner{grid-template-columns:1fr}
+@media (min-width: 720px){.footer--gesloten .inner{grid-template-columns:1fr}}
+@media (min-width: 1024px){.footer--gesloten .inner{grid-template-columns:1fr}.footer--gesloten .footer__brand-block{border-right:0;padding-right:0}}

@@ -1,0 +1,172 @@
+/* ══════════════════════════════════════════════════════════
+   Hotel Asteria, algemene lander (hotel-venray-v2) op lander-w1
+   Alleen geladen via build-blok 'hotel' (laadt na lander-w1.css).
+   Prefix ho-. Blokken: faciliteiten (mozaiek, kiezer verblijfsverjaardag
+   blok 6a, zoals de Parkhotel-lander), omgeving (seizoenslander blok 6i),
+   arrangementen (kaartstijl van Ook interessant, arrangement.css).
+══════════════════════════════════════════════════════════ */
+
+/* Algemene lander: geen pil op de kamerkaarten en geen badge in de kamer-pop-up */
+.lp .b4b-pil{display:none}
+.lp .lp-pop__badge:empty{display:none}
+
+/* ---------- 1. Faciliteiten: tekstkaart + vijf tegels, brede tegels kruiselings ---------- */
+.lp .ho-fac-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:500px 400px;gap:20px}
+.lp .ho-fac-kaart{background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:30px 26px;
+    display:flex;flex-direction:column;gap:14px;min-width:0}
+.lp .ho-fac-kaart p{font-size:15px;line-height:1.6;color:var(--ink)}
+.lp .ho-fac-kaart .btn{margin-top:auto;white-space:normal;text-align:center;align-self:stretch}
+.lp .ho-fac-extra{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.lp .ho-fac-extra li{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink)}
+.lp .ho-fac-extra .b3a-ic{flex:0 0 auto}
+.lp .ho-fac-tegel{position:relative;border-radius:var(--radius-image);overflow:hidden;min-width:0;color:var(--on-ink);
+    box-shadow:var(--shadow-card);background:var(--ink);isolation:isolate}
+.lp .ho-fac-tegel>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;transition:transform .6s var(--ease-soft)}
+.lp .ho-fac-tegel:hover>img{transform:scale(1.03)}
+.lp .ho-fac-tegel::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(to top,rgba(68,42,6,.92) 0%,rgba(68,42,6,.6) 45%,rgba(68,42,6,0) 80%)}
+.lp .ho-fac-tekst{position:absolute;left:0;right:0;bottom:0;padding:26px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.lp .ho-fac-tegel h3{font-size:30px;line-height:1.1;color:var(--on-ink)}
+.lp .ho-fac-tegel p{font-size:14px;line-height:1.55;color:var(--on-ink-body);max-width:40ch}
+.lp .ho-fac-tegel .btn{margin-top:6px}
+.lp .ho-fac-breed{grid-column:span 2}
+@media (max-width:1023px){
+  .lp .ho-fac-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:auto}
+  .lp .ho-fac-kaart{grid-column:span 2}
+  .lp .ho-fac-tegel{height:340px}
+  .lp .ho-fac-breed{grid-column:span 1}
+  .lp .ho-fac-tegel:last-child{grid-column:span 2}
+}
+/* Telefoon: het tegelmozaiek van de staging-homepage (base.css .selector-strip/.tile, mobiel + v5 iter 2 + S6):
+   twee kolommen, rijen van 108 px, 8 px tussenruimte; links hoog + laag, rechts laag + hoog, de vijfde tegel breed
+   over twee rijen. Titel in de serif linksonder, wit rondje met pijl rechtsonder, verloop onderaan. De tekstkaart blijft
+   erboven; de omschrijving staat op de telefoon alleen in de pop-up. De hele tegel is de knop (pop-up). */
+@media (max-width:719px){
+  .lp .ho-fac-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;grid-auto-rows:108px;gap:8px}
+  .lp .ho-fac-kaart{grid-column:1 / -1;grid-row:1;padding:24px 20px;margin-bottom:8px}
+  .lp .ho-fac-kaart .btn{margin-top:6px}
+  .lp .ho-fac-tegel{height:auto;min-height:0}
+  .lp .ho-fac-tegel:nth-child(2){grid-row:2 / span 2;grid-column:1}
+  .lp .ho-fac-tegel:nth-child(3){grid-row:5 / span 2;grid-column:1 / span 2}
+  .lp .ho-fac-tegel:nth-child(4){grid-row:3 / span 2;grid-column:2}
+  .lp .ho-fac-tegel:nth-child(5){grid-row:4;grid-column:1}
+  .lp .ho-fac-tegel:nth-child(6){grid-row:2;grid-column:2}
+  .lp .ho-fac-tegel::after{background:linear-gradient(180deg,rgba(34,20,5,0) 30%,rgba(34,20,5,.6) 60%,rgba(34,20,5,.9) 100%)}
+  .lp .ho-fac-tekst{position:static;padding:0}
+  .lp .ho-fac-tegel h3{position:absolute;left:16px;right:56px;bottom:16px;font-size:20px;line-height:1.05;letter-spacing:-.01em;
+      text-wrap:balance;text-shadow:0 1px 14px rgba(0,0,0,.55)}
+  .lp .ho-fac-tegel p{display:none}
+  .lp .ho-fac-tegel .btn{position:absolute;inset:0;z-index:2;margin:0;padding:0;border:0;border-radius:inherit;
+      background:transparent;color:transparent;font-size:0;min-height:0}
+  .lp .ho-fac-tegel .btn:focus-visible{outline:3px solid var(--terracotta);outline-offset:4px}
+  .lp .ho-fac-tegel:has([data-fac]) .ho-fac-tekst::after{content:"";position:absolute;right:16px;bottom:16px;width:32px;height:32px;
+      border-radius:50%;pointer-events:none;
+      background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C76E4E' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / 18px no-repeat}
+}
+
+/* ---------- 2. Omgeving: staande foto + lijst ---------- */
+.lp .ho-omg-grid{display:grid;grid-template-columns:5fr 7fr;gap:64px;align-items:stretch}
+.lp .ho-omg-foto{width:100%;height:100%;min-height:560px;object-fit:cover;border-radius:var(--radius-image);box-shadow:var(--shadow-card);display:block}
+.lp .ho-omg-tekst{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-width:0}
+.lp .ho-omg-intro{margin-top:18px;max-width:52ch}
+.lp .ho-omg-lijst{list-style:none;margin:30px 0 0;padding:0;border-top:1px solid var(--hairline);align-self:stretch}
+.lp .ho-omg-lijst li{border-bottom:1px solid var(--hairline)}
+.lp .ho-omg-rij{display:grid;grid-template-columns:80px minmax(0,1fr) 20px;align-items:center;gap:22px;padding:18px 0;color:var(--ink)}
+.lp .ho-omg-rij img{width:80px;height:80px;object-fit:cover;border-radius:8px}
+.lp .ho-omg-ic{display:grid;place-items:center;width:80px;height:80px;border-radius:8px;background:var(--paper);color:var(--terracotta)}
+.lp .ho-omg-ic .as-icoon{width:30px;height:30px}
+.lp .ho-omg-naam{display:block;font-family:var(--font-display);font-weight:700;font-size:var(--h4);line-height:1.2}
+.lp .ho-omg-regel{display:block;margin-top:4px;font-size:var(--text-sm);color:var(--ink-soft)}
+.lp .ho-omg-rij>.as-icoon{width:20px;height:20px;color:var(--terracotta);transition:transform .25s var(--ease-soft)}
+.lp .ho-omg-rij:hover .ho-omg-naam{color:var(--terracotta-text)}
+.lp .ho-omg-rij:hover>.as-icoon{transform:translateX(4px)}
+.lp .ho-omg-rij:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
+.lp .ho-omg-knop{margin-top:28px}
+.lp .ho-omg-rij--vast{grid-template-columns:80px minmax(0,1fr)}
+@media (max-width:899px){
+  .lp .ho-omg-grid{grid-template-columns:1fr;gap:26px}
+  .lp .ho-omg-foto{min-height:0;height:auto;aspect-ratio:4/3}
+  .lp .ho-omg-intro{margin-top:14px}
+  .lp .ho-omg-lijst{margin-top:22px}
+  .lp .ho-omg-rij{grid-template-columns:64px minmax(0,1fr);gap:14px;padding:14px 0}
+  .lp .ho-omg-rij img,.lp .ho-omg-ic{width:64px;height:64px}
+  .lp .ho-omg-naam{font-size:18px}
+  .lp .ho-omg-regel{font-size:14px}
+  .lp .ho-omg-rij>.as-icoon{display:none}
+  .lp .ho-omg-rij--vast{grid-template-columns:64px minmax(0,1fr)}
+  .lp .ho-omg-knop{margin-top:22px;align-self:stretch;text-align:center}
+}
+
+/* ---------- 3. Arrangementen: fotokaarten in een veegrij met peek ---------- */
+@media (min-width:720px){ .lp .ho-arr>.wrap{width:min(1216px,100% - 2 * var(--gutter))} }
+.lp .ho-arr-kop{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.lp .ho-arr-kop p{margin-top:12px;max-width:60ch}
+.lp .ho-arr-kop .btn{flex:0 0 auto}
+.lp .ho-arr-rij{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;margin:32px calc(-1 * var(--gutter)) 0;
+    padding:4px var(--gutter) 16px;scroll-padding-left:var(--gutter);scrollbar-width:thin}
+.lp .ho-arr-kaart{position:relative;display:block;flex:0 0 calc((100% - 72px) / 3.4);aspect-ratio:1/1;scroll-snap-align:start;
+    border-radius:var(--radius-card);overflow:hidden;box-shadow:var(--shadow-card);color:var(--on-ink);isolation:isolate}
+.lp .ho-arr-foto{position:absolute;inset:0;z-index:-1;transition:transform .6s var(--ease-soft)}
+.lp .ho-arr-foto img{width:100%;height:100%;object-fit:cover}
+.lp .ho-arr-kaart:hover .ho-arr-foto{transform:scale(1.04)}
+.lp .ho-arr-kaart::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(40,24,4,0) 34%,rgba(40,24,4,.6) 62%,rgba(40,24,4,.9) 100%)}
+.lp .ho-arr-kaart:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
+.lp .ho-arr-tekst{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:6px 14px;padding:24px}
+.lp .ho-arr-naam{grid-column:1;font-family:var(--font-display);font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-.01em;color:var(--on-ink)}
+.lp .ho-arr-regel{grid-column:1;font-size:14px;line-height:1.45;color:var(--on-ink-body)}
+.lp .ho-arr-rond{grid-column:2;grid-row:1/span 2;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;
+    background:var(--terracotta);color:var(--surface)}
+.lp .ho-arr-rond .as-icoon{width:18px;height:18px;transition:transform .25s var(--ease-soft)}
+.lp .ho-arr-kaart:hover .ho-arr-rond .as-icoon{transform:translateX(3px)}
+@media (max-width:719px){
+  .lp .ho-arr-kop{flex-direction:column;align-items:flex-start;gap:18px}
+  .lp .ho-arr-rij{gap:14px;margin-top:22px}
+  .lp .ho-arr-kaart{flex:0 0 calc(100% - 64px);aspect-ratio:4/5}
+  .lp .ho-arr-naam{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  .lp .ho-fac-tegel>img,.lp .ho-arr-foto,.lp .ho-arr-rond .as-icoon,.lp .ho-omg-rij>.as-icoon{transition:none}
+}
+
+/* ---------- Telefoon: hero + boekkaart in het formaat van de staging-homepage (gemeten op 390, 3 nov 2026) ----------
+   Hero 490 px hoog, kop "Even weg, helemaal hier" 44/44 px onderaan (padding 24/20/32), verloop als .hero::after,
+   video-uitsnede 50% 50% van de liggende video. Boekkaart = .booking-bar--stacked.is-full: 24 px over de hero, padding 12,
+   afronding 14, schaduw --shadow-deep, drie velden van 56 px (label 10/600 kapitaal, waarde 16/500, chevron 8 px,
+   hairline 1px rgba(68,42,6,.12)), knop 56 px met pijl. De trust-vinkjes staan als één compacte rij onder de kaart. */
+.lp .hb-kaart,.lp .hb-trust{display:none}
+@media (max-width:719px){
+  .lp .b1a{padding-bottom:0}
+  .top-stack--gesloten .main-nav{padding-top:8px;padding-bottom:8px}   /* kop 60 px zoals de staging */
+  .lp .b1a-foto{height:490px;min-height:0}
+  .lp .b1a-foto>img,.lp .b1a-video{object-position:50% 50%}
+  .lp .b1a-foto::after{background:linear-gradient(185deg,rgba(68,42,6,.10) 0%,rgba(68,42,6,0) 30%,rgba(68,42,6,.75) 100%)}
+  .lp .b1a-tekst{padding:24px 0 32px}
+  .lp .b1a:has(.hb-kaart) .b1a-tekst{padding-bottom:32px}
+  .lp .b1a-tekst h1{font-size:44px;line-height:44px;letter-spacing:-.02em;max-width:14ch}
+  .lp .b1a-onder:has(.hb-kaart){margin-top:-24px;position:relative;z-index:3}
+  .lp .hb-kaart{display:flex;flex-direction:column;padding:12px;border-radius:14px;background:var(--surface);
+      box-shadow:var(--shadow-deep);color:var(--ink);font-family:var(--font-body)}
+  .lp .hb-veld{position:relative;display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 18px 12px}
+  .lp .hb-veld+.hb-veld{min-height:57px;border-top:1px solid rgba(68,42,6,.12)}
+  .lp .hb-veld::after{content:"";flex:0 0 auto;width:8px;height:8px;border-right:1px solid var(--ink-soft);border-bottom:1px solid var(--ink-soft);
+      transform:translate(1.414px,-1.414px) rotate(45deg);pointer-events:none}
+  .lp .hb-stack{display:flex;flex-direction:column;gap:2px;flex:1 1 auto;min-width:0}
+  .lp .hb-label{font-size:10px;line-height:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ink-soft)}
+  .lp .hb-waarde{font-size:16px;line-height:20.8px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lp .hb-waarde.is-leeg{color:var(--ink-soft)}
+  .lp .hb-helft{position:absolute;top:0;bottom:0;width:50%}
+  .lp .hb-helft--a{left:0}
+  .lp .hb-helft--v{right:0}
+  .lp .hb-veld:focus-within{outline:2px solid var(--terracotta);outline-offset:-2px}
+  .lp .hb-knop{display:flex;align-items:center;justify-content:center;gap:8px;min-height:56px;margin-top:12px;padding:15px 20px;border:0;
+      border-radius:4px;background:var(--terracotta);color:var(--surface);font-family:var(--font-body);font-size:16px;font-weight:700;
+      line-height:25.6px;letter-spacing:.16px;cursor:pointer}
+  .lp .hb-knop:hover{background:var(--terracotta-hover)}
+  .lp .hb-knop:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
+  .lp .hb-knop svg{width:16px;height:16px}
+  .lp .hb-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;list-style:none;margin:14px 0 0;padding:0;
+      font-size:13px;line-height:1.3;color:var(--ink-soft)}
+  .lp .hb-trust li{display:inline-flex;align-items:center;gap:6px}
+  .lp .hb-trust .as-icoon{width:15px;height:15px;color:var(--terracotta);flex:none}
+}

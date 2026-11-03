@@ -10,6 +10,8 @@ Gebruik:
   python3 build.py verblijfsverjaardag-v2   # lander W1 (reviewmuur uit content/)
   python3 build.py verblijfsverjaardag-v3   # zelfde sjabloon, blok 'zijkaart' -> verblijfsverjaardag.html (live sinds 14 okt 2026; oude lander -> verblijfsverjaardag-oud.html)
   python3 build.py herfst lente zomer winter   # seizoenslanders (visit.asteria.nl/<seizoen>)
+  python3 build.py hotel-venray-v2      # algemene hotellander (Meta/Google) op lander-w1 met blok 'hotel', zonder actiecode
+  python3 build.py kamertypes-v2        # kamertypes in de nieuwe stijl (lander-w1, blokken 'hotel' + 'kamertypes') -> kamertypes-v2.html
   python3 build.py bedankt welkom-terug gemist verjaardag   # flow-landers op lander-w1 met zijkaart (zoals verblijfsverjaardag-v3)
   python3 build.py welkom-v2           # welkomstlander (code WELKOM) op lander-w1 met zijkaart -> welkom.html (live /welkom; oude NL -> welkom-oud.html)
   python3 build.py najaarsarrangement   # arrangementsjabloon: lander-w1 met blokken zijkaart + arrangement (ook wellness-arrangement,
@@ -160,6 +162,32 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
     } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement')},
+    # Algemene hotellander (tegenhanger van parkhotelhorst.nl/hotel-horst-2/, voor Meta-verkoopads en branded Google Ads):
+    # lander-w1 met blok 'hotel' = geen vouchercode (VOUCHER leeg, zie zonder_voucher), geen tegelstrook en geen
+    # uitklaptab; ster-split = 'Een verblijf dat bij je past'; na de kamers faciliteiten, omgeving en arrangementen
+    # (hotel.css, prefix ho-, lijsten '_faciliteiten', '_fac_extra', '_omgeving', '_arrangementen' via render_hotel).
+    # Alleen NL, noindex, niet in sitemap. Preview op /hotel-venray-v2; /hotel-venray en /lander-google blijven.
+    'hotel-venray-v2': {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': ('hotel-venray-v2.html', 'translations/hotel-venray-v2-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'hotel': True},
+    },
+    # Kamertypes in de nieuwe stijl (nabouw staging /kamers/; live /kamertypes blijft de oude build_kamers.py-pagina tot akkoord):
+    # lander-w1 met blokken 'hotel' (geen actiecode, hotel.css, arrangementenstrook ho-arr) + 'kamertypes' (kamertypes-v2.css/.js,
+    # prefix kt-): subhero met boekbalk, Kies je kamer (filterchips + kaarten met fotogalerij, geen prijzen), Wat in elke kamer
+    # klaarstaat, arrangementen, reviewmuur, Goed om te weten, FAQ, fotowolk. Geen ster-split, kamerslider, faciliteiten, omgeving
+    # of kamer-pop-up. Lijsten in de JSON via render_kamertypes. Alleen NL, noindex, niet in sitemap, gesloten (GESLOTEN_LANDER).
+    'kamertypes-v2': {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': ('kamertypes-v2.html', 'translations/kamertypes-v2-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'hotel': True, 'kamertypes': True},
+    },
     # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
     # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
     # Per seizoen een entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.
@@ -460,6 +488,193 @@ ATTENTIE_ICOON_STANDAARD = {
 }
 
 
+PIJL_SVG = ('<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/>'
+            '<polyline points="12 5 19 12 12 19"/></svg>')
+
+
+def render_hotel(html, data, gesloten=False):
+    """Blok 'hotel' (algemene lander hotel-venray-v2): vult de drie hotelblokken uit lijsten in de JSON.
+      _faciliteiten: precies 5 tegels {titel, regel, img, alt, pos?, knop, url | fac} (fac = sleutel in #lp-facdata: 'wellness',
+                     'restaurant' of een sleutel uit _facdata; opent de faciliteit-pop-up van lander-w1); tegel 2 en 3 zijn breed
+                     (mozaiek zoals Parkhotel); op de telefoon het tegelmozaiek van de staging-homepage (hotel.css).
+      _facdata:      extra pop-ups {sleutel: {titel, link, fotos[4], tekst, chips[4]}}, achter de vaste wellness/restaurant in #lp-facdata.
+      _fac_video:    {sleutel: videopad} = video als eerste beeld in die pop-up (lander-w1.js vulFac; reduced motion = foto).
+      _fac_extra:    lijst {tekst, icoon} onder de tekst van de faciliteitenkaart (icoon = svg-paden).
+      _omgeving:     3 tot 5 rijen {naam, regel, url, img? | icoon?, alt?} (zonder foto een icoon in een zandvakje).
+      _arrangementen: 3 tot 8 kaarten {naam, regel, url, img, alt, pos?}; geen prijzen."""
+    from html import escape
+    fac = data.get('_faciliteiten') or []
+    if '<!-- HO_FAC -->' in html and len(fac) != 5:
+        sys.exit(f'render_hotel: _faciliteiten moet 5 tegels hebben, niet {len(fac)}')
+    tegels = []
+    for i, t in enumerate(fac):
+        breed = ' ho-fac-breed' if i in (1, 2) else ''
+        pos = f' style="object-position:{t["pos"]}"' if t.get('pos') else ''
+        if t.get('fac'):
+            knop = (f'<button type="button" class="btn btn-outline-light btn--klein" data-fac="{t["fac"]}" aria-haspopup="dialog" '
+                    f'aria-label="Meer info over {escape(t["titel"].lower())}">{t["knop"]}</button>')
+        else:
+            knop = f'<a class="btn btn-outline-light btn--klein" href="{t["url"]}">{t["knop"]}</a>'
+        tegels.append(
+            f'        <div class="ho-fac-tegel{breed}">\n'
+            f'          <img src="{t["img"]}" alt="{t["alt"]}"{pos} loading="lazy">\n'
+            f'          <div class="ho-fac-tekst"><h3>{t["titel"]}</h3><p>{t["regel"]}</p>{knop}</div>\n'
+            '        </div>')
+    html = html.replace('<!-- HO_FAC -->', '\n'.join(tegels))
+    if gesloten:   # geen asteria.nl-links in de pop-updata (de knop is dan Bekijk beschikbaarheid)
+        html = re.sub(r'("link": )"https://www\.asteria\.nl[^"]*"', r'\1""', html)
+    extra = data.get('_facdata') or {}
+    if gesloten:
+        extra = {k: dict(v, link='') for k, v in extra.items()}
+    # Video in de faciliteit-pop-up ('_fac_video': {sleutel: pad}); wellness/restaurant staan vast in het sjabloon
+    for k, pad in (data.get('_fac_video') or {}).items():
+        if k in extra:
+            extra[k] = dict(extra[k], video=pad)
+        else:
+            vast = f'\n "{k}": {{\n'
+            if vast not in html:
+                sys.exit(f'render_hotel: _fac_video {k!r} niet gevonden in #lp-facdata')
+            html = html.replace(vast, vast + f'  "video": {json.dumps(pad)},\n', 1)
+    html = html.replace('<!-- HO_FACDATA -->', ',\n'.join(
+        f' {json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}' for k, v in extra.items()))
+    html = html.replace('<!-- HO_FAC_EXTRA -->', ''.join(
+        f'<li><span class="b3a-ic">{icoon(x["icoon"])}</span><span>{x["tekst"]}</span></li>' for x in data.get('_fac_extra') or []))
+    omg = data.get('_omgeving') or []
+    if '<!-- HO_OMG -->' in html and not 3 <= len(omg) <= 5:
+        sys.exit(f'render_hotel: _omgeving moet 3 tot 5 rijen hebben, niet {len(omg)}')
+    rijen = []
+    for r in omg:
+        beeld = (f'<img src="{r["img"]}" alt="{r.get("alt", "")}" loading="lazy" width="80" height="80">' if r.get('img')
+                 else f'<span class="ho-omg-ic" aria-hidden="true">{icoon(r["icoon"])}</span>')
+        url = r.get('url') or ''
+        if gesloten and 'asteria.nl' in url and 'visit.asteria.nl' not in url:
+            url = ''   # gesloten lander: geen links naar asteria.nl
+        tekst = f'<span><span class="ho-omg-naam">{r["naam"]}</span><span class="ho-omg-regel">{r["regel"]}</span></span>'
+        if url:
+            doel = ' target="_blank" rel="noopener"' if url.startswith('https://maps.') else ''
+            rijen.append(f'          <li><a class="ho-omg-rij" href="{url}"{doel}>{beeld}{tekst}{PIJL_SVG}</a></li>')
+        else:
+            rijen.append(f'          <li><div class="ho-omg-rij ho-omg-rij--vast">{beeld}{tekst}</div></li>')
+    html = html.replace('<!-- HO_OMG -->', '\n'.join(rijen))
+    arr = data.get('_arrangementen') or []
+    if not 3 <= len(arr) <= 8:
+        sys.exit(f'render_hotel: _arrangementen moet 3 tot 8 kaarten hebben, niet {len(arr)}')
+    kaarten = []
+    for a in arr:
+        pos = f' style="object-position:{a["pos"]}"' if a.get('pos') else ''
+        kaarten.append(
+            f'        <a class="ho-arr-kaart" href="{a["url"]}">\n'
+            f'          <span class="ho-arr-foto"><img src="{a["img"]}" alt="{a["alt"]}"{pos} loading="lazy"></span>\n'
+            f'          <span class="ho-arr-tekst"><span class="ho-arr-naam">{a["naam"]}</span><span class="ho-arr-regel">{a["regel"]}</span>'
+            f'<span class="ho-arr-rond" aria-hidden="true">{PIJL_SVG}</span></span>\n'
+            '        </a>')
+    return html.replace('<!-- HO_ARR -->', '\n'.join(kaarten))
+
+
+# Mews-categorie per kamer (config 6dc9094c; gelijk aan CATEGORY in build_kamers.py). Junior Suite staat niet op kamertypes-v2.
+KAMER_MEWS = {'comfort': '98900f3b-e5e2-49c9-9776-af1d00ffc315', 'comfort-3': '85ca19d7-eea5-41c8-8b93-af1d00ffc315',
+              'mindervalide': 'fa5b6540-7234-49ce-beb1-af1d00ffc315', 'royale': 'a8fd7310-0d61-422f-89e6-af1d00ffc315',
+              'deluxe': 'c737de50-e41e-4c8d-a818-af1d00ffc315', 'suite': '4a642b66-68e6-444c-beeb-af1d00ffc315',
+              'bruidssuite': 'a9f18d18-561b-47a9-8ba7-b2a800cfd0e2'}
+KT_SPEC_ICOON = {
+    'douche': '<path d="M4 21V7a3 3 0 0 1 3-3h1a3 3 0 0 1 3 3"/><path d="M8 10h6"/><path d="M9 14v.01M12 14v.01M15 14v.01M10.5 17v.01M13.5 17v.01"/>',
+    'rolstoel': '<circle cx="10" cy="4" r="1.6"/><path d="M10 7v6h6l2 5"/><path d="M7.5 10.6a6 6 0 1 0 7.4 7.6"/>',
+}
+
+
+def render_kamertypes(html, data):
+    """Blok 'kamertypes' (kamertypes-v2, nabouw staging /kamers/): vult de kt-blokken uit lijsten in de JSON.
+      _filters:  chips [{sleutel, label}], de eerste = alle kamers (sleutel 'alle').
+      _kamers:   kaarten in volgorde [{sleutel, naam, tekst, kenmerken[], specs[[icoon, tekst]], fotos[{img, alt, pos?}] (precies 3)}];
+                 icoon uit LADDER_ICOON/KT_SPEC_ICOON (m2, bed, personen, sauna, bad, zit, douche, rolstoel); Mews-categorie uit KAMER_MEWS.
+                 Knop 'Boek deze kamer' = .mews-open met data-room (lander-w1.js opent de widget op die kamer). Geen prijzen.
+      _inbegrepen: tegels [{tekst, icoon}] (Wat in elke kamer klaarstaat).
+      _goed_om_te_weten: [{titel, tekst, icoon}].   _faq: [{q, a}] (eerste open)."""
+    from html import escape
+    e = lambda s: escape(s or '', quote=False)
+    a = lambda s: escape(s or '')
+    iconen = dict(LADDER_ICOON, **KT_SPEC_ICOON)
+    kamers = data.get('_kamers') or []
+    if not kamers:
+        sys.exit('render_kamertypes: _kamers ontbreekt')
+    filters = data.get('_filters') or []
+    if not filters or filters[0]['sleutel'] != 'alle':
+        sys.exit("render_kamertypes: _filters moet beginnen met sleutel 'alle'")
+    geldig = {f['sleutel'] for f in filters}
+    kaarten = []
+    for k in kamers:
+        s = k['sleutel']
+        if s not in KAMER_MEWS:
+            sys.exit(f'render_kamertypes: onbekende of uitgesloten kamer {s!r} (kies uit {", ".join(KAMER_MEWS)})')
+        for t in k.get('kenmerken', []):
+            if t not in geldig:
+                sys.exit(f'render_kamertypes: kenmerk {t!r} van {s} staat niet in _filters')
+        fotos = k.get('fotos') or []
+        if len(fotos) != 3:
+            sys.exit(f'render_kamertypes: {s} heeft {len(fotos)} foto\'s, precies 3 nodig')
+        for f in fotos:
+            if not os.path.exists(os.path.join(base, f['img'])):
+                sys.exit(f'render_kamertypes: {f["img"]} bestaat niet')
+        guid = KAMER_MEWS[s]
+        naam = k['naam']
+        imgs = ''.join(
+            f'<img class="kt-dia{" is-actief" if i == 0 else ""}" src="{a(f["img"])}" alt="{a(f["alt"])}"'
+            + (f' style="object-position:{a(f["pos"])}"' if f.get('pos') else '')
+            + (' aria-hidden="true"' if i else '') + ' loading="lazy" width="1400" height="934">'
+            for i, f in enumerate(fotos))
+        dots = ''.join(
+            f'<button type="button" class="kt-dot{" is-actief" if i == 0 else ""}" data-kt-naar="{i}" aria-label="Foto {i + 1} van {len(fotos)}"'
+            + (' aria-current="true"' if i == 0 else '') + '></button>' for i in range(len(fotos)))
+        specs = ''.join(f'<li class="kt-spec"><span class="dot" aria-hidden="true">{icoon(iconen[ic])}</span>{e(t)}</li>' for ic, t in k['specs'])
+        kaarten.append(
+            f'        <article class="kt-kaart" data-kamer="{s}" data-kenmerken="{" ".join(k.get("kenmerken", []))}">\n'
+            f'          <div class="kt-foto" data-kt-galerij role="group" aria-roledescription="fotogalerij" aria-label="Foto\'s van de {a(naam)}">\n'
+            f'            {imgs}\n'
+            f'            <button type="button" class="kt-pijl kt-pijl--vorige" data-kt-stap="-1" aria-label="Vorige foto">{icoon(LADDER_PIJL["links"])}</button>'
+            f'<button type="button" class="kt-pijl kt-pijl--volgende" data-kt-stap="1" aria-label="Volgende foto">{icoon(LADDER_PIJL["chev-r"])}</button>\n'
+            f'            <div class="kt-dots">{dots}</div>\n'
+            '          </div>\n'
+            '          <div class="kt-inhoud">\n'
+            f'            <h3>{e(naam)}</h3>\n'
+            f'            <p class="kt-tekst">{e(k["tekst"])}</p>\n'
+            f'            <ul class="kt-specs">{specs}</ul>\n'
+            f'            <div class="kt-ctas"><a class="btn btn-primary mews-open" data-room="{guid}" '
+            f'href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom={guid}&amp;mewsRoute=rooms" '
+            f'aria-label="Boek de {a(naam)}">Boek deze kamer</a></div>\n'
+            '          </div>\n'
+            '        </article>')
+    html = html.replace('<!-- KT_KAMERS -->', '\n'.join(kaarten))
+    html = html.replace('<!-- KT_TELLING -->', f'<span data-kt-tel>{len(kamers)}</span> <span data-kt-woord>kamertypes</span>')
+    html = html.replace('<!-- KT_FILTERS -->', '\n'.join(
+        f'        <button type="button" class="kt-chip" data-filter="{a(f["sleutel"])}" aria-pressed="{"true" if i == 0 else "false"}">{e(f["label"])}</button>'
+        for i, f in enumerate(filters)))
+    html = html.replace('<!-- KT_INBEGREPEN -->', '\n'.join(
+        f'        <li class="kt-inb-item"><span class="kt-inb-ic" aria-hidden="true">{icoon(x["icoon"])}</span><span class="kt-inb-tekst">{e(x["tekst"])}</span></li>'
+        for x in data.get('_inbegrepen') or []))
+    html = html.replace('<!-- KT_GOW -->', '\n'.join(
+        f'          <div class="kt-gow-feit"><span class="kt-gow-ic" aria-hidden="true">{icoon(x["icoon"])}</span><div><dt>{e(x["titel"])}</dt><dd>{e(x["tekst"])}</dd></div></div>'
+        for x in data.get('_goed_om_te_weten') or []))
+    faq = data.get('_faq') or []
+    if not 4 <= len(faq) <= 8:
+        sys.exit(f'render_kamertypes: _faq moet 4 tot 8 vragen hebben, niet {len(faq)}')
+    html = html.replace('<!-- KT_FAQ -->', '\n'.join(
+        f'          <details class="as-accordeon__item"{" open" if i == 0 else ""}><summary class="as-accordeon__kop">{e(f["q"])}</summary>'
+        f'<div class="as-accordeon__paneel"><p>{e(f["a"])}</p></div></details>'
+        for i, f in enumerate(faq)))
+    return html
+
+
+def zonder_voucher(html):
+    """Lander zonder actiecode (VOUCHER leeg, bijv. hotel-venray-v2): geen lege mewsVoucherCode in de Mews-links,
+    geen lege data-voucher en geen 'met code' in de aria-labels. data-basis van de kamer-pop-up houdt zijn '?'
+    (lander-w1.js plakt er '&mewsRoom=' achter)."""
+    html = html.replace('?mewsVoucherCode=&amp;', '?')
+    html = re.sub(r'href="([^"?]*)\?mewsVoucherCode="', r'href="\1"', html)
+    html = html.replace(' data-voucher=""', '')
+    html = re.sub(r' met code "', '"', html)
+    return html
+
+
 def apply_blokken(html, aan):
     """Varianten binnen een sjabloon zonder template-taal. Een blok staat tussen
     <!--[naam[--> en <!--]naam]-->; <!--[!naam[--> ... <!--]!naam]--> is het omgekeerde.
@@ -620,6 +835,7 @@ def apply_arrangement(html, data):
         html = html.replace(' data-boekbalk ', f' data-boekbalk data-nachten="{nachten}" ')
     if '{{KAL_KOP}}' in html:
         html = apply_kalender(html, data, kamers, nachten)
+        html = markeer_vanaf(html, data['VOUCHER'])
 
     wolk = data.get('_fotowolk')
     if wolk:
@@ -643,6 +859,33 @@ def apply_arrangement(html, data):
 
 WEEKDAGEN = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag']
 KALENDER_JSON = os.path.join(base, 'content', 'arr-kalender.json')
+
+
+def markeer_vanaf(html, code):
+    """Live vanaf-prijs (arr-vanaf.js + /api/arr-vanaf, alleen blok 'arrangement'): zet data-arr-vanaf="<CODE>" om het
+    bedrag in de hero-pil, de zijkaart/telefoonkaart, de inbegrepen-regel en de onderbalk; de vaste prijs uit de JSON
+    blijft de server-side terugval. De Ook-interessant-kaarten krijgen de code van hun eigen arrangement (slug uit
+    content/arr-kalender.json; /najaarsarrangement = NAJAAR2D). Zondagblok en kamerprijzen blijven vast."""
+    bedrag = r'€\s?[0-9.]+(?:,[0-9]{2})?'
+    attr = f' data-arr-vanaf="{code}"'
+    # pil is inline-flex: de hele tekst in één span, anders worden 'vanaf', bedrag en eenheid losse flex-items
+    html = re.sub(r'<span class="b1a-prijspil">([^<]*?)(' + bedrag + r')([^<]*)</span>',
+                  lambda m: f'<span class="b1a-prijspil"><span>{m.group(1)}<span{attr}>{m.group(2)}</span>{m.group(3)}</span></span>', html)
+    html = html.replace('<b class="b1k-prijs-bedrag">', f'<b class="b1k-prijs-bedrag"{attr}>')
+    html = html.replace('<p class="ar-inb-prijs">vanaf <b>', f'<p class="ar-inb-prijs">vanaf <b{attr}>')
+    html = re.sub(r'(<div class="mob-cta"[\s\S]*?<span class="om">[^<]*?)(' + bedrag + ')', lambda m: f'{m.group(1)}<span{attr}>{m.group(2)}</span>', html, count=1)
+    # vaste en live bedrag allebei met een harde spatie: '€' en het getal breken nooit over twee regels
+    html = re.sub(r'(<(?:span|b)[^>]*data-arr-vanaf="[A-Z0-9]+"[^>]*>)€ ', r'\1€&nbsp;', html)
+    with open(os.path.join(base, 'content/arr-kalender.json'), encoding='utf-8') as f:
+        per_slug = {v['slug']: k for k, v in json.load(f).items()}
+    if 'najaarsarrangement-v2' in per_slug:
+        per_slug.setdefault('najaarsarrangement', per_slug['najaarsarrangement-v2'])
+    def ander(m):
+        c = per_slug.get(m.group(2).rstrip('/').rsplit('/', 1)[-1])
+        return m.group(0).replace('<span class="ar-ander-prijs">vanaf <b>', f'<span class="ar-ander-prijs">vanaf <b data-arr-vanaf="{c}">') if c else m.group(0)
+    html = re.sub(r'(<a class="ar-ander" href="([^"]+)">[\s\S]*?</a>)', ander, html)
+    html = re.sub(r'(<b data-arr-vanaf="[A-Z0-9]+">)€ ', r'\1€&nbsp;', html)
+    return html
 
 
 def apply_kalender(html, data, kamers, nachten):
@@ -751,8 +994,29 @@ def build(template_name, lang):
     for k, v in ATTENTIE_ICOON_STANDAARD.items():
         translations.setdefault(k, v)
     translations.setdefault('ATTENTIE_KNOP', translations.get('CTA', ''))
-    aan = ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+    # Gesloten lander: logo linkt naar de pagina zelf (standaard /hotel-venray-v2)
+    translations.setdefault('GESLOTEN_LOGO_URL', '/hotel-venray-v2')
+    # Optionele herovideo (blok 'video'): aan zodra de JSON HERO_VIDEO heeft; HERO_VIDEO_MOBIEL (staand, < 720 px) en
+    # HERO_VIDEO_POSTER vallen terug op HERO_VIDEO en HERO_IMG. Bij prefers-reduced-motion toont lander-w1.css alleen HERO_IMG.
+    if translations.get('HERO_VIDEO'):
+        translations.setdefault('HERO_VIDEO_MOBIEL', translations['HERO_VIDEO'])
+        translations.setdefault('HERO_VIDEO_POSTER', translations.get('HERO_IMG', ''))
+    # Trustkaart (blok 'trustkaart'): KAART_IMG staat leeg in de JSON = boekkaart (telefoon onder de hero, zijkaart) zonder scorevak,
+    # foto, pil en titel; de kaart begint met de vinkjes (alleen de varianten zonder blok arrangement).
+    # Scratchcard-pop-up (blok 'scratchcard', '_popup_scratchcard': true in de JSON): kras & win in stijlvariant 2026
+    # (scratchcard-2026.css), aanmelding via nieuwsbrief.js -> /api/nieuwsbrief (Klaviyo), D1-events via analytics-d1.js.
+    # Los van popup-ab.js (sitebreed uit met POPUP_UIT); geen A/B.
+    # Gesloten lander (blok 'gesloten', GESLOTEN_LANDER: true in de JSON): geen links naar asteria.nl zolang de nieuwe
+    # asteria.nl niet live is. Kop alleen logo + telefoon + Boek nu, voet alleen logo/adres/contact/juridisch, pop-upknop =
+    # Bekijk beschikbaarheid (Mews), geen Alle faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle
+    # kamers; kamerknoppen 'Bekijk beschikbaarheid' (Mews + data-room), geen link naar de kamerpagina's (oude stijl).
+    # Overzichtsknoppen in de nieuwe stijl: OVERZICHT_ARR_URL (Alle arrangementen) en OVERZICHT_KAMERS_URL (Bekijk alle kamers). Volledig menu terug = schakelaar op false.
+    aan = ({'gesloten'} if translations.get('GESLOTEN_LANDER') is True else set()) | ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
+
+    # Staging-boekkaart op de telefoon (blok 'boekkaart'): op de algemene lander (blok 'hotel') vervangt hij de boekkaart onder de hero
+    if 'hotel' in aan:
+        aan.add('boekkaart')
 
     if 'arrangement' in aan:
         # arrangementblokken aan/uit per arrangement in de JSON
@@ -767,6 +1031,11 @@ def build(template_name, lang):
         html = html.replace('<!-- UPGRADE_LADDER -->', render_ladder(ladder))
     if cadeau:
         html = html.replace('<!-- CADEAU_ITEMS -->', render_cadeau(cadeau, cadeau_voet))
+
+    if 'hotel' in aan:
+        html = render_hotel(html, translations, 'gesloten' in aan)
+    if 'kamertypes' in aan:
+        html = render_kamertypes(html, translations)
 
     for key, value in translations.items():
         if isinstance(value, str) and not key.startswith('_'):
@@ -791,8 +1060,24 @@ def build(template_name, lang):
             if n not in (8, 12):
                 sys.exit(f'_reviews_aantal moet 8 of 12 zijn, niet {n!r}')
             html = inject_reviews(html, config['reviews'], max_kaarten=n, voorkeur=translations.get('_reviews_voorkeur'))
+        elif 'kamertypes' in aan:
+            html = inject_reviews(html, config['reviews'], voorkeur=translations.get('_reviews_voorkeur'))
         else:
             html = inject_reviews(html, config['reviews'])
+
+    # Gesloten lander: kamerknoppen heten 'Bekijk beschikbaarheid' (Mews met de kamer voorgeselecteerd via data-room);
+    # geen link naar de kamerpagina's (oude stijl), de kamerinformatie staat in de pop-up.
+    if 'gesloten' in aan:
+        html = re.sub(r'(aria-label="Boek de [^"]*">)Boek nu(</a>)', r'\1Bekijk beschikbaarheid\2', html)
+        # lege OVERZICHT_*_URL = geen overzichtsknop (later met één regel terug)
+        html = html.replace('<a class="btn btn-secondary" href="">Bekijk alle kamers</a>', '')
+        html = html.replace('<a class="btn btn-secondary" href="">' + translations.get('AANBOD_KNOP', '') + '</a>', '')
+        if 'kamertypes' not in aan:   # kamertypes-v2: de kaartknop blijft 'Boek deze kamer' (staging)
+            html = html.replace('>Boek deze kamer</a>', '>Bekijk beschikbaarheid</a>')
+
+    # Zonder actiecode: lege voucher uit de Mews-links en labels
+    if translations.get('VOUCHER', None) == '':
+        html = zonder_voucher(html)
 
     # Mews-boekingslinks in de juiste taal openen (alleen EN/DE)
     html = add_mews_language(html, lang)

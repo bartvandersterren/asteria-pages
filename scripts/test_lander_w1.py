@@ -37,6 +37,16 @@ vertrek = aankomst + data-nachten (ARR_NACHTEN, standaard 1), widget krijgt N na
 De prijskalender (arrangement-kalender.js) staat in deze test uit (eigen test: scripts/test_arr_kalender.py).
 Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
 
+Algemene hotellander (blok 'hotel', zonder actiecode; hotel-venray-v2):
+  ... http://localhost:8765/hotel-venray-v2.html --hotel [--schermafdruk map]
+Telefoon (blok 'boekkaart'): staging-boekkaart over de hero (maten zoals de staging), periode/reisgezelschap/kamertype -> Mews.
+Met --hotel: voucher leeg (geen setVoucherCode, geen mewsVoucherCode/data-voucher in de links, geen actiecodeveld),
+geen tegelstrook, geen uitklaptab en geen zijkaart; ster-split aanwezig; blokvolgorde kamers > faciliteiten > omgeving >
+arrangementen > reviews > FAQ > slot; faciliteiten = tekstkaart + 5 tegels (Wellness/Restaurant openen de faciliteit-pop-up,
+dezelfde pop-upchecks als de tegelstrook), omgeving 3-5 rijen, arrangementkaarten naar bestaande lander-w1-pagina's
+(visit.asteria.nl, bestand in de repo), geen prijzen in die blokken; tags GA4 + Google Ads zoals hotel-venray.html. Met herovideo (blok 'video'): speelt
+af op 1440 en 390 (zelfde liggende bron als de staging), dekt de hero onder de overlay; reduced motion = alleen de foto.
+
 Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER in de JSON: bedankt en gemist):
   ... http://localhost:8765/bedankt.html --v3 --voucher BEDANKT --ladder
 Met --ladder: blok aanwezig (ster-split weg, kop blijft), teller 1 van 5, beginstand (vorige uit), volgende/vorige,
@@ -62,7 +72,10 @@ LADDER_N = 5   # stappen in het upgradeblok: Comfort > Royale > Deluxe > Junior 
 if LADDER: args.remove('--ladder')
 CADEAU = '--cadeau' in args
 if CADEAU: args.remove('--cadeau')
-VOUCHER = 'JUBILEUM'
+HOTEL = '--hotel' in args
+if HOTEL: args.remove('--hotel')
+GESLOTEN = HOTEL   # hotel-venray-v2 heeft GESLOTEN_LANDER: true (geen links naar asteria.nl)
+VOUCHER = '' if HOTEL else 'JUBILEUM'
 if '--voucher' in args:
     i = args.index('--voucher'); VOUCHER = args[i + 1]; del args[i:i + 2]
 PRIJS = None
@@ -78,7 +91,16 @@ fouten, resultaten = [], []
 # __na is een selectorlijst: querySelector geeft het eerste blok na 'inbegrepen' (zondagblok, anders Waarom Asteria, anders kamers).
 ANKERS = ("window.__anker='.ar-inb .wrap';window.__ankerSec='.ar-inb';window.__voor='.ar-inb';window.__na='.ar-zv, .ar-waarom, .b4b';window.__arr=true;"
           if PRIJS else
+          "window.__anker='.b3a .wrap';window.__ankerSec='.b3a';window.__voor='.b3a';window.__na='.b4b';window.__arr=false;window.__trust=true;"
+          if HOTEL else
           "window.__anker='.b2a-strook';window.__ankerSec='.b2a';window.__voor='.b3a';window.__na='.b4b';window.__arr=false;")
+
+FAC = '.ho-fac' if HOTEL else '.b2a-strook'
+FAC_TEGEL = '.ho-fac-tegel' if HOTEL else '.b2a-tegel'
+
+def vc():
+    """Verwachte setVoucherCode-aanroep in de gestubde Mews-API (zonder actiecode: geen)."""
+    return ['v:' + VOUCHER] if VOUCHER else []
 
 def check(naam, ok, info=''):
     resultaten.append((naam, ok, info))
@@ -108,6 +130,10 @@ def nieuwe_pagina(b, w, h, mob, rustig=False):
     ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob,
                         reduced_motion='reduce' if rustig else 'no-preference')
     ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
+    # scratchcard-pop-up (blok 'scratchcard') uit voor deze test; eigen test: scripts/test_scratchcard_2026.py
+    ctx.add_init_script("try{localStorage.setItem('ec_converted','1')}catch(e){}")
+    ctx.route('**/api/track', lambda r: r.fulfill(status=204, body=''))   # D1-events (analytics-d1.js), lokaal geen Function
+    ctx.route('**/api/arr-vanaf*', lambda r: r.fulfill(status=200, content_type='application/json', body='{"ok":true,"prijzen":{}}'))   # live vanaf-prijs: eigen test scripts/test_arr_vanaf_pagina.py
     ctx.add_init_script(ANKERS)
     if PRIJS:
         # De prijskalender (arrangement-kalender.js) vangt de boekknoppen en de boekbalk af; die heeft een eigen test
@@ -142,6 +168,42 @@ with sync_playwright() as p:
         kamers = pg.evaluate("[...document.querySelectorAll('.b4b-kaart:not([data-kloon]) .b4b-knoppen a.mews-open')].map(a=>a.getAttribute('href'))")
         check('[bron] kamerknoppen met mewsRoom en mewsRoute=rooms', kamers and all('mewsRoom=' in k and 'mewsRoute=rooms' in k for k in kamers), str(len(kamers)))
         ctx.close()
+    if HOTEL:
+        import urllib.request, re as _re, os as _os
+        bron = urllib.request.urlopen(URL).read().decode('utf-8')
+        check('[bron] robots noindex, follow', '<meta name="robots" content="noindex, follow">' in bron)
+        check('[bron] geen oude Mews-config bee2f902', 'bee2f902' not in bron)
+        check('[bron] tags zoals hotel-venray.html: GA4, Google Ads, conversielabel, linker accept_incoming',
+              all(t in bron for t in ("gtag/js?id=", "gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } })",
+                                       "gtag('config', 'AW-998609513')", "AW-998609513/t8vbCLm6i7IcEOmkltwD", "gtag('set', 'linker', { accept_incoming: true })")))
+        hrefs = _re.findall(r'href="(https://app\.mews\.com/[^"]*)"', bron)
+        check(f'[bron] alle {len(hrefs)} Mews-links op 6dc9094c, zonder mewsVoucherCode', hrefs and all('6dc9094c-76e3-4fd8-83a7-af1d00ffc556' in h and 'mewsVoucherCode' not in h for h in hrefs))
+        check('[bron] geen data-voucher, geen actiecodeveld, geen "met code"', 'data-voucher' not in bron and 'id="bb-code"' not in bron and ' met code' not in bron)
+        check('[bron] geen tegelstrook, uitklaptab of zijkaart', 'class="sec b2a"' not in bron and 'b1k-uitklap' not in bron and 'lp-zone-kant' not in bron)
+        check('[bron] geen onvervangen {{KEY}}-markers', not _re.findall(r'\{\{[A-Z_0-9]+\}\}', bron))
+        hrefs_alle = _re.findall(r'href="([^"]*)"', bron)
+        mag = lambda h: (h.startswith(('tel:', 'mailto:', '/', '#', 'https://visit.asteria.nl/', 'https://app.mews.com/distributor/6dc9094c'))
+                         or not h.startswith('http') or 'asteria.nl' not in h or h in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden'))
+        fout = [h for h in hrefs_alle if not mag(h)]
+        check('[bron] gesloten lander: geen links naar asteria.nl behalve privacy en algemene voorwaarden', not fout, ', '.join(fout))
+        jur = _re.findall(r'<a href="https://www\.asteria\.nl/(privacy|algemene-voorwaarden)" target="_blank" rel="noopener">', bron)
+        check('[bron] juridische links (voet + cookiemelding) openen in een nieuw tabblad (rel noopener)', set(jur) == {'algemene-voorwaarden', 'privacy'}, str(jur))
+        check('[bron] kop zonder menu, utility-balk, hamburger en mobiel menu; logo naar /hotel-venray-v2',
+              'class="nav-links"' not in bron and 'class="utility-bar"' not in bron and 'nav-hamburger' not in bron and 'id="nav-drawer"' not in bron
+              and '<a href="/hotel-venray-v2" class="logo"' in bron and 'class="nav-phone"' in bron and 'nav-cta mews-open' in bron)
+        kamerp = [h for h in hrefs_alle if h.rstrip('/').rsplit('/', 1)[-1] in ('kamertypes', 'comfort-kamer', 'comfort-kamer-3-personen', 'mindervalide-kamer',
+                                                                           'royale-kamer', 'deluxe-kamer', 'junior-suite', 'suite', 'bruidssuite')]
+        check('[bron] geen links naar /kamertypes of de oude kamerpagina\'s, geen kamerpaginalink in de pop-up',
+              not kamerp and 'lp-pop__link' not in bron, str(kamerp))
+        # OVERZICHT_ARR_URL is leeg tot /arrangementen-v2 live staat (PR #180); dan weer '/arrangementen-v2' verwachten.
+        check('[bron] geen Alle arrangementen en geen Bekijk alle kamers zolang de overzichten niet live zijn (OVERZICHT_*_URL leeg)',
+              'Alle arrangementen' not in bron and 'Bekijk alle kamers' not in bron and 'href=""' not in bron)
+        check('[bron] kamerknoppen heten Bekijk beschikbaarheid (8 kaarten + pop-up), met data-room',
+              len(_re.findall(r'data-room="[^"]+"[^>]*>Bekijk beschikbaarheid</a>', bron)) >= 8 and '>Boek deze kamer<' not in bron and '>Boek nu</a><button' not in bron)
+        check('[bron] voet alleen logo, adres, contact en juridisch (geen kolommen, geen socials)',
+              'footer__socials' not in bron and '<h3>Verblijf</h3>' not in bron and '<h3>Bij ons</h3>' not in bron and '0478 511 466' in bron and 'Maasheseweg 80a' in bron)
+        arr = _re.findall(r'<a class="ho-arr-kaart" href="https://visit\.asteria\.nl/([a-z0-9-]+)"', bron)
+        check(f'[bron] {len(arr)} arrangementkaarten naar bestaande pagina\'s', 3 <= len(arr) <= 8 and all(_os.path.exists(a + '.html') for a in arr), ', '.join(arr))
     for w in ((1280, 1100, 1024, 800) if V3 else (1100, 800)):
         ctx, pg = nieuwe_pagina(b, w, 900, False)
         pg.evaluate("window.scrollTo(0, document.querySelector('.b4b').offsetTop)"); pg.wait_for_timeout(800)
@@ -157,6 +219,12 @@ with sync_playwright() as p:
                 z = pg.evaluate("""()=>{const k=document.querySelector('.lp-zone-kant .b1k-kaart--vast'),r=k.getBoundingClientRect(),a=document.querySelector(window.__voor).getBoundingClientRect(),
                     m=document.querySelector(window.__na).getBoundingClientRect();return {w:r.width,pos:getComputedStyle(k).position,na3a:r.top+scrollY>=a.bottom+scrollY-1,voor4b:r.bottom<=m.top+1}}""")
                 check(f'[{w}] kaart als blok tussen ' + ('inbegrepen en zondagblok' if PRIJS else 'attentie en kamers'), z['w'] > 0 and z['pos'] != 'sticky' and z['na3a'] and z['voor4b'], str(z))
+        elif HOTEL:
+            sw = pg.evaluate('document.documentElement.scrollWidth')
+            check(f'[{w}] geen horizontale overloop', sw <= w, f'scrollWidth {sw}')
+            fz = pg.evaluate("""(()=>{const g=document.querySelector('.ho-fac-grid'),k=[...g.children].map(x=>x.getBoundingClientRect());
+                return {over:g.scrollWidth-g.clientWidth,binnen:k.every(r=>r.right<=g.getBoundingClientRect().right+1)}})()""")
+            check(f'[{w}] faciliteitenmozaiek past in de kolom', fz['over'] <= 0 and fz['binnen'], str(fz))
         else:
             pg.locator('.b1k-tab').click(); pg.wait_for_timeout(700)
             sw = pg.evaluate('document.documentElement.scrollWidth')
@@ -175,7 +243,7 @@ with sync_playwright() as p:
             tekst = pg.evaluate('document.body.innerText')
             rest = [t for t in ('JUBILEUM', 'verblijfsverjaardag', 'Verblijfsverjaardag') if t in tekst]
             check(f'{tag} geen resten van de verblijfsverjaardag in de tekst', not rest, ', '.join(rest))
-            check(f'{tag} code {VOUCHER} in de tekst', VOUCHER in tekst)
+            if VOUCHER: check(f'{tag} code {VOUCHER} in de tekst', VOUCHER in tekst)
 
         # FAQ
         open_ = pg.evaluate("[...document.querySelectorAll('.b6c details')].map(d=>d.open)")
@@ -439,43 +507,56 @@ with sync_playwright() as p:
         bk.scroll_into_view_if_needed(); bk.click(force=True); pg.wait_for_timeout(300)
         r = pg.evaluate('window._mews.slice()')
         check(f'{tag} Boek nu op een kamerkaart roept showRates(kamer) en open() aan, met voucher {VOUCHER}',
-              r == ['v:' + VOUCHER, 'rates:' + kd['kamer'], 'open'], str(r))
+              r == vc() + ['rates:' + kd['kamer'], 'open'], str(r))
         pg.evaluate("delete window.mewsApi")
 
         if PRIJS:
             check(f'{tag} geen tegelstrook (b2a) op de arrangementpagina', pg.evaluate("!document.querySelector('.b2a, .b2a-strook')"))
         else:
             # tegelstrook: Wellness- en Restaurant-knop -> faciliteiten-pop-up
-            for key, titel_v, link_v in (('wellness', 'Wellness op de Top Floor', 'https://www.asteria.nl/wellness'),
-                                         ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')):
-                fk = pg.locator(f'.b2a-strook [data-fac="{key}"]').first
-                tegel = pg.locator(f'.b2a-strook .b2a-tegel:has([data-fac="{key}"])').first
+            FACVIDEO = {}
+            POPS = [('wellness', 'Wellness op de Top Floor', 'https://www.asteria.nl/wellness'),
+                    ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')]
+            if HOTEL:   # extra pop-ups uit '_facdata' (fitness, fietsen, parkeren)
+                fd = pg.evaluate("JSON.parse(document.getElementById('lp-facdata').textContent)")
+                POPS += [(k, v['titel'], v['link']) for k, v in fd.items() if k not in ('wellness', 'restaurant')]
+                FACVIDEO = {k: v['video'] for k, v in fd.items() if v.get('video')}
+            for key, titel_v, link_v in POPS:
+                fk = pg.locator(f'{FAC} [data-fac="{key}"]').first
+                tegel = pg.locator(f'{FAC} {FAC_TEGEL}:has([data-fac="{key}"])').first
                 tegel.scroll_into_view_if_needed()
                 if not mob: tegel.hover()
                 pg.wait_for_timeout(700)
                 fk.click(); pg.wait_for_timeout(1200)
                 f = pg.evaluate("""()=>{const d=document.getElementById('lp-pop-fac'),r=d.getBoundingClientRect(),bi=d.querySelector('.lp-pop__binnen');
-                    const imgs=[...d.querySelectorAll('.lp-pop__hero,.lp-pop__fotos img')];
-                    return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),
-                      fotos:imgs.length,geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length,chips:d.querySelectorAll('.lp-pop__chips li').length,
+                    const imgs=[...d.querySelectorAll('.lp-pop__hero:not([hidden]),.lp-pop__fotos img')],v=d.querySelector('.lp-pop__video:not([hidden])');
+                    return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),knop:d.querySelector('.lp-pop__meer').textContent.trim(),boek:d.querySelector('.lp-pop__meer').classList.contains('mews-open'),
+                      fotos:imgs.length+(v?1:0),geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length+(v&&v.poster?1:0),video:v?{src:v.currentSrc.split('/').pop(),t:v.currentTime,paused:v.paused,muted:v.muted,poster:v.poster.split('/').pop()}:null,chips:d.querySelectorAll('.lp-pop__chips li').length,
                       t:Math.round(r.top),b:Math.round(r.bottom),l:Math.round(r.left),r:Math.round(r.right),
                       scroll:bi.scrollHeight-bi.clientHeight,sw:document.documentElement.scrollWidth}}""")
                 check(f'{tag} {key}-knop opent pop-up met juiste titel, link en geladen foto\'s',
-                      f['open'] and f['titel'] == titel_v and f['link'] == link_v and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
+                      f['open'] and f['titel'] == titel_v and (f['link'] == link_v if not GESLOTEN else (f['link'].startswith('https://app.mews.com/distributor/6dc9094c') and f['boek'] and f['knop'] == 'Bekijk beschikbaarheid')) and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
+                vid = FACVIDEO.get(key)
+                if vid:
+                    pg.wait_for_timeout(1200)
+                    vv = pg.evaluate("(()=>{const v=document.querySelector('#lp-pop-fac .lp-pop__video:not([hidden])');return v?{src:v.currentSrc.split('/').pop(),t:v.currentTime,paused:v.paused,muted:v.muted,poster:!!v.poster}:null})()")
+                    check(f'{tag} {key}-pop-up: video speelt (gedempt) als eerste beeld, poster = eerste foto', bool(vv) and vv['src'] == vid.split('/')[-1]
+                          and vv['t'] > 0.2 and not vv['paused'] and vv['muted'] and vv['poster'], str(vv))
+                    if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-fac-{key}-video-{w}.png')
                 check(f'{tag} {key}-pop-up past in beeld' + (', zonder scrollen' if not mob else ''),
                       f['t'] >= 0 and f['l'] >= 0 and f['r'] <= w and f['b'] <= h and f['sw'] <= w and (mob or f['scroll'] <= 1), str(f))
                 if shotdir:
                     pg.screenshot(path=f'{shotdir}/{NAAM}-fac-{key}-{w}.png')
                 pg.keyboard.press('Escape'); pg.wait_for_timeout(400)
-                dicht = pg.evaluate("""k=>({open:document.getElementById('lp-pop-fac').open,focus:document.activeElement===document.querySelector('.b2a-strook [data-fac="'+k+'"]')})""", key)
+                dicht = pg.evaluate("""([k,f])=>({open:document.getElementById('lp-pop-fac').open,focus:document.activeElement===document.querySelector(f+' [data-fac="'+k+'"]')})""", [key, FAC])
                 check(f'{tag} Escape sluit de {key}-pop-up, focus terug op de knop', not dicht['open'] and dicht['focus'], str(dicht))
             # sluiten via kruisje en via de achtergrond
             def open_wellness():
-                tegel = pg.locator('.b2a-strook .b2a-wellness').first
+                tegel = pg.locator(f'{FAC} {FAC_TEGEL}:has([data-fac="wellness"])').first
                 tegel.scroll_into_view_if_needed()
                 if not mob: tegel.hover()
                 pg.wait_for_timeout(700)
-                pg.locator('.b2a-strook [data-fac="wellness"]').first.click(); pg.wait_for_timeout(500)
+                pg.locator(f'{FAC} [data-fac="wellness"]').first.click(); pg.wait_for_timeout(500)
             open_wellness()
             pg.locator('#lp-pop-fac .lp-pop__sluit').click(); pg.wait_for_timeout(400)
             x1 = pg.evaluate("document.getElementById('lp-pop-fac').open")
@@ -483,6 +564,63 @@ with sync_playwright() as p:
             pg.mouse.click(3, 3); pg.wait_for_timeout(400)
             x2 = pg.evaluate("document.getElementById('lp-pop-fac').open")
             check(f'{tag} kruisje en klik op de achtergrond sluiten de pop-up', not x1 and not x2, f'{x1}/{x2}')
+
+        if HOTEL and pg.evaluate("!!document.querySelector('.b1a-video')"):
+            pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(2500)
+            hv = pg.evaluate("""(()=>{const v=document.querySelector('.b1a-video'),f=document.querySelector('.b1a-foto'),r=v.getBoundingClientRect(),fr=f.getBoundingClientRect(),
+                o=getComputedStyle(f,'::after');return {t:v.currentTime,paused:v.paused,muted:v.muted,loop:v.loop,err:v.error&&v.error.code,
+                src:v.currentSrc.split('/').pop(),poster:v.getAttribute('poster'),dekt:Math.abs(r.width-fr.width)<2&&Math.abs(r.height-fr.height)<2,
+                overlay:o.backgroundImage.includes('gradient'),tekstBoven:+getComputedStyle(document.querySelector('.b1a-tekst')).zIndex>=2}})()""")
+            bron = 'hero-asteria-building-sunset.mp4'   # ook op de telefoon de liggende video, uitsnede 50% 50% zoals de staging
+            check(f'{tag} herovideo speelt af (gedempt, lus), bron {bron}, dekt de hero, overlay + tekst erboven',
+                  hv['t'] > 0.5 and not hv['paused'] and hv['muted'] and hv['loop'] and not hv['err'] and hv['src'] == bron and hv['dekt'] and hv['overlay'] and hv['tekstBoven'], str(hv))
+            if shotdir:
+                pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-video.png')
+
+        if HOTEL:
+            hb = pg.evaluate("""(()=>{const q=s=>document.querySelector(s),y=s=>{const e=q(s);return e?e.getBoundingClientRect().top+scrollY:-1};
+                const fac=q('.ho-fac'),omg=q('.ho-omg'),arr=q('.ho-arr');
+                return {volg:['.b3a','.b4b','.ho-fac','.ho-omg','.ho-arr','.b5a','.b6c','.b7a'].map(y),
+                  ster:!!q('#attentie .b3a-grid'),sterKop:q('#attentie h2').innerText,
+                  tegels:fac.querySelectorAll('.ho-fac-tegel').length,kaart:!!fac.querySelector('.ho-fac-kaart h2'),extra:fac.querySelectorAll('.ho-fac-extra li').length,
+                  facKnoppen:[...fac.querySelectorAll('[data-fac]')].map(b=>b.dataset.fac).join(','),
+                  rijen:omg.querySelectorAll('.ho-omg-rij').length,omgKop:omg.querySelector('h2').innerText,
+                  kaarten:[...arr.querySelectorAll('a.ho-arr-kaart')].map(a=>!!a.querySelector('img')&&!!a.querySelector('.ho-arr-naam').innerText).filter(Boolean).length,
+                  euro:[fac,omg,arr].some(e=>e.innerText.includes('\u20ac')),
+                  arrVeeg:(r=>r.scrollWidth>r.clientWidth)(arr.querySelector('.ho-arr-rij')),
+                  h1:q('.b1a h1').innerText,sub:(q('.b1a-sub')||{offsetHeight:0}).offsetHeight,badge:q('.b1a-rb .rb-reviews').innerText,code:!!q('#bb-code'),pil:[...document.querySelectorAll('.b4b-pil')].some(p=>p.offsetParent)}})()""")
+            v = hb['volg']
+            check(f'{tag} blokvolgorde ster-split > kamers > faciliteiten > omgeving > arrangementen > reviews > FAQ > slot', all(x >= 0 for x in v) and v == sorted(v), str(v))
+            check(f'{tag} hero: kop Even weg, helemaal hier (zonder introalinea), badge 2.200+ reviews, geen actiecodeveld', ' '.join(hb['h1'].split()) == 'Even weg, helemaal hier' and hb['sub'] == 0 and '2.200+' in hb['badge'] and not hb['code'], f"{hb['h1']} / {hb['badge']}")
+            check(f'{tag} ster-split "Een verblijf dat bij je past"', hb['ster'] and 'verblijf dat bij je' in hb['sterKop'].replace('\n', ' '), hb['sterKop'])
+            check(f'{tag} faciliteiten: tekstkaart, 5 tegels, extra punten, elke tegel opent een pop-up',
+                  hb['kaart'] and hb['tegels'] == 5 and hb['extra'] >= 1 and hb['facKnoppen'] == 'wellness,restaurant,fitness,parkeren,fietsen', str(hb))
+            if mob:
+                mz = pg.evaluate("""(()=>[...document.querySelectorAll('.ho-fac-tegel')].map(x=>{const r=x.getBoundingClientRect(),
+                    a=getComputedStyle(x.querySelector('.ho-fac-tekst'),'::after');return {n:x.querySelector('h3').innerText.trim(),l:Math.round(r.left),
+                    t:Math.round(r.top+scrollY),w:Math.round(r.width),h:Math.round(r.height),
+                    pijl:a.content!=='none'&&a.backgroundColor!=='rgba(0, 0, 0, 0)',p:getComputedStyle(x.querySelector('p')).display}}))()""")
+                # volgorde-onafhankelijk: één brede tegel (onderaan), de andere vier in twee kolommen: links hoog boven laag, rechts laag boven hoog
+                smal = min(x['w'] for x in mz)
+                breed = [x for x in mz if x['w'] > smal * 1.8]
+                rest = [x for x in mz if x not in breed]
+                links = sorted([x for x in rest if x['l'] == min(y['l'] for y in rest)], key=lambda x: x['t'])
+                rechts = sorted([x for x in rest if x['l'] != min(y['l'] for y in rest)], key=lambda x: x['t'])
+                ok = (len(breed) == 1 and len(links) == 2 and len(rechts) == 2
+                      and links[0]['h'] > links[1]['h'] and rechts[0]['h'] < rechts[1]['h']
+                      and breed[0]['t'] > max(x['t'] + x['h'] for x in rest) - 1
+                      and all(x['pijl'] and x['p'] == 'none' for x in mz))
+                check(f'{tag} faciliteiten als staging-mozaiek: links hoog+laag, rechts laag+hoog, brede tegel onder, pijl, geen omschrijving', ok, str(mz))
+                check(f'{tag} brede tegel onderaan is Restaurant en brasserie', len(breed) == 1 and breed[0]['n'] == 'Restaurant en brasserie', str([x['n'] for x in breed]))
+            check(f'{tag} omgeving: 3-5 rijen, kop "Even weg, alles vlakbij"', 3 <= hb['rijen'] <= 5 and 'alles vlakbij' in hb['omgKop'], str(hb['rijen']))
+            check(f'{tag} arrangementen: kaarten met foto en naam, veegrij', hb['kaarten'] >= 3 and hb['arrVeeg'], str(hb['kaarten']))
+            check(f'{tag} geen prijzen in faciliteiten, omgeving en arrangementen; geen pil op de kamerkaarten', not hb['euro'] and not hb['pil'])
+            if shotdir:
+                for sel, naam in (('.b3a', 'sterplit'), ('.ho-fac', 'faciliteiten'), ('.ho-omg', 'omgeving'), ('.ho-arr', 'arrangementen')):
+                    pg.evaluate(f"(()=>{{const s=document.querySelector('{sel}');s.querySelectorAll('img').forEach(i=>i.loading='eager');window.scrollTo(0,s.getBoundingClientRect().top+scrollY-document.querySelector('.top-stack').offsetHeight)}})()")
+                    pg.wait_for_timeout(900)
+                    pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-{naam}.png')
+                pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(300)
 
         # reviewmuur
         kol = pg.evaluate("document.querySelectorAll('.b5a-muur.is-loop .b5a-kol').length")
@@ -548,19 +686,21 @@ with sync_playwright() as p:
                 pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
                 pg.locator('.lp-zone-kant .b1k-knop').click(); pg.wait_for_timeout(300)
                 r = pg.evaluate('window._mews.slice()')
-                check(f'{tag} knop in de kaart opent Mews met voucher {VOUCHER}', r == ['v:' + VOUCHER, 'open'], str(r))
+                check(f'{tag} knop in de kaart opent Mews met voucher {VOUCHER}', r == vc() + ['open'], str(r))
                 pg.evaluate("delete window.mewsApi")
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(400)
 
         # uitklaptab (alleen >= 720): verborgen bovenaan, zichtbaar na de hero, weg bij slotblok 7a
         tabst = lambda: pg.evaluate("""()=>{const u=document.querySelector('.b1k-uitklap'),t=u.querySelector('.b1k-tab'),r=t.getBoundingClientRect(),cs=getComputedStyle(t);
             return {zicht:cs.display!=='none'&&cs.visibility==='visible'&&r.width>0&&r.left<innerWidth,aria:u.getAttribute('aria-hidden'),tab:t.getAttribute('tabindex')}}""")
-        if not V3:
+        if not V3 and not HOTEL:
           pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(600)
           t0 = tabst()
           pg.evaluate("window.scrollTo(0, document.querySelector('.b4b').offsetTop)"); pg.wait_for_timeout(900)
           t1 = tabst()
-        if V3:
+        if HOTEL:
+            check(f'{tag} geen uitklaptab en geen zijkaart', pg.evaluate("!document.querySelector('.b1k-uitklap, .b1k-tab, .b1k-paneel, .lp-zone-kant')"))
+        elif V3:
             pass
         elif mob:
             check(f'{tag} uitklaptab niet zichtbaar op de telefoon', not t0['zicht'] and not t1['zicht'], f"{t0} / {t1}")
@@ -591,7 +731,7 @@ with sync_playwright() as p:
             pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},open:()=>window._mews.push('open')}}""")
             pg.locator('.b1k-paneel .b1k-knop').click(); pg.wait_for_timeout(300)
             r = pg.evaluate('window._mews.slice()')
-            check(f'{tag} knop in de kaart opent Mews met voucher {VOUCHER}', r == ['v:' + VOUCHER, 'open'], str(r))
+            check(f'{tag} knop in de kaart opent Mews met voucher {VOUCHER}', r == vc() + ['open'], str(r))
             pg.evaluate("delete window.mewsApi")
             pg.evaluate("document.querySelector('.b7a').scrollIntoView({block:'center'})"); pg.wait_for_timeout(900)
             t2 = tabst()
@@ -600,12 +740,49 @@ with sync_playwright() as p:
             check(f'{tag} uitklaptab weg bij het slotblok en daarna', not t2['zicht'] and not t3['zicht'] and t2['aria'] == 'true', f"{t2} / {t3}")
         pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(400)
 
-        if mob:
+        if mob and HOTEL:
+            # telefoon, algemene lander: de staging-boekkaart (hero 490, kop 44 px, kaart 24 px over de hero, 3 velden + knop)
+            sb = pg.evaluate("""(()=>{const r=e=>{const b=e.getBoundingClientRect();return [Math.round(b.left),Math.round(b.top+scrollY),Math.round(b.width),Math.round(b.height)]};
+                const k=document.querySelector('.b1a-mobkaart .hb-kaart'),f=document.querySelector('.b1a-foto'),h=document.querySelector('.b1a-tekst h1'),g=document.querySelector('.b1a-rb');
+                const kr=k.getBoundingClientRect(),fr=f.getBoundingClientRect(),hr=h.getBoundingClientRect(),gr=g.getBoundingClientRect();
+                return {oudeKaart:document.querySelectorAll('.b1a-mobkaart .b1k-kaart').length,balkWeg:getComputedStyle(document.querySelector('.b1a-balk')).display==='none',
+                  hero:r(f),h1fs:getComputedStyle(h).fontSize,kaart:r(k),overlap:Math.round(fr.bottom-kr.top),kopVrij:Math.round(kr.top-hr.bottom),
+                  badge:gr.bottom<=kr.top,rad:getComputedStyle(k).borderRadius,
+                  labels:[...k.querySelectorAll('.hb-label')].map(x=>x.innerText.trim().toLowerCase()),waarden:[...k.querySelectorAll('.hb-waarde')].map(x=>x.innerText.trim()),
+                  velden:[...k.querySelectorAll('.hb-veld')].map(x=>Math.round(x.getBoundingClientRect().height)),knop:k.querySelector('.hb-knop').innerText.trim(),
+                  trust:[...document.querySelectorAll('.b1a-mobkaart .hb-trust li')].map(x=>x.innerText.trim()),
+                  trustOnder:document.querySelector('.hb-trust').getBoundingClientRect().top>=kr.bottom}})()""")
+            check(f'{tag} staging-boekkaart in plaats van de oude kaart en de datumbalk', sb['oudeKaart'] == 0 and sb['balkWeg'], str(sb))
+            check(f'{tag} hero als de staging: 490 hoog, kop 44 px, kaart 24 px over de hero, kop en badge vrij, afronding 14',
+                  sb['hero'][3] == 490 and sb['h1fs'] == '44px' and sb['overlap'] == 24 and sb['kopVrij'] >= 0 and sb['badge'] and sb['rad'] == '14px', str(sb))
+            check(f'{tag} kaart: Aankomst en vertrek / Reisgezelschap / Type kamer, velden 56-57 px, knop Bekijk beschikbaarheid',
+                  sb['labels'] == ['aankomst en vertrek', 'reisgezelschap', 'type kamer'] and sb['waarden'] == ['Kies een periode', '2 volwassenen', 'Alle types']
+                  and all(56 <= x <= 57 for x in sb['velden']) and sb['knop'] == 'Bekijk beschikbaarheid' and sb['kaart'][3] == 262, str(sb))
+            check(f'{tag} trust-vinkjes als compacte rij onder de kaart', len(sb['trust']) == 3 and sb['trustOnder'], str(sb['trust']))
+            if shotdir:
+                pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-kaart.png')
+            # koppeling met Mews: periode, reisgezelschap en kamertype (gestubde widget-API)
+            a = date.today() + timedelta(days=30)
+            pg.fill('#hb-aankomst', a.isoformat())
+            per = pg.locator('[data-periode]').inner_text()
+            check(f'{tag} periode toont aankomst en vertrek (+1 nacht)', str(a.day) in per and str((a + timedelta(days=1)).day) in per and '\u2013' in per, per)
+            pg.select_option('#hb-gasten', '3'); pg.select_option('#hb-kamer', 'a8fd7310-0d61-422f-89e6-af1d00ffc315')
+            zicht = [x.strip() for x in pg.locator('.hb-kaart .hb-waarde').all_inner_texts()]
+            check(f'{tag} zichtbare waarden volgen de keuze', zicht[1] == '3 volwassenen' and zicht[2] == 'Royale kamer', str(zicht))
+            pg.evaluate("""()=>{window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},setStartDate:d=>window._mews.push('start'),
+                setEndDate:d=>window._mews.push('eind'),setAdultCount:n=>window._mews.push('n:'+n),showRates:r=>window._mews.push('rates:'+r),showRooms:()=>{},open:()=>window._mews.push('open')}}""")
+            pg.locator('.hb-knop').click(); pg.wait_for_timeout(300)
+            r = pg.evaluate('window._mews.slice()'); log = pg.evaluate('window.lpBoekbalk') or {}
+            check(f'{tag} knop opent Mews met datums, 3 volwassenen en de Royale kamer voorgeselecteerd',
+                  r == ['start', 'eind', 'n:3', 'rates:a8fd7310-0d61-422f-89e6-af1d00ffc315', 'open'] and 'mewsRoom=a8fd7310' in log.get('url', '')
+                  and f'mewsStart={a.isoformat()}' in log.get('url', '') and 'mewsAdultCount=3' in log.get('url', ''), f"{r} {log.get('url')}")
+            pg.evaluate("delete window.mewsApi")
+        elif mob:
             # telefoon: boekkaart in plaats van de datumbalk
             mk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),f=document.querySelector('.b1a-balk'),h=document.querySelector('.b1a-tekst h1, .b1a h1');
                 const r=k.getBoundingClientRect(),kn=k.querySelector('.b1k-knop');
-                return {kaart:r.height>(window.__arr?150:300)&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
-                        knop:kn&&kn.classList.contains('mews-open')&&kn.dataset.voucher===%r}})()""" % VOUCHER)
+                return {kaart:r.height>(window.__arr||window.__trust?150:300)&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
+                        knop:kn&&kn.classList.contains('mews-open')&&(kn.dataset.voucher||'')===%r}})()""" % VOUCHER)
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
         else:
             # boekbalk (laatst, laadt de Mews-widget)
@@ -667,6 +844,14 @@ with sync_playwright() as p:
         verwacht = (8 if PRIJS else 9) if w == 1440 else 5
         totaal = pg.evaluate("document.querySelectorAll('.b5a-muur .b5a-kaart').length")
         check(f'{tag} reduced-motion: statische muur', not st['loop'] and st['zicht'] == min(verwacht, totaal), str(st))
+        if HOTEL and pg.evaluate("!!document.querySelector('.b1a-video')"):
+            rm = pg.evaluate("(()=>{const v=document.querySelector('.b1a-video'),i=document.querySelector('.b1a-foto>img');return {video:getComputedStyle(v).display,foto:i.complete&&i.naturalWidth>0&&getComputedStyle(i).display!=='none'}})()")
+            check(f'{tag} reduced-motion: geen video, alleen de poster/foto', rm['video'] == 'none' and rm['foto'], str(rm))
+            fk = pg.locator('.ho-fac [data-fac="wellness"]').first; fk.scroll_into_view_if_needed(); fk.click(force=True); pg.wait_for_timeout(800)
+            rf = pg.evaluate("(()=>{const d=document.getElementById('lp-pop-fac'),v=d.querySelector('.lp-pop__video'),h=d.querySelector('.lp-pop__hero');return {open:d.open,video:!!(v&&!v.hidden&&v.getAttribute('src')),foto:!h.hidden&&!!h.getAttribute('src')}})()")
+            check(f'{tag} reduced-motion: wellness-pop-up zonder video, met foto', rf['open'] and not rf['video'] and rf['foto'], str(rf))
+            pg.keyboard.press('Escape'); pg.wait_for_timeout(300)
+            if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-reduced-motion.png')
         if shotdir:
             pg.evaluate("document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager')")
             pg.wait_for_timeout(1500)

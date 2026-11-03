@@ -190,6 +190,50 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `ATTENTIE_ICOON_STANDAARD`) en `ATTENTIE_KNOP` (ontbreekt = tekst van CTA, leeg = geen knop; build-blok `attentie-knop`).
 - Vaste feiten (Stijn, 14 okt 2026): Royale en Deluxe 25 m²; badjas te leen; ontbijt ma-vr 07.00-10.00, za-zo 08.00-10.30;
   VERJAARDAG = verblijf rond je verjaardag, verjaardag melden bij het boeken; Google-reviews 2.280 (hero-badge mag "2.200+").
+- Algemene hotellander `hotel-venray-v2` (3 nov 2026, preview, tegenhanger van parkhotelhorst.nl/hotel-horst-2/ voor Meta/branded Google):
+  build-blok `hotel` = geen actiecode (`VOUCHER` leeg; build.py `zonder_voucher` haalt lege mewsVoucherCode/data-voucher/"met code" weg),
+  geen tegelstrook, uitklaptab of zijkaart; ster-split = "Een verblijf dat bij je past"; na de kamers drie eigen blokken uit lijsten in
+  `translations/hotel-venray-v2-nl.json` (build.py `render_hotel`, stijl `hotel.css`, prefix `ho-`): faciliteiten (mozaiek kiezerblok 6a,
+  `_faciliteiten` precies 5, `_fac_extra`), omgeving (`_omgeving` 3-5), arrangementen (`_arrangementen` 3-8, geen prijzen).
+  Extra tag `gtag('set','linker',{accept_incoming:true})` zoals hotel-venray.html. Test: `... /hotel-venray-v2.html --hotel`.
+- Kamertypes in de nieuwe stijl `kamertypes-v2` (3 nov 2026, preview op PR #179; live /kamertypes = oude build_kamers.py tot akkoord):
+  lander-w1 met blokken `hotel` + `kamertypes` (build.py `render_kamertypes`, `kamertypes-v2.css`/`.js`, prefix `kt-`), nabouw van
+  staging /kamers/: subhero (`.b1a--sub`, 480/300 px, boekbalk ook op de telefoon, geen boekkaart), Kies je kamer (filterchips
+  `_filters` + kaarten `_kamers`: 3 foto's met crossfade/pijlen/bolletjes, specs, knop Boek deze kamer = Mews met data-room uit
+  `KAMER_MEWS`; geen prijzen, geen Junior Suite, geen knop naar de kamerpagina's; contactkaart vult de laatste rij), Wat in elke
+  kamer klaarstaat (`_inbegrepen`), arrangementen (ho-arr), reviewmuur (`_reviews_voorkeur`), Goed om te weten (`_goed_om_te_weten`),
+  FAQ (`_faq`, 4-8), fotowolk. Ster-split, kamerslider, faciliteiten, omgeving en kamer-pop-up staan uit (`<!--[!kamertypes[-->`).
+  Gesloten: logo naar `GESLOTEN_LOGO_URL` (standaard /hotel-venray-v2). Herofoto `fotos/l26-kamertypes-hero.webp` (P1081257).
+- Optionele herovideo op lander-w1 (blok `video`, aan met `HERO_VIDEO` in de JSON; `HERO_VIDEO_MOBIEL` = staande bron < 720 px via
+  `<source media>`, `HERO_VIDEO_POSTER`; terugval HERO_VIDEO/HERO_IMG). Video van de staging-homepage op staging-kwaliteit:
+  `videos/hero-asteria-building-sunset.mp4` = staging-origineel 1:1 (1280x720, stream copy + faststart, zonder audio), ook op de
+  telefoon (zelfde uitsnede 50% 50% als de staging; de staande -mobiel.mp4 is vervallen), poster `fotos/hero-asteria-building-sunset.webp` = frame 0, 1280x720, webp 90.
+  Reduced motion = alleen HERO_IMG (lander-w1.css `.b1a-video`).
+- Trustkaart (blok `trustkaart`, aan met lege `KAART_IMG` in de JSON): boekkaart onder de hero (telefoon) en zijkaart zonder foto,
+  pil, titel en Google-scorevak (de score staat al in de herobadge); begint met de vinkjes (`.b1k-kaart--trust`). Alleen hotel-venray-v2.
+- Staging-boekkaart op de telefoon (blok `boekkaart`, aan met blok `hotel`): vervangt op hotel-venray-v2 de boekkaart onder de hero door
+  de kaart van de staging-homepage (.booking-bar--stacked: Aankomst en vertrek / Reisgezelschap / Type kamer + Bekijk beschikbaarheid,
+  24 px over de hero van 490 px, kop 44 px; CSS `hb-` in hotel.css). Velden = form[data-boekbalk] van lander-w1.js; nieuw daar
+  (alleen actief als de elementen bestaan): `[data-periode]` (één regel met aankomst en vertrek, linker/rechter helft = twee native
+  datumvelden) en `[data-rol="kamer"]` (kamertype -> mewsRoom/mewsRoute=rooms en showRates). Trust-vinkjes als compacte rij eronder.
+- Scratchcard-pop-up op lander-w1 (blok `scratchcard`, aan met `"_popup_scratchcard": true` in de JSON; nu alleen hotel-venray-v2):
+  zet `window.ScratchcardConfig = {stijl:'2026'}` en laadt `scratchcard-2026.css`, `analytics-d1.js` (window.track, zelfde D1-events
+  als hotel-venray.html), `nieuwsbrief.js` (backend klaviyo) en `scratchcard-popup.js`. Stijl 2026 = overlay `data-stijl="2026"`,
+  kraslaag zand/goud, logo uit de kop, focus-trap, vaste trigger (desktop exit-intent; telefoon 45% scroll of 20 s), onderbalk weg
+  zolang hij open is. Zonder config gedraagt `scratchcard-popup.js` zich als voorheen; sitebreed blijft `popup-ab.js` uit (POPUP_UIT).
+  Aanmelding: `/api/nieuwsbrief` (taal nl -> Klaviyo-lijst `WfwqBR`, bron scratchcard). Test: `scripts/test_scratchcard_2026.py`
+  (gemockte API) + `node --test scripts/test_nieuwsbrief_lijst.mjs`.
+- Gesloten lander (blok `gesloten`, `"GESLOTEN_LANDER": true` in de JSON; nu hotel-venray-v2, besluit Stijn 3 nov 2026: zolang
+  de nieuwe asteria.nl niet live is geen links naar asteria.nl): kop alleen logo (-> /hotel-venray-v2), telefoon en Boek nu
+  (`.top-stack--gesloten`), voet alleen logo, adres, telefoon, mail en privacy/voorwaarden in nieuw tabblad (`.footer--gesloten`);
+  faciliteit-pop-up knop = Bekijk beschikbaarheid (Mews, `data-boek`, lander-w1.js zet dan geen asteria-link), geen Alle
+  faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle kamers, omgevingsregels zonder asteria-link;
+  kamerknoppen (kaart + pop-up) = Bekijk beschikbaarheid (Mews met data-room), geen link naar de kamerpagina's (oude stijl).
+  Overzichtsknoppen naar de nieuwe-stijlpagina's via JSON: `OVERZICHT_ARR_URL` (nu /arrangementen-v2, PR #180) en
+  `OVERZICHT_KAMERS_URL` (nu leeg = geen knop; later bv. /kamertypes-v2, tak feature/kamers-v2). Leeg veld = geen knop.
+- Faciliteit-pop-up met video: `_fac_video` {sleutel: pad} in de JSON (hotel-venray-v2: wellness -> videos/wellness-walk-pop.mp4,
+  fitness -> videos/gym-pop.mp4, lichte H.264-varianten 960 px zonder audio); lander-w1.js vulFac maakt het `<video>` pas aan als er
+  een video is (HTML van andere pagina's gelijk), poster = eerste foto, reduced motion = foto. Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 
@@ -293,6 +337,14 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   - Test: `python3 scripts/test_arr_kalender.py http://localhost:8765/najaarsarrangement.html [--echt] [--schermafdruk qa/arr-kalender]`
     (mockt /api/arr-kalender; `--echt` tegen `npx wrangler pages dev . --port 8788` of de preview). `test_lander_w1.py` zet de
     kalender in arrangementmodus uit (lege arrangement-kalender.js), zodat de oude Mews-checks blijven gelden.
+- **Live vanaf-prijs (nov 2026, PR #179, pas live na merge):** `functions/api/arr-vanaf.js` (`GET /api/arr-vanaf?codes=WELLNESS2026,...`)
+  met de kern in `arr-vanaf-kern.js`: laagste echte prijs (berekende zondagkorting telt niet) van de standaardkamer in de komende
+  56 dagen, EUR ceil(cent/100/2) zoals de kalendercel (p.p. per nacht, bij vaste nachten p.p. voor het verblijf). Dagprijzen via de
+  eigen `/api/arr-kalender` (per maand/deel, na elkaar: parallel gaf 429 van Mews); onbekende code overgeslagen, geen prijs/fout = null.
+  Edge-cache 3 uur (5 min als onvolledig), CORS *. Pagina: build.py `markeer_vanaf` zet `data-arr-vanaf="<CODE>"` om het bedrag in
+  hero-pil, zij-/telefoonkaart, inbegrepen-regel, onderbalk en Ook-interessant (code via slug); vaste JSON-prijs = terugval;
+  `arr-vanaf.js` vervangt alleen het bedrag. Zondagblok en kamerprijzen blijven vast. Flow-landers en hotel-venray-v2 laden het niet.
+  Tests: `node --test scripts/test_arr_vanaf.mjs`, `python3 scripts/test_arr_vanaf_pagina.py [--basis URL]` (gemockte API, fout, null).
 - Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
   geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).
