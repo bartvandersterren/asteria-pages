@@ -606,8 +606,11 @@
     chips.textContent = '';
     (f.chips || []).forEach(function (t) { chips.appendChild(maak('li', null, t)); });
     var meer = popFac.querySelector('.lp-pop__meer');
-    meer.setAttribute('href', f.link);
-    meer.setAttribute('aria-label', 'Meer over ' + f.titel.toLowerCase() + ' op asteria.nl');
+    /* data-boek (gesloten lander): de knop is 'Bekijk beschikbaarheid' (Mews), geen link naar asteria.nl */
+    if (!meer.hasAttribute('data-boek')) {
+      meer.setAttribute('href', f.link);
+      meer.setAttribute('aria-label', 'Meer over ' + f.titel.toLowerCase() + ' op asteria.nl');
+    }
     return true;
   }
 

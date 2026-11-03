@@ -478,7 +478,7 @@ PIJL_SVG = ('<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><line 
             '<polyline points="12 5 19 12 12 19"/></svg>')
 
 
-def render_hotel(html, data):
+def render_hotel(html, data, gesloten=False):
     """Blok 'hotel' (algemene lander hotel-venray-v2): vult de drie hotelblokken uit lijsten in de JSON.
       _faciliteiten: precies 5 tegels {titel, regel, img, alt, pos?, knop, url | fac} (fac = sleutel in #lp-facdata: 'wellness',
                      'restaurant' of een sleutel uit _facdata; opent de faciliteit-pop-up van lander-w1); tegel 2 en 3 zijn breed
@@ -506,7 +506,11 @@ def render_hotel(html, data):
             f'          <div class="ho-fac-tekst"><h3>{t["titel"]}</h3><p>{t["regel"]}</p>{knop}</div>\n'
             '        </div>')
     html = html.replace('<!-- HO_FAC -->', '\n'.join(tegels))
+    if gesloten:   # geen asteria.nl-links in de pop-updata (de knop is dan Bekijk beschikbaarheid)
+        html = re.sub(r'("link": )"https://www\.asteria\.nl[^"]*"', r'\1""', html)
     extra = data.get('_facdata') or {}
+    if gesloten:
+        extra = {k: dict(v, link='') for k, v in extra.items()}
     html = html.replace('<!-- HO_FACDATA -->', ',\n'.join(
         f' {json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}' for k, v in extra.items()))
     html = html.replace('<!-- HO_FAC_EXTRA -->', ''.join(
@@ -518,9 +522,15 @@ def render_hotel(html, data):
     for r in omg:
         beeld = (f'<img src="{r["img"]}" alt="{r.get("alt", "")}" loading="lazy" width="80" height="80">' if r.get('img')
                  else f'<span class="ho-omg-ic" aria-hidden="true">{icoon(r["icoon"])}</span>')
-        doel = ' target="_blank" rel="noopener"' if r['url'].startswith('https://maps.') else ''
-        rijen.append(f'          <li><a class="ho-omg-rij" href="{r["url"]}"{doel}>{beeld}<span><span class="ho-omg-naam">{r["naam"]}</span>'
-                     f'<span class="ho-omg-regel">{r["regel"]}</span></span>{PIJL_SVG}</a></li>')
+        url = r.get('url') or ''
+        if gesloten and 'asteria.nl' in url and 'visit.asteria.nl' not in url:
+            url = ''   # gesloten lander: geen links naar asteria.nl
+        tekst = f'<span><span class="ho-omg-naam">{r["naam"]}</span><span class="ho-omg-regel">{r["regel"]}</span></span>'
+        if url:
+            doel = ' target="_blank" rel="noopener"' if url.startswith('https://maps.') else ''
+            rijen.append(f'          <li><a class="ho-omg-rij" href="{url}"{doel}>{beeld}{tekst}{PIJL_SVG}</a></li>')
+        else:
+            rijen.append(f'          <li><div class="ho-omg-rij ho-omg-rij--vast">{beeld}{tekst}</div></li>')
     html = html.replace('<!-- HO_OMG -->', '\n'.join(rijen))
     arr = data.get('_arrangementen') or []
     if not 3 <= len(arr) <= 8:
@@ -877,7 +887,11 @@ def build(template_name, lang):
     # Scratchcard-pop-up (blok 'scratchcard', '_popup_scratchcard': true in de JSON): kras & win in stijlvariant 2026
     # (scratchcard-2026.css), aanmelding via nieuwsbrief.js -> /api/nieuwsbrief (Klaviyo), D1-events via analytics-d1.js.
     # Los van popup-ab.js (sitebreed uit met POPUP_UIT); geen A/B.
-    aan = ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+    # Gesloten lander (blok 'gesloten', GESLOTEN_LANDER: true in de JSON): geen links naar asteria.nl zolang de nieuwe
+    # asteria.nl niet live is. Kop alleen logo + telefoon + Boek nu, voet alleen logo/adres/contact/juridisch, pop-upknop =
+    # Bekijk beschikbaarheid (Mews), geen Alle faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op;
+    # 'Bekijk alle kamers' -> /kamertypes. Volledig menu terug = schakelaar op false.
+    aan = ({'gesloten'} if translations.get('GESLOTEN_LANDER') is True else set()) | ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
     if 'arrangement' in aan:
@@ -895,7 +909,7 @@ def build(template_name, lang):
         html = html.replace('<!-- CADEAU_ITEMS -->', render_cadeau(cadeau, cadeau_voet))
 
     if 'hotel' in aan:
-        html = render_hotel(html, translations)
+        html = render_hotel(html, translations, 'gesloten' in aan)
 
     for key, value in translations.items():
         if isinstance(value, str) and not key.startswith('_'):

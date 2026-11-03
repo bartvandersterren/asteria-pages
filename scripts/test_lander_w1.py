@@ -74,6 +74,7 @@ CADEAU = '--cadeau' in args
 if CADEAU: args.remove('--cadeau')
 HOTEL = '--hotel' in args
 if HOTEL: args.remove('--hotel')
+GESLOTEN = HOTEL   # hotel-venray-v2 heeft GESLOTEN_LANDER: true (geen links naar asteria.nl)
 VOUCHER = '' if HOTEL else 'JUBILEUM'
 if '--voucher' in args:
     i = args.index('--voucher'); VOUCHER = args[i + 1]; del args[i:i + 2]
@@ -180,6 +181,18 @@ with sync_playwright() as p:
         check('[bron] geen data-voucher, geen actiecodeveld, geen "met code"', 'data-voucher' not in bron and 'id="bb-code"' not in bron and ' met code' not in bron)
         check('[bron] geen tegelstrook, uitklaptab of zijkaart', 'class="sec b2a"' not in bron and 'b1k-uitklap' not in bron and 'lp-zone-kant' not in bron)
         check('[bron] geen onvervangen {{KEY}}-markers', not _re.findall(r'\{\{[A-Z_0-9]+\}\}', bron))
+        hrefs_alle = _re.findall(r'href="([^"]*)"', bron)
+        mag = lambda h: (h.startswith(('tel:', 'mailto:', '/', '#', 'https://visit.asteria.nl/', 'https://app.mews.com/distributor/6dc9094c'))
+                         or not h.startswith('http') or 'asteria.nl' not in h or h in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden'))
+        fout = [h for h in hrefs_alle if not mag(h)]
+        check('[bron] gesloten lander: geen links naar asteria.nl behalve privacy en algemene voorwaarden', not fout, ', '.join(fout))
+        jur = _re.findall(r'<a href="https://www\.asteria\.nl/(privacy|algemene-voorwaarden)" target="_blank" rel="noopener">', bron)
+        check('[bron] juridische links (voet + cookiemelding) openen in een nieuw tabblad (rel noopener)', set(jur) == {'algemene-voorwaarden', 'privacy'}, str(jur))
+        check('[bron] kop zonder menu, utility-balk, hamburger en mobiel menu; logo naar /hotel-venray-v2',
+              'class="nav-links"' not in bron and 'class="utility-bar"' not in bron and 'nav-hamburger' not in bron and 'id="nav-drawer"' not in bron
+              and '<a href="/hotel-venray-v2" class="logo"' in bron and 'class="nav-phone"' in bron and 'nav-cta mews-open' in bron)
+        check('[bron] voet alleen logo, adres, contact en juridisch (geen kolommen, geen socials)',
+              'footer__socials' not in bron and '<h3>Verblijf</h3>' not in bron and '<h3>Bij ons</h3>' not in bron and '0478 511 466' in bron and 'Maasheseweg 80a' in bron)
         arr = _re.findall(r'<a class="ho-arr-kaart" href="https://visit\.asteria\.nl/([a-z0-9-]+)"', bron)
         check(f'[bron] {len(arr)} arrangementkaarten naar bestaande pagina\'s', 3 <= len(arr) <= 8 and all(_os.path.exists(a + '.html') for a in arr), ', '.join(arr))
     for w in ((1280, 1100, 1024, 800) if V3 else (1100, 800)):
@@ -506,12 +519,12 @@ with sync_playwright() as p:
                 fk.click(); pg.wait_for_timeout(1200)
                 f = pg.evaluate("""()=>{const d=document.getElementById('lp-pop-fac'),r=d.getBoundingClientRect(),bi=d.querySelector('.lp-pop__binnen');
                     const imgs=[...d.querySelectorAll('.lp-pop__hero,.lp-pop__fotos img')];
-                    return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),
+                    return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),knop:d.querySelector('.lp-pop__meer').textContent.trim(),boek:d.querySelector('.lp-pop__meer').classList.contains('mews-open'),
                       fotos:imgs.length,geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length,chips:d.querySelectorAll('.lp-pop__chips li').length,
                       t:Math.round(r.top),b:Math.round(r.bottom),l:Math.round(r.left),r:Math.round(r.right),
                       scroll:bi.scrollHeight-bi.clientHeight,sw:document.documentElement.scrollWidth}}""")
                 check(f'{tag} {key}-knop opent pop-up met juiste titel, link en geladen foto\'s',
-                      f['open'] and f['titel'] == titel_v and f['link'] == link_v and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
+                      f['open'] and f['titel'] == titel_v and (f['link'] == link_v if not GESLOTEN else (f['link'].startswith('https://app.mews.com/distributor/6dc9094c') and f['boek'] and f['knop'] == 'Bekijk beschikbaarheid')) and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
                 check(f'{tag} {key}-pop-up past in beeld' + (', zonder scrollen' if not mob else ''),
                       f['t'] >= 0 and f['l'] >= 0 and f['r'] <= w and f['b'] <= h and f['sw'] <= w and (mob or f['scroll'] <= 1), str(f))
                 if shotdir:

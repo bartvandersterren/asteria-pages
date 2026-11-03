@@ -210,6 +210,12 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   zolang hij open is. Zonder config gedraagt `scratchcard-popup.js` zich als voorheen; sitebreed blijft `popup-ab.js` uit (POPUP_UIT).
   Aanmelding: `/api/nieuwsbrief` (taal nl -> Klaviyo-lijst `WfwqBR`, bron scratchcard). Test: `scripts/test_scratchcard_2026.py`
   (gemockte API) + `node --test scripts/test_nieuwsbrief_lijst.mjs`.
+- Gesloten lander (blok `gesloten`, `"GESLOTEN_LANDER": true` in de JSON; nu hotel-venray-v2, besluit Stijn 3 nov 2026: zolang
+  de nieuwe asteria.nl niet live is geen links naar asteria.nl): kop alleen logo (-> /hotel-venray-v2), telefoon en Boek nu
+  (`.top-stack--gesloten`), voet alleen logo, adres, telefoon, mail en privacy/voorwaarden in nieuw tabblad (`.footer--gesloten`);
+  faciliteit-pop-up knop = Bekijk beschikbaarheid (Mews, `data-boek`, lander-w1.js zet dan geen asteria-link), geen Alle
+  faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op, omgevingsregels zonder asteria-link, Bekijk alle kamers ->
+  /kamertypes. Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 

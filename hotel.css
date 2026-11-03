@@ -82,6 +82,7 @@
 .lp .ho-omg-rij:hover>.as-icoon{transform:translateX(4px)}
 .lp .ho-omg-rij:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
 .lp .ho-omg-knop{margin-top:28px}
+.lp .ho-omg-rij--vast{grid-template-columns:80px minmax(0,1fr)}
 @media (max-width:899px){
   .lp .ho-omg-grid{grid-template-columns:1fr;gap:26px}
   .lp .ho-omg-foto{min-height:0;height:auto;aspect-ratio:4/3}
@@ -92,6 +93,7 @@
   .lp .ho-omg-naam{font-size:18px}
   .lp .ho-omg-regel{font-size:14px}
   .lp .ho-omg-rij>.as-icoon{display:none}
+  .lp .ho-omg-rij--vast{grid-template-columns:64px minmax(0,1fr)}
   .lp .ho-omg-knop{margin-top:22px;align-self:stretch;text-align:center}
 }
 
