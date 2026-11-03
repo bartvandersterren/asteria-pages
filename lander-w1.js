@@ -398,6 +398,20 @@
     });
   }
 
+  /* laatste invoer: toetsenbord of aanwijzer (voor de focusrand van het pop-upkruisje) */
+  var laatsteToets = false;
+  document.addEventListener('keydown', function (e) { if (e.key === 'Tab' || e.key === 'Enter' || e.key === ' ') laatsteToets = true; }, true);
+  document.addEventListener('pointerdown', function () {
+    laatsteToets = false;
+    var open = document.querySelector('.lp-pop.lp-pop--muis');
+    if (open) open.classList.remove('lp-pop--muis');
+  }, true);
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    var open = document.querySelector('.lp-pop.lp-pop--muis');
+    if (open) open.classList.remove('lp-pop--muis');
+  }, true);
+
   /* ── mobiele drawer ── */
   var drawer = document.getElementById('nav-drawer');
   var hamburger = document.querySelector('.nav-hamburger');
@@ -502,6 +516,8 @@
       if (popOverlay) popOverlay.hidden = false;
     }
     var sluit = d.querySelector('.lp-pop__sluit');
+    /* geopend met muis/touch: focus op het kruisje zonder focusrand; met toetsenbord blijft de rand zichtbaar */
+    d.classList.toggle('lp-pop--muis', !laatsteToets);
     if (sluit) sluit.focus();
   }
 

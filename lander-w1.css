@@ -942,6 +942,7 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
 .lp .lp-pop__sluit svg{width:22px;height:22px}
 .lp .lp-pop__sluit:hover{background:var(--ink);color:var(--surface)}
 .lp .lp-pop__sluit:focus-visible{outline:3px solid var(--terracotta);outline-offset:2px}
+.lp .lp-pop--muis .lp-pop__sluit:focus-visible{outline:none}
 .lp .lp-pop__media{position:relative;aspect-ratio:2/1;background:var(--paper-shade)}
 .lp .lp-pop__media video,.lp .lp-pop__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .lp .lp-pop__media [hidden]{display:none}
