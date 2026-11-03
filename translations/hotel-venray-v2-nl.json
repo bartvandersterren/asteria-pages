@@ -9,6 +9,8 @@
     "Fitness: Technogym volgens de Fotobank (foto-index); Life Fitness niet gevonden, dus niet genoemd. Openingstijden niet genoemd."
   ],
   "GESLOTEN_LANDER": true,
+  "OVERZICHT_ARR_URL": "/arrangementen-v2",
+  "OVERZICHT_KAMERS_URL": "/kamertypes-v2",
   "PAGE_TITLE": "Hotel Asteria Venray | Familiehotel met wellness aan de A73",
   "META_DESC": "Welkom bij Hotel Asteria, waar Limburgse gastvrijheid voelt als thuiskomen. Slaap in een sfeervolle kamer, kom tot rust in ruim 300 m² wellness op de Top Floor en schuif 's avonds aan in ons eigen restaurant.",
   "CANONICAL_URL": "https://visit.asteria.nl/hotel-venray-v2",
@@ -280,6 +282,10 @@
         "Vier laadpunten"
       ]
     }
+  },
+  "_fac_video": {
+    "wellness": "videos/wellness-walk-pop.mp4",
+    "fitness": "videos/gym-pop.mp4"
   },
   "_popup_scratchcard": true
 }

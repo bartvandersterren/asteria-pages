@@ -223,7 +223,12 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   (`.top-stack--gesloten`), voet alleen logo, adres, telefoon, mail en privacy/voorwaarden in nieuw tabblad (`.footer--gesloten`);
   faciliteit-pop-up knop = Bekijk beschikbaarheid (Mews, `data-boek`, lander-w1.js zet dan geen asteria-link), geen Alle
   faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle kamers, omgevingsregels zonder asteria-link;
-  kamerknoppen (kaart + pop-up) = Bekijk beschikbaarheid (Mews met data-room), geen link naar de kamerpagina's (oude stijl). Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.
+  kamerknoppen (kaart + pop-up) = Bekijk beschikbaarheid (Mews met data-room), geen link naar de kamerpagina's (oude stijl).
+  Overzichtsknoppen naar de nieuwe-stijlpagina's via JSON: `OVERZICHT_ARR_URL` (nu /arrangementen-v2, PR #180) en
+  `OVERZICHT_KAMERS_URL` (nu /kamertypes-v2, tak feature/kamers-v2); 404 op de preview tot die gemerged zijn.
+- Faciliteit-pop-up met video: `_fac_video` {sleutel: pad} in de JSON (hotel-venray-v2: wellness -> videos/wellness-walk-pop.mp4,
+  fitness -> videos/gym-pop.mp4, lichte H.264-varianten 960 px zonder audio); lander-w1.js vulFac maakt het `<video>` pas aan als er
+  een video is (HTML van andere pagina's gelijk), poster = eerste foto, reduced motion = foto. Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 

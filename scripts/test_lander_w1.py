@@ -193,8 +193,10 @@ with sync_playwright() as p:
               and '<a href="/hotel-venray-v2" class="logo"' in bron and 'class="nav-phone"' in bron and 'nav-cta mews-open' in bron)
         kamerp = [h for h in hrefs_alle if h.rstrip('/').rsplit('/', 1)[-1] in ('kamertypes', 'comfort-kamer', 'comfort-kamer-3-personen', 'mindervalide-kamer',
                                                                            'royale-kamer', 'deluxe-kamer', 'junior-suite', 'suite', 'bruidssuite')]
-        check('[bron] geen links naar /kamertypes of kamerpagina\'s, geen Bekijk alle kamers of kamerpaginalink in de pop-up',
-              not kamerp and 'Bekijk alle kamers' not in bron and 'lp-pop__link' not in bron, str(kamerp))
+        check('[bron] geen links naar /kamertypes of de oude kamerpagina\'s, geen kamerpaginalink in de pop-up',
+              not kamerp and 'lp-pop__link' not in bron, str(kamerp))
+        check('[bron] overzichtsknoppen naar de nieuwe-stijlpagina\'s (OVERZICHT_ARR_URL, OVERZICHT_KAMERS_URL)',
+              '<a class="btn btn-secondary" href="/arrangementen-v2">Alle arrangementen</a>' in bron and '<a class="btn btn-secondary" href="/kamertypes-v2">Bekijk alle kamers</a>' in bron)
         check('[bron] kamerknoppen heten Bekijk beschikbaarheid (8 kaarten + pop-up), met data-room',
               len(_re.findall(r'data-room="[^"]+"[^>]*>Bekijk beschikbaarheid</a>', bron)) >= 8 and '>Boek deze kamer<' not in bron and '>Boek nu</a><button' not in bron)
         check('[bron] voet alleen logo, adres, contact en juridisch (geen kolommen, geen socials)',
@@ -511,11 +513,13 @@ with sync_playwright() as p:
             check(f'{tag} geen tegelstrook (b2a) op de arrangementpagina', pg.evaluate("!document.querySelector('.b2a, .b2a-strook')"))
         else:
             # tegelstrook: Wellness- en Restaurant-knop -> faciliteiten-pop-up
+            FACVIDEO = {}
             POPS = [('wellness', 'Wellness op de Top Floor', 'https://www.asteria.nl/wellness'),
                     ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')]
             if HOTEL:   # extra pop-ups uit '_facdata' (fitness, fietsen, parkeren)
                 fd = pg.evaluate("JSON.parse(document.getElementById('lp-facdata').textContent)")
                 POPS += [(k, v['titel'], v['link']) for k, v in fd.items() if k not in ('wellness', 'restaurant')]
+                FACVIDEO = {k: v['video'] for k, v in fd.items() if v.get('video')}
             for key, titel_v, link_v in POPS:
                 fk = pg.locator(f'{FAC} [data-fac="{key}"]').first
                 tegel = pg.locator(f'{FAC} {FAC_TEGEL}:has([data-fac="{key}"])').first
@@ -524,13 +528,20 @@ with sync_playwright() as p:
                 pg.wait_for_timeout(700)
                 fk.click(); pg.wait_for_timeout(1200)
                 f = pg.evaluate("""()=>{const d=document.getElementById('lp-pop-fac'),r=d.getBoundingClientRect(),bi=d.querySelector('.lp-pop__binnen');
-                    const imgs=[...d.querySelectorAll('.lp-pop__hero,.lp-pop__fotos img')];
+                    const imgs=[...d.querySelectorAll('.lp-pop__hero:not([hidden]),.lp-pop__fotos img')],v=d.querySelector('.lp-pop__video:not([hidden])');
                     return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),knop:d.querySelector('.lp-pop__meer').textContent.trim(),boek:d.querySelector('.lp-pop__meer').classList.contains('mews-open'),
-                      fotos:imgs.length,geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length,chips:d.querySelectorAll('.lp-pop__chips li').length,
+                      fotos:imgs.length+(v?1:0),geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length+(v&&v.poster?1:0),video:v?{src:v.currentSrc.split('/').pop(),t:v.currentTime,paused:v.paused,muted:v.muted,poster:v.poster.split('/').pop()}:null,chips:d.querySelectorAll('.lp-pop__chips li').length,
                       t:Math.round(r.top),b:Math.round(r.bottom),l:Math.round(r.left),r:Math.round(r.right),
                       scroll:bi.scrollHeight-bi.clientHeight,sw:document.documentElement.scrollWidth}}""")
                 check(f'{tag} {key}-knop opent pop-up met juiste titel, link en geladen foto\'s',
                       f['open'] and f['titel'] == titel_v and (f['link'] == link_v if not GESLOTEN else (f['link'].startswith('https://app.mews.com/distributor/6dc9094c') and f['boek'] and f['knop'] == 'Bekijk beschikbaarheid')) and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
+                vid = FACVIDEO.get(key)
+                if vid:
+                    pg.wait_for_timeout(1200)
+                    vv = pg.evaluate("(()=>{const v=document.querySelector('#lp-pop-fac .lp-pop__video:not([hidden])');return v?{src:v.currentSrc.split('/').pop(),t:v.currentTime,paused:v.paused,muted:v.muted,poster:!!v.poster}:null})()")
+                    check(f'{tag} {key}-pop-up: video speelt (gedempt) als eerste beeld, poster = eerste foto', bool(vv) and vv['src'] == vid.split('/')[-1]
+                          and vv['t'] > 0.2 and not vv['paused'] and vv['muted'] and vv['poster'], str(vv))
+                    if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-fac-{key}-video-{w}.png')
                 check(f'{tag} {key}-pop-up past in beeld' + (', zonder scrollen' if not mob else ''),
                       f['t'] >= 0 and f['l'] >= 0 and f['r'] <= w and f['b'] <= h and f['sw'] <= w and (mob or f['scroll'] <= 1), str(f))
                 if shotdir:
@@ -816,6 +827,10 @@ with sync_playwright() as p:
         if HOTEL and pg.evaluate("!!document.querySelector('.b1a-video')"):
             rm = pg.evaluate("(()=>{const v=document.querySelector('.b1a-video'),i=document.querySelector('.b1a-foto>img');return {video:getComputedStyle(v).display,foto:i.complete&&i.naturalWidth>0&&getComputedStyle(i).display!=='none'}})()")
             check(f'{tag} reduced-motion: geen video, alleen de poster/foto', rm['video'] == 'none' and rm['foto'], str(rm))
+            fk = pg.locator('.ho-fac [data-fac="wellness"]').first; fk.scroll_into_view_if_needed(); fk.click(force=True); pg.wait_for_timeout(800)
+            rf = pg.evaluate("(()=>{const d=document.getElementById('lp-pop-fac'),v=d.querySelector('.lp-pop__video'),h=d.querySelector('.lp-pop__hero');return {open:d.open,video:!!(v&&!v.hidden&&v.getAttribute('src')),foto:!h.hidden&&!!h.getAttribute('src')}})()")
+            check(f'{tag} reduced-motion: wellness-pop-up zonder video, met foto', rf['open'] and not rf['video'] and rf['foto'], str(rf))
+            pg.keyboard.press('Escape'); pg.wait_for_timeout(300)
             if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-reduced-motion.png')
         if shotdir:
             pg.evaluate("document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager')")

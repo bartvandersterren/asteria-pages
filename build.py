@@ -498,6 +498,7 @@ def render_hotel(html, data, gesloten=False):
                      'restaurant' of een sleutel uit _facdata; opent de faciliteit-pop-up van lander-w1); tegel 2 en 3 zijn breed
                      (mozaiek zoals Parkhotel); op de telefoon het tegelmozaiek van de staging-homepage (hotel.css).
       _facdata:      extra pop-ups {sleutel: {titel, link, fotos[4], tekst, chips[4]}}, achter de vaste wellness/restaurant in #lp-facdata.
+      _fac_video:    {sleutel: videopad} = video als eerste beeld in die pop-up (lander-w1.js vulFac; reduced motion = foto).
       _fac_extra:    lijst {tekst, icoon} onder de tekst van de faciliteitenkaart (icoon = svg-paden).
       _omgeving:     3 tot 5 rijen {naam, regel, url, img? | icoon?, alt?} (zonder foto een icoon in een zandvakje).
       _arrangementen: 3 tot 8 kaarten {naam, regel, url, img, alt, pos?}; geen prijzen."""
@@ -525,6 +526,15 @@ def render_hotel(html, data, gesloten=False):
     extra = data.get('_facdata') or {}
     if gesloten:
         extra = {k: dict(v, link='') for k, v in extra.items()}
+    # Video in de faciliteit-pop-up ('_fac_video': {sleutel: pad}); wellness/restaurant staan vast in het sjabloon
+    for k, pad in (data.get('_fac_video') or {}).items():
+        if k in extra:
+            extra[k] = dict(extra[k], video=pad)
+        else:
+            vast = f'\n "{k}": {{\n'
+            if vast not in html:
+                sys.exit(f'render_hotel: _fac_video {k!r} niet gevonden in #lp-facdata')
+            html = html.replace(vast, vast + f'  "video": {json.dumps(pad)},\n', 1)
     html = html.replace('<!-- HO_FACDATA -->', ',\n'.join(
         f' {json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}' for k, v in extra.items()))
     html = html.replace('<!-- HO_FAC_EXTRA -->', ''.join(
@@ -999,7 +1009,8 @@ def build(template_name, lang):
     # Gesloten lander (blok 'gesloten', GESLOTEN_LANDER: true in de JSON): geen links naar asteria.nl zolang de nieuwe
     # asteria.nl niet live is. Kop alleen logo + telefoon + Boek nu, voet alleen logo/adres/contact/juridisch, pop-upknop =
     # Bekijk beschikbaarheid (Mews), geen Alle faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle
-    # kamers; kamerknoppen 'Bekijk beschikbaarheid' (Mews + data-room), geen link naar de kamerpagina's (oude stijl). Volledig menu terug = schakelaar op false.
+    # kamers; kamerknoppen 'Bekijk beschikbaarheid' (Mews + data-room), geen link naar de kamerpagina's (oude stijl).
+    # Overzichtsknoppen in de nieuwe stijl: OVERZICHT_ARR_URL (Alle arrangementen) en OVERZICHT_KAMERS_URL (Bekijk alle kamers). Volledig menu terug = schakelaar op false.
     aan = ({'gesloten'} if translations.get('GESLOTEN_LANDER') is True else set()) | ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 

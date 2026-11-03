@@ -591,15 +591,40 @@
     /* grote foto + drie kleine eronder (zelfde .lp-pop__fotos als de kamer-pop-up) */
     var fotos = f.fotos || [];
     var hero = popFac.querySelector('.lp-pop__hero');
-    hero.src = fotos[0] || '';
-    hero.alt = f.titel + ' bij Hotel Asteria';
+    /* optionele video (f.video, zoals de kamer-pop-up): eerste beeld vóór de foto's, poster = eerste foto, pas laden bij
+       openen, pauzeren/leegmaken bij sluiten (opruimen); reduced motion = alleen de foto. Het <video>-element wordt pas
+       aangemaakt als een faciliteit een video heeft, zodat de HTML van pagina's zonder faciliteitvideo gelijk blijft. */
+    var video = popFac.querySelector('.lp-pop__video');
+    var metVideo = !!(f.video && !rustig);
+    if (metVideo && !video) {
+      video = maak('video', 'lp-pop__video');
+      video.muted = true; video.loop = true; video.playsInline = true;
+      video.setAttribute('muted', ''); video.setAttribute('playsinline', ''); video.setAttribute('loop', '');
+      video.setAttribute('preload', 'none'); video.setAttribute('aria-label', 'Video');
+      hero.parentNode.insertBefore(video, hero);
+    }
+    var rijFotos;
+    if (metVideo) {
+      hero.hidden = true; hero.removeAttribute('src');
+      video.hidden = false;
+      video.poster = fotos[0] || '';
+      video.setAttribute('aria-label', 'Video van ' + f.titel.toLowerCase());
+      video.src = f.video;
+      var pv = video.play(); if (pv && pv.catch) pv.catch(function () {});
+      rijFotos = fotos.slice(0, 3);
+    } else {
+      if (video) { video.hidden = true; video.removeAttribute('src'); video.removeAttribute('poster'); }
+      hero.hidden = false;
+      hero.src = fotos[0] || '';
+      hero.alt = f.titel + ' bij Hotel Asteria';
+      rijFotos = fotos.slice(1, 4);
+    }
     var rij = popFac.querySelector('.lp-pop__fotos');
     rij.textContent = '';
-    var rijFotos = fotos.slice(1, 4);
     rij.setAttribute('data-n', rijFotos.length);
     rijFotos.forEach(function (src, i) {
       var img = maak('img');
-      img.src = src; img.alt = f.titel + ', foto ' + (i + 2); img.loading = 'lazy'; img.decoding = 'async';
+      img.src = src; img.alt = f.titel + ', foto ' + (i + (metVideo ? 1 : 2)); img.loading = 'lazy'; img.decoding = 'async';
       rij.appendChild(img);
     });
     popFac.querySelector('.lp-pop__titel').textContent = f.titel;
