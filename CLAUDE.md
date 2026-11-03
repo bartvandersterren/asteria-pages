@@ -314,7 +314,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `_extra` = statische kaarten zonder eigen JSON (Kerst, Oud & Nieuw, Oud en Nieuw Bridge, links naar www.asteria.nl/arrangementen/...,
   categorie `feest`, geen zondagkorting); `_volgorde` = volgorde van alle 9 kaarten. Najaar linkt naar /najaarsarrangement. Geen Happy Summer.
 - Kaartknoppen linken naar de arrangementpagina (geen directe Mews-boeking): vaste nachten en aankomstdagen dwingt alleen de prijskalender daar af.
-- Test: `python3 -m http.server <poort>` + Playwright (desktop 1440, mobiel 390): overflow, 6 kaarten, chips, keuzehulp (actief/1 nacht -> golf,
+- Test: `python3 -m http.server <poort>` + Playwright (desktop 1440, mobiel 390): overflow, 9 kaarten, chips (feest 3, zondag 5), keuzehulp (actief/1 nacht -> golf, feestdagen -> feestkaart,
   vr-za + 2 nachten -> weekend), kamer-pop-up zonder voucher. Promotie naar /arrangementen (indexeerbaar, sitemap, menulink, EN/DE) pas na akkoord Stijn.
 
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
