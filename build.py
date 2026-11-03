@@ -834,7 +834,12 @@ def build(template_name, lang):
     for k, v in ATTENTIE_ICOON_STANDAARD.items():
         translations.setdefault(k, v)
     translations.setdefault('ATTENTIE_KNOP', translations.get('CTA', ''))
-    aan = ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+    # Optionele herovideo (blok 'video'): aan zodra de JSON HERO_VIDEO heeft; HERO_VIDEO_MOBIEL (staand, < 720 px) en
+    # HERO_VIDEO_POSTER vallen terug op HERO_VIDEO en HERO_IMG. Bij prefers-reduced-motion toont lander-w1.css alleen HERO_IMG.
+    if translations.get('HERO_VIDEO'):
+        translations.setdefault('HERO_VIDEO_MOBIEL', translations['HERO_VIDEO'])
+        translations.setdefault('HERO_VIDEO_POSTER', translations.get('HERO_IMG', ''))
+    aan = ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
     if 'arrangement' in aan:

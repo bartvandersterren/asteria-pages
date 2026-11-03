@@ -43,7 +43,8 @@ Met --hotel: voucher leeg (geen setVoucherCode, geen mewsVoucherCode/data-vouche
 geen tegelstrook, geen uitklaptab en geen zijkaart; ster-split aanwezig; blokvolgorde kamers > faciliteiten > omgeving >
 arrangementen > reviews > FAQ > slot; faciliteiten = tekstkaart + 5 tegels (Wellness/Restaurant openen de faciliteit-pop-up,
 dezelfde pop-upchecks als de tegelstrook), omgeving 3-5 rijen, arrangementkaarten naar bestaande lander-w1-pagina's
-(visit.asteria.nl, bestand in de repo), geen prijzen in die blokken; tags GA4 + Google Ads zoals hotel-venray.html.
+(visit.asteria.nl, bestand in de repo), geen prijzen in die blokken; tags GA4 + Google Ads zoals hotel-venray.html. Met herovideo (blok 'video'): speelt
+af op 1440 (desktopbron) en 390 (staande mobiele bron), dekt de hero onder de overlay; reduced motion = alleen de foto.
 
 Upgradeblok A · Ladder-slider (blok 3a-variant 'ladder', aan via UPGRADE_LADDER in de JSON: bedankt en gemist):
   ... http://localhost:8765/bedankt.html --v3 --voucher BEDANKT --ladder
@@ -524,6 +525,18 @@ with sync_playwright() as p:
             x2 = pg.evaluate("document.getElementById('lp-pop-fac').open")
             check(f'{tag} kruisje en klik op de achtergrond sluiten de pop-up', not x1 and not x2, f'{x1}/{x2}')
 
+        if HOTEL and pg.evaluate("!!document.querySelector('.b1a-video')"):
+            pg.evaluate('window.scrollTo(0,0)'); pg.wait_for_timeout(2500)
+            hv = pg.evaluate("""(()=>{const v=document.querySelector('.b1a-video'),f=document.querySelector('.b1a-foto'),r=v.getBoundingClientRect(),fr=f.getBoundingClientRect(),
+                o=getComputedStyle(f,'::after');return {t:v.currentTime,paused:v.paused,muted:v.muted,loop:v.loop,err:v.error&&v.error.code,
+                src:v.currentSrc.split('/').pop(),poster:v.getAttribute('poster'),dekt:Math.abs(r.width-fr.width)<2&&Math.abs(r.height-fr.height)<2,
+                overlay:o.backgroundImage.includes('gradient'),tekstBoven:+getComputedStyle(document.querySelector('.b1a-tekst')).zIndex>=2}})()""")
+            bron = 'hero-asteria-building-sunset-mobiel.mp4' if w < 720 else 'hero-asteria-building-sunset.mp4'
+            check(f'{tag} herovideo speelt af (gedempt, lus), bron {bron}, dekt de hero, overlay + tekst erboven',
+                  hv['t'] > 0.5 and not hv['paused'] and hv['muted'] and hv['loop'] and not hv['err'] and hv['src'] == bron and hv['dekt'] and hv['overlay'] and hv['tekstBoven'], str(hv))
+            if shotdir:
+                pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-video.png')
+
         if HOTEL:
             hb = pg.evaluate("""(()=>{const q=s=>document.querySelector(s),y=s=>{const e=q(s);return e?e.getBoundingClientRect().top+scrollY:-1};
                 const fac=q('.ho-fac'),omg=q('.ho-omg'),arr=q('.ho-arr');
@@ -737,6 +750,10 @@ with sync_playwright() as p:
         verwacht = (8 if PRIJS else 9) if w == 1440 else 5
         totaal = pg.evaluate("document.querySelectorAll('.b5a-muur .b5a-kaart').length")
         check(f'{tag} reduced-motion: statische muur', not st['loop'] and st['zicht'] == min(verwacht, totaal), str(st))
+        if HOTEL and pg.evaluate("!!document.querySelector('.b1a-video')"):
+            rm = pg.evaluate("(()=>{const v=document.querySelector('.b1a-video'),i=document.querySelector('.b1a-foto>img');return {video:getComputedStyle(v).display,foto:i.complete&&i.naturalWidth>0&&getComputedStyle(i).display!=='none'}})()")
+            check(f'{tag} reduced-motion: geen video, alleen de poster/foto', rm['video'] == 'none' and rm['foto'], str(rm))
+            if shotdir: pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-reduced-motion.png')
         if shotdir:
             pg.evaluate("document.querySelectorAll('img[loading=lazy]').forEach(i=>i.loading='eager')")
             pg.wait_for_timeout(1500)
