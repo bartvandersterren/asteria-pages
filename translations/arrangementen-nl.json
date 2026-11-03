@@ -2,9 +2,11 @@
   "_controleren": [
     "Meest geboekt: de keuze Wellness Arrangement, Najaarsarrangement en Weekend aanbieding is een aanname; er zijn geen boekingscijfers gebruikt. Pas '_meest_geboekt' aan als de cijfers iets anders zeggen.",
     "Najaarsarrangement: de kaart linkt naar /najaarsarrangement (de oude pagina op config bee2f902), maar titel, prijs (€ 128,50 p.p. per nacht), foto en vinkjes komen uit translations/najaarsarrangement-nl.json (= /najaarsarrangement-v2). De oude pagina noemt ook € 128,50. Boekbaar t/m 30 november: na die datum de kaart weghalen (slug uit '_arrangementen').",
+    "Feestdagen (bron www.asteria.nl/arrangementen, 3 nov 2026): Kerstarrangement (/arrangementen/kerstarrangement-hotel) noemt 'v.a. € 130,- p.p.' zonder eenheid of aantal nachten (aankomst 23, 24, 25 of 26 december; vertrek zelf kiezen); Oud & Nieuw arrangement (/arrangementen/oud-en-nieuw-arrangement) 3-daags € 347,- p.p., 4-daags € 460,- p.p.; Oud en Nieuw Bridge arrangement (/arrangementen/oud-en-nieuw-bridgearrangement) 28 dec - 1 jan, € 520,- p.p. (tweepersoonskamer), € 705,- p.p. (eenpersoonskamer). De Mews-links op die pagina's staan op 2025-data en op config 4483536c; prijzen en jaar bevestigen voor 2026.",
+    "Foto's feestdagen: Kerst = de kopfoto van de kerstpagina op asteria.nl (kerstbal met Asteria-ster, omgezet naar fotos/l26-arr-kerst-breed.webp, zelfde beeld als l26-arr-kerst.webp); bevestigen dat dit geen AI-beeld is. Bridge = de kopfoto van de bridgepagina (speelkaarten en vuurwerk, fotos/l26-arr-oudennieuw-bridge.webp). Oud & Nieuw = l26-bubbels-hero.webp uit de repo; de kopfoto van de O&N-pagina (bubbels, oliebollen, fles met Asteria-ster) lijkt bewerkt en is daarom niet gebruikt.",
     "Bij elk arrangement (intropaneel): ontbijtbuffet en drie-gangen diner zitten in alle zes de arrangementen (bij de Weekend aanbieding één diner, op de aankomstdag). 'Gratis parkeren' komt uit de tijdenstrook van de arrangementen (bron staging). 'Beste prijs als je direct boekt' volgt 'Beste prijs gegarandeerd' (ARR_TRUST_A van het najaarsarrangement). Graag bevestigen.",
     "Wellness staat niet als tegel in het intropaneel (plan: wellness, ontbijt, parkeren, beste prijs): alleen het Wellness Arrangement heeft vrije toegang tot de wellness, dus 'bij elk arrangement' klopt niet. In plaats daarvan de tegel Drie-gangen diner. Wellness staat bij Goed om te weten en in de FAQ.",
-    "Zondagkorting € 20 per kamer (FAQ en zondagregel op de kaarten): ZV_TOON staat aan bij vijf arrangementen, niet bij de Weekend aanbieding. Alleen voor NAJAAR2D gemeten (14 okt 2026: korting zat toen nog niet in Mews, de pagina's rekenen hem uit).",
+    "Zondagtarieven: volgens Stijn staan ze sinds 14 okt 2026 in Mews en lopen ze t/m aankomst 27 dec 2026 (na 27 dec gaf Mews bij de meting de gewone prijs). Daarna Mews of de pagina bijwerken (ZV_TOON en ZV_ZONDAG_PRIJS in de arrangement-JSON's).",
     "In- en uitchecken: inchecken vanaf 15.00, uitchecken tot 11.00 (FAQ visit.asteria.nl); Weekend aanbieding uitchecken tot 14.00 op basis van beschikbaarheid (weekend-aanbieding-nl.json).",
     "Wellness bijboeken: kosten voor hotelgasten onbekend; openingstijden ma-do 16.00-22.00, vr-zo 12.00-22.00 uit de lander-w1-FAQ.",
     "Categorieën (chips) en de keuzehulpscores zijn een eerste indeling: Najaarsarrangement staat onder Wellness (eigen infraroodsauna op de Deluxe kamer), Limburg Arrangement onder Actief & golf.",
@@ -18,7 +20,7 @@
   "HERO_IMG": "fotos/l26-hotel-zonsondergang.webp",
   "HERO_ALT": "Hotel Asteria in Venray bij zonsondergang, met de vijver voor de ingang",
   "HERO_KOP": "Arrangementen bij Hotel Asteria",
-  "HERO_SUB": "Wellness, golf, fietsen door Limburg of een museumdag in Overloon. Kies het verblijf dat bij je past, diner en ontbijt zitten er altijd bij.",
+  "HERO_SUB": "Wellness, golf, fietsen door Limburg, een museumdag in Overloon of de feestdagen. Kies het verblijf dat bij je past, diner en ontbijt zitten er altijd bij.",
   "KNOP_ALLE": "Bekijk alle arrangementen",
   "KNOP_ARR": "Bekijk het arrangement",
   "VANAF": "vanaf",
@@ -48,7 +50,11 @@
   ],
   "TOP_KOP": "Meest geboekt",
   "TOP_LEAD": "Drie arrangementen die gasten vaak kiezen voor een eerste kennismaking met Asteria.",
-  "_meest_geboekt": ["wellness-arrangement", "najaarsarrangement", "weekend-aanbieding"],
+  "_meest_geboekt": [
+    "wellness-arrangement",
+    "najaarsarrangement",
+    "weekend-aanbieding"
+  ],
   "LABEL_MEEST": "Meest geboekt",
   "ALLE_KOP": "Alle arrangementen",
   "ALLE_LEAD": "Filter op waar je zin in hebt. Prijzen zijn per persoon, op basis van twee personen.",
@@ -62,45 +68,76 @@
     "wellness": "Wellness",
     "actief": "Actief & golf",
     "cultuur": "Cultuur",
-    "weekend": "Weekend"
+    "weekend": "Weekend",
+    "feest": "Feestdagen",
+    "zondag": "Zondagvoordeel"
   },
   "_arrangementen": [
     {
       "slug": "wellness-arrangement",
       "url": "/wellness-arrangement",
-      "cat": ["wellness"],
+      "cat": [
+        "wellness"
+      ],
       "volgorde": 10,
-      "scores": {"rust": 4, "eten": 2, "n1": 2, "samen": 1, "zondag": 1},
+      "scores": {
+        "rust": 4,
+        "eten": 2,
+        "n1": 2,
+        "samen": 1,
+        "zondag": 1
+      },
       "redenen": {
         "rust": "Vrije toegang tot de wellness van 300 m² op de Top Floor.",
         "eten": "Een drie-gangen diner met streekproducten en het ontbijtbuffet zitten erbij.",
         "n1": "Het arrangement is voor één nacht, ideaal om er even tussenuit te gaan.",
         "samen": "Badjas en slippers liggen voor jullie allebei klaar.",
-        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.",
         "default": "Een welkomstdrankje op je kamer, diner en ontbijt in één boeking."
-      }
+      },
+      "oms": "Ruim 300 m² wellness op de Top Floor, met een overnachting, diner en ontbijt."
     },
     {
       "slug": "najaarsarrangement",
       "url": "/najaarsarrangement",
-      "cat": ["wellness"],
+      "cat": [
+        "wellness"
+      ],
       "volgorde": 20,
-      "scores": {"rust": 3, "eten": 3, "n1": 2, "samen": 1, "zondag": 1},
+      "scores": {
+        "rust": 3,
+        "eten": 3,
+        "n1": 2,
+        "samen": 1,
+        "zondag": 1
+      },
       "redenen": {
         "rust": "Je Deluxe kamer heeft een eigen infraroodsauna.",
         "eten": "Een drie-gangen diner met seizoensgerechten en het ontbijtbuffet.",
         "n1": "Eén nacht, met koffie en Limburgse vlaai bij aankomst.",
         "samen": "Een Deluxe kamer met privé sauna, alleen voor jullie twee.",
-        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.",
         "default": "Boekbaar tot en met 30 november."
-      }
+      },
+      "oms": "Geniet van de herfst in de regio en ontspan in je Deluxe kamer met privésauna."
     },
     {
       "slug": "weekend-aanbieding",
       "url": "/weekend-aanbieding",
-      "cat": ["weekend"],
+      "cat": [
+        "weekend"
+      ],
       "volgorde": 30,
-      "scores": {"eten": 2, "rust": 1, "n2": 4, "n1": -1, "vrza": 4, "doordeweeks": -3, "zondag": -3, "samen": 1},
+      "scores": {
+        "eten": 2,
+        "rust": 1,
+        "n2": 4,
+        "n1": -1,
+        "vrza": 4,
+        "doordeweeks": -3,
+        "zondag": -3,
+        "samen": 1
+      },
       "redenen": {
         "vrza": "Je komt aan op vrijdag of zaterdag en blijft twee nachten.",
         "n2": "Twee nachten in een Comfort kamer, met twee keer ontbijt.",
@@ -108,52 +145,83 @@
         "rust": "Op je vertrekdag kun je uitslapen: uitchecken kan tot 14.00 uur.",
         "samen": "Bij aankomst een welkomstdrankje voor jullie allebei.",
         "default": "Een glas huiswijn of speciaal bier bij aankomst."
-      }
+      },
+      "oms": "Een voordelig weekendje weg in Noord-Limburg, in een Comfort kamer."
     },
     {
       "slug": "golfarrangement",
       "url": "/golfarrangement",
-      "cat": ["actief"],
+      "cat": [
+        "actief"
+      ],
       "volgorde": 40,
-      "scores": {"actief": 4, "eten": 1, "n1": 2, "groep": 1, "zondag": 1},
+      "scores": {
+        "actief": 4,
+        "eten": 1,
+        "n1": 2,
+        "groep": 1,
+        "zondag": 1
+      },
       "redenen": {
         "actief": "Greenfee voor 18 holes op Golfbaan Bleijenbeek of Golfclub Geijsteren.",
         "eten": "Na het golfen een drie-gangen diner in het restaurant.",
         "n1": "Eén dag golfen en een nacht in een Royale kamer.",
         "groep": "Wij reserveren de golfbaan voor je, je geeft je keuze telefonisch door.",
-        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.",
         "default": "Een Royale kamer met airconditioning en zithoek."
-      }
+      },
+      "oms": "Een dag golfen op een baan naar keuze, met een volledig verblijf in het hotel."
     },
     {
       "slug": "limburg-arrangement",
       "url": "/limburg-arrangement",
-      "cat": ["actief"],
+      "cat": [
+        "actief"
+      ],
       "volgorde": 50,
-      "scores": {"actief": 3, "cultuur": 1, "eten": 2, "n3": 4, "n2": 1, "n1": -2, "groep": 1, "zondag": 1},
+      "scores": {
+        "actief": 3,
+        "cultuur": 1,
+        "eten": 2,
+        "n3": 4,
+        "n2": 1,
+        "n1": -2,
+        "groep": 1,
+        "zondag": 1
+      },
       "redenen": {
         "actief": "Drie dagen een elektrische fiets, met gratis fiets- en wandelroutes van de receptie.",
         "n3": "Drie nachten, vier dagen Noord-Limburg.",
         "eten": "Elke avond een 3-gangenmenu met verse streekproducten.",
         "cultuur": "Met de e-bike fiets je zelf langs het mooiste van Noord-Limburg.",
-        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.",
         "default": "Je begint met koffie en Limburgse vlaai."
-      }
+      },
+      "oms": "Een compleet vierdaags arrangement vol gastvrijheid en de charme van Limburg."
     },
     {
       "slug": "oorlogsmuseum-arrangement",
       "url": "/oorlogsmuseum-arrangement",
-      "cat": ["cultuur"],
+      "cat": [
+        "cultuur"
+      ],
       "volgorde": 60,
-      "scores": {"cultuur": 4, "eten": 1, "n1": 2, "groep": 1, "zondag": 1},
+      "scores": {
+        "cultuur": 4,
+        "eten": 1,
+        "n1": 2,
+        "groep": 1,
+        "zondag": 1
+      },
       "redenen": {
         "cultuur": "Entree voor Oorlogsmuseum Overloon, wij reserveren je tickets.",
         "eten": "Een drie-gangen diner in het restaurant van het hotel.",
         "n1": "Een museumdag en een nacht in een Comfort kamer.",
         "groep": "Koffie of thee bij ontvangst in het museumcafé.",
-        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.",
         "default": "Op je kamer ligt een presentje van het museum klaar."
-      }
+      },
+      "oms": "Samen met Oorlogsmuseum Overloon: het verhaal en de beleving van de Tweede Wereldoorlog staan centraal."
     }
   ],
   "KH_KOP": "Welk arrangement past bij jou?",
@@ -176,36 +244,76 @@
       "key": "doel",
       "vraag": "Waar heb je zin in?",
       "opties": [
-        {"v": "rust", "label": "Rust en wellness"},
-        {"v": "actief", "label": "Fietsen of golfen"},
-        {"v": "cultuur", "label": "Geschiedenis en cultuur"},
-        {"v": "eten", "label": "Lekker eten"}
+        {
+          "v": "rust",
+          "label": "Rust en wellness"
+        },
+        {
+          "v": "actief",
+          "label": "Fietsen of golfen"
+        },
+        {
+          "v": "cultuur",
+          "label": "Geschiedenis en cultuur"
+        },
+        {
+          "v": "eten",
+          "label": "Lekker eten"
+        }
       ]
     },
     {
       "key": "nachten",
       "vraag": "Hoe lang blijf je?",
       "opties": [
-        {"v": "n1", "label": "Eén nacht"},
-        {"v": "n2", "label": "Twee nachten"},
-        {"v": "n3", "label": "Drie nachten"}
+        {
+          "v": "n1",
+          "label": "Eén nacht"
+        },
+        {
+          "v": "n2",
+          "label": "Twee nachten"
+        },
+        {
+          "v": "n3",
+          "label": "Drie nachten of meer"
+        }
       ]
     },
     {
       "key": "wanneer",
       "vraag": "Wanneer kom je aan?",
       "opties": [
-        {"v": "doordeweeks", "label": "Maandag tot donderdag"},
-        {"v": "vrza", "label": "Vrijdag of zaterdag"},
-        {"v": "zondag", "label": "Op zondag"}
+        {
+          "v": "doordeweeks",
+          "label": "Maandag tot donderdag"
+        },
+        {
+          "v": "vrza",
+          "label": "Vrijdag of zaterdag"
+        },
+        {
+          "v": "zondag",
+          "label": "Op zondag"
+        },
+        {
+          "v": "feest",
+          "label": "Rond de feestdagen"
+        }
       ]
     },
     {
       "key": "wie",
       "vraag": "Met wie kom je?",
       "opties": [
-        {"v": "samen", "label": "Met z'n tweeën"},
-        {"v": "groep", "label": "Met vrienden of familie"}
+        {
+          "v": "samen",
+          "label": "Met z'n tweeën"
+        },
+        {
+          "v": "groep",
+          "label": "Met vrienden of familie"
+        }
       ]
     }
   ],
@@ -219,7 +327,12 @@
   "REVIEW_KOP_A": "Wat gasten",
   "REVIEW_KOP_EM": "zeggen",
   "_reviews_aantal": 12,
-  "_reviews_voorkeur": ["arrangement", "diner", "wellness", "ontbijt"],
+  "_reviews_voorkeur": [
+    "arrangement",
+    "diner",
+    "wellness",
+    "ontbijt"
+  ],
   "PRAK_KOP": "Goed om te weten",
   "_praktisch": [
     {
@@ -262,7 +375,7 @@
     },
     {
       "q": "Hoe boek ik een arrangement?",
-      "a": "Open het arrangement en kies je aankomstdag in de kalender. Je ziet direct de prijs per dag en de actiecode staat al voor je ingevuld. Bij het Limburg Arrangement (drie nachten) en de Weekend aanbieding (twee nachten, aankomst op vrijdag of zaterdag) ligt het aantal nachten vast."
+      "a": "Open het arrangement en kies je aankomstdag in de kalender. Je ziet direct de prijs per dag en de actiecode staat al voor je ingevuld. Bij het Limburg Arrangement (drie nachten) en de Weekend aanbieding (twee nachten, aankomst op vrijdag of zaterdag) ligt het aantal nachten vast. De arrangementen voor de feestdagen boek je via hun pagina op asteria.nl."
     },
     {
       "q": "Kan ik de wellness gebruiken?",
@@ -270,7 +383,7 @@
     },
     {
       "q": "Is er korting op zondag?",
-      "a": "Bij de meeste arrangementen wel: kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met de actiecode. Bij de Weekend aanbieding geldt dit niet."
+      "a": "Ja, bij het Wellness-, Oorlogsmuseum-, Limburg-, Najaars- en Golfarrangement. Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met de actiecode van het arrangement en geldt eenmalig per kamer per verblijf dat op zondag begint. Bij de Weekend aanbieding en de arrangementen voor de feestdagen geldt hij niet."
     },
     {
       "q": "Kan ik kosteloos annuleren?",
@@ -281,5 +394,129 @@
   "SLOT_ALT": "Bospad in de bossen rond Venray",
   "SLOT_KOP": "Je verblijf in Venray begint hier",
   "SLOT_TEKST": "Kies een arrangement of boek alleen een kamer. Heb je een vraag, dan helpen we je graag verder.",
-  "SLOT_KNOP_BOEK": "Boek een kamer"
+  "SLOT_KNOP_BOEK": "Boek een kamer",
+  "_volgorde": [
+    "wellness-arrangement",
+    "oorlogsmuseum-arrangement",
+    "limburg-arrangement",
+    "najaarsarrangement",
+    "weekend-aanbieding",
+    "golfarrangement",
+    "kerstarrangement",
+    "oud-en-nieuw-arrangement",
+    "oud-en-nieuw-bridge"
+  ],
+  "_extra": [
+    {
+      "slug": "kerstarrangement",
+      "url": "https://www.asteria.nl/arrangementen/kerstarrangement-hotel",
+      "naam": "Kerstarrangement",
+      "oms": "Laat je culinair verwennen tijdens de feestdagen: een zorgeloze en sfeervolle kerst in Noord-Limburg.",
+      "prijs": "€ 130",
+      "eenheid": "p.p.",
+      "tag": "Feestdagen · aankomst 23-26 dec",
+      "foto": "fotos/l26-arr-kerst-breed.webp",
+      "alt": "Kerstbal met de Asteria-ster tussen dennentakken",
+      "pos": "55% 50%",
+      "vinken": [
+        "Elke ochtend een uitgebreid kerstontbijt",
+        "4-gangen kerstdiner met live muziek op eerste kerstdag",
+        "3-gangen kerstproeverijmenu op tweede kerstdag"
+      ],
+      "cat": [
+        "feest"
+      ],
+      "volgorde": 70,
+      "scores": {
+        "feest": 5,
+        "eten": 3,
+        "samen": 1,
+        "rust": 1,
+        "doordeweeks": -2,
+        "vrza": -2,
+        "zondag": -2
+      },
+      "redenen": {
+        "feest": "Kerst bij Asteria, met aankomst tussen 23 en 26 december.",
+        "eten": "Op eerste kerstdag een 4-gangen kerstdiner met live muziek en drank, op tweede kerstdag een kerstproeverijmenu.",
+        "samen": "Een sfeervolle kerst samen, zonder zelf te koken.",
+        "default": "Elke ochtend een uitgebreid kerstontbijt."
+      }
+    },
+    {
+      "slug": "oud-en-nieuw-arrangement",
+      "url": "https://www.asteria.nl/arrangementen/oud-en-nieuw-arrangement",
+      "naam": "Oud & Nieuw arrangement",
+      "oms": "Sluit het jaar feestelijk af met Limburgse gastvrijheid, de mooie omgeving en een knallende feestavond op oudejaarsdag.",
+      "prijs": "€ 347",
+      "eenheid": "p.p., 3-daags arrangement",
+      "tag": "Feestdagen · 3 of 4 dagen",
+      "foto": "fotos/l26-bubbels-hero.webp",
+      "alt": "Fles bubbels met twee gevulde glazen op een bijzettafel",
+      "pos": "50% 50%",
+      "vinken": [
+        "Elke avond een 3-gangendiner",
+        "Elke ochtend een uitgebreid ontbijtbuffet",
+        "Feestavond op oudejaarsavond met buffet en live muziek"
+      ],
+      "cat": [
+        "feest"
+      ],
+      "volgorde": 80,
+      "scores": {
+        "feest": 5,
+        "eten": 2,
+        "n2": 2,
+        "n3": 1,
+        "groep": 1,
+        "doordeweeks": -2,
+        "vrza": -2,
+        "zondag": -2
+      },
+      "redenen": {
+        "feest": "Een knallende feestavond op oudejaarsavond, met champagne en oliebollen om middernacht.",
+        "eten": "Elke avond een 3-gangendiner en op oudejaarsavond een warm en koud buffet met dessertbuffet.",
+        "n2": "Kies het 3-daagse of het 4-daagse arrangement.",
+        "groep": "Op oudejaarsavond live muziek en casino-entertainment.",
+        "default": "Elke ochtend een uitgebreid ontbijtbuffet."
+      }
+    },
+    {
+      "slug": "oud-en-nieuw-bridge",
+      "url": "https://www.asteria.nl/arrangementen/oud-en-nieuw-bridgearrangement",
+      "naam": "Oud en Nieuw Bridge arrangement",
+      "oms": "De gezelligste Oud & Nieuw-bridgedrive bij Hotel Asteria, het bridgehotel van Nederland.",
+      "prijs": "€ 520",
+      "eenheid": "p.p., 5-daags arrangement",
+      "tag": "Feestdagen · 28 dec t/m 1 jan",
+      "foto": "fotos/l26-arr-oudennieuw-bridge.webp",
+      "alt": "Speelkaarten met vuurwerk erboven",
+      "pos": "50% 70%",
+      "vinken": [
+        "4 overnachtingen met ontbijtbuffet",
+        "4x bridgen onder professionele begeleiding",
+        "Feestavond op oudejaarsavond"
+      ],
+      "cat": [
+        "feest"
+      ],
+      "volgorde": 90,
+      "scores": {
+        "feest": 4,
+        "groep": 2,
+        "n3": 2,
+        "eten": 1,
+        "doordeweeks": -2,
+        "vrza": -2,
+        "zondag": -2
+      },
+      "redenen": {
+        "feest": "Vijf dagen Oud & Nieuw, van 28 december tot 1 januari.",
+        "n3": "Vier overnachtingen in een Comfort kamer.",
+        "groep": "Vier keer bridgen onder professionele begeleiding.",
+        "eten": "Drie keer een driegangen diner en een volledig verzorgde feestavond op oudejaarsavond.",
+        "default": "Bij Hotel Asteria, het bridgehotel van Nederland."
+      }
+    }
+  ]
 }

@@ -2,294 +2,235 @@
    Arrangementenoverzicht visit.asteria.nl (arrangementen.template.html -> arrangementen-v2.html), prefix ao-
    --------------------------------------------------------------------------
    Opbouw, maten en gedrag van het Parkhotel-overzicht (parkhotel-site src/stijl/pagina-arrangement-v3.css, prefix ar-),
-   uiterlijk Asteria: tokens uit brand.css (rood #c23435, Electrolize in kapitalen voor koppen, Montserrat, grijze
-   achtergrond #ededed, witte panelen en kaarten). brand.css zelf wordt niet geladen: de tokennamen (--font-body,
-   --text-sm, --radius-sm) botsen met die van lander-w1.css (kop, voet, kamerblok en reviewblok). De waarden staan
-   daarom hieronder als --ao-*.
-   Laadt na lander-w1.css. Blokken 4b (kamers) en 5a (reviews) komen uit lander-w1 en krijgen onderaan de Asteria-kleuren.
+   uiterlijk = de nieuwe huisstijl van lander-w1 en de arrangementpagina's: alle kleuren, fonts, rondingen en schaduwen
+   via de custom properties van lander-w1.css (--paper, --surface, --ink, --terracotta, --font-display, --radius-card,
+   --shadow-card ...). Knoppen = .btn uit lander-w1, vinkjes = .vinkjes, iconen = .as-icoon, FAQ = .as-accordeon--kaart.
+   Panelen en kaarten-in-panelen volgen het zondagblok van arrangement.css (.ar-zv-paneel/.ar-zv-kaart), icoonvakjes
+   .ar-vak, zondagregel .ar-zondagregel, chips de pilvorm van .ar-chips. Laadt na lander-w1.css; kamerblok (4b) en
+   reviewblok (5a) blijven ongemoeid, zodat ze gelijk zijn aan /najaarsarrangement-v2.
    Breekpunten: <= 1023 px tablet, <= 767 px telefoon, <= 720 px stappenmodus keuzehulp (arrangementen.js).
-   Geen eyebrows; iconen inline SVG met stroke currentColor.
+   Geen eyebrows.
    ========================================================================== */
 
-.ao{
-  --ao-rood:#c23435;          /* brand.css --color-red */
-  --ao-rood-donker:#a82c2c;   /* --color-red-dark */
-  --ao-charcoal:#292929;      /* --color-charcoal */
-  --ao-donker:#242424;        /* --color-dark */
-  --ao-bg:#ededed;            /* --color-bg */
-  --ao-bg-licht:#f5f5f5;      /* --color-bg-light */
-  --ao-wit:#fff;
-  --ao-tekst:#111;            /* --color-text */
-  --ao-tekst-grijs:#333;      /* --color-text-grey */
-  --ao-tekst-om:#6b6b6b;      /* --color-text-muted */
-  --ao-licht:#f2f2f2;         /* --color-text-light */
-  --ao-goud:#dcbe1f;          /* --color-gold */
-  --ao-rand:#d3d3d3;          /* --color-border-light */
-  --ao-kop:'Electrolize', sans-serif;
-  --ao-tekstfont:'Montserrat', sans-serif;
-  --ao-radius:8px;            /* --radius-md */
-  --ao-radius-foto:20px;      /* --radius-lg */
-  font-family:var(--ao-tekstfont);font-weight:400;font-size:16px;line-height:1.6;color:var(--ao-tekst);background:var(--ao-bg)
-}
-.ao-body{background:var(--ao-bg,#ededed)}
-.ao *,.ao *::before,.ao *::after{box-sizing:border-box}
+.ao .ao-wrap{width:min(1120px, 100% - 2 * var(--gutter));margin-inline:auto;position:relative}
 .ao ul{list-style:none;margin:0;padding:0}
-.ao-wrap{width:min(1120px, calc(100% - 60px));margin-inline:auto;position:relative}
-.ao-sectie{position:relative;padding:60px 0}
+.ao-sectie{position:relative;padding:var(--gap-section) 0;background:var(--paper)}
+.ao .ao-h2{font-size:var(--h2)}
+.ao .as-icoon{color:var(--terracotta)}
+.ao-kh__rust[hidden],.ao-kh__resultaat[hidden],.ao-kh__antwoorden[hidden],.ao-kh__vragen[hidden],.ao-res[hidden],.ao-alt[hidden],.ao-res__redenen li[hidden],
+.ao [hidden],.ao .kaart.ao-kaart[hidden],.ao .ao-alt[hidden],.ao-alle__grid[hidden],.ao .ao-leeg[hidden],.ao .ao-kh__voortgang[hidden],.ao-kh__tekstknop[hidden]{display:none!important}
 
-/* koppen: Electrolize in kapitalen (ook in de blokken uit lander-w1) */
-.lp.ao h1,.lp.ao h2,.lp.ao h3{font-family:var(--ao-kop);font-weight:400;text-transform:uppercase;letter-spacing:.02em;line-height:1.2;color:var(--ao-tekst)}
-.ao-h2{font-size:34px}
-.lp.ao .g{color:var(--ao-rood)}
-.ao-ico{flex:none;color:var(--ao-rood)}
-.ao-vink{flex:none;color:var(--ao-rood);margin-top:4px}
-.ao .ao-kh__rust[hidden],.ao-kh__resultaat[hidden],.ao-kh__antwoorden[hidden],.ao-kh__vragen[hidden],.ao-res[hidden],.ao-alt[hidden],.ao-res__redenen li[hidden],
-.ao-kaart[hidden],.ao-alle__grid[hidden],.ao .ao-leeg[hidden],.ao .ao-kh__voortgang[hidden],.ao-kh__tekstknop[hidden]{display:none}
+/* paneel zoals .ar-zv-paneel, kaart in een paneel zoals .ar-zv-kaart */
+.ao-paneel{background:var(--surface);border:1px solid var(--hairline-strong);border-radius:var(--radius-card);color:var(--ink)}
+.ao-binnenkaart{background:var(--surface);border:1px solid var(--hairline-strong);border-radius:12px}
 
-.ao-paneel{background:var(--ao-wit);border-radius:var(--ao-radius);color:var(--ao-tekst)}
-
-/* knoppen (brand.css: rood, radius 8, Montserrat) */
-.ao-knop{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:14px 28px;
-  background:var(--ao-rood);color:#fff;border:1px solid var(--ao-rood);border-radius:var(--ao-radius);
-  font-family:var(--ao-tekstfont);font-weight:700;font-size:15px;line-height:1.2;text-align:center;white-space:nowrap;
-  text-decoration:none;cursor:pointer;transition:background .2s ease,border-color .2s ease,color .2s ease}
-.lp .ao-knop{color:#fff}
-.ao-knop:hover{background:var(--ao-rood-donker);border-color:var(--ao-rood-donker)}
-.ao-knop:focus-visible{outline:3px solid var(--ao-rood);outline-offset:3px}
-.lp .ao-knop--ghost{background:transparent;border-color:#fff;color:#fff}
-.lp .ao-knop--ghost:hover{background:#fff;color:var(--ao-tekst)}
-.ao-knoppen{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* icoon in een zandvakje (.ar-vak) */
+.ao .ao-vak{display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;border-radius:var(--radius-chip);background:var(--paper);color:var(--terracotta)}
+.ao .ao-vak .as-icoon{width:22px;height:22px;stroke-width:1.8}
 
 /* gedeelde kaartdelen */
-.ao .ao-tag{align-self:flex-start;background:var(--ao-bg-licht);color:var(--ao-tekst-grijs);font-weight:700;font-size:12px;letter-spacing:.12em;
-  text-transform:uppercase;padding:6px 12px;margin:0 0 14px;line-height:1.2;border-radius:4px}
-.lp.ao .ao-naam{font-size:23px;line-height:1.2;overflow-wrap:anywhere;hyphens:auto}
-.ao-prijs{font-family:var(--ao-tekstfont);font-weight:700;font-size:26px;line-height:1.2;color:var(--ao-rood)}
-.ao-prijs small,.ao-vf{font-weight:400;font-size:14px;color:var(--ao-tekst-om)}
-.ao .ao-zondag{margin-top:8px;padding-left:10px;border-left:2px solid var(--ao-rood);font-size:14.5px;line-height:1.35;color:var(--ao-tekst)}
-.ao .ao-zondag b{font-weight:700}
-.ao .ao-oms{font-size:15.5px;line-height:1.55;color:var(--ao-tekst-grijs);margin:0 0 16px}
-.ao-incl{display:flex;flex-direction:column;gap:9px}
-.ao-incl li{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.45;color:var(--ao-tekst-grijs)}
+.ao .ao-tag{align-self:flex-start;font-size:var(--text-xs);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-label);text-transform:uppercase;
+  color:var(--ink-soft);margin:0 0 8px;line-height:1.3}
+.ao .ao-naam{font-size:26px;line-height:1.05;letter-spacing:-.01em;overflow-wrap:anywhere;hyphens:auto}
+.ao .ao-prijs{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;font-size:14px;color:var(--ink-soft);line-height:1.3}
+.ao .ao-prijs b,.ao .ao-prijs .ao-bedrag{font-family:var(--font-display);font-weight:700;font-size:32px;line-height:1;color:var(--ink);white-space:nowrap}
+.ao .ao-zondagregel{margin-top:12px;padding:3px 0 3px 12px;border-left:3px solid var(--terracotta);font-size:14px;line-height:1.45;color:var(--ink)}
+.ao .ao-zondagregel b{color:var(--terracotta-text);white-space:nowrap}
+.ao .ao-oms{font-size:var(--text-sm);line-height:1.55;color:var(--ink);margin:0 0 18px}
+.ao .ao-incl{gap:10px}
 .ao-acties{display:flex;flex-direction:column;align-items:stretch;gap:14px}
-.ao-acties .ao-knop{width:100%;white-space:normal}
+.ao-acties .btn{width:100%;white-space:normal}
 
 #arrangementen,#alle-arrangementen,#keuzehulp,#kamers{scroll-margin-top:calc(var(--kop-h, 114px) + 10px)}
 html{scroll-behavior:smooth}
 
-/* ---- 1 hero: volle foto met donker verloop, tekst gecentreerd; ruimte onderaan voor het paneel ---- */
-.ao-hero{position:relative;min-height:clamp(560px, 76vh, 820px);display:flex;align-items:center;overflow:hidden;color:#fff;background:var(--ao-donker)}
+/* ---- 1 hero: volle foto met het bruine verloop van lander-w1 (.b1a-foto), tekst gecentreerd ---- */
+.ao-hero{position:relative;min-height:clamp(560px, 76vh, 820px);display:flex;align-items:center;overflow:hidden;background:var(--ink)}
 .ao-hero__foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%}
-.ao-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.55) 0%, rgba(0,0,0,.42) 45%, rgba(0,0,0,.78) 100%)}
+.ao-hero::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(185deg,rgba(68,42,6,.35) 0%,rgba(68,42,6,.30) 35%,rgba(68,42,6,.82) 100%)}
 .ao-hero__in{position:relative;z-index:1;text-align:center;padding:60px 0 170px}
-.lp.ao .ao-hero__kop{color:#fff;font-size:clamp(36px, 4.4vw, 56px);line-height:1.15;max-width:900px;margin:0 auto 20px;text-shadow:0 2px 18px rgba(0,0,0,.35)}
-.ao .ao-hero__sub{color:#fff;font-size:19px;max-width:660px;margin:0 auto 32px;text-shadow:0 2px 14px rgba(0,0,0,.5)}
-.ao-hero__knop{min-width:245px}
+.ao .ao-hero__kop{color:var(--on-ink);font-size:72px;line-height:1.02;max-width:14ch;margin:0 auto 18px}
+.ao .ao-hero__sub{color:var(--on-ink-body);font-size:var(--text-body);line-height:1.55;max-width:600px;margin:0 auto 30px}
+.ao .ao-hero__knop{min-width:245px}
 
 /* ---- 2 bij elk arrangement: paneel 120 px over de hero ---- */
-.ao-intro{position:relative;z-index:2;padding:0 0 60px}
-.ao-intro__paneel{margin-top:-120px;display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:56px;align-items:center;padding:56px 60px;box-shadow:0 10px 40px rgba(0,0,0,.18)}
-.ao-intro__tekstkol{display:flex;flex-direction:column;gap:18px;align-items:flex-start}
-.ao-intro__tekst{font-size:17px;line-height:1.6;color:var(--ao-tekst-grijs)}
-.ao-intro__tegels{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:16px}
-.ao-icotegel{background:var(--ao-bg-licht);border:1px solid var(--ao-rand);border-radius:var(--ao-radius);min-height:150px;padding:22px 10px 18px;
-  display:grid;align-content:center;row-gap:10px;justify-items:center}
-.ao-icotegel span{width:100%;font-size:14.5px;line-height:1.35;text-align:center;color:var(--ao-tekst-om)}
-.ao-icotegel b{display:block;color:var(--ao-tekst);margin-bottom:3px}
+.ao-intro{position:relative;z-index:2;padding:0 0 var(--gap-section);background:var(--paper)}
+.ao-intro__paneel{margin-top:-120px;display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:56px;align-items:center;padding:56px 60px;box-shadow:var(--shadow-deep)}
+.ao-intro__tekstkol{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.ao .ao-intro__tekst{font-size:var(--text-sm);line-height:1.65;color:var(--ink);max-width:46ch}
+.ao-intro__tegels{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:12px}
+.ao-icotegel{background:var(--paper-shade-2);border:1px solid var(--hairline);border-radius:12px;min-height:150px;padding:20px 12px 18px;
+  display:grid;align-content:center;row-gap:12px;justify-items:center}
+.ao-icotegel .ao-vak{background:var(--surface)}
+.ao-icotegel>span:last-child{width:100%;font-size:13.5px;line-height:1.35;text-align:center;color:var(--ink-soft)}
+.ao-icotegel b{display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
 
-/* ---- 3 meest geboekt: wit paneel, drie kaarten ---- */
+/* ---- 3 meest geboekt: paneel, drie kaarten ---- */
 .ao-top{padding-top:0}
-.ao-top__paneel{padding:64px 48px 68px 56px}
-.ao .ao-top__lead{font-size:18px;line-height:1.7;max-width:640px;margin:12px 0 40px;color:var(--ao-tekst-grijs)}
-.ao-top__grid{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:30px;align-items:stretch}
-.ao-tk{background:var(--ao-wit);border:1px solid var(--ao-rand);border-radius:var(--ao-radius);display:flex;flex-direction:column;overflow:hidden;min-width:0}
-.ao-tk__foto{width:100%;height:220px;object-fit:cover;display:block}
-.ao-tk__body{padding:28px 26px 30px;display:flex;flex-direction:column;flex:1}
-.ao-tk .ao-naam{margin-bottom:10px}
+.ao-top__paneel{padding:56px 48px 60px 56px}
+.ao .ao-top__lead{font-size:var(--text-sm);line-height:1.65;max-width:640px;margin:16px 0 36px;color:var(--ink)}
+.ao-top__grid{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:24px;align-items:stretch}
+.ao-tk{display:flex;flex-direction:column;overflow:hidden;min-width:0;padding:8px}
+.ao-tk__foto{width:100%;height:220px;object-fit:cover;display:block;border-radius:var(--radius-image)}
+.ao-tk__body{padding:22px 16px 16px;display:flex;flex-direction:column;flex:1}
+.ao-tk .ao-naam{margin-bottom:12px}
 .ao-tk .ao-prijsblok{margin:0 0 16px}
-.ao-tk .ao-incl{margin-bottom:26px}
+.ao-tk .ao-incl{margin-bottom:24px}
 .ao-tk .ao-acties{margin-top:auto}
 
-/* ---- 4 alle arrangementen: chips, kaarten in drie kolommen (rijen gelijk via subgrid) ---- */
+/* ---- 4 alle arrangementen: chips, kaarten (.kaart) in drie kolommen, rijen gelijk via subgrid ---- */
 .ao-alle{padding-top:20px}
 .ao-alle__kop{max-width:760px;margin-bottom:28px}
-.ao .ao-alle__lead{margin-top:10px;font-size:17px;color:var(--ao-tekst-grijs)}
+.ao .ao-alle__lead{margin-top:14px;font-size:var(--text-sm);color:var(--ink)}
 .ao-filter{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:32px}
 .ao-filter__links{display:flex;align-items:center;gap:16px;min-width:0}
-.ao-filter__label,.ao-filter__teller{font-size:14px;color:var(--ao-tekst-om);white-space:nowrap}
-.ao-filter__chips{display:flex;gap:10px;min-width:0}
-label.ao-chip{position:relative;display:inline-flex;align-items:center;height:44px;padding:0 18px;border:1px solid var(--ao-rand);border-radius:var(--ao-radius);
-  background:var(--ao-wit);color:var(--ao-tekst);font-size:14px;font-weight:700;white-space:nowrap;cursor:pointer;user-select:none;transition:background .18s,border-color .18s,color .18s}
-label.ao-chip:hover{border-color:var(--ao-rood)}
-label.ao-chip.ao-is-aan{background:var(--ao-rood);border-color:var(--ao-rood);color:#fff}
-label.ao-chip:focus-within{outline:2px solid var(--ao-rood);outline-offset:2px}
+.ao-filter__label,.ao-filter__teller{font-size:14px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+.ao-filter__chips{display:flex;gap:8px;min-width:0}
+/* chips: pilvorm van .ar-chips, op zand */
+label.ao-chip{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border:1.5px solid var(--hairline-strong);border-radius:var(--radius-pill);
+  background:var(--surface);color:var(--ink);font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer;user-select:none;
+  transition:background var(--duration-normal) var(--ease-soft),border-color var(--duration-normal) var(--ease-soft),color var(--duration-normal) var(--ease-soft)}
+label.ao-chip:hover{border-color:var(--terracotta)}
+label.ao-chip.ao-is-aan{background:var(--terracotta);border-color:var(--terracotta);color:var(--surface)}
+label.ao-chip:focus-within{outline:3px solid var(--terracotta);outline-offset:3px}
 .ao-chip__vak{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);border:0;opacity:0}
 .ao-alle__grid{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));column-gap:24px;row-gap:0}
-.ao-kaart{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0;margin-bottom:24px;padding-bottom:24px;background:var(--ao-wit);
-  border:1px solid var(--ao-rand);border-radius:var(--ao-radius);overflow:hidden;color:var(--ao-tekst);min-width:0}
-.ao-kaart > *:not(.ao-kaart__foto){margin-left:24px;margin-right:24px}
-.ao-kaart__foto{position:relative}
-.ao-kaart__img{width:100%;height:200px;object-fit:cover;display:block}
-.ao-past{position:absolute;left:16px;top:16px;background:var(--ao-rood);color:#fff;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 9px;line-height:1.2;border-radius:4px}
-.ao-kaart__kop{padding-top:20px}
-.ao .ao-kaart__tag{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ao-tekst-om);margin-bottom:6px}
-.lp.ao .ao-kaart .ao-naam{font-size:21px}
-.ao-kaart__prijs{padding:14px 0 16px;border-bottom:1px solid var(--ao-rand);margin-bottom:16px}
+.ao .kaart.ao-kaart{display:grid;grid-row:span 6;grid-template-rows:subgrid;row-gap:0;margin-bottom:24px;padding:10px 10px 22px;min-width:0}
+.ao-kaart > *:not(.ao-kaart__foto){margin-left:14px;margin-right:14px}
+.ao-kaart__foto{position:relative;border-radius:var(--radius-image);overflow:hidden}
+.ao-kaart__img{width:100%;height:220px;object-fit:cover;display:block}
+/* label Meest geboekt: de pil van de kamerkaarten (.b4b-pil) */
+.ao .ao-past{position:absolute;left:14px;top:14px;display:inline-flex;align-items:center;background:var(--terracotta);color:var(--surface);padding:5px 12px;
+  border-radius:var(--radius-pill);font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;line-height:1.4}
+.ao-kaart__kop{padding-top:22px}
+.ao .ao-kaart__tag{font-size:var(--text-xs);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.ao .ao-kaart .ao-naam{font-size:26px}
+.ao-kaart__prijs{padding:14px 0 16px;border-bottom:1px solid var(--hairline);margin-bottom:16px}
 .ao-kaart__incl{align-self:start}
 .ao-kaart__acties{padding-top:22px;align-self:end}
-.ao .ao-leeg{margin-top:10px;padding:28px 30px;background:var(--ao-wit);font-size:17px;border-radius:var(--ao-radius)}
-.ao .ao-alle__noot{margin-top:6px;font-size:14px;color:var(--ao-tekst-om)}
+.ao .ao-leeg{margin-top:10px;padding:24px 28px;background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card);font-size:var(--text-sm)}
+.ao .ao-alle__noot{margin-top:6px;font-size:14px;color:var(--ink-soft)}
 
 @media (min-width:1280px){
-  .ao-top .ao-wrap,.ao-alle .ao-wrap,.ao-kh .ao-wrap{width:min(1440px, calc(100% - 60px))}
-  .ao-top__paneel,.ao-kh .ao-kh__paneel{padding:78px 90px 84px 100px}
+  .ao-top .ao-wrap,.ao-alle .ao-wrap,.ao-kh .ao-wrap{width:min(1440px, 100% - 60px)}
+  .ao-top__paneel,.ao-kh .ao-kh__paneel{padding:72px 84px 78px 92px}
   .ao-tk__foto{height:240px}
-  .ao-kaart__img{height:260px}
+  .ao-kaart__img{height:250px}
 }
 
 /* ---- 5 keuzehulp: stand 1 vragen (2x2), stand 2 (.ao-kh--klaar) antwoordregel + aanbeveling 62/38 ---- */
-.ao-kh__paneel{padding:64px 56px 60px}
+.ao-kh__paneel{padding:56px 52px 56px}
 .ao-kh__kop{max-width:760px}
-.ao .ao-kh__lead{margin:12px 0 40px;font-size:17px;line-height:1.55;color:var(--ao-tekst-grijs);max-width:640px}
-.ao .ao-kh--klaar .ao-kh__lead{margin-bottom:30px}
+.ao .ao-kh__lead{margin:16px 0 36px;font-size:var(--text-sm);line-height:1.6;color:var(--ink);max-width:640px}
+.ao .ao-kh--klaar .ao-kh__lead{margin-bottom:28px}
 .ao-kh__vragen{min-width:0}
 .ao-kh__vraagraster{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:60px;row-gap:32px;align-items:start}
-.ao-kh__lijn{grid-column:1 / -1;height:1px;background:var(--ao-rand)}
-.ao .ao-kh__voortgang{font-size:14px;font-weight:700;color:var(--ao-tekst-om);margin-bottom:16px}
+.ao-kh__lijn{grid-column:1 / -1;height:1px;background:var(--hairline)}
+.ao .ao-kh__voortgang{font-size:var(--text-xs);font-weight:var(--weight-semibold);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px}
 .ao-kh__vraag{border:0;margin:0;padding:0;min-width:0}
 .ao-kh__vraagkop{float:left;width:100%;display:flex;align-items:center;gap:14px;padding:0;margin-bottom:14px;
-  font-family:var(--ao-kop);font-size:19px;line-height:1.3;text-transform:uppercase;letter-spacing:.02em;color:var(--ao-tekst)}
-.ao-kh__nr{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--ao-rood);display:inline-flex;align-items:center;justify-content:center;
-  font-family:var(--ao-tekstfont);font-weight:700;font-size:15px;color:var(--ao-rood)}
-.ao-kh__chips{clear:both;display:flex;flex-wrap:wrap;gap:10px;padding-left:48px}
-button.ao-chip{font-family:var(--ao-tekstfont);font-size:15.5px;font-weight:400;line-height:1.2;padding:12px 18px;border:1px solid var(--ao-rand);border-radius:var(--ao-radius);
-  background:var(--ao-wit);color:var(--ao-tekst);cursor:pointer;transition:background .18s,color .18s,border-color .18s}
-button.ao-chip:hover{border-color:var(--ao-rood)}
-button.ao-chip[aria-pressed="true"]{background:var(--ao-rood);border-color:var(--ao-rood);color:#fff}
-button.ao-chip:focus-visible{outline:2px solid var(--ao-rood);outline-offset:2px}
+  font-family:var(--font-display);font-weight:700;font-size:var(--h4);line-height:1.2;letter-spacing:-.01em;color:var(--ink)}
+.ao-kh__nr{flex:none;width:34px;height:34px;border-radius:50%;border:1.5px solid var(--terracotta);display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--font-body);font-weight:700;font-size:14px;color:var(--terracotta-text)}
+.ao-kh__chips{clear:both;display:flex;flex-wrap:wrap;gap:8px;padding-left:48px}
+.ao button.ao-chip{font-family:var(--font-body);font-size:15px;font-weight:600;line-height:1.2;min-height:44px;padding:10px 18px;border:1.5px solid var(--hairline-strong);
+  border-radius:var(--radius-pill);background:var(--surface);color:var(--ink);cursor:pointer;
+  transition:background var(--duration-normal) var(--ease-soft),color var(--duration-normal) var(--ease-soft),border-color var(--duration-normal) var(--ease-soft)}
+.ao button.ao-chip:hover{border-color:var(--terracotta)}
+.ao button.ao-chip[aria-pressed="true"]{background:var(--terracotta);border-color:var(--terracotta);color:var(--surface)}
+.ao button.ao-chip:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
 .ao .ao-kh__nav{margin-top:18px}
 .ao .ao-kh__nav:not(:has(:not([hidden]))){display:none}
-.ao-kh__tekstknop{font-family:inherit;font-size:15px;background:none;border:0;padding:0;color:var(--ao-tekst);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.ao-kh__tekstknop:hover{color:var(--ao-rood)}
-.ao .ao-kh__rust{display:flex;align-items:center;gap:10px;margin-top:36px;font-size:15px;line-height:1.4;color:var(--ao-tekst-om)}
-.ao-kh__antwoorden{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding-bottom:24px;margin-bottom:24px;border-bottom:1px solid var(--ao-rand);
+.ao .ao-kh__tekstknop{font-family:var(--font-body);font-size:var(--text-sm);font-weight:600;background:none;border:0;padding:0;color:var(--ink);
+  text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:4px;text-decoration-color:rgba(199,110,78,.5);cursor:pointer}
+.ao .ao-kh__tekstknop:hover{color:var(--terracotta-text)}
+.ao .ao-kh__rust{display:flex;align-items:center;gap:10px;margin-top:32px;font-size:14px;line-height:1.4;color:var(--ink-soft)}
+.ao-kh__antwoorden{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-bottom:24px;margin-bottom:24px;border-bottom:1px solid var(--hairline);
   scroll-margin-top:calc(var(--kop-h, 114px) + 16px)}
-.ao-kh__antwlabel{font-size:15px;font-weight:700;margin-right:6px}
-.ao-kh__antw{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px 0 14px;border:1px solid var(--ao-rood);border-radius:var(--ao-radius);
-  background:var(--ao-rood);color:#fff;font-family:var(--ao-tekstfont);font-size:14px;line-height:1;white-space:nowrap;cursor:pointer;transition:background .18s,border-color .18s}
-.ao-kh__antw:hover,.ao-kh__antw[aria-expanded="true"]{background:var(--ao-rood-donker);border-color:var(--ao-rood-donker)}
-.ao-kh__antw:focus-visible{outline:2px solid var(--ao-rood);outline-offset:2px}
-.ao-kh__potlood{flex:none}
+.ao-kh__antwlabel{font-size:14px;font-weight:700;margin-right:6px}
+.ao .ao-kh__antw{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px 0 14px;border:1.5px solid var(--terracotta);border-radius:var(--radius-pill);
+  background:var(--terracotta);color:var(--surface);font-family:var(--font-body);font-size:14px;font-weight:600;line-height:1;white-space:nowrap;cursor:pointer;
+  transition:background var(--duration-normal) var(--ease-soft),border-color var(--duration-normal) var(--ease-soft)}
+.ao .ao-kh__antw:hover,.ao .ao-kh__antw[aria-expanded="true"]{background:var(--terracotta-hover);border-color:var(--terracotta-hover)}
+.ao .ao-kh__antw:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
+.ao .ao-kh__antw .as-icoon{width:13px;height:13px;color:var(--surface)}
 .ao-kh__vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.ao-kh__aanpassen{margin-left:auto}
-.ao-kh--klaar .ao-kh__antwoorden.ao-is-in{animation:ao-fade .45s ease-out both}
-.ao-kh--klaar .ao-kh__vragen{padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid var(--ao-rand)}
-.ao-kh--klaar .ao-kh__vragen.ao-is-in{animation:ao-fade .3s ease-out both}
+.ao .ao-kh__aanpassen{margin-left:auto}
+.ao-kh--klaar .ao-kh__antwoorden.ao-is-in{animation:ao-fade .45s var(--ease-out) both}
+.ao-kh--klaar .ao-kh__vragen{padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid var(--hairline)}
+.ao-kh--klaar .ao-kh__vragen.ao-is-in{animation:ao-fade .3s var(--ease-out) both}
 .ao-kh__vraag.ao-is-dicht,.ao-kh--enkel .ao-kh__lijn{display:none}
 .ao-kh__resultaat{display:grid;grid-template-columns:minmax(0,62fr) minmax(0,38fr);gap:40px;align-items:start}
-.ao-kh__resultaat.ao-is-in{animation:ao-fade .45s ease-out both}
+.ao-kh__resultaat.ao-is-in{animation:ao-fade .45s var(--ease-out) both}
 @keyframes ao-fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .ao-kh__aanbeveling{min-width:0}
-.ao-res{display:grid;grid-template-columns:40% minmax(0,1fr);background:var(--ao-wit);border:2px solid var(--ao-rood);border-radius:var(--ao-radius);overflow:hidden}
+/* aanbeveling: de uitgelichte kaart van het zondagblok (.ar-zv-kaart--zondag) */
+.ao-res{display:grid;grid-template-columns:40% minmax(0,1fr);background:var(--paper-shade-2);border:2px solid var(--terracotta);border-radius:var(--radius-card);overflow:hidden}
 .ao-res__foto{width:100%;height:100%;min-height:340px;object-fit:cover;display:block}
 .ao-res__body{padding:26px 28px;display:flex;flex-direction:column;min-width:0}
-.lp.ao .ao-kh__resultaatkop{font-family:var(--ao-kop);text-transform:uppercase;letter-spacing:.02em;font-size:17px;line-height:1.3;color:var(--ao-rood);margin-bottom:14px}
-.ao-res .ao .ao-tag{margin-bottom:12px}
-.lp.ao .ao-res .ao-naam{font-size:23px;margin-bottom:8px}
-.ao-res__waarom{background:var(--ao-bg-licht);padding:16px 18px;margin:16px 0 20px;border-radius:var(--ao-radius)}
+.ao .ao-kh__resultaatkop{align-self:flex-start;display:inline-flex;padding:4px 10px;border-radius:6px;background:var(--terracotta);color:var(--surface);
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1.4;margin-bottom:16px}
+.ao .ao-res .ao-naam{font-size:30px;margin-bottom:12px}
+.ao-res__waarom{background:var(--surface);border:1px solid var(--hairline);padding:16px 18px;margin:18px 0 20px;border-radius:12px}
 .ao .ao-res__waaromkop{font-size:14px;font-weight:700;margin-bottom:8px}
 .ao-res__redenen{display:flex;flex-direction:column;gap:6px}
-.ao-res__redenen li{font-size:15.5px;line-height:1.5}
+.ao-res__redenen li{font-size:15px;line-height:1.5}
 .ao-res__acties{flex-direction:row;align-items:center}
-.ao-res__acties .ao-knop{width:auto}
+.ao-res__acties .btn{width:auto}
 .ao-kh__rechts{min-width:0}
-.ao .ao-kh__ookkop{margin:0 0 10px;font-size:15px;font-weight:700}
-.ao-kh__alts{display:flex;flex-direction:column;gap:14px}
-.ao-alt{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:18px;align-items:center;background:var(--ao-wit);border:1px solid var(--ao-rand);
-  border-radius:var(--ao-radius);padding:8px 16px 8px 8px;color:var(--ao-tekst);text-decoration:none;transition:border-color .18s}
-.ao-alt:hover{border-color:var(--ao-rood)}
-.ao-alt img{width:96px;height:96px;object-fit:cover;display:block;border-radius:6px}
-.ao-alt__tekst{display:flex;flex-direction:column;gap:2px;min-width:0}
-.ao-alt__naam{font-family:var(--ao-kop);text-transform:uppercase;letter-spacing:.02em;font-size:16px;line-height:1.3}
-.ao-alt__prijs{font-size:14.5px;font-weight:700;color:var(--ao-rood)}
-.ao-alt__prijs .ao-vf{font-size:14px}
-.ao-alt__bekijk{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ao-rood);white-space:nowrap}
-.ao .ao-kh__voet{margin-top:18px;font-size:15px;color:var(--ao-tekst-om);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.ao .ao-kh__ookkop{margin:0 0 12px;font-size:14px;font-weight:700}
+.ao-kh__alts{display:flex;flex-direction:column;gap:12px}
+.ao .ao-alt{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--hairline-strong);
+  border-radius:12px;padding:8px 16px 8px 8px;color:var(--ink);transition:border-color var(--duration-normal) var(--ease-soft),box-shadow var(--duration-normal) var(--ease-soft)}
+.ao .ao-alt:hover{border-color:var(--terracotta);box-shadow:var(--shadow-card)}
+.ao .ao-alt img{width:96px;height:96px;object-fit:cover;display:block;border-radius:8px}
+.ao-alt__tekst{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ao-alt__naam{font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1.1;letter-spacing:-.01em}
+.ao-alt__prijs{font-size:14px;font-weight:700;color:var(--ink)}
+.ao-alt__prijs .ao-vf{font-weight:500;color:var(--ink-soft)}
+.ao-alt__bekijk{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--terracotta-text);white-space:nowrap}
+.ao .ao-alt__bekijk .as-icoon{width:16px;height:16px;transition:transform var(--duration-normal) var(--ease-soft)}
+.ao .ao-alt:hover .ao-alt__bekijk .as-icoon{transform:translateX(4px)}
+.ao .ao-kh__voet{margin-top:18px;font-size:14px;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
 .ao-kh--stappen .ao-kh__vraagraster{grid-template-columns:minmax(0,1fr);row-gap:0}
 .ao-kh--stappen .ao-kh__lijn,.ao-kh--stappen .ao-kh__vraag{display:none}
 .ao-kh--stappen .ao-kh__vraag.ao-is-huidig{display:block;border-top:0;padding-top:0}
 .ao-kh--stappen .ao-kh__chips{flex-direction:column;align-items:stretch;padding-left:0}
-.ao-kh--stappen button.ao-chip{width:100%;text-align:left;padding:16px 18px}
+.ao .ao-kh--stappen button.ao-chip{width:100%;text-align:left;padding:14px 20px;border-radius:var(--radius-chip)}
 
-/* ---- 7 goed om te weten: zes witte tegels ---- */
+/* ---- 7 goed om te weten: zes tegels (.kaart-stijl) ---- */
 .ao-praktisch{padding-bottom:0}
-.lp.ao .ao-praktisch__kop{margin-bottom:28px}
+.ao .ao-praktisch__kop{margin-bottom:28px}
 .ao-praktisch__raster{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:24px}
-.ao-ptegel{background:var(--ao-wit);border:1px solid var(--ao-rand);border-radius:var(--ao-radius);min-height:210px;min-width:0;display:flex;flex-direction:column;
+.ao-ptegel{background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card);min-height:200px;min-width:0;display:flex;flex-direction:column;
   align-items:center;gap:10px;padding:28px 24px 26px;text-align:center}
-.ao-ptegel svg{margin-bottom:4px}
-.lp.ao .ao-ptegel h3{font-size:17px;line-height:1.3}
-.ao-ptegel p{font-size:15px;line-height:1.5;color:var(--ao-tekst-om);overflow-wrap:anywhere}
-.lp.ao .ao-ptegel a{color:var(--ao-tekst);text-decoration:underline;text-decoration-color:var(--ao-rood);text-underline-offset:3px}
+.ao-ptegel .ao-vak{margin-bottom:4px}
+.ao .ao-ptegel h3{font-size:var(--h4);line-height:1.2}
+.ao .ao-ptegel p{font-size:14.5px;line-height:1.55;color:var(--ink-soft);overflow-wrap:anywhere}
 
-/* ---- 8 veelgestelde vragen: kop links (1/3), vragen rechts (2/3) ---- */
+/* ---- 8 veelgestelde vragen: kop links (1/3), accordeon van lander-w1 rechts (2/3) ---- */
 .ao-faq__raster{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:64px;align-items:start}
 .ao-faq__kop{display:flex;flex-direction:column;gap:12px;padding-top:6px;min-width:0}
-.ao-faq__kop .ao-h2{font-size:30px;overflow-wrap:anywhere}
-.ao-faq__tel{display:inline-flex;align-items:flex-start;gap:10px;margin-top:12px;font-size:15px;color:var(--ao-tekst-grijs);line-height:1.45;text-decoration:none}
-.ao-faq__tel svg{margin-top:3px}
-.ao-faq__tel:hover span{text-decoration:underline}
-.ao-faq__lijst{border-top:1px solid var(--ao-rand)}
-.ao-faq__item{border-bottom:1px solid var(--ao-rand);padding:22px 0}
-.ao-faq__vraag{display:flex;justify-content:space-between;align-items:center;gap:20px;cursor:pointer;list-style:none}
-.ao-faq__vraag::-webkit-details-marker{display:none}
-.ao-faq__vraag::marker{content:''}
-.lp.ao .ao-faq__vraag h3{font-size:18px;line-height:1.35;transition:color .18s}
-.lp.ao .ao-faq__item[open] .ao-faq__vraag h3,.lp.ao .ao-faq__vraag:hover h3{color:var(--ao-rood)}
-.ao-faq__pijl{flex:none;display:grid;place-items:center;width:24px;height:24px;color:var(--ao-rood)}
-.ao-faq__pijl svg{transition:transform .2s}
-.ao-faq__item[open] .ao-faq__pijl svg{transform:rotate(180deg)}
-.ao .ao-faq__antwoord{margin-top:12px;max-width:640px;font-size:16px;line-height:1.6;color:var(--ao-tekst-grijs)}
+.ao .ao-faq__tel{display:inline-flex;align-items:center;gap:12px;margin-top:12px;font-size:var(--text-sm);font-weight:600;color:var(--ink);line-height:1.45}
+.ao .ao-faq__tel:hover span{color:var(--terracotta-text)}
 
 /* ---- 10 slot: volle foto, tekst en knoppen gecentreerd ---- */
-.ao-slot{position:relative;min-height:clamp(520px, 36vw, 720px);overflow:hidden;display:flex;align-items:center;background:var(--ao-donker)}
+.ao-slot{position:relative;min-height:clamp(520px, 36vw, 720px);overflow:hidden;display:flex;align-items:center;background:var(--ink)}
 .ao-slot__foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
-.ao-slot__waas{position:absolute;inset:0;background:linear-gradient(to bottom, rgba(36,36,36,.5) 0, rgba(36,36,36,.68) 55%, rgba(36,36,36,.88) 100%)}
+.ao-slot__waas{position:absolute;inset:0;background:linear-gradient(180deg,rgba(68,42,6,.45) 0,rgba(68,42,6,.62) 55%,rgba(68,42,6,.85) 100%)}
 .ao-slot__in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding:60px 0}
-.lp.ao .ao-slot h2{color:#fff}
-.ao .ao-slot__tekst{max-width:620px;color:rgba(255,255,255,.9);font-size:17px}
-.ao-slot .ao-knoppen{gap:14px;margin-top:6px}
-.ao .ao-slot__contact{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:15px;color:var(--ao-licht);margin-top:4px}
-.lp.ao .ao-slot__contact a{display:inline-flex;gap:8px;align-items:center;color:var(--ao-licht)}
-.ao .ao-slot__contact .ao-ico{color:#fff}
+.ao .ao-slot h2{color:var(--on-ink);font-size:44px;line-height:1.05}
+.ao .ao-slot__tekst{max-width:600px;color:var(--on-ink-body);font-size:var(--text-sm);line-height:1.6}
+.ao-slot .ao-knoppen{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.ao .ao-slot__contact{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;font-size:14px;color:var(--on-ink-body);margin-top:4px}
+.ao .ao-slot__contact a{display:inline-flex;gap:8px;align-items:center;color:var(--on-ink);text-decoration:none}
 .ao .ao-slot__contact a:hover{text-decoration:underline}
-.ao-slot__punt{color:rgba(255,255,255,.5)}
-
-/* ---- blokken uit lander-w1 (4b kamers, 5a reviews, kamer-pop-up) in Asteria-kleuren ---- */
-.lp.ao [data-toon="paper"]{background:var(--ao-wit)}
-.lp.ao [data-toon="surface"]{background:var(--ao-wit)}
-.lp.ao .b4b{padding:60px 0}
-.lp.ao .b4b-kaart{background:var(--ao-bg-licht);border-radius:var(--ao-radius);box-shadow:none;border:1px solid var(--ao-rand)}
-.lp.ao .b4b-foto{border-radius:6px}
-.lp.ao .b4b-inhoud h3{font-size:24px}
-.lp.ao .b4b-spec,.lp.ao .b4b-intro p{color:var(--ao-tekst-grijs);font-weight:400}
-.lp.ao .b4b-spec .dot,.lp.ao .vinkjes li>.as-icoon{color:var(--ao-rood)}
-.lp.ao .b4b-dot.is-active{background:var(--ao-rood)}
-.lp.ao .btn,.lp.ao .btn-primary{background:var(--ao-rood);color:#fff;border-radius:var(--ao-radius)}
-.lp.ao .btn:hover,.lp.ao .btn-primary:hover{background:var(--ao-rood-donker)}
-.lp.ao .btn-secondary{background:linear-gradient(to bottom,transparent 0 50%,var(--ao-charcoal) 50% 100%);background-size:100% 200%;background-position:0 0%;
-  color:var(--ao-charcoal);border:1.5px solid var(--ao-charcoal);border-radius:var(--ao-radius)}
-.lp.ao .btn-secondary:hover{background-position:0 100%;color:#fff}
-.lp.ao .btn:focus-visible,.lp.ao .as-pijl:focus-visible{outline-color:var(--ao-rood)}
-.lp.ao .b5a{padding:60px 0}
-.lp.ao .kaart.b5a-kaart{background:var(--ao-bg-licht);border-color:var(--ao-rand);box-shadow:none;border-radius:var(--ao-radius)}
-.lp.ao .b5a-kaart p{font-weight:400}
-.lp.ao .g-sticker__score>span{font-family:var(--ao-kop)}
-.lp.ao .lp-pop__badge{background:var(--ao-rood)}
+.ao .ao-slot__contact .as-icoon{width:16px;height:16px;color:var(--on-ink)}
+.ao-slot__punt{color:var(--on-ink-soft)}
 
 @media (prefers-reduced-motion:reduce){
   .ao-kh__resultaat.ao-is-in,.ao-kh__antwoorden.ao-is-in,.ao-kh__vragen.ao-is-in{animation:none}
-  .ao-faq__pijl svg{transition:none}
   html{scroll-behavior:auto}
 }
 
@@ -301,95 +242,81 @@ button.ao-chip:focus-visible{outline:2px solid var(--ao-rood);outline-offset:2px
   .ao-filter{flex-direction:column;align-items:flex-start;gap:12px}
   .ao-filter__links{flex-direction:column;align-items:flex-start;gap:10px;max-width:100%}
   .ao-filter__chips{flex-wrap:wrap}
-  .ao-kh__paneel{padding:48px 40px}
+  .ao-kh__paneel{padding:44px 36px}
   .ao-kh__vraagraster{column-gap:40px}
   .ao-kh__resultaat{grid-template-columns:minmax(0,1fr);gap:32px}
-  .ao-faq__raster{gap:40px}
+  .ao-faq__raster{grid-template-columns:minmax(0,1fr);gap:28px}
   .ao-praktisch__raster{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .ao .ao-hero__kop{font-size:var(--h1)}
 }
 
 /* ==== <= 767 px: telefoon ==== */
 @media (max-width:767px){
-  .ao-wrap{width:calc(100% - 32px)}
-  .ao-sectie,.lp.ao .b4b,.lp.ao .b5a{padding:36px 0}
-  .ao-h2{font-size:26px}
-  .ao-knop{font-size:15px;padding:13px 22px}
-
   .ao-hero{min-height:max(62svh, 520px);align-items:flex-end}
   .ao-hero__in{padding:60px 0 100px}
-  .lp.ao .ao-hero__kop{font-size:min(32px, 8vw);margin-bottom:14px}
-  .ao .ao-hero__sub{font-size:16px;margin-bottom:24px}
-  .ao-hero__knop{display:flex;width:100%;min-width:0;white-space:normal}
+  .ao .ao-hero__kop{font-size:36px;margin-bottom:12px}
+  .ao .ao-hero__sub{font-size:15px;margin-bottom:22px}
+  .ao .ao-hero__knop{display:flex;width:100%;min-width:0;white-space:normal}
 
-  .ao-intro{padding-bottom:36px}
   .ao-intro__paneel{margin-top:-64px;gap:24px;padding:28px 20px}
-  .ao-intro__tekst{font-size:16px}
   .ao-intro__tegels{gap:10px}
-  .ao-icotegel{min-height:132px;padding:18px 6px 14px}
-  .ao-icotegel span{font-size:13.5px}
+  .ao-icotegel{min-height:132px;padding:16px 6px 14px}
+  .ao-icotegel>span:last-child{font-size:12.5px}
+  .ao-icotegel b{font-size:14px}
 
-  .ao-top{padding-top:0}
-  .ao-top__paneel{padding:30px 18px 32px}
-  .ao .ao-top__lead{font-size:16px;margin:10px 0 24px}
-  .ao-top__grid{grid-template-columns:minmax(0,1fr);gap:20px}
+  .ao-top__paneel{padding:28px 16px 30px}
+  .ao .ao-top__lead{margin:12px 0 24px}
+  .ao-top__grid{grid-template-columns:minmax(0,1fr);gap:16px}
   .ao-top__grid > :last-child:nth-child(odd){grid-column:auto}
   .ao-tk__foto{height:190px}
-  .ao-tk__body{padding:24px 20px 26px}
+  .ao-tk__body{padding:20px 12px 12px}
 
-  .ao .ao-alle__lead{font-size:16px}
   .ao-filter{align-items:stretch;margin-bottom:24px}
   .ao-filter__links{align-items:stretch;width:100%}
-  .ao-filter__chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+  .ao-filter__chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:3px;margin:-3px}
   .ao-filter__chips::-webkit-scrollbar{display:none}
   label.ao-chip{flex:none}
   .ao-alle__grid{grid-template-columns:minmax(0,1fr)}
-  .ao-kaart{margin-bottom:18px;padding-bottom:22px}
-  .ao-kaart > *:not(.ao-kaart__foto){margin-left:20px;margin-right:20px}
+  .ao .kaart.ao-kaart{margin-bottom:16px}
+  .ao-kaart__img{height:200px}
+  .ao-kaart > *:not(.ao-kaart__foto){margin-left:10px;margin-right:10px}
 
-  .ao-kh__paneel{padding:32px 20px 34px}
-  .ao .ao-kh__lead{font-size:16px;margin:10px 0 26px}
+  .ao-kh__paneel{padding:28px 18px 30px}
+  .ao .ao-kh__lead{margin:12px 0 24px}
   .ao-kh__vraagraster{grid-template-columns:minmax(0,1fr);row-gap:24px}
   .ao-kh__lijn{display:none}
-  .ao-kh__vraag--onder{border-top:1px solid var(--ao-rand);padding-top:24px}
+  .ao-kh__vraag--onder{border-top:1px solid var(--hairline);padding-top:24px}
   .ao-kh--enkel .ao-kh__vraag--onder{border-top:0;padding-top:0}
-  .ao-kh__vraagkop{font-size:17px;gap:12px}
-  .ao-kh__nr{width:30px;height:30px;font-size:14px}
+  .ao-kh__vraagkop{gap:12px}
+  .ao-kh__nr{width:30px;height:30px;font-size:13px}
   .ao-kh__chips{padding-left:0}
-  .ao .ao-kh__rust{margin-top:28px;align-items:flex-start}
-  .ao-kh__antwoorden{gap:8px}
+  .ao .ao-kh__rust{margin-top:24px;align-items:flex-start}
   .ao-kh__antwlabel{flex:0 0 100%;margin:0 0 2px}
-  .ao-kh__aanpassen{margin-left:0;flex:0 0 100%;margin-top:6px;text-align:left}
+  .ao .ao-kh__aanpassen{margin-left:0;flex:0 0 100%;margin-top:6px;text-align:left}
   .ao-kh__resultaat{gap:28px}
   .ao-res{grid-template-columns:minmax(0,1fr)}
   .ao-res__foto{height:200px;min-height:0}
-  .ao-res__body{padding:22px 20px 24px}
+  .ao-res__body{padding:22px 18px 22px}
+  .ao .ao-res .ao-naam{font-size:26px}
   .ao-res__acties{flex-direction:column;align-items:stretch}
-  .ao-res__acties .ao-knop{width:100%}
-  .ao-alt{grid-template-columns:56px minmax(0,1fr);padding-right:12px}
-  .ao-alt img{width:56px;height:56px}
+  .ao-res__acties .btn{width:100%}
+  .ao .ao-alt{grid-template-columns:56px minmax(0,1fr);padding-right:12px}
+  .ao .ao-alt img{width:56px;height:56px}
   .ao-alt__bekijk{grid-column:2}
 
-  .lp.ao .ao-praktisch__kop{margin-bottom:20px}
+  .ao .ao-praktisch__kop{margin-bottom:20px}
   .ao-praktisch__raster{gap:10px}
   .ao-ptegel{min-height:0;padding:18px 10px 16px;gap:8px}
-  .ao-ptegel svg{width:30px;height:30px;margin-bottom:2px}
-  .lp.ao .ao-ptegel h3{font-size:14px}
-  .ao-ptegel p{font-size:13px;line-height:1.45}
-
-  .ao-faq__raster{grid-template-columns:minmax(0,1fr);gap:20px}
-  .ao-faq__item{padding:18px 0}
-  .ao-faq__vraag{gap:14px}
-  .lp.ao .ao-faq__vraag h3{font-size:16px}
-  .ao .ao-faq__antwoord{font-size:15.5px}
+  .ao .ao-ptegel h3{font-size:16px}
+  .ao .ao-ptegel p{font-size:13px;line-height:1.45}
 
   .ao-slot{min-height:540px}
   .ao-slot__in{padding:48px 0;gap:14px}
-  .ao .ao-slot__tekst{font-size:16px}
+  .ao .ao-slot h2{font-size:var(--h2)}
   .ao-slot .ao-knoppen{flex-direction:column;width:100%}
-  .ao-slot .ao-knop{width:100%}
-  .lp.ao .b4b-inhoud h3{font-size:21px}
-  .lp.ao .ao-naam,.lp.ao .ao-kaart .ao-naam,.lp.ao .ao-res .ao-naam{font-size:19px;letter-spacing:.01em}
+  .ao-slot .btn{width:100%}
+  .ao .ao-naam,.ao .ao-kaart .ao-naam{font-size:24px}
 }
 
-/* links in alinea's: Asteria-rood in plaats van de terracotta-onderstreping van lander-w1 */
-.lp.ao p a{color:inherit;text-decoration-color:var(--ao-rood)}
+/* korte omschrijving op de kaarten van Alle arrangementen */
+.ao .ao-kaart__oms{align-self:start;margin:0 0 16px;color:var(--ink-soft)}
