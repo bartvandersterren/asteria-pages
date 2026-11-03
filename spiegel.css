@@ -8,3 +8,5 @@
 .spiegel-melding{flex-basis:100%;width:100%;margin:8px 0 0;font-family:var(--font-body);font-size:14px;line-height:1.5}
 .spiegel-melding.is-fout{color:var(--terracotta)}
 .footer .spiegel-melding{color:var(--on-ink-body)}
+/* Live kamerprijs (/api/kamer-vanaf, spiegel.js): verborgen tot gevuld, de ruimte blijft (geen verspringen); geen prijs = blijft verborgen */
+[data-kamer-vanaf]:not(.is-gevuld){visibility:hidden}

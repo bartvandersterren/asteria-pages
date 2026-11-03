@@ -214,6 +214,26 @@
     if (form.matches('[data-booking-form], .final-cta__widget')) { e.preventDefault(); e.stopImmediatePropagation(); boek(null); }
   }, true);
 
+  /* ── live kamerprijzen: [data-kamer-vanaf="<sleutel>"] (staging_spiegel.py markeer_prijzen) via /api/kamer-vanaf.
+     spiegel.css houdt het element verborgen (visibility) tot het gevuld is; geen prijs of fout = blijft verborgen. ── */
+  var prijsEls = document.querySelectorAll('[data-kamer-vanaf]');
+  if (prijsEls.length && window.fetch) {
+    fetch('/api/kamer-vanaf', { headers: { Accept: 'application/json' } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        var prijzen = (data && data.ok && data.prijzen) || {};
+        window.spiegelKamerVanaf = prijzen;
+        Array.prototype.forEach.call(prijsEls, function (el) {
+          var p = prijzen[el.getAttribute('data-kamer-vanaf')];
+          var bedrag = el.querySelector('[data-kamer-vanaf-bedrag]');
+          if (!p || typeof p.euro !== 'number' || !bedrag) return;
+          bedrag.textContent = '€ ' + p.euro;
+          el.classList.add('is-gevuld');
+        });
+      })
+      .catch(function () { window.spiegelKamerVanaf = null; });
+  }
+
   /* ── cookiemelding (zoals hotel-venray-v2) ── */
   var banner = document.getElementById('cookieBanner');
   var akkoord = document.getElementById('cookieAccept');

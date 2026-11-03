@@ -353,6 +353,35 @@ def verwerk_links(soup, links, eigen_pad, heeft_boeking, log, pagina_kamer=None)
         raise SystemExit(f'geen doel voor sleutel {sleutel!r} ({t!r}) op {eigen_pad}')
 
 
+# Prijselementen van de staging (plaatshouder "€ …" of "Bekijk actuele prijzen") -> live vanaf-prijs via /api/kamer-vanaf.
+# Element krijgt data-kamer-vanaf="<sleutel>", het bedrag data-kamer-vanaf-bedrag; spiegel.css verbergt het element
+# (visibility, ruimte blijft) tot spiegel.js het gevuld heeft; geen prijs = blijft verborgen.
+PRIJS_SELECTOR = {'.suite-price': '.amount', '.overhangkaart__prijs': '.overhangkaart__bedrag', '.boekbalk__prijs': '.boekbalk__bedrag'}
+
+
+def markeer_prijzen(soup, pagina_kamer, log):
+    kamer_van_id = {v: k for k, v in KAMER_MEWS.items()}
+    for sel, bedrag_sel in PRIJS_SELECTOR.items():
+        for el in soup.select(sel):
+            kaart = el.find_parent(['article', 'li']) or el.parent
+            kop = kaart.find(re.compile('^h[1-4]$')) if kaart else None
+            sleutel = KAMER_KOP.get(tekst_van(kop).lower()) if kop else None
+            if not sleutel and kaart:
+                knop = kaart.find('a', attrs={'data-room': True})
+                sleutel = kamer_van_id.get(knop['data-room']) if knop else None
+            sleutel = sleutel or pagina_kamer
+            bedrag = el.select_one(bedrag_sel)
+            if not sleutel or bedrag is None:
+                raise SystemExit(f'prijselement zonder kamer of bedrag: {str(el)[:160]}')
+            el['data-kamer-vanaf'] = sleutel
+            bedrag['data-kamer-vanaf-bedrag'] = ''
+            # verborgen plaatshouder zo lang als een echt bedrag, zodat de ruimte gelijk blijft (home: "Bekijk actuele prijzen")
+            bedrag.string = '€ …'
+            if 'data-plaatshouder' in el.attrs:
+                del el['data-plaatshouder']
+            log.append(('kamerprijs live (/api/kamer-vanaf)', f'{sel} [{sleutel}]'))
+
+
 def herschrijf_assets(soup, assets):
     def map_waarde(v):
         if v.startswith(BASIS):
@@ -438,6 +467,7 @@ def spiegel_pagina(staging_pad, info, links, assets, droog):
     heeft_boeking = soup.find(id='boeking') is not None
     pagina_kamer = info['sleutel'][len('kamer-'):] if info['sleutel'].startswith('kamer-') else None
     verwerk_links(soup, links, staging_pad, heeft_boeking, log, pagina_kamer)
+    markeer_prijzen(soup, pagina_kamer, log)
 
     # formulieren
     for f in soup.find_all('form'):
@@ -465,6 +495,8 @@ def spiegel_pagina(staging_pad, info, links, assets, droog):
         raise SystemExit(f'{staging_pad}: nog staging-/Formspree-/bookingEngine-verwijzingen: {rest[:5]}')
     if re.search(r'href="#"', uit):
         raise SystemExit(f'{staging_pad}: nog href="#" (niet-gebouwde link): ' + ', '.join(re.findall(r'<a [^>]*href="#"[^>]*>', uit)[:3]))
+    if [m for m in re.findall(r'<[a-z]+[^>]*>€ …', uit) if 'data-kamer-vanaf-bedrag' not in m]:
+        raise SystemExit(f'{staging_pad}: nog een prijsplaatshouder zonder data-kamer-vanaf')
     if re.search(r'"/assets/', uit):
         raise SystemExit(f'{staging_pad}: nog /assets/-verwijzingen')
     kop = '<!--\n  Spiegel van de Effecty-staging-pagina ' + staging_pad + ' (nieuwe asteria.nl-huisstijl).\n' \

@@ -44,6 +44,12 @@ def optie(naam, standaard=None):
 BASIS = optie('--basis', 'http://localhost:8781').rstrip('/')
 SHOT = optie('--schermafdruk')
 ZONDER_STAGING = '--zonder-staging' in args
+PRIJZEN_ECHT = '--prijzen-echt' in args   # kamerprijzen: echte /api/kamer-vanaf (preview) i.p.v. de mock
+ALLEEN_PRIJZEN = '--alleen-prijzen' in args
+MOCK_PRIJZEN = {'comfort': {'euro': 133, 'datum': '2026-11-08'}, 'comfort-3': {'euro': 142, 'datum': '2026-11-08'},
+                'mindervalide': {'euro': 133, 'datum': '2026-11-08'}, 'royale': {'euro': 142, 'datum': '2026-11-08'},
+                'deluxe': {'euro': 151, 'datum': '2026-11-08'}, 'junior-suite': {'euro': 160, 'datum': '2026-11-08'},
+                'suite': {'euro': 169, 'datum': '2026-11-08'}, 'bruidssuite': None}
 LOKAAL = re.match(r'https?://(localhost|127\.0\.0\.1)', BASIS) is not None
 links = json.load(open(os.path.join(ROOT, 'translations', 'spiegel-links.json'), encoding='utf-8'))
 SPIEGELADRESSEN = {links['paginas'][v['sleutel']] for v in links['spiegel'].values()}
@@ -117,8 +123,68 @@ def naast_elkaar(a, b, uit):
     c.save(uit)
 
 tabel = []
+
+PRIJS_JS = """() => [...document.querySelectorAll('[data-kamer-vanaf]')].map(e => {
+  const r = e.getBoundingClientRect(), k = e.closest('article, li, aside, .boekbalk') || e.parentElement;
+  return {k: e.dataset.kamerVanaf, zicht: getComputedStyle(e).visibility === 'visible', tekst: e.innerText.replace(/\\s+/g, ' ').trim(),
+          h: Math.round(r.height), kh: Math.round(k.getBoundingClientRect().height)}; })"""
+
+def prijzen_test(b):
+    """Kamerprijzen op de spiegel: gemockte API (prijs verschijnt, null = verborgen), falende API (alles verborgen, zelfde
+    hoogte = geen verspringen); met --prijzen-echt de echte /api/kamer-vanaf."""
+    for staging_pad, info in links['spiegel'].items():
+        bron = open(os.path.join(ROOT, info['bestand']), encoding='utf-8').read()
+        if 'data-kamer-vanaf=' not in bron:
+            continue
+        adres = links['paginas'][info['sleutel']]
+        for w, h, mob in ((390, 844, True), (1440, 900, False)):
+            tag = f'[{adres} {w} prijzen]'
+            uitkomst = {}
+            for stand in (('echt',) if PRIJZEN_ECHT else ()) + ('mock', 'fout'):
+                ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob, device_scale_factor=1, reduced_motion='reduce')
+                ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
+                ctx.route('**/www.googletagmanager.com/**', lambda r: r.fulfill(status=200, content_type='application/javascript', body=''))
+                if stand == 'mock':
+                    ctx.route('**/api/kamer-vanaf*', lambda r: r.fulfill(status=200, content_type='application/json',
+                              body=json.dumps({'ok': True, 'van': '2026-11-03', 'tot': '2026-12-28', 'prijzen': MOCK_PRIJZEN})))
+                elif stand == 'fout':
+                    ctx.route('**/api/kamer-vanaf*', lambda r: r.fulfill(status=500, content_type='application/json', body='{"ok":false}'))
+                pg = ctx.new_page()
+                pg.goto(url_van(info), wait_until='domcontentloaded')
+                vroeg = pg.evaluate("[...document.querySelectorAll('[data-kamer-vanaf]')].filter(e => getComputedStyle(e).visibility === 'visible' && /…/.test(e.innerText)).length")
+                pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(stand == 'echt' and 1500 or 300)
+                r = pg.evaluate(PRIJS_JS)
+                uitkomst[stand] = r
+                if stand == 'mock':
+                    goed = all((e['zicht'] and re.search('€\\s' + str(MOCK_PRIJZEN[e['k']]['euro']) + r'\b', e['tekst']) and 'per nacht' in e['tekst'].lower())
+                               if MOCK_PRIJZEN.get(e['k']) else not e['zicht'] for e in r)
+                    check(f'{tag} gemockte API: {len(r)} prijzen gevuld (vanaf € X per nacht), kamer zonder prijs verborgen, nooit "€ …" zichtbaar',
+                          r and goed and vroeg == 0, str([(e['k'], e['zicht'], e['tekst']) for e in r])[:300])
+                    if True:   # schermafdruk met prijzen
+                        d = SHOT or os.path.join(ROOT, 'qa', 'spiegel')
+                        os.makedirs(d, exist_ok=True)
+                        el = pg.locator('[data-kamer-vanaf]').first
+                        el.scroll_into_view_if_needed(); pg.wait_for_timeout(300)
+                        pg.screenshot(path=os.path.join(d, f"prijzen-{adres.strip('/').replace('/', '_')}-{w}.png"), full_page=(adres == '/kamers'))
+                elif stand == 'fout':
+                    check(f'{tag} falende API: alle prijsregels verborgen, geen "€ …" zichtbaar', r and not any(e['zicht'] for e in r), str(r)[:200])
+                    m = uitkomst.get('mock') or []
+                    check(f'{tag} geen verspringen: zelfde hoogte prijsregel en kaart met en zonder prijs',
+                          [(e['h'], e['kh']) for e in r] == [(e['h'], e['kh']) for e in m], str([(e['h'], e['kh']) for e in r])[:200] + ' / ' + str([(e['h'], e['kh']) for e in m])[:200])
+                else:
+                    zicht = [e for e in r if e['zicht']]
+                    check(f'{tag} echte API: {len(zicht)}/{len(r)} prijzen gevuld', zicht and all(_re_euro(e['tekst']) for e in zicht),
+                          str([(e['k'], e['tekst']) for e in zicht])[:300])
+                ctx.close()
+
+def _re_euro(t):
+    return re.search(r'€\s?\d+', t) is not None
+
 with sync_playwright() as p:
     b = p.chromium.launch()
+    prijzen_test(b)
+    if ALLEEN_PRIJZEN:
+        links['spiegel'] = {}
     sitemap = ''
     try:
         sitemap = open(os.path.join(ROOT, 'sitemap.xml'), encoding='utf-8').read()
@@ -137,6 +203,8 @@ with sync_playwright() as p:
             ctx.route('https://app.mews.com/distributor/distributor.min.js',
                       lambda r: r.fulfill(status=200, content_type='application/javascript', body=MEWS_STUB))
             ctx.route('**/www.googletagmanager.com/**', lambda r: r.fulfill(status=200, content_type='application/javascript', body=''))
+            ctx.route('**/api/kamer-vanaf*', lambda r: r.fulfill(status=200, content_type='application/json',
+                      body=json.dumps({'ok': True, 'van': '2026-11-03', 'tot': '2026-12-28', 'prijzen': MOCK_PRIJZEN})))
             nb = []
             ctx.route('**/api/nieuwsbrief', lambda r: (nb.append(r.request.post_data), r.fulfill(status=200, content_type='application/json', body='{"ok":true}')))
             pg = ctx.new_page()
