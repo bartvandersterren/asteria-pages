@@ -16,6 +16,7 @@ Gebruik:
   python3 build.py welkom-v2           # welkomstlander (code WELKOM) op lander-w1 met zijkaart -> welkom.html (live /welkom; oude NL -> welkom-oud.html)
   python3 build.py najaarsarrangement   # arrangementsjabloon: lander-w1 met blokken zijkaart + arrangement (ook wellness-arrangement,
                                         # oorlogsmuseum-arrangement, limburg-arrangement, weekend-aanbieding, golfarrangement)
+  python3 build.py arrangementen       # arrangementenoverzicht -> arrangementen-v2.html (noindex, apply_overzicht)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -199,6 +200,16 @@ TEMPLATES = {
         },
         'reviews': 'content/reviews-google-asteria.json',
     } for s in ('herfst', 'lente', 'zomer', 'winter')},
+    # Arrangementenoverzicht (opbouw Parkhotel /arrangement/, uiterlijk Asteria): alleen NL, noindex, niet in sitemap, nergens gelinkt.
+    # Kop/voet/kamers/reviews/kamer-pop-up uit lander-w1.template.html, kaartdata uit de arrangement-JSON's (apply_overzicht).
+    'arrangementen': {
+        'template': 'arrangementen.template.html',
+        'langs': {
+            'nl': ('arrangementen-v2.html', 'translations/arrangementen-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'overzicht': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -1025,6 +1036,211 @@ def apply_kalender(html, data, kamers, nachten):
     return html
 
 
+MEWS_BASIS = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
+# lander-w1-iconen (klasse as-icoon: stroke currentColor, breedte 2); vinkje = VINK_SVG zoals in de zijkaart
+AO_PIJL = icoon('<path d="M5 12h14M13 6l6 6-6 6"/>')
+AO_POTLOOD = icoon('<path d="M17 3l4 4L8 20H4v-4z"/>', 'as-icoon ao-kh__potlood')
+
+
+def ao_vak(paden):
+    """Icoon in een zandvakje, zoals .ar-vak in 'Dit is inbegrepen' van de arrangementen."""
+    return f'<span class="ao-vak">{icoon(paden)}</span>'
+
+
+def w1_blokken():
+    """Kop, kamers (4b), reviews (5a), kamer-pop-up en voet letterlijk uit lander-w1.template.html, zodat het overzicht
+    met de flow-landers en arrangementen meeloopt. Zonder vouchercode: '?mewsVoucherCode={{VOUCHER}}' en
+    data-voucher="{{VOUCHER}}" vallen weg (kamerknoppen openen de widget met data-room); de pil op de kamerfoto ook."""
+    with open(os.path.join(base, 'lander-w1.template.html'), encoding='utf-8') as f:
+        w1 = f.read()
+
+    def stuk(begin, eind):
+        i = w1.find(begin)
+        if i < 0:
+            sys.exit(f'apply_overzicht: {begin!r} niet gevonden in lander-w1.template.html')
+        j = w1.find(eind, i)
+        if j < 0:
+            sys.exit(f'apply_overzicht: {eind!r} na {begin!r} niet gevonden in lander-w1.template.html')
+        return w1[i:j + len(eind)]
+
+    i, j = w1.find('<header class="top-stack">'), w1.find('<main class="lp">')
+    if i < 0 or j < i:
+        sys.exit('apply_overzicht: kop van lander-w1 niet gevonden')
+    delen = {
+        'W1_KOP': w1[i:j].rstrip(),
+        'W1_KAMERS': '  ' + stuk('<section class="sec b4b"', '</section>'),
+        'W1_REVIEWS': '  ' + stuk('<section class="sec b5a"', '</section>'),
+        'W1_POP': '  ' + '\n  '.join([stuk('<dialog class="lp-pop lp-pop--kamer"', '</dialog>'),
+                                      '<div class="lp-pop-overlay" hidden></div>',
+                                      stuk('<template id="lp-pop-vink">', '</template>'),
+                                      stuk('<script type="application/json" id="lp-kamerdata">', '</script>')]),
+        'W1_VOET': stuk('<footer class="footer">', '</footer>') + '\n\n' + stuk('<div class="cookie-banner"', '</div>'),
+    }
+    for k, s in delen.items():
+        s = s.replace(f'data-basis="{MEWS_BASIS}?mewsVoucherCode={{{{VOUCHER}}}}"', f'data-basis="{MEWS_BASIS}?"')
+        s = s.replace('?mewsVoucherCode={{VOUCHER}}&amp;', '?').replace('?mewsVoucherCode={{VOUCHER}}', '')
+        s = s.replace(' data-voucher="{{VOUCHER}}"', '')
+        s = re.sub(r'<span class="b4b-pil">.*?</span>', '', s, flags=re.S)
+        if '{{VOUCHER}}' in s:
+            sys.exit(f'apply_overzicht: {{{{VOUCHER}}}} blijft over in {k}')
+        # reviewsticker: de arrangementvariant (met het aantal reviews)
+        delen[k] = apply_blokken(s, {'arrangement'})
+    return delen
+
+
+def apply_overzicht(html, data):
+    """Arrangementenoverzicht (arrangementen.template.html, prefix ao-):
+    - lander-w1-blokken op <!-- W1_KOP/KAMERS/REVIEWS/POP/VOET --> (w1_blokken);
+    - kaarten (meest geboekt, alle, keuzehulp) uit '_arrangementen' ({slug, url, cat, volgorde, scores, redenen}); per
+      slug leest de build translations/<slug>-nl.json: KAART_KOP (titel), eerste zin van SUB (korte omschrijving),
+      ARR_PRIJS + ARR_PRIJS_KAART_EENHEID (vanaf-prijs), ARR_NACHTEN, HERO_IMG/HERO_ALT/HERO_ATTR (foto), KAART_VINK_A..C,
+      ZV_TOON + ZV_ZONDAG_PRIJS (zondagregel; die kaarten krijgen categorie 'zondag'). Zo lopen prijzen niet uit de pas met de arrangementpagina's.
+    - '_meest_geboekt' (3 slugs), '_categorieen' (chips), '_kh_vragen' (4 vragen), '_intro_tegels' (4), '_praktisch' (6), '_faq'."""
+    from html import escape
+    for k, s in w1_blokken().items():
+        html = html.replace(f'<!-- {k} -->', s, 1)
+
+    cats = data['_categorieen']
+    arrs = []
+    for a in data['_arrangementen']:
+        with open(os.path.join(base, 'translations', f'{a["slug"]}-nl.json'), encoding='utf-8') as f:
+            j = json.load(f)
+        if not os.path.exists(os.path.join(base, j['HERO_IMG'])):
+            sys.exit(f'apply_overzicht: {j["HERO_IMG"]} bestaat niet')
+        nachten = j.get('ARR_NACHTEN', 1)
+        x = re.search(r'--hero-x:\s*([0-9.]+%)', j.get('HERO_ATTR', ''))
+        zin = re.match(r'.+?[.!?](?=\s|$)', j['SUB'].strip())
+        arrs.append(dict(a, naam=j['KAART_KOP'], oms=a.get('oms') or (zin.group(0) if zin else j['SUB']), prijs=j['ARR_PRIJS'],
+                         eenheid=j['ARR_PRIJS_KAART_EENHEID'], nachten=nachten, foto=j['HERO_IMG'], alt=j.get('HERO_ALT', ''),
+                         pos=f'{x.group(1)} 50%' if x else '50% 50%',
+                         vinken=[j[f'KAART_VINK_{l}'] for l in 'ABC' if j.get(f'KAART_VINK_{l}')],
+                         # zondagregel zoals Parkhotel (Op zondag vanaf <b>prijs</b> p.p.), bedrag = ZV_ZONDAG_PRIJS van het zondagblok (a9)
+                         zondag=(f'Op zondag vanaf <b>{j["ZV_ZONDAG_PRIJS"]}</b> {j["ARR_PRIJS_KAART_EENHEID"]}'
+                                 if j.get('ZV_TOON') and j.get('ZV_ZONDAG_PRIJS') else ''),
+                         tag=a.get('tag') or ' · '.join([cats[a['cat'][0]], '1 nacht' if nachten == 1 else f'{nachten} nachten'])))
+    # '_extra': statische kaarten zonder eigen arrangement-JSON (feestdagen op asteria.nl); alle data staat in de lijst zelf.
+    # Velden: slug, url, naam, oms, prijs? (alleen als de bronpagina hem noemt), eenheid?, tag, foto, alt, pos?, vinken, cat, volgorde, scores, redenen.
+    for e in data.get('_extra', []):
+        for veld in ('slug', 'url', 'naam', 'oms', 'tag', 'foto', 'alt', 'vinken', 'cat', 'volgorde', 'scores', 'redenen'):
+            if veld not in e:
+                sys.exit(f'_extra: veld {veld!r} ontbreekt bij {e.get("slug", "?")!r}')
+        if not os.path.exists(os.path.join(base, e['foto'])):
+            sys.exit(f'_extra: {e["foto"]} bestaat niet')
+        arrs.append(dict(e, prijs=e.get('prijs', ''), eenheid=e.get('eenheid', ''), pos=e.get('pos', '50% 50%'), zondag=''))
+    for a in arrs:
+        for c in a['cat']:
+            if c not in cats:
+                sys.exit(f'apply_overzicht: onbekende categorie {c!r} bij {a["slug"]}')
+    volgorde = data.get('_volgorde')
+    if volgorde:
+        per = {a['slug']: a for a in arrs}
+        if sorted(volgorde) != sorted(per):
+            sys.exit(f'_volgorde moet precies de slugs van _arrangementen + _extra bevatten')
+        arrs = [per[s] for s in volgorde]
+    # zoals Parkhotel: elke kaart met een zondagregel hoort ook bij de chip Zondagvoordeel (categorie 'zondag')
+    if 'zondag' in cats:
+        for a in arrs:
+            if a['zondag'] and 'zondag' not in a['cat']:
+                a['cat'] = a['cat'] + ['zondag']
+    per_slug = {a['slug']: a for a in arrs}
+    top = data['_meest_geboekt']
+    if len(top) != 3 or any(s not in per_slug for s in top):
+        sys.exit(f'_meest_geboekt: drie slugs uit _arrangementen nodig, niet {top!r}')
+
+    vanaf, knop = data['VANAF'], data['KNOP_ARR']
+
+    def foto(a, cls, w=800, h=534):
+        return (f'<img class="{cls}" src="{escape(a["foto"])}" alt="{escape(a["alt"])}" width="{w}" height="{h}" loading="lazy" '
+                f'decoding="async" style="object-position:{a["pos"]}">')
+
+    def prijs(a, cls='ao-prijs'):
+        if not a['prijs']:
+            return ''
+        return f'<p class="{cls}"><span class="ao-vf">{vanaf}</span> <b>{a["prijs"]}</b> <span>{a["eenheid"]}</span></p>'
+
+    def zondag(a):
+        return f'<p class="ao-zondagregel">{a["zondag"]}</p>' if a['zondag'] else ''
+
+    def vinken(a, cls='vinkjes ao-incl'):
+        return f'<ul class="{cls}">' + ''.join(f'<li>{VINK_SVG}<span>{v}</span></li>' for v in a['vinken']) + '</ul>'
+
+    def acties(a, cls='ao-acties'):
+        return f'<div class="{cls}"><a class="btn btn-primary" href="{escape(a["url"])}">{knop}</a></div>'
+
+    html = html.replace('<!-- AO_INTRO -->', '\n'.join(
+        f'          <li class="ao-icotegel">{ao_vak(t["icoon"])}<span><b>{t["titel"]}</b>{t["tekst"]}</span></li>'
+        for t in data['_intro_tegels']))
+    html = html.replace('<!-- AO_TOP -->', '\n'.join(
+        f'          <article class="ao-tk">{foto(a, "ao-tk__foto")}<div class="ao-tk__body">'
+        f'<p class="ao-tag">{a["tag"]}</p><h3 class="ao-naam">{a["naam"]}</h3>'
+        f'<div class="ao-prijsblok">{prijs(a)}{zondag(a)}</div><p class="ao-oms">{a["oms"]}</p>{vinken(a)}{acties(a)}</div></article>'
+        for a in (per_slug[s] for s in top)))
+    html = html.replace('<!-- AO_CHIPS -->', '\n'.join(
+        ['            <label class="ao-chip ao-is-aan"><input class="ao-chip__vak" type="checkbox" data-ao-reset checked><span>'
+         f'{data["FILTER_ALLES"]}</span></label>']
+        + [f'            <label class="ao-chip"><input class="ao-chip__vak" type="checkbox" value="{k}"><span>{escape(v, quote=False)}</span></label>'
+           for k, v in cats.items()]))
+    html = html.replace('<!-- AO_ALLE -->', '\n'.join(
+        f'        <article class="kaart ao-kaart" data-ao-cat="{" ".join(a["cat"])}">'
+        f'<div class="ao-kaart__foto">{foto(a, "ao-kaart__img")}'
+        + (f'<span class="ao-past">{data["LABEL_MEEST"]}</span>' if a['slug'] in top else '')
+        + f'</div><div class="ao-kaart__kop"><p class="ao-kaart__tag">{a["tag"]}</p><h3 class="ao-naam">{a["naam"]}</h3></div>'
+        f'<div class="ao-prijsblok ao-kaart__prijs">{prijs(a)}{zondag(a)}</div><p class="ao-oms ao-kaart__oms">{a["oms"]}</p>'
+        f'{vinken(a, "vinkjes ao-incl ao-kaart__incl")}'
+        f'{acties(a, "ao-acties ao-kaart__acties")}</article>'
+        for a in arrs))
+
+    # keuzehulp
+    vragen = data['_kh_vragen']
+    if len(vragen) != 4:
+        sys.exit('_kh_vragen: precies 4 vragen nodig')
+    html = html.replace('<!-- AO_KH_ANTW -->', '\n'.join(
+        f'          <button type="button" class="ao-kh__antw" data-ao-edit="{v["key"]}" aria-expanded="false"><span class="ao-kh__vh">'
+        f'{data["KH_WIJZIG"]}: {v["vraag"]} </span><span data-ao-edit-text></span>{AO_POTLOOD}</button>' for v in vragen))
+    blokken = []
+    for i, v in enumerate(vragen):
+        if i == 2:
+            blokken.append('            <div class="ao-kh__lijn" aria-hidden="true"></div>')
+        chips = ''.join(f'<button type="button" class="ao-chip" data-ao-v="{o["v"]}" aria-pressed="false">{o["label"]}</button>'
+                        for o in v['opties'])
+        blokken.append(
+            f'            <fieldset class="ao-kh__vraag{" ao-kh__vraag--onder" if i % 2 else ""}" data-ao-q="{v["key"]}">'
+            f'<legend class="ao-kh__vraagkop"><span class="ao-kh__nr" aria-hidden="true">{i + 1}</span><span>{v["vraag"]}</span></legend>'
+            f'<div class="ao-kh__chips">{chips}</div></fieldset>')
+    html = html.replace('<!-- AO_KH_VRAGEN -->', '\n'.join(blokken))
+    waarden = [o['v'] for v in vragen for o in v['opties']]
+    res, alts = [], []
+    for a in arrs:
+        for w in list(a['scores']) + [r for r in a['redenen'] if r != 'default']:
+            if w not in waarden:
+                sys.exit(f'apply_overzicht: onbekend antwoord {w!r} bij {a["slug"]}')
+        redenen = ''.join(f'<li data-ao-reason="{w}" hidden>{t}</li>' for w, t in a['redenen'].items())
+        score = escape(json.dumps(a['scores'], separators=(',', ':')))
+        res.append(
+            f'            <article class="ao-res" data-ao-res="{a["slug"]}" data-ao-order="{a["volgorde"]}" data-ao-score="{score}" hidden>'
+            f'{foto(a, "ao-res__foto")}<div class="ao-res__body"><p class="ao-kh__resultaatkop">{data["KH_AANBEVELING"]}</p>'
+            f'<p class="ao-tag">{a["tag"]}</p><h3 class="ao-naam">{a["naam"]}</h3>{prijs(a, "ao-prijs ao-res__prijs")}{zondag(a)}'
+            f'<div class="ao-res__waarom"><p class="ao-res__waaromkop">{data["KH_WAAROM"]}</p><ul class="ao-res__redenen">{redenen}</ul></div>'
+            f'{acties(a, "ao-acties ao-res__acties")}</div></article>')
+        alts.append(
+            f'              <a class="ao-alt" data-ao-alt="{a["slug"]}" href="{escape(a["url"])}" hidden>'
+            f'<img src="{escape(a["foto"])}" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:{a["pos"]}">'
+            f'<span class="ao-alt__tekst"><span class="ao-alt__naam">{a["naam"]}</span>'
+            + (f'<span class="ao-alt__prijs"><span class="ao-vf">{vanaf}</span> {a["prijs"]} {a["eenheid"]}</span>' if a['prijs'] else '')
+            + '</span>'
+            f'<span class="ao-alt__bekijk">{data["KH_BEKIJK"]}{AO_PIJL}</span></a>')
+    html = html.replace('<!-- AO_KH_RES -->', '\n'.join(res)).replace('<!-- AO_KH_ALTS -->', '\n'.join(alts))
+
+    html = html.replace('<!-- AO_PRAKTISCH -->', '\n'.join(
+        f'        <li class="ao-ptegel">{ao_vak(t["icoon"])}<h3>{t["titel"]}</h3><p>{t["tekst"]}</p></li>' for t in data['_praktisch']))
+    html = html.replace('<!-- AO_FAQ -->', '\n'.join(
+        f'          <details class="as-accordeon__item"{" open" if i == 0 else ""}><summary class="as-accordeon__kop">{f["q"]}</summary>'
+        f'<div class="as-accordeon__paneel"><p>{f["a"]}</p></div></details>' for i, f in enumerate(data['_faq'])))
+    if '<!-- AO_' in html or '<!-- W1_' in html:
+        sys.exit('apply_overzicht: niet alle plekken zijn gevuld: ' + ', '.join(re.findall(r'<!-- ((?:AO|W1)_[A-Z_]+) -->', html)))
+    return html
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -1038,6 +1254,10 @@ def build(template_name, lang):
 
     with open(json_path, encoding='utf-8') as f:
         translations = json.load(f)
+
+    # Arrangementenoverzicht: lander-w1-blokken en kaarten invoegen vóór de blokken- en {{KEY}}-pass
+    if config.get('overzicht'):
+        html = apply_overzicht(html, translations)
 
     # Optioneel upgradeblok (ladder) staat aan zodra de JSON een UPGRADE_LADDER heeft (geen tekst-key)
     ladder = translations.pop('UPGRADE_LADDER', None)
@@ -1118,7 +1338,7 @@ def build(template_name, lang):
 
     # Reviewmuur uit de Google-reviews-JSON (alleen templates met 'reviews')
     if config.get('reviews'):
-        if 'arrangement' in aan:
+        if 'arrangement' in aan or config.get('overzicht'):
             n = translations.get('_reviews_aantal', 12)
             if n not in (8, 12):
                 sys.exit(f'_reviews_aantal moet 8 of 12 zijn, niet {n!r}')

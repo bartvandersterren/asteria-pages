@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, arrangementenoverzicht (visit.asteria.nl/arrangementen-v2), nov 2026
+  -----------------------------------------------------------------------------------
+  Opbouw en gedrag van het Parkhotel-overzicht (parkhotel-site: src/fragmenten/pagina-arrangement-v3.html,
+  live op parkhotelhorst.nl/arrangement/), uiterlijk = de nieuwe huisstijl van lander-w1 en de arrangementpagina's (tokens uit lander-w1.css, prefix ao-).
+    1 hero (volle foto, kop, sub, knop naar #arrangementen)
+    2 bij elk arrangement: paneel met vier tegels dat over de hero schuift
+    3 meest geboekt: drie kaarten
+    4 alle arrangementen (#arrangementen) met filterchips en label Meest geboekt
+    5 keuzehulp (#keuzehulp): vragen, daarna aanbeveling + twee alternatieven
+    6 kamers: blok 4b van lander-w1 (zonder prijs, zonder actiecode)
+    7 goed om te weten: zes tegels
+    8 veelgestelde vragen
+    9 reviews: blok 5a van lander-w1 (reviewmuur)
+   10 slot: volle foto + knoppen
+  Kop, voet, kamerblok, reviewblok en kamer-pop-up haalt build.py (apply_overzicht) bij elke build letterlijk uit
+  lander-w1.template.html (zonder actiecode); kaarten, keuzehulp, tegels en FAQ komen uit translations/arrangementen-nl.json
+  en de zes arrangement-JSON's (titel, prijs, nachten, foto, vinkjes). Alleen NL, noindex, niet in sitemap.xml.
+
+  Bouwen:  python3 build.py arrangementen   ->  arrangementen-v2.html
+  Stijl:   lander-w1.css (tokens, kop, voet, knoppen, accordeon) + arrangementen.css   Script: lander-w1.js + arrangementen.js
+-->
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrangementen met diner en ontbijt | Hotel Asteria Venray</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="Alle arrangementen van Hotel Asteria in Venray op een rij: wellness, golf, fietsen door Limburg, Oorlogsmuseum Overloon en een weekend weg. Altijd met diner en ontbijt.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://visit.asteria.nl/arrangementen-v2">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Arrangementen met diner en ontbijt | Hotel Asteria Venray">
+  <meta property="og:description" content="Alle arrangementen van Hotel Asteria in Venray op een rij: wellness, golf, fietsen door Limburg, Oorlogsmuseum Overloon en een weekend weg. Altijd met diner en ontbijt.">
+  <meta property="og:image" content="https://visit.asteria.nl/fotos/l26-hotel-zonsondergang.webp">
+  <meta property="og:url" content="https://visit.asteria.nl/arrangementen-v2">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="fotos/l26-terras.webp" type="image/webp">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="arrangementen.css">
+  <script src="lander-w1.js" defer></script>
+  <script src="arrangementen.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+</head>
+<body>
+
+<header class="top-stack">
+  <div class="utility-bar">
+    <div class="inner">
+      <div class="util-left">
+        <a href="tel:+31478511466" aria-label="Bel ons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          <span>0478 511466</span>
+        </a>
+        <a href="mailto:info@asteria.nl" aria-label="E-mail ons">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>info@asteria.nl</span>
+        </a>
+      </div>
+      <div class="util-right">
+        <a href="https://www.asteria.nl/contact/veelgestelde-vragen">FAQ</a>
+        <a href="https://www.asteria.nl/contact">Contact</a>
+        <a href="https://www.asteria.nl/vacatures">Werken bij</a>
+        <div class="langswitch"><button type="button" class="langswitch__knop" aria-haspopup="true" aria-expanded="false" aria-label="Taal kiezen, huidige taal NL"><span class="langswitch__vlag langswitch__vlag--nl" aria-hidden="true"></span><span class="langswitch__code">NL</span><span class="langswitch__caret" aria-hidden="true"></span></button><div class="langswitch__menu" role="menu"><a class="langswitch__opt is-active" href="https://www.asteria.nl/" aria-current="true"><span class="langswitch__vlag langswitch__vlag--nl" aria-hidden="true"></span>Nederlands</a><a class="langswitch__opt" href="https://www.asteria.nl/en"><span class="langswitch__vlag langswitch__vlag--en" aria-hidden="true"></span>English</a><a class="langswitch__opt" href="https://www.asteria.nl/de"><span class="langswitch__vlag langswitch__vlag--de" aria-hidden="true"></span>Deutsch</a></div></div>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav" aria-label="Hoofdnavigatie">
+    <div class="inner">
+      <a href="https://www.asteria.nl/" class="logo" aria-label="Hotel Asteria, naar de homepage">
+        <img alt="Hotel Asteria" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==">
+      </a>
+      <ul class="nav-links">
+        <li><a href="https://www.asteria.nl/kamers">Kamers &amp; suites</a></li>
+        <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
+        <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
+        <li><a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; feesten</a></li>
+        <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
+        <li><a href="https://www.asteria.nl/over-ons">Over ons</a></li>
+      </ul>
+      <a href="tel:+31478511466" class="nav-phone" aria-label="Bel Hotel Asteria: 0478 511466">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <button class="nav-hamburger" type="button" aria-label="Open menu" aria-controls="nav-drawer" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" class="btn btn-primary nav-cta mews-open">Boek nu</a>
+    </div>
+  </nav>
+</header>
+
+<aside class="nav-drawer" id="nav-drawer" aria-label="Mobiel menu">
+  <div class="nav-drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <button class="nav-drawer__close" type="button" aria-label="Sluit menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <ul class="nav-drawer__list">
+      <li><a href="https://www.asteria.nl/kamers">Kamers &amp; suites</a></li>
+      <li><a href="https://www.asteria.nl/hotel">Hotel</a></li>
+      <li><a href="https://www.asteria.nl/restaurant">Restaurant</a></li>
+      <li><a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; feesten</a></li>
+      <li><a href="https://www.asteria.nl/wellness">Wellness</a></li>
+      <li><a href="https://www.asteria.nl/over-ons">Over ons</a></li>
+    </ul>
+    <div class="nav-drawer__contact">
+      <a href="tel:+31478511466" class="drawer-contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg><span>0478 511466</span></a>
+      <a href="mailto:info@asteria.nl" class="drawer-contact-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>info@asteria.nl</span></a>
+      <p class="drawer-contact-address">Maasheseweg 80a &middot; 5804&nbsp;AD Venray</p>
+    </div>
+    <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" class="btn btn-primary nav-drawer__boek mews-open">Boek nu</a>
+  </div>
+</aside>
+
+<main class="lp ao">
+
+  <!-- ══ 1 HERO ══ -->
+  <section class="ao-hero">
+    <img class="ao-hero__foto" src="fotos/l26-terras.webp" alt="Twee gasten proosten met een glas rode wijn op het terras van Hotel Asteria" width="1400" height="818" fetchpriority="high" decoding="async">
+    <div class="ao-wrap ao-hero__in">
+      <h1 class="ao-hero__kop">Arrangementen bij Hotel Asteria</h1>
+      <p class="ao-hero__sub">Wellness, golf, fietsen door Limburg, een museumdag in Overloon of de feestdagen. Kies het verblijf dat bij je past, diner en ontbijt zitten er altijd bij.</p>
+      <a class="btn btn-primary ao-hero__knop" href="#arrangementen">Bekijk alle arrangementen</a>
+    </div>
+  </section>
+
+  <!-- ══ 2 BIJ ELK ARRANGEMENT: paneel over de onderrand van de hero ══ -->
+  <section class="ao-intro" aria-labelledby="ao-intro-kop">
+    <div class="ao-wrap">
+      <div class="ao-paneel ao-intro__paneel">
+        <div class="ao-intro__tekstkol">
+          <h2 class="ao-h2" id="ao-intro-kop">Bij elk arrangement</h2>
+          <p class="ao-intro__tekst">Je overnacht in Venray, met de bossen van Noord-Limburg om de hoek. Wat je ook kiest, dit zit er altijd bij.</p>
+        </div>
+        <ul class="ao-intro__tegels">
+          <li class="ao-icotegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg></span><span><b>Ontbijtbuffet</b>elke ochtend uitgebreid</span></li>
+          <li class="ao-icotegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></span><span><b>Drie-gangen diner</b>in het restaurant van het hotel</span></li>
+          <li class="ao-icotegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg></span><span><b>Zondagvoordeel</b>€ 20 per kamer minder bij aankomst op zondag</span></li>
+          <li class="ao-icotegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span><span><b>Beste prijs</b>als je direct bij ons boekt</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3 MEEST GEBOEKT ══ -->
+  <section class="ao-sectie ao-top" aria-labelledby="ao-top-kop">
+    <div class="ao-wrap">
+      <div class="ao-paneel ao-top__paneel">
+        <h2 class="ao-h2" id="ao-top-kop">Meest geboekt</h2>
+        <p class="ao-top__lead">Drie arrangementen die gasten vaak kiezen voor een eerste kennismaking met Asteria.</p>
+        <div class="ao-top__grid">
+          <article class="ao-tk"><img class="ao-tk__foto" src="fotos/l26-wellness-arrangement-hero.webp" alt="Boscabine in de wellness op de Top Floor van Hotel Asteria" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><div class="ao-tk__body"><p class="ao-tag">Wellness · 1 nacht</p><h3 class="ao-naam">Wellnessarrangement</h3><div class="ao-prijsblok"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 124,50</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 114,50</b> p.p. per nacht</p></div><p class="ao-oms">Ruim 300 m² wellness op de Top Floor, met een overnachting, diner en ontbijt.</p><ul class="vinkjes ao-incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Vrije toegang tot de wellness</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Welkomstdrankje op de kamer</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Drie-gangen diner</span></li></ul><div class="ao-acties"><a class="btn btn-primary" href="/wellness-arrangement">Bekijk het arrangement</a></div></div></article>
+          <article class="ao-tk"><img class="ao-tk__foto" src="fotos/l26-najaar-hero.webp" alt="Stel wandelt over een bospad in de herfst bij Venray" width="800" height="534" loading="lazy" decoding="async" style="object-position:60% 50%"><div class="ao-tk__body"><p class="ao-tag">Wellness · 1 nacht</p><h3 class="ao-naam">Najaarsarrangement</h3><div class="ao-prijsblok"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 128,50</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 118,50</b> p.p. per nacht</p></div><p class="ao-oms">Geniet van de herfst in de regio en ontspan in je Deluxe kamer met privésauna.</p><ul class="vinkjes ao-incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Vlaai en koffie bij aankomst</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Eigen infraroodsauna</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Drie-gangen diner</span></li></ul><div class="ao-acties"><a class="btn btn-primary" href="/najaarsarrangement">Bekijk het arrangement</a></div></div></article>
+          <article class="ao-tk"><img class="ao-tk__foto" src="fotos/l26-weekend-aanbieding-hero.webp" alt="Stel proost met een glas in de lounge van Hotel Asteria" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><div class="ao-tk__body"><p class="ao-tag">Weekend · 2 nachten</p><h3 class="ao-naam">Weekend aanbieding</h3><div class="ao-prijsblok"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 166</b> <span>p.p. voor 2 nachten</span></p></div><p class="ao-oms">Een voordelig weekendje weg in Noord-Limburg, in een Comfort kamer.</p><ul class="vinkjes ao-incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Welkomstdrankje bij aankomst</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>2 nachten in een Comfort kamer</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Drie-gangen diner en 2x ontbijt</span></li></ul><div class="ao-acties"><a class="btn btn-primary" href="/weekend-aanbieding">Bekijk het arrangement</a></div></div></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 4 ALLE ARRANGEMENTEN: filterchips (arrangementen.js, deel 1) ══ -->
+  <section class="ao-sectie ao-alle" id="arrangementen" aria-labelledby="ao-alle-kop">
+    <div class="ao-wrap">
+      <div class="ao-alle__kop" id="alle-arrangementen">
+        <h2 class="ao-h2" id="ao-alle-kop">Alle arrangementen</h2>
+        <p class="ao-alle__lead">Filter op waar je zin in hebt. Prijzen zijn per persoon, op basis van twee personen.</p>
+      </div>
+      <div class="ao-filter" data-ao-filter data-ao-count-one="%d arrangement" data-ao-count-many="%d arrangementen">
+        <div class="ao-filter__links">
+          <span class="ao-filter__label" id="ao-filterlabel">Waar heb je zin in?</span>
+          <div class="ao-filter__chips" role="group" aria-labelledby="ao-filterlabel">
+            <label class="ao-chip ao-is-aan"><input class="ao-chip__vak" type="checkbox" data-ao-reset checked><span>Alles</span></label>
+            <label class="ao-chip"><input class="ao-chip__vak" type="checkbox" value="wellness"><span>Wellness</span></label>
+            <label class="ao-chip"><input class="ao-chip__vak" type="checkbox" value="actief"><span>Actief &amp; golf</span></label>
+            <label class="ao-chip"><input class="ao-chip__vak" type="checkbox" value="cultuur"><span>Cultuur</span></label>
+            <label class="ao-chip"><input class="ao-chip__vak" type="checkbox" value="weekend"><span>Weekend</span></label>
+            <label class="ao-chip"><input class="ao-chip__vak" type="checkbox" value="feest"><span>Feestdagen</span></label>
+            <label class="ao-chip"><input class="ao-chip__vak" type="checkbox" value="zondag"><span>Zondagvoordeel</span></label>
+          </div>
+        </div>
+        <p class="ao-filter__teller" data-ao-count aria-live="polite"></p>
+      </div>
+      <div class="ao-alle__grid" data-ao-grid>
+        <article class="kaart ao-kaart" data-ao-cat="wellness zondag"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-wellness-arrangement-hero.webp" alt="Boscabine in de wellness op de Top Floor van Hotel Asteria" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><span class="ao-past">Meest geboekt</span></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Wellness · 1 nacht</p><h3 class="ao-naam">Wellnessarrangement</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 124,50</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 114,50</b> p.p. per nacht</p></div><p class="ao-oms ao-kaart__oms">Ruim 300 m² wellness op de Top Floor, met een overnachting, diner en ontbijt.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Vrije toegang tot de wellness</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Welkomstdrankje op de kamer</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Drie-gangen diner</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="/wellness-arrangement">Bekijk het arrangement</a></div></article>
+        <article class="kaart ao-kaart" data-ao-cat="cultuur zondag"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-oorlogsmuseum-arrangement-hero.webp" alt="Legervoertuig in een nagebouwde strandscène uit de Tweede Wereldoorlog in Oorlogsmuseum Overloon" width="800" height="534" loading="lazy" decoding="async" style="object-position:55% 50%"></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Cultuur · 1 nacht</p><h3 class="ao-naam">Oorlogsmuseum Arrangement</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 131</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 121</b> p.p. per nacht</p></div><p class="ao-oms ao-kaart__oms">Samen met Oorlogsmuseum Overloon: het verhaal en de beleving van de Tweede Wereldoorlog staan centraal.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Entree Oorlogsmuseum Overloon</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Koffie of thee in het museum</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Drie-gangen diner</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="/oorlogsmuseum-arrangement">Bekijk het arrangement</a></div></article>
+        <article class="kaart ao-kaart" data-ao-cat="actief zondag"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-limburg-arrangement-hero.webp" alt="Houten vlonder over een ven in Nationaal Park De Maasduinen" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 50%"></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Actief & golf · 3 nachten</p><h3 class="ao-naam">4-daags Limburg Arrangement</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 415</b> <span>p.p. voor 3 nachten</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 405</b> p.p. voor 3 nachten</p></div><p class="ao-oms ao-kaart__oms">Een compleet vierdaags arrangement vol gastvrijheid en de charme van Limburg.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>3 nachten met ontbijt</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Elke avond een 3-gangenmenu</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Elektrische fiets voor 3 dagen</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="/limburg-arrangement">Bekijk het arrangement</a></div></article>
+        <article class="kaart ao-kaart" data-ao-cat="wellness zondag"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-najaar-hero.webp" alt="Stel wandelt over een bospad in de herfst bij Venray" width="800" height="534" loading="lazy" decoding="async" style="object-position:60% 50%"><span class="ao-past">Meest geboekt</span></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Wellness · 1 nacht</p><h3 class="ao-naam">Najaarsarrangement</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 128,50</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 118,50</b> p.p. per nacht</p></div><p class="ao-oms ao-kaart__oms">Geniet van de herfst in de regio en ontspan in je Deluxe kamer met privésauna.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Vlaai en koffie bij aankomst</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Eigen infraroodsauna</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Drie-gangen diner</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="/najaarsarrangement">Bekijk het arrangement</a></div></article>
+        <article class="kaart ao-kaart" data-ao-cat="weekend"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-weekend-aanbieding-hero.webp" alt="Stel proost met een glas in de lounge van Hotel Asteria" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><span class="ao-past">Meest geboekt</span></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Weekend · 2 nachten</p><h3 class="ao-naam">Weekend aanbieding</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 166</b> <span>p.p. voor 2 nachten</span></p></div><p class="ao-oms ao-kaart__oms">Een voordelig weekendje weg in Noord-Limburg, in een Comfort kamer.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Welkomstdrankje bij aankomst</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>2 nachten in een Comfort kamer</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Drie-gangen diner en 2x ontbijt</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="/weekend-aanbieding">Bekijk het arrangement</a></div></article>
+        <article class="kaart ao-kaart" data-ao-cat="actief zondag"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-golfarrangement-hero.webp" alt="Golfer slaat af op de fairway, met een golftas op de voorgrond" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Actief & golf · 1 nacht</p><h3 class="ao-naam">Golfarrangement</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 185,50</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 175,50</b> p.p. per nacht</p></div><p class="ao-oms ao-kaart__oms">Een dag golfen op een baan naar keuze, met een volledig verblijf in het hotel.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Greenfee voor 18 holes</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Drie-gangen diner</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Royale kamer</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="/golfarrangement">Bekijk het arrangement</a></div></article>
+        <article class="kaart ao-kaart" data-ao-cat="feest"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-arr-kerst-breed.webp" alt="Kerstbal met de Asteria-ster tussen dennentakken" width="800" height="534" loading="lazy" decoding="async" style="object-position:55% 50%"></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Feestdagen · aankomst 23-26 dec</p><h3 class="ao-naam">Kerstarrangement</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 130</b> <span>p.p.</span></p></div><p class="ao-oms ao-kaart__oms">Laat je culinair verwennen tijdens de feestdagen: een zorgeloze en sfeervolle kerst in Noord-Limburg.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Elke ochtend een uitgebreid kerstontbijt</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>4-gangen kerstdiner met live muziek op eerste kerstdag</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>3-gangen kerstproeverijmenu op tweede kerstdag</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="https://www.asteria.nl/arrangementen/kerstarrangement-hotel">Bekijk het arrangement</a></div></article>
+        <article class="kaart ao-kaart" data-ao-cat="feest"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-bubbels-hero.webp" alt="Fles bubbels met twee gevulde glazen op een bijzettafel" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 50%"></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Feestdagen · 3 of 4 dagen</p><h3 class="ao-naam">Oud & Nieuw arrangement</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 347</b> <span>p.p., 3-daags arrangement</span></p></div><p class="ao-oms ao-kaart__oms">Sluit het jaar feestelijk af met Limburgse gastvrijheid, de mooie omgeving en een knallende feestavond op oudejaarsdag.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Elke avond een 3-gangendiner</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Elke ochtend een uitgebreid ontbijtbuffet</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Feestavond op oudejaarsavond met buffet en live muziek</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="https://www.asteria.nl/arrangementen/oud-en-nieuw-arrangement">Bekijk het arrangement</a></div></article>
+        <article class="kaart ao-kaart" data-ao-cat="feest"><div class="ao-kaart__foto"><img class="ao-kaart__img" src="fotos/l26-arr-oudennieuw-bridge.webp" alt="Speelkaarten met vuurwerk erboven" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 70%"></div><div class="ao-kaart__kop"><p class="ao-kaart__tag">Feestdagen · 28 dec t/m 1 jan</p><h3 class="ao-naam">Oud en Nieuw Bridge arrangement</h3></div><div class="ao-prijsblok ao-kaart__prijs"><p class="ao-prijs"><span class="ao-vf">vanaf</span> <b>€ 520</b> <span>p.p., 5-daags arrangement</span></p></div><p class="ao-oms ao-kaart__oms">De gezelligste Oud & Nieuw-bridgedrive bij Hotel Asteria, het bridgehotel van Nederland.</p><ul class="vinkjes ao-incl ao-kaart__incl"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>4 overnachtingen met ontbijtbuffet</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>4x bridgen onder professionele begeleiding</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>Feestavond op oudejaarsavond</span></li></ul><div class="ao-acties ao-kaart__acties"><a class="btn btn-primary" href="https://www.asteria.nl/arrangementen/oud-en-nieuw-bridgearrangement">Bekijk het arrangement</a></div></article>
+      </div>
+      <p class="ao-leeg" data-ao-empty hidden>Geen arrangement in deze keuze. Kies een ander thema of bekijk ze allemaal.</p>
+      <p class="ao-alle__noot">Exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.</p>
+    </div>
+  </section>
+
+  <!-- ══ 5 KEUZEHULP: stand 1 = vragen, stand 2 = antwoordregel + aanbeveling (arrangementen.js, deel 2) ══ -->
+  <section class="ao-sectie ao-kh" id="keuzehulp" aria-labelledby="ao-kh-kop">
+    <div class="ao-wrap">
+      <div class="ao-paneel ao-kh__paneel" data-ao-quiz data-ao-step-label="Vraag %1$d van %2$d">
+        <div class="ao-kh__kop">
+          <h2 class="ao-h2" id="ao-kh-kop">Welk arrangement past bij jou?</h2>
+          <p class="ao-kh__lead">Vier korte vragen, en je ziet meteen welk arrangement het best bij je past.</p>
+        </div>
+        <div class="ao-kh__antwoorden" data-ao-summary hidden>
+          <span class="ao-kh__antwlabel">Je antwoorden</span>
+          <button type="button" class="ao-kh__antw" data-ao-edit="doel" aria-expanded="false"><span class="ao-kh__vh">Wijzig: Waar heb je zin in? </span><span data-ao-edit-text></span><svg class="as-icoon ao-kh__potlood" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3l4 4L8 20H4v-4z"/></svg></button>
+          <button type="button" class="ao-kh__antw" data-ao-edit="nachten" aria-expanded="false"><span class="ao-kh__vh">Wijzig: Hoe lang blijf je? </span><span data-ao-edit-text></span><svg class="as-icoon ao-kh__potlood" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3l4 4L8 20H4v-4z"/></svg></button>
+          <button type="button" class="ao-kh__antw" data-ao-edit="wanneer" aria-expanded="false"><span class="ao-kh__vh">Wijzig: Wanneer kom je aan? </span><span data-ao-edit-text></span><svg class="as-icoon ao-kh__potlood" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3l4 4L8 20H4v-4z"/></svg></button>
+          <button type="button" class="ao-kh__antw" data-ao-edit="wie" aria-expanded="false"><span class="ao-kh__vh">Wijzig: Met wie kom je? </span><span data-ao-edit-text></span><svg class="as-icoon ao-kh__potlood" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3l4 4L8 20H4v-4z"/></svg></button>
+          <button type="button" class="ao-kh__tekstknop ao-kh__aanpassen" data-ao-edit-all aria-expanded="false" data-ao-label-open="Aanpassen" data-ao-label-close="Klaar">Aanpassen</button>
+        </div>
+        <div class="ao-kh__vragen" data-ao-questions>
+          <p class="ao-kh__voortgang" data-ao-progress aria-live="polite" hidden></p>
+          <div class="ao-kh__vraagraster">
+            <fieldset class="ao-kh__vraag" data-ao-q="doel"><legend class="ao-kh__vraagkop"><span class="ao-kh__nr" aria-hidden="true">1</span><span>Waar heb je zin in?</span></legend><div class="ao-kh__chips"><button type="button" class="ao-chip" data-ao-v="rust" aria-pressed="false">Rust en wellness</button><button type="button" class="ao-chip" data-ao-v="actief" aria-pressed="false">Fietsen of golfen</button><button type="button" class="ao-chip" data-ao-v="cultuur" aria-pressed="false">Geschiedenis en cultuur</button><button type="button" class="ao-chip" data-ao-v="eten" aria-pressed="false">Lekker eten</button></div></fieldset>
+            <fieldset class="ao-kh__vraag ao-kh__vraag--onder" data-ao-q="nachten"><legend class="ao-kh__vraagkop"><span class="ao-kh__nr" aria-hidden="true">2</span><span>Hoe lang blijf je?</span></legend><div class="ao-kh__chips"><button type="button" class="ao-chip" data-ao-v="n1" aria-pressed="false">Eén nacht</button><button type="button" class="ao-chip" data-ao-v="n2" aria-pressed="false">Twee nachten</button><button type="button" class="ao-chip" data-ao-v="n3" aria-pressed="false">Drie nachten of meer</button></div></fieldset>
+            <div class="ao-kh__lijn" aria-hidden="true"></div>
+            <fieldset class="ao-kh__vraag" data-ao-q="wanneer"><legend class="ao-kh__vraagkop"><span class="ao-kh__nr" aria-hidden="true">3</span><span>Wanneer kom je aan?</span></legend><div class="ao-kh__chips"><button type="button" class="ao-chip" data-ao-v="doordeweeks" aria-pressed="false">Maandag tot donderdag</button><button type="button" class="ao-chip" data-ao-v="vrza" aria-pressed="false">Vrijdag of zaterdag</button><button type="button" class="ao-chip" data-ao-v="zondag" aria-pressed="false">Op zondag</button><button type="button" class="ao-chip" data-ao-v="feest" aria-pressed="false">Rond de feestdagen</button></div></fieldset>
+            <fieldset class="ao-kh__vraag ao-kh__vraag--onder" data-ao-q="wie"><legend class="ao-kh__vraagkop"><span class="ao-kh__nr" aria-hidden="true">4</span><span>Met wie kom je?</span></legend><div class="ao-kh__chips"><button type="button" class="ao-chip" data-ao-v="samen" aria-pressed="false">Met z'n tweeën</button><button type="button" class="ao-chip" data-ao-v="groep" aria-pressed="false">Met vrienden of familie</button></div></fieldset>
+          </div>
+          <p class="ao-kh__nav"><button type="button" class="ao-kh__tekstknop" data-ao-back hidden>Vorige vraag</button></p>
+          <p class="ao-kh__rust" data-ao-hint><svg class="as-icoon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25"/><path d="M7.7 7.6a2.4 2.4 0 0 1 4.6.9c0 1.6-2.3 2-2.3 3.4"/><path d="M10 14.4v.1"/></svg><span>Beantwoord de vier vragen, dan verschijnt hier je aanbeveling.</span></p>
+        </div>
+        <div class="ao-kh__resultaat" data-ao-result hidden>
+          <div class="ao-kh__aanbeveling">
+            <article class="ao-res" data-ao-res="wellness-arrangement" data-ao-order="10" data-ao-score="{&quot;rust&quot;:4,&quot;eten&quot;:2,&quot;n1&quot;:2,&quot;samen&quot;:1,&quot;zondag&quot;:1}" hidden><img class="ao-res__foto" src="fotos/l26-wellness-arrangement-hero.webp" alt="Boscabine in de wellness op de Top Floor van Hotel Asteria" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Wellness · 1 nacht</p><h3 class="ao-naam">Wellnessarrangement</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 124,50</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 114,50</b> p.p. per nacht</p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="rust" hidden>Vrije toegang tot de wellness van 300 m² op de Top Floor.</li><li data-ao-reason="eten" hidden>Een drie-gangen diner met streekproducten en het ontbijtbuffet zitten erbij.</li><li data-ao-reason="n1" hidden>Het arrangement is voor één nacht, ideaal om er even tussenuit te gaan.</li><li data-ao-reason="samen" hidden>Badjas en slippers liggen voor jullie allebei klaar.</li><li data-ao-reason="zondag" hidden>Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.</li><li data-ao-reason="default" hidden>Een welkomstdrankje op je kamer, diner en ontbijt in één boeking.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="/wellness-arrangement">Bekijk het arrangement</a></div></div></article>
+            <article class="ao-res" data-ao-res="oorlogsmuseum-arrangement" data-ao-order="60" data-ao-score="{&quot;cultuur&quot;:4,&quot;eten&quot;:1,&quot;n1&quot;:2,&quot;groep&quot;:1,&quot;zondag&quot;:1}" hidden><img class="ao-res__foto" src="fotos/l26-oorlogsmuseum-arrangement-hero.webp" alt="Legervoertuig in een nagebouwde strandscène uit de Tweede Wereldoorlog in Oorlogsmuseum Overloon" width="800" height="534" loading="lazy" decoding="async" style="object-position:55% 50%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Cultuur · 1 nacht</p><h3 class="ao-naam">Oorlogsmuseum Arrangement</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 131</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 121</b> p.p. per nacht</p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="cultuur" hidden>Entree voor Oorlogsmuseum Overloon, wij reserveren je tickets.</li><li data-ao-reason="eten" hidden>Een drie-gangen diner in het restaurant van het hotel.</li><li data-ao-reason="n1" hidden>Een museumdag en een nacht in een Comfort kamer.</li><li data-ao-reason="groep" hidden>Koffie of thee bij ontvangst in het museumcafé.</li><li data-ao-reason="zondag" hidden>Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.</li><li data-ao-reason="default" hidden>Op je kamer ligt een presentje van het museum klaar.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="/oorlogsmuseum-arrangement">Bekijk het arrangement</a></div></div></article>
+            <article class="ao-res" data-ao-res="limburg-arrangement" data-ao-order="50" data-ao-score="{&quot;actief&quot;:3,&quot;cultuur&quot;:1,&quot;eten&quot;:2,&quot;n3&quot;:4,&quot;n2&quot;:1,&quot;n1&quot;:-2,&quot;groep&quot;:1,&quot;zondag&quot;:1}" hidden><img class="ao-res__foto" src="fotos/l26-limburg-arrangement-hero.webp" alt="Houten vlonder over een ven in Nationaal Park De Maasduinen" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 50%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Actief & golf · 3 nachten</p><h3 class="ao-naam">4-daags Limburg Arrangement</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 415</b> <span>p.p. voor 3 nachten</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 405</b> p.p. voor 3 nachten</p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="actief" hidden>Drie dagen een elektrische fiets, met gratis fiets- en wandelroutes van de receptie.</li><li data-ao-reason="n3" hidden>Drie nachten, vier dagen Noord-Limburg.</li><li data-ao-reason="eten" hidden>Elke avond een 3-gangenmenu met verse streekproducten.</li><li data-ao-reason="cultuur" hidden>Met de e-bike fiets je zelf langs het mooiste van Noord-Limburg.</li><li data-ao-reason="zondag" hidden>Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.</li><li data-ao-reason="default" hidden>Je begint met koffie en Limburgse vlaai.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="/limburg-arrangement">Bekijk het arrangement</a></div></div></article>
+            <article class="ao-res" data-ao-res="najaarsarrangement" data-ao-order="20" data-ao-score="{&quot;rust&quot;:3,&quot;eten&quot;:3,&quot;n1&quot;:2,&quot;samen&quot;:1,&quot;zondag&quot;:1}" hidden><img class="ao-res__foto" src="fotos/l26-najaar-hero.webp" alt="Stel wandelt over een bospad in de herfst bij Venray" width="800" height="534" loading="lazy" decoding="async" style="object-position:60% 50%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Wellness · 1 nacht</p><h3 class="ao-naam">Najaarsarrangement</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 128,50</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 118,50</b> p.p. per nacht</p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="rust" hidden>Je Deluxe kamer heeft een eigen infraroodsauna.</li><li data-ao-reason="eten" hidden>Een drie-gangen diner met seizoensgerechten en het ontbijtbuffet.</li><li data-ao-reason="n1" hidden>Eén nacht, met koffie en Limburgse vlaai bij aankomst.</li><li data-ao-reason="samen" hidden>Een Deluxe kamer met privé sauna, alleen voor jullie twee.</li><li data-ao-reason="zondag" hidden>Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.</li><li data-ao-reason="default" hidden>Boekbaar tot en met 30 november.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="/najaarsarrangement">Bekijk het arrangement</a></div></div></article>
+            <article class="ao-res" data-ao-res="weekend-aanbieding" data-ao-order="30" data-ao-score="{&quot;eten&quot;:2,&quot;rust&quot;:1,&quot;n2&quot;:4,&quot;n1&quot;:-1,&quot;vrza&quot;:4,&quot;doordeweeks&quot;:-3,&quot;zondag&quot;:-3,&quot;samen&quot;:1}" hidden><img class="ao-res__foto" src="fotos/l26-weekend-aanbieding-hero.webp" alt="Stel proost met een glas in de lounge van Hotel Asteria" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Weekend · 2 nachten</p><h3 class="ao-naam">Weekend aanbieding</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 166</b> <span>p.p. voor 2 nachten</span></p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="vrza" hidden>Je komt aan op vrijdag of zaterdag en blijft twee nachten.</li><li data-ao-reason="n2" hidden>Twee nachten in een Comfort kamer, met twee keer ontbijt.</li><li data-ao-reason="eten" hidden>Een drie-gangen diner op de avond van aankomst.</li><li data-ao-reason="rust" hidden>Op je vertrekdag kun je uitslapen: uitchecken kan tot 14.00 uur.</li><li data-ao-reason="samen" hidden>Bij aankomst een welkomstdrankje voor jullie allebei.</li><li data-ao-reason="default" hidden>Een glas huiswijn of speciaal bier bij aankomst.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="/weekend-aanbieding">Bekijk het arrangement</a></div></div></article>
+            <article class="ao-res" data-ao-res="golfarrangement" data-ao-order="40" data-ao-score="{&quot;actief&quot;:4,&quot;eten&quot;:1,&quot;n1&quot;:2,&quot;groep&quot;:1,&quot;zondag&quot;:1}" hidden><img class="ao-res__foto" src="fotos/l26-golfarrangement-hero.webp" alt="Golfer slaat af op de fairway, met een golftas op de voorgrond" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Actief & golf · 1 nacht</p><h3 class="ao-naam">Golfarrangement</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 185,50</b> <span>p.p. per nacht</span></p><p class="ao-zondagregel">Op zondag vanaf <b>€ 175,50</b> p.p. per nacht</p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="actief" hidden>Greenfee voor 18 holes op Golfbaan Bleijenbeek of Golfclub Geijsteren.</li><li data-ao-reason="eten" hidden>Na het golfen een drie-gangen diner in het restaurant.</li><li data-ao-reason="n1" hidden>Eén dag golfen en een nacht in een Royale kamer.</li><li data-ao-reason="groep" hidden>Wij reserveren de golfbaan voor je, je geeft je keuze telefonisch door.</li><li data-ao-reason="zondag" hidden>Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend.</li><li data-ao-reason="default" hidden>Een Royale kamer met airconditioning en zithoek.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="/golfarrangement">Bekijk het arrangement</a></div></div></article>
+            <article class="ao-res" data-ao-res="kerstarrangement" data-ao-order="70" data-ao-score="{&quot;feest&quot;:5,&quot;eten&quot;:3,&quot;samen&quot;:1,&quot;rust&quot;:1,&quot;doordeweeks&quot;:-2,&quot;vrza&quot;:-2,&quot;zondag&quot;:-2}" hidden><img class="ao-res__foto" src="fotos/l26-arr-kerst-breed.webp" alt="Kerstbal met de Asteria-ster tussen dennentakken" width="800" height="534" loading="lazy" decoding="async" style="object-position:55% 50%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Feestdagen · aankomst 23-26 dec</p><h3 class="ao-naam">Kerstarrangement</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 130</b> <span>p.p.</span></p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="feest" hidden>Kerst bij Asteria, met aankomst tussen 23 en 26 december.</li><li data-ao-reason="eten" hidden>Op eerste kerstdag een 4-gangen kerstdiner met live muziek en drank, op tweede kerstdag een kerstproeverijmenu.</li><li data-ao-reason="samen" hidden>Een sfeervolle kerst samen, zonder zelf te koken.</li><li data-ao-reason="default" hidden>Elke ochtend een uitgebreid kerstontbijt.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="https://www.asteria.nl/arrangementen/kerstarrangement-hotel">Bekijk het arrangement</a></div></div></article>
+            <article class="ao-res" data-ao-res="oud-en-nieuw-arrangement" data-ao-order="80" data-ao-score="{&quot;feest&quot;:5,&quot;eten&quot;:2,&quot;n2&quot;:2,&quot;n3&quot;:1,&quot;groep&quot;:1,&quot;doordeweeks&quot;:-2,&quot;vrza&quot;:-2,&quot;zondag&quot;:-2}" hidden><img class="ao-res__foto" src="fotos/l26-bubbels-hero.webp" alt="Fles bubbels met twee gevulde glazen op een bijzettafel" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 50%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Feestdagen · 3 of 4 dagen</p><h3 class="ao-naam">Oud & Nieuw arrangement</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 347</b> <span>p.p., 3-daags arrangement</span></p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="feest" hidden>Een knallende feestavond op oudejaarsavond, met champagne en oliebollen om middernacht.</li><li data-ao-reason="eten" hidden>Elke avond een 3-gangendiner en op oudejaarsavond een warm en koud buffet met dessertbuffet.</li><li data-ao-reason="n2" hidden>Kies het 3-daagse of het 4-daagse arrangement.</li><li data-ao-reason="groep" hidden>Op oudejaarsavond live muziek en casino-entertainment.</li><li data-ao-reason="default" hidden>Elke ochtend een uitgebreid ontbijtbuffet.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="https://www.asteria.nl/arrangementen/oud-en-nieuw-arrangement">Bekijk het arrangement</a></div></div></article>
+            <article class="ao-res" data-ao-res="oud-en-nieuw-bridge" data-ao-order="90" data-ao-score="{&quot;feest&quot;:4,&quot;groep&quot;:2,&quot;n3&quot;:2,&quot;eten&quot;:1,&quot;doordeweeks&quot;:-2,&quot;vrza&quot;:-2,&quot;zondag&quot;:-2}" hidden><img class="ao-res__foto" src="fotos/l26-arr-oudennieuw-bridge.webp" alt="Speelkaarten met vuurwerk erboven" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 70%"><div class="ao-res__body"><p class="ao-kh__resultaatkop">Onze aanbeveling voor jou</p><p class="ao-tag">Feestdagen · 28 dec t/m 1 jan</p><h3 class="ao-naam">Oud en Nieuw Bridge arrangement</h3><p class="ao-prijs ao-res__prijs"><span class="ao-vf">vanaf</span> <b>€ 520</b> <span>p.p., 5-daags arrangement</span></p><div class="ao-res__waarom"><p class="ao-res__waaromkop">Waarom dit arrangement</p><ul class="ao-res__redenen"><li data-ao-reason="feest" hidden>Vijf dagen Oud & Nieuw, van 28 december tot 1 januari.</li><li data-ao-reason="n3" hidden>Vier overnachtingen in een Comfort kamer.</li><li data-ao-reason="groep" hidden>Vier keer bridgen onder professionele begeleiding.</li><li data-ao-reason="eten" hidden>Drie keer een driegangen diner en een volledig verzorgde feestavond op oudejaarsavond.</li><li data-ao-reason="default" hidden>Bij Hotel Asteria, het bridgehotel van Nederland.</li></ul></div><div class="ao-acties ao-res__acties"><a class="btn btn-primary" href="https://www.asteria.nl/arrangementen/oud-en-nieuw-bridgearrangement">Bekijk het arrangement</a></div></div></article>
+          </div>
+          <div class="ao-kh__rechts">
+            <p class="ao-kh__ookkop">Ook interessant voor jou</p>
+            <div class="ao-kh__alts" data-ao-alts>
+              <a class="ao-alt" data-ao-alt="wellness-arrangement" href="/wellness-arrangement" hidden><img src="fotos/l26-wellness-arrangement-hero.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><span class="ao-alt__tekst"><span class="ao-alt__naam">Wellnessarrangement</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 124,50 p.p. per nacht</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+              <a class="ao-alt" data-ao-alt="oorlogsmuseum-arrangement" href="/oorlogsmuseum-arrangement" hidden><img src="fotos/l26-oorlogsmuseum-arrangement-hero.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:55% 50%"><span class="ao-alt__tekst"><span class="ao-alt__naam">Oorlogsmuseum Arrangement</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 131 p.p. per nacht</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+              <a class="ao-alt" data-ao-alt="limburg-arrangement" href="/limburg-arrangement" hidden><img src="fotos/l26-limburg-arrangement-hero.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 50%"><span class="ao-alt__tekst"><span class="ao-alt__naam">4-daags Limburg Arrangement</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 415 p.p. voor 3 nachten</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+              <a class="ao-alt" data-ao-alt="najaarsarrangement" href="/najaarsarrangement" hidden><img src="fotos/l26-najaar-hero.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:60% 50%"><span class="ao-alt__tekst"><span class="ao-alt__naam">Najaarsarrangement</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 128,50 p.p. per nacht</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+              <a class="ao-alt" data-ao-alt="weekend-aanbieding" href="/weekend-aanbieding" hidden><img src="fotos/l26-weekend-aanbieding-hero.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><span class="ao-alt__tekst"><span class="ao-alt__naam">Weekend aanbieding</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 166 p.p. voor 2 nachten</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+              <a class="ao-alt" data-ao-alt="golfarrangement" href="/golfarrangement" hidden><img src="fotos/l26-golfarrangement-hero.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:70% 50%"><span class="ao-alt__tekst"><span class="ao-alt__naam">Golfarrangement</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 185,50 p.p. per nacht</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+              <a class="ao-alt" data-ao-alt="kerstarrangement" href="https://www.asteria.nl/arrangementen/kerstarrangement-hotel" hidden><img src="fotos/l26-arr-kerst-breed.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:55% 50%"><span class="ao-alt__tekst"><span class="ao-alt__naam">Kerstarrangement</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 130 p.p.</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+              <a class="ao-alt" data-ao-alt="oud-en-nieuw-arrangement" href="https://www.asteria.nl/arrangementen/oud-en-nieuw-arrangement" hidden><img src="fotos/l26-bubbels-hero.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 50%"><span class="ao-alt__tekst"><span class="ao-alt__naam">Oud & Nieuw arrangement</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 347 p.p., 3-daags arrangement</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+              <a class="ao-alt" data-ao-alt="oud-en-nieuw-bridge" href="https://www.asteria.nl/arrangementen/oud-en-nieuw-bridgearrangement" hidden><img src="fotos/l26-arr-oudennieuw-bridge.webp" alt="" width="800" height="534" loading="lazy" decoding="async" style="object-position:50% 70%"><span class="ao-alt__tekst"><span class="ao-alt__naam">Oud en Nieuw Bridge arrangement</span><span class="ao-alt__prijs"><span class="ao-vf">vanaf</span> € 520 p.p., 5-daags arrangement</span></span><span class="ao-alt__bekijk">Bekijk<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+            </div>
+            <p class="ao-kh__voet">
+              <button type="button" class="ao-kh__tekstknop" data-ao-reset>Opnieuw kiezen</button>
+              <span aria-hidden="true">&middot;</span>
+              <a class="ao-kh__tekstknop" href="#alle-arrangementen">Alle arrangementen</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6 KAMERS: blok 4b uit lander-w1 ══ -->
+  <section class="sec b4b" id="kamers" data-toon="paper" aria-labelledby="kamers-kop">
+    <div class="wrap">
+      <div class="b4b-kop">
+        <div class="b4b-intro"><h2 id="kamers-kop">Kies je <span class="g">kamer</span> </h2><p>Van de Comfort kamer tot de Bruidssuite. Bij elk arrangement staat op welke kamer het is gebaseerd; wil je alleen een kamer boeken, dan kies je hem hier.</p></div>
+        <div class="b4b-teller"><span class="b4b-tel" aria-live="polite"><b class="b4b-nu">1</b> van <b>8</b></span><div class="b4b-dots" role="tablist" aria-label="Kamers"><button type="button" class="b4b-dot is-active" role="tab" aria-selected="true" aria-label="Kamer 1"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 2"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 3"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 4"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 5"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 6"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 7"></button><button type="button" class="b4b-dot" role="tab" aria-selected="false" aria-label="Kamer 8"></button></div><div class="b4b-pijlen"><button type="button" class="as-pijl b4b-vorige" aria-label="Vorige kamer"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="as-pijl b4b-volgende" aria-label="Volgende kamer"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div></div>
+      </div>
+      <div class="b4b-strook strook-scroll" tabindex="0" aria-label="Kamers, schuif voor meer">
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-comfort.webp" alt="Comfort kamer bij Hotel Asteria"></div>
+        <div class="b4b-inhoud">
+          <h3>Comfort kamer</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>22 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>twinbeds</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>2 personen</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-room="98900f3b-e5e2-49c9-9776-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Comfort kamer">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="comfort" aria-haspopup="dialog" aria-label="Bekijk de Comfort kamer">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-royale.webp" alt="Royale kamer bij Hotel Asteria"></div>
+        <div class="b4b-inhoud">
+          <h3>Royale kamer</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>25 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM6 19v2M18 19v2"/></svg></span>ruime zithoek</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>2 personen</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-room="a8fd7310-0d61-422f-89e6-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Royale kamer">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="royale" aria-haspopup="dialog" aria-label="Bekijk de Royale kamer">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-deluxe.webp" alt="Deluxe kamer bij Hotel Asteria"></div>
+        <div class="b4b-inhoud">
+          <h3>Deluxe kamer</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>25 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg></span>eigen infraroodsauna</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>2 personen</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-room="c737de50-e41e-4c8d-a818-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Deluxe kamer">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="deluxe" aria-haspopup="dialog" aria-label="Bekijk de Deluxe kamer">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-junior-suite.webp" alt="Junior Suite bij Hotel Asteria"></div>
+        <div class="b4b-inhoud">
+          <h3>Junior Suite</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>37 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>kingsize</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/></svg></span>bad en douche</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-room="27ea8deb-ded5-4856-8fdd-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Junior Suite">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="junior-suite" aria-haspopup="dialog" aria-label="Bekijk de Junior Suite">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-suite.webp" alt="Suite bij Hotel Asteria"></div>
+        <div class="b4b-inhoud">
+          <h3>Suite</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>40 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>kingsize</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg></span>eigen infraroodsauna</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-room="4a642b66-68e6-444c-beeb-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Suite">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="suite" aria-haspopup="dialog" aria-label="Bekijk de Suite">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-bruidssuite.webp" alt="Bruidssuite bij Hotel Asteria"></div>
+        <div class="b4b-inhoud">
+          <h3>Bruidssuite</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>36 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>kingsize</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/></svg></span>vrijstaand ligbad</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-room="a9f18d18-561b-47a9-8ba7-b2a800cfd0e2" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" aria-label="Boek de Bruidssuite">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="bruidssuite" aria-haspopup="dialog" aria-label="Bekijk de Bruidssuite">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-comfort-3.webp" alt="Comfort kamer 3 personen bij Hotel Asteria"></div>
+        <div class="b4b-inhoud">
+          <h3>Comfort kamer 3 personen</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>22 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>drie bedden</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>3 personen</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-room="85ca19d7-eea5-41c8-8b93-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=85ca19d7-eea5-41c8-8b93-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Comfort kamer 3 personen">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="comfort-3" aria-haspopup="dialog" aria-label="Bekijk de Comfort kamer 3 personen">Bekijk kamer</button></div>
+        </div>
+      </article>
+        <article class="b4b-kaart">
+        <div class="b4b-foto"><img loading="lazy" src="fotos/l26-vk-mindervalide.webp" alt="Mindervalide kamer bij Hotel Asteria"></div>
+        <div class="b4b-inhoud">
+          <h3>Mindervalide kamer</h3>
+          <div class="b4b-specs"><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>37 m²</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span>twinbeds</span><span class="b4b-spec"><span class="dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.7l5.7 5.7a8 8 0 1 1-11.3 0z"/></svg></span>aangepaste badkamer</span></div>
+          <div class="b4b-knoppen"><a class="btn btn-primary btn--klein mews-open" data-room="fa5b6540-7234-49ce-beb1-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=fa5b6540-7234-49ce-beb1-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek de Mindervalide kamer">Boek nu</a><button type="button" class="btn btn-secondary btn--klein" data-kamer="mindervalide" aria-haspopup="dialog" aria-label="Bekijk de Mindervalide kamer">Bekijk kamer</button></div>
+        </div>
+      </article>
+      </div>
+      <div class="b4b-voet"><p class="b4b-noot">Prijs en beschikbaarheid per kamer zie je in het boekingsscherm.</p><a class="btn btn-secondary" href="https://www.asteria.nl/kamers/">Bekijk alle kamers</a></div>
+    </div>
+  </section>
+
+  <!-- ══ 7 GOED OM TE WETEN ══ -->
+  <section class="ao-sectie ao-praktisch" aria-labelledby="ao-prak-kop">
+    <div class="ao-wrap">
+      <h2 class="ao-h2 ao-praktisch__kop" id="ao-prak-kop">Goed om te weten</h2>
+      <ul class="ao-praktisch__raster">
+        <li class="ao-ptegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.7a4 4 0 1 0 0 6.6M7.5 10.8h5.5M7.5 13.2h5.5"/></svg></span><h3>Prijzen</h3><p>Per persoon op basis van twee personen, exclusief € 2,– verblijfsbelasting per persoon per nacht.</p></li>
+        <li class="ao-ptegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><h3>In- en uitchecken</h3><p>Inchecken vanaf 15.00 uur, uitchecken tot 11.00 uur. Bij de Weekend aanbieding tot 14.00 uur, op basis van beschikbaarheid.</p></li>
+        <li class="ao-ptegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v8"/><path d="M4.93 10.93l1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="M19.07 10.93l-1.41 1.41"/><path d="M22 22H2"/><path d="M8 6l4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg></span><h3>Ontbijt</h3><p>Maandag tot en met vrijdag van 07.00 tot 10.00 uur, in het weekend van 08.00 tot 10.30 uur.</p></li>
+        <li class="ao-ptegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l7.9 7.9a1 1 0 0 1 0 1.4l-7.8 7.8a1 1 0 0 1-1.4 0z"/><circle cx="8.3" cy="8.3" r="1.6"/></svg></span><h3>Actiecode</h3><p>Boek via de pagina van het arrangement, dan staat de actiecode al voor je ingevuld.</p></li>
+        <li class="ao-ptegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 8c1.6 0 1.6-1.5 3.2-1.5S7.3 8 8.9 8s1.6-1.5 3.1-1.5S13.6 8 15.2 8s1.6-1.5 3.1-1.5S19.9 8 21.5 8"/><path d="M2.5 12.5c1.6 0 1.6-1.5 3.2-1.5s1.6 1.5 3.2 1.5 1.6-1.5 3.1-1.5 1.6 1.5 3.2 1.5 1.6-1.5 3.1-1.5 1.6 1.5 3.2 1.5"/><path d="M2.5 17c1.6 0 1.6-1.5 3.2-1.5S7.3 17 8.9 17s1.6-1.5 3.1-1.5 1.6 1.5 3.2 1.5 1.6-1.5 3.1-1.5S19.9 17 21.5 17"/></svg></span><h3>Wellness op de Top Floor</h3><p>Open ma-do 16.00-22.00 en vr-zo 12.00-22.00 uur. Inbegrepen bij het Wellness Arrangement, anders bij te boeken via de receptie.</p></li>
+        <li class="ao-ptegel"><span class="ao-vak"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.6 6.6l1.4-2.3 4.5 1.8V19a1.5 1.5 0 0 1-1.5 1.5A16.5 16.5 0 0 1 3.5 5 1.5 1.5 0 0 1 5 3.5z"/></svg></span><h3>Vragen?</h3><p>Bel <a href="tel:+31478511466">0478 511466</a> of mail <a href="mailto:info@asteria.nl">info@asteria.nl</a>, de receptie helpt je graag.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ 8 VEELGESTELDE VRAGEN ══ -->
+  <section class="ao-sectie ao-faq" aria-labelledby="ao-faq-kop">
+    <div class="ao-wrap ao-faq__raster">
+      <div class="ao-faq__kop">
+        <h2 class="ao-h2" id="ao-faq-kop">Veelgestelde vragen</h2>
+        <a class="ao-faq__tel" href="tel:+31478511466"><svg class="as-icoon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg><span>Bel de receptie: 0478 511466</span></a>
+      </div>
+      <div class="as-accordeon as-accordeon--kaart ao-faq__lijst">
+          <details class="as-accordeon__item" open><summary class="as-accordeon__kop">Wat zit er bij elk arrangement in?</summary><div class="as-accordeon__paneel"><p>Bij elk arrangement horen een overnachting, het uitgebreide ontbijtbuffet en een drie-gangen diner in het restaurant van het hotel. Wat er verder bij zit, zoals de wellness, een greenfee, een e-bike of museumentree, verschilt per arrangement.</p></div></details>
+          <details class="as-accordeon__item"><summary class="as-accordeon__kop">Hoe boek ik een arrangement?</summary><div class="as-accordeon__paneel"><p>Open het arrangement en kies je aankomstdag in de kalender. Je ziet direct de prijs per dag en de actiecode staat al voor je ingevuld. Bij het Limburg Arrangement (drie nachten) en de Weekend aanbieding (twee nachten, aankomst op vrijdag of zaterdag) ligt het aantal nachten vast. De arrangementen voor de feestdagen boek je via hun pagina op asteria.nl.</p></div></details>
+          <details class="as-accordeon__item"><summary class="as-accordeon__kop">Kan ik de wellness gebruiken?</summary><div class="as-accordeon__paneel"><p>Bij het Wellness Arrangement is vrije toegang tot de wellness op de Top Floor inbegrepen. Bij de andere arrangementen kun je de wellness bijboeken; reserveer vooraf bij de receptie. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur.</p></div></details>
+          <details class="as-accordeon__item"><summary class="as-accordeon__kop">Is er korting op zondag?</summary><div class="as-accordeon__paneel"><p>Ja, bij het Wellness-, Oorlogsmuseum-, Limburg-, Najaars- en Golfarrangement. Kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met de actiecode van het arrangement en geldt eenmalig per kamer per verblijf dat op zondag begint. Bij de Weekend aanbieding en de arrangementen voor de feestdagen geldt hij niet.</p></div></details>
+          <details class="as-accordeon__item"><summary class="as-accordeon__kop">Kan ik kosteloos annuleren?</summary><div class="as-accordeon__paneel"><p>De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 9 REVIEWS: blok 5a uit lander-w1 ══ -->
+  <section class="sec b5a" data-toon="surface" aria-labelledby="reviews-kop">
+    <div class="wrap">
+      <div class="b5a-kop">
+        <h2 id="reviews-kop">Wat gasten <span class="g">zeggen</span></h2>
+        <a class="g-sticker" href="https://www.google.com/maps?cid=10392502528258527703" target="_blank" rel="noopener" aria-label="Hotel Asteria op Google: 4,2 uit 5, 2.280 reviews"><span class="g-sticker__score"><svg class="g-sticker__ster" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span>4,2</span></span><span class="g-sticker__lijn" aria-hidden="true"></span><span class="g-sticker__bron"><svg class="g-sticker__g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg><span class="g-sticker__tekst"><span class="g-sticker__rev">2.280 reviews</span><span class="g-sticker__merk">Google</span></span></span></a>
+      </div>
+    </div>
+    <div class="b5a-muur" data-reviewmuur>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="4 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Mooi hotel. Kamers netjes, niet al te groot. Wel 2 fauteuils met tafeltje en een grote inloopdouche. Fijne airco. Geen koelkastje, wel koffie en thee op de kamer. Ontbijt is prima. Diner is heerlijk. Mankeert niets aan.”</p>
+        <p class="b5a-naam">Karin Van Zonneveld<span>3 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Mijn partner en ik hebben bij Asteria ons huwelijk voltrokken. Asteria was zeer behulpzaam in aanloop naar en op de dag van het huwelijk. De manager dacht goed met ons mee over welke ruimtes gebruikt konden worden, het diner was heerlijk en het personeel …”</p>
+        <p class="b5a-naam">Richard Franssen<span>4 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heerlijk hotel, zalig ontbijt en heerlijke dinner keuzes!”</p>
+        <p class="b5a-naam">arthur goulooze<span>6 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heel goed hotel. Nette, ruime kamers. Grote gratis parkeerplaats. Uitgebreid ontbijt. Vriendelijk en behulpzaam personeel.”</p>
+        <p class="b5a-naam">Nicole Scholte<span>7 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heerlijk genoten van een mooi dartweekend. Kamers top, medewerkers vriendelijk, ontbijt genoeg variatie. Gratis parkeren. Top geregeld”</p>
+        <p class="b5a-naam">Roger Vogelzang<span>9 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Heel aangenaam hotel, supervriendelijk. Verzorgde kamers en lekker ontbijt. De elektrische fiets is aan te raden om leuke tripjes te maken in de buurt.”</p>
+        <p class="b5a-naam">Davy Tollenaere<span>11 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Mooie ruime kamers ,netjes en heerlijk uitgebreid ontbijt. Enorm leuke locatie om iets te vieren.”</p>
+        <p class="b5a-naam">Bianca Smeets<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Een schitterend hotel,echt 4 sterren waardig, ook een top ontbijt”</p>
+        <p class="b5a-naam">Chris Heemstra<span>een jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Geweldig hotel.Vriendelijk personeel. Goed eten, goed ontbijt. Alles top. Al heel wat boekingen gedaan, dit was tot nu toe het allerbeste. Gr.Rose en PietVlecken.”</p>
+        <p class="b5a-naam">Piet Vlecken<span>2 jaar geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Uitstekend in alle opzichten: personeel, accommodaties, eten, kamers en prijzen”</p>
+        <p class="b5a-naam">Wilson Varela<span>een maand geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Personeel was behulpzaam en vriendelijke. Onze kamer en badkamer was top.”</p>
+        <p class="b5a-naam">Fia Sardar<span>2 maanden geleden &middot; Google</span></p>
+      </article>
+      <article class="kaart b5a-kaart">
+        <span class="b5a-k-sterren" role="img" aria-label="5 van 5 sterren"><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+        <p>“Prima plek om daar te zijn. Te eten en te overnachten. Gastvrije en leuke mensen die daar werken. Maakt het erg aangenaam als je een paar dagen bij huis en haard vandaan bent.”</p>
+        <p class="b5a-naam">Bart Bouwers<span>4 maanden geleden &middot; Google</span></p>
+      </article>
+    </div>
+    <div class="wrap">
+      <div class="b5a-voet">
+        <a class="btn btn-secondary" href="https://www.google.com/maps?cid=10392502528258527703" target="_blank" rel="noopener">Alle reviews op Google</a>
+        <a class="btn btn-secondary" href="https://search.google.com/local/writereview?placeid=ChIJ8QbzR7lqx0cR19Ey1PyVOZA" target="_blank" rel="noopener">Laat een review achter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 10 SLOT ══ -->
+  <section class="ao-slot" aria-labelledby="ao-slot-kop">
+    <img class="ao-slot__foto" src="fotos/l26-omg-bossen.webp" alt="Bospad in de bossen rond Venray" loading="lazy" decoding="async">
+    <span class="ao-slot__waas" aria-hidden="true"></span>
+    <div class="ao-wrap ao-slot__in">
+      <h2 class="ao-h2" id="ao-slot-kop">Je verblijf in Venray begint hier</h2>
+      <p class="ao-slot__tekst">Kies een arrangement of boek alleen een kamer. Heb je een vraag, dan helpen we je graag verder.</p>
+      <div class="ao-knoppen">
+        <a class="btn btn-primary mews-open" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556">Boek een kamer</a>
+        <a class="btn btn-outline-light" href="#arrangementen">Bekijk alle arrangementen</a>
+      </div>
+      <p class="ao-slot__contact">
+        <a href="tel:+31478511466"><svg class="as-icoon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg>0478 511466</a>
+        <span class="ao-slot__punt" aria-hidden="true">&middot;</span>
+        <a href="mailto:info@asteria.nl"><svg class="as-icoon" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1"/><path d="M2 4.5l6 4.5 6-4.5"/></svg>info@asteria.nl</a>
+      </p>
+    </div>
+  </section>
+
+  <dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam">
+    <button type="button" class="lp-pop__sluit" aria-label="Sluiten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="lp-pop__binnen">
+      <div class="lp-pop__media">
+        <video class="lp-pop__video" muted playsinline loop autoplay preload="none" aria-label="Video van de kamer"></video>
+        <img class="lp-pop__hero" alt="" hidden>
+        <span class="lp-pop__badge">Hotel Asteria</span>
+      </div>
+      <div class="lp-pop__fotos"></div>
+      <div class="lp-pop__body">
+        <h3 class="lp-pop__titel" id="lp-pop-kamer-naam"></h3>
+        <div class="lp-pop__tekst"></div>
+        <ul class="lp-pop__kenmerken"></ul>
+        <div class="lp-pop__acties">
+          <a class="btn btn-primary mews-open lp-pop__boek" data-basis="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556">Boek deze kamer</a>
+          <a class="lp-pop__link" href="/">Bekijk de kamerpagina</a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <div class="lp-pop-overlay" hidden></div>
+  <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>
+  <script type="application/json" id="lp-kamerdata">
+{
+ "comfort": {
+  "naam": "Comfort kamer",
+  "pagina": "/comfort-kamer",
+  "video": "videos/comfort.mp4",
+  "fotos": [
+   "fotos/kamer-comfort-a.webp",
+   "fotos/kamer-comfort-b.webp",
+   "fotos/kamer-comfort-c.webp"
+  ],
+  "tekst": [
+   "Geniet van een comfortabele en modern ingerichte kamer, ideaal voor een ontspannen verblijf in Noord-Limburg. Of je nu komt voor een korte break of een zakelijk bezoek, in onze Comfort kamer voel je je direct thuis.",
+   "De kamer beschikt over twee eenpersoonsbedden, een eigen badkamer met douche en een zithoek met comfortabele stoelen: alles wat je nodig hebt om tot rust te komen."
+  ],
+  "kenmerken": [
+   "Circa 22 m²",
+   "Twinbeds (2 eenpersoonsbedden)",
+   "Geschikt voor maximaal 2 personen",
+   "Zithoek met comfortabele stoelen",
+   "Eigen badkamer met douche",
+   "Airconditioning"
+  ],
+  "kamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
+ },
+ "comfort-3": {
+  "naam": "Comfort kamer 3 personen",
+  "pagina": "/comfort-kamer-3-personen",
+  "video": "videos/comfort-3.mp4",
+  "fotos": [
+   "fotos/room-comfort-3-1.webp",
+   "fotos/room-comfort-3-2.webp",
+   "fotos/room-comfort-3-3.webp"
+  ],
+  "tekst": [
+   "Onze 3-persoons Comfort kamer biedt extra ruimte voor families of vrienden die samen op pad gaan. Alles is aanwezig voor een aangenaam en zorgeloos verblijf in het groene Noord-Limburg.",
+   "Drie eenpersoonsbedden, een eigen badkamer en een fijne zithoek maken deze kamer ideaal voor wie samen reist."
+  ],
+  "kenmerken": [
+   "Circa 22 m²",
+   "3 eenpersoonsbedden",
+   "Geschikt voor maximaal 3 personen",
+   "Zithoek met comfortabele stoelen",
+   "Eigen badkamer met douche en/of bad",
+   "Airconditioning"
+  ],
+  "kamer": "85ca19d7-eea5-41c8-8b93-af1d00ffc315"
+ },
+ "mindervalide": {
+  "naam": "Mindervalide kamer",
+  "pagina": "/mindervalide-kamer",
+  "video": "videos/mindervalide.mp4",
+  "fotos": [
+   "fotos/room-mindervalide-1.webp",
+   "fotos/room-mindervalide-2.webp",
+   "fotos/room-mindervalide-3.webp"
+  ],
+  "tekst": [
+   "Onze aangepaste kamer is speciaal ontworpen voor gasten met beperkte mobiliteit. Ook ons restaurant en terras zijn rolstoelvriendelijk, zodat je tijdens je verblijf zorgeloos kunt genieten van een heerlijk diner en de gastvrijheid van Asteria.",
+   "Een ruime indeling, extra brede deuren en een aangepaste badkamer zorgen voor comfort en zelfstandigheid."
+  ],
+  "kenmerken": [
+   "Circa 37 m²",
+   "Twinbeds (2 eenpersoonsbedden)",
+   "Bedbank voor extra slaapgelegenheid",
+   "Extra brede deuren en ruime indeling voor rolstoel of rollator",
+   "Ruime zithoek met comfortabele stoelen",
+   "Aangepaste, rolstoeltoegankelijke badkamer met douche"
+  ],
+  "kamer": "fa5b6540-7234-49ce-beb1-af1d00ffc315"
+ },
+ "royale": {
+  "naam": "Royale kamer",
+  "pagina": "/royale-kamer",
+  "video": "videos/royale.mp4",
+  "fotos": [
+   "fotos/room-royale-1.webp",
+   "fotos/room-royale-2.webp",
+   "fotos/room-royale-3.webp"
+  ],
+  "tekst": [
+   "Onze Royale kamers zijn groter dan de Comfort kamers en bieden net dat beetje extra. Het ruime gevoel en de comfortabele zithoek maken deze kamer ideaal voor wie iets meer luxe wil tijdens het verblijf.",
+   "Kies voor een tweepersoonsbed of twinbeds en geniet van de extra ruimte en een eigen badkamer met douche of bad."
+  ],
+  "kenmerken": [
+   "Circa 25 m²",
+   "Tweepersoonsbed of twinbeds (2 eenpersoonsbedden)",
+   "Geschikt voor maximaal 2 personen",
+   "Ruime zithoek met comfortabele stoelen",
+   "Eigen badkamer met douche en/of bad",
+   "Airconditioning"
+  ],
+  "kamer": "a8fd7310-0d61-422f-89e6-af1d00ffc315"
+ },
+ "deluxe": {
+  "naam": "Deluxe kamer",
+  "pagina": "/deluxe-kamer",
+  "video": "videos/deluxe.mp4",
+  "fotos": [
+   "fotos/room-deluxe-1.webp",
+   "fotos/room-deluxe-2.webp",
+   "fotos/room-deluxe-3.webp"
+  ],
+  "tekst": [
+   "Onze Deluxe kamers hebben alles voor een luxe verblijf in Noord-Limburg. De private infraroodsauna in de badkamer maakt deze kamer ideaal voor wie écht wil ontspannen: een kleine wellness-ervaring op je eigen kamer.",
+   "Naast de eigen sauna geniet je van een comfortabele zithoek en alle gemakken binnen handbereik."
+  ],
+  "kenmerken": [
+   "Circa 25 m²",
+   "Tweepersoonsbed of twinbeds (2 eenpersoonsbedden)",
+   "Geschikt voor maximaal 2 personen",
+   "Zithoek met comfortabele stoelen",
+   "Luxe private infraroodsauna",
+   "Eigen badkamer met douche"
+  ],
+  "kamer": "c737de50-e41e-4c8d-a818-af1d00ffc315"
+ },
+ "junior-suite": {
+  "naam": "Junior Suite",
+  "pagina": "/junior-suite",
+  "video": null,
+  "fotos": [
+   "fotos/kamer-junior-suite.webp",
+   "fotos/kamer-junior-suite-2.webp"
+  ],
+  "tekst": [
+   "Onze ruime Junior Suites bieden de luxe van ruimte met een grote zithoek om even heerlijk te ontspannen na een dag op pad. Ideaal voor wie net dat beetje extra wil tijdens het verblijf in Noord-Limburg.",
+   "Met een kingsize bed en een bedbank voor extra slaapgelegenheid is de Junior Suite ook perfect voor families."
+  ],
+  "kenmerken": [
+   "Circa 37 m²",
+   "Tweepersoons kingsize bed",
+   "Bedbank voor extra slaapgelegenheid",
+   "Geschikt voor maximaal 4 personen",
+   "Ruime zithoek met comfortabele stoelen",
+   "Eigen badkamer met bad en douche"
+  ],
+  "kamer": "27ea8deb-ded5-4856-8fdd-af1d00ffc315"
+ },
+ "suite": {
+  "naam": "Suite",
+  "pagina": "/suite",
+  "video": "videos/suite.mp4",
+  "fotos": [
+   "fotos/room-suite-1.webp",
+   "fotos/room-suite-2.webp",
+   "fotos/room-suite-3.webp"
+  ],
+  "tekst": [
+   "Beleef Asteria in onze meest ruime en luxe kamer. Met een eigen infraroodsauna, een ruime zithoek en alle gemakken binnen handbereik is de Suite dé plek om volledig tot rust te komen: meer dan een hotelkamer, een complete ervaring.",
+   "Een kingsize bed en bedbank bieden ruimte voor maximaal vier personen."
+  ],
+  "kenmerken": [
+   "Circa 40 m²",
+   "Tweepersoons kingsize bed",
+   "Bedbank voor extra slaapgelegenheid",
+   "Geschikt voor maximaal 4 personen",
+   "Ruime zithoek met comfortabele stoelen",
+   "Private infraroodsauna"
+  ],
+  "kamer": "4a642b66-68e6-444c-beeb-af1d00ffc315"
+ },
+ "bruidssuite": {
+  "naam": "Bruidssuite",
+  "pagina": "/bruidssuite",
+  "video": "videos/bruidssuite.mp4",
+  "fotos": [
+   "fotos/room-bruidssuite-1.webp",
+   "fotos/room-bruidssuite-2.webp",
+   "fotos/room-bruidssuite-3.webp"
+  ],
+  "tekst": [
+   "Onze Bruidssuite is ontworpen voor bijzondere momenten. Of je nu net getrouwd bent of een romantisch weekend viert, geniet samen van de luxe, de rust en de warme sfeer die Asteria zo kenmerkt.",
+   "Een vrijstaand ligbad, een ruime inloopdouche en badjassen met slippers maken het verblijf compleet."
+  ],
+  "kenmerken": [
+   "Circa 36 m²",
+   "Tweepersoons kingsize bed",
+   "Ruime zithoek met comfortabele stoelen",
+   "Badjassen en slippers",
+   "Luxe badkamer met inloopdouche",
+   "Ruim vrijstaand ligbad"
+  ],
+  "kamer": "a9f18d18-561b-47a9-8ba7-b2a800cfd0e2"
+ }
+}
+  </script>
+
+</main>
+
+<footer class="footer">
+  <img class="footer__star-bg" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIyOTczIiB2aWV3Qm94PSIwIDAgMTkyMCAyOTczIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yMzI2LjMgODQ0LjA1NEMxOTcxLjA0IDY4My4yNzQgMTU2OS4xNiA2NTQuNjc2IDExOTcuMDQgNzYxLjg5N0M2OTMuNDQgMjU2LjIyNiAyNjAuNTM4IDEuOTk4MjZlLTA1IDI2MC41MzggMS45OTgyNmUtMDVDMjg1LjIzNyAzOTAuNjM5IDM1NC40MjUgNzY2LjQxOSA0NjguNzc1IDExNDAuMDJDMTcxLjg5MiAxMzQzLjM2IC0yMjEuNDM4IDE2NjUuMjIgLTUxNS4xNDggMjEwMS4wNkMtNTE0LjU5NSAyMTkxLjMyIC00NTAuMzM2IDIxNDYuODEgLTQwNi4xMzggMjExMy42MUMtMTkuODc3NSAxODUxLjIzIDMzMi42ODEgMTcwMS4xNSA2NDAuODg4IDE2MjEuMTJDODIwLjU4MiAyMDYwLjA4IDEwNjIuNTMgMjUwMy42NyAxMzY4Ljk5IDI5NzIuNEMxMTk1LjMgMjI5NC44NCAxMjQ4LjY1IDE3MjQuOTkgMTI0OC42NSAxNzI0Ljk5QzEyNDguNjUgMTcyNC45OSAxMjMxLjc5IDE3NTUuNjQgMTE5Ny4zNSAxNzM0LjQ4QzExNjkuODggMTgzNS4xMyAxMTgwLjQ2IDIyNzguNjIgMTE2Mi45MSAyMDIzLjA2QzExNTQuNjUgMTkwMy4yMiAxMTc3LjYgMTcxNC41NSAxMjA1LjAxIDE1NDEuODVDMTYwNC4wOSAxNTM1LjE4IDE4NjEuMjUgMTY0MS4xNSAxOTI2LjUxIDE2NzEuNTFDMTkzMi4xOCAxNjc0LjE4IDE5MzcuNTEgMTY3Ni43OCAxOTQyLjk4IDE2NzkuNTdDMTc0My45OSAxMzc0LjI1IDE1MjcuNTkgMTEwOS45MSAxMzE4IDg4Ny4xMTNDMTk0My40NiA2NzguMjc4IDIzMjYuMSA4NDQuMTgyIDIzMjYuMSA4NDQuMTgyTTQ4NC4xMyAzMzIuNDM5QzY5Mi4zNDQgNDY2LjM1MiA4OTQuNTE3IDYzNS40NDYgMTA3My4wMyA4MDMuMDM3QzEwMDguNTEgODI3LjQ3OSA5NDUuMDUxIDg1NS44MTIgODgzLjE1NSA4ODguODQ4Qzg0Ni42OSA5MDguMyA3NDIuOTYgOTYzLjA1OCA2MDIuMjYyIDEwNTIuMTJDNTQyLjgzMSA4MTcuNzQxIDUwMy45MjkgNTgxLjcyNSA0ODQuMTMgMzMyLjQzOVpNLTE2LjkxNjIgMTc2MS41OUMxNzAuOTQ3IDE1NzguNzUgMzUxLjE0NyAxNDI4Ljk5IDUyMi40MSAxMzA2LjI3QzU0My44MjEgMTM2OS4wNCA1NjYuODMyIDE0MzEuNjUgNTkwLjcwNyAxNDk0LjI3QzQwOS4zMDcgMTU0OS42MyAyMDcuNDczIDE2MzQuNDkgLTE2LjcxMzkgMTc2MS40Nk0xMDcxLjk2IDIyNTAuMzVDOTU0Ljc3MSAyMDE5LjMyIDg1Ni4yNjEgMTgwMi4wNiA3NzQuNjggMTU5MC4wMUM4ODYuMjc0IDE1NjcuMyA5OTEuMDMxIDE1NTMuNDkgMTA4OC44NiAxNTQ2LjY1QzEwNjIuMTkgMTcwNS43NyAxMDUzLjc4IDE4ODkuMTkgMTA3MS45NiAyMjUwLjM1Wk0xNzE4Ljk2IDE1MDEuNTZDMTYxMS4yMiAxNDY5LjEgMTQ0OS42IDE0MTYuMTYgMTIyNy44OCAxNDA2LjIzQzEyNTIuMzQgMTI3MC40NSAxMjc0LjcgMTE2My4wNyAxMjc4Ljg3IDExMzcuOTFDMTI4OC45OSAxMDc1LjY0IDEyNDYuMjUgMTA3MC4wMSAxMjQ2LjI1IDEwNzAuMDFMMTE5Ni41OCAxMjQ0LjMxQzExOTYuNTggMTI0NC4zMSAxMTc4LjU1IDEzMDYuMiAxMTcxLjM4IDExODQuNTJDMTE1MS4wOSAxMjY5LjIxIDExMzMuMDIgMTMzOS4wOSAxMTE3LjU3IDE0MDUuMDRDMTAwMS40IDE0MDcuNTggODcwLjkyMiAxNDIyLjkgNzI1Ljc0NSAxNDU3LjUzQzY5Ny42MjUgMTM3Ny45NCA2NzEuNjkzIDEyOTguNjcgNjQ4LjQ4NSAxMjE5LjY2Qzg0Ny41OTQgMTA4OC45NSAxMDMzLjE4IDk5NS4wMzQgMTIwMy4wOSA5MjguNzM4QzE1MDkuMTcgMTIzMy4zIDE3MTguOTYgMTUwMS41NiAxNzE4Ljk2IDE1MDEuNTZaIiBmaWxsPSIjQzc2RTRFIi8+PC9zdmc+">
+  <div class="inner">
+    <div class="footer__brand-block">
+      <a href="https://www.asteria.nl/" class="footer__logo" aria-label="Hotel Asteria">
+        <img alt="Hotel Asteria" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==">
+      </a>
+      <address class="footer__address">
+        Maasheseweg 80a<br>
+        5804 AD Venray<br>
+        <a href="tel:+31478511466">0478 511466</a><br>
+        <a href="mailto:info@asteria.nl">info@asteria.nl</a>
+      </address>
+      <div class="footer__socials" aria-label="Volg ons">
+        <a href="https://www.facebook.com/AsteriaVenray" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.261c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/hotelasteriavenray" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/hotel-asteria-venray" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h3>Verblijf</h3>
+      <a href="/bruidssuite">Bruidssuite</a>
+      <a href="/junior-suite">Junior suite</a>
+      <a href="/comfort-kamer">Comfort kamer</a>
+      <a href="/deluxe-kamer">Deluxe kamer</a>
+      <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" class="mews-open">Beschikbaarheid</a>
+    </div>
+    <div>
+      <h3>Bij ons</h3>
+      <a href="https://www.asteria.nl/restaurant">Restaurant</a>
+      <a href="https://www.asteria.nl/wellness">Wellness</a>
+      <a href="https://www.asteria.nl/zalen-feesten">Zalen &amp; feesten</a>
+      <a href="https://www.asteria.nl/omgeving">Omgeving</a>
+      <a href="https://www.asteria.nl/over-ons">Ons verhaal</a>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <a href="tel:+31478511466">0478 511466</a>
+      <a href="mailto:info@asteria.nl">info@asteria.nl</a>
+      <a href="https://maps.google.com/?q=Maasheseweg+80a+Venray" target="_blank" rel="noopener">Route &amp; parkeren</a>
+      <a href="https://www.asteria.nl/contact/veelgestelde-vragen">Veelgestelde vragen</a>
+      <a href="https://www.asteria.nl/vacatures">Werken bij Asteria</a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>&copy; Hotel Asteria &middot; A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01</span>
+    <span>
+      <a href="https://www.asteria.nl/privacy">Privacybeleid</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://www.asteria.nl/algemene-voorwaarden">Algemene voorwaarden</a>
+    </span>
+  </div>
+</footer>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookiemelding">
+  <span>Deze website gebruikt cookies voor een optimale ervaring. <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">Meer info</a></span>
+  <button type="button" id="cookieAccept">Akkoord</button>
+</div>
+
+</body>
+</html>

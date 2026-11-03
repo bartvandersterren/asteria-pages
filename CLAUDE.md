@@ -387,6 +387,26 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
   geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).
 
+### Arrangementenoverzicht /arrangementen-v2 (nov 2026, preview)
+
+- Opbouw en gedrag van parkhotelhorst.nl/arrangement/ (parkhotel-site `src/fragmenten/pagina-arrangement-v3.html` + css + gedrag),
+  uiterlijk = nieuwe huisstijl zoals de arrangementpagina's: tokens, fonts (Abhaya Libre/Montserrat), zand/terracotta, `.btn`, `.vinkjes`,
+  `.as-icoon` en `.as-accordeon--kaart` uit lander-w1.css; panelen/vakjes/zondagregel naar het voorbeeld van arrangement.css. Geen eigen
+  kleurwaarden; kamer- (4b) en reviewblok (5a) ongemoeid, gelijk aan /najaarsarrangement-v2.
+  Bestanden: `arrangementen.template.html`, `arrangementen.css` (prefix `ao-`), `arrangementen.js` (filterchips + keuzehulp, port van
+  Parkhotel deel 1 en 2), `translations/arrangementen-nl.json`, build-entry `arrangementen` -> `arrangementen-v2.html`. Alleen NL,
+  noindex, niet in sitemap.xml, nergens gelinkt.
+- build.py `apply_overzicht()`: kop, kamers (4b), reviews (5a), kamer-pop-up en voet worden bij elke build letterlijk uit
+  `lander-w1.template.html` geknipt (zonder actiecode en zonder pil); kaartdata (KAART_KOP, eerste zin van SUB, ARR_PRIJS +
+  ARR_PRIJS_KAART_EENHEID, ARR_NACHTEN, HERO_IMG/ALT/--hero-x, KAART_VINK_A..C) uit de arrangement-JSON's in `_arrangementen`
+  (slug, url, cat, volgorde, scores, redenen, oms = korte tekst van Stijn). Zondagregel "Op zondag vanaf <b>ZV_ZONDAG_PRIJS</b>" bij ZV_TOON
+  (zelfde bron als het zondagblok a9); die kaarten krijgen ook categorie `zondag` (chip Zondagvoordeel), zoals Parkhotel.
+  `_extra` = statische kaarten zonder eigen JSON (Kerst, Oud & Nieuw, Oud en Nieuw Bridge, links naar www.asteria.nl/arrangementen/...,
+  categorie `feest`, geen zondagkorting); `_volgorde` = volgorde van alle 9 kaarten. Najaar linkt naar /najaarsarrangement. Geen Happy Summer.
+- Kaartknoppen linken naar de arrangementpagina (geen directe Mews-boeking): vaste nachten en aankomstdagen dwingt alleen de prijskalender daar af.
+- Test: `python3 -m http.server <poort>` + Playwright (desktop 1440, mobiel 390): overflow, 9 kaarten, chips (feest 3, zondag 5), keuzehulp (actief/1 nacht -> golf, feestdagen -> feestkaart,
+  vr-za + 2 nachten -> weekend), kamer-pop-up zonder voucher. Promotie naar /arrangementen (indexeerbaar, sitemap, menulink, EN/DE) pas na akkoord Stijn.
+
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 
 - Eén sjabloon voor alle seizoenen: `seizoen.template.html` + `seizoen.css` (laadt na `lander-w1.css`, blokken met prefix `hf-`)
