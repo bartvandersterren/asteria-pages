@@ -196,6 +196,14 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `translations/hotel-venray-v2-nl.json` (build.py `render_hotel`, stijl `hotel.css`, prefix `ho-`): faciliteiten (mozaiek kiezerblok 6a,
   `_faciliteiten` precies 5, `_fac_extra`), omgeving (`_omgeving` 3-5), arrangementen (`_arrangementen` 3-8, geen prijzen).
   Extra tag `gtag('set','linker',{accept_incoming:true})` zoals hotel-venray.html. Test: `... /hotel-venray-v2.html --hotel`.
+- Kamertypes in de nieuwe stijl `kamertypes-v2` (3 nov 2026, preview op PR #179; live /kamertypes = oude build_kamers.py tot akkoord):
+  lander-w1 met blokken `hotel` + `kamertypes` (build.py `render_kamertypes`, `kamertypes-v2.css`/`.js`, prefix `kt-`), nabouw van
+  staging /kamers/: subhero (`.b1a--sub`, 480/300 px, boekbalk ook op de telefoon, geen boekkaart), Kies je kamer (filterchips
+  `_filters` + kaarten `_kamers`: 3 foto's met crossfade/pijlen/bolletjes, specs, knop Boek deze kamer = Mews met data-room uit
+  `KAMER_MEWS`; geen prijzen, geen Junior Suite, geen knop naar de kamerpagina's; contactkaart vult de laatste rij), Wat in elke
+  kamer klaarstaat (`_inbegrepen`), arrangementen (ho-arr), reviewmuur (`_reviews_voorkeur`), Goed om te weten (`_goed_om_te_weten`),
+  FAQ (`_faq`, 4-8), fotowolk. Ster-split, kamerslider, faciliteiten, omgeving en kamer-pop-up staan uit (`<!--[!kamertypes[-->`).
+  Gesloten: logo naar `GESLOTEN_LOGO_URL` (standaard /hotel-venray-v2). Herofoto `fotos/l26-kamertypes-hero.webp` (P1081257).
 - Optionele herovideo op lander-w1 (blok `video`, aan met `HERO_VIDEO` in de JSON; `HERO_VIDEO_MOBIEL` = staande bron < 720 px via
   `<source media>`, `HERO_VIDEO_POSTER`; terugval HERO_VIDEO/HERO_IMG). Video van de staging-homepage op staging-kwaliteit:
   `videos/hero-asteria-building-sunset.mp4` = staging-origineel 1:1 (1280x720, stream copy + faststart, zonder audio), `-mobiel.mp4` = 406x720

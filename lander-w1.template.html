@@ -38,6 +38,7 @@
   <script src="lander-w1.js" defer></script>
   <!--[arrangement[--><link rel="stylesheet" href="arrangement.css"><link rel="stylesheet" href="arrangement-kalender.css"><script src="arrangement.js" defer></script><script src="arrangement-kalender.js" defer></script><script src="arr-vanaf.js" defer></script><!--]arrangement]-->
   <!--[hotel[--><link rel="stylesheet" href="hotel.css"><!--]hotel]-->
+  <!--[kamertypes[--><link rel="stylesheet" href="kamertypes-v2.css"><script src="kamertypes-v2.js" defer></script><!--]kamertypes]-->
   <!--[scratchcard[--><script>window.ScratchcardConfig = { stijl: '2026' };</script><link rel="stylesheet" href="scratchcard-2026.css"><script src="analytics-d1.js" defer></script><script src="nieuwsbrief.js" defer></script><script src="scratchcard-popup.js" defer></script><!--]scratchcard]-->
 
   <!-- GA4 + Google Ads -->
@@ -93,7 +94,7 @@
   <!--]!gesloten]-->
   <nav class="main-nav" aria-label="Hoofdnavigatie">
     <div class="inner">
-      <a href="<!--[!gesloten[-->https://www.asteria.nl/<!--]!gesloten]--><!--[gesloten[-->/hotel-venray-v2<!--]gesloten]-->" class="logo" aria-label="Hotel Asteria, naar <!--[!gesloten[-->de homepage<!--]!gesloten]--><!--[gesloten[-->het begin van de pagina<!--]gesloten]-->">
+      <a href="<!--[!gesloten[-->https://www.asteria.nl/<!--]!gesloten]--><!--[gesloten[-->{{GESLOTEN_LOGO_URL}}<!--]gesloten]-->" class="logo" aria-label="Hotel Asteria, naar <!--[!gesloten[-->de homepage<!--]!gesloten]--><!--[gesloten[-->het begin van de pagina<!--]gesloten]-->">
         <img alt="Hotel Asteria" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==">
       </a>
       <!--[!gesloten[-->
@@ -146,7 +147,7 @@
 <main class="lp">
 
   <!-- ══ BLOK 1a: HERO VOL BEELD MET BOEKBALK (staging .hero + .booking-card) ══ -->
-  <section class="sec b1a" data-toon="paper">
+  <section class="sec b1a<!--[kamertypes[--> b1a--sub<!--]kamertypes]-->" data-toon="paper">
     <div class="b1a-foto">
       <img src="{{HERO_IMG}}"{{HERO_ATTR}} alt="{{HERO_ALT}}" width="1400" height="932" fetchpriority="high">
       <!--[video[--><video class="b1a-video" autoplay loop muted playsinline preload="metadata" poster="{{HERO_VIDEO_POSTER}}" aria-hidden="true" tabindex="-1"><source media="(max-width:719px)" src="{{HERO_VIDEO_MOBIEL}}" type="video/mp4"><source src="{{HERO_VIDEO}}" type="video/mp4"></video><!--]video]-->
@@ -168,6 +169,7 @@
         <button type="submit" class="btn btn-primary">{{BOEKBALK_KNOP}}</button>
       </form>
       <p class="b1a-regel"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg><span>{{BOEKBALK_NOOT}}</span></p>
+      <!--[!kamertypes[-->
       <!-- telefoon: de boekkaart in plaats van de datumbalk (zoals Parkhotel); bureaublad houdt de balk -->
       <div class="b1a-mobkaart">
         <!--[!arrangement[-->
@@ -196,6 +198,7 @@
         </div>
         <!--]arrangement]-->
       </div>
+      <!--]!kamertypes]-->
     </div>
   </section>
 
@@ -324,6 +327,7 @@
   </section>
   <!--]!hotel]-->
 
+  <!--[!kamertypes[-->
   <!-- ══ BLOK 3a: ONZE ATTENTIE VOOR JOU (staging .usp-statement + .usp-wheel) ══ -->
   <section class="sec b3a" id="attentie" data-toon="paper">
   <!--[ladder[-->
@@ -353,8 +357,10 @@
   <!--]!ladder]-->
   <!--]!cadeau]-->
   </section>
+  <!--]!kamertypes]-->
   <!--]!arrangement]-->
 
+  <!--[!kamertypes[-->
   <!-- ══ BLOK 4b: KAMERS, TWEE KAARTEN MET PEEK (zand, ivoren kaarten) ══ -->
   <section class="sec b4b" id="kamers" data-toon="paper" aria-labelledby="kamers-kop">
     <div class="wrap">
@@ -431,6 +437,45 @@
       <div class="b4b-voet"><p class="b4b-noot">{{KAMER_NOOT}}</p><!--[!gesloten[--><a class="btn btn-secondary" href="https://www.asteria.nl/kamers/">Bekijk alle kamers</a><!--]!gesloten]--></div>
     </div>
   </section>
+  <!--]!kamertypes]-->
+  <!--[kamertypes[-->
+  <!-- ══ KAMERTYPES 1: KIES JE KAMER (build-blok 'kamertypes', kamertypes-v2; nabouw staging /kamers/ .filterbalk + .suite-grid).
+       Filterchips + kaartenraster met fotogalerij (3 foto's, pijlen, bolletjes), specs en knop Boek deze kamer (Mews met data-room).
+       Geen prijzen en geen knop naar de kamerpagina's (oude stijl). Kaarten en chips uit '_kamers' / '_filters'
+       (build.py render_kamertypes); stijl kamertypes-v2.css (prefix kt-), script kamertypes-v2.js ══ -->
+  <section class="sec kt-kamers" id="kamers" data-toon="paper" aria-labelledby="kamers-kop">
+    <div class="wrap kt-wrap">
+      <div class="kt-kop"><h2 id="kamers-kop">{{KT_KOP_A}} <span class="g">{{KT_KOP_EM}}</span></h2><p>{{KT_SUB}}</p></div>
+      <div class="kt-filter" role="group" aria-label="Filter op kenmerk">
+        <p class="kt-telling" aria-live="polite"><!-- KT_TELLING --></p>
+<!-- KT_FILTERS -->
+      </div>
+      <div class="kt-grid">
+<!-- KT_KAMERS -->
+        <aside class="kt-contact" aria-labelledby="kt-contact-kop">
+          <div class="kt-contact-foto"><img src="{{KT_CONTACT_IMG}}" alt="{{KT_CONTACT_ALT}}" style="object-position:{{KT_CONTACT_POS}}" loading="lazy"></div>
+          <div class="kt-contact-body">
+            <h3 id="kt-contact-kop">{{KT_CONTACT_KOP}}</h3>
+            <p>{{KT_CONTACT_TEKST}}</p>
+            <dl class="kt-contact-gegevens">
+              <div><dt>Telefoon</dt><dd><a href="tel:+31478511466">0478 511466</a></dd></div>
+              <div><dt>E-mail</dt><dd><a href="mailto:info@asteria.nl">info@asteria.nl</a></dd></div>
+            </dl>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+  <!-- ══ KAMERTYPES 2: WAT IN ELKE KAMER KLAARSTAAT (staging .facilities): icoontegels uit '_inbegrepen' {tekst, icoon} ══ -->
+  <section class="sec kt-inb" data-toon="paper" aria-labelledby="kt-inb-kop">
+    <div class="wrap kt-wrap">
+      <div class="kt-inb-kop"><h2 id="kt-inb-kop">{{KT_INB_KOP_A}} <span class="g">{{KT_INB_KOP_EM}}</span></h2><p>{{KT_INB_TEKST}}</p></div>
+      <ul class="kt-inb-grid">
+<!-- KT_INBEGREPEN -->
+      </ul>
+    </div>
+  </section>
+  <!--]kamertypes]-->
   <!--[zijkaart[-->
     </div>
     <aside class="lp-zone-kant" aria-label="Boek met code {{VOUCHER}}">
@@ -467,6 +512,7 @@
   <!--]zijkaart]-->
   <!--[hotel[-->
   <!-- ══ HOTEL (build-blok 'hotel', algemene lander hotel-venray-v2; stijl hotel.css, prefix ho-; lijsten uit de JSON via build.py render_hotel) ══ -->
+  <!--[!kamertypes[-->
   <!-- ══ HOTEL 1: FACILITEITEN, mozaiek zoals Parkhotel (kiezer verblijfsverjaardag blok 6a): tekstkaart + vijf fototegels, brede tegels kruiselings ══ -->
   <section class="sec ho-fac" data-toon="paper" aria-labelledby="fac-kop">
     <div class="wrap">
@@ -497,6 +543,7 @@
       </div>
     </div>
   </section>
+  <!--]!kamertypes]-->
   <!-- ══ HOTEL 3: ARRANGEMENTEN, fotokaarten (stijl Ook interessant van het arrangementsjabloon) naar de lander-w1-arrangementen ══ -->
   <section class="sec ho-arr" data-toon="paper" aria-labelledby="arr-kop">
     <div class="wrap">
@@ -530,6 +577,19 @@
     </div>
   </section>
 
+  <!--[kamertypes[-->
+  <!-- ══ KAMERTYPES 3: GOED OM TE WETEN (staging .gow-paneel--vlak): feiten uit '_goed_om_te_weten' {titel, tekst, icoon} ══ -->
+  <section class="sec kt-gow" data-toon="surface" aria-labelledby="kt-gow-kop">
+    <div class="wrap kt-wrap">
+      <div class="kt-gow-grid">
+        <div class="kt-gow-kop"><h2 id="kt-gow-kop">{{KT_GOW_KOP_A}} <span class="g">{{KT_GOW_KOP_EM}}</span></h2><p>{{KT_GOW_TEKST}}</p></div>
+        <dl class="kt-gow-feiten">
+<!-- KT_GOW -->
+        </dl>
+      </div>
+    </div>
+  </section>
+  <!--]kamertypes]-->
   <!-- ══ BLOK 6c: VEELGESTELDE VRAGEN MET CONTACTKAART (zand) ══ -->
   <section class="sec b6c" data-toon="paper">
     <div class="wrap">
@@ -543,7 +603,13 @@
             <li><a href="mailto:info@asteria.nl"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@asteria.nl</a></li>
           </ul>
         </div>
+        <!--[kamertypes[-->
+        <div class="as-accordeon as-accordeon--kaart">
+<!-- KT_FAQ -->
+        </div>
+        <!--]kamertypes]-->
         <!--[!arrangement[-->
+        <!--[!kamertypes[-->
         <div class="as-accordeon as-accordeon--kaart">
           <details class="as-accordeon__item" open><summary class="as-accordeon__kop">{{FAQ_EEN_Q}}</summary><div class="as-accordeon__paneel"><p>{{FAQ_EEN_A}}</p></div></details>
           <details class="as-accordeon__item"><summary class="as-accordeon__kop">Hoe laat kan ik inchecken?</summary><div class="as-accordeon__paneel"><p>Inchecken kan vanaf 15.00 uur; uitchecken doe je uiterlijk om 11.00 uur. Ben je eerder, dan kun je je bagage bij de receptie achterlaten en alvast van de wellness genieten.</p></div></details>
@@ -552,6 +618,7 @@
           <details class="as-accordeon__item"><summary class="as-accordeon__kop">{{FAQ_VIJF_Q}}</summary><div class="as-accordeon__paneel"><p>{{FAQ_VIJF_A}}</p></div></details>
           <details class="as-accordeon__item"><summary class="as-accordeon__kop">Kan ik kosteloos annuleren?</summary><div class="as-accordeon__paneel"><p>Ja, tot 24 uur voor aankomst annuleer je kosteloos.</p></div></details>
         </div>
+        <!--]!kamertypes]-->
         <!--]!arrangement]-->
         <!--[arrangement[-->
         <div class="as-accordeon as-accordeon--kaart">
@@ -646,6 +713,7 @@
   <!--]!hotel]-->
   <!--]!zijkaart]-->
 
+  <!--[!kamertypes[-->
   <!-- ══ POP-UP kamer (Bekijk kamer, blok 4b). Inhoud uit de JSON hieronder, vulling door lander-w1.js.
        Let op: geen key "imgs" in de kamerdata, anders overschrijft build.py fix_room_media() de media. ══ -->
   <dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam">
@@ -668,6 +736,7 @@
       </div>
     </div>
   </dialog>
+  <!--]!kamertypes]-->
   <!-- ══ POP-UP faciliteit (knoppen Wellness en Restaurant in de tegelstrook, blok 2a). Overgenomen uit lander-2026
        (#lp-pop-fac + #lp-facdata); zelfde lp-pop-CSS en open/sluit-logica als de kamer-pop-up. ══ -->
   <dialog class="lp-pop lp-pop--fac" id="lp-pop-fac" aria-modal="true" aria-labelledby="lp-pop-fac-titel">
@@ -745,6 +814,7 @@
 <!--[hotel[-->,<!-- HO_FACDATA --><!--]hotel]-->
 }
   </script>
+  <!--[!kamertypes[-->
   <script type="application/json" id="lp-kamerdata">
 {
  "comfort": {
@@ -932,6 +1002,7 @@
  }
 }
   </script>
+  <!--]!kamertypes]-->
 
 </main>
 
@@ -939,7 +1010,7 @@
   <img class="footer__star-bg" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIyOTczIiB2aWV3Qm94PSIwIDAgMTkyMCAyOTczIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yMzI2LjMgODQ0LjA1NEMxOTcxLjA0IDY4My4yNzQgMTU2OS4xNiA2NTQuNjc2IDExOTcuMDQgNzYxLjg5N0M2OTMuNDQgMjU2LjIyNiAyNjAuNTM4IDEuOTk4MjZlLTA1IDI2MC41MzggMS45OTgyNmUtMDVDMjg1LjIzNyAzOTAuNjM5IDM1NC40MjUgNzY2LjQxOSA0NjguNzc1IDExNDAuMDJDMTcxLjg5MiAxMzQzLjM2IC0yMjEuNDM4IDE2NjUuMjIgLTUxNS4xNDggMjEwMS4wNkMtNTE0LjU5NSAyMTkxLjMyIC00NTAuMzM2IDIxNDYuODEgLTQwNi4xMzggMjExMy42MUMtMTkuODc3NSAxODUxLjIzIDMzMi42ODEgMTcwMS4xNSA2NDAuODg4IDE2MjEuMTJDODIwLjU4MiAyMDYwLjA4IDEwNjIuNTMgMjUwMy42NyAxMzY4Ljk5IDI5NzIuNEMxMTk1LjMgMjI5NC44NCAxMjQ4LjY1IDE3MjQuOTkgMTI0OC42NSAxNzI0Ljk5QzEyNDguNjUgMTcyNC45OSAxMjMxLjc5IDE3NTUuNjQgMTE5Ny4zNSAxNzM0LjQ4QzExNjkuODggMTgzNS4xMyAxMTgwLjQ2IDIyNzguNjIgMTE2Mi45MSAyMDIzLjA2QzExNTQuNjUgMTkwMy4yMiAxMTc3LjYgMTcxNC41NSAxMjA1LjAxIDE1NDEuODVDMTYwNC4wOSAxNTM1LjE4IDE4NjEuMjUgMTY0MS4xNSAxOTI2LjUxIDE2NzEuNTFDMTkzMi4xOCAxNjc0LjE4IDE5MzcuNTEgMTY3Ni43OCAxOTQyLjk4IDE2NzkuNTdDMTc0My45OSAxMzc0LjI1IDE1MjcuNTkgMTEwOS45MSAxMzE4IDg4Ny4xMTNDMTk0My40NiA2NzguMjc4IDIzMjYuMSA4NDQuMTgyIDIzMjYuMSA4NDQuMTgyTTQ4NC4xMyAzMzIuNDM5QzY5Mi4zNDQgNDY2LjM1MiA4OTQuNTE3IDYzNS40NDYgMTA3My4wMyA4MDMuMDM3QzEwMDguNTEgODI3LjQ3OSA5NDUuMDUxIDg1NS44MTIgODgzLjE1NSA4ODguODQ4Qzg0Ni42OSA5MDguMyA3NDIuOTYgOTYzLjA1OCA2MDIuMjYyIDEwNTIuMTJDNTQyLjgzMSA4MTcuNzQxIDUwMy45MjkgNTgxLjcyNSA0ODQuMTMgMzMyLjQzOVpNLTE2LjkxNjIgMTc2MS41OUMxNzAuOTQ3IDE1NzguNzUgMzUxLjE0NyAxNDI4Ljk5IDUyMi40MSAxMzA2LjI3QzU0My44MjEgMTM2OS4wNCA1NjYuODMyIDE0MzEuNjUgNTkwLjcwNyAxNDk0LjI3QzQwOS4zMDcgMTU0OS42MyAyMDcuNDczIDE2MzQuNDkgLTE2LjcxMzkgMTc2MS40Nk0xMDcxLjk2IDIyNTAuMzVDOTU0Ljc3MSAyMDE5LjMyIDg1Ni4yNjEgMTgwMi4wNiA3NzQuNjggMTU5MC4wMUM4ODYuMjc0IDE1NjcuMyA5OTEuMDMxIDE1NTMuNDkgMTA4OC44NiAxNTQ2LjY1QzEwNjIuMTkgMTcwNS43NyAxMDUzLjc4IDE4ODkuMTkgMTA3MS45NiAyMjUwLjM1Wk0xNzE4Ljk2IDE1MDEuNTZDMTYxMS4yMiAxNDY5LjEgMTQ0OS42IDE0MTYuMTYgMTIyNy44OCAxNDA2LjIzQzEyNTIuMzQgMTI3MC40NSAxMjc0LjcgMTE2My4wNyAxMjc4Ljg3IDExMzcuOTFDMTI4OC45OSAxMDc1LjY0IDEyNDYuMjUgMTA3MC4wMSAxMjQ2LjI1IDEwNzAuMDFMMTE5Ni41OCAxMjQ0LjMxQzExOTYuNTggMTI0NC4zMSAxMTc4LjU1IDEzMDYuMiAxMTcxLjM4IDExODQuNTJDMTE1MS4wOSAxMjY5LjIxIDExMzMuMDIgMTMzOS4wOSAxMTE3LjU3IDE0MDUuMDRDMTAwMS40IDE0MDcuNTggODcwLjkyMiAxNDIyLjkgNzI1Ljc0NSAxNDU3LjUzQzY5Ny42MjUgMTM3Ny45NCA2NzEuNjkzIDEyOTguNjcgNjQ4LjQ4NSAxMjE5LjY2Qzg0Ny41OTQgMTA4OC45NSAxMDMzLjE4IDk5NS4wMzQgMTIwMy4wOSA5MjguNzM4QzE1MDkuMTcgMTIzMy4zIDE3MTguOTYgMTUwMS41NiAxNzE4Ljk2IDE1MDEuNTZaIiBmaWxsPSIjQzc2RTRFIi8+PC9zdmc+">
   <div class="inner">
     <div class="footer__brand-block">
-      <a href="<!--[!gesloten[-->https://www.asteria.nl/<!--]!gesloten]--><!--[gesloten[-->/hotel-venray-v2<!--]gesloten]-->" class="footer__logo" aria-label="Hotel Asteria">
+      <a href="<!--[!gesloten[-->https://www.asteria.nl/<!--]!gesloten]--><!--[gesloten[-->{{GESLOTEN_LOGO_URL}}<!--]gesloten]-->" class="footer__logo" aria-label="Hotel Asteria">
         <img alt="Hotel Asteria" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==">
       </a>
       <address class="footer__address">
