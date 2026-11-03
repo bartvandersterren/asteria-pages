@@ -1,0 +1,49 @@
+{
+  "_uitleg": [
+    "Linkset voor de spiegel van de Effecty-staging (scripts/staging_spiegel.py) en het menu van hotel-venray-v2 (GESLOTEN_LANDER: \"spiegel\", build.py).",
+    "paginas: sleutel (data-link van de staging) -> adres. Gaat de nieuwe asteria.nl live, dan hier de adressen vervangen door https://www.asteria.nl/... en beide opnieuw bouwen (python3 scripts/staging_spiegel.py en python3 build.py hotel-venray-v2).",
+    "arrangementenoverzicht: één instelling voor alle links naar het overzicht (menu, voet, Alle arrangementen, OVERZICHT_ARR_URL van hotel-venray-v2).",
+    "arrangementen: trefwoord in de knoptekst of kaartkop -> eigen arrangementpagina; geen match = arrangementenoverzicht.",
+    "weg: sleutels zonder pagina; links ernaartoe gaan eruit (menu-item, voetlink, knop of tegel; in lopende tekst blijft de tekst staan).",
+    "spiegel: staging-pad -> bestand in deze repo en de sleutel uit paginas die het adres geeft."
+  ],
+  "arrangementenoverzicht": "/arrangementen-v2",
+  "paginas": {
+    "home": "/hotel-venray-v2",
+    "home-nieuw": "/home-nieuw",
+    "kamers": "/kamers",
+    "kamer-comfort": "/kamers/comfort-kamer",
+    "kamer-deluxe": "/kamers/deluxe-kamer",
+    "faciliteiten": "/faciliteiten",
+    "wellness": "/wellness",
+    "wellnessfaciliteiten": "/wellness",
+    "restaurant": "/restaurant",
+    "omgeving": "/omgeving",
+    "over-ons": "/over-ons",
+    "contact": "/contact",
+    "privacy": "https://www.asteria.nl/privacy",
+    "algemene-voorwaarden": "https://www.asteria.nl/algemene-voorwaarden",
+    "beoordelingen": "https://www.google.com/search?q=Hotel+Asteria+Venray+reviews"
+  },
+  "arrangementen": [
+    ["wellness", "/wellness-arrangement"],
+    ["limburg", "/limburg-arrangement"],
+    ["weekend", "/weekend-aanbieding"],
+    ["oorlogsmuseum", "/oorlogsmuseum-arrangement"],
+    ["golf", "/golfarrangement"],
+    ["najaar", "/najaarsarrangement"]
+  ],
+  "weg": ["vergaderen", "zalen-feesten", "feesten", "condoleances", "bruiloften", "zaal-zeven", "evenementen", "faq", "vacatures"],
+  "spiegel": {
+    "/": {"bestand": "home-nieuw.html", "sleutel": "home-nieuw"},
+    "/kamers/": {"bestand": "kamers.html", "sleutel": "kamers"},
+    "/kamers/comfort-kamer/": {"bestand": "kamers/comfort-kamer.html", "sleutel": "kamer-comfort"},
+    "/kamers/deluxe-kamer/": {"bestand": "kamers/deluxe-kamer.html", "sleutel": "kamer-deluxe"},
+    "/faciliteiten/": {"bestand": "faciliteiten.html", "sleutel": "faciliteiten"},
+    "/wellness/": {"bestand": "wellness.html", "sleutel": "wellness"},
+    "/restaurant/": {"bestand": "restaurant.html", "sleutel": "restaurant"},
+    "/omgeving/": {"bestand": "omgeving.html", "sleutel": "omgeving"},
+    "/over-ons/": {"bestand": "over-ons.html", "sleutel": "over-ons"},
+    "/contact/": {"bestand": "contact.html", "sleutel": "contact"}
+  }
+}

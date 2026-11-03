@@ -1,0 +1,443 @@
+/* ==========================================================================
+   Hotel Asteria. "Even weg, helemaal hier"  ·  Design Tokens
+   Mobile-first. Defaults zijn mobiel; @media (min-width) overrides
+   schalen omhoog naar tablet en desktop.
+
+   Breakpoints (één afspraak voor het hele systeem):
+     mobiel  = default   (tot 719px)
+     tablet  = >= 720px
+     laptop  = >= 1024px
+     desktop = >= 1280px
+   ========================================================================== */
+
+/* ── FONTS (zelf gehost) ─────────────────────────────────────────────── */
+/* Vervangt de @import naar fonts.googleapis.com (17-9-2026). De bundel moet
+   op zichzelf werken (asset-escape) en een bezoeker hoort zijn IP niet bij
+   Google af te leveren voor hij iets gekozen heeft. Beide families staan
+   onder de SIL OFL. Opnieuw ophalen: _build/fonts-zelf-hosten.py            */
+@font-face {
+  font-family: 'Abhaya Libre';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/nieuw-assets/fonts/abhaya-libre-700-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Abhaya Libre';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/abhaya-libre-700-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/nieuw-assets/fonts/montserrat-500-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/montserrat-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/nieuw-assets/fonts/montserrat-600-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/montserrat-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/nieuw-assets/fonts/montserrat-700-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/montserrat-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* ---- TYPE FAMILIES ------------------------------------------------------*/
+  --font-display: "Abhaya Libre", Georgia, "Times New Roman", serif;
+  --font-body:    "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* ---- COLOR: SURFACES ----------------------------------------------------*/
+  --paper:         #F7E7D1;  /* hoofd-pagina achtergrond, warm beige        */
+  --surface:       #FFFAF1;  /* lichte oppervlakken, kaarten, booking, chips */
+  --paper-shade:   #F5EDE0;  /* subtiele divider op cream                    */
+  --paper-shade-2: #F8EDDB;  /* chip-icon achtergrond                        */
+
+  /* ---- COLOR: INK ---------------------------------------------------------*/
+  --ink:      #442A06;       /* primaire tekst, koppen, donkere vlakken      */
+  --ink-soft: #7A6552;       /* labels, captions, warm taupe                 */
+
+  /* ---- COLOR: ACCENT ("Limburgse Aarde") ---------------------------------*/
+  --terracotta:       #C76E4E;
+  --terracotta-hover: #B5613F;
+  /* Tekstvariant. De merkterracotta haalt op cream 2,98:1 en zakt daarmee voor
+     AA (4,5 normaal, 3,0 groot); --terracotta-hover komt niet verder dan 3,62.
+     Deze donkerdere trap haalt 4,89:1 en blijft in dezelfde familie.
+     Gebruik: accentkleur op TEKST op een lichte ondergrond — links in lopende
+     tekst, tekst-CTA's, cijfers. Voor vlakken, iconen en tekst op donker blijft
+     --terracotta de kleur; daar speelt dit contrastprobleem niet.             */
+  --terracotta-text:  #9A4E32;
+
+  /* ---- COLOR: EXTRA, sparzaam --------------------------------------------*/
+  --red:      #C12B2B;
+  --red-dark: #6F151B;
+
+  /* ---- FEEDBACK ------------------------------------------------------------
+     Succes/fout voor toasts en formuliermeldingen. Toegevoegd 31-7-2026: deze
+     waarden stonden hardcoded in de styleguide-toast, zonder token. Bewust
+     laag-verzadigd zodat ze naast paper/terracotta niet schreeuwen; de
+     fout-tekst gebruikt het bestaande --red-dark.                             */
+  --success-bg:   #E8F4EC;
+  --success-ink:  #1F6238;
+  --success-line: #BFE0C9;
+  --error-bg:     #FAEBEA;
+  --error-line:   #F0C5C3;
+
+  /* ---- CRÈME OP DONKER, de trapladder -------------------------------------
+     Toegevoegd 20-8-2026. Op een ink-grond wordt tekst crème met een dekking,
+     en die dekking stond 32 keer met een eigen waarde in base.css: 0.72, 0.78,
+     0.8, 0.82, 0.85, 0.86, 0.88, 0.9, 0.92, 0.94 — tien verschillende
+     grijstinten voor drie rollen. Dat is precies de drift die je ziet zonder te
+     kunnen aanwijzen: elk blok is los goed en samen rijmen ze niet.
+
+     Vier trappen, elk met één rol. Nieuwe blokken gebruiken uitsluitend deze;
+     de bestaande waarden zijn niet massaal herschreven (dat raakt 80 plekken op
+     goedgekeurde pagina's), maar staan op de opruimlijst.
+
+     Waarom geen `color-mix()`: de site moet het ook doen in een webview die dat
+     niet kent, en een tekstkleur is geen plek om op progressive enhancement te
+     gokken.                                                                    */
+  --on-ink:      #FFFAF1;                      /* koppen, knoppen, nadruk       */
+  --on-ink-body: rgba(255, 250, 241, 0.86);    /* lopende tekst                 */
+  --on-ink-soft: rgba(255, 250, 241, 0.72);    /* labels, captions, bronregels  */
+  --on-ink-line: rgba(255, 250, 241, 0.20);    /* hairlines, randen, scheidingen */
+  --on-ink-vlak: rgba(255, 250, 241, 0.10);    /* opgelicht vlak op ink         */
+
+  /* ---- REVIEW-STER ---------------------------------------------------------
+     Het goud van de Google-rating. Stond 66× hardcoded in de markup (review-
+     badge in de hero, reviews-header en de review-cards); nu één bron.
+     Bewust géén accent-token: dit is de kleur van een externe rating, niet
+     van de huisstijl. Het Google-logo houdt wél zijn eigen vier merkkleuren
+     in de SVG — een merkmark tokeniseer je niet.                              */
+  --star: #F5B400;
+  /* ---- BREAKPOINTS ---------------------------------------------------------
+     De canonieke set van DIT project, afgeleid uit wat base.css feitelijk
+     gebruikt. Media queries kunnen geen var() lezen — dit is dus de afspraak
+     en de lint-bron, geen runtime-waarde. Schrijf nooit een getal dat hier
+     niet staat.
+
+     Let op: de pack-default (600/760/900/980/1100) is hier NIET overgenomen.
+     Deze pagina is goedgekeurd op 720/1024 en omschrijven zou de responsive
+     layout veranderen. Bij een volgend project: pack-default gebruiken.
+
+     ⚠️ Er zijn twee concurrerende mobielgrenzen in omloop: 719/720 én 767/768.
+     Opruimen naar één paar raakt gedrag, dus dat is een aparte actie.          */
+  --bp-xs:  480px;   /* kleine telefoon: kolommen vallen samen                 */
+  --bp-sm:  720px;   /* tablet-portret: het hoofdpaar met --bp-lg              */
+  --bp-md:  768px;   /* legacy-grens, komt uit oudere regels — uitfaseren      */
+  --bp-lg: 1024px;   /* desktop: hoofdnav zichtbaar, drawer weg               */
+  --bp-xl: 1760px;   /* extra-breed: container stopt met meegroeien            */
+
+     /* De max-tegenhangers. Een media query heeft twee randen nodig en
+        `max-width: 1024px` zou 1px overlappen met `min-width: 1024px`. Deze
+        waarden zijn dus geen tweede set maar dezelfde grenzen, van de andere
+        kant benaderd. Zonder ze declareren meldt design-lint ze als drift.     */
+  --bp-xs-max:  479px;
+  --bp-sm-max:  719px;
+  --bp-md-max:  767px;
+  --bp-lg-max: 1023px;
+
+
+  /* ---- ELEVATION ----------------------------------------------------------*/
+  --shadow-card:  0 6px 16px rgba(68, 42, 6, 0.10);
+  --shadow-deep:  0 18px 48px rgba(68, 42, 6, 0.14);
+  --shadow-hover: 0 10px 28px rgba(68, 42, 6, 0.16);
+  --hairline:        rgba(68, 42, 6, 0.10);
+  --hairline-strong: rgba(68, 42, 6, 0.18);
+  --focus-ring: 0 0 0 3px rgba(199, 110, 78, 0.45);
+
+  /* ---- RADIUS -------------------------------------------------------------*/
+  --radius-card:  14px;
+  --radius-image: 12px;
+  --radius-btn:    4px;
+  --radius-chip:   8px;
+  --radius-pill:  9999px;
+
+  /* ---- TYPOGRAPHY SCALE (mobiele defaults) --------------------------------
+     Op mobiel zijn de displays kleiner; bij grotere viewports schalen we
+     omhoog via @media min-width. Body blijft 18px overal (audience first). */
+  --text-hero:    clamp(2.75rem, 11vw, 3.5rem);   /* mobiel: 44 tot 56px       */
+  /* ---- KOPSCHAAL (25-9-2026) ---------------------------------------------
+     Eén schaal, vier niveaus, per breakpoint vast. Was: H2 op 37, 58 of 80px
+     naargelang het blok, H1 op 94px. Klant: "de site voelt groot aan". De
+     homepage-hero (--text-hero) valt er bewust buiten: die mag overheersen.
+     De oude namen hieronder wijzen naar de schaal, zodat elk blok meeschaalt.  */
+  --h1: 2.5rem;     /* 40px  paginatitel (subhero)            */
+  --h2: 1.875rem;   /* 30px  sectietitel                      */
+  --h3: 1.5rem;     /* 24px  kaart- en paneeltitel            */
+  --h4: 1.25rem;    /* 20px  kleine kaarttitel                */
+  --text-subhero: var(--h1);
+  --text-section: var(--h2);
+  --text-card:    var(--h3);
+  --text-sub:     var(--h3);
+  --text-h3:      var(--h4);
+  --text-lead:    1.125rem;                       /* 18px op mobiel            */
+  --text-body:    1.125rem;                       /* 18px, audience-first floor */
+  --text-sm:      1rem;                           /* 16px                       */
+  --text-xs:      0.8125rem;                      /* 13px                       */
+  --text-label:   0.625rem;                       /* 10px eyebrow caps          */
+
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  --tracking-display: -0.005em;
+  --tracking-body:     0;
+  --tracking-label:    0.1em;
+
+  --leading-tight: 1;       /* hero op mobiel iets ruimer dan desktop 0.95 */
+  --leading-snug:  1.1;
+  --leading-body:  1.6;
+
+  /* ---- SPACING (4px grid) ------------------------------------------------*/
+  --space-1:  4px;   --space-2:  8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 20px;   --space-6: 24px;   --space-8: 32px;  --space-10: 40px;
+  --space-12: 48px;  --space-14: 56px;  --space-16: 64px; --space-20: 80px;
+  --space-24: 96px;  --space-32: 128px;
+
+  /* ---- SECTION RITME (mobiele default) -----------------------------------
+     Mobiel ademt rustiger met 48px. Op tablet wordt het 64, op laptop 96. */
+  --gap-section: 48px;
+  --container:   1480px;
+  --gutter:      20px;       /* mobiel: 20px side-padding (van rand)       */
+  --measure:     38ch;       /* leeslijn smaller op mobiel                 */
+
+  /* ---- MOTION -------------------------------------------------------------*/
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   400ms;
+  --duration-strip:  600ms;
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-soft:   cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---- TOUCH ---------------------------------------------------------------
+     Minimum interactieve grootte. Geldt voor knoppen, links in nav,
+     popover-opties, accordion-heads, tile-knoppen. */
+  --touch-min: 48px;
+
+  /* =========================================================================
+     TOKENCONTRACT — de canonieke namen
+     Toegevoegd 17-9-2026, bij het terugkoppelen aan de gedeelde skillset.
+
+     `_shared/token-contract.md` §3 eist 101 namen in elke tokens.css. Asteria
+     had er 35 en gebruikte voor de rest zijn eigen vocabulaire (--paper, --ink,
+     --terracotta, --text-body). Die namen blijven staan: base.css en alle
+     gebouwde pagina's roepen ze aan, en ze hernoemen raakt 98 plekken op
+     goedgekeurde pagina's. Dit blok zet de contractnamen ERNAAST.
+
+     Het contract gaat over namen, niet over waarden — dus waar Asteria al een
+     rol had, is de contractnaam een alias. Waar er nog geen was (de trappen,
+     de z-lagen, de banden) staat hieronder een echte keuze, afgeleid uit wat
+     base.css feitelijk doet. Geen nieuw ontwerp: alleen benoemd wat er is.
+     ========================================================================= */
+
+  /* ---- Typografie: de contractladder over de Asteria-schaal ---------------
+     Asteria's schaal is rol-benoemd (hero/section/card/sub/h3), het contract
+     stap-benoemd (display/3xl/2xl/xl/lg). Zelfde trap, andere naam.
+     --text-lead heeft geen contractstap en blijft een klant-eigen token.      */
+  --text-display: var(--text-hero);
+  --text-3xl:     var(--text-section);
+  --text-2xl:     var(--text-card);
+  --text-xl:      var(--text-sub);
+  --text-lg:      var(--text-h3);
+  --text-base:    var(--text-body);
+
+  --weight-body:    var(--weight-medium);     /* Montserrat 500, lopende tekst */
+  --weight-label:   var(--weight-semibold);   /* eyebrow caps                  */
+  --weight-display: var(--weight-bold);       /* Abhaya Libre 700              */
+
+  /* ---- Kleur: primaire trap ------------------------------------------------
+     De bruinfamilie is de primaire kleur van dit merk — de terracotta is het
+     accent, niet de basis. De trap is geen nieuwe palet-keuze maar een
+     interpolatie tussen de twee kleuren die er al stonden: --ink (#442A06) op
+     900 en --paper (#F7E7D1) op 100. Daardoor valt elke tussenstap binnen de
+     huisstijl. Trap 600 (#877152) ligt op --ink-soft (#7A6552), wat bevestigt
+     dat de bestaande taupe op zijn plek zit.                                  */
+  --color-primary-900: #442A06;   /* = --ink            */
+  --color-primary-800: #5A421F;
+  --color-primary-700: #715939;
+  --color-primary-600: #877152;   /* ≈ --ink-soft       */
+  --color-primary-500: #9E886C;
+  --color-primary-400: #B4A085;
+  --color-primary-300: #CAB89F;
+  --color-primary-200: #E1CFB8;
+  --color-primary-100: #F7E7D1;   /* = --paper          */
+
+  /* ---- Kleur: neutrale trap ------------------------------------------------
+     Warm grijs, geen koel grijs: een neutrale trap met blauwzweem vloekt op
+     cream. Dit is de bruinfamilie ontdaan van verzadiging, van --surface
+     (#FFFAF1) op 50 naar een warme bijna-zwart op 900. Asteria gebruikt deze
+     trap vandaag nergens — hij staat er omdat een gedeelde laag hem mag
+     aanroepen en dan een waarde moet vinden die niet uit de toon valt.        */
+  --color-neutral-50:  #FFFAF1;   /* = --surface        */
+  --color-neutral-100: #F4EFE7;
+  --color-neutral-200: #E6E0D6;
+  --color-neutral-300: #D3CCC1;
+  --color-neutral-400: #B3ABA0;
+  --color-neutral-500: #8F8880;
+  --color-neutral-600: #6E6862;
+  --color-neutral-700: #514C48;
+  --color-neutral-800: #3A3633;
+  --color-neutral-900: #2B2622;
+
+  /* ---- Kleur: accent, actie, semantiek ------------------------------------
+     --color-warning bestond niet en is hier gekozen, niet overgenomen: een
+     diepe amber (#8F5209) die op cream 5,1:1 haalt en dus AA is voor gewone
+     tekst. Bewust NIET --star: dat is het goud van een Google-rating, geen
+     huisstijlkleur. --color-danger gebruikt --red (4,7:1 op cream).           */
+  --color-accent:      var(--terracotta);
+  --color-accent-soft: rgba(199, 110, 78, 0.12);   /* zachte vlakvulling       */
+  --color-cta:         var(--terracotta);
+  --color-cta-hover:   var(--terracotta-hover);
+  --color-danger:      var(--red);
+  --color-success:     var(--success-ink);
+  --color-warning:     #8F5209;
+
+  /* ---- Rollen: oppervlak & tekst ------------------------------------------
+     Asteria's "vel" is het warme beige, niet wit: --surface-paper is dus
+     --paper. Het rustige tweede vlak (kaarten, chips, de boekingsbalk) is de
+     lichtere crème. Het diepe veld is de ink-grond, met de crème-trapladder
+     eroverheen — die was in augustus al gebouwd en past één op één.           */
+  --surface-paper:       var(--paper);
+  --surface-light:       var(--surface);
+  --surface-field:       var(--ink);
+  --surface-field-hover: var(--on-ink-vlak);
+
+  --text-strong:   var(--ink);
+  --text-default:  var(--ink);
+  --text-muted:    var(--ink-soft);
+  --text-link:     var(--terracotta-text);   /* de AA-variant, zie hierboven   */
+  --text-on-field: var(--on-ink);
+  --text-on-cta:   var(--on-ink);
+
+  /* ---- Randen -------------------------------------------------------------*/
+  --border-quiet:    var(--hairline);
+  --border-strong:   var(--hairline-strong);
+  --border-on-field: var(--on-ink-line);
+
+  /* ---- Vorm & diepte ------------------------------------------------------
+     --radius-full is de cirkel (avatars, ronde icoonknoppen); --radius-pill
+     blijft de langwerpige capsule. Twee verschillende vormen, dus twee tokens.
+     --shadow-inset bestond niet en is nieuw: dezelfde bruine schaduwkleur als
+     de andere drie, naar binnen.                                              */
+  --radius-sm:   var(--radius-btn);    /*  4px */
+  --radius-md:   var(--radius-card);   /* 14px */
+  --radius-full: 50%;
+
+  --shadow-ambient: var(--shadow-card);
+  --shadow-raised:  var(--shadow-hover);
+  --shadow-inset:   inset 0 1px 2px rgba(68, 42, 6, 0.08);
+
+  /* ---- Ruimte -------------------------------------------------------------*/
+  --space-40: 160px;
+
+  /* ---- Banden: het verticale sectieritme ----------------------------------
+     Afgeleid van --gap-section, dus ze schalen mee met de breakpoints
+     (48 → 64 → 96). Eén band-token hardcoderen zou dat ritme juist breken.    */
+  --band-tight: calc(var(--gap-section) * 0.6);
+  --band-base:  var(--gap-section);
+  --band-loud:  calc(var(--gap-section) * 1.5);
+
+  /* ---- Grid ---------------------------------------------------------------
+     --rail-width is 0: dit ontwerp kent geen spec-rail. Het contract vraagt om
+     de naam zodat een gedeelde laag hem kan aanroepen zonder stil weg te
+     vallen — niet om een rail die er niet is.                                 */
+  --columns:    12;
+  --rail-width: 0;
+
+  /* ---- Beweging -----------------------------------------------------------*/
+  --dur-fast: var(--duration-fast);
+  --dur-base: var(--duration-normal);
+  --dur-slow: var(--duration-slow);
+
+  /* ---- Lagen ---------------------------------------------------------------
+     Uitgelezen uit base.css, niet bedacht: .top-stack staat op 50,
+     .nav-drawer op 100, .booking-sheet en .lightbox op 200.                   */
+  --z-nav:     50;
+  --z-drawer: 100;
+  --z-overlay: 200;
+}
+
+/* ===========================================================================
+   TABLET en hoger: ruimer ritme, grotere displays.
+   =========================================================================== */
+@media (min-width: 720px) {
+  :root {
+    --gap-section: 64px;
+    --gutter:      clamp(2rem, 5vw, 3rem);
+    --measure:     56ch;
+
+    --text-hero:    clamp(3.5rem, 8vw, 5rem);       /* 56 tot 80px            */
+    --h1: 3.5rem;     /* 56px */
+    --h2: 2.5rem;     /* 40px */
+    --h3: 1.75rem;    /* 28px */
+    --h4: 1.375rem;   /* 22px */
+  }
+}
+
+/* ===========================================================================
+   LAPTOP en hoger: full desktop typografie en sectie-ritme.
+   =========================================================================== */
+@media (min-width: 1024px) {
+  :root {
+    --gap-section: 96px;
+    --gutter:      clamp(2.5rem, 5vw, 5rem);   /* 40 tot 80px                */
+    --measure:     65ch;
+
+    --text-hero:    clamp(4.5rem, 9vw, 8.125rem);   /* 72 tot 130px           */
+    --h1: 4.5rem;     /* 72px */
+    --h2: 3rem;       /* 48px */
+    --h3: 2rem;       /* 32px */
+    --h4: 1.5rem;     /* 24px */
+
+    --leading-tight: 0.95;
+  }
+}
+
+/* Ghost-border fallback wanneer schaduwen worden uitgezet */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --shadow-card:  0 0 0 1px var(--hairline);
+    --shadow-deep:  0 0 0 1px var(--hairline-strong);
+    --shadow-hover: 0 0 0 1px var(--hairline-strong);
+  }
+}

@@ -1,0 +1,10 @@
+/* Hotel Asteria, spiegel van de Effecty-staging (scripts/staging_spiegel.py): alleen wat de staging niet heeft.
+   Cookiemelding = de regels uit lander-w1.css (hotel-venray-v2); melding onder de formulieren voor spiegel.js. */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:1500;background:var(--ink);color:var(--on-ink-body);font-family:var(--font-body);font-weight:500;font-size:13px;line-height:1.5;padding:16px 22px;display:none;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+.cookie-banner.show{display:flex}
+.cookie-banner a{color:var(--on-ink);text-decoration:underline}
+.cookie-banner button{background:var(--terracotta);color:var(--surface);border:0;border-radius:var(--radius-btn);padding:10px 22px;font-family:var(--font-body);font-size:13px;font-weight:700;cursor:pointer}
+.cookie-banner button:hover{background:var(--terracotta-hover)}
+.spiegel-melding{flex-basis:100%;width:100%;margin:8px 0 0;font-family:var(--font-body);font-size:14px;line-height:1.5}
+.spiegel-melding.is-fout{color:var(--terracotta)}
+.footer .spiegel-melding{color:var(--on-ink-body)}
