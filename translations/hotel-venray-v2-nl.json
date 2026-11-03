@@ -2,11 +2,14 @@
   "_controleren": [
     "Faciliteiten (ijsbad, vier laadpunten, afgesloten fietsenstalling, gratis wifi en airco op alle kamers): aangeleverd door Stijn op 3 nov 2026.",
     "Inchecken 15.00, uitchecken 11.00, kosteloos annuleren tot 24 uur en de wellnesstijden komen uit de vaste FAQ van lander-w1.",
-    "Niet opgenomen (geen bevestigd feit): huisdieren, ontbijt inbegrepen bij de kamerprijs, afstanden tot de natuurparken.",
+    "Niet opgenomen (geen bevestigd feit): huisdieren, ontbijt inbegrepen bij de kamerprijs. Afstanden in het omgevingsblok: zie de regel Omgeving hieronder.",
     "Geen nieuwsbriefblok: visit.asteria.nl heeft alleen de pop-ups (newsletter-popup/scratchcard), geen inline blok in de nieuwe stijl.",
     "Fietsverhuur: asteria.nl/contact/veelgestelde-vragen zegt dat het hotel zelf fietsen en e-bikes verhuurt (prijzen niet overgenomen). Overdekte stalling met opladen: idem + asteria.nl/faciliteiten.",
     "Laadpunten: Stijn zegt vier; asteria.nl noemt laadpalen plus 12 Tesla Superchargers bij Zaal Zeven. Nog afstemmen.",
-    "Fitness: Technogym volgens de Fotobank (foto-index); Life Fitness niet gevonden, dus niet genoemd. Openingstijden niet genoemd."
+    "Fitness: Technogym volgens de Fotobank (foto-index); Life Fitness niet gevonden, dus niet genoemd. Openingstijden niet genoemd.",
+    "Omgeving (3 nov 2026): afstanden zelf gemeten met OSRM (router.project-osrm.org, auto, vanaf Maasheseweg 80a): Bezoekerscentrum De Maasduinen Well 15,3 km/16 min (staging: 10 min.), Kasteeltuinen Arcen 23,0 km/25 min (staging: 20 min.), Grote Markt Venray 4,1 km/7 min (staging: 5 min. lopen, fout), Hertog Jan Brouwerij Arcen 20,5 km/23 min, afgerond 25 (staging: 15 min.). Fietsen en wandelen: start bij het hotel.",
+    "Kasteeltuinen Arcen: chip 'Weer open vanaf eind maart' klopt voor seizoen 2027 (kasteeltuinen.nl: weer open 25 maart 2027); na de opening aanpassen.",
+    "Hertog Jan: rondleiding vooraf boeken en 144 treden volgens brouwerij.hertogjan.nl (3 nov 2026); tapfoto = Fotobank Asteria _O0A9910 (Zaal Zeven, details), dus geen claim dat het hotel Hertog Jan tapt."
   ],
   "GESLOTEN_LANDER": true,
   "OVERZICHT_ARR_URL": "",
@@ -124,41 +127,55 @@
       "fac": "fietsen"
     }
   ],
-  "OMG_KOP_A": "Even weg,",
-  "OMG_KOP_EM": "alles vlakbij",
-  "OMG_TEKST": "Vanuit het hotel loop je zo het bos in. De Maasduinen en de Groote Peel liggen om de hoek, en via de A73 ben je snel thuis of op pad.",
-  "OMG_IMG": "fotos/lt-bos.webp",
-  "OMG_IMG_POS": "center",
-  "OMG_ALT": "Stel wandelt door het bos bij Venray",
-  "OMG_KNOP": "Ontdek de omgeving",
+  "OMG_KOP": "Even weg, alles vlakbij",
+  "OMG_TEKST": "Na een ochtend wandelen in de Maasduinen schuif je 's middags aan op het terras.",
+  "OMG_KNOP": "Plan een dag in de buurt",
   "OMG_URL": "https://www.asteria.nl/omgeving",
   "_omgeving": [
     {
-      "naam": "Direct aan de A73",
-      "regel": "Afrit 8 Venray-Noord, gratis parkeren voor de deur",
-      "url": "https://maps.google.com/?q=Maasheseweg+80a+Venray",
-      "img": "fotos/l26-hotel-buiten.webp",
-      "alt": "Hotel Asteria vanaf de oprit"
-    },
-    {
       "naam": "Nationaal Park De Maasduinen",
-      "regel": "Wandelen en fietsen door duinen en bossen",
-      "url": "https://www.asteria.nl/omgeving",
-      "img": "fotos/lt-maasduinen.webp",
-      "alt": "Houten vlonder over een ven in De Maasduinen"
+      "afstand": "15 min. rijden",
+      "label": "Natuur",
+      "img": "fotos/l26-omg-maasduinen-1.webp",
+      "alt": "Zonsopkomst boven het Eendenmeer in De Maasduinen, met grove dennen en heide",
+      "pos": "center",
+      "fac": "omg-maasduinen"
     },
     {
-      "naam": "Nationaal Park De Groote Peel",
-      "regel": "Uitgestrekte moerassen en open vlakten",
-      "url": "https://www.asteria.nl/omgeving",
-      "img": "fotos/lt-peel.webp",
-      "alt": "Pad door het hoogveen van De Groote Peel"
+      "naam": "Kasteeltuinen Arcen",
+      "afstand": "25 min. rijden",
+      "label": "Tuinen",
+      "img": "fotos/l26-omg-arcen-1.webp",
+      "alt": "Rode Japanse poort aan de vijver in de Kasteeltuinen Arcen",
+      "pos": "center",
+      "fac": "omg-arcen"
     },
     {
-      "naam": "Venray",
-      "regel": "De Grote Kerk, boetiekjes en terrassen",
-      "url": "https://www.asteria.nl/omgeving",
-      "icoon": "<path d=\"M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/>"
+      "naam": "Venray centrum",
+      "afstand": "7 min. rijden",
+      "label": "Centrum",
+      "img": "fotos/l26-omg-venray-1.webp",
+      "alt": "Terrassen op de Grote Markt van Venray met de Sint-Petrus' Bandenkerk",
+      "pos": "center",
+      "fac": "omg-venray"
+    },
+    {
+      "naam": "Hertog Jan Brouwerij",
+      "afstand": "25 min. rijden",
+      "label": "Brouwerij",
+      "img": "fotos/l26-omg-hertogjan-1.webp",
+      "alt": "De witte gebouwen en het terras van de Hertog Jan Brouwerij in Arcen",
+      "pos": "center",
+      "fac": "omg-hertogjan"
+    },
+    {
+      "naam": "Fietsen en wandelen",
+      "afstand": "start bij het hotel",
+      "label": "Bij het hotel",
+      "img": "fotos/l26-omg-fietsen-1.webp",
+      "alt": "Een stel fietst over een bospad",
+      "pos": "center 40%",
+      "fac": "omg-fietsen"
     }
   ],
   "AANBOD_KOP_A": "Onze",
@@ -280,11 +297,252 @@
         "Afrit 8 Venray-Noord",
         "Vier laadpunten"
       ]
+    },
+    "omg-maasduinen": {
+      "titel": "Nationaal Park De Maasduinen",
+      "link": "",
+      "fotos": [
+        "fotos/l26-omg-maasduinen-1.webp",
+        "fotos/l26-omg-maasduinen-2.webp",
+        "fotos/l26-omg-maasduinen-3.webp",
+        "fotos/l26-omg-maasduinen-4.webp"
+      ],
+      "alts": [
+        "Zonsopkomst boven het Eendenmeer in De Maasduinen",
+        "Meer met berken en bos in De Maasduinen",
+        "Schapen grazen bij een ven tussen de dennen in De Maasduinen",
+        "Stuifzandrug met een eenzame den in De Maasduinen"
+      ],
+      "tekst": "Tussen de Maas en de Duitse grens ligt de langste rivierduingordel van Nederland: ruim 4.500 hectare bos, heide, stuifzand en vennen. Bij het bezoekerscentrum in Well kies je je wandel- of fietsroute. Na een dag buiten wacht in het hotel de wellness op de Top Floor.",
+      "chips": [
+        "15 min. rijden",
+        "Ruim 4.500 hectare",
+        "Wandelen en fietsen",
+        "Bezoekerscentrum in Well"
+      ],
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
+      "credit": "Foto's: Lieblingsgouda, Steven Lek, Carelbullens en Jonathation via Wikimedia Commons (CC BY-SA), bijgesneden."
+    },
+    "omg-arcen": {
+      "titel": "Kasteeltuinen Arcen",
+      "link": "",
+      "fotos": [
+        "fotos/l26-omg-arcen-1.webp",
+        "fotos/l26-omg-arcen-2.webp",
+        "fotos/l26-omg-arcen-3.webp",
+        "fotos/l26-omg-arcen-4.webp"
+      ],
+      "alts": [
+        "Rode Japanse poort aan de vijver in de Kasteeltuinen Arcen",
+        "Strakke tuin met hagen en bloembedden in de Kasteeltuinen Arcen",
+        "Oosterse watertuin met theehuis in de Kasteeltuinen Arcen",
+        "Vijver met fontein in de Kasteeltuinen Arcen"
+      ],
+      "tekst": "Rond een kasteel uit de 17e eeuw liggen meer dan vijftien tuinen, van een rosarium en een Oosterse watertuin tot de tropische kas Casa Verde. De Hertog Jan Brouwerij ligt in hetzelfde dorp, dus je maakt er zo een hele dag van. In de winter zijn de tuinen dicht.",
+      "chips": [
+        "25 min. rijden",
+        "Meer dan 15 tuinen",
+        "Kasteel uit de 17e eeuw",
+        "Weer open vanaf eind maart"
+      ],
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Kasteeltuinen+Arcen%2C+Lingsforterweg+26%2C+5944+BE+Arcen",
+      "credit": "Foto's: Vincent van Zeijst en Kasteeltuinen Arcen via Wikimedia Commons (CC BY-SA 4.0), bijgesneden."
+    },
+    "omg-venray": {
+      "titel": "Venray centrum",
+      "link": "",
+      "fotos": [
+        "fotos/l26-omg-venray-1.webp",
+        "fotos/l26-omg-venray-2.webp",
+        "fotos/l26-omg-venray-3.webp",
+        "fotos/l26-omg-venray-4.webp"
+      ],
+      "alts": [
+        "Terrassen op de Grote Markt van Venray met de Sint-Petrus' Bandenkerk",
+        "De Sint-Petrus' Bandenkerk aan de Grote Markt in Venray",
+        "Beelden van Maria en twee engelen in een nis van de Sint-Petrus' Bandenkerk",
+        "De Sint-Petrus' Bandenkerk in Venray met zijn hoge toren"
+      ],
+      "tekst": "Het centrum van Venray ligt op zo'n 4 kilometer. Op de Grote Markt staat de Sint-Petrus' Bandenkerk, ook wel de kathedraal van de Peel, met een toren van bijna 80 meter. Rond de markt zit je op een terras voor koffie of lunch.",
+      "chips": [
+        "7 min. rijden",
+        "4 km van het hotel",
+        "Grote Markt met terrassen",
+        "Kathedraal van de Peel"
+      ],
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Grote+Markt%2C+5801+BL+Venray",
+      "credit": "Foto's: Dosseman, giggel, WoodenSpoon en Sindala via Wikimedia Commons (CC BY-SA en CC BY), bijgesneden."
+    },
+    "omg-hertogjan": {
+      "titel": "Hertog Jan Brouwerij",
+      "link": "",
+      "fotos": [
+        "fotos/l26-omg-hertogjan-1.webp",
+        "fotos/l26-omg-hertogjan-2.webp",
+        "fotos/l26-omg-hertogjan-3.webp"
+      ],
+      "alts": [
+        "De Hertog Jan Brouwerij in Arcen met terras",
+        "Het brouwerijgebouw van Hertog Jan in Arcen",
+        "Glimmende biertap van Hertog Jan bij Asteria"
+      ],
+      "tekst": "In Arcen brouwt Hertog Jan zijn bier. Met een gids volg je het hele brouwproces: je ruikt de hop, proeft de mout en natuurlijk het bier. Boek de rondleiding vooraf; je loopt door smalle gangen en over 144 treden.",
+      "chips": [
+        "25 min. rijden",
+        "Rondleiding met gids",
+        "Vooraf boeken",
+        "Ook in Arcen: de Kasteeltuinen"
+      ],
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Hertog+Jan+Brouwerij%2C+Kruisweg+44%2C+5944+EN+Arcen",
+      "credit": "Foto's: B. Hulshoff en Steven Lek via Wikimedia Commons (CC BY-SA 4.0), bijgesneden; tapfoto Hotel Asteria."
+    },
+    "omg-fietsen": {
+      "titel": "Fietsen en wandelen",
+      "link": "",
+      "fotos": [
+        "fotos/l26-omg-fietsen-1.webp",
+        "fotos/l26-fac-fiets-3.webp",
+        "fotos/l26-omg-fietsen-2.webp",
+        "fotos/l26-omg-fietsen-3.webp"
+      ],
+      "alts": [
+        "Een stel fietst over een bospad",
+        "Een stel bekijkt een fietskaart bij de fietsenstalling van het hotel",
+        "Een stel wandelt hand in hand over een bospad",
+        "Op een bospad wijst een man iets aan en kijkt de vrouw lachend mee"
+      ],
+      "tekst": "Vanuit het hotel loop je zo het bos in. Bij het hotel huur je een fiets of e-bike, en bij de receptie krijg je gratis fiets- en wandelroutes mee, bijvoorbeeld door De Maasduinen of De Groote Peel. Je eigen fiets staat in de afgesloten, overdekte stalling, waar je ook de accu oplaadt.",
+      "chips": [
+        "Start bij het hotel",
+        "Fietsen en e-bikes te huur",
+        "Gratis routes bij de receptie",
+        "Afgesloten fietsenstalling"
+      ]
     }
   },
   "_fac_video": {
     "wellness": "videos/wellness-walk-pop.mp4",
     "fitness": "videos/gym-pop.mp4"
   },
-  "_popup_scratchcard": true
+  "_popup_scratchcard": true,
+  "_bronnen": {
+    "afstanden": "OSRM router.project-osrm.org/route/v1/driving, 3 nov 2026; geocodering Nominatim (OpenStreetMap)",
+    "omg-maasduinen": [
+      "nl.wikipedia.org/wiki/Nationaal_Park_De_Maasduinen (langste rivierduingordel van Nederland, ruim 4500 hectare, tussen Maas en Duitse grens)",
+      "natuurparkenlimburg.nl/np/de-maasduinen/ (bezoekerscentrum Bosserheide 3e Well, wandel- en fietsroutes)",
+      "Bezoekerscentrum in het sluizencomplex tussen Reindersmeer en Leukermeer: wandelzoekpagina/boekhuis-fragment via zoekresultaten"
+    ],
+    "omg-arcen": [
+      "kasteeltuinen.nl (meer dan 15 tuinen, 17e-eeuws kasteel, weer open 25 maart 2027, Lingsforterweg 26 Arcen)",
+      "nl.wikipedia.org/wiki/Kasteeltuinen_Arcen (rosarium, Oosterse watertuin, bamboebos, Casa Verde)"
+    ],
+    "omg-venray": [
+      "nl.wikipedia.org/wiki/Sint-Petrus'_Bandenkerk_(Venray) (Grote Markt, kathedraal van de Peel, toren 79,8 m)",
+      "terrassen: Commons-foto Dosseman 4372 (Grote Markt)"
+    ],
+    "omg-hertogjan": [
+      "brouwerij.hertogjan.nl (Kruisweg 44 Arcen, rondleiding met gids, hop/mout/bier, boek een rondleiding, 144 treden, smalle lage gangen)"
+    ],
+    "omg-fietsen": [
+      "_facdata.fietsen (fietsverhuur, routes bij de receptie, stalling met opladen; asteria.nl FAQ + faciliteiten)",
+      "'Vanuit het hotel loop je zo het bos in' uit de vorige OMG_TEKST"
+    ],
+    "fotos": {
+      "fotos/l26-omg-maasduinen-1.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg",
+        "auteur": "Lieblingsgouda",
+        "licentie": "CC BY-SA 3.0 NL"
+      },
+      "fotos/l26-omg-maasduinen-2.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Nationaal_Park_De_Maasduinen_3.jpg",
+        "auteur": "Steven Lek",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-maasduinen-3.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Maasduinen_1.jpg",
+        "auteur": "Carelbullens",
+        "licentie": "CC BY-SA 3.0 NL"
+      },
+      "fotos/l26-omg-maasduinen-4.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Stuifzandrug.JPG",
+        "auteur": "Jonathation",
+        "licentie": "CC BY-SA 3.0 NL"
+      },
+      "fotos/l26-omg-arcen-1.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(14),_gardens.jpg",
+        "auteur": "Vincent van Zeijst",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-arcen-2.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(23),_gardens.jpg",
+        "auteur": "Vincent van Zeijst",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-arcen-3.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Oosterse_Watertuin.jpg",
+        "auteur": "Kasteeltuinen Arcen",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-arcen-4.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(09),_gardens.jpg",
+        "auteur": "Vincent van Zeijst",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-hertogjan-1.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brouwerij.JPG",
+        "auteur": "B. Hulshoff",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-hertogjan-2.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brewery_Arcen.jpg",
+        "auteur": "Steven Lek",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-hertogjan-3.webp": {
+        "bron": "Fotobank Asteria/Zalen/Zaal Zeven/Details/_O0A9910.jpg",
+        "auteur": "Hotel Asteria",
+        "licentie": "eigen beeld"
+      },
+      "fotos/l26-omg-venray-1.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Petrus_Banden,_Venray_Exterior_van_Grote_Markt_4372.jpg",
+        "auteur": "Dosseman",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-venray-2.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Venray_%E2%80%93_St_Petrus%E2%80%99_Banden_Kerk_-_panoramio_(2).jpg",
+        "auteur": "giggel",
+        "licentie": "CC BY 3.0"
+      },
+      "fotos/l26-omg-venray-3.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:Venray_Maria_en_2_engelen_Petrus_Bandenkerk.jpg",
+        "auteur": "WoodenSpoon",
+        "licentie": "CC BY-SA 4.0"
+      },
+      "fotos/l26-omg-venray-4.webp": {
+        "bron": "https://commons.wikimedia.org/wiki/File:PetrusBandenkerk.JPG",
+        "auteur": "Sindala",
+        "licentie": "CC BY-SA 3.0"
+      },
+      "fotos/l26-omg-fietsen-1.webp": {
+        "bron": "Export Asteria Content Shoot/P1092018.jpg",
+        "auteur": "Hotel Asteria",
+        "licentie": "eigen beeld"
+      },
+      "fotos/l26-omg-fietsen-2.webp": {
+        "bron": "Export Asteria Content Shoot/P1081802.jpg",
+        "auteur": "Hotel Asteria",
+        "licentie": "eigen beeld"
+      },
+      "fotos/l26-omg-fietsen-3.webp": {
+        "bron": "Export Asteria Content Shoot/P1091862.jpg",
+        "auteur": "Hotel Asteria",
+        "licentie": "eigen beeld"
+      },
+      "fotos/l26-fac-fiets-3.webp": {
+        "bron": "bestaand (fietsen-pop-up)",
+        "auteur": "Hotel Asteria",
+        "licentie": "eigen beeld"
+      }
+    }
+  }
 }

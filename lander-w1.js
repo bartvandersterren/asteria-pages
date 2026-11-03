@@ -632,7 +632,7 @@
       if (video) { video.hidden = true; video.removeAttribute('src'); video.removeAttribute('poster'); }
       hero.hidden = false;
       hero.src = fotos[0] || '';
-      hero.alt = f.titel + ' bij Hotel Asteria';
+      hero.alt = (f.alts && f.alts[0]) || f.titel + ' bij Hotel Asteria';
       rijFotos = fotos.slice(1, 4);
     }
     var rij = popFac.querySelector('.lp-pop__fotos');
@@ -640,7 +640,8 @@
     rij.setAttribute('data-n', rijFotos.length);
     rijFotos.forEach(function (src, i) {
       var img = maak('img');
-      img.src = src; img.alt = f.titel + ', foto ' + (i + (metVideo ? 1 : 2)); img.loading = 'lazy'; img.decoding = 'async';
+      var n = i + (metVideo ? 0 : 1);
+      img.src = src; img.alt = (f.alts && f.alts[n]) || f.titel + ', foto ' + (n + 1); img.loading = 'lazy'; img.decoding = 'async';
       rij.appendChild(img);
     });
     popFac.querySelector('.lp-pop__titel').textContent = f.titel;
@@ -654,6 +655,25 @@
       meer.setAttribute('href', f.link);
       meer.setAttribute('aria-label', 'Meer over ' + f.titel.toLowerCase() + ' op asteria.nl');
     }
+    /* plekken in de omgeving (hotel-venray-v2): tekstlink Route plannen (f.route, Google Maps, nieuw tabblad) naast de knop
+       en een fotoregel (f.credit, naamsvermelding). Pas aangemaakt als een pop-up ze heeft, zodat andere pagina's gelijk blijven. */
+    var route = popFac.querySelector('.lp-pop__route');
+    if (f.route) {
+      if (!route) {
+        route = maak('a', 'lp-pop__link lp-pop__route', 'Route plannen');
+        route.target = '_blank'; route.rel = 'noopener';
+        meer.parentNode.appendChild(route);
+      }
+      route.hidden = false;
+      route.href = f.route;
+      route.setAttribute('aria-label', 'Route plannen naar ' + f.titel + ' (Google Maps, opent in een nieuw tabblad)');
+    } else if (route) { route.hidden = true; route.removeAttribute('href'); }
+    var credit = popFac.querySelector('.lp-pop__credit');
+    if (f.credit) {
+      if (!credit) { credit = maak('p', 'lp-pop__credit'); popFac.querySelector('.lp-pop__body').appendChild(credit); }
+      credit.hidden = false;
+      credit.textContent = f.credit;
+    } else if (credit) { credit.hidden = true; }
     return true;
   }
 
@@ -664,6 +684,82 @@
     var fk = e.target.closest('[data-fac]');
     if (fk) { e.preventDefault(); if (vulFac(fk.getAttribute('data-fac'))) toonPop(popFac, fk); }
   });
+
+  /* ── omgevingsblok (hotel-venray-v2, [data-omg-list]): overgenomen uit page-interactions.js van de staging-homepage
+     ("Omgeving Optie B" + "v5 iter 11"). Bureaublad: hover of focus op een plek wisselt de foto en het bijschrift (label + naam),
+     muis eruit = terug naar de eerste plek. Telefoon (< 1024): de foto plakt onder de kop en de plek die net onder de foto in
+     de leesbaan komt, wordt actief. Klik op een plek opent de pop-up (data-fac, hierboven). ── */
+  var omg = document.querySelector('[data-omg-list]');
+  if (omg) (function () {
+    var foto = omg.querySelector('[data-omg-photo-target]');
+    var fotoWrap = foto && foto.parentElement;
+    var capNaam = omg.querySelector('[data-omg-caption-name]');
+    var capCat = omg.querySelector('.olc-kicker');
+    var items = Array.prototype.slice.call(omg.querySelectorAll('[data-omg-photo]'));
+    if (!foto || !items.length) return;
+    var std = { src: foto.getAttribute('src'), alt: foto.getAttribute('alt'), pos: foto.style.objectPosition,
+                naam: capNaam ? capNaam.textContent : '', cat: capCat ? capCat.textContent : '' };
+    var huidig = std.src, geladen = false, wacht = null;
+    function voorladen() {
+      if (geladen) return;
+      geladen = true;
+      items.forEach(function (it) { var im = new Image(); im.src = it.getAttribute('data-omg-photo'); });
+    }
+    function wissel(src, alt, pos, naam, cat) {
+      if (capNaam && naam != null) capNaam.textContent = naam;
+      if (capCat && cat != null) capCat.textContent = cat;
+      if (src === huidig) return;
+      huidig = src;
+      fotoWrap.classList.add('is-swapping');
+      clearTimeout(wacht);
+      wacht = setTimeout(function () {
+        foto.setAttribute('src', src);
+        foto.setAttribute('alt', alt || '');
+        foto.style.objectPosition = pos || '';
+        fotoWrap.classList.remove('is-swapping');
+      }, rustig ? 0 : 180);
+    }
+    function kies(item) {
+      voorladen();
+      items.forEach(function (o) { o.classList.toggle('is-active', o === item); });
+      fotoWrap.classList.add('is-active');
+      omg.classList.add('is-hovering');
+      wissel(item.getAttribute('data-omg-photo'), item.getAttribute('data-omg-alt'), item.getAttribute('data-omg-pos'),
+        item.querySelector('.oli-name').textContent, item.getAttribute('data-omg-cat'));
+    }
+    var mq = window.matchMedia('(max-width: 1023px)');
+    items.forEach(function (item) {
+      item.addEventListener('mouseenter', function () { if (!mq.matches) kies(item); });
+      item.addEventListener('focus', function () { kies(item); });
+    });
+    omg.addEventListener('mouseleave', function () {
+      if (mq.matches) return;
+      items.forEach(function (o) { o.classList.remove('is-active'); });
+      fotoWrap.classList.remove('is-active');
+      omg.classList.remove('is-hovering');
+      wissel(std.src, std.alt, std.pos, std.naam, std.cat);
+    });
+    /* telefoon: scrollen in plaats van hover; alleen bijwerken als het blok in beeld is */
+    var bezig = false;
+    function sync() {
+      bezig = false;
+      if (!mq.matches) return;
+      var r = omg.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      var lijn = fotoWrap.getBoundingClientRect().bottom + 80;
+      var beste = null, afstand = Infinity;
+      items.forEach(function (it) {
+        var b = it.getBoundingClientRect();
+        var d = Math.abs((b.top + b.bottom) / 2 - lijn);
+        if (d < afstand) { afstand = d; beste = it; }
+      });
+      if (beste && !beste.classList.contains('is-active')) kies(beste);
+    }
+    function opScroll() { if (bezig) return; bezig = true; window.requestAnimationFrame(sync); }
+    window.addEventListener('scroll', opScroll, { passive: true });
+    window.addEventListener('resize', opScroll);
+    sync();
+  })();
 
   /* ── reviewmuur (blok 5a, zoals Zaal Zeven b6d): Google-reviews in 1-5 kolommen die verticaal doorlopen
      (naadloos: inhoud per kolom verdubbeld). Hover of focus = stil (css). Bij prefers-reduced-motion of zonder
