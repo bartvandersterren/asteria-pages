@@ -5,7 +5,8 @@
  * Rekenregel (zelfde tariefkeuze als scripts/seizoen_prijzen.py):
  * - Mews Distributor hotels/getAvailability per aankomstdag voor één nacht, ZONDER AdultCount en zonder vouchercode:
  *   Mews geeft dan per categorie alle bezettingen terug, zodat één call per dag alle kamertypes dekt (Comfort 3-persoons
- *   op 3 volwassenen, de rest op 2).
+ *   op 3 volwassenen, de rest op 2). Altijd CurrencyCode 'EUR': zonder geeft Mews alle valuta en is het antwoord zonder
+ *   AdultCount ~22 MB (Worker-fout 1102, geheugen); met EUR ~340 kB (gemeten 3 nov 2026).
  * - Per kamertype de laagste Price.Total.EUR over de publieke tarieven (Rates[].IsPrivate false) waarvan de naam geen
  *   "OTA" bevat (die zijn voor de boekingssites), bij de bezetting AdultCount = personen, ChildCount 0, en alleen als
  *   AvailableRoomCount > 0.
@@ -109,7 +110,7 @@ function wachttijd(header) {
 /** Eén getAvailability voor één nacht, met pogingen bij 429/5xx; gooit bij mislukken. */
 export async function vraagNacht(datum, doeFetch, deadline) {
   const payload = JSON.stringify({ Client: CLIENT, ConfigurationId: CONFIGURATIE, HotelId: HOTEL,
-    StartUtc: utc(datum), EndUtc: utc(plusDagen(datum, 1)) });
+    StartUtc: utc(datum), EndUtc: utc(plusDagen(datum, 1)), CurrencyCode: 'EUR' });
   let laatste = null;
   for (let poging = 0; poging < POGINGEN; poging++) {
     const over = deadline - Date.now();

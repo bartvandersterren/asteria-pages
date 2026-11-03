@@ -70,6 +70,7 @@ test('haalDeel: 8 nachten na elkaar, Client-header, geen AdultCount; 429 opnieuw
   assert.equal(calls[0].ConfigurationId, '6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
   assert.equal(calls[0].AdultCount, undefined);
   assert.equal(calls[0].VoucherCode, undefined);
+  assert.equal(calls[0].CurrencyCode, 'EUR');
   assert.equal(calls[0].StartUtc, '2026-11-02T23:00:00Z');
   assert.equal(r.dagen[1].prijzen.comfort, 14000);   // na de 429 opnieuw gelukt
   assert.equal(r.dagen[4].storing, true);            // 7 nov gaf 400
