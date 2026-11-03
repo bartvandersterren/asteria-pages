@@ -1,0 +1,227 @@
+{
+  "_controleren": [
+    "m²: 37 m² uit build_kamers.py ROOMS (live kamerpagina's); Royale en Deluxe 25 m² = vaste feiten CLAUDE.md (staging zegt 24/26).",
+    "Vanaf-prijs = build_kamers.py ROOMS.price (per kamer per nacht, vast, niet live uit Mews).",
+    "Inchecken 15.00 en uitchecken 11.00: vaste FAQ lander-w1 + build_kamers.py FAQ. Ontbijttijden: vaste feiten CLAUDE.md. Gratis parkeren: build_kamers.py FAQ.",
+    "Weggelaten (niet bevestigd in de repo): receptietijden, lift, verdieping/plattegrond, huisdieren, derde bed, gratis annuleren, \"dag en nacht bereikbaar\".",
+    "Wellnesstijden en reserveren bij de receptie: vaste FAQ lander-w1."
+  ],
+  "GESLOTEN_LANDER": true,
+  "VOUCHER": "",
+  "PAGE_TITLE": "Junior suite | Hotel Asteria Venray",
+  "META_DESC": "Junior suite bij Hotel Asteria in Venray: een kingsize bed, een bedbank voor extra slaapgelegenheid, een ruime zithoek en een badkamer met bad en douche. Boek direct bij het hotel.",
+  "CANONICAL_URL": "https://visit.asteria.nl/junior-suite-v2",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/kamer-junior-suite.webp",
+  "KAMER_NAAM": "Junior suite",
+  "KAMER_ROOM": "27ea8deb-ded5-4856-8fdd-af1d00ffc315",
+  "KAMER_PRIJS": "€ 141,30",
+  "KAMER_INTRO": "De luxe van ruimte, met een grote zithoek om even te ontspannen na een dag op pad. Met een bedbank erbij ook fijn voor gezinnen.",
+  "KAART_REGEL": "Kingsize bed, bad en een ruime zithoek met bedbank.",
+  "KAART_CHIP": "37 m² · bedbank",
+  "KRUIMEL_LABEL": "Kruimelpad",
+  "KRUIMEL_HOME": "Hotel Asteria",
+  "KRUIMEL_KAMERS": "Kamers en suites",
+  "_fotos": [
+    {
+      "img": "fotos/kamer-junior-suite.webp",
+      "alt": "Junior suite met kingsize bed en ruime zithoek"
+    },
+    {
+      "img": "fotos/kamer-junior-suite-2.webp",
+      "alt": "Badkamer van de Junior suite met bad en douche"
+    }
+  ],
+  "FOTOS_KNOP": "Bekijk alle foto's",
+  "FOTO_VERGROOT": "Vergroot deze foto",
+  "ALLES_FOTO": 0,
+  "KAART_LABEL": "Junior suite boeken",
+  "PRIJS_VANAF": "Vanaf",
+  "PRIJS_PER": "per kamer per nacht",
+  "KAART_SCORE": "op Google, ruim 2.200 reviews",
+  "_vinkjes": [
+    "Gratis parkeren bij het hotel",
+    "Gratis wifi en airco op de kamer",
+    "Direct geboekt bij het hotel zelf"
+  ],
+  "KAART_KNOP": "Boek deze kamer",
+  "KAART_BEL": "Of bel 0478 511466",
+  "KORT_KOP": "Deze kamer in het kort",
+  "KORT_TEKST": "Een kingsize bed, een bedbank voor extra slaapgelegenheid, een ruime zithoek en een badkamer met bad en douche.",
+  "SPECS_LABEL": "Kenmerken",
+  "_specs": [
+    {
+      "icoon": "m2",
+      "tekst": "37 m²"
+    },
+    {
+      "icoon": "bed",
+      "tekst": "kingsize bed"
+    },
+    {
+      "icoon": "bedbank",
+      "tekst": "bedbank"
+    },
+    {
+      "icoon": "personen",
+      "tekst": "maximaal 4 gasten"
+    },
+    {
+      "icoon": "bad",
+      "tekst": "bad en douche"
+    }
+  ],
+  "ALLES_KOP": "Wat er in de kamer staat",
+  "ALLES_TEKST": "Hier hoef je niet in te schikken. Het kingsize bed staat aan de ene kant, de zithoek met bedbank aan de andere, en in de badkamer kies je tussen bad en douche.",
+  "_faciliteiten": [
+    {
+      "icoon": "zit",
+      "tekst": "Ruime zithoek met comfortabele stoelen"
+    },
+    {
+      "icoon": "bedbank",
+      "tekst": "Bedbank voor extra slaapgelegenheid"
+    },
+    {
+      "icoon": "bad",
+      "tekst": "Badkamer met bad en douche"
+    },
+    {
+      "icoon": "koelkast",
+      "tekst": "Koelkastje met gratis flesjes water"
+    },
+    {
+      "icoon": "airco",
+      "tekst": "Airconditioning"
+    },
+    {
+      "icoon": "koffie",
+      "tekst": "Koffie en thee op de kamer"
+    },
+    {
+      "icoon": "tv",
+      "tekst": "Flatscreen-tv"
+    },
+    {
+      "icoon": "wifi",
+      "tekst": "Gratis wifi"
+    },
+    {
+      "icoon": "fohn",
+      "tekst": "Föhn"
+    },
+    {
+      "icoon": "fitness",
+      "tekst": "Toegang tot de fitnessruimte"
+    }
+  ],
+  "REVIEWS_KOP": "Wat gasten over hun kamer zeggen",
+  "REVIEWS_SUB": "Zo kijken gasten terug op hun verblijf bij Asteria.",
+  "REVIEWS_LABEL": "Google-reviews, schuif voor meer",
+  "REVIEWS_OP5": "op 5",
+  "REVIEWS_AANTAL_TEKST": "Ruim 2.200 reviews",
+  "REVIEWS_BRON": "op Google.",
+  "VORIGE_REVIEWS": "Vorige reviews",
+  "VOLGENDE_REVIEWS": "Volgende reviews",
+  "ANDERE_KOP": "Andere kamers bij Asteria",
+  "ANDERE_SUB": "Twijfel je nog, dan denken we graag met je mee over de kamer die bij je past.",
+  "ANDERE_LABEL": "Andere kamers, schuif voor meer",
+  "ANDERE_KNOP": "Bekijk kamerdetails",
+  "VORIGE_KAMERS": "Vorige kamers",
+  "VOLGENDE_KAMERS": "Volgende kamers",
+  "FEAT_KOP": "Of maak er een wellnessverblijf van",
+  "FEAT_TEKST": "Na de sauna's op de Top Floor schuif je aan voor een driegangendiner, en de volgende ochtend wacht het ontbijtbuffet.",
+  "FEAT_KNOP": "Bekijk het wellnessarrangement",
+  "FEAT_URL": "/wellness-arrangement",
+  "FEAT_IMG": "fotos/l26-wellness-arrangement-hero.webp",
+  "FEAT_ALT": "Sauna in de wellness op de Top Floor van Hotel Asteria",
+  "GOW_LABEL": "Goed om te weten en veelgestelde vragen",
+  "GOW_KOP": "Goed om te weten",
+  "_weten": [
+    {
+      "icoon": "inchecken",
+      "titel": "Inchecken",
+      "tekst": "vanaf 15.00 uur"
+    },
+    {
+      "icoon": "uitchecken",
+      "titel": "Uitchecken",
+      "tekst": "uiterlijk 11.00 uur"
+    },
+    {
+      "icoon": "ontbijt",
+      "titel": "Ontbijt",
+      "tekst": "ma t/m vr 07.00-10.00 uur, za en zo 08.00-10.30 uur"
+    },
+    {
+      "icoon": "parkeren",
+      "titel": "Parkeren",
+      "tekst": "gratis op het eigen terrein"
+    }
+  ],
+  "FAQ_KOP": "Veelgestelde vragen",
+  "_faq": [
+    {
+      "q": "Voor hoeveel personen is deze kamer?",
+      "a": "De Junior suite is voor maximaal 4 personen: een kingsize bed voor twee en een bedbank voor extra slaapgelegenheid."
+    },
+    {
+      "q": "Wat is het verschil met de Suite?",
+      "a": "De Suite is met 40 m² iets ruimer en heeft een eigen infraroodsauna. De Junior suite heeft een badkamer met bad en douche."
+    },
+    {
+      "q": "Mag ik in de wellness?",
+      "a": "Ja. De wellness op de Top Floor is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Reserveer je tijd vooraf bij de receptie."
+    },
+    {
+      "q": "Is het ontbijt inbegrepen?",
+      "a": "Dat hangt af van het tarief dat je kiest; je ziet het bij het boeken. Zit het er niet bij, dan boek je het ontbijtbuffet eenvoudig bij. Het staat van maandag tot en met vrijdag klaar van 07.00 tot 10.00 uur, in het weekend van 08.00 tot 10.30 uur."
+    }
+  ],
+  "CONTACT_KOP": "Boeken of even overleggen",
+  "CONTACT_TEKST": "Twijfel je welke kamer het best bij je verblijf past? De receptie denkt graag met je mee.",
+  "CONTACT_IMG": "fotos/care-receptie.webp",
+  "CONTACT_ALT": "Receptioniste helpt een gast aan de balie van Hotel Asteria",
+  "CONTACT_TEL_LABEL": "Telefoon",
+  "CONTACT_MAIL_LABEL": "E-mail",
+  "CONTACT_ADRES_LABEL": "Adres",
+  "VERDER_KOP": "Verder kijken",
+  "_verder": [
+    {
+      "titel": "Hotel Asteria",
+      "regel": "Vier sterren familiehotel aan de A73",
+      "url": "/hotel-venray-v2",
+      "img": "fotos/hero-asteria-building-sunset.webp",
+      "alt": "Hotel Asteria bij zonsondergang, van bovenaf"
+    },
+    {
+      "titel": "Wellnessarrangement",
+      "regel": "Wellness, diner en ontbijt in één verblijf",
+      "url": "/wellness-arrangement",
+      "img": "fotos/l26-waarom-wellness.webp",
+      "alt": "Wellness op de Top Floor met whirlpool"
+    },
+    {
+      "titel": "Weekend aanbieding",
+      "regel": "Twee nachten met diner en ontbijt",
+      "url": "/weekend-aanbieding",
+      "img": "fotos/l26-weekend-aanbieding-hero.webp",
+      "alt": "Weekend weg bij Hotel Asteria"
+    },
+    {
+      "titel": "Oorlogsmuseum Arrangement",
+      "regel": "Een dag Overloon, een avond aan tafel",
+      "url": "/oorlogsmuseum-arrangement",
+      "img": "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+      "alt": "Oorlogsmuseum Overloon"
+    }
+  ],
+  "LB_LABEL": "Foto's van de Junior suite",
+  "LB_SLUIT": "Sluiten",
+  "LB_VORIGE": "Vorige",
+  "LB_VOLGENDE": "Volgende",
+  "LB_VIDEO": "Video",
+  "LB_VAN": "van",
+  "STICKY_KOP": "Junior suite",
+  "STICKY_SUB": "Vanaf € 141,30 per nacht",
+  "STICKY_KNOP": "Boek deze kamer"
+}

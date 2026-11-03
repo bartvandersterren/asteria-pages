@@ -1,0 +1,232 @@
+{
+  "_controleren": [
+    "m²: 25 m² uit build_kamers.py ROOMS (live kamerpagina's); Royale en Deluxe 25 m² = vaste feiten CLAUDE.md (staging zegt 24/26).",
+    "Vanaf-prijs = build_kamers.py ROOMS.price (per kamer per nacht, vast, niet live uit Mews).",
+    "Inchecken 15.00 en uitchecken 11.00: vaste FAQ lander-w1 + build_kamers.py FAQ. Ontbijttijden: vaste feiten CLAUDE.md. Gratis parkeren: build_kamers.py FAQ.",
+    "Weggelaten (niet bevestigd in de repo): receptietijden, lift, verdieping/plattegrond, huisdieren, derde bed, gratis annuleren, \"dag en nacht bereikbaar\".",
+    "Wellnesstijden en reserveren bij de receptie: vaste FAQ lander-w1."
+  ],
+  "GESLOTEN_LANDER": true,
+  "VOUCHER": "",
+  "PAGE_TITLE": "Royale kamer | Hotel Asteria Venray",
+  "META_DESC": "Royale kamer bij Hotel Asteria in Venray: een tweepersoonsbed of twee eenpersoonsbedden naar keuze, een ruime zithoek en een eigen badkamer met douche en/of bad. Boek direct bij het hotel.",
+  "CANONICAL_URL": "https://visit.asteria.nl/royale-kamer-v2",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/room-royale-1.webp",
+  "KAMER_NAAM": "Royale kamer",
+  "KAMER_ROOM": "a8fd7310-0d61-422f-89e6-af1d00ffc315",
+  "KAMER_PRIJS": "€ 123,30",
+  "KAMER_INTRO": "Groter dan de Comfort kamer en net dat beetje extra. Een weekend weg, met tijd om je koffer uit te pakken en er even helemaal te zijn.",
+  "KAART_REGEL": "Ruimer dan de Comfort kamer, met een zithoek en de keuze voor een bad.",
+  "KAART_CHIP": "25 m² · bad of douche",
+  "KRUIMEL_LABEL": "Kruimelpad",
+  "KRUIMEL_HOME": "Hotel Asteria",
+  "KRUIMEL_KAMERS": "Kamers en suites",
+  "_fotos": [
+    {
+      "img": "fotos/room-royale-1.webp",
+      "alt": "Royale kamer met tweepersoonsbed en zithoek bij het raam"
+    },
+    {
+      "img": "fotos/room-royale-2.webp",
+      "alt": "Royale kamer met bureau en tv"
+    },
+    {
+      "img": "fotos/room-royale-3.webp",
+      "alt": "Badkamer van de Royale kamer"
+    },
+    {
+      "img": "fotos/room-royale-4.webp",
+      "alt": "Inloopdouche in de Royale kamer"
+    }
+  ],
+  "_video": {
+    "src": "videos/royale.mp4",
+    "poster": "fotos/room-royale-1.webp"
+  },
+  "VIDEO_ALT": "Rondleiding door de Royale kamer",
+  "FOTOS_KNOP": "Bekijk alle foto's",
+  "FOTO_VERGROOT": "Vergroot deze foto",
+  "ALLES_FOTO": 1,
+  "KAART_LABEL": "Royale kamer boeken",
+  "PRIJS_VANAF": "Vanaf",
+  "PRIJS_PER": "per kamer per nacht",
+  "KAART_SCORE": "op Google, ruim 2.200 reviews",
+  "_vinkjes": [
+    "Gratis parkeren bij het hotel",
+    "Gratis wifi en airco op de kamer",
+    "Direct geboekt bij het hotel zelf"
+  ],
+  "KAART_KNOP": "Boek deze kamer",
+  "KAART_BEL": "Of bel 0478 511466",
+  "KORT_KOP": "Deze kamer in het kort",
+  "KORT_TEKST": "Een tweepersoonsbed of twee eenpersoonsbedden naar keuze, een ruime zithoek en een eigen badkamer met douche en/of bad.",
+  "SPECS_LABEL": "Kenmerken",
+  "_specs": [
+    {
+      "icoon": "m2",
+      "tekst": "25 m²"
+    },
+    {
+      "icoon": "bed",
+      "tekst": "tweepersoons of twinbeds"
+    },
+    {
+      "icoon": "personen",
+      "tekst": "maximaal 2 gasten"
+    },
+    {
+      "icoon": "bad",
+      "tekst": "douche en/of bad"
+    },
+    {
+      "icoon": "zit",
+      "tekst": "ruime zithoek"
+    }
+  ],
+  "ALLES_KOP": "Wat er in de kamer staat",
+  "ALLES_TEKST": "Het ruime gevoel merk je direct. Er is plek om je spullen kwijt te kunnen, je schuift in de zithoek aan met een kop koffie en aan het eind van de dag wacht een eigen badkamer.",
+  "_faciliteiten": [
+    {
+      "icoon": "zit",
+      "tekst": "Ruime zithoek met comfortabele stoelen"
+    },
+    {
+      "icoon": "bad",
+      "tekst": "Badkamer met douche en/of bad"
+    },
+    {
+      "icoon": "airco",
+      "tekst": "Airconditioning"
+    },
+    {
+      "icoon": "koffie",
+      "tekst": "Koffie en thee op de kamer"
+    },
+    {
+      "icoon": "tv",
+      "tekst": "Flatscreen-tv"
+    },
+    {
+      "icoon": "wifi",
+      "tekst": "Gratis wifi"
+    },
+    {
+      "icoon": "fohn",
+      "tekst": "Föhn"
+    },
+    {
+      "icoon": "fitness",
+      "tekst": "Toegang tot de fitnessruimte"
+    }
+  ],
+  "REVIEWS_KOP": "Wat gasten over hun kamer zeggen",
+  "REVIEWS_SUB": "Zo kijken gasten terug op hun verblijf bij Asteria.",
+  "REVIEWS_LABEL": "Google-reviews, schuif voor meer",
+  "REVIEWS_OP5": "op 5",
+  "REVIEWS_AANTAL_TEKST": "Ruim 2.200 reviews",
+  "REVIEWS_BRON": "op Google.",
+  "VORIGE_REVIEWS": "Vorige reviews",
+  "VOLGENDE_REVIEWS": "Volgende reviews",
+  "ANDERE_KOP": "Andere kamers bij Asteria",
+  "ANDERE_SUB": "Twijfel je nog, dan denken we graag met je mee over de kamer die bij je past.",
+  "ANDERE_LABEL": "Andere kamers, schuif voor meer",
+  "ANDERE_KNOP": "Bekijk kamerdetails",
+  "VORIGE_KAMERS": "Vorige kamers",
+  "VOLGENDE_KAMERS": "Volgende kamers",
+  "FEAT_KOP": "Of maak er een wellnessverblijf van",
+  "FEAT_TEKST": "Na de sauna's op de Top Floor schuif je aan voor een driegangendiner, en de volgende ochtend wacht het ontbijtbuffet.",
+  "FEAT_KNOP": "Bekijk het wellnessarrangement",
+  "FEAT_URL": "/wellness-arrangement",
+  "FEAT_IMG": "fotos/l26-wellness-arrangement-hero.webp",
+  "FEAT_ALT": "Sauna in de wellness op de Top Floor van Hotel Asteria",
+  "GOW_LABEL": "Goed om te weten en veelgestelde vragen",
+  "GOW_KOP": "Goed om te weten",
+  "_weten": [
+    {
+      "icoon": "inchecken",
+      "titel": "Inchecken",
+      "tekst": "vanaf 15.00 uur"
+    },
+    {
+      "icoon": "uitchecken",
+      "titel": "Uitchecken",
+      "tekst": "uiterlijk 11.00 uur"
+    },
+    {
+      "icoon": "ontbijt",
+      "titel": "Ontbijt",
+      "tekst": "ma t/m vr 07.00-10.00 uur, za en zo 08.00-10.30 uur"
+    },
+    {
+      "icoon": "parkeren",
+      "titel": "Parkeren",
+      "tekst": "gratis op het eigen terrein"
+    }
+  ],
+  "FAQ_KOP": "Veelgestelde vragen",
+  "_faq": [
+    {
+      "q": "Voor hoeveel personen is deze kamer?",
+      "a": "De Royale kamer is voor maximaal 2 personen. Je kiest een tweepersoonsbed of twee eenpersoonsbedden."
+    },
+    {
+      "q": "Wat is het verschil met de Deluxe kamer?",
+      "a": "De kamers zijn even groot, 25 m². De Deluxe kamer heeft daarbij een eigen infraroodsauna in de badkamer."
+    },
+    {
+      "q": "Mag ik in de wellness?",
+      "a": "Ja. De wellness op de Top Floor is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Reserveer je tijd vooraf bij de receptie."
+    },
+    {
+      "q": "Is het ontbijt inbegrepen?",
+      "a": "Dat hangt af van het tarief dat je kiest; je ziet het bij het boeken. Zit het er niet bij, dan boek je het ontbijtbuffet eenvoudig bij. Het staat van maandag tot en met vrijdag klaar van 07.00 tot 10.00 uur, in het weekend van 08.00 tot 10.30 uur."
+    }
+  ],
+  "CONTACT_KOP": "Boeken of even overleggen",
+  "CONTACT_TEKST": "Twijfel je welke kamer het best bij je verblijf past? De receptie denkt graag met je mee.",
+  "CONTACT_IMG": "fotos/care-receptie.webp",
+  "CONTACT_ALT": "Receptioniste helpt een gast aan de balie van Hotel Asteria",
+  "CONTACT_TEL_LABEL": "Telefoon",
+  "CONTACT_MAIL_LABEL": "E-mail",
+  "CONTACT_ADRES_LABEL": "Adres",
+  "VERDER_KOP": "Verder kijken",
+  "_verder": [
+    {
+      "titel": "Hotel Asteria",
+      "regel": "Vier sterren familiehotel aan de A73",
+      "url": "/hotel-venray-v2",
+      "img": "fotos/hero-asteria-building-sunset.webp",
+      "alt": "Hotel Asteria bij zonsondergang, van bovenaf"
+    },
+    {
+      "titel": "Wellnessarrangement",
+      "regel": "Wellness, diner en ontbijt in één verblijf",
+      "url": "/wellness-arrangement",
+      "img": "fotos/l26-waarom-wellness.webp",
+      "alt": "Wellness op de Top Floor met whirlpool"
+    },
+    {
+      "titel": "Weekend aanbieding",
+      "regel": "Twee nachten met diner en ontbijt",
+      "url": "/weekend-aanbieding",
+      "img": "fotos/l26-weekend-aanbieding-hero.webp",
+      "alt": "Weekend weg bij Hotel Asteria"
+    },
+    {
+      "titel": "Oorlogsmuseum Arrangement",
+      "regel": "Een dag Overloon, een avond aan tafel",
+      "url": "/oorlogsmuseum-arrangement",
+      "img": "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+      "alt": "Oorlogsmuseum Overloon"
+    }
+  ],
+  "LB_LABEL": "Foto's van de Royale kamer",
+  "LB_SLUIT": "Sluiten",
+  "LB_VORIGE": "Vorige",
+  "LB_VOLGENDE": "Volgende",
+  "LB_VIDEO": "Video",
+  "LB_VAN": "van",
+  "STICKY_KOP": "Royale kamer",
+  "STICKY_SUB": "Vanaf € 123,30 per nacht",
+  "STICKY_KNOP": "Boek deze kamer"
+}

@@ -217,6 +217,19 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle kamers, omgevingsregels zonder asteria-link;
   kamerknoppen (kaart + pop-up) = Bekijk beschikbaarheid (Mews met data-room), geen link naar de kamerpagina's (oude stijl). Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.
 
+### Kamerdetailpagina's in de nieuwe stijl (kamer-w1, 3 nov 2026, preview, ongelinkt)
+
+- `kamer-w1.template.html` + `kamer-w1.css` + `kamer-w1.js` (prefix `km-`), structuur 1-op-1 van de Effecty-staging
+  `/kamers/comfort-kamer/` (kamertop met mozaiek, lightbox en sticky boekkaart, wat er in de kamer staat, reviews, andere kamers,
+  arrangement, goed om te weten + FAQ, contact, verder kijken). Kop, voet, onderbalk en cookiemelding komen bij het bouwen uit
+  `lander-w1.template.html` (build.py `lw1_delen`/`render_kamer`), gesloten variant via `GESLOTEN_LANDER`. lander-w1 zelf niet gewijzigd.
+- 8 entries `<slug>-v2` (KAMER_VOLGORDE in build.py) -> `<slug>-v2.html`, JSON `translations/kamer-<slug>-v2-nl.json`, alleen NL, noindex.
+  Alle zichtbare teksten in de JSON. Lijsten: `_fotos` (1-8; mozaiek toont groot + breed + klein + tegel, bij 8 de volle staging-vorm),
+  `_video` (eerste item in de lightbox), `_vinkjes`, `_specs` (5), `_faciliteiten`, `_weten`, `_faq` (3-6), `_verder` (alleen paden op
+  visit.asteria.nl). Iconen: `KAMER_ICOON` in build.py. 'Andere kamers' leest de JSON's van de andere kamers (KAART_REGEL, KAART_CHIP).
+- Boekkaart en onderbalk openen Mews met `data-room` = category-ID. Op kamerpagina's blijft "Boek deze kamer" staan (de gesloten-vervanging
+  door "Bekijk beschikbaarheid" geldt daar niet). build_kamers.py en de oude kamerpagina's blijven ongewijzigd.
+
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 
 - Zelfde sjabloon als de flow-landers, met build-blokken `zijkaart` + `arrangement`. Eerste pagina: `najaarsarrangement`
