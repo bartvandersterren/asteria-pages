@@ -55,8 +55,9 @@ html{scroll-behavior:smooth}
 .ao .ao-hero__knop{min-width:245px}
 
 /* ---- 2 bij elk arrangement: paneel 120 px over de hero ---- */
-.ao-intro{position:relative;z-index:2;padding:0 0 var(--gap-section);background:var(--paper)}
-.ao-intro__paneel{margin-top:-120px;display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:56px;align-items:center;padding:56px 60px;box-shadow:var(--shadow-deep)}
+/* paneel schuift 120px (telefoon 64px) over de hero; de sectie-achtergrond begint pas onder die overlap, anders dekt hij de hero af */
+.ao-intro{--ao-overlap:120px;position:relative;z-index:2;padding:0 0 var(--gap-section);background:linear-gradient(to bottom,transparent var(--ao-overlap),var(--paper) var(--ao-overlap))}
+.ao-intro__paneel{margin-top:calc(var(--ao-overlap) * -1);display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:56px;align-items:center;padding:56px 60px;box-shadow:var(--shadow-deep)}
 .ao-intro__tekstkol{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
 .ao .ao-intro__tekst{font-size:var(--text-sm);line-height:1.65;color:var(--ink);max-width:46ch}
 .ao-intro__tegels{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:12px}
@@ -258,7 +259,8 @@ label.ao-chip:focus-within{outline:3px solid var(--terracotta);outline-offset:3p
   .ao .ao-hero__sub{font-size:15px;margin-bottom:22px}
   .ao .ao-hero__knop{display:flex;width:100%;min-width:0;white-space:normal}
 
-  .ao-intro__paneel{margin-top:-64px;gap:24px;padding:28px 20px}
+  .ao-intro{--ao-overlap:64px}
+  .ao-intro__paneel{margin-top:calc(var(--ao-overlap) * -1);gap:24px;padding:28px 20px}
   .ao-intro__tegels{gap:10px}
   .ao-icotegel{min-height:132px;padding:16px 6px 14px}
   .ao-icotegel>span:last-child{font-size:12.5px}
