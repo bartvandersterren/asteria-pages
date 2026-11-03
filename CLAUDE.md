@@ -190,6 +190,12 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `ATTENTIE_ICOON_STANDAARD`) en `ATTENTIE_KNOP` (ontbreekt = tekst van CTA, leeg = geen knop; build-blok `attentie-knop`).
 - Vaste feiten (Stijn, 14 okt 2026): Royale en Deluxe 25 m²; badjas te leen; ontbijt ma-vr 07.00-10.00, za-zo 08.00-10.30;
   VERJAARDAG = verblijf rond je verjaardag, verjaardag melden bij het boeken; Google-reviews 2.280 (hero-badge mag "2.200+").
+- Algemene hotellander `hotel-venray-v2` (3 nov 2026, preview, tegenhanger van parkhotelhorst.nl/hotel-horst-2/ voor Meta/branded Google):
+  build-blok `hotel` = geen actiecode (`VOUCHER` leeg; build.py `zonder_voucher` haalt lege mewsVoucherCode/data-voucher/"met code" weg),
+  geen tegelstrook, uitklaptab of zijkaart; ster-split = "Een verblijf dat bij je past"; na de kamers drie eigen blokken uit lijsten in
+  `translations/hotel-venray-v2-nl.json` (build.py `render_hotel`, stijl `hotel.css`, prefix `ho-`): faciliteiten (mozaiek kiezerblok 6a,
+  `_faciliteiten` precies 5, `_fac_extra`), omgeving (`_omgeving` 3-5), arrangementen (`_arrangementen` 3-8, geen prijzen).
+  Extra tag `gtag('set','linker',{accept_incoming:true})` zoals hotel-venray.html. Test: `... /hotel-venray-v2.html --hotel`.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 
