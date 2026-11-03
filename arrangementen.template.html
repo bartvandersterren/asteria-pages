@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, arrangementenoverzicht (visit.asteria.nl/arrangementen-v2), nov 2026
+  -----------------------------------------------------------------------------------
+  Opbouw en gedrag van het Parkhotel-overzicht (parkhotel-site: src/fragmenten/pagina-arrangement-v3.html,
+  live op parkhotelhorst.nl/arrangement/), uiterlijk = de nieuwe huisstijl van lander-w1 en de arrangementpagina's (tokens uit lander-w1.css, prefix ao-).
+    1 hero (volle foto, kop, sub, knop naar #arrangementen)
+    2 bij elk arrangement: paneel met vier tegels dat over de hero schuift
+    3 meest geboekt: drie kaarten
+    4 alle arrangementen (#arrangementen) met filterchips en label Meest geboekt
+    5 keuzehulp (#keuzehulp): vragen, daarna aanbeveling + twee alternatieven
+    6 kamers: blok 4b van lander-w1 (zonder prijs, zonder actiecode)
+    7 goed om te weten: zes tegels
+    8 veelgestelde vragen
+    9 reviews: blok 5a van lander-w1 (reviewmuur)
+   10 slot: volle foto + knoppen
+  Kop, voet, kamerblok, reviewblok en kamer-pop-up haalt build.py (apply_overzicht) bij elke build letterlijk uit
+  lander-w1.template.html (zonder actiecode); kaarten, keuzehulp, tegels en FAQ komen uit translations/arrangementen-nl.json
+  en de zes arrangement-JSON's (titel, prijs, nachten, foto, vinkjes). Alleen NL, noindex, niet in sitemap.xml.
+
+  Bouwen:  python3 build.py arrangementen   ->  arrangementen-v2.html
+  Stijl:   lander-w1.css (tokens, kop, voet, knoppen, accordeon) + arrangementen.css   Script: lander-w1.js + arrangementen.js
+-->
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{{META_DESC}}">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="{{CANONICAL_URL}}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{PAGE_TITLE}}">
+  <meta property="og:description" content="{{META_DESC}}">
+  <meta property="og:image" content="{{OG_IMAGE}}">
+  <meta property="og:url" content="{{CANONICAL_URL}}">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="{{HERO_IMG}}" type="image/webp">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="arrangementen.css">
+  <script src="lander-w1.js" defer></script>
+  <script src="arrangementen.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+</head>
+<body>
+
+<!-- W1_KOP -->
+
+<main class="lp ao">
+
+  <!-- ══ 1 HERO ══ -->
+  <section class="ao-hero">
+    <img class="ao-hero__foto" src="{{HERO_IMG}}" alt="{{HERO_ALT}}" width="1400" height="818" fetchpriority="high" decoding="async">
+    <div class="ao-wrap ao-hero__in">
+      <h1 class="ao-hero__kop">{{HERO_KOP}}</h1>
+      <p class="ao-hero__sub">{{HERO_SUB}}</p>
+      <a class="btn btn-primary ao-hero__knop" href="#arrangementen">{{KNOP_ALLE}}</a>
+    </div>
+  </section>
+
+  <!-- ══ 2 BIJ ELK ARRANGEMENT: paneel over de onderrand van de hero ══ -->
+  <section class="ao-intro" aria-labelledby="ao-intro-kop">
+    <div class="ao-wrap">
+      <div class="ao-paneel ao-intro__paneel">
+        <div class="ao-intro__tekstkol">
+          <h2 class="ao-h2" id="ao-intro-kop">{{INTRO_KOP}}</h2>
+          <p class="ao-intro__tekst">{{INTRO_TEKST}}</p>
+        </div>
+        <ul class="ao-intro__tegels">
+<!-- AO_INTRO -->
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3 MEEST GEBOEKT ══ -->
+  <section class="ao-sectie ao-top" aria-labelledby="ao-top-kop">
+    <div class="ao-wrap">
+      <div class="ao-paneel ao-top__paneel">
+        <h2 class="ao-h2" id="ao-top-kop">{{TOP_KOP}}</h2>
+        <p class="ao-top__lead">{{TOP_LEAD}}</p>
+        <div class="ao-top__grid">
+<!-- AO_TOP -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 4 ALLE ARRANGEMENTEN: filterchips (arrangementen.js, deel 1) ══ -->
+  <section class="ao-sectie ao-alle" id="arrangementen" aria-labelledby="ao-alle-kop">
+    <div class="ao-wrap">
+      <div class="ao-alle__kop" id="alle-arrangementen">
+        <h2 class="ao-h2" id="ao-alle-kop">{{ALLE_KOP}}</h2>
+        <p class="ao-alle__lead">{{ALLE_LEAD}}</p>
+      </div>
+      <div class="ao-filter" data-ao-filter data-ao-count-one="{{TELLER_EEN}}" data-ao-count-many="{{TELLER_VEEL}}">
+        <div class="ao-filter__links">
+          <span class="ao-filter__label" id="ao-filterlabel">{{FILTER_LABEL}}</span>
+          <div class="ao-filter__chips" role="group" aria-labelledby="ao-filterlabel">
+<!-- AO_CHIPS -->
+          </div>
+        </div>
+        <p class="ao-filter__teller" data-ao-count aria-live="polite"></p>
+      </div>
+      <div class="ao-alle__grid" data-ao-grid>
+<!-- AO_ALLE -->
+      </div>
+      <p class="ao-leeg" data-ao-empty hidden>{{LEEG}}</p>
+      <p class="ao-alle__noot">{{ALLE_NOOT}}</p>
+    </div>
+  </section>
+
+  <!-- ══ 5 KEUZEHULP: stand 1 = vragen, stand 2 = antwoordregel + aanbeveling (arrangementen.js, deel 2) ══ -->
+  <section class="ao-sectie ao-kh" id="keuzehulp" aria-labelledby="ao-kh-kop">
+    <div class="ao-wrap">
+      <div class="ao-paneel ao-kh__paneel" data-ao-quiz data-ao-step-label="{{KH_STAP}}">
+        <div class="ao-kh__kop">
+          <h2 class="ao-h2" id="ao-kh-kop">{{KH_KOP}}</h2>
+          <p class="ao-kh__lead">{{KH_LEAD}}</p>
+        </div>
+        <div class="ao-kh__antwoorden" data-ao-summary hidden>
+          <span class="ao-kh__antwlabel">{{KH_ANTWOORDEN}}</span>
+<!-- AO_KH_ANTW -->
+          <button type="button" class="ao-kh__tekstknop ao-kh__aanpassen" data-ao-edit-all aria-expanded="false" data-ao-label-open="{{KH_AANPASSEN}}" data-ao-label-close="{{KH_KLAAR}}">{{KH_AANPASSEN}}</button>
+        </div>
+        <div class="ao-kh__vragen" data-ao-questions>
+          <p class="ao-kh__voortgang" data-ao-progress aria-live="polite" hidden></p>
+          <div class="ao-kh__vraagraster">
+<!-- AO_KH_VRAGEN -->
+          </div>
+          <p class="ao-kh__nav"><button type="button" class="ao-kh__tekstknop" data-ao-back hidden>{{KH_TERUG}}</button></p>
+          <p class="ao-kh__rust" data-ao-hint><svg class="as-icoon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8.25"/><path d="M7.7 7.6a2.4 2.4 0 0 1 4.6.9c0 1.6-2.3 2-2.3 3.4"/><path d="M10 14.4v.1"/></svg><span>{{KH_RUST}}</span></p>
+        </div>
+        <div class="ao-kh__resultaat" data-ao-result hidden>
+          <div class="ao-kh__aanbeveling">
+<!-- AO_KH_RES -->
+          </div>
+          <div class="ao-kh__rechts">
+            <p class="ao-kh__ookkop">{{KH_OOK}}</p>
+            <div class="ao-kh__alts" data-ao-alts>
+<!-- AO_KH_ALTS -->
+            </div>
+            <p class="ao-kh__voet">
+              <button type="button" class="ao-kh__tekstknop" data-ao-reset>{{KH_OPNIEUW}}</button>
+              <span aria-hidden="true">&middot;</span>
+              <a class="ao-kh__tekstknop" href="#alle-arrangementen">{{KH_ALLE}}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6 KAMERS: blok 4b uit lander-w1 ══ -->
+<!-- W1_KAMERS -->
+
+  <!-- ══ 7 GOED OM TE WETEN ══ -->
+  <section class="ao-sectie ao-praktisch" aria-labelledby="ao-prak-kop">
+    <div class="ao-wrap">
+      <h2 class="ao-h2 ao-praktisch__kop" id="ao-prak-kop">{{PRAK_KOP}}</h2>
+      <ul class="ao-praktisch__raster">
+<!-- AO_PRAKTISCH -->
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ 8 VEELGESTELDE VRAGEN ══ -->
+  <section class="ao-sectie ao-faq" aria-labelledby="ao-faq-kop">
+    <div class="ao-wrap ao-faq__raster">
+      <div class="ao-faq__kop">
+        <h2 class="ao-h2" id="ao-faq-kop">{{FAQ_KOP}}</h2>
+        <a class="ao-faq__tel" href="tel:+31478511466"><svg class="as-icoon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg><span>{{FAQ_TEL}}</span></a>
+      </div>
+      <div class="as-accordeon as-accordeon--kaart ao-faq__lijst">
+<!-- AO_FAQ -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 9 REVIEWS: blok 5a uit lander-w1 ══ -->
+<!-- W1_REVIEWS -->
+
+  <!-- ══ 10 SLOT ══ -->
+  <section class="ao-slot" aria-labelledby="ao-slot-kop">
+    <img class="ao-slot__foto" src="{{SLOT_IMG}}" alt="{{SLOT_ALT}}" loading="lazy" decoding="async">
+    <span class="ao-slot__waas" aria-hidden="true"></span>
+    <div class="ao-wrap ao-slot__in">
+      <h2 class="ao-h2" id="ao-slot-kop">{{SLOT_KOP}}</h2>
+      <p class="ao-slot__tekst">{{SLOT_TEKST}}</p>
+      <div class="ao-knoppen">
+        <a class="btn btn-primary mews-open" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556">{{SLOT_KNOP_BOEK}}</a>
+        <a class="btn btn-outline-light" href="#arrangementen">{{KNOP_ALLE}}</a>
+      </div>
+      <p class="ao-slot__contact">
+        <a href="tel:+31478511466"><svg class="as-icoon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg>0478 511466</a>
+        <span class="ao-slot__punt" aria-hidden="true">&middot;</span>
+        <a href="mailto:info@asteria.nl"><svg class="as-icoon" viewBox="0 0 16 16" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1"/><path d="M2 4.5l6 4.5 6-4.5"/></svg>info@asteria.nl</a>
+      </p>
+    </div>
+  </section>
+
+<!-- W1_POP -->
+
+</main>
+
+<!-- W1_VOET -->
+
+</body>
+</html>
