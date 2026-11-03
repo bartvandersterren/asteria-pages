@@ -1,0 +1,285 @@
+{
+  "_controleren": [
+    "Meest geboekt: de keuze Wellness Arrangement, Najaarsarrangement en Weekend aanbieding is een aanname; er zijn geen boekingscijfers gebruikt. Pas '_meest_geboekt' aan als de cijfers iets anders zeggen.",
+    "Najaarsarrangement: de kaart linkt naar /najaarsarrangement (de oude pagina op config bee2f902), maar titel, prijs (€ 128,50 p.p. per nacht), foto en vinkjes komen uit translations/najaarsarrangement-nl.json (= /najaarsarrangement-v2). De oude pagina noemt ook € 128,50. Boekbaar t/m 30 november: na die datum de kaart weghalen (slug uit '_arrangementen').",
+    "Bij elk arrangement (intropaneel): ontbijtbuffet en drie-gangen diner zitten in alle zes de arrangementen (bij de Weekend aanbieding één diner, op de aankomstdag). 'Gratis parkeren' komt uit de tijdenstrook van de arrangementen (bron staging). 'Beste prijs als je direct boekt' volgt 'Beste prijs gegarandeerd' (ARR_TRUST_A van het najaarsarrangement). Graag bevestigen.",
+    "Wellness staat niet als tegel in het intropaneel (plan: wellness, ontbijt, parkeren, beste prijs): alleen het Wellness Arrangement heeft vrije toegang tot de wellness, dus 'bij elk arrangement' klopt niet. In plaats daarvan de tegel Drie-gangen diner. Wellness staat bij Goed om te weten en in de FAQ.",
+    "Zondagkorting € 20 per kamer (FAQ en zondagregel op de kaarten): ZV_TOON staat aan bij vijf arrangementen, niet bij de Weekend aanbieding. Alleen voor NAJAAR2D gemeten (14 okt 2026: korting zat toen nog niet in Mews, de pagina's rekenen hem uit).",
+    "In- en uitchecken: inchecken vanaf 15.00, uitchecken tot 11.00 (FAQ visit.asteria.nl); Weekend aanbieding uitchecken tot 14.00 op basis van beschikbaarheid (weekend-aanbieding-nl.json).",
+    "Wellness bijboeken: kosten voor hotelgasten onbekend; openingstijden ma-do 16.00-22.00, vr-zo 12.00-22.00 uit de lander-w1-FAQ.",
+    "Categorieën (chips) en de keuzehulpscores zijn een eerste indeling: Najaarsarrangement staat onder Wellness (eigen infraroodsauna op de Deluxe kamer), Limburg Arrangement onder Actief & golf.",
+    "Annuleren: voorwaarden van de arrangementstarieven onbekend; de FAQ zegt 'zie je bij het boeken' (zoals de arrangementpagina's).",
+    "Herofoto (l26-hotel-zonsondergang) en slotfoto (l26-omg-bossen) komen uit de repo; graag bevestigen dat ze bij deze pagina passen."
+  ],
+  "PAGE_TITLE": "Arrangementen met diner en ontbijt | Hotel Asteria Venray",
+  "META_DESC": "Alle arrangementen van Hotel Asteria in Venray op een rij: wellness, golf, fietsen door Limburg, Oorlogsmuseum Overloon en een weekend weg. Altijd met diner en ontbijt.",
+  "CANONICAL_URL": "https://visit.asteria.nl/arrangementen-v2",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-hotel-zonsondergang.webp",
+  "HERO_IMG": "fotos/l26-hotel-zonsondergang.webp",
+  "HERO_ALT": "Hotel Asteria in Venray bij zonsondergang, met de vijver voor de ingang",
+  "HERO_KOP": "Arrangementen bij Hotel Asteria",
+  "HERO_SUB": "Wellness, golf, fietsen door Limburg of een museumdag in Overloon. Kies het verblijf dat bij je past, diner en ontbijt zitten er altijd bij.",
+  "KNOP_ALLE": "Bekijk alle arrangementen",
+  "KNOP_ARR": "Bekijk het arrangement",
+  "VANAF": "vanaf",
+  "INTRO_KOP": "Bij elk arrangement",
+  "INTRO_TEKST": "Je overnacht in Venray, met de bossen van Noord-Limburg om de hoek. Wat je ook kiest, dit zit er altijd bij.",
+  "_intro_tegels": [
+    {
+      "titel": "Ontbijtbuffet",
+      "tekst": "elke ochtend uitgebreid",
+      "icoon": "<path d=\"M17 8h1a4 4 0 1 1 0 8h-1\"/><path d=\"M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z\"/><line x1=\"6\" y1=\"2\" x2=\"6\" y2=\"4\"/><line x1=\"10\" y1=\"2\" x2=\"10\" y2=\"4\"/><line x1=\"14\" y1=\"2\" x2=\"14\" y2=\"4\"/>"
+    },
+    {
+      "titel": "Drie-gangen diner",
+      "tekst": "in het restaurant van het hotel",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Gratis parkeren",
+      "tekst": "direct bij het hotel",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    },
+    {
+      "titel": "Beste prijs",
+      "tekst": "als je direct bij ons boekt",
+      "icoon": "<path d=\"M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z\"/><line x1=\"7\" y1=\"7\" x2=\"7.01\" y2=\"7\"/>"
+    }
+  ],
+  "TOP_KOP": "Meest geboekt",
+  "TOP_LEAD": "Drie arrangementen die gasten vaak kiezen voor een eerste kennismaking met Asteria.",
+  "_meest_geboekt": ["wellness-arrangement", "najaarsarrangement", "weekend-aanbieding"],
+  "LABEL_MEEST": "Meest geboekt",
+  "ALLE_KOP": "Alle arrangementen",
+  "ALLE_LEAD": "Filter op waar je zin in hebt. Prijzen zijn per persoon, op basis van twee personen.",
+  "FILTER_LABEL": "Waar heb je zin in?",
+  "FILTER_ALLES": "Alles",
+  "TELLER_EEN": "%d arrangement",
+  "TELLER_VEEL": "%d arrangementen",
+  "LEEG": "Geen arrangement in deze keuze. Kies een ander thema of bekijk ze allemaal.",
+  "ALLE_NOOT": "Exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
+  "_categorieen": {
+    "wellness": "Wellness",
+    "actief": "Actief & golf",
+    "cultuur": "Cultuur",
+    "weekend": "Weekend"
+  },
+  "_arrangementen": [
+    {
+      "slug": "wellness-arrangement",
+      "url": "/wellness-arrangement",
+      "cat": ["wellness"],
+      "volgorde": 10,
+      "scores": {"rust": 4, "eten": 2, "n1": 2, "samen": 1, "zondag": 1},
+      "redenen": {
+        "rust": "Vrije toegang tot de wellness van 300 m² op de Top Floor.",
+        "eten": "Een drie-gangen diner met streekproducten en het ontbijtbuffet zitten erbij.",
+        "n1": "Het arrangement is voor één nacht, ideaal om er even tussenuit te gaan.",
+        "samen": "Badjas en slippers liggen voor jullie allebei klaar.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "default": "Een welkomstdrankje op je kamer, diner en ontbijt in één boeking."
+      }
+    },
+    {
+      "slug": "najaarsarrangement",
+      "url": "/najaarsarrangement",
+      "cat": ["wellness"],
+      "volgorde": 20,
+      "scores": {"rust": 3, "eten": 3, "n1": 2, "samen": 1, "zondag": 1},
+      "redenen": {
+        "rust": "Je Deluxe kamer heeft een eigen infraroodsauna.",
+        "eten": "Een drie-gangen diner met seizoensgerechten en het ontbijtbuffet.",
+        "n1": "Eén nacht, met koffie en Limburgse vlaai bij aankomst.",
+        "samen": "Een Deluxe kamer met privé sauna, alleen voor jullie twee.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "default": "Boekbaar tot en met 30 november."
+      }
+    },
+    {
+      "slug": "weekend-aanbieding",
+      "url": "/weekend-aanbieding",
+      "cat": ["weekend"],
+      "volgorde": 30,
+      "scores": {"eten": 2, "rust": 1, "n2": 4, "n1": -1, "vrza": 4, "doordeweeks": -3, "zondag": -3, "samen": 1},
+      "redenen": {
+        "vrza": "Je komt aan op vrijdag of zaterdag en blijft twee nachten.",
+        "n2": "Twee nachten in een Comfort kamer, met twee keer ontbijt.",
+        "eten": "Een drie-gangen diner op de avond van aankomst.",
+        "rust": "Op je vertrekdag kun je uitslapen: uitchecken kan tot 14.00 uur.",
+        "samen": "Bij aankomst een welkomstdrankje voor jullie allebei.",
+        "default": "Een glas huiswijn of speciaal bier bij aankomst."
+      }
+    },
+    {
+      "slug": "golfarrangement",
+      "url": "/golfarrangement",
+      "cat": ["actief"],
+      "volgorde": 40,
+      "scores": {"actief": 4, "eten": 1, "n1": 2, "groep": 1, "zondag": 1},
+      "redenen": {
+        "actief": "Greenfee voor 18 holes op Golfbaan Bleijenbeek of Golfclub Geijsteren.",
+        "eten": "Na het golfen een drie-gangen diner in het restaurant.",
+        "n1": "Eén dag golfen en een nacht in een Royale kamer.",
+        "groep": "Wij reserveren de golfbaan voor je, je geeft je keuze telefonisch door.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "default": "Een Royale kamer met airconditioning en zithoek."
+      }
+    },
+    {
+      "slug": "limburg-arrangement",
+      "url": "/limburg-arrangement",
+      "cat": ["actief"],
+      "volgorde": 50,
+      "scores": {"actief": 3, "cultuur": 1, "eten": 2, "n3": 4, "n2": 1, "n1": -2, "groep": 1, "zondag": 1},
+      "redenen": {
+        "actief": "Drie dagen een elektrische fiets, met gratis fiets- en wandelroutes van de receptie.",
+        "n3": "Drie nachten, vier dagen Noord-Limburg.",
+        "eten": "Elke avond een 3-gangenmenu met verse streekproducten.",
+        "cultuur": "Met de e-bike fiets je zelf langs het mooiste van Noord-Limburg.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "default": "Je begint met koffie en Limburgse vlaai."
+      }
+    },
+    {
+      "slug": "oorlogsmuseum-arrangement",
+      "url": "/oorlogsmuseum-arrangement",
+      "cat": ["cultuur"],
+      "volgorde": 60,
+      "scores": {"cultuur": 4, "eten": 1, "n1": 2, "groep": 1, "zondag": 1},
+      "redenen": {
+        "cultuur": "Entree voor Oorlogsmuseum Overloon, wij reserveren je tickets.",
+        "eten": "Een drie-gangen diner in het restaurant van het hotel.",
+        "n1": "Een museumdag en een nacht in een Comfort kamer.",
+        "groep": "Koffie of thee bij ontvangst in het museumcafé.",
+        "zondag": "Kom je op zondag aan, dan betaal je € 20 per kamer minder.",
+        "default": "Op je kamer ligt een presentje van het museum klaar."
+      }
+    }
+  ],
+  "KH_KOP": "Welk arrangement past bij jou?",
+  "KH_LEAD": "Vier korte vragen, en je ziet meteen welk arrangement het best bij je past.",
+  "KH_STAP": "Vraag %1$d van %2$d",
+  "KH_ANTWOORDEN": "Je antwoorden",
+  "KH_WIJZIG": "Wijzig",
+  "KH_AANPASSEN": "Aanpassen",
+  "KH_KLAAR": "Klaar",
+  "KH_TERUG": "Vorige vraag",
+  "KH_RUST": "Beantwoord de vier vragen, dan verschijnt hier je aanbeveling.",
+  "KH_AANBEVELING": "Onze aanbeveling voor jou",
+  "KH_WAAROM": "Waarom dit arrangement",
+  "KH_OOK": "Ook interessant voor jou",
+  "KH_BEKIJK": "Bekijk",
+  "KH_OPNIEUW": "Opnieuw kiezen",
+  "KH_ALLE": "Alle arrangementen",
+  "_kh_vragen": [
+    {
+      "key": "doel",
+      "vraag": "Waar heb je zin in?",
+      "opties": [
+        {"v": "rust", "label": "Rust en wellness"},
+        {"v": "actief", "label": "Fietsen of golfen"},
+        {"v": "cultuur", "label": "Geschiedenis en cultuur"},
+        {"v": "eten", "label": "Lekker eten"}
+      ]
+    },
+    {
+      "key": "nachten",
+      "vraag": "Hoe lang blijf je?",
+      "opties": [
+        {"v": "n1", "label": "Eén nacht"},
+        {"v": "n2", "label": "Twee nachten"},
+        {"v": "n3", "label": "Drie nachten"}
+      ]
+    },
+    {
+      "key": "wanneer",
+      "vraag": "Wanneer kom je aan?",
+      "opties": [
+        {"v": "doordeweeks", "label": "Maandag tot donderdag"},
+        {"v": "vrza", "label": "Vrijdag of zaterdag"},
+        {"v": "zondag", "label": "Op zondag"}
+      ]
+    },
+    {
+      "key": "wie",
+      "vraag": "Met wie kom je?",
+      "opties": [
+        {"v": "samen", "label": "Met z'n tweeën"},
+        {"v": "groep", "label": "Met vrienden of familie"}
+      ]
+    }
+  ],
+  "KAMER_KOP_A": "Kies je",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "",
+  "KAMER_SUB": "Van de Comfort kamer tot de Bruidssuite. Bij elk arrangement staat op welke kamer het is gebaseerd; wil je alleen een kamer boeken, dan kies je hem hier.",
+  "KAMER_PIL": "",
+  "KAMER_NOOT": "Prijs en beschikbaarheid per kamer zie je in het boekingsscherm.",
+  "POP_BADGE": "Hotel Asteria",
+  "REVIEW_KOP_A": "Wat gasten",
+  "REVIEW_KOP_EM": "zeggen",
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": ["arrangement", "diner", "wellness", "ontbijt"],
+  "PRAK_KOP": "Goed om te weten",
+  "_praktisch": [
+    {
+      "titel": "Prijzen",
+      "tekst": "Per persoon op basis van twee personen, exclusief € 2,– verblijfsbelasting per persoon per nacht.",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15.5 8.7a4 4 0 1 0 0 6.6M7.5 10.8h5.5M7.5 13.2h5.5\"/>"
+    },
+    {
+      "titel": "In- en uitchecken",
+      "tekst": "Inchecken vanaf 15.00 uur, uitchecken tot 11.00 uur. Bij de Weekend aanbieding tot 14.00 uur, op basis van beschikbaarheid.",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3.5 2\"/>"
+    },
+    {
+      "titel": "Ontbijt",
+      "tekst": "Maandag tot en met vrijdag van 07.00 tot 10.00 uur, in het weekend van 08.00 tot 10.30 uur.",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    },
+    {
+      "titel": "Actiecode",
+      "tekst": "Boek via de pagina van het arrangement, dan staat de actiecode al voor je ingevuld.",
+      "icoon": "<path d=\"M3.5 12.6V4.5a1 1 0 0 1 1-1h8.1l7.9 7.9a1 1 0 0 1 0 1.4l-7.8 7.8a1 1 0 0 1-1.4 0z\"/><circle cx=\"8.3\" cy=\"8.3\" r=\"1.6\"/>"
+    },
+    {
+      "titel": "Wellness op de Top Floor",
+      "tekst": "Open ma-do 16.00-22.00 en vr-zo 12.00-22.00 uur. Inbegrepen bij het Wellness Arrangement, anders bij te boeken via de receptie.",
+      "icoon": "<path d=\"M2.5 8c1.6 0 1.6-1.5 3.2-1.5S7.3 8 8.9 8s1.6-1.5 3.1-1.5S13.6 8 15.2 8s1.6-1.5 3.1-1.5S19.9 8 21.5 8\"/><path d=\"M2.5 12.5c1.6 0 1.6-1.5 3.2-1.5s1.6 1.5 3.2 1.5 1.6-1.5 3.1-1.5 1.6 1.5 3.2 1.5 1.6-1.5 3.1-1.5 1.6 1.5 3.2 1.5\"/><path d=\"M2.5 17c1.6 0 1.6-1.5 3.2-1.5S7.3 17 8.9 17s1.6-1.5 3.1-1.5 1.6 1.5 3.2 1.5 1.6-1.5 3.1-1.5S19.9 17 21.5 17\"/>"
+    },
+    {
+      "titel": "Vragen?",
+      "tekst": "Bel <a href=\"tel:+31478511466\">0478 511466</a> of mail <a href=\"mailto:info@asteria.nl\">info@asteria.nl</a>, de receptie helpt je graag.",
+      "icoon": "<path d=\"M5 3.5h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.6 6.6l1.4-2.3 4.5 1.8V19a1.5 1.5 0 0 1-1.5 1.5A16.5 16.5 0 0 1 3.5 5 1.5 1.5 0 0 1 5 3.5z\"/>"
+    }
+  ],
+  "FAQ_KOP": "Veelgestelde vragen",
+  "FAQ_TEL": "Bel de receptie: 0478 511466",
+  "_faq": [
+    {
+      "q": "Wat zit er bij elk arrangement in?",
+      "a": "Bij elk arrangement horen een overnachting, het uitgebreide ontbijtbuffet en een drie-gangen diner in het restaurant van het hotel. Wat er verder bij zit, zoals de wellness, een greenfee, een e-bike of museumentree, verschilt per arrangement."
+    },
+    {
+      "q": "Hoe boek ik een arrangement?",
+      "a": "Open het arrangement en kies je aankomstdag in de kalender. Je ziet direct de prijs per dag en de actiecode staat al voor je ingevuld. Bij het Limburg Arrangement (drie nachten) en de Weekend aanbieding (twee nachten, aankomst op vrijdag of zaterdag) ligt het aantal nachten vast."
+    },
+    {
+      "q": "Kan ik de wellness gebruiken?",
+      "a": "Bij het Wellness Arrangement is vrije toegang tot de wellness op de Top Floor inbegrepen. Bij de andere arrangementen kun je de wellness bijboeken; reserveer vooraf bij de receptie. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur."
+    },
+    {
+      "q": "Is er korting op zondag?",
+      "a": "Bij de meeste arrangementen wel: kom je op zondag aan, dan betaal je € 20 per kamer minder. De korting wordt automatisch verrekend met de actiecode. Bij de Weekend aanbieding geldt dit niet."
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    }
+  ],
+  "SLOT_IMG": "fotos/l26-omg-bossen.webp",
+  "SLOT_ALT": "Bospad in de bossen rond Venray",
+  "SLOT_KOP": "Je verblijf in Venray begint hier",
+  "SLOT_TEKST": "Kies een arrangement of boek alleen een kamer. Heb je een vraag, dan helpen we je graag verder.",
+  "SLOT_KNOP_BOEK": "Boek een kamer"
+}

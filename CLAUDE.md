@@ -297,6 +297,21 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
   geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).
 
+### Arrangementenoverzicht /arrangementen-v2 (nov 2026, preview)
+
+- Opbouw en gedrag van parkhotelhorst.nl/arrangement/ (parkhotel-site `src/fragmenten/pagina-arrangement-v3.html` + css + gedrag),
+  uiterlijk Asteria (brand.css-waarden als `--ao-*` in `arrangementen.css`; brand.css zelf niet geladen, tokennamen botsen met lander-w1.css).
+  Bestanden: `arrangementen.template.html`, `arrangementen.css` (prefix `ao-`), `arrangementen.js` (filterchips + keuzehulp, port van
+  Parkhotel deel 1 en 2), `translations/arrangementen-nl.json`, build-entry `arrangementen` -> `arrangementen-v2.html`. Alleen NL,
+  noindex, niet in sitemap.xml, nergens gelinkt.
+- build.py `apply_overzicht()`: kop, kamers (4b), reviews (5a), kamer-pop-up en voet worden bij elke build letterlijk uit
+  `lander-w1.template.html` geknipt (zonder actiecode en zonder pil); kaartdata (KAART_KOP, eerste zin van SUB, ARR_PRIJS +
+  ARR_PRIJS_KAART_EENHEID, ARR_NACHTEN, HERO_IMG/ALT/--hero-x, KAART_VINK_A..C, ZV_KAART_REGEL bij ZV_TOON) uit de arrangement-JSON's
+  in `_arrangementen` (slug, url, cat, volgorde, scores, redenen). Najaar linkt naar /najaarsarrangement. Happy Summer staat er niet in.
+- Kaartknoppen linken naar de arrangementpagina (geen directe Mews-boeking): vaste nachten en aankomstdagen dwingt alleen de prijskalender daar af.
+- Test: `python3 -m http.server <poort>` + Playwright (desktop 1440, mobiel 390): overflow, 6 kaarten, chips, keuzehulp (actief/1 nacht -> golf,
+  vr-za + 2 nachten -> weekend), kamer-pop-up zonder voucher. Promotie naar /arrangementen (indexeerbaar, sitemap, menulink, EN/DE) pas na akkoord Stijn.
+
 ### Seizoenslanders /herfst, /lente, /zomer, /winter (rebooking-flow 04), okt 2026
 
 - Eén sjabloon voor alle seizoenen: `seizoen.template.html` + `seizoen.css` (laadt na `lander-w1.css`, blokken met prefix `hf-`)
