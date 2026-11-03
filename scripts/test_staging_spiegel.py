@@ -79,7 +79,7 @@ def toegestaan(href):
         return True
     if host == 'www.asteria.nl':
         return u.path in ('/privacy', '/algemene-voorwaarden') or u.path.startswith('/upload/files/')
-    if host in ('maps.google.com', 'www.google.com', 'www.facebook.com', 'www.instagram.com', 'www.linkedin.com'):
+    if host in ('maps.google.com', 'www.google.com', 'search.google.com', 'www.facebook.com', 'www.instagram.com', 'www.linkedin.com'):
         return True
     return False
 
@@ -190,9 +190,12 @@ with sync_playwright() as p:
         sitemap = open(os.path.join(ROOT, 'sitemap.xml'), encoding='utf-8').read()
     except OSError:
         pass
-    for staging_pad, info in links['spiegel'].items():
-        adres = links['paginas'][info['sleutel']]
-        url = url_van(info)
+    # eigen pagina's met de spiegel-kop/voet (geen staging-tegenhanger: geen pixelvergelijking): arrangementenoverzicht
+    EIGEN = [] if ALLEEN_PRIJZEN else [('(eigen)', {'bestand': 'arrangementen-v2.html', 'adres': links['arrangementenoverzicht'], 'eigen': True})]
+    for staging_pad, info in list(links['spiegel'].items()) + EIGEN:
+        adres = info.get('adres') or links['paginas'][info['sleutel']]
+        eigen_pg = info.get('eigen', False)
+        url = BASIS + ('/' + info['bestand'] if LOKAAL else adres)
         print(f'\n== {staging_pad} -> {adres}  ({url})')
         rij = {'pagina': staging_pad, 'adres': adres}
         for w, h, mob in ((390, 844, True), (1440, 900, False)):
@@ -231,17 +234,21 @@ with sync_playwright() as p:
                 check(f'{tag} robots noindex, follow', kop['robots'] == 'noindex, follow', kop['robots'])
                 check(f'{tag} canonical + og:url = eigen adres', kop['canon'] == eigen and kop['og'] == eigen, f"{kop['canon']} {kop['og']}")
                 bron = open(os.path.join(ROOT, info['bestand']), encoding='utf-8').read()
-                check(f'{tag} GA4 + Google Ads + linker zoals hotel-venray-v2',
+                check(f'{tag} GA4 + Google Ads + linker' + ('' if eigen_pg else ' zoals hotel-venray-v2'),
                       all(s in bron for s in ("gtag/js?id=G-DPCP945DCG", "gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } })",
-                                              "gtag('config', 'AW-998609513')", "AW-998609513/t8vbCLm6i7IcEOmkltwD", "accept_incoming: true")))
+                                              "gtag('config', 'AW-998609513')", "AW-998609513/t8vbCLm6i7IcEOmkltwD") + (() if eigen_pg else ("accept_incoming: true",))))
                 check(f'{tag} geen verwijzing naar de staging of Formspree', 'effectytools' not in bron and 'formspree' not in bron)
                 check(f'{tag} niet in sitemap.xml', adres not in re.findall(r'<loc>https://visit\.asteria\.nl([^<]*)</loc>', sitemap))
                 hrefs = pg.evaluate("[...document.querySelectorAll('a[href]')].map(a => a.getAttribute('href'))")
-                fout = sorted({x for x in hrefs if not toegestaan(x)})
+                # arrangementenoverzicht: de feestdagkaarten (Kerst, Oud & Nieuw) linken naar hun pagina op asteria.nl (er is geen eigen pagina)
+                fout = sorted({x for x in hrefs if not toegestaan(x) and not (eigen_pg and x.startswith('https://www.asteria.nl/arrangementen/'))})
                 check(f'{tag} alle links op de allowlist ({len(hrefs)} links)', not fout, ', '.join(fout[:8]))
                 menu = pg.evaluate("[...document.querySelectorAll('.top-stack, #nav-drawer, footer')].map(e => e.innerText).join(' ')")
                 check(f'{tag} geen Zalen & feesten / Vergaderen in kop, drawer en voet', not re.search(r'zalen|vergader|feesten', menu, re.I))
-                mews = pg.evaluate("[...document.querySelectorAll('[data-mews-open]')].map(a => a.getAttribute('href'))")
+                mews = pg.evaluate("[...document.querySelectorAll('[data-mews-open], a.mews-open')].map(a => a.getAttribute('href'))")
+                kopvoet = pg.evaluate("[...document.querySelectorAll('.top-stack a[href], #nav-drawer a[href], footer a[href]')].map(a => a.getAttribute('href'))")
+                buiten = [x for x in kopvoet if 'asteria.nl' in x and not x.startswith('mailto:') and 'visit.asteria.nl' not in x and x not in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden')]
+                check(f'{tag} kop/drawer/voet: geen asteria.nl behalve privacy en voorwaarden', not buiten, str(buiten))
                 check(f'{tag} {len(mews)} boekknoppen, alle naar Mews 6dc9094c', mews and all(m.startswith(MEWS) for m in mews))
                 # submenu Hotel bij hover
                 sub = pg.locator('.main-nav .has-sub').first
@@ -254,7 +261,7 @@ with sync_playwright() as p:
                 open_ = pg.evaluate("document.getElementById('nav-drawer').classList.contains('is-open')")
                 pg.click('#nav-drawer .drawer-parent'); pg.wait_for_timeout(300)
                 uit = pg.evaluate("document.querySelector('#nav-drawer .has-sub').classList.contains('is-open') || document.querySelector('#nav-drawer .drawer-parent').getAttribute('aria-expanded') === 'true'")
-                pg.click('#nav-drawer [data-close-drawer]'); pg.wait_for_timeout(400)
+                pg.click('#nav-drawer [data-close-drawer], #nav-drawer .nav-drawer__close'); pg.wait_for_timeout(400)
                 dicht = not pg.evaluate("document.getElementById('nav-drawer').classList.contains('is-open')")
                 check(f'{tag} hamburger opent drawer, submenu klapt uit, sluitknop sluit', open_ and uit and dicht, f'{open_} {uit} {dicht}')
 
@@ -263,11 +270,11 @@ with sync_playwright() as p:
             knop = pg.locator('.nav-cta:visible').first if pg.locator('.nav-cta:visible').count() else None
             if knop is None:
                 pg.click('.nav-hamburger'); pg.wait_for_timeout(400)
-                knop = pg.locator('#nav-drawer [data-mews-open]').first
+                knop = pg.locator('#nav-drawer [data-mews-open], #nav-drawer a.mews-open').first
             knop.click(); pg.wait_for_timeout(700)
             calls = pg.evaluate('window.__mews || []')
             check(f'{tag} Boek nu opent de Mews-widget', 'open' in calls and (pg.evaluate('window.__mewsCfg && window.__mewsCfg.configurationIds[0]') or '').startswith('6dc9094c'), str(calls))
-            kamerknop = pg.locator('[data-mews-open][data-room]')
+            kamerknop = pg.locator('[data-mews-open][data-room], a.mews-open[data-room]')
             if kamerknop.count():
                 pg.evaluate('window.__mews = []')
                 k = kamerknop.first
@@ -277,6 +284,7 @@ with sync_playwright() as p:
                 pg.wait_for_timeout(300)
                 calls = pg.evaluate('window.__mews || []')
                 check(f'{tag} kamerknop geeft showRates(kamer) + open', f'showRates:{room}' in calls and 'open' in calls, str(calls))
+                pg.keyboard.press('Escape')
 
             if w == 1440:
                 # nieuwsbrief in de voet (bureaublad-variant of de mobiele: de eerste zichtbare)
@@ -294,7 +302,7 @@ with sync_playwright() as p:
                     check(f'{tag} contactformulier -> mailto info@asteria.nl', mt.startswith('mailto:info@asteria.nl?subject=') and 'Testbericht' in urllib.parse.unquote(mt), mt[:80])
 
             # pixelvergelijking met de staging
-            if not ZONDER_STAGING:
+            if not ZONDER_STAGING and not eigen_pg:
                 pg.goto(url, wait_until='networkidle'); stil_maken(pg)
                 d = SHOT or os.path.join(ROOT, 'qa', 'spiegel')
                 os.makedirs(d, exist_ok=True)

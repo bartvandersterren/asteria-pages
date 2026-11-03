@@ -269,8 +269,22 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Formulieren: nieuwsbrief (voet + blok) -> `/api/nieuwsbrief` (Klaviyo, bron pagina); contactformulier -> mailto info@asteria.nl met
   de velden. Plus GA4/Ads-tags en cookiemelding zoals hotel-venray-v2 (`spiegel.css`). Alles noindex, follow, canonical/og:url op het
   eigen adres, niet in sitemap.xml.
+- Kamerprijzen (3 nov 2026): `staging_spiegel.py markeer_prijzen` geeft elk prijselement (`.suite-price`, `.overhangkaart__prijs`,
+  `.boekbalk__prijs`; op /home-nieuw de suitekaarten) `data-kamer-vanaf="<sleutel>"` (kaartkop, data-room of de kamer van de pagina)
+  en het bedrag `data-kamer-vanaf-bedrag` (verborgen plaatshouder "€ …"); `spiegel.css` verbergt het (visibility, ruimte blijft),
+  `spiegel.js` vult "€ X" uit `/api/kamer-vanaf`; geen prijs/fout = blijft verborgen. API `functions/api/kamer-vanaf.js` + kern
+  `kamer-vanaf-kern.js`: per dag één getAvailability (1 nacht, geen AdultCount, CurrencyCode EUR verplicht: zonder is het antwoord
+  22 MB -> Worker-fout 1102), laagste Total over de publieke niet-OTA-tarieven bij 2 volwassenen (Comfort 3-persoons 3), komende
+  56 dagen, euro = ceil(cent/100) = hele kamer per nacht. Venster in 7 delen van 8 dagen via de eigen URL (`?deel=1..7`, na elkaar),
+  edge-cache 3 u (5 min onvolledig), `?vers=1`. Koud ~30 s, daarna uit de cache. Laagste prijs viel op 3 nov 2026 steeds op een
+  zondag (tarief "Kamer zonder ontbijt (terugbetaling niet mogelijk)"). Tests: `node --test scripts/test_kamer_vanaf.mjs`;
+  `test_staging_spiegel.py` mockt de API (`--alleen-prijzen` alleen de prijschecks, `--prijzen-echt` ook de echte API).
+- /arrangementen-v2 (zelfde tak): `"_kop_spiegel": true` in `translations/arrangementen-nl.json` = build.py `w1_blokken(spiegel)` knipt
+  kop en voet in de spiegelstand (blokken gesloten + spiegel, `vul_spiegel_links`) en `spiegel_inhoud` zet inhoudslinks naar
+  asteria.nl-kamers/wellness/restaurant/omgeving/contact en de kamerpagina's in `#lp-kamerdata` (Comfort/Deluxe -> spiegel, rest
+  /kamers) om. Feestdagkaarten (Kerst, Oud & Nieuw) blijven naar www.asteria.nl/arrangementen/... Zonder de vlag is de uitvoer gelijk aan main.
 - Test: `python3 -m http.server 8781 --directory .` + `python3 scripts/test_staging_spiegel.py [--basis URL] [--schermafdruk map]
-  [--zonder-staging]` (pixelverschil staging/spiegel op 390 en 1440, 404's, consolefouten, overloop, kop/tags, link-allowlist, menu,
+  [--zonder-staging]` (ook /arrangementen-v2: 404's, console, overloop, allowlist, menu, drawer, Mews; geen pixelvergelijking) (pixelverschil staging/spiegel op 390 en 1440, 404's, consolefouten, overloop, kop/tags, link-allowlist, menu,
   drawer, Mews-stub, nieuwsbrief-mock, contact-mailto). Op een preview (`--basis https://...pages.dev`) de nette adressen.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
