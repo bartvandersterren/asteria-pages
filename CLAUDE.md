@@ -313,6 +313,14 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   - Test: `python3 scripts/test_arr_kalender.py http://localhost:8765/najaarsarrangement.html [--echt] [--schermafdruk qa/arr-kalender]`
     (mockt /api/arr-kalender; `--echt` tegen `npx wrangler pages dev . --port 8788` of de preview). `test_lander_w1.py` zet de
     kalender in arrangementmodus uit (lege arrangement-kalender.js), zodat de oude Mews-checks blijven gelden.
+- **Live vanaf-prijs (nov 2026, PR #179, pas live na merge):** `functions/api/arr-vanaf.js` (`GET /api/arr-vanaf?codes=WELLNESS2026,...`)
+  met de kern in `arr-vanaf-kern.js`: laagste echte prijs (berekende zondagkorting telt niet) van de standaardkamer in de komende
+  56 dagen, EUR ceil(cent/100/2) zoals de kalendercel (p.p. per nacht, bij vaste nachten p.p. voor het verblijf). Dagprijzen via de
+  eigen `/api/arr-kalender` (per maand/deel, na elkaar: parallel gaf 429 van Mews); onbekende code overgeslagen, geen prijs/fout = null.
+  Edge-cache 3 uur (5 min als onvolledig), CORS *. Pagina: build.py `markeer_vanaf` zet `data-arr-vanaf="<CODE>"` om het bedrag in
+  hero-pil, zij-/telefoonkaart, inbegrepen-regel, onderbalk en Ook-interessant (code via slug); vaste JSON-prijs = terugval;
+  `arr-vanaf.js` vervangt alleen het bedrag. Zondagblok en kamerprijzen blijven vast. Flow-landers en hotel-venray-v2 laden het niet.
+  Tests: `node --test scripts/test_arr_vanaf.mjs`, `python3 scripts/test_arr_vanaf_pagina.py [--basis URL]` (gemockte API, fout, null).
 - Mews: NAJAAR2D geeft op config 6dc9094c alleen een tarief voor de Deluxe kamer (14 okt 2026: EUR 257 voor 2 p.); Suite en
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
   geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).

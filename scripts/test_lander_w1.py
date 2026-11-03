@@ -132,6 +132,7 @@ def nieuwe_pagina(b, w, h, mob, rustig=False):
     # scratchcard-pop-up (blok 'scratchcard') uit voor deze test; eigen test: scripts/test_scratchcard_2026.py
     ctx.add_init_script("try{localStorage.setItem('ec_converted','1')}catch(e){}")
     ctx.route('**/api/track', lambda r: r.fulfill(status=204, body=''))   # D1-events (analytics-d1.js), lokaal geen Function
+    ctx.route('**/api/arr-vanaf*', lambda r: r.fulfill(status=200, content_type='application/json', body='{"ok":true,"prijzen":{}}'))   # live vanaf-prijs: eigen test scripts/test_arr_vanaf_pagina.py
     ctx.add_init_script(ANKERS)
     if PRIJS:
         # De prijskalender (arrangement-kalender.js) vangt de boekknoppen en de boekbalk af; die heeft een eigen test

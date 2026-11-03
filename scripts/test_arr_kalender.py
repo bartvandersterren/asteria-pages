@@ -107,6 +107,7 @@ with sync_playwright() as p:
         ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
         # de echte Mews-widget niet laden (de test stubt window.mewsApi)
         ctx.route('**/distributor.min.js', lambda r: r.fulfill(status=200, content_type='application/javascript', body=''))
+        ctx.route('**/api/arr-vanaf*', lambda r: r.fulfill(status=200, content_type='application/json', body='{"ok":true,"prijzen":{}}'))   # live vanaf-prijs: eigen test scripts/test_arr_vanaf_pagina.py
         if not ECHT:
             ctx.route('**/api/arr-kalender*', mock)
         pg = ctx.new_page(); fouten = []

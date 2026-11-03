@@ -708,6 +708,7 @@ def apply_arrangement(html, data):
         html = html.replace(' data-boekbalk ', f' data-boekbalk data-nachten="{nachten}" ')
     if '{{KAL_KOP}}' in html:
         html = apply_kalender(html, data, kamers, nachten)
+        html = markeer_vanaf(html, data['VOUCHER'])
 
     wolk = data.get('_fotowolk')
     if wolk:
@@ -731,6 +732,33 @@ def apply_arrangement(html, data):
 
 WEEKDAGEN = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag']
 KALENDER_JSON = os.path.join(base, 'content', 'arr-kalender.json')
+
+
+def markeer_vanaf(html, code):
+    """Live vanaf-prijs (arr-vanaf.js + /api/arr-vanaf, alleen blok 'arrangement'): zet data-arr-vanaf="<CODE>" om het
+    bedrag in de hero-pil, de zijkaart/telefoonkaart, de inbegrepen-regel en de onderbalk; de vaste prijs uit de JSON
+    blijft de server-side terugval. De Ook-interessant-kaarten krijgen de code van hun eigen arrangement (slug uit
+    content/arr-kalender.json; /najaarsarrangement = NAJAAR2D). Zondagblok en kamerprijzen blijven vast."""
+    bedrag = r'€\s?[0-9.]+(?:,[0-9]{2})?'
+    attr = f' data-arr-vanaf="{code}"'
+    # pil is inline-flex: de hele tekst in één span, anders worden 'vanaf', bedrag en eenheid losse flex-items
+    html = re.sub(r'<span class="b1a-prijspil">([^<]*?)(' + bedrag + r')([^<]*)</span>',
+                  lambda m: f'<span class="b1a-prijspil"><span>{m.group(1)}<span{attr}>{m.group(2)}</span>{m.group(3)}</span></span>', html)
+    html = html.replace('<b class="b1k-prijs-bedrag">', f'<b class="b1k-prijs-bedrag"{attr}>')
+    html = html.replace('<p class="ar-inb-prijs">vanaf <b>', f'<p class="ar-inb-prijs">vanaf <b{attr}>')
+    html = re.sub(r'(<div class="mob-cta"[\s\S]*?<span class="om">[^<]*?)(' + bedrag + ')', lambda m: f'{m.group(1)}<span{attr}>{m.group(2)}</span>', html, count=1)
+    # vaste en live bedrag allebei met een harde spatie: '€' en het getal breken nooit over twee regels
+    html = re.sub(r'(<(?:span|b)[^>]*data-arr-vanaf="[A-Z0-9]+"[^>]*>)€ ', r'\1€&nbsp;', html)
+    with open(os.path.join(base, 'content/arr-kalender.json'), encoding='utf-8') as f:
+        per_slug = {v['slug']: k for k, v in json.load(f).items()}
+    if 'najaarsarrangement-v2' in per_slug:
+        per_slug.setdefault('najaarsarrangement', per_slug['najaarsarrangement-v2'])
+    def ander(m):
+        c = per_slug.get(m.group(2).rstrip('/').rsplit('/', 1)[-1])
+        return m.group(0).replace('<span class="ar-ander-prijs">vanaf <b>', f'<span class="ar-ander-prijs">vanaf <b data-arr-vanaf="{c}">') if c else m.group(0)
+    html = re.sub(r'(<a class="ar-ander" href="([^"]+)">[\s\S]*?</a>)', ander, html)
+    html = re.sub(r'(<b data-arr-vanaf="[A-Z0-9]+">)€ ', r'\1€&nbsp;', html)
+    return html
 
 
 def apply_kalender(html, data, kamers, nachten):
