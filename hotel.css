@@ -218,3 +218,7 @@
 @media (min-width:1024px){
   .lp .b1a:not(.b1a--sub) .b1a-tekst h1{font-size:var(--text-hero);line-height:var(--leading-tight);letter-spacing:-.02em}
 }
+
+/* Bureaublad: alle drie de trust-vinkjes op één regel onder de boekbalk (telefoon: .hb-trust onder de boekkaart) */
+.lp .b1a-regel--trust{list-style:none;padding:0;flex-wrap:wrap;gap:6px 24px}
+.lp .b1a-regel--trust li{display:inline-flex;align-items:center;gap:8px}

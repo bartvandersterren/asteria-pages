@@ -173,7 +173,8 @@ TEMPLATES = {
             'nl': ('hotel-venray-v2.html', 'translations/hotel-venray-v2-nl.json'),
         },
         'reviews': 'content/reviews-google-asteria.json',
-        'blokken': {'hotel': True},
+        # 'trustrij': op het bureaublad alle drie de KAART_VINK_* onder de boekbalk in plaats van de ene BOEKBALK_NOOT
+        'blokken': {'hotel': True, 'trustrij': True},
     },
     # Kamertypes in de nieuwe stijl (nabouw staging /kamers/; live /kamertypes blijft de oude build_kamers.py-pagina tot akkoord):
     # lander-w1 met blokken 'hotel' (geen actiecode, hotel.css, arrangementenstrook ho-arr) + 'kamertypes' (kamertypes-v2.css/.js,
