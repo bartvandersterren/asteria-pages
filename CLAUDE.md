@@ -240,6 +240,38 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Faciliteit-pop-up met video: `_fac_video` {sleutel: pad} in de JSON (hotel-venray-v2: wellness -> videos/wellness-walk-pop.mp4,
   fitness -> videos/gym-pop.mp4, lichte H.264-varianten 960 px zonder audio); lander-w1.js vulFac maakt het `<video>` pas aan als er
   een video is (HTML van andere pagina's gelijk), poster = eerste foto, reduced motion = foto. Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.
+- Spiegelstand (3 nov 2026, hotel-venray-v2): `"GESLOTEN_LANDER": "spiegel"` = inhoud als de gesloten lander (blok `gesloten`:
+  kamerknoppen en faciliteit-pop-upknop = Bekijk beschikbaarheid), maar kop (utility-balk met Contact, menu met submenu's Hotel en
+  Over ons, hamburger + drawer) en voet (Verblijf/Bij ons/Contact, socials) volledig zoals de staging (blok `spiegel`; de gesloten kop/voet
+  heet nu blok `kopdicht` en staat alleen aan bij `true`). Alle menu-/voetlinks staan in het sjabloon als `href="spiegel:<sleutel>"`
+  en komen uit `translations/spiegel-links.json` (build.py `vul_spiegel_links`; stopt bij een onbekende sleutel of een asteria.nl-link
+  behalve privacy/voorwaarden). `OVERZICHT_ARR_URL`/`OVERZICHT_KAMERS_URL` = `spiegel:arrangementen`/`spiegel:kamers`; extra knoppen
+  Alle faciliteiten, Plan een dag in de buurt, Neem contact op; faciliteit-pop-ups krijgen `info` (lander-w1.js: tekstlink Meer
+  informatie naast Bekijk beschikbaarheid). Geen Zalen & feesten, FAQ, Werken bij of taalkeuze. `true` = weer gesloten, `false` = oude
+  volledige kop met asteria.nl-links.
+
+### Spiegel van de Effecty-staging (3 nov 2026, tak feature/staging-spiegel)
+
+- `python3 scripts/staging_spiegel.py` haalt de NL-pagina's van asteria.staging.effectytools.com op (statische HTML, gewone requests
+  volstaan) en schrijft ze als `home-nieuw.html` (/home-nieuw, niet gelinkt), `kamers.html`, `kamers/comfort-kamer.html`,
+  `kamers/deluxe-kamer.html`, `faciliteiten.html`, `wellness.html`, `restaurant.html`, `omgeving.html`, `over-ons.html`, `contact.html`.
+  Niet met de hand bewerken: opnieuw draaien ververst alles. Niet gespiegeld: /arrangementen/ (eigen /arrangementen-v2, PR #180),
+  /vergaderen/ en alles van Zalen & feesten (besluit Stijn), /bookingEngine/ (= Mews), EN/DE.
+- Assets in `nieuw-assets/` (staging /assets/x -> /nieuw-assets/x, ?v= weg, byte-gelijke fonts uit fonts/ hergebruikt, ongebruikte
+  bestanden worden opgeruimd). `page-interactions.js` krijgt alleen MEWS_ENTRY = Mews-distributor.
+- Linkset `translations/spiegel-links.json`: `paginas` (sleutel = data-link van de staging -> adres), `arrangementenoverzicht`,
+  `arrangementen` (trefwoord in knoptekst/kaartkop -> eigen lander-w1-arrangement, anders het overzicht), `weg` (links eruit: menu-item,
+  voetlink, knop of tegel; in lopende tekst blijft de tekst), `spiegel` (staging-pad -> bestand + sleutel). Naar de echte asteria.nl =
+  adressen in `paginas` vervangen en spiegel + hotel-venray-v2 opnieuw bouwen.
+- Boeken: /bookingEngine/, #boeking (kop, drawer, voet) en niet-gebouwde kamerdetails -> `data-mews-open` + Mews-URL (kamer via
+  `data-room`); `spiegel.js` (eigen, niet gespiegeld) opent in de capture-fase de Mews-widget met datums/volwassenen/kamertype van de
+  staging-boekkaart (`window.__asteriaBooking`), terugval na 4 s de distributor-URL; conversie GA4 purchase + Ads zoals lander-w1.js.
+  Formulieren: nieuwsbrief (voet + blok) -> `/api/nieuwsbrief` (Klaviyo, bron pagina); contactformulier -> mailto info@asteria.nl met
+  de velden. Plus GA4/Ads-tags en cookiemelding zoals hotel-venray-v2 (`spiegel.css`). Alles noindex, follow, canonical/og:url op het
+  eigen adres, niet in sitemap.xml.
+- Test: `python3 -m http.server 8781 --directory .` + `python3 scripts/test_staging_spiegel.py [--basis URL] [--schermafdruk map]
+  [--zonder-staging]` (pixelverschil staging/spiegel op 390 en 1440, 404's, consolefouten, overloop, kop/tags, link-allowlist, menu,
+  drawer, Mews-stub, nieuwsbrief-mock, contact-mailto). Op een preview (`--basis https://...pages.dev`) de nette adressen.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 

@@ -136,7 +136,7 @@
 }
 /* Pop-up van een plek: fotoregel (naamsvermelding Wikimedia Commons) onder de knoppen; Route plannen = .lp-pop__link */
 .lp .lp-pop__credit{margin-top:14px;font-size:12px;line-height:1.45;color:var(--ink-soft)}
-.lp .lp-pop__credit[hidden],.lp .lp-pop__route[hidden]{display:none}
+.lp .lp-pop__credit[hidden],.lp .lp-pop__route[hidden],.lp .lp-pop__info[hidden]{display:none}
 
 /* ---------- 3. Arrangementen: fotokaarten in een veegrij met peek ---------- */
 @media (min-width:720px){ .lp .ho-arr>.wrap{width:min(1216px,100% - 2 * var(--gutter))} }
