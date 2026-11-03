@@ -576,21 +576,30 @@ with sync_playwright() as p:
                   kaarten:[...arr.querySelectorAll('a.ho-arr-kaart')].map(a=>!!a.querySelector('img')&&!!a.querySelector('.ho-arr-naam').innerText).filter(Boolean).length,
                   euro:[fac,omg,arr].some(e=>e.innerText.includes('\u20ac')),
                   arrVeeg:(r=>r.scrollWidth>r.clientWidth)(arr.querySelector('.ho-arr-rij')),
-                  h1:q('.b1a h1').innerText,badge:q('.b1a-rb .rb-reviews').innerText,code:!!q('#bb-code'),pil:[...document.querySelectorAll('.b4b-pil')].some(p=>p.offsetParent)}})()""")
+                  h1:q('.b1a h1').innerText,sub:(q('.b1a-sub')||{offsetHeight:0}).offsetHeight,badge:q('.b1a-rb .rb-reviews').innerText,code:!!q('#bb-code'),pil:[...document.querySelectorAll('.b4b-pil')].some(p=>p.offsetParent)}})()""")
             v = hb['volg']
             check(f'{tag} blokvolgorde ster-split > kamers > faciliteiten > omgeving > arrangementen > reviews > FAQ > slot', all(x >= 0 for x in v) and v == sorted(v), str(v))
-            check(f'{tag} hero: kop Hotel Asteria Venray, badge 2.200+ reviews, geen actiecodeveld', hb['h1'].replace('\n', ' ') == 'Hotel Asteria Venray' and '2.200+' in hb['badge'] and not hb['code'], f"{hb['h1']} / {hb['badge']}")
+            check(f'{tag} hero: kop Even weg, helemaal hier (zonder introalinea), badge 2.200+ reviews, geen actiecodeveld', ' '.join(hb['h1'].split()) == 'Even weg, helemaal hier' and hb['sub'] == 0 and '2.200+' in hb['badge'] and not hb['code'], f"{hb['h1']} / {hb['badge']}")
             check(f'{tag} ster-split "Een verblijf dat bij je past"', hb['ster'] and 'verblijf dat bij je' in hb['sterKop'].replace('\n', ' '), hb['sterKop'])
             check(f'{tag} faciliteiten: tekstkaart, 5 tegels, extra punten, elke tegel opent een pop-up',
                   hb['kaart'] and hb['tegels'] == 5 and hb['extra'] >= 1 and hb['facKnoppen'] == 'wellness,restaurant,fitness,parkeren,fietsen', str(hb))
             if mob:
-                mz = pg.evaluate("""(()=>{const t=[...document.querySelectorAll('.ho-fac-tegel')].map(x=>{const r=x.getBoundingClientRect(),
-                    a=getComputedStyle(x.querySelector('.ho-fac-tekst'),'::after');return {l:Math.round(r.left),t:Math.round(r.top),w:Math.round(r.width),h:Math.round(r.height),
-                    pijl:a.content!=='none'&&a.backgroundColor!=='rgba(0, 0, 0, 0)',p:getComputedStyle(x.querySelector('p')).display}});return t})()""")
-                L, R = mz[0], mz[1]
-                ok = (mz[0]['h'] > mz[1]['h'] and mz[2]['h'] > mz[3]['h'] and mz[0]['l'] < mz[1]['l'] and mz[1]['l'] == mz[2]['l']
-                      and mz[3]['l'] == mz[0]['l'] and mz[4]['w'] > mz[0]['w'] * 1.8 and all(x['pijl'] and x['p'] == 'none' for x in mz))
+                mz = pg.evaluate("""(()=>[...document.querySelectorAll('.ho-fac-tegel')].map(x=>{const r=x.getBoundingClientRect(),
+                    a=getComputedStyle(x.querySelector('.ho-fac-tekst'),'::after');return {n:x.querySelector('h3').innerText.trim(),l:Math.round(r.left),
+                    t:Math.round(r.top+scrollY),w:Math.round(r.width),h:Math.round(r.height),
+                    pijl:a.content!=='none'&&a.backgroundColor!=='rgba(0, 0, 0, 0)',p:getComputedStyle(x.querySelector('p')).display}}))()""")
+                # volgorde-onafhankelijk: één brede tegel (onderaan), de andere vier in twee kolommen: links hoog boven laag, rechts laag boven hoog
+                smal = min(x['w'] for x in mz)
+                breed = [x for x in mz if x['w'] > smal * 1.8]
+                rest = [x for x in mz if x not in breed]
+                links = sorted([x for x in rest if x['l'] == min(y['l'] for y in rest)], key=lambda x: x['t'])
+                rechts = sorted([x for x in rest if x['l'] != min(y['l'] for y in rest)], key=lambda x: x['t'])
+                ok = (len(breed) == 1 and len(links) == 2 and len(rechts) == 2
+                      and links[0]['h'] > links[1]['h'] and rechts[0]['h'] < rechts[1]['h']
+                      and breed[0]['t'] > max(x['t'] + x['h'] for x in rest) - 1
+                      and all(x['pijl'] and x['p'] == 'none' for x in mz))
                 check(f'{tag} faciliteiten als staging-mozaiek: links hoog+laag, rechts laag+hoog, brede tegel onder, pijl, geen omschrijving', ok, str(mz))
+                check(f'{tag} brede tegel onderaan is Restaurant en brasserie', len(breed) == 1 and breed[0]['n'] == 'Restaurant en brasserie', str([x['n'] for x in breed]))
             check(f'{tag} omgeving: 3-5 rijen, kop "Even weg, alles vlakbij"', 3 <= hb['rijen'] <= 5 and 'alles vlakbij' in hb['omgKop'], str(hb['rijen']))
             check(f'{tag} arrangementen: kaarten met foto en naam, veegrij', hb['kaarten'] >= 3 and hb['arrVeeg'], str(hb['kaarten']))
             check(f'{tag} geen prijzen in faciliteiten, omgeving en arrangementen; geen pil op de kamerkaarten', not hb['euro'] and not hb['pil'])
@@ -735,6 +744,12 @@ with sync_playwright() as p:
                 check(f'{tag} trustkaart: geen foto, label, titel of scorevak; begint met de vinkjes, padding boven = zijkant; 3 vinkjes, knop, regel',
                       tk['trust'] and tk['foto'] == 0 and tk['titel'] == 0 and tk['eerste'] == 'b1k-vinkjes' and tk['pt'] == tk['pl'] and tk['mt'] == '0px'
                       and tk['vink'] == 3 and tk['knop'] == 'Bekijk beschikbaarheid' and tk['regel'] == 'Boek direct bij het hotel' and tk['score'] == 0, str(tk))
+                ov = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart').getBoundingClientRect(),f=document.querySelector('.b1a-foto').getBoundingClientRect(),
+                    t=document.querySelector('.b1a-tekst h1').getBoundingClientRect(),g=document.querySelector('.b1a-rb').getBoundingClientRect(),
+                    z=+getComputedStyle(document.querySelector('.b1a-onder')).zIndex;
+                    return {overlap:Math.round(f.bottom-k.top),tekstVrij:Math.round(k.top-t.bottom),badge:g.bottom<=k.top||g.top>=k.bottom,z}})()""")
+                check(f'{tag} trustkaart overlapt de hero (60-80 px), herotekst en Google-badge blijven vrij, kaart boven de video',
+                      60 <= ov['overlap'] <= 80 and ov['tekstVrij'] >= 16 and ov['badge'] and ov['z'] >= 3, str(ov))
                 if shotdir:
                     pg.evaluate("window.scrollTo(0, document.querySelector('.b1a-mobkaart').getBoundingClientRect().top + scrollY - 260)"); pg.wait_for_timeout(500)
                     pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-kaart.png')

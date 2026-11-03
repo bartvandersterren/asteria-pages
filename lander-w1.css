@@ -1103,6 +1103,15 @@ html.lp-pop-vast{overflow:hidden;scrollbar-gutter:stable}
   .lp .b1a-onder{margin-top:24px}
   .lp .b1k-kaart--mob{position:static;box-shadow:var(--shadow-card)}
 }
+/* Trustkaart op de telefoon (blok 'trustkaart'): de kaart overlapt de onderrand van de hero zoals de boekbalk-kaarten op de
+   staging (72 px omhoog, diepere schaduw); de herotekst krijgt evenveel extra ruimte onderaan. Alleen met .b1k-kaart--trust. */
+@media (max-width:719px){
+  .lp .b1a:has(.b1k-kaart--trust) .b1a-tekst{padding-bottom:calc(52px + 72px)}
+  .lp .b1a-onder:has(.b1k-kaart--trust){margin-top:-72px;position:relative;z-index:3}
+  .lp .b1k-kaart--mob.b1k-kaart--trust{box-shadow:var(--shadow-deep)}
+}
+/* Hero zonder introalinea (SUB leeg, zoals de staging-homepage): geen lege regel onder de kop */
+.lp .b1a-sub:empty{display:none}
 
 /* onderbalk telefoon als zwevende balk met belknop (huisstijlhoeken): 60 px hoog, 6 px binnenrand,
    knoppen 48 px; buitenhoek = knophoek (--radius-btn 4) + 6 = 10 px, zodat de rondingen meelopen. Belknop rond. */
