@@ -195,8 +195,9 @@ with sync_playwright() as p:
                                                                            'royale-kamer', 'deluxe-kamer', 'junior-suite', 'suite', 'bruidssuite')]
         check('[bron] geen links naar /kamertypes of de oude kamerpagina\'s, geen kamerpaginalink in de pop-up',
               not kamerp and 'lp-pop__link' not in bron, str(kamerp))
-        check('[bron] Alle arrangementen -> /arrangementen-v2; geen Bekijk alle kamers (OVERZICHT_KAMERS_URL leeg)',
-              '<a class="btn btn-secondary" href="/arrangementen-v2">Alle arrangementen</a>' in bron and 'Bekijk alle kamers' not in bron and 'href=""' not in bron)
+        # OVERZICHT_ARR_URL is leeg tot /arrangementen-v2 live staat (PR #180); dan weer '/arrangementen-v2' verwachten.
+        check('[bron] geen Alle arrangementen en geen Bekijk alle kamers zolang de overzichten niet live zijn (OVERZICHT_*_URL leeg)',
+              'Alle arrangementen' not in bron and 'Bekijk alle kamers' not in bron and 'href=""' not in bron)
         check('[bron] kamerknoppen heten Bekijk beschikbaarheid (8 kaarten + pop-up), met data-room',
               len(_re.findall(r'data-room="[^"]+"[^>]*>Bekijk beschikbaarheid</a>', bron)) >= 8 and '>Boek deze kamer<' not in bron and '>Boek nu</a><button' not in bron)
         check('[bron] voet alleen logo, adres, contact en juridisch (geen kolommen, geen socials)',
