@@ -839,7 +839,9 @@ def build(template_name, lang):
     if translations.get('HERO_VIDEO'):
         translations.setdefault('HERO_VIDEO_MOBIEL', translations['HERO_VIDEO'])
         translations.setdefault('HERO_VIDEO_POSTER', translations.get('HERO_IMG', ''))
-    aan = ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+    # Trustkaart (blok 'trustkaart'): KAART_IMG staat leeg in de JSON = boekkaart (telefoon onder de hero, zijkaart) zonder
+    # foto, pil en titel; de kaart begint met het Google-scorevak (alleen de varianten zonder blok 'arrangement').
+    aan = ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
     if 'arrangement' in aan:

@@ -39,6 +39,7 @@ Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondag
 
 Algemene hotellander (blok 'hotel', zonder actiecode; hotel-venray-v2):
   ... http://localhost:8765/hotel-venray-v2.html --hotel [--schermafdruk map]
+Trustkaart (blok 'trustkaart', KAART_IMG leeg): telefoonkaart zonder foto/label/titel, begint met het scorevak.
 Met --hotel: voucher leeg (geen setVoucherCode, geen mewsVoucherCode/data-voucher in de links, geen actiecodeveld),
 geen tegelstrook, geen uitklaptab en geen zijkaart; ster-split aanwezig; blokvolgorde kamers > faciliteiten > omgeving >
 arrangementen > reviews > FAQ > slot; faciliteiten = tekstkaart + 5 tegels (Wellness/Restaurant openen de faciliteit-pop-up,
@@ -690,6 +691,18 @@ with sync_playwright() as p:
                 return {kaart:r.height>(window.__arr?150:300)&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
                         knop:kn&&kn.classList.contains('mews-open')&&(kn.dataset.voucher||'')===%r}})()""" % VOUCHER)
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
+            if HOTEL:
+                tk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),b=k.querySelector('.b1k-body'),c=getComputedStyle(b),
+                    s=b.firstElementChild;return {trust:k.classList.contains('b1k-kaart--trust'),foto:k.querySelectorAll('img, .b1k-kfoto, .b1k-pill').length,
+                    titel:k.querySelectorAll('h2, .b1k-kop').length,eerste:s.className,vink:k.querySelectorAll('.b1k-vinkjes li').length,
+                    knop:(k.querySelector('.b1k-knop')||{}).innerText,regel:(k.querySelector('.b1k-trust')||{}).innerText,
+                    score:k.querySelector('.b1k-score').innerText.replace(/\\s+/g,' '),pt:c.paddingTop,pl:c.paddingLeft,mt:getComputedStyle(s).marginTop}})()""")
+                check(f'{tag} trustkaart: geen foto, label of titel; begint met het scorevak, padding boven = zijkant; 3 vinkjes, knop, regel',
+                      tk['trust'] and tk['foto'] == 0 and tk['titel'] == 0 and tk['eerste'] == 'b1k-score' and tk['pt'] == tk['pl'] and tk['mt'] == '0px'
+                      and tk['vink'] == 3 and tk['knop'] == 'Bekijk beschikbaarheid' and tk['regel'] == 'Boek direct bij het hotel' and '2.280' in tk['score'], str(tk))
+                if shotdir:
+                    pg.evaluate("window.scrollTo(0, document.querySelector('.b1a-mobkaart').getBoundingClientRect().top + scrollY - 260)"); pg.wait_for_timeout(500)
+                    pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-kaart.png')
         else:
             # boekbalk (laatst, laadt de Mews-widget)
             if PRIJS:

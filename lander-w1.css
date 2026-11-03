@@ -880,6 +880,9 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .lp .b1k-kfoto img{width:100%;height:100%;object-fit:cover;display:block}
 .lp .b1k-pill{position:absolute;left:16px;bottom:16px;display:inline-flex;align-items:center;background:var(--terracotta);color:var(--surface);border-radius:var(--radius-pill);padding:5px 12px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;line-height:1.4}
 .lp .b1k-body{padding:22px 24px 24px}
+/* trustkaart (blok 'trustkaart', KAART_IMG leeg): geen foto en titel, de kaart begint met het scorevak; bovenin even veel ruimte als opzij */
+.lp .b1k-kaart--trust .b1k-body{padding-top:24px}
+.lp .b1k-kaart--trust .b1k-score{margin-top:0}
 .lp .b1k-kop{font-family:var(--font-display);font-weight:700;font-size:var(--h4);line-height:1.2;letter-spacing:0;color:var(--ink);margin:0}
 .lp .b1k-cadeau{display:flex;align-items:center;gap:12px;margin-top:14px;font-size:var(--text-sm);line-height:1.35;font-weight:600;color:var(--terracotta-text)}
 .lp .b1k-cadeau-ic{display:inline-flex;align-items:center;justify-content:center;flex:none;width:36px;height:36px;border-radius:var(--radius-chip);background:var(--paper-shade-2);color:var(--terracotta)}
