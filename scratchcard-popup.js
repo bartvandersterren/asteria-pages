@@ -3,6 +3,11 @@
    Zelf-injecterend, meertalig (nl/en/de), Revinate-koppeling
    per taal. Analytics getagd als variant_email = 'B_scratchcard'.
    Wordt geladen door popup-ab.js (A/B-test tegen variant A).
+   Stijlvariant 2026 (nieuwe huisstijl, lander-w1): pagina zet vooraf
+   window.ScratchcardConfig = { stijl: '2026' } en laadt scratchcard-2026.css.
+   Dan: overlay data-stijl="2026", kraslaag in zand/goud, logo uit de sitekop,
+   vaste trigger (desktop exit-intent; telefoon 45% scroll of 20 s), focus-trap.
+   Zonder config blijft alles zoals het was.
 ══════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -11,6 +16,8 @@
   if (document.getElementById('scOverlay') || document.getElementById('ecOverlay')) return;
   if (localStorage.getItem('ec_converted')) return;
 
+  var CFG = window.ScratchcardConfig || {};
+  var S2026 = CFG.stijl === '2026';
   var AB = 'B_scratchcard';
   function track(event) { if (window.track) window.track(event, { variant_email: AB }); }
 
@@ -81,11 +88,16 @@
   var t = COPY[lang];
 
   var LOGO   = 'https://www.asteria.nl/images/logo-hotel-asteria.png';
+  if (S2026) { var kopLogo = document.querySelector('.main-nav .logo img'); if (kopLogo) LOGO = kopLogo.getAttribute('src'); }
   var PHOTO  = '/fotos/popup-welkomstpakket.webp';
   var SCRIB  = '/fotos/scratch-scribble.png';
   var col = { accent: '#c23435', accentDark: '#a82c2c', coverTop: '#ecd681',
               coverBottom: '#c8a63d', coverInk: 'rgba(255,255,255,0.72)',
               scribble: '#8a7330', heading: '#1a1a1a' };
+  if (S2026) {   // kraslaag in zand/goud van de nieuwe huisstijl
+    col.coverTop = '#F3E2C2'; col.coverBottom = '#D2A867'; col.scribble = '#8A5E2E';
+    col.coverInk = 'rgba(255,250,241,0.88)'; col.accent = '#C76E4E'; col.heading = '#442A06';
+  }
   var SCRIB_SCALE = 0.78, SCRIB_ALPHA = 0.6, SCRATCH_THRESHOLD = 0.5;
 
   // ── Styles ─────────────────────────────────────────────
@@ -224,6 +236,7 @@
     +   '</div>'
     + '</div>';
   document.body.appendChild(wrap.firstElementChild);
+  if (S2026) document.getElementById('scOverlay').setAttribute('data-stijl', '2026');
 
   // ── Refs ───────────────────────────────────────────────
   var overlay   = document.getElementById('scOverlay');
@@ -237,7 +250,23 @@
   var submitBtn = document.getElementById('scSubmit');
   var errorEl   = document.getElementById('scError');
 
-  function closePopup() { overlay.classList.remove('is-open'); }
+  var terugFocus = null;
+  function closePopup() {
+    overlay.classList.remove('is-open');
+    if (S2026 && terugFocus && terugFocus.focus) { try { terugFocus.focus(); } catch (e) {} }
+  }
+  // Focus-trap (stijl 2026): Tab blijft binnen de pop-up
+  if (S2026) overlay.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab') return;
+    var f = Array.prototype.filter.call(overlay.querySelectorAll('button, input:not([tabindex="-1"]), a[href]'), function (x) {
+      return x.offsetParent !== null && !x.disabled;
+    });
+    if (!f.length) return;
+    var eerste = f[0], laatste = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === eerste) { e.preventDefault(); laatste.focus(); }
+    else if (!e.shiftKey && document.activeElement === laatste) { e.preventDefault(); eerste.focus(); }
+    else if (!overlay.contains(document.activeElement)) { e.preventDefault(); eerste.focus(); }
+  });
   document.getElementById('scClose').addEventListener('click', closePopup);
   overlay.addEventListener('click', function (e) { if (e.target === overlay) closePopup(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePopup(); });
@@ -426,6 +455,7 @@
     overlay.classList.add('is-open');
     drawCover();
     track('email_popup_open');
+    if (S2026) { terugFocus = document.activeElement; setTimeout(function () { document.getElementById('scClose').focus(); }, 50); }
   }
   window.openScratchcard = openPopup;
 
@@ -433,6 +463,23 @@
   var paint = function () { drawCover(); };
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(paint); else window.addEventListener('load', paint);
   window.addEventListener('resize', function () { if (!revealed) { scratchedCount = 0; cells.fill(0); drawCover(); } });
+
+  // Stijl 2026: vaste trigger (geen A/B-timing): desktop exit-intent, telefoon 45% scroll of 20 s
+  if (S2026) {
+    if (!window.matchMedia('(max-width: 768px)').matches) {
+      document.addEventListener('mouseleave', function exitHandler(e) {
+        if (e.clientY <= 5) { document.removeEventListener('mouseleave', exitHandler); openPopup(); }
+      });
+    } else {
+      var timer = setTimeout(openPopup, 20000);
+      window.addEventListener('scroll', function onScroll26() {
+        if ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight >= 0.45) {
+          window.removeEventListener('scroll', onScroll26); clearTimeout(timer); openPopup();
+        }
+      }, { passive: true });
+    }
+    return;
+  }
 
   // Trigger-timing (zelfde als variant A)
   var variant = sessionStorage.getItem('ec_variant');

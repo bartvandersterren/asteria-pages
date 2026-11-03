@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, kamerdetailpagina in de nieuwe huisstijl (kamer-w1, nov 2026)
+  ----------------------------------------------------------------------------
+  Structuur 1-op-1 van de Effecty-staging /kamers/comfort-kamer/: kamertop (kruimelpad, titel, fotomozaiek met lightbox,
+  meelopende boekkaart, 'Deze kamer in het kort'), 'Wat er in de kamer staat', reviews, andere kamers, arrangement,
+  goed om te weten + veelgestelde vragen, contact, verder kijken. Kop, voet, onderbalk en cookiemelding komen uit
+  lander-w1.template.html (build.py render_kamer). Alle teksten staan in translations/kamer-<slug>-v2-nl.json.
+
+  Bouwen:  python3 build.py comfort-kamer-v2   (of een andere <slug>-v2)
+  Stijl:   lander-w1.css + kamer-w1.css (prefix km-)   Script: lander-w1.js + kamer-w1.js
+-->
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Royale kamer | Hotel Asteria Venray</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="Royale kamer bij Hotel Asteria in Venray: een tweepersoonsbed of twee eenpersoonsbedden naar keuze, een ruime zithoek en een eigen badkamer met douche en/of bad. Boek direct bij het hotel.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://visit.asteria.nl/royale-kamer-v2">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Royale kamer | Hotel Asteria Venray">
+  <meta property="og:description" content="Royale kamer bij Hotel Asteria in Venray: een tweepersoonsbed of twee eenpersoonsbedden naar keuze, een ruime zithoek en een eigen badkamer met douche en/of bad. Boek direct bij het hotel.">
+  <meta property="og:image" content="https://visit.asteria.nl/fotos/room-royale-1.webp">
+  <meta property="og:url" content="https://visit.asteria.nl/royale-kamer-v2">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="fotos/room-royale-1.webp" type="image/webp">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="kamer-w1.css">
+  <script src="lander-w1.js" defer></script>
+  <script src="kamer-w1.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    gtag('set', 'linker', { accept_incoming: true });
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "name": "Hotel Asteria",
+    "url": "https://www.asteria.nl",
+    "address": { "@type": "PostalAddress", "streetAddress": "Maasheseweg 80a", "postalCode": "5804 AD", "addressLocality": "Venray", "addressCountry": "NL" },
+    "telephone": "+31478511466",
+    "email": "info@asteria.nl",
+    "image": "https://visit.asteria.nl/fotos/room-royale-1.webp",
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "2280", "bestRating": "5" }
+  }
+  </script>
+</head>
+<body>
+
+<header class="top-stack top-stack--gesloten">
+  <nav class="main-nav" aria-label="Hoofdnavigatie">
+    <div class="inner">
+      <a href="/hotel-venray-v2" class="logo" aria-label="Hotel Asteria, naar het begin van de pagina">
+        <img alt="Hotel Asteria" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiMyMjFGMUYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iIzIyMUYxRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjMjIxRjFGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==">
+      </a>
+      <a href="tel:+31478511466" class="nav-phone" aria-label="Bel Hotel Asteria: 0478 511466">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <a href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556" class="btn btn-primary nav-cta mews-open">Boek nu</a>
+    </div>
+  </nav>
+</header>
+
+
+
+<main class="lp km">
+
+  <!-- ══ 1 KAMERTOP: kruimelpad, titel, fotomozaiek, boekkaart, deze kamer in het kort ══ -->
+  <section class="km-top" data-toon="paper" aria-labelledby="km-titel">
+    <div class="km-wrap">
+      <header class="km-kop">
+        <nav class="km-kruimel" aria-label="Kruimelpad">
+          <a href="/hotel-venray-v2">Hotel Asteria</a><span class="km-kr-sep" aria-hidden="true">&rsaquo;</span>
+          <span>Kamers en suites</span><span class="km-kr-sep" aria-hidden="true">&rsaquo;</span>
+          <span aria-current="page">Royale kamer</span>
+        </nav>
+        <h1 id="km-titel">Royale kamer</h1>
+        <p class="km-lead">Groter dan de Comfort kamer en net dat beetje extra. Een weekend weg, met tijd om je koffer uit te pakken en er even helemaal te zijn.</p>
+      </header>
+
+      <div class="km-raster">
+        <div class="km-galerij" data-n="3">
+        <button type="button" class="km-g-item km-g-groot" data-lb="1" aria-label="Vergroot deze foto: Royale kamer met tweepersoonsbed en zithoek bij het raam"><img src="fotos/room-royale-1.webp" alt="Royale kamer met tweepersoonsbed en zithoek bij het raam" width="1600" height="1068"></button>
+        <button type="button" class="km-g-item km-g-breed" data-lb="2" aria-label="Vergroot deze foto: Royale kamer met bureau en tv"><img src="fotos/room-royale-2.webp" alt="Royale kamer met bureau en tv" loading="lazy" width="1600" height="1068"></button>
+        <button type="button" class="km-g-item" data-lb="3" aria-label="Vergroot deze foto: Badkamer van de Royale kamer"><img src="fotos/room-royale-3.webp" alt="Badkamer van de Royale kamer" loading="lazy" width="1600" height="1068"></button>
+        <button type="button" class="km-g-alle" data-lb="0"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Bekijk alle foto's <span class="km-g-aantal">(4)</span></span></button>
+        </div>
+
+        <aside class="km-boek" aria-label="Royale kamer boeken">
+          <p class="km-prijs"><span class="km-vanaf">Vanaf</span><span class="km-bedrag">€&nbsp;123,30</span><span class="km-per">per kamer per nacht</span></p>
+          <p class="km-score"><span class="km-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span><b>4,2</b> op Google, ruim 2.200 reviews</span></p>
+          <ul class="km-usps"><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Gratis parkeren bij het hotel</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Gratis wifi en airco op de kamer</span></li><li><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Direct geboekt bij het hotel zelf</span></li></ul>
+          <a class="btn btn-primary km-knop mews-open" data-room="a8fd7310-0d61-422f-89e6-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms">Boek deze kamer</a>
+          <a class="btn btn-secondary km-knop" href="tel:+31478511466">Of bel 0478 511466</a>
+        </aside>
+
+        <div class="km-kort">
+          <h2>Deze kamer in het kort</h2>
+          <p>Een tweepersoonsbed of twee eenpersoonsbedden naar keuze, een ruime zithoek en een eigen badkamer met douche en/of bad.</p>
+          <ul class="km-specs" aria-label="Kenmerken">
+            <li class="km-spec"><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span><span class="km-spec-tekst">25 m²</span></li>
+            <li class="km-spec"><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg></span><span class="km-spec-tekst">tweepersoons of twinbeds</span></li>
+            <li class="km-spec"><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="km-spec-tekst">maximaal 2 gasten</span></li>
+            <li class="km-spec"><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM6 12V5a2 2 0 0 1 3.5-1.3M7 20l-1 2M17 20l1 2"/></svg></span><span class="km-spec-tekst">douche en/of bad</span></li>
+            <li class="km-spec"><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM6 19v2M18 19v2"/></svg></span><span class="km-spec-tekst">ruime zithoek</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 2 WAT ER IN DE KAMER STAAT: grote foto + overlappende kaart ══ -->
+  <section class="km-alles" data-toon="paper" aria-labelledby="km-alles-kop">
+    <div class="km-wrap km-alles-raster">
+      <figure class="km-alles-foto">
+        <img src="fotos/room-royale-2.webp" alt="Royale kamer met bureau en tv" loading="lazy" width="1600" height="1068">
+        <button type="button" class="km-pil-knop" data-lb="2"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Bekijk alle foto's <span class="km-g-aantal">(4)</span></span></button>
+      </figure>
+      <div class="km-alles-kaart">
+        <h2 id="km-alles-kop">Wat er in de kamer staat</h2>
+        <p>Het ruime gevoel merk je direct. Er is plek om je spullen kwijt te kunnen, je schuift in de zithoek aan met een kop koffie en aan het eind van de dag wacht een eigen badkamer.</p>
+        <ul class="km-fac">
+            <li><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM6 19v2M18 19v2"/></svg></span><span>Ruime zithoek met comfortabele stoelen</span></li>
+            <li><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM6 12V5a2 2 0 0 1 3.5-1.3M7 20l-1 2M17 20l1 2"/></svg></span><span>Badkamer met douche en/of bad</span></li>
+            <li><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v7H3zM6 9h12M7 16c0 1.5-1 2-1 3M12 16v3M17 16c0 1.5 1 2 1 3"/></svg></span><span>Airconditioning</span></li>
+            <li><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4zM6 2v2M10 2v2M14 2v2"/></svg></span><span>Koffie en thee op de kamer</span></li>
+            <li><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="13" rx="2"/><path d="M8 21h8M12 18v3"/></svg></span><span>Flatscreen-tv</span></li>
+            <li><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg></span><span>Gratis wifi</span></li>
+            <li><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4a5 5 0 1 0 0 10h6V4zM14 14l-2 7h-3l1-7M9 9h.01"/></svg></span><span>Föhn</span></li>
+            <li><span class="km-dot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11"/></svg></span><span>Toegang tot de fitnessruimte</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3 REVIEWS: donkere scorekaart + quote-kaarten (content/reviews-google-asteria.json) ══ -->
+  <section class="km-reviews" data-toon="paper" aria-labelledby="km-rev-kop">
+    <div class="km-wrap">
+      <header class="km-rev-kop">
+        <h2 id="km-rev-kop">Wat gasten over hun kamer zeggen</h2>
+        <p>Zo kijken gasten terug op hun verblijf bij Asteria.</p>
+      </header>
+      <div class="km-schuif" data-schuif>
+        <ul class="km-spoor km-rev-spoor" tabindex="0" aria-label="Google-reviews, schuif voor meer">
+          <li><a class="km-score-kaart" href="https://www.google.com/maps?cid=10392502528258527703" target="_blank" rel="noopener"><span class="km-sterren km-sterren--groot" role="img" aria-label="4,2 van 5 sterren"></span><span class="km-score-cijfer">4,2 <small>op 5</small></span><span class="km-score-onder"><b>Ruim 2.200 reviews</b><span>op Google.</span></span></a></li>
+          <li><figure class="km-rev"><svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg><blockquote>Uitstekend in alle opzichten: personeel, accommodaties, eten, kamers en prijzen</blockquote><figcaption><span class="km-rev-ini" aria-hidden="true">W</span><span><b>Wilson V.</b><span>Google &middot; een maand geleden</span></span></figcaption></figure></li>
+          <li><figure class="km-rev"><svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg><blockquote>Personeel was behulpzaam en vriendelijke. Onze kamer en badkamer was top.</blockquote><figcaption><span class="km-rev-ini" aria-hidden="true">F</span><span><b>Fia S.</b><span>Google &middot; 2 maanden geleden</span></span></figcaption></figure></li>
+          <li><figure class="km-rev"><svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg><blockquote>Mooi hotel. Kamers netjes, niet al te groot. Wel 2 fauteuils met tafeltje en een grote inloopdouche. Fijne airco. Geen koelkastje, wel koffie en thee op de kamer. Ontbijt is prima. Diner is heerlijk …</blockquote><figcaption><span class="km-rev-ini" aria-hidden="true">K</span><span><b>Karin Z.</b><span>Google &middot; 3 maanden geleden</span></span></figcaption></figure></li>
+          <li><figure class="km-rev"><svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg><blockquote>Hele fijne plek om geweest te zijn. Mooi hotel, aardige medewerkers, nette kamers, mooi restaurant met buiten. Heerlijk wat drinken buiten met prima uitzicht...op de (snel)weg na. Maar ikzelf had …</blockquote><figcaption><span class="km-rev-ini" aria-hidden="true">V</span><span><b>vanessa k.</b><span>Google &middot; 4 maanden geleden</span></span></figcaption></figure></li>
+          <li><figure class="km-rev"><svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg><blockquote>Uitstekend Lekker bed, kamers schoon en netjes. Locatie prima als uitvalsbasis, in ons geval event in Overloon</blockquote><figcaption><span class="km-rev-ini" aria-hidden="true">D</span><span><b>Dennis V.</b><span>Google &middot; 4 maanden geleden</span></span></figcaption></figure></li>
+          <li><figure class="km-rev"><svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg><blockquote>Heel goed hotel. Nette, ruime kamers. Grote gratis parkeerplaats. Uitgebreid ontbijt. Vriendelijk en behulpzaam personeel.</blockquote><figcaption><span class="km-rev-ini" aria-hidden="true">N</span><span><b>Nicole S.</b><span>Google &middot; 7 maanden geleden</span></span></figcaption></figure></li>
+          <li><figure class="km-rev"><svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg><blockquote>Geweldig mooi hotel en omgeving. Goed eten prachtige kamers en behulpzaam personeel. Geweest tijdens Horst Schaaktoernooi.</blockquote><figcaption><span class="km-rev-ini" aria-hidden="true">R</span><span><b>Rick W.</b><span>Google &middot; 8 maanden geleden</span></span></figcaption></figure></li>
+          <li><figure class="km-rev"><svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg><blockquote>Heerlijk genoten van een mooi dartweekend. Kamers top, medewerkers vriendelijk, ontbijt genoeg variatie. Gratis parkeren. Top geregeld</blockquote><figcaption><span class="km-rev-ini" aria-hidden="true">R</span><span><b>Roger V.</b><span>Google &middot; 9 maanden geleden</span></span></figcaption></figure></li>
+        </ul>
+        <div class="km-nav"><button type="button" class="km-pijl" data-richting="-1" aria-label="Vorige reviews"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="km-pijl" data-richting="1" aria-label="Volgende reviews"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 4 ANDERE KAMERS BIJ ASTERIA: slider, tekst links, foto rechts ══ -->
+  <section class="km-andere" data-toon="surface" aria-labelledby="km-andere-kop">
+    <div class="km-wrap">
+      <header class="km-sec-kop">
+        <h2 id="km-andere-kop">Andere kamers bij Asteria</h2>
+        <p>Twijfel je nog, dan denken we graag met je mee over de kamer die bij je past.</p>
+      </header>
+      <div class="km-schuif km-schuif--rand" data-schuif>
+        <ul class="km-spoor km-ak-spoor" tabindex="0" aria-label="Andere kamers, schuif voor meer">
+          <li class="km-ak"><article class="km-ak-kaart"><div class="km-ak-tekst"><h3>Comfort kamer</h3><p>Een comfortabele kamer voor twee, met alles voor een ontspannen verblijf.</p><span class="km-chip">22 m² · douche</span><p class="km-ak-prijs"><span class="km-ak-vanaf">Vanaf</span><b>€&nbsp;114,30</b><span>per kamer per nacht</span></p><span class="km-ak-knoppen"><a class="btn btn-primary mews-open" data-room="98900f3b-e5e2-49c9-9776-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=98900f3b-e5e2-49c9-9776-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek deze kamer: Comfort kamer">Boek deze kamer</a><a class="btn btn-secondary" href="/comfort-kamer-v2">Bekijk kamerdetails</a></span></div><div class="km-ak-foto"><img src="fotos/kamer-comfort-a.webp" alt="Comfort kamer met twee eenpersoonsbedden en zithoek" loading="lazy"></div></article></li>
+          <li class="km-ak"><article class="km-ak-kaart"><div class="km-ak-tekst"><h3>Comfort kamer 3 personen</h3><p>Extra ruimte voor families of vrienden, met drie eenpersoonsbedden.</p><span class="km-chip">22 m² · 3 bedden</span><p class="km-ak-prijs"><span class="km-ak-vanaf">Vanaf</span><b>€&nbsp;123,30</b><span>per kamer per nacht</span></p><span class="km-ak-knoppen"><a class="btn btn-primary mews-open" data-room="85ca19d7-eea5-41c8-8b93-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=85ca19d7-eea5-41c8-8b93-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek deze kamer: Comfort kamer 3 personen">Boek deze kamer</a><a class="btn btn-secondary" href="/comfort-kamer-3-personen-v2">Bekijk kamerdetails</a></span></div><div class="km-ak-foto"><img src="fotos/room-comfort-3-1.webp" alt="Comfort kamer met drie eenpersoonsbedden" loading="lazy"></div></article></li>
+          <li class="km-ak"><article class="km-ak-kaart"><div class="km-ak-tekst"><h3>Mindervalide kamer</h3><p>Ruim en aangepast, met een rolstoeltoegankelijke badkamer.</p><span class="km-chip">37 m² · aangepast</span><p class="km-ak-prijs"><span class="km-ak-vanaf">Vanaf</span><b>€&nbsp;114,30</b><span>per kamer per nacht</span></p><span class="km-ak-knoppen"><a class="btn btn-primary mews-open" data-room="fa5b6540-7234-49ce-beb1-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=fa5b6540-7234-49ce-beb1-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek deze kamer: Mindervalide kamer">Boek deze kamer</a><a class="btn btn-secondary" href="/mindervalide-kamer-v2">Bekijk kamerdetails</a></span></div><div class="km-ak-foto"><img src="fotos/room-mindervalide-1.webp" alt="Ruime mindervalide kamer met twee eenpersoonsbedden" loading="lazy"></div></article></li>
+          <li class="km-ak"><article class="km-ak-kaart"><div class="km-ak-tekst"><h3>Deluxe kamer</h3><p>Een eigen infraroodsauna op de kamer: wellness begint bij je deur.</p><span class="km-chip">25 m² · infraroodsauna</span><p class="km-ak-prijs"><span class="km-ak-vanaf">Vanaf</span><b>€&nbsp;132,30</b><span>per kamer per nacht</span></p><span class="km-ak-knoppen"><a class="btn btn-primary mews-open" data-room="c737de50-e41e-4c8d-a818-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=c737de50-e41e-4c8d-a818-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek deze kamer: Deluxe kamer">Boek deze kamer</a><a class="btn btn-secondary" href="/deluxe-kamer-v2">Bekijk kamerdetails</a></span></div><div class="km-ak-foto"><img src="fotos/room-deluxe-1.webp" alt="Deluxe kamer met tweepersoonsbed" loading="lazy"></div></article></li>
+          <li class="km-ak"><article class="km-ak-kaart"><div class="km-ak-tekst"><h3>Junior suite</h3><p>Kingsize bed, bad en een ruime zithoek met bedbank.</p><span class="km-chip">37 m² · bedbank</span><p class="km-ak-prijs"><span class="km-ak-vanaf">Vanaf</span><b>€&nbsp;141,30</b><span>per kamer per nacht</span></p><span class="km-ak-knoppen"><a class="btn btn-primary mews-open" data-room="27ea8deb-ded5-4856-8fdd-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=27ea8deb-ded5-4856-8fdd-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek deze kamer: Junior suite">Boek deze kamer</a><a class="btn btn-secondary" href="/junior-suite-v2">Bekijk kamerdetails</a></span></div><div class="km-ak-foto"><img src="fotos/kamer-junior-suite.webp" alt="Junior suite met kingsize bed en ruime zithoek" loading="lazy"></div></article></li>
+          <li class="km-ak"><article class="km-ak-kaart"><div class="km-ak-tekst"><h3>Suite</h3><p>Onze ruimste kamer, met eigen infraroodsauna en royale zithoek.</p><span class="km-chip">40 m² · infraroodsauna</span><p class="km-ak-prijs"><span class="km-ak-vanaf">Vanaf</span><b>€&nbsp;150,30</b><span>per kamer per nacht</span></p><span class="km-ak-knoppen"><a class="btn btn-primary mews-open" data-room="4a642b66-68e6-444c-beeb-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms" aria-label="Boek deze kamer: Suite">Boek deze kamer</a><a class="btn btn-secondary" href="/suite-v2">Bekijk kamerdetails</a></span></div><div class="km-ak-foto"><img src="fotos/room-suite-1.webp" alt="Suite met kingsize bed en zithoek" loading="lazy"></div></article></li>
+          <li class="km-ak"><article class="km-ak-kaart"><div class="km-ak-tekst"><h3>Bruidssuite</h3><p>Vrijstaand ligbad, ruime inloopdouche en een romantische sfeer.</p><span class="km-chip">36 m² · ligbad</span><p class="km-ak-prijs"><span class="km-ak-vanaf">Vanaf</span><b>€&nbsp;177,30</b><span>per kamer per nacht</span></p><span class="km-ak-knoppen"><a class="btn btn-primary mews-open" data-room="a9f18d18-561b-47a9-8ba7-b2a800cfd0e2" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms" aria-label="Boek deze kamer: Bruidssuite">Boek deze kamer</a><a class="btn btn-secondary" href="/bruidssuite-v2">Bekijk kamerdetails</a></span></div><div class="km-ak-foto"><img src="fotos/room-bruidssuite-1.webp" alt="Bruidssuite met kingsize bed" loading="lazy"></div></article></li>
+        </ul>
+        <div class="km-nav"><button type="button" class="km-pijl" data-richting="-1" aria-label="Vorige kamers"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="km-pijl" data-richting="1" aria-label="Volgende kamers"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 5 ARRANGEMENT: foto met overlappende kaart ══ -->
+  <section class="km-featured" data-toon="surface" aria-labelledby="km-feat-kop">
+    <div class="km-wrap">
+      <div class="km-feat">
+        <img class="km-feat-foto" src="fotos/l26-wellness-arrangement-hero.webp" alt="Sauna in de wellness op de Top Floor van Hotel Asteria" loading="lazy">
+        <div class="km-feat-kaart">
+          <h2 id="km-feat-kop">Of maak er een wellnessverblijf van</h2>
+          <p>Na de sauna's op de Top Floor schuif je aan voor een driegangendiner, en de volgende ochtend wacht het ontbijtbuffet.</p>
+          <a class="btn btn-secondary" href="/wellness-arrangement">Bekijk het wellnessarrangement</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6 GOED OM TE WETEN + VEELGESTELDE VRAGEN ══ -->
+  <section class="km-gow" data-toon="paper" aria-label="Goed om te weten en veelgestelde vragen">
+    <div class="km-wrap">
+      <div class="km-gow-kaart">
+        <div class="km-gow-paneel">
+          <h2>Goed om te weten</h2>
+          <dl class="km-feiten">
+            <div class="km-feit"><span class="km-dot km-dot--groot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg></span><div><dt>Inchecken</dt><dd>vanaf 15.00 uur</dd></div></div>
+            <div class="km-feit"><span class="km-dot km-dot--groot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></span><div><dt>Uitchecken</dt><dd>uiterlijk 11.00 uur</dd></div></div>
+            <div class="km-feit"><span class="km-dot km-dot--groot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11h18M5 11a7 7 0 0 0 14 0M12 3v3M8 5l1 2M16 5l-1 2M3 21h18"/></svg></span><div><dt>Ontbijt</dt><dd>ma t/m vr 07.00-10.00 uur, za en zo 08.00-10.30 uur</dd></div></div>
+            <div class="km-feit"><span class="km-dot km-dot--groot"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg></span><div><dt>Parkeren</dt><dd>gratis op het eigen terrein</dd></div></div>
+          </dl>
+        </div>
+        <div class="km-gow-paneel km-gow-paneel--faq">
+          <h2>Veelgestelde vragen</h2>
+          <div class="km-faq">
+            <details class="km-faq-item"><summary>Voor hoeveel personen is deze kamer?<span class="km-plus" aria-hidden="true"></span></summary><div class="km-faq-a"><p>De Royale kamer is voor maximaal 2 personen. Je kiest een tweepersoonsbed of twee eenpersoonsbedden.</p></div></details>
+            <details class="km-faq-item"><summary>Wat is het verschil met de Deluxe kamer?<span class="km-plus" aria-hidden="true"></span></summary><div class="km-faq-a"><p>De kamers zijn even groot, 25 m². De Deluxe kamer heeft daarbij een eigen infraroodsauna in de badkamer.</p></div></details>
+            <details class="km-faq-item"><summary>Mag ik in de wellness?<span class="km-plus" aria-hidden="true"></span></summary><div class="km-faq-a"><p>Ja. De wellness op de Top Floor is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Reserveer je tijd vooraf bij de receptie.</p></div></details>
+            <details class="km-faq-item"><summary>Is het ontbijt inbegrepen?<span class="km-plus" aria-hidden="true"></span></summary><div class="km-faq-a"><p>Dat hangt af van het tarief dat je kiest; je ziet het bij het boeken. Zit het er niet bij, dan boek je het ontbijtbuffet eenvoudig bij. Het staat van maandag tot en met vrijdag klaar van 07.00 tot 10.00 uur, in het weekend van 08.00 tot 10.30 uur.</p></div></details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 7 CONTACT-TWEELUIK ══ -->
+  <section class="km-contact" data-toon="paper" aria-labelledby="km-contact-kop" id="contact">
+    <div class="km-wrap km-contact-raster">
+      <figure class="km-contact-foto"><img src="fotos/care-receptie.webp" alt="Receptioniste helpt een gast aan de balie van Hotel Asteria" loading="lazy" width="1400" height="933"></figure>
+      <div class="km-contact-tekst">
+        <h2 id="km-contact-kop">Boeken of even overleggen</h2>
+        <p class="km-contact-lead">Twijfel je welke kamer het best bij je verblijf past? De receptie denkt graag met je mee.</p>
+        <dl class="km-contact-lijst">
+          <div><dt>Telefoon</dt><dd><a href="tel:+31478511466">0478 511466</a></dd></div>
+          <div><dt>E-mail</dt><dd><a href="mailto:info@asteria.nl">info@asteria.nl</a></dd></div>
+          <div><dt>Adres</dt><dd>Maasheseweg 80a, 5804 AD Venray</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 8 VERDER KIJKEN ══ -->
+  <section class="km-verder" data-toon="surface" aria-labelledby="km-verder-kop">
+    <div class="km-wrap">
+      <h2 id="km-verder-kop">Verder kijken</h2>
+      <div class="km-links">
+        <a class="km-link" href="/hotel-venray-v2"><span class="km-link-beeld"><img src="fotos/hero-asteria-building-sunset.webp" alt="Hotel Asteria bij zonsondergang, van bovenaf" loading="lazy"></span><span class="km-link-tekst"><span class="km-link-titel">Hotel Asteria</span><span class="km-link-regel">Vier sterren familiehotel aan de A73</span></span></a>
+        <a class="km-link" href="/wellness-arrangement"><span class="km-link-beeld"><img src="fotos/l26-waarom-wellness.webp" alt="Wellness op de Top Floor met whirlpool" loading="lazy"></span><span class="km-link-tekst"><span class="km-link-titel">Wellnessarrangement</span><span class="km-link-regel">Wellness, diner en ontbijt in één verblijf</span></span></a>
+        <a class="km-link" href="/weekend-aanbieding"><span class="km-link-beeld"><img src="fotos/l26-weekend-aanbieding-hero.webp" alt="Weekend weg bij Hotel Asteria" loading="lazy"></span><span class="km-link-tekst"><span class="km-link-titel">Weekend aanbieding</span><span class="km-link-regel">Twee nachten met diner en ontbijt</span></span></a>
+        <a class="km-link" href="/oorlogsmuseum-arrangement"><span class="km-link-beeld"><img src="fotos/l26-oorlogsmuseum-arrangement-hero.webp" alt="Oorlogsmuseum Overloon" loading="lazy"></span><span class="km-link-tekst"><span class="km-link-titel">Oorlogsmuseum Arrangement</span><span class="km-link-regel">Een dag Overloon, een avond aan tafel</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LIGHTBOX (kamer-w1.js, items uit #km-media) ══ -->
+  <dialog class="km-lb" id="km-lb" aria-label="Foto's van de Royale kamer">
+    <div class="km-lb-binnen">
+      <button type="button" class="km-lb-sluit" aria-label="Sluiten"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      <div class="km-lb-beeld"></div>
+      <button type="button" class="km-lb-pijl km-lb-vorige" aria-label="Vorige"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" class="km-lb-pijl km-lb-volgende" aria-label="Volgende"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      <p class="km-lb-teller" aria-live="polite"></p>
+    </div>
+  </dialog>
+  <script type="application/json" id="km-media">[{"type": "video", "src": "videos/royale.mp4", "poster": "fotos/room-royale-1.webp", "alt": "Rondleiding door de Royale kamer"}, {"type": "img", "src": "fotos/room-royale-1.webp", "alt": "Royale kamer met tweepersoonsbed en zithoek bij het raam"}, {"type": "img", "src": "fotos/room-royale-2.webp", "alt": "Royale kamer met bureau en tv"}, {"type": "img", "src": "fotos/room-royale-3.webp", "alt": "Badkamer van de Royale kamer"}, {"type": "img", "src": "fotos/room-royale-4.webp", "alt": "Inloopdouche in de Royale kamer"}]</script>
+  <script type="application/json" id="km-tekst">{"video": "Video", "van": "van"}</script>
+
+</main>
+
+<footer class="footer footer--gesloten">
+  <img class="footer__star-bg" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIyOTczIiB2aWV3Qm94PSIwIDAgMTkyMCAyOTczIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0yMzI2LjMgODQ0LjA1NEMxOTcxLjA0IDY4My4yNzQgMTU2OS4xNiA2NTQuNjc2IDExOTcuMDQgNzYxLjg5N0M2OTMuNDQgMjU2LjIyNiAyNjAuNTM4IDEuOTk4MjZlLTA1IDI2MC41MzggMS45OTgyNmUtMDVDMjg1LjIzNyAzOTAuNjM5IDM1NC40MjUgNzY2LjQxOSA0NjguNzc1IDExNDAuMDJDMTcxLjg5MiAxMzQzLjM2IC0yMjEuNDM4IDE2NjUuMjIgLTUxNS4xNDggMjEwMS4wNkMtNTE0LjU5NSAyMTkxLjMyIC00NTAuMzM2IDIxNDYuODEgLTQwNi4xMzggMjExMy42MUMtMTkuODc3NSAxODUxLjIzIDMzMi42ODEgMTcwMS4xNSA2NDAuODg4IDE2MjEuMTJDODIwLjU4MiAyMDYwLjA4IDEwNjIuNTMgMjUwMy42NyAxMzY4Ljk5IDI5NzIuNEMxMTk1LjMgMjI5NC44NCAxMjQ4LjY1IDE3MjQuOTkgMTI0OC42NSAxNzI0Ljk5QzEyNDguNjUgMTcyNC45OSAxMjMxLjc5IDE3NTUuNjQgMTE5Ny4zNSAxNzM0LjQ4QzExNjkuODggMTgzNS4xMyAxMTgwLjQ2IDIyNzguNjIgMTE2Mi45MSAyMDIzLjA2QzExNTQuNjUgMTkwMy4yMiAxMTc3LjYgMTcxNC41NSAxMjA1LjAxIDE1NDEuODVDMTYwNC4wOSAxNTM1LjE4IDE4NjEuMjUgMTY0MS4xNSAxOTI2LjUxIDE2NzEuNTFDMTkzMi4xOCAxNjc0LjE4IDE5MzcuNTEgMTY3Ni43OCAxOTQyLjk4IDE2NzkuNTdDMTc0My45OSAxMzc0LjI1IDE1MjcuNTkgMTEwOS45MSAxMzE4IDg4Ny4xMTNDMTk0My40NiA2NzguMjc4IDIzMjYuMSA4NDQuMTgyIDIzMjYuMSA4NDQuMTgyTTQ4NC4xMyAzMzIuNDM5QzY5Mi4zNDQgNDY2LjM1MiA4OTQuNTE3IDYzNS40NDYgMTA3My4wMyA4MDMuMDM3QzEwMDguNTEgODI3LjQ3OSA5NDUuMDUxIDg1NS44MTIgODgzLjE1NSA4ODguODQ4Qzg0Ni42OSA5MDguMyA3NDIuOTYgOTYzLjA1OCA2MDIuMjYyIDEwNTIuMTJDNTQyLjgzMSA4MTcuNzQxIDUwMy45MjkgNTgxLjcyNSA0ODQuMTMgMzMyLjQzOVpNLTE2LjkxNjIgMTc2MS41OUMxNzAuOTQ3IDE1NzguNzUgMzUxLjE0NyAxNDI4Ljk5IDUyMi40MSAxMzA2LjI3QzU0My44MjEgMTM2OS4wNCA1NjYuODMyIDE0MzEuNjUgNTkwLjcwNyAxNDk0LjI3QzQwOS4zMDcgMTU0OS42MyAyMDcuNDczIDE2MzQuNDkgLTE2LjcxMzkgMTc2MS40Nk0xMDcxLjk2IDIyNTAuMzVDOTU0Ljc3MSAyMDE5LjMyIDg1Ni4yNjEgMTgwMi4wNiA3NzQuNjggMTU5MC4wMUM4ODYuMjc0IDE1NjcuMyA5OTEuMDMxIDE1NTMuNDkgMTA4OC44NiAxNTQ2LjY1QzEwNjIuMTkgMTcwNS43NyAxMDUzLjc4IDE4ODkuMTkgMTA3MS45NiAyMjUwLjM1Wk0xNzE4Ljk2IDE1MDEuNTZDMTYxMS4yMiAxNDY5LjEgMTQ0OS42IDE0MTYuMTYgMTIyNy44OCAxNDA2LjIzQzEyNTIuMzQgMTI3MC40NSAxMjc0LjcgMTE2My4wNyAxMjc4Ljg3IDExMzcuOTFDMTI4OC45OSAxMDc1LjY0IDEyNDYuMjUgMTA3MC4wMSAxMjQ2LjI1IDEwNzAuMDFMMTE5Ni41OCAxMjQ0LjMxQzExOTYuNTggMTI0NC4zMSAxMTc4LjU1IDEzMDYuMiAxMTcxLjM4IDExODQuNTJDMTE1MS4wOSAxMjY5LjIxIDExMzMuMDIgMTMzOS4wOSAxMTE3LjU3IDE0MDUuMDRDMTAwMS40IDE0MDcuNTggODcwLjkyMiAxNDIyLjkgNzI1Ljc0NSAxNDU3LjUzQzY5Ny42MjUgMTM3Ny45NCA2NzEuNjkzIDEyOTguNjcgNjQ4LjQ4NSAxMjE5LjY2Qzg0Ny41OTQgMTA4OC45NSAxMDMzLjE4IDk5NS4wMzQgMTIwMy4wOSA5MjguNzM4QzE1MDkuMTcgMTIzMy4zIDE3MTguOTYgMTUwMS41NiAxNzE4Ljk2IDE1MDEuNTZaIiBmaWxsPSIjQzc2RTRFIi8+PC9zdmc+">
+  <div class="inner">
+    <div class="footer__brand-block">
+      <a href="/hotel-venray-v2" class="footer__logo" aria-label="Hotel Asteria">
+        <img alt="Hotel Asteria" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjA1IiBoZWlnaHQ9IjU0IiB2aWV3Qm94PSIwIDAgMjA1IDU0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF8yMDlfMTE2KSI+PHBhdGggZD0iTTY0LjE2MDIgNTAuODA3NEw3Mi44ODc3IDM2LjA0MThINzYuMzI4Mkw4NS4xODY5IDUwLjgwNzRIODEuMTYxMUw3OS4zMTQ3IDQ3LjU2NDVINjkuNTg4NEw2Ny43NDIgNTAuODA3NEg2NC4xNjAyWk03MS4xMTE5IDQ0Ljg3ODlINzcuODUxOEw3NC40MTEyIDM4LjczNzVMNzEuMTExOSA0NC44Nzg5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMDIuNDIxIDM4LjY5NjlIOTIuMzExM1Y0MS43OTgxSDEwMS44NjZDMTAzLjM0OSA0MS43OTgxIDEwNC4zNTggNDIuMDQxMyAxMDQuODkzIDQyLjUxNzZDMTA1LjQyOCA0Mi45OTM5IDEwNS42OSA0My45MTYxIDEwNS42OSA0NS4yOTQ0VjQ3LjMyMTJDMTA1LjY5IDQ4LjY4OTQgMTA1LjQyOCA0OS42MjE3IDEwNC44OTMgNTAuMDk4QzEwNC4zNTggNTAuNTc0MyAxMDMuMzQ5IDUwLjgwNzQgMTAxLjg2NiA1MC44MDc0SDkyLjMxMTNDOTAuODI4MSA1MC44MDc0IDg5LjgxOTEgNTAuNTc0MyA4OS4yNzQzIDUwLjA5OEM4OC43Mjk1IDQ5LjYyMTcgODguNDU3IDQ4LjY4OTQgODguNDU3IDQ3LjMyMTJWNDYuOTA1N0w5MS42NTU0IDQ2LjMwNzhWNDguMDYxSDEwMi40NjFWNDQuNjc2Mkg5Mi45MzY4QzkxLjQ3MzggNDQuNjc2MiA5MC40NjQ5IDQ0LjQ0MzEgODkuOTA5OSA0My45NTY2Qzg5LjM1NSA0My40ODAzIDg5LjA3MjUgNDIuNTU4MSA4OS4wNzI1IDQxLjE3OTlWMzkuNTM4MUM4OS4wNzI1IDM4LjE3IDg5LjM1NSAzNy4yMzc2IDg5LjkwOTkgMzYuNzYxM0M5MC40NjQ5IDM2LjI4NSA5MS40NzM4IDM2LjA0MTggOTIuOTM2OCAzNi4wNDE4SDEwMS42NTRDMTAzLjA2NyAzNi4wNDE4IDEwNC4wNjYgMzYuMjY0NyAxMDQuNjQxIDM2LjcwMDVDMTA1LjIyNiAzNy4xNDY0IDEwNS41MDggMzcuOTg3NSAxMDUuNTA4IDM5LjI1NDNWMzkuNTk4OUwxMDIuNDExIDQwLjI1NzZWMzguNjg2OEwxMDIuNDIxIDM4LjY5NjlaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTEyMC42MzIgMzguNjk2OVY1MC44MDc0SDExNy4wNVYzOC42OTY5SDEwOS45NTdWMzYuMDQxOEgxMjcuNzU1VjM4LjY5NjlIMTIwLjYzMloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNMTMyLjM3OSA1MC44MDc0VjM2LjA0MThIMTQ4LjE1OVYzOC42NjY1SDEzNS45OTFWNDEuODY5SDE0My4wODRWNDQuNDIyOEgxMzUuOTkxVjQ4LjA1MDlIMTQ4LjMzMVY1MC44MDc0SDEzMi4zNzlaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTE1My41MDIgNTAuODA3NFYzNi4wNDE4SDE2Ni43NEMxNjkuMDMgMzYuMDQxOCAxNzAuMTggMzYuOTk0NCAxNzAuMTggMzguODk5NlY0Mi4zODU4QzE3MC4xOCA0NC4yNzA4IDE2OS4wMyA0NS4yMTMzIDE2Ni43NCA0NS4yMTMzSDE2NC43MjJMMTcxLjcwNCA1MC43OTczSDE2Ni41NThMMTYwLjQwNCA0NS4yMTMzSDE1Ny4wMzRWNTAuNzk3M0gxNTMuNDkyTDE1My41MDIgNTAuODA3NFpNMTY1LjIxNiAzOC41OTU2SDE1Ny4wNTRWNDIuNjc5N0gxNjUuMjE2QzE2Ni4zMDYgNDIuNjc5NyAxNjYuODUxIDQyLjI4NDUgMTY2Ljg1MSA0MS40OTRWMzkuNzgxM0MxNjYuODUxIDM4Ljk5MDggMTY2LjMwNiAzOC41OTU2IDE2NS4yMTYgMzguNTk1NloiIGZpbGw9IiNGRkZGRkYiLz48cGF0aCBkPSJNMTgwLjIzIDM2LjA0MThIMTc2LjY0OFY1MC44MDc0SDE4MC4yM1YzNi4wNDE4WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xODMuOTc1IDUwLjgwNzRMMTkyLjcwMiAzNi4wNDE4SDE5Ni4xNDNMMjA1LjAwMiA1MC44MDc0SDIwMC45NjZMMTk5LjEzIDQ3LjU2NDVIMTg5LjM5M0wxODcuNTQ3IDUwLjgwNzRIMTgzLjk2NUgxODMuOTc1Wk0xOTAuOTI3IDQ0Ljg3ODlIMTk3LjY2N0wxOTQuMjI2IDM4LjczNzVMMTkwLjkyNyA0NC44Nzg5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik04OS4xNjAyIDMzLjI0NDdWMjYuNzQ4Nkg5MC4zODFWMjkuMzYzMkg5NS41NDY5VjI2Ljc0ODZIOTYuNzc3OFYzMy4yNDQ3SDk1LjU0NjlWMzAuMzQ2M0g5MC4zODFWMzMuMjQ0N0g4OS4xNjAyWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMTEuMjg5IDI4LjI4OUMxMTEuMjg5IDI3LjY5MTEgMTExLjQgMjcuMjg1NyAxMTEuNjMyIDI3LjA2MjhDMTExLjg1NCAyNi44Mzk4IDExMi4yNjggMjYuNzI4MyAxMTIuODgzIDI2LjcyODNIMTE3LjU2NUMxMTguMTggMjYuNzI4MyAxMTguNTk0IDI2LjgzOTggMTE4LjgxNiAyNy4wNjI4QzExOS4wMzggMjcuMjg1NyAxMTkuMTQ5IDI3LjY5MTEgMTE5LjE0OSAyOC4yODlWMzEuNzE0NEMxMTkuMTQ5IDMyLjMxMjMgMTE5LjAzOCAzMi43MTc3IDExOC44MTYgMzIuOTMwNUMxMTguNTk0IDMzLjE0MzMgMTE4LjE4IDMzLjI1NDggMTE3LjU2NSAzMy4yNTQ4SDExMi44ODNDMTEyLjI1OCAzMy4yNTQ4IDExMS44MzQgMzMuMTUzNSAxMTEuNjIyIDMyLjk0MDdDMTExLjQxIDMyLjcyNzggMTExLjI4OSAzMi4zMjI1IDExMS4yODkgMzEuNzI0NVYyOC4yOTkxVjI4LjI4OVpNMTEyLjUyIDMyLjI4MTlIMTE3LjkyOFYyNy43MDEySDExMi41MlYzMi4yODE5WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xMzYuNzk2IDI3LjcwMTJWMzMuMjQ0N0gxMzUuNTY1VjI3LjcwMTJIMTMyLjUwOFYyNi43MjgzSDEzOS44NjNWMjcuNzAxMkgxMzYuNzk2WiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNTMuMzcxIDMzLjI0NDdWMjYuNzI4M0gxNTkuODk5VjI3LjcwMTJIMTU0LjU5MlYyOS4zNzM0SDE1Ny43OVYzMC4zNDYzSDE1NC41OTJWMzIuMjkyMUgxNTkuOTZWMzMuMjQ0N0gxNTMuMzcxWiIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNzMuOTI2IDMzLjI0NDdWMjYuNzI4M0gxNzUuMTQ3VjMyLjI2MTdIMTgwLjIwMlYzMy4yNDQ3SDE3My45MjZaIiBmaWxsPSIjRkZGRkZGIi8+PHBhdGggZD0iTTk2Ljg1ODcgOS4zODg1NUgxMDIuNDE4TDk3LjkzODMgMTIuNzYzM0w5OS42NzM3IDE4LjExNDJMOTUuMjE0MSAxNC44MjA1TDkwLjc1NDUgMTguMTE0Mkw5Mi41MjAxIDEyLjc2MzNMODggOS4zODg1NUg5My41MzkyTDk1LjIxNDEgNC4xNjkzOUw5Ni44NTg3IDkuMzg4NTVaIiBmaWxsPSIjRjM5MjAwIi8+PHBhdGggZD0iTTEyMy4wOTMgOS4zODg1NUgxMjguNjUyTDEyNC4xNzMgMTIuNzYzM0wxMjUuOTE4IDE4LjExNDJMMTIxLjQ0OCAxNC44MjA1TDExNi45ODkgMTguMTE0MkwxMTguNzU1IDEyLjc2MzNMMTE0LjIzNCA5LjM4ODU1SDExOS43NzRMMTIxLjQ0OCA0LjE2OTM5TDEyMy4wOTMgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTQ5LjQ0OSA5LjM4ODU1SDE1NS4wMThMMTUwLjUyOCAxMi43NjMzTDE1Mi4yNzQgMTguMTE0MkwxNDcuODE0IDE0LjgyMDVMMTQzLjM1NCAxOC4xMTQyTDE0NS4xMSAxMi43NjMzTDE0MC41OSA5LjM4ODU1SDE0Ni4xMjlMMTQ3LjgxNCA0LjE2OTM5TDE0OS40NDkgOS4zODg1NVoiIGZpbGw9IiNGMzkyMDAiLz48cGF0aCBkPSJNMTc1LjY4OSA5LjM4ODU1SDE4MS4yNDhMMTc2Ljc2OSAxMi43NjMzTDE3OC41MDQgMTguMTE0MkwxNzQuMDQ0IDE0LjgyMDVMMTY5LjU4NSAxOC4xMTQyTDE3MS4zNCAxMi43NjMzTDE2Ni44MiA5LjM4ODU1SDE3Mi4zN0wxNzQuMDQ0IDQuMTY5MzlMMTc1LjY4OSA5LjM4ODU1WiIgZmlsbD0iI0YzOTIwMCIvPjwvZz48bWFzayBpZD0ibWFzazBfMjA5XzExNiIgc3R5bGU9Im1hc2stdHlwZTpsdW1pbmFuY2UiIG1hc2tVbml0cz0idXNlclNwYWNlT25Vc2UiIHg9IjgiIHk9IjgiIHdpZHRoPSIzOCIgaGVpZ2h0PSIzNyI+PHBhdGggZD0iTTguNjcxODggMjYuNzIyNkM4LjY3MTg4IDM2Ljc4NzUgMTYuODM5IDQ0Ljk1MDcgMjYuOTE2OSA0NC45NTA3QzM2Ljk5NDkgNDQuOTUwNyA0NS4xNjIgMzYuNzkxMiA0NS4xNjIgMjYuNzIyNkM0NS4xNjIgMTYuNjUzOSAzNi45OTExIDguNDk0NDQgMjYuOTE2OSA4LjQ5NDQ0QzE2Ljg0MjcgOC40OTQ0NCA4LjY3MTg4IDE2LjY1MzkgOC42NzE4OCAyNi43MjI2WiIgZmlsbD0id2hpdGUiLz48L21hc2s+PGcgbWFzaz0idXJsKCNtYXNrMF8yMDlfMTE2KSI+PHBhdGggZD0iTTQ1LjE2MiA4LjQ5NDQ0SDguNjcxODhWNDQuOTUwN0g0NS4xNjJWOC40OTQ0NFoiIGZpbGw9InVybCgjcGFpbnQwX3JhZGlhbF8yMDlfMTE2KSIvPjwvZz48cGF0aCBkPSJNNDguMTg4MiAzMi4yNjY5QzQ0Ljg1MjYgMjcuMjAwOCAzOS43OTY4IDIzLjQ3OTcgMzMuOTk2OCAyMS43ODczQzMxLjU5MjMgMTAuOTY0IDI4LjAzMjMgNCAyOC4wMzIzIDRDMjUuMDg5MyA5LjMyNzU5IDIyLjg1NjggMTQuODMwOCAyMS4yMzc2IDIwLjY4MTRDMTUuNjI0NiAyMC44NzU3IDcuNzQ5MTkgMjEuODIwOSAwLjIzMjc4OSAyNS4wODk5Qy0wLjUxNTExMiAyNi4yNzggMC43MDM5NjcgMjYuMjI5NCAxLjU2NDA1IDI2LjE2MjJDOC44NDg2MSAyNS45MzggMTQuNzQ5NSAyNi45MDU3IDE5LjQ4IDI4LjQyMjVDMTguMTc0OSAzNS42NzQxIDE3LjY1MTQgNDMuNTA0OSAxNy43NjczIDUyLjIwMjRDMjEuMTQ3OCA0MS44NzIyIDI2LjYxODcgMzQuODQ0NyAyNi42MTg3IDM0Ljg0NDdDMjYuNjE4NyAzNC44NDQ3IDI2LjE0MDEgMzUuMTA2MyAyNS44NjM0IDM0LjU0MjFDMjQuNjU5MiAzNS42MzMxIDIxLjA4OCA0MS41MzYgMjIuOTk1MiAzOC4wMzkxQzIzLjg4ODkgMzYuMzk4OSAyNS43Njk5IDM0LjExNjIgMjcuNTc2MSAzMi4wODAxQzMyLjg4OTkgMzUuMzE1NSAzNS4zOTE2IDM4Ljg0NiAzNS45OTc0IDM5Ljc4NzVDMzYuMDQ5OCAzOS44Njk3IDM2LjA5ODQgMzkuOTQ4MiAzNi4xNDcgNDAuMDMwNEMzNi4wNzk3IDM0LjM3MDMgMzUuNDQwMiAyOS4xMDI1IDM0LjU0MjcgMjQuNDM2MUM0NC41MzEgMjYuOTA1NyA0OC4xODQ1IDMyLjI2NjkgNDguMTg0NSAzMi4yNjY5TTI4LjE5NjggMTAuMjIwNUMyOS44MTk4IDEzLjcxIDMxLjA2ODcgMTcuNjEwNCAzMi4wMTg2IDIxLjI5NDFDMzAuOTY0IDIxLjA3NzQgMjkuODkwOCAyMC45MjA1IDI4Ljc5ODkgMjAuODM4M0MyOC4xNTU3IDIwLjc4OTggMjYuMzMwOCAyMC42NDQxIDIzLjczMTggMjAuNjQwM0MyNC45MDk4IDE3LjA3MjQgMjYuMzcxOSAxMy42NTM5IDI4LjE5NjggMTAuMjIwNVpNOS42Mzc2NCAyNC43ODczQzEzLjY0MjcgMjMuOTU0MiAxNy4yNyAyMy40OTA5IDIwLjU1MzMgMjMuMzA3OUMyMC4zMTAyIDI0LjMwOTEgMjAuMDg5NiAyNS4zMjE2IDE5Ljg4MDEgMjYuMzQxNUMxNy4wMjY5IDI1LjU1NjkgMTMuNjU3NiAyNC45ODkxIDkuNjQxMzggMjQuNzg3M00xOS44OTUxIDQwLjI2MkMyMC4yODQgMzYuMjU3IDIwLjgwMzggMzIuNTg4MiAyMS41MDMxIDI5LjEyODZDMjMuMTYzNCAyOS43NiAyNC42NTkyIDMwLjQ1MTIgMjYuMDA1NSAzMS4xNzZDMjQuMzIyNyAzMy4wNDAyIDIyLjY3NzMgMzUuMzc1MyAxOS44OTUxIDQwLjI2MlpNMzQuNjg0OSAzNS44MzExQzMzLjUzNjggMzQuNTA4NSAzMS44NTAzIDMyLjQ2ODYgMjkuMDEyIDMwLjQ5MjNDMzAuNDcwNCAyOC45MTU3IDMxLjY2MzMgMjcuNjk0IDMxLjkyODggMjcuMzk4OEMzMi41ODMyIDI2LjY2NjYgMzIuMDY3MiAyNi4yMzY5IDMyLjA2NzIgMjYuMjM2OUwyOS45NTQ0IDI4LjEwODdDMjkuOTU0NCAyOC4xMDg3IDI5LjE5OSAyOC43Njk5IDMwLjEyMjcgMjcuMTE0OUMyOS4xNDY2IDI4LjA1NjQgMjguMzI0IDI4LjgyMjMgMjcuNTY4NiAyOS41NTgzQzI2LjAxNjcgMjguNjI0MiAyNC4xNjk0IDI3LjczODggMjEuOTY2OCAyNi45ODQxQzIyLjI2MjIgMjUuNzA2NCAyMi41ODM4IDI0LjQ1MTEgMjIuOTM5MSAyMy4yMjE5QzI2LjY1NjEgMjMuMTY1OSAyOS44ODcxIDIzLjQ3OTcgMzIuNjgwNSAyNC4wMjUyQzM0LjE2NTEgMzAuNTY3IDM0LjY4NDkgMzUuODMxMSAzNC42ODQ5IDM1LjgzMTFaIiBmaWxsPSIjQzEyQjJCIi8+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJwYWludDBfcmFkaWFsXzIwOV8xMTYiIGN4PSIwIiBjeT0iMCIgcj0iMSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiIGdyYWRpZW50VHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuOTI5OSAxNi43MTU3KSBzY2FsZSgyOC41NjQ1IDI4LjUzOCkiPjxzdG9wIHN0b3AtY29sb3I9IndoaXRlIi8+PHN0b3Agb2Zmc2V0PSIwLjA3IiBzdG9wLWNvbG9yPSJ3aGl0ZSIvPjxzdG9wIG9mZnNldD0iMC4xOSIgc3RvcC1jb2xvcj0iI0ZFRjFFMiIvPjxzdG9wIG9mZnNldD0iMC40IiBzdG9wLWNvbG9yPSIjRkREQ0I2Ii8+PHN0b3Agb2Zmc2V0PSIwLjUxIiBzdG9wLWNvbG9yPSIjRkRENUE1Ii8+PHN0b3Agb2Zmc2V0PSIwLjU3IiBzdG9wLWNvbG9yPSIjRkNEMjlGIi8+PHN0b3Agb2Zmc2V0PSIwLjY1IiBzdG9wLWNvbG9yPSIjRkJDQzkxIi8+PHN0b3Agb2Zmc2V0PSIwLjc0IiBzdG9wLWNvbG9yPSIjRkFDMjc4Ii8+PHN0b3Agb2Zmc2V0PSIwLjgzIiBzdG9wLWNvbG9yPSIjRjhCNDU2Ii8+PHN0b3Agb2Zmc2V0PSIwLjkyIiBzdG9wLWNvbG9yPSIjRjVBMzJBIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjRjM5MjAwIi8+PC9yYWRpYWxHcmFkaWVudD48Y2xpcFBhdGggaWQ9ImNsaXAwXzIwOV8xMTYiPjxyZWN0IHdpZHRoPSIxNDMiIGhlaWdodD0iNTAuMTIzNyIgZmlsbD0id2hpdGUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYyKSIvPjwvY2xpcFBhdGg+PC9kZWZzPjwvc3ZnPg==">
+      </a>
+      <address class="footer__address">
+        Maasheseweg 80a<br>
+        5804 AD Venray<br>
+        <a href="tel:+31478511466">0478 511 466</a><br>
+        <a href="mailto:info@asteria.nl">info@asteria.nl</a>
+      </address>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>&copy; Hotel Asteria &middot; A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01</span>
+    <span>
+      <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">Privacyverklaring</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://www.asteria.nl/algemene-voorwaarden" target="_blank" rel="noopener">Algemene voorwaarden</a>
+    </span>
+  </div>
+</footer>
+<div class="mob-cta-ruimte" aria-hidden="true"></div>
+
+<!-- ══ ONDERBALK TELEFOON ══ -->
+<div class="mob-cta" aria-hidden="true">
+  <a class="mob-cta-bel" href="tel:+31478511466" aria-label="Bel Hotel Asteria: 0478 511466" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
+  <div><b>Royale kamer</b><span class="om">Vanaf € 123,30 per nacht</span></div>
+  <a class="btn btn-primary mews-open" data-room="a8fd7310-0d61-422f-89e6-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom=a8fd7310-0d61-422f-89e6-af1d00ffc315&amp;mewsRoute=rooms" tabindex="-1">Boek deze kamer</a>
+</div>
+
+<!-- ══ COOKIE BANNER ══ -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookiemelding">
+  <span>Deze website gebruikt cookies voor een optimale ervaring. <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">Meer info</a></span>
+  <button type="button" id="cookieAccept">Akkoord</button>
+</div>
+
+</body>
+</html>

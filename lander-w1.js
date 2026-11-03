@@ -577,9 +577,11 @@
     boek.setAttribute('data-room', k.kamer);
     boek.setAttribute('href', boek.getAttribute('data-basis') + '&mewsRoom=' + k.kamer + '&mewsRoute=rooms');
     boek.setAttribute('aria-label', 'Boek de ' + k.naam);
-    var link = popKamer.querySelector('.lp-pop__link');
-    link.setAttribute('href', k.pagina);
-    link.setAttribute('aria-label', 'Bekijk de kamerpagina van de ' + k.naam);
+    var link = popKamer.querySelector('.lp-pop__link');   /* ontbreekt op een gesloten lander (geen kamerpagina's) */
+    if (link) {
+      link.setAttribute('href', k.pagina);
+      link.setAttribute('aria-label', 'Bekijk de kamerpagina van de ' + k.naam);
+    }
     return true;
   }
 
@@ -606,8 +608,11 @@
     chips.textContent = '';
     (f.chips || []).forEach(function (t) { chips.appendChild(maak('li', null, t)); });
     var meer = popFac.querySelector('.lp-pop__meer');
-    meer.setAttribute('href', f.link);
-    meer.setAttribute('aria-label', 'Meer over ' + f.titel.toLowerCase() + ' op asteria.nl');
+    /* data-boek (gesloten lander): de knop is 'Bekijk beschikbaarheid' (Mews), geen link naar asteria.nl */
+    if (!meer.hasAttribute('data-boek')) {
+      meer.setAttribute('href', f.link);
+      meer.setAttribute('aria-label', 'Meer over ' + f.titel.toLowerCase() + ' op asteria.nl');
+    }
     return true;
   }
 
