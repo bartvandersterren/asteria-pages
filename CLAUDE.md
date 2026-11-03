@@ -214,8 +214,8 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   de nieuwe asteria.nl niet live is geen links naar asteria.nl): kop alleen logo (-> /hotel-venray-v2), telefoon en Boek nu
   (`.top-stack--gesloten`), voet alleen logo, adres, telefoon, mail en privacy/voorwaarden in nieuw tabblad (`.footer--gesloten`);
   faciliteit-pop-up knop = Bekijk beschikbaarheid (Mews, `data-boek`, lander-w1.js zet dan geen asteria-link), geen Alle
-  faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op, omgevingsregels zonder asteria-link, Bekijk alle kamers ->
-  /kamertypes. Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.
+  faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle kamers, omgevingsregels zonder asteria-link;
+  kamerknoppen (kaart + pop-up) = Bekijk beschikbaarheid (Mews met data-room), geen link naar de kamerpagina's (oude stijl). Volledig menu terug = `GESLOTEN_LANDER` op false en opnieuw bouwen. Test `--hotel` controleert de hrefs.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 

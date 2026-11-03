@@ -191,6 +191,12 @@ with sync_playwright() as p:
         check('[bron] kop zonder menu, utility-balk, hamburger en mobiel menu; logo naar /hotel-venray-v2',
               'class="nav-links"' not in bron and 'class="utility-bar"' not in bron and 'nav-hamburger' not in bron and 'id="nav-drawer"' not in bron
               and '<a href="/hotel-venray-v2" class="logo"' in bron and 'class="nav-phone"' in bron and 'nav-cta mews-open' in bron)
+        kamerp = [h for h in hrefs_alle if h.rstrip('/').rsplit('/', 1)[-1] in ('kamertypes', 'comfort-kamer', 'comfort-kamer-3-personen', 'mindervalide-kamer',
+                                                                           'royale-kamer', 'deluxe-kamer', 'junior-suite', 'suite', 'bruidssuite')]
+        check('[bron] geen links naar /kamertypes of kamerpagina\'s, geen Bekijk alle kamers of kamerpaginalink in de pop-up',
+              not kamerp and 'Bekijk alle kamers' not in bron and 'lp-pop__link' not in bron, str(kamerp))
+        check('[bron] kamerknoppen heten Bekijk beschikbaarheid (8 kaarten + pop-up), met data-room',
+              len(_re.findall(r'data-room="[^"]+"[^>]*>Bekijk beschikbaarheid</a>', bron)) >= 8 and '>Boek deze kamer<' not in bron and '>Boek nu</a><button' not in bron)
         check('[bron] voet alleen logo, adres, contact en juridisch (geen kolommen, geen socials)',
               'footer__socials' not in bron and '<h3>Verblijf</h3>' not in bron and '<h3>Bij ons</h3>' not in bron and '0478 511 466' in bron and 'Maasheseweg 80a' in bron)
         arr = _re.findall(r'<a class="ho-arr-kaart" href="https://visit\.asteria\.nl/([a-z0-9-]+)"', bron)

@@ -577,9 +577,11 @@
     boek.setAttribute('data-room', k.kamer);
     boek.setAttribute('href', boek.getAttribute('data-basis') + '&mewsRoom=' + k.kamer + '&mewsRoute=rooms');
     boek.setAttribute('aria-label', 'Boek de ' + k.naam);
-    var link = popKamer.querySelector('.lp-pop__link');
-    link.setAttribute('href', k.pagina);
-    link.setAttribute('aria-label', 'Bekijk de kamerpagina van de ' + k.naam);
+    var link = popKamer.querySelector('.lp-pop__link');   /* ontbreekt op een gesloten lander (geen kamerpagina's) */
+    if (link) {
+      link.setAttribute('href', k.pagina);
+      link.setAttribute('aria-label', 'Bekijk de kamerpagina van de ' + k.naam);
+    }
     return true;
   }
 

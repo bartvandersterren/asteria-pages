@@ -889,8 +889,8 @@ def build(template_name, lang):
     # Los van popup-ab.js (sitebreed uit met POPUP_UIT); geen A/B.
     # Gesloten lander (blok 'gesloten', GESLOTEN_LANDER: true in de JSON): geen links naar asteria.nl zolang de nieuwe
     # asteria.nl niet live is. Kop alleen logo + telefoon + Boek nu, voet alleen logo/adres/contact/juridisch, pop-upknop =
-    # Bekijk beschikbaarheid (Mews), geen Alle faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op;
-    # 'Bekijk alle kamers' -> /kamertypes. Volledig menu terug = schakelaar op false.
+    # Bekijk beschikbaarheid (Mews), geen Alle faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle
+    # kamers; kamerknoppen 'Bekijk beschikbaarheid' (Mews + data-room), geen link naar de kamerpagina's (oude stijl). Volledig menu terug = schakelaar op false.
     aan = ({'gesloten'} if translations.get('GESLOTEN_LANDER') is True else set()) | ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
@@ -936,6 +936,12 @@ def build(template_name, lang):
             html = inject_reviews(html, config['reviews'], max_kaarten=n, voorkeur=translations.get('_reviews_voorkeur'))
         else:
             html = inject_reviews(html, config['reviews'])
+
+    # Gesloten lander: kamerknoppen heten 'Bekijk beschikbaarheid' (Mews met de kamer voorgeselecteerd via data-room);
+    # geen link naar de kamerpagina's (oude stijl), de kamerinformatie staat in de pop-up.
+    if 'gesloten' in aan:
+        html = re.sub(r'(aria-label="Boek de [^"]*">)Boek nu(</a>)', r'\1Bekijk beschikbaarheid\2', html)
+        html = html.replace('>Boek deze kamer</a>', '>Bekijk beschikbaarheid</a>')
 
     # Zonder actiecode: lege voucher uit de Mews-links en labels
     if translations.get('VOUCHER', None) == '':
