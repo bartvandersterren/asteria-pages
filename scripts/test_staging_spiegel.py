@@ -217,7 +217,7 @@ with sync_playwright() as p:
             pg.on('requestfailed', lambda r: netfout.append(f'mislukt {r.url} {r.failure}') if urllib.parse.urlsplit(r.url).netloc == eigen_host else None)
             pg.on('console', lambda m: console.append(m.text) if m.type == 'error' else None)
             pg.on('pageerror', lambda e: console.append('pageerror ' + str(e)))
-            pg.goto(url, wait_until='networkidle')
+            pg.goto(url, wait_until='load', timeout=90000); pg.wait_for_timeout(1000)
             stil_maken(pg)
             check(f'{tag} geen 4xx/5xx/mislukte requests op het eigen domein', not netfout, '; '.join(netfout[:5]))
             check(f'{tag} geen consolefouten', not console, '; '.join(console[:3]))
@@ -303,15 +303,21 @@ with sync_playwright() as p:
 
             # pixelvergelijking met de staging
             if not ZONDER_STAGING and not eigen_pg:
-                pg.goto(url, wait_until='networkidle'); stil_maken(pg)
+                pg.goto(url, wait_until='load', timeout=90000); pg.wait_for_timeout(1000); stil_maken(pg)
                 d = SHOT or os.path.join(ROOT, 'qa', 'spiegel')
                 os.makedirs(d, exist_ok=True)
                 naam = adres.strip('/').replace('/', '_') or 'home'
                 a_ = os.path.join(d, f'{naam}-{w}-spiegel.png'); s_ = os.path.join(d, f'{naam}-{w}-staging.png')
-                pg.screenshot(path=a_, full_page=True)
+                pg.screenshot(path=a_, full_page=True, timeout=120000)
                 sp = ctx.new_page()
-                sp.goto(STAGING + staging_pad, wait_until='networkidle'); stil_maken(sp)
-                sp.screenshot(path=s_, full_page=True)
+                for poging in range(3):   # de staging is soms traag (networkidle > 30 s)
+                    try:
+                        sp.goto(STAGING + staging_pad, wait_until='load', timeout=90000); sp.wait_for_timeout(1500); break
+                    except Exception as e:   # noqa: BLE001
+                        if poging == 2: raise
+                        print(f'   staging opnieuw ({e.__class__.__name__})')
+                stil_maken(sp)
+                sp.screenshot(path=s_, full_page=True, timeout=120000)
                 pct, hs, ha = verschil(s_, a_)
                 rij[w] = f'{pct:.1f} % (hoogte {hs} -> {ha})'
                 print(f'   pixelverschil {w}: {pct:.1f} %  (staging {hs} px, spiegel {ha} px)')
