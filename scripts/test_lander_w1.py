@@ -39,7 +39,7 @@ Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondag
 
 Algemene hotellander (blok 'hotel', zonder actiecode; hotel-venray-v2):
   ... http://localhost:8765/hotel-venray-v2.html --hotel [--schermafdruk map]
-Trustkaart (blok 'trustkaart', KAART_IMG leeg): telefoonkaart zonder foto/label/titel, begint met het scorevak.
+Trustkaart (blok 'trustkaart', KAART_IMG leeg): telefoonkaart zonder foto/label/titel/scorevak, begint met de vinkjes.
 Met --hotel: voucher leeg (geen setVoucherCode, geen mewsVoucherCode/data-voucher in de links, geen actiecodeveld),
 geen tegelstrook, geen uitklaptab en geen zijkaart; ster-split aanwezig; blokvolgorde kamers > faciliteiten > omgeving >
 arrangementen > reviews > FAQ > slot; faciliteiten = tekstkaart + 5 tegels (Wellness/Restaurant openen de faciliteit-pop-up,
@@ -90,7 +90,7 @@ fouten, resultaten = [], []
 # __na is een selectorlijst: querySelector geeft het eerste blok na 'inbegrepen' (zondagblok, anders Waarom Asteria, anders kamers).
 ANKERS = ("window.__anker='.ar-inb .wrap';window.__ankerSec='.ar-inb';window.__voor='.ar-inb';window.__na='.ar-zv, .ar-waarom, .b4b';window.__arr=true;"
           if PRIJS else
-          "window.__anker='.b3a .wrap';window.__ankerSec='.b3a';window.__voor='.b3a';window.__na='.b4b';window.__arr=false;"
+          "window.__anker='.b3a .wrap';window.__ankerSec='.b3a';window.__voor='.b3a';window.__na='.b4b';window.__arr=false;window.__trust=true;"
           if HOTEL else
           "window.__anker='.b2a-strook';window.__ankerSec='.b2a';window.__voor='.b3a';window.__na='.b4b';window.__arr=false;")
 
@@ -488,8 +488,12 @@ with sync_playwright() as p:
             check(f'{tag} geen tegelstrook (b2a) op de arrangementpagina', pg.evaluate("!document.querySelector('.b2a, .b2a-strook')"))
         else:
             # tegelstrook: Wellness- en Restaurant-knop -> faciliteiten-pop-up
-            for key, titel_v, link_v in (('wellness', 'Wellness op de Top Floor', 'https://www.asteria.nl/wellness'),
-                                         ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')):
+            POPS = [('wellness', 'Wellness op de Top Floor', 'https://www.asteria.nl/wellness'),
+                    ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')]
+            if HOTEL:   # extra pop-ups uit '_facdata' (fitness, fietsen, parkeren)
+                fd = pg.evaluate("JSON.parse(document.getElementById('lp-facdata').textContent)")
+                POPS += [(k, v['titel'], v['link']) for k, v in fd.items() if k not in ('wellness', 'restaurant')]
+            for key, titel_v, link_v in POPS:
                 fk = pg.locator(f'{FAC} [data-fac="{key}"]').first
                 tegel = pg.locator(f'{FAC} {FAC_TEGEL}:has([data-fac="{key}"])').first
                 tegel.scroll_into_view_if_needed()
@@ -554,8 +558,16 @@ with sync_playwright() as p:
             check(f'{tag} blokvolgorde ster-split > kamers > faciliteiten > omgeving > arrangementen > reviews > FAQ > slot', all(x >= 0 for x in v) and v == sorted(v), str(v))
             check(f'{tag} hero: kop Hotel Asteria Venray, badge 2.200+ reviews, geen actiecodeveld', hb['h1'].replace('\n', ' ') == 'Hotel Asteria Venray' and '2.200+' in hb['badge'] and not hb['code'], f"{hb['h1']} / {hb['badge']}")
             check(f'{tag} ster-split "Een verblijf dat bij je past"', hb['ster'] and 'verblijf dat bij je' in hb['sterKop'].replace('\n', ' '), hb['sterKop'])
-            check(f'{tag} faciliteiten: tekstkaart, 5 tegels, extra punten, pop-upknoppen wellness + restaurant',
-                  hb['kaart'] and hb['tegels'] == 5 and hb['extra'] >= 1 and hb['facKnoppen'] == 'wellness,restaurant', str(hb))
+            check(f'{tag} faciliteiten: tekstkaart, 5 tegels, extra punten, elke tegel opent een pop-up',
+                  hb['kaart'] and hb['tegels'] == 5 and hb['extra'] >= 1 and hb['facKnoppen'] == 'wellness,restaurant,fitness,parkeren,fietsen', str(hb))
+            if mob:
+                mz = pg.evaluate("""(()=>{const t=[...document.querySelectorAll('.ho-fac-tegel')].map(x=>{const r=x.getBoundingClientRect(),
+                    a=getComputedStyle(x.querySelector('.ho-fac-tekst'),'::after');return {l:Math.round(r.left),t:Math.round(r.top),w:Math.round(r.width),h:Math.round(r.height),
+                    pijl:a.content!=='none'&&a.backgroundColor!=='rgba(0, 0, 0, 0)',p:getComputedStyle(x.querySelector('p')).display}});return t})()""")
+                L, R = mz[0], mz[1]
+                ok = (mz[0]['h'] > mz[1]['h'] and mz[2]['h'] > mz[3]['h'] and mz[0]['l'] < mz[1]['l'] and mz[1]['l'] == mz[2]['l']
+                      and mz[3]['l'] == mz[0]['l'] and mz[4]['w'] > mz[0]['w'] * 1.8 and all(x['pijl'] and x['p'] == 'none' for x in mz))
+                check(f'{tag} faciliteiten als staging-mozaiek: links hoog+laag, rechts laag+hoog, brede tegel onder, pijl, geen omschrijving', ok, str(mz))
             check(f'{tag} omgeving: 3-5 rijen, kop "Even weg, alles vlakbij"', 3 <= hb['rijen'] <= 5 and 'alles vlakbij' in hb['omgKop'], str(hb['rijen']))
             check(f'{tag} arrangementen: kaarten met foto en naam, veegrij', hb['kaarten'] >= 3 and hb['arrVeeg'], str(hb['kaarten']))
             check(f'{tag} geen prijzen in faciliteiten, omgeving en arrangementen; geen pil op de kamerkaarten', not hb['euro'] and not hb['pil'])
@@ -688,7 +700,7 @@ with sync_playwright() as p:
             # telefoon: boekkaart in plaats van de datumbalk
             mk = pg.evaluate("""(()=>{const k=document.querySelector('.b1a-mobkaart .b1k-kaart'),f=document.querySelector('.b1a-balk'),h=document.querySelector('.b1a-tekst h1, .b1a h1');
                 const r=k.getBoundingClientRect(),kn=k.querySelector('.b1k-knop');
-                return {kaart:r.height>(window.__arr?150:300)&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
+                return {kaart:r.height>(window.__arr||window.__trust?150:300)&&r.width>300, balkWeg:getComputedStyle(f).display==='none', onderKop:r.top>h.getBoundingClientRect().bottom,
                         knop:kn&&kn.classList.contains('mews-open')&&(kn.dataset.voucher||'')===%r}})()""" % VOUCHER)
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
             if HOTEL:
@@ -696,10 +708,10 @@ with sync_playwright() as p:
                     s=b.firstElementChild;return {trust:k.classList.contains('b1k-kaart--trust'),foto:k.querySelectorAll('img, .b1k-kfoto, .b1k-pill').length,
                     titel:k.querySelectorAll('h2, .b1k-kop').length,eerste:s.className,vink:k.querySelectorAll('.b1k-vinkjes li').length,
                     knop:(k.querySelector('.b1k-knop')||{}).innerText,regel:(k.querySelector('.b1k-trust')||{}).innerText,
-                    score:k.querySelector('.b1k-score').innerText.replace(/\\s+/g,' '),pt:c.paddingTop,pl:c.paddingLeft,mt:getComputedStyle(s).marginTop}})()""")
-                check(f'{tag} trustkaart: geen foto, label of titel; begint met het scorevak, padding boven = zijkant; 3 vinkjes, knop, regel',
-                      tk['trust'] and tk['foto'] == 0 and tk['titel'] == 0 and tk['eerste'] == 'b1k-score' and tk['pt'] == tk['pl'] and tk['mt'] == '0px'
-                      and tk['vink'] == 3 and tk['knop'] == 'Bekijk beschikbaarheid' and tk['regel'] == 'Boek direct bij het hotel' and '2.280' in tk['score'], str(tk))
+                    score:k.querySelectorAll('.b1k-score').length,pt:c.paddingTop,pl:c.paddingLeft,mt:getComputedStyle(s).marginTop}})()""")
+                check(f'{tag} trustkaart: geen foto, label, titel of scorevak; begint met de vinkjes, padding boven = zijkant; 3 vinkjes, knop, regel',
+                      tk['trust'] and tk['foto'] == 0 and tk['titel'] == 0 and tk['eerste'] == 'b1k-vinkjes' and tk['pt'] == tk['pl'] and tk['mt'] == '0px'
+                      and tk['vink'] == 3 and tk['knop'] == 'Bekijk beschikbaarheid' and tk['regel'] == 'Boek direct bij het hotel' and tk['score'] == 0, str(tk))
                 if shotdir:
                     pg.evaluate("window.scrollTo(0, document.querySelector('.b1a-mobkaart').getBoundingClientRect().top + scrollY - 260)"); pg.wait_for_timeout(500)
                     pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-hero-kaart.png')

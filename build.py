@@ -480,8 +480,10 @@ PIJL_SVG = ('<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><line 
 
 def render_hotel(html, data):
     """Blok 'hotel' (algemene lander hotel-venray-v2): vult de drie hotelblokken uit lijsten in de JSON.
-      _faciliteiten: precies 5 tegels {titel, regel, img, alt, pos?, knop, url | fac} (fac = 'wellness'/'restaurant'
-                     opent de faciliteit-pop-up van lander-w1); tegel 2 en 3 zijn breed (mozaiek zoals Parkhotel).
+      _faciliteiten: precies 5 tegels {titel, regel, img, alt, pos?, knop, url | fac} (fac = sleutel in #lp-facdata: 'wellness',
+                     'restaurant' of een sleutel uit _facdata; opent de faciliteit-pop-up van lander-w1); tegel 2 en 3 zijn breed
+                     (mozaiek zoals Parkhotel); op de telefoon het tegelmozaiek van de staging-homepage (hotel.css).
+      _facdata:      extra pop-ups {sleutel: {titel, link, fotos[4], tekst, chips[4]}}, achter de vaste wellness/restaurant in #lp-facdata.
       _fac_extra:    lijst {tekst, icoon} onder de tekst van de faciliteitenkaart (icoon = svg-paden).
       _omgeving:     3 tot 5 rijen {naam, regel, url, img? | icoon?, alt?} (zonder foto een icoon in een zandvakje).
       _arrangementen: 3 tot 8 kaarten {naam, regel, url, img, alt, pos?}; geen prijzen."""
@@ -504,6 +506,9 @@ def render_hotel(html, data):
             f'          <div class="ho-fac-tekst"><h3>{t["titel"]}</h3><p>{t["regel"]}</p>{knop}</div>\n'
             '        </div>')
     html = html.replace('<!-- HO_FAC -->', '\n'.join(tegels))
+    extra = data.get('_facdata') or {}
+    html = html.replace('<!-- HO_FACDATA -->', ',\n'.join(
+        f' {json.dumps(k)}: {json.dumps(v, ensure_ascii=False)}' for k, v in extra.items()))
     html = html.replace('<!-- HO_FAC_EXTRA -->', ''.join(
         f'<li><span class="b3a-ic">{icoon(x["icoon"])}</span><span>{x["tekst"]}</span></li>' for x in data.get('_fac_extra') or []))
     omg = data.get('_omgeving') or []
@@ -839,8 +844,8 @@ def build(template_name, lang):
     if translations.get('HERO_VIDEO'):
         translations.setdefault('HERO_VIDEO_MOBIEL', translations['HERO_VIDEO'])
         translations.setdefault('HERO_VIDEO_POSTER', translations.get('HERO_IMG', ''))
-    # Trustkaart (blok 'trustkaart'): KAART_IMG staat leeg in de JSON = boekkaart (telefoon onder de hero, zijkaart) zonder
-    # foto, pil en titel; de kaart begint met het Google-scorevak (alleen de varianten zonder blok 'arrangement').
+    # Trustkaart (blok 'trustkaart'): KAART_IMG staat leeg in de JSON = boekkaart (telefoon onder de hero, zijkaart) zonder scorevak,
+    # foto, pil en titel; de kaart begint met de vinkjes (alleen de varianten zonder blok arrangement).
     aan = ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 

@@ -3,7 +3,10 @@
     "Faciliteiten (ijsbad, vier laadpunten, afgesloten fietsenstalling, gratis wifi en airco op alle kamers): aangeleverd door Stijn op 3 nov 2026.",
     "Inchecken 15.00, uitchecken 11.00, kosteloos annuleren tot 24 uur en de wellnesstijden komen uit de vaste FAQ van lander-w1.",
     "Niet opgenomen (geen bevestigd feit): huisdieren, ontbijt inbegrepen bij de kamerprijs, afstanden tot de natuurparken.",
-    "Geen nieuwsbriefblok: visit.asteria.nl heeft alleen de pop-ups (newsletter-popup/scratchcard), geen inline blok in de nieuwe stijl."
+    "Geen nieuwsbriefblok: visit.asteria.nl heeft alleen de pop-ups (newsletter-popup/scratchcard), geen inline blok in de nieuwe stijl.",
+    "Fietsverhuur: asteria.nl/contact/veelgestelde-vragen zegt dat het hotel zelf fietsen en e-bikes verhuurt (prijzen niet overgenomen). Overdekte stalling met opladen: idem + asteria.nl/faciliteiten.",
+    "Laadpunten: Stijn zegt vier; asteria.nl noemt laadpalen plus 12 Tesla Superchargers bij Zaal Zeven. Nog afstemmen.",
+    "Fitness: Technogym volgens de Fotobank (foto-index); Life Fitness niet gevonden, dus niet genoemd. Openingstijden niet genoemd."
   ],
   "PAGE_TITLE": "Hotel Asteria Venray | Familiehotel met wellness aan de A73",
   "META_DESC": "Vier sterren familiehotel in Venray, direct aan de A73. Wellness van 300 m² op de Top Floor, een eigen restaurant en brasserie, gratis parkeren en De Maasduinen om de hoek. Boek direct bij het hotel.",
@@ -65,15 +68,59 @@
   "FAC_KNOP": "Alle faciliteiten",
   "FAC_URL": "https://www.asteria.nl/faciliteiten",
   "_fac_extra": [
-    {"tekst": "Gratis wifi", "icoon": "<path d=\"M5 12.55a11 11 0 0 1 14.08 0\"/><path d=\"M1.42 9a16 16 0 0 1 21.16 0\"/><path d=\"M8.53 16.11a6 6 0 0 1 6.95 0\"/><line x1=\"12\" y1=\"20\" x2=\"12.01\" y2=\"20\"/>"},
-    {"tekst": "Airco op alle kamers", "icoon": "<path d=\"M12 2v20\"/><path d=\"M4.93 7l14.14 10\"/><path d=\"M4.93 17L19.07 7\"/><path d=\"M9 4l3 2 3-2\"/><path d=\"M9 20l3-2 3 2\"/>"}
+    {
+      "tekst": "Gratis wifi",
+      "icoon": "<path d=\"M5 12.55a11 11 0 0 1 14.08 0\"/><path d=\"M1.42 9a16 16 0 0 1 21.16 0\"/><path d=\"M8.53 16.11a6 6 0 0 1 6.95 0\"/><line x1=\"12\" y1=\"20\" x2=\"12.01\" y2=\"20\"/>"
+    },
+    {
+      "tekst": "Airco op alle kamers",
+      "icoon": "<path d=\"M12 2v20\"/><path d=\"M4.93 7l14.14 10\"/><path d=\"M4.93 17L19.07 7\"/><path d=\"M9 4l3 2 3-2\"/><path d=\"M9 20l3-2 3 2\"/>"
+    }
   ],
   "_faciliteiten": [
-    {"titel": "Wellness", "regel": "300 m² op de Top Floor, met vier sauna's, een stoomcabine en een ijsbad. Reserveer vooraf.", "img": "fotos/l26-wellness-staand.webp", "alt": "Voetenbad in de wellness op de Top Floor van Hotel Asteria", "knop": "Wellness", "fac": "wellness"},
-    {"titel": "Restaurant en brasserie", "regel": "Seizoensgerechten van dagverse streekproducten, een brasserie met open haard en een zonnig terras.", "img": "fotos/l26-brasserie.webp", "alt": "Bar in de brasserie van Hotel Asteria", "pos": "57% center", "knop": "Restaurant", "fac": "restaurant"},
-    {"titel": "Fitness", "regel": "Moderne fitnessruimte, vrij te gebruiken voor hotelgasten.", "img": "fotos/l26-fitness.webp", "alt": "Fitnessruimte van Hotel Asteria", "knop": "Faciliteiten", "url": "https://www.asteria.nl/faciliteiten"},
-    {"titel": "Gratis parkeren", "regel": "Voor de deur, met vier laadpunten voor je elektrische auto.", "img": "fotos/l26-waarom-parkeren.webp", "alt": "Parkeerplaats voor de deur van Hotel Asteria", "pos": "88% center", "knop": "Route", "url": "https://maps.google.com/?q=Maasheseweg+80a+Venray"},
-    {"titel": "Fietsenstalling", "regel": "Een afgesloten stalling voor je eigen fiets.", "img": "fotos/l26-limburg-arrangement-hotel-fietsen.webp", "alt": "Twee fietsers voor Hotel Asteria", "knop": "Fietsen in de omgeving", "url": "https://www.asteria.nl/omgeving"}
+    {
+      "titel": "Wellness",
+      "regel": "300 m² op de Top Floor, met vier sauna's, een stoomcabine en een ijsbad. Reserveer vooraf.",
+      "img": "fotos/l26-wellness-staand.webp",
+      "alt": "Voetenbad in de wellness op de Top Floor van Hotel Asteria",
+      "knop": "Wellness",
+      "fac": "wellness"
+    },
+    {
+      "titel": "Restaurant en brasserie",
+      "regel": "Seizoensgerechten van dagverse streekproducten, een brasserie met open haard en een zonnig terras.",
+      "img": "fotos/l26-brasserie.webp",
+      "alt": "Bar in de brasserie van Hotel Asteria",
+      "pos": "57% center",
+      "knop": "Restaurant",
+      "fac": "restaurant"
+    },
+    {
+      "titel": "Fitness",
+      "regel": "Moderne fitnessruimte, vrij te gebruiken voor hotelgasten.",
+      "img": "fotos/l26-fitness.webp",
+      "alt": "Fitnessruimte van Hotel Asteria",
+      "knop": "Fitness",
+      "fac": "fitness"
+    },
+    {
+      "titel": "Gratis parkeren",
+      "regel": "Voor de deur, met vier laadpunten voor je elektrische auto.",
+      "img": "fotos/l26-waarom-parkeren.webp",
+      "alt": "Parkeerplaats voor de deur van Hotel Asteria",
+      "pos": "88% center",
+      "knop": "Parkeren",
+      "fac": "parkeren"
+    },
+    {
+      "titel": "Fietsen",
+      "regel": "Afgesloten fietsenstalling, fietsverhuur en routes vanaf de deur.",
+      "img": "fotos/l26-fac-fiets-1.webp",
+      "alt": "Stel met fietsen en een routekaart voor de fietsenstalling van Hotel Asteria",
+      "pos": "50% 60%",
+      "knop": "Fietsen",
+      "fac": "fietsen"
+    }
   ],
   "OMG_KOP_A": "Even weg,",
   "OMG_KOP_EM": "alles vlakbij",
@@ -84,10 +131,33 @@
   "OMG_KNOP": "Ontdek de omgeving",
   "OMG_URL": "https://www.asteria.nl/omgeving",
   "_omgeving": [
-    {"naam": "Direct aan de A73", "regel": "Afrit 8 Venray-Noord, gratis parkeren voor de deur", "url": "https://maps.google.com/?q=Maasheseweg+80a+Venray", "img": "fotos/l26-hotel-buiten.webp", "alt": "Hotel Asteria vanaf de oprit"},
-    {"naam": "Nationaal Park De Maasduinen", "regel": "Wandelen en fietsen door duinen en bossen", "url": "https://www.asteria.nl/omgeving", "img": "fotos/lt-maasduinen.webp", "alt": "Houten vlonder over een ven in De Maasduinen"},
-    {"naam": "Nationaal Park De Groote Peel", "regel": "Uitgestrekte moerassen en open vlakten", "url": "https://www.asteria.nl/omgeving", "img": "fotos/lt-peel.webp", "alt": "Pad door het hoogveen van De Groote Peel"},
-    {"naam": "Venray", "regel": "De Grote Kerk, boetiekjes en terrassen", "url": "https://www.asteria.nl/omgeving", "icoon": "<path d=\"M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/>"}
+    {
+      "naam": "Direct aan de A73",
+      "regel": "Afrit 8 Venray-Noord, gratis parkeren voor de deur",
+      "url": "https://maps.google.com/?q=Maasheseweg+80a+Venray",
+      "img": "fotos/l26-hotel-buiten.webp",
+      "alt": "Hotel Asteria vanaf de oprit"
+    },
+    {
+      "naam": "Nationaal Park De Maasduinen",
+      "regel": "Wandelen en fietsen door duinen en bossen",
+      "url": "https://www.asteria.nl/omgeving",
+      "img": "fotos/lt-maasduinen.webp",
+      "alt": "Houten vlonder over een ven in De Maasduinen"
+    },
+    {
+      "naam": "Nationaal Park De Groote Peel",
+      "regel": "Uitgestrekte moerassen en open vlakten",
+      "url": "https://www.asteria.nl/omgeving",
+      "img": "fotos/lt-peel.webp",
+      "alt": "Pad door het hoogveen van De Groote Peel"
+    },
+    {
+      "naam": "Venray",
+      "regel": "De Grote Kerk, boetiekjes en terrassen",
+      "url": "https://www.asteria.nl/omgeving",
+      "icoon": "<path d=\"M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z\"/><circle cx=\"12\" cy=\"10\" r=\"3\"/>"
+    }
   ],
   "AANBOD_KOP_A": "Onze",
   "AANBOD_KOP_EM": "arrangementen",
@@ -95,12 +165,48 @@
   "AANBOD_KNOP": "Alle arrangementen",
   "AANBOD_URL": "https://www.asteria.nl/arrangementen",
   "_arrangementen": [
-    {"naam": "Wellnessarrangement", "regel": "Vrije toegang tot de wellness, diner en ontbijt", "url": "https://visit.asteria.nl/wellness-arrangement", "img": "fotos/l26-wellness-arrangement-hero.webp", "alt": "Boscabine in de wellness op de Top Floor"},
-    {"naam": "Najaarsarrangement", "regel": "Eigen sauna op de kamer, diner en ontbijt", "url": "https://visit.asteria.nl/najaarsarrangement-v2", "img": "fotos/l26-najaar-hero.webp", "alt": "Stel wandelt over een bospad in de herfst bij Venray"},
-    {"naam": "Oorlogsmuseum Arrangement", "regel": "Entree Oorlogsmuseum Overloon, diner en ontbijt", "url": "https://visit.asteria.nl/oorlogsmuseum-arrangement", "img": "fotos/l26-oorlogsmuseum-arrangement-hero.webp", "alt": "Legervoertuig in de expositie van het Oorlogsmuseum Overloon"},
-    {"naam": "4-daags Limburg Arrangement", "regel": "3 nachten, elke avond diner en 3 dagen een e-bike", "url": "https://visit.asteria.nl/limburg-arrangement", "img": "fotos/l26-limburg-arrangement-hero.webp", "alt": "Houten vlonder over een ven in Nationaal Park De Maasduinen"},
-    {"naam": "Weekend aanbieding", "regel": "2 nachten, diner en uitchecken tot 14.00", "url": "https://visit.asteria.nl/weekend-aanbieding", "img": "fotos/l26-weekend-aanbieding-hero.webp", "alt": "Stel proost met een glas in de lounge van Hotel Asteria"},
-    {"naam": "Golfarrangement", "regel": "Greenfee voor 18 holes, diner en ontbijt", "url": "https://visit.asteria.nl/golfarrangement", "img": "fotos/l26-golfarrangement-hero.webp", "alt": "Golfer slaat af op de fairway"}
+    {
+      "naam": "Wellnessarrangement",
+      "regel": "Vrije toegang tot de wellness, diner en ontbijt",
+      "url": "https://visit.asteria.nl/wellness-arrangement",
+      "img": "fotos/l26-wellness-arrangement-hero.webp",
+      "alt": "Boscabine in de wellness op de Top Floor"
+    },
+    {
+      "naam": "Najaarsarrangement",
+      "regel": "Eigen sauna op de kamer, diner en ontbijt",
+      "url": "https://visit.asteria.nl/najaarsarrangement-v2",
+      "img": "fotos/l26-najaar-hero.webp",
+      "alt": "Stel wandelt over een bospad in de herfst bij Venray"
+    },
+    {
+      "naam": "Oorlogsmuseum Arrangement",
+      "regel": "Entree Oorlogsmuseum Overloon, diner en ontbijt",
+      "url": "https://visit.asteria.nl/oorlogsmuseum-arrangement",
+      "img": "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+      "alt": "Legervoertuig in de expositie van het Oorlogsmuseum Overloon"
+    },
+    {
+      "naam": "4-daags Limburg Arrangement",
+      "regel": "3 nachten, elke avond diner en 3 dagen een e-bike",
+      "url": "https://visit.asteria.nl/limburg-arrangement",
+      "img": "fotos/l26-limburg-arrangement-hero.webp",
+      "alt": "Houten vlonder over een ven in Nationaal Park De Maasduinen"
+    },
+    {
+      "naam": "Weekend aanbieding",
+      "regel": "2 nachten, diner en uitchecken tot 14.00",
+      "url": "https://visit.asteria.nl/weekend-aanbieding",
+      "img": "fotos/l26-weekend-aanbieding-hero.webp",
+      "alt": "Stel proost met een glas in de lounge van Hotel Asteria"
+    },
+    {
+      "naam": "Golfarrangement",
+      "regel": "Greenfee voor 18 holes, diner en ontbijt",
+      "url": "https://visit.asteria.nl/golfarrangement",
+      "img": "fotos/l26-golfarrangement-hero.webp",
+      "alt": "Golfer slaat af op de fairway"
+    }
   ],
   "REVIEW_KOP_A": "Wat gasten",
   "REVIEW_KOP_EM": "zeggen",
@@ -120,5 +226,58 @@
   "SLOT_FOTO_B_POS": "center",
   "STICKY_KOP": "Hotel Asteria Venray",
   "STICKY_SUB": "Boek direct bij het hotel",
-  "STICKY_KNOP": "Boek nu"
+  "STICKY_KNOP": "Boek nu",
+  "_facdata": {
+    "fitness": {
+      "titel": "Fitness",
+      "link": "https://www.asteria.nl/faciliteiten",
+      "fotos": [
+        "fotos/l26-fitness.webp",
+        "fotos/l26-fac-fitness-2.webp",
+        "fotos/l26-fac-fitness-3.webp",
+        "fotos/l26-fac-fitness-4.webp"
+      ],
+      "tekst": "Een moderne fitnessruimte met professionele apparatuur van Technogym, voor cardio- en krachttraining. De fitness is vrij toegankelijk voor alle hotelgasten. Kom je niet logeren, dan gebruik je de fitness bij een bezoek aan de wellness.",
+      "chips": [
+        "Vrij voor hotelgasten",
+        "Cardio en kracht",
+        "Apparatuur van Technogym",
+        "Bezoekers met een wellnessbezoek"
+      ]
+    },
+    "fietsen": {
+      "titel": "Fietsen",
+      "link": "https://www.asteria.nl/faciliteiten",
+      "fotos": [
+        "fotos/l26-fac-fiets-1.webp",
+        "fotos/l26-fac-fiets-2.webp",
+        "fotos/l26-fac-fiets-3.webp",
+        "fotos/l26-fac-fiets-4.webp"
+      ],
+      "tekst": "Neem je je eigen fiets mee, dan staat hij veilig in onze afgesloten, overdekte fietsenstalling, waar je ook de accu kunt opladen. Geen fiets bij je? Bij het hotel huur je een fiets of een e-bike, vraag ernaar bij de receptie. Daar krijg je ook gratis fiets- en wandelroutes mee, bijvoorbeeld door De Maasduinen of De Groote Peel.",
+      "chips": [
+        "Afgesloten fietsenstalling",
+        "Accu opladen in de stalling",
+        "Fietsen en e-bikes te huur",
+        "Gratis fietsroutes"
+      ]
+    },
+    "parkeren": {
+      "titel": "Gratis parkeren",
+      "link": "https://www.asteria.nl/faciliteiten",
+      "fotos": [
+        "fotos/l26-waarom-parkeren.webp",
+        "fotos/l26-hotel-buiten.webp",
+        "fotos/l26-hotel-vijver.webp",
+        "fotos/l26-waarom-hotel.webp"
+      ],
+      "tekst": "Je parkeert gratis op ons ruime parkeerterrein, direct aan de A73 (afrit 8, Venray-Noord). Voor elektrische auto’s zijn er vier laadpunten.",
+      "chips": [
+        "Gratis parkeren",
+        "Direct aan de A73",
+        "Afrit 8 Venray-Noord",
+        "Vier laadpunten"
+      ]
+    }
+  }
 }

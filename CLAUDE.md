@@ -202,7 +202,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   uitsnede op bronresolutie (crf 16), poster `fotos/hero-asteria-building-sunset.webp` = frame 0, 1280x720, webp 90.
   Reduced motion = alleen HERO_IMG (lander-w1.css `.b1a-video`).
 - Trustkaart (blok `trustkaart`, aan met lege `KAART_IMG` in de JSON): boekkaart onder de hero (telefoon) en zijkaart zonder foto,
-  pil en titel; begint met het Google-scorevak (`.b1k-kaart--trust`). Alleen hotel-venray-v2.
+  pil, titel en Google-scorevak (de score staat al in de herobadge); begint met de vinkjes (`.b1k-kaart--trust`). Alleen hotel-venray-v2.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 
