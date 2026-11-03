@@ -197,8 +197,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `_faciliteiten` precies 5, `_fac_extra`), omgeving (`_omgeving` 3-5), arrangementen (`_arrangementen` 3-8, geen prijzen).
   Extra tag `gtag('set','linker',{accept_incoming:true})` zoals hotel-venray.html. Test: `... /hotel-venray-v2.html --hotel`.
 - Optionele herovideo op lander-w1 (blok `video`, aan met `HERO_VIDEO` in de JSON; `HERO_VIDEO_MOBIEL` = staande bron < 720 px via
-  `<source media>`, `HERO_VIDEO_POSTER`; terugval HERO_VIDEO/HERO_IMG). Video van de staging-homepage, licht gemaakt met ffmpeg:
-  `videos/hero-asteria-building-sunset.mp4` (1080x608) + `-mobiel.mp4` (406x720 uitsnede), poster `fotos/hero-asteria-building-sunset.webp`.
+  `<source media>`, `HERO_VIDEO_POSTER`; terugval HERO_VIDEO/HERO_IMG). Video van de staging-homepage op staging-kwaliteit:
+  `videos/hero-asteria-building-sunset.mp4` = staging-origineel 1:1 (1280x720, stream copy + faststart, zonder audio), `-mobiel.mp4` = 406x720
+  uitsnede op bronresolutie (crf 16), poster `fotos/hero-asteria-building-sunset.webp` = frame 0, 1280x720, webp 90.
   Reduced motion = alleen HERO_IMG (lander-w1.css `.b1a-video`).
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
