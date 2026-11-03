@@ -1,0 +1,55 @@
+/* ══════════════════════════════════════════════════════════
+   Scratchcard-pop-up (kras & win), stijlvariant 2026
+   Nieuwe Asteria-huisstijl (lander-w1/staging): Abhaya Libre-koppen,
+   Montserrat-tekst, ivoor/zand/kastanje, terracotta knoppen zoals
+   "Bekijk beschikbaarheid", afronding en schaduw van de kaarten.
+   Alleen actief met window.ScratchcardConfig = { stijl: '2026' }
+   (overlay krijgt data-stijl="2026"); de oude pop-up blijft ongewijzigd.
+   Tokens komen uit lander-w1.css (:root).
+══════════════════════════════════════════════════════════ */
+.sc-overlay[data-stijl="2026"]{z-index:1700;background:rgba(68,42,6,.55);font-family:var(--font-body)}
+body:has(.sc-overlay[data-stijl="2026"].is-open) .mob-cta{visibility:hidden}
+.sc-overlay[data-stijl="2026"] .sc-modal{max-width:860px;background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-deep)}
+.sc-overlay[data-stijl="2026"] .sc-photo{margin:16px;border-radius:var(--radius-image);min-height:480px}
+.sc-overlay[data-stijl="2026"] .sc-panel{padding:44px 44px 40px;color:var(--ink)}
+.sc-overlay[data-stijl="2026"] .sc-close{top:14px;right:14px;width:40px;height:40px;background:var(--paper);color:var(--ink);font-size:22px}
+.sc-overlay[data-stijl="2026"] .sc-close:hover{background:var(--paper-shade)}
+.sc-overlay[data-stijl="2026"] .sc-close:focus-visible,
+.sc-overlay[data-stijl="2026"] .sc-btn:focus-visible,
+.sc-overlay[data-stijl="2026"] .sc-input:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px}
+.sc-overlay[data-stijl="2026"] .sc-logo{height:40px;margin:0 0 20px}
+.sc-overlay[data-stijl="2026"] .sc-h{font-family:var(--font-display);font-weight:700;font-size:38px;line-height:1.05;letter-spacing:-.01em;color:var(--ink)}
+.sc-overlay[data-stijl="2026"] .sc-stage .sc-h[style]{font-size:30px !important}
+.sc-overlay[data-stijl="2026"] .sc-sub{font-size:16px;line-height:1.55;color:var(--ink-soft)}
+.sc-overlay[data-stijl="2026"] .sc-card{width:290px;height:210px;border-radius:var(--radius-card);box-shadow:var(--shadow-hover)}
+.sc-overlay[data-stijl="2026"] .sc-prize{background:var(--paper)}
+.sc-overlay[data-stijl="2026"] .sc-prize-title{font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--ink)}
+.sc-overlay[data-stijl="2026"] .sc-prize-list li{font-size:14px;color:var(--ink)}
+.sc-overlay[data-stijl="2026"] .sc-prize-list li::before{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23C76E4E' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>")}
+.sc-overlay[data-stijl="2026"] .sc-btn{display:inline-flex;align-items:center;justify-content:center;min-height:var(--touch-min);padding:14px 24px;
+    border-radius:var(--radius-btn);background:var(--terracotta);color:var(--surface);font-family:var(--font-body);font-weight:700;font-size:var(--text-sm);line-height:1.2}
+.sc-overlay[data-stijl="2026"] .sc-btn:hover{background:var(--terracotta-hover)}
+.sc-overlay[data-stijl="2026"] .sc-btn:disabled{background:var(--terracotta);opacity:.6}
+.sc-overlay[data-stijl="2026"] .sc-input{background:#fff;border:1px solid var(--hairline-strong);border-radius:var(--radius-btn);padding:14px 16px;
+    font-family:var(--font-body);font-size:16px;color:var(--ink);min-height:var(--touch-min)}
+.sc-overlay[data-stijl="2026"] .sc-input:focus{border-color:var(--terracotta)}
+.sc-overlay[data-stijl="2026"] .sc-input::placeholder{color:var(--ink-soft)}
+.sc-overlay[data-stijl="2026"] .sc-terms,.sc-overlay[data-stijl="2026"] .sc-consent,.sc-overlay[data-stijl="2026"] .sc-spam{font-size:12px;color:var(--ink-soft)}
+.sc-overlay[data-stijl="2026"] .sc-consent a{color:var(--terracotta-text)}
+.sc-overlay[data-stijl="2026"] .sc-error{color:var(--terracotta-text);font-size:13px}
+.sc-overlay[data-stijl="2026"] .sc-success-icon{background:var(--terracotta)}
+@media (max-width:680px){
+  .sc-overlay[data-stijl="2026"]{padding:12px}
+  .sc-overlay[data-stijl="2026"] .sc-modal{max-width:420px}
+  .sc-overlay[data-stijl="2026"] .sc-photo{min-height:0;height:150px;margin:0 16px 16px}
+  .sc-overlay[data-stijl="2026"] .sc-panel{padding:30px 22px 22px}
+  .sc-overlay[data-stijl="2026"] .sc-logo{height:34px;margin-bottom:14px}
+  .sc-overlay[data-stijl="2026"] .sc-h{font-size:30px}
+  .sc-overlay[data-stijl="2026"] .sc-stage .sc-h[style]{font-size:26px !important}
+  .sc-overlay[data-stijl="2026"] .sc-sub{font-size:15px;margin-bottom:20px}
+  .sc-overlay[data-stijl="2026"] .sc-card{width:260px;height:196px}
+  .sc-overlay[data-stijl="2026"] .sc-btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  .sc-overlay[data-stijl="2026"],.sc-overlay[data-stijl="2026"] .sc-claim,.sc-overlay[data-stijl="2026"] .sc-canvas{transition:none}
+}

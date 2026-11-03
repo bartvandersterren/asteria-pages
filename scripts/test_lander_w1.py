@@ -129,6 +129,9 @@ def nieuwe_pagina(b, w, h, mob, rustig=False):
     ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob,
                         reduced_motion='reduce' if rustig else 'no-preference')
     ctx.add_init_script("try{localStorage.setItem('cookie-consent','1')}catch(e){}")
+    # scratchcard-pop-up (blok 'scratchcard') uit voor deze test; eigen test: scripts/test_scratchcard_2026.py
+    ctx.add_init_script("try{localStorage.setItem('ec_converted','1')}catch(e){}")
+    ctx.route('**/api/track', lambda r: r.fulfill(status=204, body=''))   # D1-events (analytics-d1.js), lokaal geen Function
     ctx.add_init_script(ANKERS)
     if PRIJS:
         # De prijskalender (arrangement-kalender.js) vangt de boekknoppen en de boekbalk af; die heeft een eigen test

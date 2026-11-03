@@ -203,6 +203,13 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Reduced motion = alleen HERO_IMG (lander-w1.css `.b1a-video`).
 - Trustkaart (blok `trustkaart`, aan met lege `KAART_IMG` in de JSON): boekkaart onder de hero (telefoon) en zijkaart zonder foto,
   pil, titel en Google-scorevak (de score staat al in de herobadge); begint met de vinkjes (`.b1k-kaart--trust`). Alleen hotel-venray-v2.
+- Scratchcard-pop-up op lander-w1 (blok `scratchcard`, aan met `"_popup_scratchcard": true` in de JSON; nu alleen hotel-venray-v2):
+  zet `window.ScratchcardConfig = {stijl:'2026'}` en laadt `scratchcard-2026.css`, `analytics-d1.js` (window.track, zelfde D1-events
+  als hotel-venray.html), `nieuwsbrief.js` (backend klaviyo) en `scratchcard-popup.js`. Stijl 2026 = overlay `data-stijl="2026"`,
+  kraslaag zand/goud, logo uit de kop, focus-trap, vaste trigger (desktop exit-intent; telefoon 45% scroll of 20 s), onderbalk weg
+  zolang hij open is. Zonder config gedraagt `scratchcard-popup.js` zich als voorheen; sitebreed blijft `popup-ab.js` uit (POPUP_UIT).
+  Aanmelding: `/api/nieuwsbrief` (taal nl -> Klaviyo-lijst `WfwqBR`, bron scratchcard). Test: `scripts/test_scratchcard_2026.py`
+  (gemockte API) + `node --test scripts/test_nieuwsbrief_lijst.mjs`.
 
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 
