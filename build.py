@@ -500,7 +500,9 @@ def render_hotel(html, data, gesloten=False):
       _facdata:      extra pop-ups {sleutel: {titel, link, fotos[4], tekst, chips[4]}}, achter de vaste wellness/restaurant in #lp-facdata.
       _fac_video:    {sleutel: videopad} = video als eerste beeld in die pop-up (lander-w1.js vulFac; reduced motion = foto).
       _fac_extra:    lijst {tekst, icoon} onder de tekst van de faciliteitenkaart (icoon = svg-paden).
-      _omgeving:     3 tot 5 rijen {naam, regel, url, img? | icoon?, alt?} (zonder foto een icoon in een zandvakje).
+      _omgeving:     3 tot 6 plekken {naam, afstand, label, img, alt, pos?, fac} (omgevingsblok van de staging-homepage):
+                     label = pil op de foto, fac = sleutel in _facdata (pop-up; daar ook 'route' = Google Maps-link,
+                     'credit' = fotoregel en 'alts' = alt-teksten per foto). De eerste plek staat bij het laden op de foto.
       _arrangementen: 3 tot 8 kaarten {naam, regel, url, img, alt, pos?}; geen prijzen."""
     from html import escape
     fac = data.get('_faciliteiten') or []
@@ -540,22 +542,29 @@ def render_hotel(html, data, gesloten=False):
     html = html.replace('<!-- HO_FAC_EXTRA -->', ''.join(
         f'<li><span class="b3a-ic">{icoon(x["icoon"])}</span><span>{x["tekst"]}</span></li>' for x in data.get('_fac_extra') or []))
     omg = data.get('_omgeving') or []
-    if '<!-- HO_OMG -->' in html and not 3 <= len(omg) <= 5:
-        sys.exit(f'render_hotel: _omgeving moet 3 tot 5 rijen hebben, niet {len(omg)}')
+    if '<!-- HO_OMG -->' in html and not 3 <= len(omg) <= 6:
+        sys.exit(f'render_hotel: _omgeving moet 3 tot 6 plekken hebben, niet {len(omg)}')
+    # Omgevingsblok van de staging-homepage (.omgeving-list): elke plek is een knop die de foto bovenaan kiest
+    # (data-omg-*, lander-w1.js) en met data-fac de faciliteit-pop-up opent (pop-updata in '_facdata').
+    a = lambda t: escape(t or '')
     rijen = []
     for r in omg:
-        beeld = (f'<img src="{r["img"]}" alt="{r.get("alt", "")}" loading="lazy" width="80" height="80">' if r.get('img')
-                 else f'<span class="ho-omg-ic" aria-hidden="true">{icoon(r["icoon"])}</span>')
-        url = r.get('url') or ''
-        if gesloten and 'asteria.nl' in url and 'visit.asteria.nl' not in url:
-            url = ''   # gesloten lander: geen links naar asteria.nl
-        tekst = f'<span><span class="ho-omg-naam">{r["naam"]}</span><span class="ho-omg-regel">{r["regel"]}</span></span>'
-        if url:
-            doel = ' target="_blank" rel="noopener"' if url.startswith('https://maps.') else ''
-            rijen.append(f'          <li><a class="ho-omg-rij" href="{url}"{doel}>{beeld}{tekst}{PIJL_SVG}</a></li>')
-        else:
-            rijen.append(f'          <li><div class="ho-omg-rij ho-omg-rij--vast">{beeld}{tekst}</div></li>')
+        if r.get('fac') and r['fac'] not in (data.get('_facdata') or {}):
+            sys.exit(f'render_hotel: _omgeving {r["naam"]!r} verwijst naar onbekende pop-up {r["fac"]!r} (zet hem in _facdata)')
+        if not os.path.exists(os.path.join(base, r['img'])):
+            sys.exit(f'render_hotel: {r["img"]} bestaat niet')
+        rijen.append(
+            f'          <li><button type="button" class="omgeving-list__item" data-fac="{a(r["fac"])}" aria-haspopup="dialog" '
+            f'aria-label="Bekijk {a(r["naam"])}, {a(r["afstand"])}" data-omg-photo="{a(r["img"])}" data-omg-alt="{a(r["alt"])}" '
+            f'data-omg-cat="{a(r["label"])}" data-omg-pos="{a(r.get("pos", "center"))}">'
+            f'<span class="oli-name">{escape(r["naam"], quote=False)}</span><span class="oli-distance">{escape(r["afstand"], quote=False)}</span>'
+            '<span class="card-more oli-more">Bekijk</span></button></li>')
     html = html.replace('<!-- HO_OMG -->', '\n'.join(rijen))
+    if omg:   # de fotokaart begint op de eerste plek
+        eerste = omg[0]
+        for k, v in (('OMG_IMG', eerste['img']), ('OMG_ALT', eerste['alt']), ('OMG_IMG_POS', eerste.get('pos', 'center')),
+                     ('OMG_LABEL', eerste['label']), ('OMG_NAAM', eerste['naam'])):
+            html = html.replace('{{' + k + '}}', a(v) if k in ('OMG_IMG', 'OMG_ALT', 'OMG_IMG_POS') else escape(v, quote=False))
     arr = data.get('_arrangementen') or []
     if not 3 <= len(arr) <= 8:
         sys.exit(f'render_hotel: _arrangementen moet 3 tot 8 kaarten hebben, niet {len(arr)}')

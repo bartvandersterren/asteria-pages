@@ -540,19 +540,26 @@
       </div>
     </div>
   </section>
-  <!-- ══ HOTEL 2: OMGEVING, staande foto met lijst (zoals seizoenslander blok 6i) ══ -->
-  <section class="sec ho-omg" data-toon="surface" aria-labelledby="omg-kop">
-    <div class="wrap">
-      <div class="ho-omg-grid">
-        <img class="ho-omg-foto" src="{{OMG_IMG}}" alt="{{OMG_ALT}}" style="object-position:{{OMG_IMG_POS}}" loading="lazy">
-        <div class="ho-omg-tekst">
-          <h2 id="omg-kop">{{OMG_KOP_A}} <span class="g">{{OMG_KOP_EM}}</span></h2>
-          <p class="ho-omg-intro">{{OMG_TEKST}}</p>
-          <ul class="ho-omg-lijst">
+  <!-- ══ HOTEL 2: OMGEVING, nabouw van het omgevingsblok van de staging-homepage (.omgeving-list, data-omg-list): fotokaart met
+       label-pil en naam van de actieve plek, kop, intro en een lijst plekken (naam, afstand, Bekijk). Hover/focus (bureaublad) of
+       scrollen (telefoon) kiest de plek en wisselt de foto (lander-w1.js); klik opent de faciliteit-pop-up (data-fac, #lp-facdata).
+       Rijen uit '_omgeving' via build.py render_hotel; stijl hotel.css. ══ -->
+  <section class="sec ho-omg omgeving-list" data-omg-list data-toon="surface" aria-labelledby="omg-kop">
+    <div class="wrap omgeving-list__inner">
+      <div class="omgeving-list__photo">
+        <img src="{{OMG_IMG}}" alt="{{OMG_ALT}}" style="object-position:{{OMG_IMG_POS}}" data-omg-photo-target loading="lazy" width="1400" height="933">
+        <span class="omgeving-list__caption" data-omg-caption>
+          <span class="olc-kicker">{{OMG_LABEL}}</span>
+          <span class="olc-name" data-omg-caption-name>{{OMG_NAAM}}</span>
+        </span>
+      </div>
+      <div class="omgeving-list__text">
+        <h2 class="v3-title" id="omg-kop">{{OMG_KOP}}</h2>
+        <p class="v3-lead">{{OMG_TEKST}}</p>
+        <ul class="omgeving-list__items" role="list">
 <!-- HO_OMG -->
-          </ul>
-          <!--[!gesloten[--><a class="btn btn-secondary ho-omg-knop" href="{{OMG_URL}}">{{OMG_KNOP}}</a><!--]!gesloten]-->
-        </div>
+        </ul>
+        <!--[!gesloten[--><a class="btn btn-secondary omgeving-list__cta" href="{{OMG_URL}}">{{OMG_KNOP}}</a><!--]!gesloten]-->
       </div>
     </div>
   </section>

@@ -43,7 +43,8 @@ Telefoon (blok 'boekkaart'): staging-boekkaart over de hero (maten zoals de stag
 Met --hotel: voucher leeg (geen setVoucherCode, geen mewsVoucherCode/data-voucher in de links, geen actiecodeveld),
 geen tegelstrook, geen uitklaptab en geen zijkaart; ster-split aanwezig; blokvolgorde kamers > faciliteiten > omgeving >
 arrangementen > reviews > FAQ > slot; faciliteiten = tekstkaart + 5 tegels (Wellness/Restaurant openen de faciliteit-pop-up,
-dezelfde pop-upchecks als de tegelstrook), omgeving 3-5 rijen, arrangementkaarten naar bestaande lander-w1-pagina's
+dezelfde pop-upchecks als de tegelstrook), omgeving = blok van de staging-homepage (3-6 plekken, hover/scroll wisselt foto,
+Bekijk = pop-up met Mews-knop, Route plannen naar Google Maps en fotoregel), herokop zoals de staging, arrangementkaarten naar bestaande lander-w1-pagina's
 (visit.asteria.nl, bestand in de repo), geen prijzen in die blokken; tags GA4 + Google Ads zoals hotel-venray.html. Met herovideo (blok 'video'): speelt
 af op 1440 en 390 (zelfde liggende bron als de staging), dekt de hero onder de overlay; reduced motion = alleen de foto.
 
@@ -182,10 +183,21 @@ with sync_playwright() as p:
         check('[bron] geen tegelstrook, uitklaptab of zijkaart', 'class="sec b2a"' not in bron and 'b1k-uitklap' not in bron and 'lp-zone-kant' not in bron)
         check('[bron] geen onvervangen {{KEY}}-markers', not _re.findall(r'\{\{[A-Z_0-9]+\}\}', bron))
         hrefs_alle = _re.findall(r'href="([^"]*)"', bron)
-        mag = lambda h: (h.startswith(('tel:', 'mailto:', '/', '#', 'https://visit.asteria.nl/', 'https://app.mews.com/distributor/6dc9094c'))
+        mag = lambda h: (h.startswith(('tel:', 'mailto:', '/', '#', 'https://visit.asteria.nl/', 'https://app.mews.com/distributor/6dc9094c',
+                                       'https://www.google.com/maps/'))
                          or not h.startswith('http') or 'asteria.nl' not in h or h in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden'))
         fout = [h for h in hrefs_alle if not mag(h)]
         check('[bron] gesloten lander: geen links naar asteria.nl behalve privacy en algemene voorwaarden', not fout, ', '.join(fout))
+        # omgevingsblok: pop-updata zonder asteria.nl-links; Route plannen alleen naar Google Maps (allowlist)
+        _fd = json.loads(_re.search(r'<script type="application/json" id="lp-facdata">(.*?)</script>', bron, _re.S).group(1))
+        _omg = {k: v for k, v in _fd.items() if k.startswith('omg-')}
+        _routes = [v['route'] for v in _omg.values() if v.get('route')]
+        check('[bron] omgeving-pop-ups: geen asteria.nl-link, Route plannen alleen naar Google Maps (vanaf Maasheseweg 80a), fotoregel bij Commons-foto\'s',
+              bool(_omg) and all(not v.get('link') for v in _omg.values()) and len(_routes) >= 4
+              and all(r.startswith('https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a') for r in _routes)
+              and all(v.get('credit') for k, v in _omg.items() if k != 'omg-fietsen'), str(_routes)[:300])
+        _tekst = ' '.join(v['tekst'] + ' '.join(v['chips']) for v in _omg.values())
+        check('[bron] omgeving-pop-ups: geen &, geen em- of en-dash', '&' not in _tekst and '—' not in _tekst and '–' not in _tekst)
         jur = _re.findall(r'<a href="https://www\.asteria\.nl/(privacy|algemene-voorwaarden)" target="_blank" rel="noopener">', bron)
         check('[bron] juridische links (voet + cookiemelding) openen in een nieuw tabblad (rel noopener)', set(jur) == {'algemene-voorwaarden', 'privacy'}, str(jur))
         check('[bron] kop zonder menu, utility-balk, hamburger en mobiel menu; logo naar /hotel-venray-v2',
@@ -519,7 +531,7 @@ with sync_playwright() as p:
                     ('restaurant', 'Restaurant en terras', 'https://www.asteria.nl/restaurant')]
             if HOTEL:   # extra pop-ups uit '_facdata' (fitness, fietsen, parkeren)
                 fd = pg.evaluate("JSON.parse(document.getElementById('lp-facdata').textContent)")
-                POPS += [(k, v['titel'], v['link']) for k, v in fd.items() if k not in ('wellness', 'restaurant')]
+                POPS += [(k, v['titel'], v['link']) for k, v in fd.items() if k not in ('wellness', 'restaurant') and not k.startswith('omg-')]
                 FACVIDEO = {k: v['video'] for k, v in fd.items() if v.get('video')}
             for key, titel_v, link_v in POPS:
                 fk = pg.locator(f'{FAC} [data-fac="{key}"]').first
@@ -584,7 +596,8 @@ with sync_playwright() as p:
                   ster:!!q('#attentie .b3a-grid'),sterKop:q('#attentie h2').innerText,
                   tegels:fac.querySelectorAll('.ho-fac-tegel').length,kaart:!!fac.querySelector('.ho-fac-kaart h2'),extra:fac.querySelectorAll('.ho-fac-extra li').length,
                   facKnoppen:[...fac.querySelectorAll('[data-fac]')].map(b=>b.dataset.fac).join(','),
-                  rijen:omg.querySelectorAll('.ho-omg-rij').length,omgKop:omg.querySelector('h2').innerText,
+                  rijen:omg.querySelectorAll('.omgeving-list__item[data-fac][data-omg-photo]').length,omgKop:omg.querySelector('h2').innerText,
+                  h1fs:parseFloat(getComputedStyle(q('.b1a h1')).fontSize),
                   kaarten:[...arr.querySelectorAll('a.ho-arr-kaart')].map(a=>!!a.querySelector('img')&&!!a.querySelector('.ho-arr-naam').innerText).filter(Boolean).length,
                   euro:[fac,omg,arr].some(e=>e.innerText.includes('\u20ac')),
                   arrVeeg:(r=>r.scrollWidth>r.clientWidth)(arr.querySelector('.ho-arr-rij')),
@@ -612,7 +625,65 @@ with sync_playwright() as p:
                       and all(x['pijl'] and x['p'] == 'none' for x in mz))
                 check(f'{tag} faciliteiten als staging-mozaiek: links hoog+laag, rechts laag+hoog, brede tegel onder, pijl, geen omschrijving', ok, str(mz))
                 check(f'{tag} brede tegel onderaan is Restaurant en brasserie', len(breed) == 1 and breed[0]['n'] == 'Restaurant en brasserie', str([x['n'] for x in breed]))
-            check(f'{tag} omgeving: 3-5 rijen, kop "Even weg, alles vlakbij"', 3 <= hb['rijen'] <= 5 and 'alles vlakbij' in hb['omgKop'], str(hb['rijen']))
+            check(f'{tag} omgeving: 3-6 plekken (knop met pop-up en foto), kop "Even weg, alles vlakbij"', 3 <= hb['rijen'] <= 6 and 'alles vlakbij' in hb['omgKop'], str(hb['rijen']))
+            # herokop: bureaublad zoals de staging-homepage (--text-hero = clamp(72px, 9vw, 130px)), telefoon 44 px
+            h1_doel = 44 if w < 720 else (min(130, max(72, 0.09 * w)) if w >= 1024 else 72)
+            check(f'{tag} herokop {h1_doel:.1f} px (staging-homepage)', abs(hb['h1fs'] - h1_doel) < 0.6, str(hb['h1fs']))
+            # omgevingsblok: plek kiezen wisselt de foto en het bijschrift; Bekijk opent de pop-up met Route plannen en fotoregel
+            omg_items = pg.evaluate("[...document.querySelectorAll('[data-omg-list] .omgeving-list__item')].map(b=>({fac:b.dataset.fac,foto:b.dataset.omgPhoto,cat:b.dataset.omgCat,naam:b.querySelector('.oli-name').innerText.trim(),afstand:b.querySelector('.oli-distance').innerText.trim(),meer:b.querySelector('.oli-more').innerText.trim()}))")
+            check(f'{tag} omgeving: elke plek heeft naam, afstand en Bekijk', all(x['naam'] and x['afstand'] and x['meer'] == 'Bekijk' for x in omg_items), str(omg_items)[:300])
+            fd_omg = pg.evaluate("JSON.parse(document.getElementById('lp-facdata').textContent)")
+            JS_STAND = '''(()=>{const s=document.querySelector('[data-omg-list]'),a=s.querySelector('.omgeving-list__item.is-active'),f=s.querySelector('[data-omg-photo-target]'),
+                c=s.querySelector('.omgeving-list__caption'),r=s.querySelector('.omgeving-list__photo').getBoundingClientRect();
+                return {actief:a?a.dataset.fac:null,src:f.getAttribute('src'),naam:s.querySelector('[data-omg-caption-name]').textContent,cat:s.querySelector('.olc-kicker').textContent,
+                  cap:+getComputedStyle(c).opacity,top:Math.round(r.top),streep:a?+getComputedStyle(a,'::before').opacity:0}})()'''
+            if not mob:
+                doel = omg_items[1]
+                pg.locator('[data-omg-list] .omgeving-list__item').nth(1).scroll_into_view_if_needed()
+                pg.locator('[data-omg-list] .omgeving-list__item').nth(1).hover(); pg.wait_for_timeout(700)
+                st = pg.evaluate(JS_STAND)
+                check(f'{tag} omgeving: hover op een plek kiest hem (streep), wisselt foto, label en naam op de foto', st['actief'] == doel['fac'] and st['src'] == doel['foto']
+                      and st['naam'] == doel['naam'] and st['cat'] == doel['cat'] and st['cap'] > .9 and st['streep'] > .9, str(st))
+                pg.mouse.move(5, 5); pg.wait_for_timeout(700)
+                st = pg.evaluate(JS_STAND)
+                check(f'{tag} omgeving: muis eruit = terug naar de eerste plek, bijschrift weg', st['actief'] is None and st['src'] == omg_items[0]['foto'] and st['cap'] < .1, str(st))
+            else:
+                pg.evaluate("(()=>{const li=document.querySelectorAll('[data-omg-list] .omgeving-list__items li')[2];window.scrollTo(0,li.getBoundingClientRect().top+scrollY-420)})()")
+                pg.wait_for_timeout(900)
+                st = pg.evaluate(JS_STAND)
+                kop_h = pg.evaluate("document.querySelector('.top-stack').getBoundingClientRect().bottom")
+                gekozen = next((x for x in omg_items if x['fac'] == st['actief']), None)
+                check(f'{tag} omgeving: foto plakt onder de kop, de plek onder de foto wordt actief en bepaalt foto en naam', gekozen is not None and st['src'] == gekozen['foto']
+                      and st['naam'] == gekozen['naam'] and st['cap'] > .9 and abs(st['top'] - (kop_h + 14)) <= 2 and omg_items.index(gekozen) >= 1, f'{st} kop={kop_h}')
+            JS_POP = '''()=>{const d=document.getElementById('lp-pop-fac'),r=d.getBoundingClientRect(),bi=d.querySelector('.lp-pop__binnen'),ro=d.querySelector('.lp-pop__route'),cr=d.querySelector('.lp-pop__credit');
+                    const imgs=[...d.querySelectorAll('.lp-pop__hero:not([hidden]),.lp-pop__fotos img')];
+                    return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,knop:d.querySelector('.lp-pop__meer').textContent.trim(),boek:d.querySelector('.lp-pop__meer').classList.contains('mews-open'),
+                      mews:d.querySelector('.lp-pop__meer').getAttribute('href'),fotos:imgs.length,geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length,alt:imgs.every(i=>i.alt&&!i.alt.includes('foto ')),
+                      chips:[...d.querySelectorAll('.lp-pop__chips li')].map(c=>c.textContent),
+                      route:ro&&!ro.hidden?{href:ro.href,doel:ro.target,rel:ro.rel,tekst:ro.textContent}:null,credit:cr&&!cr.hidden?cr.textContent:null,
+                      t:Math.round(r.top),b:Math.round(r.bottom),l:Math.round(r.left),r:Math.round(r.right),scroll:bi.scrollHeight-bi.clientHeight,sw:document.documentElement.scrollWidth}}'''
+            for i, x in enumerate(omg_items):
+                v = fd_omg[x['fac']]
+                pg.evaluate("i=>document.querySelectorAll('[data-omg-list] .omgeving-list__item')[i].scrollIntoView({block:'center'})", i); pg.wait_for_timeout(300)
+                pg.locator('[data-omg-list] .omgeving-list__item').nth(i).click(); pg.wait_for_timeout(1000)
+                f = pg.evaluate(JS_POP)
+                ok_route = (f['route'] == {'href': v['route'], 'doel': '_blank', 'rel': 'noopener', 'tekst': 'Route plannen'}) if v.get('route') else f['route'] is None
+                check(f'{tag} omgeving {x["fac"]}: pop-up met titel, {len(v["fotos"])} geladen foto\'s met alt, afstand in de chips, Bekijk beschikbaarheid (Mews), Route plannen, fotoregel',
+                      f['open'] and f['titel'] == v['titel'] and f['boek'] and f['knop'] == 'Bekijk beschikbaarheid' and f['mews'].startswith('https://app.mews.com/distributor/6dc9094c')
+                      and 3 <= f['fotos'] == f['geladen'] == len(v['fotos']) <= 4 and f['alt'] and (x['afstand'] in f['chips'] or x['fac'] == 'omg-fietsen')
+                      and ok_route and f['credit'] == v.get('credit'), str(f)[:400])
+                check(f'{tag} omgeving {x["fac"]}-pop-up past in beeld' + (', zonder scrollen' if not mob else ''),
+                      f['t'] >= 0 and f['l'] >= 0 and f['r'] <= w and f['b'] <= h and f['sw'] <= w and (mob or f['scroll'] <= 1), str(f)[-160:])
+                if shotdir and i == 1:
+                    pg.screenshot(path=f'{shotdir}/{NAAM}-omg-{x["fac"]}-{w}.png')
+                pg.keyboard.press('Escape'); pg.wait_for_timeout(400)
+                dicht = pg.evaluate("i=>({open:document.getElementById('lp-pop-fac').open,focus:document.activeElement===document.querySelectorAll('[data-omg-list] .omgeving-list__item')[i]})", i)
+                check(f'{tag} Escape sluit de {x["fac"]}-pop-up, focus terug op de plek', not dicht['open'] and dicht['focus'], str(dicht))
+            # de faciliteit-pop-up daarna weer zonder route en fotoregel
+            pg.evaluate("document.querySelector('.ho-fac [data-fac=\"fietsen\"]').click()"); pg.wait_for_timeout(500)
+            schoon = pg.evaluate("(()=>{const d=document.getElementById('lp-pop-fac'),ro=d.querySelector('.lp-pop__route'),cr=d.querySelector('.lp-pop__credit');return {route:!!ro&&!ro.hidden,credit:!!cr&&!cr.hidden}})()")
+            pg.keyboard.press('Escape'); pg.wait_for_timeout(300)
+            check(f'{tag} faciliteit-pop-up na een omgeving-pop-up: geen Route plannen en geen fotoregel', not schoon['route'] and not schoon['credit'], str(schoon))
             check(f'{tag} arrangementen: kaarten met foto en naam, veegrij', hb['kaarten'] >= 3 and hb['arrVeeg'], str(hb['kaarten']))
             check(f'{tag} geen prijzen in faciliteiten, omgeving en arrangementen; geen pil op de kamerkaarten', not hb['euro'] and not hb['pil'])
             if shotdir:

@@ -194,7 +194,13 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   build-blok `hotel` = geen actiecode (`VOUCHER` leeg; build.py `zonder_voucher` haalt lege mewsVoucherCode/data-voucher/"met code" weg),
   geen tegelstrook, uitklaptab of zijkaart; ster-split = "Een verblijf dat bij je past"; na de kamers drie eigen blokken uit lijsten in
   `translations/hotel-venray-v2-nl.json` (build.py `render_hotel`, stijl `hotel.css`, prefix `ho-`): faciliteiten (mozaiek kiezerblok 6a,
-  `_faciliteiten` precies 5, `_fac_extra`), omgeving (`_omgeving` 3-5), arrangementen (`_arrangementen` 3-8, geen prijzen).
+  `_faciliteiten` precies 5, `_fac_extra`), omgeving (`_omgeving` 3-6), arrangementen (`_arrangementen` 3-8, geen prijzen).
+  Omgeving (3 nov 2026) = omgevingsblok van de staging-homepage (`.omgeving-list`, CSS uit staging base.css in hotel.css, JS in
+  lander-w1.js alleen bij `[data-omg-list]`): fotokaart met label-pil + naam, lijst plekken {naam, afstand, label, img, alt, fac};
+  hover/focus (>= 1024) of scrollen (telefoon, foto sticky onder de kop van 60 px) kiest de plek. Bekijk = faciliteit-pop-up
+  (`_facdata` sleutels `omg-*`, extra velden `route` = Google Maps-link (tekstlink Route plannen, nieuw tabblad), `credit` =
+  fotoregel, `alts`); foto's `fotos/l26-omg-*.webp`, Wikimedia-bronnen/licenties in `_bronnen.fotos` van de JSON.
+  Herokop op >= 1024 = staging-grootte (`--text-hero`, 129,6 px op 1440), alleen hotel-venray-v2 (hotel.css, niet `.b1a--sub`).
   Extra tag `gtag('set','linker',{accept_incoming:true})` zoals hotel-venray.html. Test: `... /hotel-venray-v2.html --hotel`.
 - Kamertypes in de nieuwe stijl `kamertypes-v2` (3 nov 2026, preview op PR #179; live /kamertypes = oude build_kamers.py tot akkoord):
   lander-w1 met blokken `hotel` + `kamertypes` (build.py `render_kamertypes`, `kamertypes-v2.css`/`.js`, prefix `kt-`), nabouw van
