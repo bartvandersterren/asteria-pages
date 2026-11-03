@@ -70,9 +70,11 @@ html{scroll-behavior:smooth}
 /* ---- 3 meest geboekt: paneel, drie kaarten ---- */
 .ao-top{padding-top:0}
 .ao-top__paneel{padding:56px 48px 60px 56px}
+/* kaarten op een licht paneel: wit met rand en schaduw, anders vallen ze weg in het paneel (zoals Parkhotel: creme paneel, witte kaarten) */
+.ao .ao-top__paneel .ao-tk,.ao .ao-kh__paneel .kaart{background:#fff;border:1px solid var(--hairline);border-radius:var(--radius-card);box-shadow:var(--shadow-card)}
 .ao .ao-top__lead{font-size:var(--text-sm);line-height:1.65;max-width:640px;margin:16px 0 36px;color:var(--ink)}
 .ao-top__grid{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:24px;align-items:stretch}
-.ao-tk{display:flex;flex-direction:column;overflow:hidden;min-width:0;padding:8px}
+.ao-tk{display:flex;flex-direction:column;overflow:hidden;min-width:0;padding:8px 8px 22px}
 .ao-tk__foto{width:100%;height:220px;object-fit:cover;display:block;border-radius:var(--radius-image)}
 .ao-tk__body{padding:22px 16px 16px;display:flex;flex-direction:column;flex:1}
 .ao-tk .ao-naam{margin-bottom:12px}
