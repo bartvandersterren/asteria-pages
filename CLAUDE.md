@@ -338,6 +338,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `/najaarsarrangement-v2`, `/wellness-arrangement-v3`, `/oorlogsmuseum-arrangement-v2`, `/limburg-arrangement-v2`,
   `/weekend-aanbieding-v2`, `/golfarrangement-v2` sturen met een 301 door (`_redirects`); de HTML-bestanden zijn weg.
   `/wellness-arrangement-v2` is een losse oude pagina (geen build-entry) en blijft staan.
+  **Winterarrangement 2027 (WINTER27, Mews-config Winter-actie 95c70e27) LIVE sinds 5 nov 2026 op `/winterarrangement`**, als enige
+  arrangementpagina `index, follow` (build-config `'index': ('nl',)` zet de sjabloon-noindex om); `/winterarrangement-v2` 301 in
+  `_redirects`, bestand weg. Niet in menu, arrangementenoverzicht of sitemap.xml (aparte beslissing).
   `_andere` (Ook interessant) linkt naar elkaars visit.asteria.nl-adres; kerst blijft naar asteria.nl.
 - **Opbouw (wireframe-ideaal 14 okt 2026, bron `~/Documents/Parkhotel /Website ontwerp/asteria-arrangement-blokkenkiezer/bron/wireframe-ideaal.html`):**
   1 hero + boekbalk met prijs-pil en chips, zijkaart (sticky, zonder foto) naast 2-5 die stopt na de kamers, 2 dit is inbegrepen
@@ -424,6 +427,11 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
     die tellen niet mee). Zondag (`ZV_TOON`): niet lager dan za/ma = korting nog niet in Mews -> gewoon - EUR 20 per kamer,
     `berekend:true`; wel lager = echte Mews-prijs. Cache API 6 u per code/maand/deel (5 min met storingsdagen), concurrency 2,
     3 pogingen, subrequestteller < 45, tijdbudget 25 s; de pop-up vraagt hoogstens 4 delen tegelijk.
+  - Schakelaars per arrangement-JSON (nov 2026, eerst Winterarrangement 2027/WINTER27): `ARR_KALENDER: false` = kalender en
+    live vanaf-prijs helemaal uit (code nog niet in Mews); `ZV_BEREKENEN: false` = `zondag_berekenen:false` in arr-kalender.json:
+    de API rekent geen EUR 20 zelf, en een zondag die niet lager is dan za/ma krijgt `zondag:false` (geen goud; Winter: december
+    zondag = EUR 309 zoals de rest); `ARR_VANAF_LIVE: false` = alleen de live vanaf-prijs uit (Winter: de 56 dagen vooruit zijn
+    alleen december, duurder dan de vanaf-prijs van jan-mrt). Weglaten = standaardgedrag, andere pagina's ongewijzigd.
   - Test: `python3 scripts/test_arr_kalender.py http://localhost:8765/najaarsarrangement.html [--echt] [--schermafdruk qa/arr-kalender]`
     (mockt /api/arr-kalender; `--echt` tegen `npx wrangler pages dev . --port 8788` of de preview). `test_lander_w1.py` zet de
     kalender in arrangementmodus uit (lege arrangement-kalender.js), zodat de oude Mews-checks blijven gelden.

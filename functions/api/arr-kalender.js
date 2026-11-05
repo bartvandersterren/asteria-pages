@@ -17,7 +17,9 @@
  *   zondagprijs niet lager, dan is de korting nog niet in Mews: prijs_cent = gewoon - 2000 (EUR 20 per kamer,
  *   EUR 10 p.p.), berekend:true. Is hij wel lager, dan de echte prijs, berekend:false. Zat de vergelijkingsdag
  *   niet in het deel (of had die geen prijs voor de categorie), dan één extra call voor de andere buurdag. Geen
- *   vergelijking mogelijk: de Mews-prijs zonder korting (berekend:false).
+ *   vergelijking mogelijk: de Mews-prijs zonder korting (berekend:false). Met zondag_berekenen:false (JSON
+ *   ZV_BEREKENEN false) rekent de API nooit zelf: alleen de Mews-prijs, en een zondag die niet lager is dan za/ma
+ *   krijgt zondag:false (geen goud), bijv. WINTER27 in december (geen zondagkorting in Mews).
  * - Antwoord {ok, code, maand, deel, nachten, personen, dagen: [{datum, beschikbaar, zondag, aankomst_mag,
  *   prijzen: {categorie-id: {prijs_cent, berekend}}}]}; een dag die niet opgehaald kon worden: storing:true;
  *   buiten vandaag t/m +18 maanden: buiten_bereik:true.
@@ -25,7 +27,8 @@
  *   haalt opnieuw op (hoogstens eens per 2 minuten per sleutel). Geen KV (schrijflimieten).
  * - Mews niet overbelasten: 2 tegelijk, 3 pogingen met wachttijd, harde subrequestteller (onder 45 van de 50
  *   op het Free-plan), tijdbudget per aanvraag. Liever een paar storingsdagen dan een hangende aanvraag.
- * Mews-config 6dc9094c (CLAUDE.md); de oude config wordt hier nooit gebruikt.
+ * Mews-config 6dc9094c (CLAUDE.md); de oude config wordt hier nooit gebruikt. Optioneel per code een eigen
+ * boekingsmodule via `config` in arr-kalender.json (JSON-veld MEWS_CONFIG, bijv. WINTER27 = Winter-actie 95c70e27).
  */
 
 import CONFIG from '../../content/arr-kalender.json';
@@ -247,8 +250,9 @@ function privePrijzen(av) {
 
 async function peil(code, nachten, datum, tot, teller) {
   const deadline = Math.min(Date.now() + DAG_BUDGET, tot);
+  const cfg = CONFIG[code] || {};
   return privePrijzen(await vraag({
-    Client: CLIENT, ConfigurationId: CONFIGURATIE, HotelId: HOTEL,
+    Client: CLIENT, ConfigurationId: cfg.config || CONFIGURATIE, HotelId: HOTEL,
     StartUtc: utc(datum), EndUtc: utc(plusDagen(datum, nachten)),
     AdultCount: PERSONEN, ChildCount: 0, VoucherCode: code,
   }, deadline, teller));
@@ -327,6 +331,7 @@ async function kalender(code, cfg, maand, deel, teller) {
     if (r === undefined) { ontbreekt = true; return Object.assign(basis, { beschikbaar: false, storing: true }); }
     if (r === null) return Object.assign(basis, { beschikbaar: false });
     const prijzen = {};
+    let vergeleken = false, lager = false;
     for (const cat in r) {
       let cent = r[cat], berekend = false;
       if (cfg.zondag && x.wd === 0) {
@@ -334,11 +339,16 @@ async function kalender(code, cfg, maand, deel, teller) {
           .filter((p) => p && p[cat] !== undefined).map((p) => p[cat]);
         if (refs.length) {
           const gewoon = Math.min.apply(null, refs);
-          if (cent >= gewoon) { cent = gewoon - ZONDAG_KORTING_CENT; berekend = true; }
+          vergeleken = true;
+          if (cent < gewoon) lager = true;
+          else if (cfg.zondag_berekenen !== false) { cent = gewoon - ZONDAG_KORTING_CENT; berekend = true; }
         }
       }
       prijzen[cat] = { prijs_cent: cent, berekend };
     }
+    // zondag_berekenen:false = de zondagkorting staat (alleen) in Mews: geen berekende korting, en een zondag zonder
+    // lagere prijs dan za/ma (bijv. december bij WINTER27) krijgt geen goud (zondag:false in het antwoord).
+    if (cfg.zondag_berekenen === false && x.wd === 0 && vergeleken && !lager) basis.zondag = false;
     return Object.assign(basis, { beschikbaar: true, prijzen });
   });
 

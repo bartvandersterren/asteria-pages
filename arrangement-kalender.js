@@ -26,7 +26,8 @@
   var STD = (D.kamerStandaard || '').toLowerCase(), ZONDAG = D.zondag === 'ja';
   var KAMERS = {};
   try { KAMERS = JSON.parse(D.kamers || '{}'); } catch (e) { KAMERS = {}; }
-  var MEWS_URL = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
+  var MEWS_URL = 'https://app.mews.com/distributor/'
+    + (document.documentElement.getAttribute('data-mews-config') || '6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
   var kanModal = typeof pop.showModal === 'function';
 
   function pd(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec((s || '').trim()); return m ? new Date(+m[1], m[2] - 1, +m[3]) : null; }

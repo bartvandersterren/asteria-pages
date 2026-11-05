@@ -43,5 +43,14 @@
     "aankomstdagen": null,
     "zondag": true,
     "standaardkamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
+  },
+  "WINTER27": {
+    "slug": "winterarrangement",
+    "nachten": 2,
+    "aankomstdagen": null,
+    "zondag": false,
+    "standaardkamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315",
+    "zondag_berekenen": false,
+    "config": "95c70e27-1332-4d94-a1d4-b4f900da3be8"
   }
 }

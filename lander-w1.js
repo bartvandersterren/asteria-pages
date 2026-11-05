@@ -10,7 +10,8 @@
 (function () {
   'use strict';
 
-  var MEWS_CONFIG = '6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
+  /* eigen boekingsmodule per pagina via <html data-mews-config> (build.py, JSON-veld MEWS_CONFIG); standaard 6dc9094c */
+  var MEWS_CONFIG = document.documentElement.getAttribute('data-mews-config') || '6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
   var MEWS_SRC = 'https://app.mews.com/distributor/distributor.min.js';
   var MEWS_URL = 'https://app.mews.com/distributor/' + MEWS_CONFIG;
   var root = document.documentElement;

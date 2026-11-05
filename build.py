@@ -165,6 +165,18 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
     } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement')},
+    # Winterarrangement 2027: sinds 5 nov 2026 LIVE op /winterarrangement (index, follow via 'index'; /winterarrangement-v2
+    # 301 in _redirects, bestand weg). ARR_KALENDER stond false zolang WINTER27 niet in Mews stond; sinds 5 nov true
+    # (prijskalender aan), ZV_BEREKENEN false (zondag uit Mews).
+    'winterarrangement': {
+        'template': 'lander-w1.template.html',
+        'index': ('nl',),
+        'langs': {
+            'nl': ('winterarrangement.html', 'translations/winterarrangement-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'zijkaart': True, 'arrangement': True},
+    },
     # Algemene hotellander (tegenhanger van parkhotelhorst.nl/hotel-horst-2/, voor Meta-verkoopads en branded Google Ads):
     # lander-w1 met blok 'hotel' = geen vouchercode (VOUCHER leeg, zie zonder_voucher), geen tegelstrook en geen
     # uitklaptab; ster-split = 'Een verblijf dat bij je past'; na de kamers faciliteiten, omgeving en arrangementen
@@ -947,9 +959,21 @@ def apply_arrangement(html, data):
         sys.exit(f'ARR_NACHTEN moet een heel getal van 1 of meer zijn, niet {nachten!r}')
     if nachten > 1:
         html = html.replace(' data-boekbalk ', f' data-boekbalk data-nachten="{nachten}" ')
-    if '{{KAL_KOP}}' in html:
+    if data.get('ARR_KALENDER') is False:
+        # Prijskalender en live vanaf-prijs uit (bijv. code nog niet actief in Mews): dialoog, css en js eruit; de
+        # boekknoppen gaan dan rechtstreeks via de Mews-flow van lander-w1.js, de prijs blijft vaste tekst uit de JSON.
+        html = re.sub(r'\n  <!-- ══ PRIJSKALENDER.*?</dialog>', '', html, count=1, flags=re.S)
+        html = html.replace('<link rel="stylesheet" href="arrangement-kalender.css">', '')
+        html = html.replace('<script src="arrangement-kalender.js" defer></script>', '')
+        html = html.replace('<script src="arr-vanaf.js" defer></script>', '')
+    elif '{{KAL_KOP}}' in html:
         html = apply_kalender(html, data, kamers, nachten)
-        html = markeer_vanaf(html, data['VOUCHER'])
+        if data.get('ARR_VANAF_LIVE') is False:
+            # alleen de live vanaf-prijs uit (bijv. de komende 56 dagen zijn duurder dan de vanaf-prijs van het
+            # arrangement, Winter: december EUR 309 tegen januari EUR 269): prijzen blijven vaste tekst uit de JSON
+            html = html.replace('<script src="arr-vanaf.js" defer></script>', '')
+        else:
+            html = markeer_vanaf(html, data['VOUCHER'])
 
     wolk = data.get('_fotowolk')
     if wolk:
@@ -1070,6 +1094,12 @@ def apply_kalender(html, data, kamers, nachten):
     alle = {c: v for c, v in alle.items() if c == code or v.get('slug') != slug}
     alle[code] = {'slug': slug, 'nachten': nachten, 'aankomstdagen': sorted(dagen) if dagen else None,
                   'zondag': zondag, 'standaardkamer': std}
+    if data.get('ZV_BEREKENEN') is False:
+        # zondagkorting staat in Mews (geen berekende EUR 20) en een zondag zonder lagere prijs krijgt geen goud
+        alle[code]['zondag_berekenen'] = False
+    if data.get('MEWS_CONFIG'):
+        # eigen Mews-boekingsmodule voor deze pagina (bijv. Winter-actie 95c70e27): de API bevraagt die config
+        alle[code]['config'] = data['MEWS_CONFIG']
     nieuw = json.dumps(dict(sorted(alle.items())), ensure_ascii=False, indent=2) + '\n'
     try:
         with open(KALENDER_JSON, encoding='utf-8') as f:
@@ -1590,6 +1620,9 @@ def build(template_name, lang):
         if isinstance(value, str) and not key.startswith('_'):
             html = html.replace('{{' + key + '}}', value)
 
+    # Lege zondagregel in de zijkaart (ZV_KAART_REGEL = "") laat geen leeg streepje achter
+    html = html.replace('<p class="ar-zondagregel"></p>', '')
+
     # Arrangement: kamers + pillen uit '_kamers' (alleen met blok 'arrangement')
     if 'arrangement' in aan:
         html = apply_arrangement(html, translations)
@@ -1636,6 +1669,18 @@ def build(template_name, lang):
     if translations.get('VOUCHER', None) == '':
         html = zonder_voucher(html)
 
+    # Eigen Mews-boekingsmodule (optioneel JSON-veld MEWS_CONFIG, bijv. winterarrangement = Winter-actie 95c70e27):
+    # alle distributor-links op deze pagina naar die config, en data-mews-config op <html> zodat lander-w1.js en
+    # arrangement-kalender.js de widget/deeplinks met die config openen. Zonder het veld: niets verandert.
+    mews_cfg = translations.get('MEWS_CONFIG')
+    if mews_cfg:
+        if not re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', mews_cfg):
+            sys.exit(f'MEWS_CONFIG is geen Mews-config-id: {mews_cfg!r}')
+        html = html.replace('distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556', 'distributor/' + mews_cfg)
+        html, n = re.subn(r'<html( [^>]*)?>', lambda m: m.group(0)[:-1] + f' data-mews-config="{mews_cfg}">', html, count=1)
+        if not n or '6dc9094c' in html:
+            sys.exit(f'MEWS_CONFIG: niet volledig doorgevoerd in {output_file}')
+
     # Mews-boekingslinks in de juiste taal openen (alleen EN/DE)
     html = add_mews_language(html, lang)
 
@@ -1647,6 +1692,11 @@ def build(template_name, lang):
         html = re.sub(r'(<meta charset="[^"]*">)', r'\1\n  <meta name="robots" content="noindex, follow">', html, count=1)
         if 'name="robots"' not in html:
             sys.exit(f'noindex: geen <meta charset> in {output_file}')
+    # Wel indexeren (bijv. winterarrangement): de noindex-meta uit het sjabloon wordt index, follow
+    if lang in config.get('index', ()):
+        html, n = re.subn(r'<meta name="robots" content="noindex, follow">', '<meta name="robots" content="index, follow">', html)
+        if n != 1:
+            sys.exit(f'index: robots-meta niet precies een keer gevonden in {output_file}')
 
     # Sanity check: no unreplaced markers
     remaining = re.findall(r'\{\{[A-Z_0-9]+\}\}', html)

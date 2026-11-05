@@ -1,0 +1,229 @@
+{
+  "_controleren": [
+    "WINTER27 staat sinds 5 nov 2026 aan in Mews (direct tarief WINTER27BD, Privé, precies 2 nachten). Prijskalender staat aan (ARR_KALENDER true). Live vanaf-prijs staat uit (ARR_VANAF_LIVE false): die kijkt 56 dagen vooruit = alleen december (€ 309 = € 155 p.p.) en zou de vanaf-prijs € 134,50 (januari t/m maart) overschrijven. ZV_BEREKENEN false: de zondagkorting komt uit Mews zelf (jan t/m mrt zo € 249 tegen ma € 269); in december is zondag gelijk aan de andere dagen (€ 309), dus geen berekende korting en geen goud op decemberzondagen. De pagina-tekst noemt de zondagkorting zonder uitzondering voor december: controleren.",
+    "Aankomstdagen en dichte data (1 t/m 23 december geen vr/za; dicht 24 dec t/m 2 jan, 19 en 20 maart, 26 t/m 29 maart) komen uit de Mews-restricties: de kalender toont die dagen grijs. Geen ARR_AANKOMSTDAGEN nodig. Vertrek = aankomst + 2 nachten (ARR_NACHTEN 2).",
+    "Zondagkorting (€ 20 per kamer, zondag € 249,00 per kamer = € 124,50 p.p.) en vr/za-toeslag (€ 40 per verblijf): de pagina zegt dat de zondagkorting automatisch wordt verrekend met WINTER27. Controleren in Mews zodra het tarief aan staat.",
+    "Toeslagen per kamertype voor dit arrangement zijn niet bekend. De pagina toont alleen de Comfort kamer (inbegrepen, € 134,50 p.p.) zonder upgrades of toeslagrij. Royale, Deluxe, Suite e.d. toevoegen aan _kamers zodra de meerprijzen vastliggen.",
+    "Annuleren: de mail noemt 'tot 24 uur van tevoren kosteloos annuleren', niet bevestigd voor het wintertarief. Het sjabloon toont annuleren niet standaard; de FAQ zegt daarom: zie je bij het boeken. Na bevestiging Stijn eventueel in ARR_VOORWAARDEN, KAART_VINK en FAQ zetten.",
+    "Early check-in vanaf 12.00 en late check-out tot 14.00 op basis van beschikbaarheid (uit de mail; staat als inbegrepen-punt, niet als vaste tijd in de tijdenstrook); diner tot 21.30, gratis parkeren, wellness-openingstijden en badkledingdag overgenomen van de wellness-arrangementpagina.",
+    "Welkomstdrankje = een glas huiswijn of speciaalbier (uit de mail). Driegangendiner op de avond van aankomst; tweede avond bijboeken zonder prijs.",
+    "Herofoto l26-winterarrangement-hero.webp = P1057456 (contentshoot, stel in badjas met ontbijt op bed); kaartfoto l26-winterarrangement-voetbad.webp = P1058010 (voetenbaden wellness). Geen echte winterfoto (sneeuw) beschikbaar in de Asteria-fotobank/repo.",
+    "Ook interessant: Wellness Arrangement vanaf € 139,50 en Oorlogsmuseum Arrangement vanaf € 131,00 overgenomen van de andere arrangementpagina's; Kerstarrangement (asteria.nl) zonder prijs. Kerst valt in de periode waarin het winterarrangement dicht is.",
+    "De dealmail linkt naar de oude Mews-config bee2f902. Deze pagina boekt sinds 5 nov 2026 via de eigen boekingsmodule Winter-actie 95c70e27 (MEWS_CONFIG; WINTER27 staat daar vooraf ingevuld, alleen het tarief Winterarrangement 2027 zichtbaar); de andere arrangementpagina's blijven op 6dc9094c. Mail-link nog omzetten naar visit.asteria.nl/winterarrangement (live sinds 5 nov 2026)."
+  ],
+  "PAGE_TITLE": "Winterarrangement: 2 nachten met diner en wellness | Hotel Asteria Venray",
+  "META_DESC": "Winterarrangement bij Hotel Asteria in Venray: twee nachten met ontbijt, een driegangendiner, welkomstdrankje, badjas en slippers en de wellness. Nu € 134,50 p.p.",
+  "CANONICAL_URL": "https://visit.asteria.nl/winterarrangement",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-winterarrangement-hero.webp",
+  "H_EEN_A": "Twee winterse",
+  "H_EEN_EM": "dagen in Venray",
+  "SUB": "Twee nachten met ontbijt, een driegangendiner op de avond van aankomst en de wellness. Badjas en slippers liggen voor je klaar, jij hoeft alleen te komen.",
+  "HERO_IMG": "fotos/l26-winterarrangement-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:28%\"",
+  "HERO_ALT": "Stel in witte badjassen ontbijt met croissants op bed in een hotelkamer van Hotel Asteria",
+  "MEWS_CONFIG": "95c70e27-1332-4d94-a1d4-b4f900da3be8",
+  "VOUCHER": "WINTER27",
+  "CODE_ATTR": "",
+  "CTA": "Boek het arrangement",
+  "ARR_PRIJS_PIL": "nu € 134,50 p.p. · 26% korting",
+  "ARR_PRIJS": "€ 134,50",
+  "ARR_PRIJS_EENHEID": "p.p.",
+  "KAART_KOP": "Winterarrangement",
+  "ARR_TRUST_A": "Geen boekingskosten",
+  "ARR_TRUST_B": "Directe bevestiging",
+  "KAART_IMG": "fotos/l26-winterarrangement-voetbad.webp",
+  "KAART_ALT": "Twee gasten in badjas bij de voetenbaden in de wellness van Hotel Asteria",
+  "KAART_PIL": "26% korting",
+  "KAART_VINK_A": "2 nachten met ontbijt",
+  "KAART_VINK_B": "Driegangendiner",
+  "KAART_VINK_C": "Wellness, badjas en slippers",
+  "KAART_VINK_D": "Early check-in en late check-out",
+  "KAART_KNOP": "Boek het arrangement",
+  "KAART_TRUST": "Boek direct bij het hotel · Actiecode WINTER27",
+  "BOEKBALK_KNOP": "Boek het arrangement",
+  "BOEKBALK_NOOT": "2 nachten, aankomst 1 december t/m 31 maart · actiecode WINTER27 staat al voor je ingevuld",
+  "KAMER_KOP_A": "In welke",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "slaap je?",
+  "KAMER_SUB": "Het winterarrangement is op basis van een Comfort kamer. Liever meer ruimte? Vraag bij je reservering naar de mogelijkheden.",
+  "KAMER_PIL": "Inbegrepen",
+  "KAMER_NOOT": "Prijs per persoon voor 2 nachten op basis van een tweepersoonskamer, exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
+  "_kamers": {
+    "comfort": {
+      "pil": "Inbegrepen",
+      "soort": "inbegrepen",
+      "prijs_label": "vanaf",
+      "prijs": "€ 134,50 p.p."
+    }
+  },
+  "POP_BADGE": "Winterarrangement",
+  "REVIEW_KOP_A": "Waarom gasten graag",
+  "REVIEW_KOP_EM": "terugkomen",
+  "SLOT_KOP_A": "Je",
+  "SLOT_KOP_EM": "winterverblijf",
+  "SLOT_KOP_B": "staat klaar",
+  "SLOT_TEKST": "Boek het winterarrangement met code WINTER27: twee nachten met ontbijt, een driegangendiner en de wellness. Vragen? We helpen je graag verder.",
+  "STICKY_KOP": "Winterarrangement",
+  "STICKY_SUB": "nu € 134,50 p.p. voor 2 nachten",
+  "STICKY_KNOP": "Boek nu",
+  "SLOT_FOTO_A": "fotos/l26-winterarrangement-hero.webp",
+  "SLOT_FOTO_A_POS": "40% 50%",
+  "SLOT_FOTO_B": "fotos/l26-wellness-arrangement-relax-stel.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p.p. voor 2 nachten",
+  "ARR_VOORWAARDEN": "Totale waarde <s>€ 181,00</s> p.p.",
+  "ARR_MOB_NOOT": "Code WINTER27 staat al ingevuld",
+  "INB_KOP_A": "Dit is",
+  "INB_KOP_EM": "inbegrepen",
+  "ARR_INB_INTRO": "Totale waarde € 181,00 per persoon, nu € 134,50. Eén keer boeken en de rest regelen wij, van het welkomstdrankje tot het ontbijt op je laatste ochtend.",
+  "ZV_TOON": false,
+  "ZV_KOP_A": "Op zondag",
+  "ZV_KOP_EM": "€ 20 per kamer",
+  "ZV_KOP_B": "voordeliger",
+  "ZV_PIL": "− € 20 per kamer",
+  "ZV_ZONDAG_KOP": "Aankomst op zondag",
+  "ZV_ZONDAG_PRIJS": "€ 124,50",
+  "ZV_GEWOON_PRIJS": "€ 134,50",
+  "ZV_ZONDAG_REGEL": "€ 249,00 per kamer, korting automatisch verrekend met code WINTER27",
+  "ZV_ANDERS_KOP": "Aankomst ma t/m za",
+  "ZV_ANDERS_REGEL": "Aankomst op vrijdag of zaterdag: € 40 per verblijf extra",
+  "ZV_VOETNOOT": "Prijzen per persoon voor 2 nachten, op basis van 2 personen in een Comfort kamer; de korting geldt eenmalig per kamer per verblijf dat op zondag begint.",
+  "ZV_KAART_REGEL": "",
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": true,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "wellness",
+    "sauna",
+    "diner",
+    "dinner",
+    "ontbijt"
+  ],
+  "_chips": [
+    "2 nachten met diner",
+    "Wellness, badjas en slippers",
+    "Early check-in, late check-out"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Twee overnachtingen",
+      "regel": "in een comfortabele kamer",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Uitgebreid ontbijt",
+      "regel": "beide ochtenden",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    },
+    {
+      "titel": "Driegangendiner",
+      "regel": "in ons restaurant, op de avond van aankomst",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Welkomstdrankje",
+      "regel": "een glas huiswijn of speciaalbier",
+      "icoon": "<path d=\"M8 22h8\"/><path d=\"M12 15v7\"/><path d=\"M6 2h12l-1 8a5 5 0 0 1-10 0z\"/><path d=\"M6.5 6h11\"/>"
+    },
+    {
+      "titel": "Badjas en slippers",
+      "regel": "klaar voor de wellness",
+      "icoon": "<path d=\"M12 6a2 2 0 1 1 2-2\"/><path d=\"M12 6v1.5L2.7 15.2A1 1 0 0 0 3.3 17h17.4a1 1 0 0 0 .6-1.8L12 7.5\"/>"
+    },
+    {
+      "titel": "Wellness",
+      "regel": "tijdens je verblijf",
+      "icoon": "<path d=\"M12 2.7l5.7 5.7a8 8 0 1 1-11.4 0z\"/>"
+    },
+    {
+      "titel": "Early check-in en late check-out",
+      "regel": "vanaf 12.00 en tot 14.00, op basis van beschikbaarheid",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-weekend-aanbieding-comfort.webp",
+      "alt": "Comfort kamer met tweepersoonsbed",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-badjas.webp",
+      "alt": "Stel in badjas op de hotelkamer",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-winterarrangement-voetbad.webp",
+      "alt": "Twee gasten in badjas bij de voetenbaden in de wellness",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-diner.webp",
+      "alt": "Gast aan tafel in het restaurant tijdens het diner",
+      "pos": "55% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-ontbijt.webp",
+      "alt": "Ontbijtbord met croissant, kaas, vleeswaren en druiven",
+      "pos": "45% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Diner tot 21.30",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Gratis parkeren",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Wat zit er in het winterarrangement?",
+      "a": "Twee overnachtingen in een comfortabele kamer, beide ochtenden een uitgebreid ontbijt, een driegangendiner in ons restaurant op de avond van aankomst, een welkomstdrankje (een glas huiswijn of speciaalbier), badjas en slippers en de wellness tijdens je verblijf. Early check-in vanaf 12.00 en late check-out tot 14.00 krijg je op basis van beschikbaarheid. Parkeren is gratis."
+    },
+    {
+      "q": "Wanneer kan ik komen?",
+      "a": "Aankomst kan van 1 december 2026 tot en met 31 maart 2027. Van 1 tot en met 23 december kom je aan op zondag tot en met donderdag. Van 24 december tot en met 2 januari is het arrangement niet te boeken, en ook niet op 19 en 20 maart en van 26 tot en met 29 maart."
+    },
+    {
+      "q": "Kan ik ook op de tweede avond dineren?",
+      "a": "Ja, dat kan. Laat het ons weten bij je reservering, dan zorgen wij voor een mooie tafel."
+    },
+    {
+      "q": "Wat vind ik in de wellness en wanneer is hij open?",
+      "a": "De wellness op de Top Floor is ruim 300 m², met vier sauna's (infrarood, bos, zoutsteen en notenhout), een stoomcabine, belevenisdouches, een dompel- en kruidenbad, voetenbaden en een relaxruimte. Open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag; op de andere dagen ga je zonder badkleding. Badjas en slippers liggen op je kamer klaar."
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het arrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    }
+  ],
+  "_andere": [
+    {
+      "naam": "Wellness Arrangement",
+      "url": "https://visit.asteria.nl/wellness-arrangement",
+      "img": "fotos/wt-arr.webp",
+      "alt": "Gast in badjas leest een tijdschrift in de relaxruimte",
+      "prijs": "vanaf € 139,50 p.p."
+    },
+    {
+      "naam": "Oorlogsmuseum Arrangement",
+      "url": "https://visit.asteria.nl/oorlogsmuseum-arrangement",
+      "img": "fotos/l26-wellness-arrangement-andere-oorlogsmuseum.webp",
+      "alt": "Tank in een nagebouwde oorlogsscène in het Oorlogsmuseum Overloon",
+      "prijs": "vanaf € 131,00 p.p."
+    },
+    {
+      "naam": "Kerstarrangement",
+      "url": "https://www.asteria.nl/arrangementen/kerstarrangement-hotel",
+      "img": "fotos/l26-arr-kerst.webp",
+      "alt": "Kerstbal met de Asteria-ster tussen dennentakken"
+    }
+  ],
+  "ARR_NACHTEN": 2,
+  "ARR_KALENDER": true,
+  "ZV_BEREKENEN": false,
+  "ARR_VANAF_LIVE": false
+}
