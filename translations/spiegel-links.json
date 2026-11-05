@@ -5,7 +5,8 @@
     "arrangementenoverzicht: één instelling voor alle links naar het overzicht (menu, voet, Alle arrangementen, OVERZICHT_ARR_URL van hotel-venray-v2).",
     "arrangementen: trefwoord in de knoptekst of kaartkop -> eigen arrangementpagina; geen match = arrangementenoverzicht.",
     "weg: sleutels zonder pagina; links ernaartoe gaan eruit (menu-item, voetlink, knop of tegel; in lopende tekst blijft de tekst staan).",
-    "spiegel: staging-pad -> bestand in deze repo en de sleutel uit paginas die het adres geeft."
+    "spiegel: staging-pad -> bestand in deze repo en de sleutel uit paginas die het adres geeft.",
+    "kamer-comfort-3/-mindervalide/-royale/-suite/-bruidssuite: eigen kamerdetailpagina's (kamer-w1, build.py kamers/<slug>); de staging heeft daar geen pagina voor. Junior Suite heeft geen detailpagina (gaat naar Mews)."
   ],
   "arrangementenoverzicht": "/arrangementen-v2",
   "paginas": {
@@ -14,6 +15,11 @@
     "kamers": "/kamers",
     "kamer-comfort": "/kamers/comfort-kamer",
     "kamer-deluxe": "/kamers/deluxe-kamer",
+    "kamer-comfort-3": "/kamers/comfort-kamer-3-personen",
+    "kamer-mindervalide": "/kamers/mindervalide-kamer",
+    "kamer-royale": "/kamers/royale-kamer",
+    "kamer-suite": "/kamers/suite",
+    "kamer-bruidssuite": "/kamers/bruidssuite",
     "faciliteiten": "/faciliteiten",
     "wellness": "/wellness",
     "wellnessfaciliteiten": "/wellness",

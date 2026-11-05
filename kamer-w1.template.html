@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, kamerdetailpagina in de nieuwe huisstijl (kamer-w1, nov 2026)
+  ----------------------------------------------------------------------------
+  Structuur 1-op-1 van de Effecty-staging /kamers/comfort-kamer/: kamertop (kruimelpad, titel, fotomozaiek met lightbox,
+  meelopende boekkaart, 'Deze kamer in het kort'), 'Wat er in de kamer staat', reviews, andere kamers, arrangement,
+  goed om te weten + veelgestelde vragen, contact, verder kijken. Kop, voet, onderbalk en cookiemelding komen uit
+  lander-w1.template.html (build.py render_kamer). Alle teksten staan in translations/kamer-<slug>-v2-nl.json.
+
+  Bouwen:  python3 build.py kamers/royale-kamer   (of kamers/suite, kamers/bruidssuite, kamers/comfort-kamer-3-personen,
+           kamers/mindervalide-kamer). Pagina's onder /kamers/: alle paden absoluut (build.py maakt relatieve src/href absoluut).
+  Stijl:   lander-w1.css + kamer-w1.css (prefix km-)   Script: lander-w1.js + kamer-w1.js
+-->
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{{META_DESC}}">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="{{CANONICAL_URL}}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{PAGE_TITLE}}">
+  <meta property="og:description" content="{{META_DESC}}">
+  <meta property="og:image" content="{{OG_IMAGE}}">
+  <meta property="og:url" content="{{CANONICAL_URL}}">
+  <meta property="og:locale" content="nl_NL">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preload" href="/fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="{{KM_HERO_IMG}}" type="image/webp">
+  <link rel="stylesheet" href="/lander-w1.css">
+  <link rel="stylesheet" href="/kamer-w1.css">
+  <script src="/lander-w1.js" defer></script>
+  <script src="/kamer-w1.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    gtag('set', 'linker', { accept_incoming: true });
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Hotel",
+    "name": "Hotel Asteria",
+    "url": "https://www.asteria.nl",
+    "address": { "@type": "PostalAddress", "streetAddress": "Maasheseweg 80a", "postalCode": "5804 AD", "addressLocality": "Venray", "addressCountry": "NL" },
+    "telephone": "+31478511466",
+    "email": "info@asteria.nl",
+    "image": "{{OG_IMAGE}}",
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "2280", "bestRating": "5" }
+  }
+  </script>
+</head>
+<body>
+
+<!-- LW1_KOP -->
+
+<main class="lp km">
+
+  <!-- ══ 1 KAMERTOP: kruimelpad, titel, fotomozaiek, boekkaart, deze kamer in het kort ══ -->
+  <section class="km-top" data-toon="paper" aria-labelledby="km-titel">
+    <div class="km-wrap">
+      <header class="km-kop">
+        <nav class="km-kruimel" aria-label="{{KRUIMEL_LABEL}}">
+          <a href="spiegel:home">{{KRUIMEL_HOME}}</a><span class="km-kr-sep" aria-hidden="true">&rsaquo;</span>
+          <a href="spiegel:kamers">{{KRUIMEL_KAMERS}}</a><span class="km-kr-sep" aria-hidden="true">&rsaquo;</span>
+          <span aria-current="page">{{KAMER_NAAM}}</span>
+        </nav>
+        <h1 id="km-titel">{{KAMER_NAAM}}</h1>
+        <p class="km-lead">{{KAMER_INTRO}}</p>
+      </header>
+
+      <div class="km-raster">
+        <div class="km-galerij" data-n="{{KM_N}}">
+<!-- KM_GALERIJ -->
+        </div>
+
+        <aside class="km-boek" aria-label="{{KAART_LABEL}}">
+          <p class="km-prijs" data-kamer-vanaf="{{KM_SLEUTEL}}"><span class="km-vanaf">{{PRIJS_VANAF}}</span><span class="km-bedrag" data-kamer-vanaf-bedrag>€ …</span><span class="km-per">{{PRIJS_PER}}</span></p>
+          <p class="km-score"><span class="km-sterren" role="img" aria-label="4,2 van 5 sterren"></span><span><b>4,2</b> {{KAART_SCORE}}</span></p>
+          <ul class="km-usps"><!-- KM_VINKJES --></ul>
+          <a class="btn btn-primary km-knop mews-open" data-room="{{KAMER_ROOM}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom={{KAMER_ROOM}}&amp;mewsRoute=rooms">{{KAART_KNOP}}</a>
+          <a class="btn btn-secondary km-knop" href="tel:+31478511466">{{KAART_BEL}}</a>
+        </aside>
+
+        <div class="km-kort">
+          <h2>{{KORT_KOP}}</h2>
+          <p>{{KORT_TEKST}}</p>
+          <ul class="km-specs" aria-label="{{SPECS_LABEL}}">
+<!-- KM_SPECS -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 2 WAT ER IN DE KAMER STAAT: grote foto + overlappende kaart ══ -->
+  <section class="km-alles" data-toon="paper" aria-labelledby="km-alles-kop">
+    <div class="km-wrap km-alles-raster">
+      <figure class="km-alles-foto">
+        <img src="{{KM_ALLES_IMG}}" alt="{{KM_ALLES_ALT}}"{{KM_ALLES_POS}} loading="lazy" width="1600" height="1068">
+        <button type="button" class="km-pil-knop" data-lb="{{KM_ALLES_LB}}"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>{{KM_FOTOS_ALLE}}</span></button>
+      </figure>
+      <div class="km-alles-kaart">
+        <h2 id="km-alles-kop">{{ALLES_KOP}}</h2>
+        <p>{{ALLES_TEKST}}</p>
+        <ul class="km-fac">
+<!-- KM_FACILITEITEN -->
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3 REVIEWS: donkere scorekaart + quote-kaarten (content/reviews-google-asteria.json) ══ -->
+  <section class="km-reviews" data-toon="paper" aria-labelledby="km-rev-kop">
+    <div class="km-wrap">
+      <header class="km-rev-kop">
+        <h2 id="km-rev-kop">{{REVIEWS_KOP}}</h2>
+        <p>{{REVIEWS_SUB}}</p>
+      </header>
+      <div class="km-schuif" data-schuif>
+        <ul class="km-spoor km-rev-spoor" tabindex="0" aria-label="{{REVIEWS_LABEL}}">
+          <li><a class="km-score-kaart" href="{{GOOGLE_PROFIEL}}" target="_blank" rel="noopener"><span class="km-sterren km-sterren--groot" role="img" aria-label="4,2 van 5 sterren"></span><span class="km-score-cijfer">4,2 <small>{{REVIEWS_OP5}}</small></span><span class="km-score-onder"><b>{{REVIEWS_AANTAL_TEKST}}</b><span>{{REVIEWS_BRON}}</span></span></a></li>
+<!-- KM_REVIEWS -->
+        </ul>
+        <div class="km-nav"><button type="button" class="km-pijl" data-richting="-1" aria-label="{{VORIGE_REVIEWS}}"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="km-pijl" data-richting="1" aria-label="{{VOLGENDE_REVIEWS}}"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 4 ANDERE KAMERS BIJ ASTERIA: slider, tekst links, foto rechts ══ -->
+  <section class="km-andere" data-toon="surface" aria-labelledby="km-andere-kop">
+    <div class="km-wrap">
+      <header class="km-sec-kop">
+        <h2 id="km-andere-kop">{{ANDERE_KOP}}</h2>
+        <p>{{ANDERE_SUB}}</p>
+      </header>
+      <div class="km-schuif km-schuif--rand" data-schuif>
+        <ul class="km-spoor km-ak-spoor" tabindex="0" aria-label="{{ANDERE_LABEL}}">
+<!-- KM_ANDERE -->
+        </ul>
+        <div class="km-nav"><button type="button" class="km-pijl" data-richting="-1" aria-label="{{VORIGE_KAMERS}}"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button><button type="button" class="km-pijl" data-richting="1" aria-label="{{VOLGENDE_KAMERS}}"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 5 ARRANGEMENT: foto met overlappende kaart ══ -->
+  <section class="km-featured" data-toon="surface" aria-labelledby="km-feat-kop">
+    <div class="km-wrap">
+      <div class="km-feat">
+        <img class="km-feat-foto" src="{{FEAT_IMG}}" alt="{{FEAT_ALT}}" loading="lazy">
+        <div class="km-feat-kaart">
+          <h2 id="km-feat-kop">{{FEAT_KOP}}</h2>
+          <p>{{FEAT_TEKST}}</p>
+          <a class="btn btn-secondary" href="{{FEAT_URL}}">{{FEAT_KNOP}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 6 GOED OM TE WETEN + VEELGESTELDE VRAGEN ══ -->
+  <section class="km-gow" data-toon="paper" aria-label="{{GOW_LABEL}}">
+    <div class="km-wrap">
+      <div class="km-gow-kaart">
+        <div class="km-gow-paneel">
+          <h2>{{GOW_KOP}}</h2>
+          <dl class="km-feiten">
+<!-- KM_WETEN -->
+          </dl>
+        </div>
+        <div class="km-gow-paneel km-gow-paneel--faq">
+          <h2>{{FAQ_KOP}}</h2>
+          <div class="km-faq">
+<!-- KM_FAQ -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 7 CONTACT-TWEELUIK ══ -->
+  <section class="km-contact" data-toon="paper" aria-labelledby="km-contact-kop" id="contact">
+    <div class="km-wrap km-contact-raster">
+      <figure class="km-contact-foto"><img src="{{CONTACT_IMG}}" alt="{{CONTACT_ALT}}" loading="lazy" width="1400" height="933"></figure>
+      <div class="km-contact-tekst">
+        <h2 id="km-contact-kop">{{CONTACT_KOP}}</h2>
+        <p class="km-contact-lead">{{CONTACT_TEKST}}</p>
+        <dl class="km-contact-lijst">
+          <div><dt>{{CONTACT_TEL_LABEL}}</dt><dd><a href="tel:+31478511466">0478 511466</a></dd></div>
+          <div><dt>{{CONTACT_MAIL_LABEL}}</dt><dd><a href="mailto:info@asteria.nl">info@asteria.nl</a></dd></div>
+          <div><dt>{{CONTACT_ADRES_LABEL}}</dt><dd>Maasheseweg 80a, 5804 AD Venray</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 8 VERDER KIJKEN ══ -->
+  <section class="km-verder" data-toon="surface" aria-labelledby="km-verder-kop">
+    <div class="km-wrap">
+      <h2 id="km-verder-kop">{{VERDER_KOP}}</h2>
+      <div class="km-links">
+<!-- KM_VERDER -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LIGHTBOX (kamer-w1.js, items uit #km-media) ══ -->
+  <dialog class="km-lb" id="km-lb" aria-label="{{LB_LABEL}}">
+    <div class="km-lb-binnen">
+      <button type="button" class="km-lb-sluit" aria-label="{{LB_SLUIT}}"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      <div class="km-lb-beeld"></div>
+      <button type="button" class="km-lb-pijl km-lb-vorige" aria-label="{{LB_VORIGE}}"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" class="km-lb-pijl km-lb-volgende" aria-label="{{LB_VOLGENDE}}"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+      <p class="km-lb-teller" aria-live="polite"></p>
+    </div>
+  </dialog>
+  <script type="application/json" id="km-media"><!-- KM_MEDIA --></script>
+  <script type="application/json" id="km-tekst">{"video": "{{LB_VIDEO}}", "van": "{{LB_VAN}}"}</script>
+
+</main>
+
+<!-- LW1_VOET -->
+</body>
+</html>

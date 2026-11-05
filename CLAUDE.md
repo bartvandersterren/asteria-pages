@@ -287,6 +287,30 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   [--zonder-staging]` (ook /arrangementen-v2: 404's, console, overloop, allowlist, menu, drawer, Mews; geen pixelvergelijking) (pixelverschil staging/spiegel op 390 en 1440, 404's, consolefouten, overloop, kop/tags, link-allowlist, menu,
   drawer, Mews-stub, nieuwsbrief-mock, contact-mailto). Op een preview (`--basis https://...pages.dev`) de nette adressen.
 
+### Kamerdetailpagina's kamer-w1 onder /kamers/ (5 nov 2026, LIVE)
+
+- Voor de vijf kamers zonder staging-detailpagina: `/kamers/royale-kamer`, `/kamers/suite`, `/kamers/bruidssuite`,
+  `/kamers/comfort-kamer-3-personen`, `/kamers/mindervalide-kamer` (build-entries `kamers/<slug>` -> `kamers/<slug>.html`,
+  JSON `translations/kamer-<slug>-v2-nl.json`). Comfort en Deluxe blijven de Effecty-spiegelpagina's; Junior Suite heeft geen
+  pagina en wordt nergens als detail gelinkt (knoppen blijven Mews). noindex, follow; canonical/og:url op /kamers/<slug>; niet in sitemap.
+- `kamer-w1.template.html` + `kamer-w1.css` + `kamer-w1.js` (prefix `km-`, uit PR #181), structuur 1-op-1 van staging /kamers/comfort-kamer/.
+  Kop/voet uit `lander-w1.template.html` in de spiegelstand (`"GESLOTEN_LANDER": "spiegel"`, links via `spiegel-links.json`).
+  build.py `kamer_absoluut` maakt relatieve src/href absoluut (pagina's staan onder /kamers/).
+- Prijzen (boekkaart, Andere kamers, onderbalk) = live vanaf-prijs: `data-kamer-vanaf="<sleutel>"` + `data-kamer-vanaf-bedrag`,
+  gevuld door kamer-w1.js uit `/api/kamer-vanaf` (zelfde code als spiegel.js; spiegel.js zelf niet geladen, lander-w1.js regelt Mews).
+  Geen vaste bedragen in de JSON. Sleutel per pagina via KAMER_VOLGORDE in build.py (controle tegen KAMER_ROOM).
+- Doorlinken: `spiegel-links.json` paginas `kamer-comfort-3/-mindervalide/-royale/-suite/-bruidssuite`; `staging_spiegel.py`
+  KAMER_DETAIL (Bekijk-knoppen met data-suite) + data-link `kamer-*` gaan daarheen. hotel-venray-v2: kaartknop "Bekijk kamer" = link naar de
+  detailpagina (build.py `kamerkaart_links`, alleen spiegelstand), Junior Suite houdt de pop-up; spiegelvoet Bruidssuite -> detail.
+  /arrangementen-v2: kamer-pop-up "Bekijk de kamerpagina" naar de detailpagina's (`spiegel_inhoud`).
+- Na wijzigen: `python3 build.py kamers/royale-kamer kamers/suite kamers/bruidssuite kamers/comfort-kamer-3-personen kamers/mindervalide-kamer`
+  (+ `hotel-venray-v2`, `arrangementen` bij linkwijzigingen) en `python3 scripts/staging_spiegel.py`.
+
+- Wellness-plattegrond (5 nov 2026): `staging_spiegel.py plattegrond_3d` vervangt op /wellness de 2D-plattegrond van de staging
+  door de 3D-render van wellnessasteria.nl (`nieuw-assets/wellness-plattegrond-3d-1200.webp` + `-1920.webp`, srcset; bron
+  wellness-asteria/static/assets/wellness-floorplan-v2.webp). Stippen = `PLATTEGROND_PLEKKEN` (naam, x %, y %) in de volgorde van de
+  staging-lijst; script stopt als de staging andere plekken heeft. Eigen bestanden staan in `EIGEN_ASSETS` (niet opgeruimd).
+
 ### Arrangementen op lander-w1 (arrangementsjabloon, okt 2026)
 
 - Zelfde sjabloon als de flow-landers, met build-blokken `zijkaart` + `arrangement`. Eerste pagina: `najaarsarrangement`
