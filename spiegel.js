@@ -234,6 +234,32 @@
       .catch(function () { window.spiegelKamerVanaf = null; });
   }
 
+  /* ── Kaartblok (contact): de staging heeft de knop "Laad de kaart" zonder script. Een klik is de toestemming:
+     dan pas de Google-kaart (embed zonder API-sleutel) op de plek van de consenttekst; het adres komt uit de
+     routelink van hetzelfde blok (destination=...), anders het vaste hoteladres. CSS staat al in base.css
+     (.kaartblok__kaart iframe). ── */
+  Array.prototype.forEach.call(document.querySelectorAll('.kaartblok__consent button'), function (knop) {
+    knop.addEventListener('click', function () {
+      var blok = knop.closest('.kaartblok');
+      var kaart = knop.closest('.kaartblok__kaart');
+      if (!kaart) return;
+      var route = blok && blok.querySelector('a[href*="destination="]');
+      var adres = 'Hotel Asteria, Maasheseweg 80a, 5804 AD Venray';
+      if (route) {
+        try { adres = new URL(route.href).searchParams.get('destination') || adres; } catch (e) {}
+      }
+      var f = document.createElement('iframe');
+      f.src = 'https://www.google.com/maps?q=' + encodeURIComponent(adres) + '&output=embed';
+      f.title = 'Kaart: ' + adres;
+      f.loading = 'lazy';
+      f.referrerPolicy = 'no-referrer-when-downgrade';
+      f.setAttribute('allowfullscreen', '');
+      var consent = knop.closest('.kaartblok__consent');
+      if (consent) consent.remove();
+      kaart.appendChild(f);
+    });
+  });
+
   /* ── cookiemelding (zoals hotel-venray-v2) ── */
   var banner = document.getElementById('cookieBanner');
   var akkoord = document.getElementById('cookieAccept');

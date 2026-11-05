@@ -1417,7 +1417,7 @@
     const toon = (i) => {
       index = (i + knoppen.length) % knoppen.length;   /* rondlopen, geen doodloop */
       const k = knoppen[index];
-      const svg = !k.querySelector('img') && k.querySelector('svg');
+      const svg = k.matches('.galerij__item') && !k.querySelector('img') && k.querySelector('svg');   /* spiegel: svg-pad alleen voor plattegrondtegels, niet voor [data-lightbox-item]-knoppen met icoon */
       plan.hidden = !svg;
       beeld.hidden = !!svg;
       if (svg) {

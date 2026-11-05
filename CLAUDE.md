@@ -287,6 +287,20 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   [--zonder-staging]` (ook /arrangementen-v2: 404's, console, overloop, allowlist, menu, drawer, Mews; geen pixelvergelijking) (pixelverschil staging/spiegel op 390 en 1440, 404's, consolefouten, overloop, kop/tags, link-allowlist, menu,
   drawer, Mews-stub, nieuwsbrief-mock, contact-mailto). Op een preview (`--basis https://...pages.dev`) de nette adressen.
 
+- Nabewerkingen in `staging_spiegel.py` (5 nov 2026, QA-ronde; bugs zitten in de staging zelf, doorgegeven aan Effecty):
+  `JS_PATCHES` = vervangingen in de gekopieerde `page-interactions.js` (script stopt als de regel niet precies 1x bestaat).
+  Nu: Galerij-lightbox toont bij een `[data-lightbox-item]`-vergrootknop (tegelslider op /wellness, /restaurant, /omgeving)
+  de foto i.p.v. het vergrootglas-icoon (svg-pad alleen voor `.galerij__item`). `menukaart_links` haalt bij elke run de
+  actuele Menukaart-/Proeverijmenu-pdf van www.asteria.nl/menukaart en zet die op /restaurant (staging linkt de maartkaart);
+  geen link op asteria.nl = staging-link blijft + WAARSCHUWING in de log.
+- `spiegel.js` laadt op /contact de Google-kaart na een klik op "Laad de kaart" (staging-knop zonder script).
+- Functionele QA: `python3 scripts/qa_spiegel.py --lokaal` (eigen server met nette adressen, API's door naar live,
+  nieuwsbrief gemockt, Mews gestubd) of `--basis https://visit.asteria.nl`; `--pagina /wellness` (herhaalbaar),
+  `--breedte 390`, `--schermafdruk map`, `--zonder-links`. Controleert console/requests, afbeeldingen/video's, kop, links
+  (ook soft-404: Pages geeft voor een onbekend adres 200 met de kale index "Welkom bij Asteria"), prijzen, cookiemelding,
+  menu/drawer, lightbox, elk knopje (doet het iets, sluit een laag, body-scroll), Mews, formulieren, overlap, scratchcard.
+  Eén pagina duurt ~2 min op twee breedtes; parallel draaien met losse `--pagina`'s (lokaal elk een eigen `--poort`).
+
 ### Kamerdetailpagina's kamer-w1 onder /kamers/ (5 nov 2026, LIVE)
 
 - Voor de vijf kamers zonder staging-detailpagina: `/kamers/royale-kamer`, `/kamers/suite`, `/kamers/bruidssuite`,

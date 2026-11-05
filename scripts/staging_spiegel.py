@@ -57,6 +57,14 @@ PAD_SLEUTEL = {'/': 'home', '/kamers/': 'kamers', '/kamers/comfort-kamer/': 'kam
                '/kamers/deluxe-kamer/': 'kamer-deluxe', '/arrangementen/': 'arrangementen', '/faciliteiten/': 'faciliteiten',
                '/wellness/': 'wellness', '/restaurant/': 'restaurant', '/vergaderen/': 'vergaderen', '/omgeving/': 'omgeving',
                '/over-ons/': 'over-ons', '/contact/': 'contact', '/bookingEngine/': 'boeken', '/bookingEngine': 'boeken'}
+# Nabewerking van de gekopieerde page-interactions.js (bug in de staging zelf; script stopt als de regel er niet meer staat).
+# Galerij-lightbox: een vergrootknop [data-lightbox-item] (tegels-slider op /wellness) bevat zelf een svg-icoon en geen img,
+# waardoor de staging hem als getekende plattegrond toont (reusachtig vergrootglas). Het svg-pad alleen voor .galerij__item.
+JS_PATCHES = [
+    ("const svg = !k.querySelector('img') && k.querySelector('svg');",
+     "const svg = k.matches('.galerij__item') && !k.querySelector('img') && k.querySelector('svg');"
+     "   /* spiegel: svg-pad alleen voor plattegrondtegels, niet voor [data-lightbox-item]-knoppen met icoon */"),
+]
 UA = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) asteria-spiegel/1.0'}
 
 GA_TAGS = """
@@ -179,6 +187,10 @@ class Assets:
             else:
                 self.fouten.append('page-interactions.js: MEWS_ENTRY niet gevonden')
                 print('  LET OP: MEWS_ENTRY niet gevonden in page-interactions.js')
+            for zoek, vervang in JS_PATCHES:
+                if tekst.count(zoek) != 1:
+                    raise SystemExit(f'page-interactions.js: te patchen regel niet (precies 1x) gevonden: {zoek!r}')
+                tekst = tekst.replace(zoek, vervang)
         for m in re.findall(r'[\'"`](/assets/[^\'"`]+)[\'"`]', tekst):
             nieuw = self.pak(m)
             if nieuw:
@@ -456,6 +468,42 @@ def plattegrond_3d(soup, log):
         log.append(('plattegrond', f'3D-render wellnessasteria.nl, {len(plekken)} stippen'))
 
 
+# Menukaart-pdf's: de staging linkt een oude kaart (maart 2026); asteria.nl/menukaart heeft de actuele. Bij elke run de eerste
+# link die matcht ophalen en de staging-links naar Menukaart/Proeverijmenu-pdf's daarmee vervangen. Geen link op asteria.nl =
+# staging-link blijft, met een waarschuwing in de log.
+MENUKAART_BRON = 'https://www.asteria.nl/menukaart'
+MENUKAART_SOORTEN = ('Menukaart', 'Proeverijmenu')
+_menukaart = None
+
+
+def actuele_menukaarten():
+    global _menukaart
+    if _menukaart is None:
+        _menukaart = {}
+        try:
+            _, data = haal(MENUKAART_BRON)
+            html = data.decode('utf-8', 'replace')
+            for soort in MENUKAART_SOORTEN:
+                m = re.search(r'href="([^"]*upload/files/' + soort + r'[^"]*)"', html)
+                if m:
+                    _menukaart[soort] = urllib.parse.urljoin(MENUKAART_BRON, m.group(1).replace('&amp;', '&'))
+        except Exception as e:   # noqa: BLE001
+            print(f'  WAARSCHUWING: {MENUKAART_BRON} niet op te halen: {e}')
+    return _menukaart
+
+
+def menukaart_links(soup, log):
+    for a in soup.find_all('a', href=re.compile(r'upload/files/(' + '|'.join(MENUKAART_SOORTEN) + ')')):
+        soort = next(s for s in MENUKAART_SOORTEN if f'upload/files/{s}' in a['href'])
+        nieuw = actuele_menukaarten().get(soort)
+        if not nieuw:
+            print(f'  WAARSCHUWING: geen actuele {soort}-link op {MENUKAART_BRON}; staging-link blijft: {a["href"]}')
+            log.append(('WAARSCHUWING menukaart', f'geen {soort}-link op asteria.nl, staging-link blijft {a["href"]}'))
+        elif nieuw != a['href']:
+            log.append(('menukaart actueel', f'{a["href"]} -> {nieuw}'))
+            a['href'] = nieuw
+
+
 def spiegel_pagina(staging_pad, info, links, assets, droog):
     log = []
     status, data = haal(BASIS + staging_pad)
@@ -512,6 +560,7 @@ def spiegel_pagina(staging_pad, info, links, assets, droog):
     verwerk_links(soup, links, staging_pad, heeft_boeking, log, pagina_kamer)
     markeer_prijzen(soup, pagina_kamer, log)
     plattegrond_3d(soup, log)
+    menukaart_links(soup, log)
 
     # formulieren
     for f in soup.find_all('form'):
