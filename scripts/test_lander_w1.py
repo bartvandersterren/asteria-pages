@@ -207,6 +207,9 @@ with sync_playwright() as p:
             _sl = json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'translations', 'spiegel-links.json'), encoding='utf-8'))
             _pg = _sl['paginas']; _ovz = _sl['arrangementenoverzicht']
             _spiegel = {_pg[v['sleutel']] for v in _sl['spiegel'].values()} | {_ovz, _pg['home']}
+            # eigen kamerdetailpagina's (kamer-w1, build.py kamers/<slug>) voor de kamers zonder staging-pagina
+            _kamer_w1 = {_pg[k] for k in ('kamer-comfort-3', 'kamer-mindervalide', 'kamer-royale', 'kamer-suite', 'kamer-bruidssuite')}
+            _spiegel |= _kamer_w1
             _kop = bron[bron.index('<header'):bron.index('</header>')]
             _drawer = bron[bron.index('<aside class="nav-drawer"'):bron.index('</aside>')]
             _voet = bron[bron.index('<footer'):bron.index('</footer>')]
@@ -225,10 +228,14 @@ with sync_playwright() as p:
             _buiten = [h for h in _alle if h not in _spiegel and h not in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden')
                        and not h.startswith(('https://maps.google.com/', 'https://www.facebook.com/', 'https://www.instagram.com/', 'https://www.linkedin.com/'))]
             check(f'[bron] spiegel: alle {len(_alle)} kop-, drawer- en voetlinks naar spiegeladressen (of Mews/tel/mail/juridisch/kaart/social)', not _buiten, str(_buiten))
-            check('[bron] spiegel: voet met kolommen Verblijf/Bij ons/Contact en socials; Comfort/Deluxe naar de spiegel, Bruidssuite/Junior suite naar Mews met kamer',
+            check('[bron] spiegel: voet met kolommen Verblijf/Bij ons/Contact en socials; Comfort/Deluxe/Bruidssuite naar de detailpagina, Junior suite naar Mews met kamer',
                   'footer__socials' in _voet and all(f'<h3>{k}</h3>' in _voet for k in ('Verblijf', 'Bij ons', 'Contact'))
                   and f'<a href="{_pg["kamer-comfort"]}">Comfort kamer</a>' in _voet and f'<a href="{_pg["kamer-deluxe"]}">Deluxe kamer</a>' in _voet
-                  and 'data-room="a9f18d18-561b-47a9-8ba7-b2a800cfd0e2">Bruidssuite' in _voet and 'data-room="27ea8deb-ded5-4856-8fdd-af1d00ffc315">Junior suite' in _voet)
+                  and f'<a href="{_pg["kamer-bruidssuite"]}">Bruidssuite</a>' in _voet and 'data-room="27ea8deb-ded5-4856-8fdd-af1d00ffc315">Junior suite' in _voet)
+            _bk = dict(_re.findall(r'<a class="btn btn-secondary btn--klein" href="([^"]*)" aria-label="Bekijk de ([^"]*)">Bekijk kamer</a>', bron))
+            check('[bron] spiegel: kamerkaarten Bekijk kamer = link naar de detailpagina (7 kamers), Junior Suite houdt de pop-up',
+                  len(_bk) == 7 and set(_bk) == {_pg['kamer-comfort'], _pg['kamer-deluxe']} | _kamer_w1
+                  and 'data-kamer="junior-suite" aria-haspopup="dialog"' in bron, str(_bk))
             _ovk = {t: _re.findall(r'<a class="btn [^"]*" href="([^"]*)">' + t + '</a>', bron) for t in ('Alle arrangementen', 'Bekijk alle kamers', 'Alle faciliteiten', 'Plan een dag in de buurt', 'Neem contact op')}
             check('[bron] spiegel: overzichtsknoppen Alle arrangementen/Bekijk alle kamers/Alle faciliteiten/Plan een dag in de buurt/Neem contact op naar de spiegel',
                   _ovk == {'Alle arrangementen': [_ovz], 'Bekijk alle kamers': [_pg['kamers']], 'Alle faciliteiten': [_pg['faciliteiten']],

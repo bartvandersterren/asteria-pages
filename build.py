@@ -17,6 +17,8 @@ Gebruik:
   python3 build.py najaarsarrangement   # arrangementsjabloon: lander-w1 met blokken zijkaart + arrangement (ook wellness-arrangement,
                                         # oorlogsmuseum-arrangement, limburg-arrangement, weekend-aanbieding, golfarrangement)
   python3 build.py arrangementen       # arrangementenoverzicht -> arrangementen-v2.html (noindex, apply_overzicht)
+  python3 build.py kamers/royale-kamer  # kamerdetailpagina nieuwe stijl (kamer-w1; ook kamers/suite, kamers/bruidssuite,
+                                      # kamers/comfort-kamer-3-personen, kamers/mindervalide-kamer)
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
@@ -190,6 +192,18 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'hotel': True, 'kamertypes': True},
     },
+    # Kamerdetailpagina's in de nieuwe stijl (nov 2026): kamer-w1.template.html + kamer-w1.css/.js (prefix km-), structuur
+    # 1-op-1 van de Effecty-staging /kamers/comfort-kamer/, voor de kamers zonder staging-detailpagina (KAMER_PAGINAS:
+    # Royale, Suite, Bruidssuite, Comfort 3-persoons, Mindervalide; Comfort en Deluxe = spiegelpagina's, Junior Suite niet).
+    # Kop/voet uit lander-w1.template.html in de spiegelstand (GESLOTEN_LANDER "spiegel", links uit spiegel-links.json),
+    # live vanaf-prijs via /api/kamer-vanaf. Alleen NL, noindex, niet in sitemap. translations/kamer-<slug>-v2-nl.json -> kamers/<slug>.html.
+    **{f'kamers/{s}': {
+        'template': 'kamer-w1.template.html',
+        'langs': {
+            'nl': (f'kamers/{s}.html', f'translations/kamer-{s}-v2-nl.json'),
+        },
+        'kamer': True,
+    } for s in ('royale-kamer', 'suite', 'bruidssuite', 'comfort-kamer-3-personen', 'mindervalide-kamer')},
     # Seizoenslanders (blokkenkiezer 1c-2d-3a-4a-5c-6i-7b-8b): alleen NL, noindex, niet in sitemap.
     # Eén sjabloon (seizoen.template.html + seizoen.css + seizoen.js); alle seizoensinhoud in de JSON.
     # Per seizoen een entry met eigen translations/<seizoen>-nl.json. Reviewmuur zoals lander-w1.
@@ -538,13 +552,31 @@ SPIEGEL_INHOUD = {'/kamers': 'kamers', '/wellness': 'wellness', '/restaurant': '
 
 def spiegel_inhoud(html):
     """Inhoudslinks naar spiegeladressen: asteria.nl-pagina's uit SPIEGEL_INHOUD en de kamerpagina's in #lp-kamerdata
-    ("pagina": oude kamerpagina's op visit.asteria.nl -> Comfort/Deluxe-spiegel, de rest het kameroverzicht van de spiegel)."""
+    ("pagina": oude kamerpagina's op visit.asteria.nl -> spiegel- of kamer-w1-detailpagina, Junior Suite het kameroverzicht)."""
     links = spiegel_linkset()
-    kamerpagina = {'/comfort-kamer': 'kamer-comfort', '/deluxe-kamer': 'kamer-deluxe'}
+    kamerpagina = {'/comfort-kamer': 'kamer-comfort', '/deluxe-kamer': 'kamer-deluxe', '/royale-kamer': 'kamer-royale',
+                   '/suite': 'kamer-suite', '/bruidssuite': 'kamer-bruidssuite', '/comfort-kamer-3-personen': 'kamer-comfort-3',
+                   '/mindervalide-kamer': 'kamer-mindervalide'}
     html = html.replace('<a class="lp-pop__link" href="/">', f'<a class="lp-pop__link" href="{spiegel_adres("kamers", links)}">')
     html = re.sub(r'("pagina": )"(/[a-z0-9-]+)"', lambda m: f'{m.group(1)}"{spiegel_adres(kamerpagina.get(m.group(2), "kamers"), links)}"', html)
     return re.sub(r'href="https://www\.asteria\.nl(/[a-z-]+)/?"',
                   lambda m: f'href="{spiegel_adres(SPIEGEL_INHOUD[m.group(1)], links)}"' if m.group(1) in SPIEGEL_INHOUD else m.group(0), html)
+
+
+# Kamerkaarten (blok 4b) in de spiegelstand (hotel-venray-v2): 'Bekijk kamer' opent geen pop-up maar de detailpagina
+# (Comfort/Deluxe = spiegel, de andere vijf = kamer-w1 onder /kamers/). Junior Suite houdt de pop-up (geen detailpagina).
+KAART_DETAIL = {'comfort': 'kamer-comfort', 'comfort-3': 'kamer-comfort-3', 'mindervalide': 'kamer-mindervalide',
+                'royale': 'kamer-royale', 'deluxe': 'kamer-deluxe', 'suite': 'kamer-suite', 'bruidssuite': 'kamer-bruidssuite'}
+
+
+def kamerkaart_links(html):
+    def vervang(m):
+        sleutel = m.group(1)
+        if sleutel not in KAART_DETAIL:
+            return m.group(0)
+        return f'<a class="btn btn-secondary btn--klein" href="spiegel:{KAART_DETAIL[sleutel]}" aria-label="{m.group(2)}">Bekijk kamer</a>'
+    return re.sub(r'<button type="button" class="btn btn-secondary btn--klein" data-kamer="([a-z0-9-]+)" aria-haspopup="dialog" '
+                  r'aria-label="([^"]*)">Bekijk kamer</button>', vervang, html)
 
 
 # asteria.nl-pad uit de pop-updata -> sleutel van de spiegel (Meer informatie in de faciliteit-pop-up)
@@ -1264,6 +1296,213 @@ def apply_overzicht(html, data):
     return html
 
 
+# ── Kamerdetailpagina's (kamer-w1, nov 2026) ─────────────────────────────────────────────────────────────
+# Kamers in de volgorde van 'Andere kamers bij Asteria': (slug, sleutel, spiegelsleutel). slug = translations/kamer-<slug>-v2-nl.json,
+# sleutel = /api/kamer-vanaf (live vanaf-prijs, data-kamer-vanaf), spiegelsleutel = adres uit translations/spiegel-links.json
+# (Comfort en Deluxe = Effecty-spiegelpagina's, de rest = de kamer-w1-pagina's hieronder). Junior Suite niet (besluit Stijn:
+# niet in het aanbod op /kamers); translations/kamer-junior-suite-v2-nl.json blijft ongebruikt staan.
+KAMER_VOLGORDE = [('comfort-kamer', 'comfort', 'kamer-comfort'), ('comfort-kamer-3-personen', 'comfort-3', 'kamer-comfort-3'),
+                  ('mindervalide-kamer', 'mindervalide', 'kamer-mindervalide'), ('royale-kamer', 'royale', 'kamer-royale'),
+                  ('deluxe-kamer', 'deluxe', 'kamer-deluxe'), ('suite', 'suite', 'kamer-suite'),
+                  ('bruidssuite', 'bruidssuite', 'kamer-bruidssuite')]
+# Kamers met een eigen kamer-w1-pagina (build-entry kamers/<slug> -> kamers/<slug>.html); Comfort/Deluxe zijn spiegelpagina's.
+KAMER_PAGINAS = ['royale-kamer', 'suite', 'bruidssuite', 'comfort-kamer-3-personen', 'mindervalide-kamer']
+MEWS_KAMER_URL = 'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsRoom={id}&amp;mewsRoute=rooms'
+
+# Lijniconen (24x24, stroke) voor spec-tegels, faciliteiten en 'Goed om te weten'; sleutel = 'icoon' in de JSON.
+KAMER_ICOON = {
+    'm2': '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',
+    'bed': '<path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8M2 16h20M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/>',
+    'personen': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+    'douche': '<path d="M4 4l2.5 2.5M6.5 6.5a5 5 0 0 1 7 0l-7 7a5 5 0 0 1 0-7zM14 11v.01M17 14v.01M14 17v.01M20 17v.01M17 20v.01M11 14v.01"/>',
+    'bad': '<path d="M3 12h18v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5zM6 12V5a2 2 0 0 1 3.5-1.3M7 20l-1 2M17 20l1 2"/>',
+    'zit': '<path d="M5 11V8a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v3M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM6 19v2M18 19v2"/>',
+    'sauna': '<path d="M14 14.8V4a2 2 0 0 0-4 0v10.8a4 4 0 1 0 4 0z"/>',
+    'rolstoel': '<circle cx="11" cy="4" r="2"/><path d="M11 7v6h6l2 6M11 10h5M8 10.5a6 6 0 1 0 8 7.5"/>',
+    'bedbank': '<path d="M4 10V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3M2 12a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v5H2zM4 17v2M20 17v2"/>',
+    'airco': '<path d="M3 5h18v7H3zM6 9h12M7 16c0 1.5-1 2-1 3M12 16v3M17 16c0 1.5 1 2 1 3"/>',
+    'koffie': '<path d="M17 8h1a4 4 0 1 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4zM6 2v2M10 2v2M14 2v2"/>',
+    'tv': '<rect x="2" y="5" width="20" height="13" rx="2"/><path d="M8 21h8M12 18v3"/>',
+    'fohn': '<path d="M14 4a5 5 0 1 0 0 10h6V4zM14 14l-2 7h-3l1-7M9 9h.01"/>',
+    'wifi': '<path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/>',
+    'fitness': '<path d="M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11"/>',
+    'koelkast': '<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M5 10h14M9 6v1M9 14v2"/>',
+    'badjas': '<path d="M8 3l4 4 4-4 4 3-2 5v10H6V11L4 6zM12 7v14M9 14h6"/>',
+    'inchecken': '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>',
+    'uitchecken': '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+    'ontbijt': '<path d="M3 11h18M5 11a7 7 0 0 0 14 0M12 3v3M8 5l1 2M16 5l-1 2M3 21h18"/>',
+    'parkeren': '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/>',
+    'vink': '<path d="M20 6L9 17l-5-5"/>',
+    'raster': '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+}
+
+
+def kamer_icoon(sleutel, cls='as-icoon'):
+    if sleutel not in KAMER_ICOON:
+        sys.exit(f'render_kamer: onbekend icoon {sleutel!r} (kies uit {", ".join(KAMER_ICOON)})')
+    return f'<svg class="{cls}" viewBox="0 0 24 24" aria-hidden="true">{KAMER_ICOON[sleutel]}</svg>'
+
+
+def lw1_delen():
+    """Kop (header + mobiel menu) en voet (footer, onderbalk, cookiemelding) uit lander-w1.template.html, met de
+    blokmarkers erin (gesloten/!gesloten worden daarna door apply_blokken afgehandeld). Zo blijft lander-w1 de enige bron."""
+    with open(os.path.join(base, 'lander-w1.template.html'), encoding='utf-8') as f:
+        lw = f.read()
+    kop = lw[lw.index('<header class="top-stack'):lw.index('<main class="lp">')].rstrip() + '\n'
+    voet = lw[lw.index('<footer class="footer'):lw.index('</body>')].rstrip() + '\n'
+    return kop, voet
+
+
+def kamer_absoluut(html):
+    """Kamerpagina's staan onder /kamers/: relatieve src/href/poster (fotos/..., videos/..., lander-w1.css) en de
+    lightbox-items in #km-media worden absoluut, zodat ze niet naar /kamers/fotos/... wijzen."""
+    html = re.sub(r'\b(src|href|poster)="(?!/|[a-z][a-z0-9+.-]*:|#)([^"]+)"', r'\1="/\2"', html)
+    return re.sub(r'("(?:src|poster)": ")(?!/|https?:)', r'\1/', html)
+
+
+def render_kamer(html, data):
+    """Kamerdetailpagina (kamer-w1.template.html) uit translations/kamer-<slug>-v2-nl.json. Vult de lijstblokken in:
+      _fotos         lijst {img, alt, pos?} (1 tot 8): mozaiek (groot, breed, klein + tegel 'Bekijk alle foto's (n)') en lightbox;
+      _video         {src, poster} of null: eerste item in de lightbox (geen herovideo);
+      _vinkjes       3 korte regels in de boekkaart;  _specs  5 tegels {icoon, tekst};  _faciliteiten  {icoon, tekst};
+      _weten         {icoon, titel, tekst} (Goed om te weten);  _faq  {q, a} (4);  _verder  {titel, regel, url, img, alt} (4);
+      ALLES_FOTO     index in _fotos van de grote foto bij 'Wat er in de kamer staat'.
+    'Andere kamers' leest de JSON's van de andere kamers (KAMER_VOLGORDE): KAMER_NAAM, KAART_REGEL, KAART_CHIP, KAMER_ROOM,
+    _fotos[0]; link via spiegel:<sleutel> (Comfort/Deluxe = spiegelpagina, de rest /kamers/<slug>), geen Junior Suite.
+    Prijzen (boekkaart, andere kamers, onderbalk) = live vanaf-prijs: data-kamer-vanaf="<sleutel>" + data-kamer-vanaf-bedrag,
+    gevuld door kamer-w1.js uit /api/kamer-vanaf; geen vaste bedragen uit de JSON.
+    Reviews: content/reviews-google-asteria.json (reviews met 'kamer' eerst)."""
+    from html import escape
+    e = lambda s: escape(s or '', quote=False)
+    a = lambda s: escape(s or '')
+    kop, voet = lw1_delen()
+    html = html.replace('<!-- LW1_KOP -->', kop).replace('<!-- LW1_VOET -->', voet)
+
+    eigen = data['CANONICAL_URL'].rstrip('/').rsplit('/', 1)[-1]
+    sleutels = {slug: sl for slug, sl, _ in KAMER_VOLGORDE}
+    if eigen not in sleutels:
+        sys.exit(f'render_kamer: {eigen!r} staat niet in KAMER_VOLGORDE')
+    sleutel = sleutels[eigen]
+    if KAMER_MEWS.get(sleutel) != data['KAMER_ROOM']:
+        sys.exit(f'render_kamer: KAMER_ROOM van {eigen} hoort bij een andere kamer dan {sleutel}')
+    html = html.replace('{{KM_SLEUTEL}}', sleutel)
+    # onderbalk: 'Vanaf € X per nacht' live (verborgen tot gevuld)
+    data['STICKY_SUB'] = (f'<span data-kamer-vanaf="{sleutel}">{e(data["PRIJS_VANAF"])} <span data-kamer-vanaf-bedrag>€ …</span> '
+                          f'{e(data.get("STICKY_PER", "per nacht"))}</span>')
+
+    # onderbalk: Boek-knop opent Mews met deze kamer voorgeselecteerd
+    rid = data['KAMER_ROOM']
+    html = html.replace('<a class="btn btn-primary mews-open" data-voucher="{{VOUCHER}}" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsVoucherCode={{VOUCHER}}" tabindex="-1">{{STICKY_KNOP}}</a>',
+                        f'<a class="btn btn-primary mews-open" data-room="{rid}" href="{MEWS_KAMER_URL.format(id=rid)}" tabindex="-1">{{{{STICKY_KNOP}}}}</a>', 1)
+    if f'data-room="{rid}" href' not in html:
+        sys.exit('render_kamer: onderbalk-knop van lander-w1 niet gevonden (sjabloon veranderd?)')
+
+    fotos = data.get('_fotos') or []
+    if not 1 <= len(fotos) <= 8:
+        sys.exit(f'render_kamer: _fotos moet 1 tot 8 foto\'s hebben, niet {len(fotos)}')
+    for f in fotos:
+        if not os.path.exists(os.path.join(base, f['img'])):
+            sys.exit(f'render_kamer: {f["img"]} bestaat niet')
+    video = data.get('_video')
+    if video and not os.path.exists(os.path.join(base, video['src'])):
+        sys.exit(f'render_kamer: {video["src"]} bestaat niet')
+    start = 1 if video else 0          # lightbox-index van de eerste foto
+    n = len(fotos)
+    alle = f'{e(data["FOTOS_KNOP"])} <span class="km-g-aantal">({n})</span>'
+    pos = lambda f: f' style="object-position:{a(f["pos"])}"' if f.get('pos') else ''
+
+    # mozaiek: bureaublad 5 kolommen (groot 3x2, breed 2x1, klein 1x1; bij 8 foto's onderrij 4 klein + tegel zoals de staging);
+    # minder dan 8: groot + breed + klein + tegel (data-n = aantal zichtbare foto's, 1-3 of 8), de rest staat in de lightbox
+    tegels = []
+    zichtbaar = fotos[:8] if n >= 8 else fotos[:3]
+    for i, f in enumerate(zichtbaar):
+        soort = ' km-g-groot' if i == 0 else (' km-g-breed' if i == 1 else '')
+        tegels.append(f'        <button type="button" class="km-g-item{soort}" data-lb="{start + i}" aria-label="{a(data["FOTO_VERGROOT"])}: {a(f["alt"])}">'
+                      f'<img src="{a(f["img"])}" alt="{a(f["alt"])}"{pos(f)}' + ('' if i == 0 else ' loading="lazy"') + ' width="1600" height="1068"></button>')
+    tegels.append(f'        <button type="button" class="km-g-alle" data-lb="0">{kamer_icoon("raster")}<span>{alle}</span></button>')
+    html = html.replace('<!-- KM_GALERIJ -->', '\n'.join(tegels)).replace('{{KM_N}}', str(len(zichtbaar)))
+
+    media = ([{'type': 'video', 'src': video['src'], 'poster': video.get('poster') or fotos[0]['img'], 'alt': data.get('VIDEO_ALT', '')}] if video else []) \
+        + [{'type': 'img', 'src': f['img'], 'alt': f['alt']} for f in fotos]
+    html = html.replace('<!-- KM_MEDIA -->', json.dumps(media, ensure_ascii=False).replace('</', '<\\/'))
+    html = html.replace('{{KM_FOTOS_ALLE}}', alle).replace('{{KM_HERO_IMG}}', a(fotos[0]['img']))
+
+    gi = data.get('ALLES_FOTO', 0)
+    html = html.replace('{{KM_ALLES_IMG}}', a(fotos[gi]['img'])).replace('{{KM_ALLES_ALT}}', a(fotos[gi]['alt'])) \
+               .replace('{{KM_ALLES_POS}}', pos(fotos[gi])).replace('{{KM_ALLES_LB}}', str(start + gi))
+
+    vink = kamer_icoon('vink')
+    html = html.replace('<!-- KM_VINKJES -->', ''.join(f'<li>{vink}<span>{e(v)}</span></li>' for v in data['_vinkjes']))
+    specs = data['_specs']
+    if len(specs) != 5:
+        sys.exit(f'render_kamer: _specs moet 5 tegels hebben, niet {len(specs)}')
+    html = html.replace('<!-- KM_SPECS -->', '\n'.join(
+        f'            <li class="km-spec"><span class="km-dot">{kamer_icoon(s["icoon"])}</span><span class="km-spec-tekst">{e(s["tekst"])}</span></li>' for s in specs))
+    html = html.replace('<!-- KM_FACILITEITEN -->', '\n'.join(
+        f'            <li><span class="km-dot">{kamer_icoon(s["icoon"])}</span><span>{e(s["tekst"])}</span></li>' for s in data['_faciliteiten']))
+    html = html.replace('<!-- KM_WETEN -->', '\n'.join(
+        f'            <div class="km-feit"><span class="km-dot km-dot--groot">{kamer_icoon(w["icoon"])}</span><div><dt>{e(w["titel"])}</dt><dd>{e(w["tekst"])}</dd></div></div>'
+        for w in data['_weten']))
+    faq = data['_faq']
+    if not 3 <= len(faq) <= 6:
+        sys.exit(f'render_kamer: _faq moet 3 tot 6 vragen hebben, niet {len(faq)}')
+    html = html.replace('<!-- KM_FAQ -->', '\n'.join(
+        f'            <details class="km-faq-item"><summary>{e(q["q"])}<span class="km-plus" aria-hidden="true"></span></summary><div class="km-faq-a"><p>{e(q["a"])}</p></div></details>'
+        for q in faq))
+    pijl = '<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+    verder = data['_verder']
+    for v in verder:
+        if not os.path.exists(os.path.join(base, v['img'])):
+            sys.exit(f'render_kamer: {v["img"]} bestaat niet')
+        if not v['url'].startswith('/'):
+            sys.exit(f'render_kamer: _verder-url {v["url"]!r} moet een visit.asteria.nl-pad zijn (geen asteria.nl, gesloten)')
+    html = html.replace('<!-- KM_VERDER -->', '\n'.join(
+        f'        <a class="km-link" href="{a(v["url"])}"><span class="km-link-beeld"><img src="{a(v["img"])}" alt="{a(v["alt"])}" loading="lazy"{pos(v)}></span>'
+        f'<span class="km-link-tekst"><span class="km-link-titel">{e(v["titel"])}</span><span class="km-link-regel">{e(v["regel"])}</span></span></a>'
+        for v in verder))
+
+    # andere kamers uit de JSON's van de andere kamers
+    kaarten = []
+    for slug, ksleutel, link in KAMER_VOLGORDE:
+        if slug == eigen:
+            continue
+        with open(os.path.join(base, f'translations/kamer-{slug}-v2-nl.json'), encoding='utf-8') as f:
+            k = json.load(f)
+        foto = k['_fotos'][0]
+        kaarten.append(
+            f'          <li class="km-ak"><article class="km-ak-kaart">'
+            f'<div class="km-ak-tekst"><h3>{e(k["KAMER_NAAM"])}</h3><p>{e(k["KAART_REGEL"])}</p>'
+            f'<span class="km-chip">{e(k["KAART_CHIP"])}</span>'
+            f'<p class="km-ak-prijs" data-kamer-vanaf="{ksleutel}"><span class="km-ak-vanaf">{e(data["PRIJS_VANAF"])}</span><b data-kamer-vanaf-bedrag>€ …</b><span>{e(data["PRIJS_PER"])}</span></p>'
+            f'<span class="km-ak-knoppen"><a class="btn btn-primary mews-open" data-room="{k["KAMER_ROOM"]}" href="{MEWS_KAMER_URL.format(id=k["KAMER_ROOM"])}" aria-label="{a(data["KAART_KNOP"])}: {a(k["KAMER_NAAM"])}">{e(data["KAART_KNOP"])}</a>'
+            f'<a class="btn btn-secondary" href="spiegel:{link}">{e(data["ANDERE_KNOP"])}</a></span></div>'
+            f'<div class="km-ak-foto"><img src="{a(foto["img"])}" alt="{a(foto["alt"])}" loading="lazy"{pos(foto)}></div></article></li>')
+    html = html.replace('<!-- KM_ANDERE -->', '\n'.join(kaarten))
+
+    # reviews: donkere scorekaart (in het sjabloon) + quote-kaarten
+    with open(os.path.join(base, 'content/reviews-google-asteria.json'), encoding='utf-8') as f:
+        rev = json.load(f)
+    lijst = list(rev.get('reviews') or [])
+    noemt = lambda r: 'kamer' in (r.get('tekst') or '').lower()
+    lijst = [r for r in lijst if noemt(r)] + [r for r in lijst if not noemt(r)]
+    quote = '<svg class="km-q-ic" viewBox="0 0 32 24" aria-hidden="true"><path d="M0 24V13.7C0 5.9 4.2 1.3 12.4 0l1.3 3.4C9.3 4.6 7.2 7.2 7 11h6v13zm18 0V13.7C18 5.9 22.2 1.3 30.4 0l1.3 3.4c-4.4 1.2-6.5 3.8-6.7 7.6h6v13z"/></svg>'
+    rk = []
+    for r in lijst[:8]:
+        tekst = ' '.join((r.get('tekst') or '').split())
+        if len(tekst) > 200:
+            tekst = tekst[:200].rsplit(' ', 1)[0].rstrip(' ,.;:!?') + ' …'
+        naam = r.get('naam') or 'Gast'
+        delen = naam.split()
+        kort = delen[0] + (f' {delen[-1][0]}.' if len(delen) > 1 else '')
+        datum = (r.get('datum') or '').strip()
+        rk.append(f'          <li><figure class="km-rev">{quote}<blockquote>{e(tekst)}</blockquote>'
+                  f'<figcaption><span class="km-rev-ini" aria-hidden="true">{e(naam[0].upper())}</span><span><b>{e(kort)}</b>'
+                  f'<span>Google{" &middot; " + e(datum) if datum else ""}</span></span></figcaption></figure></li>')
+    html = html.replace('<!-- KM_REVIEWS -->', '\n'.join(rk))
+    html = html.replace('{{GOOGLE_PROFIEL}}', escape(rev.get('profiel_url') or ''))
+    return html
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -1331,6 +1570,10 @@ def build(template_name, lang):
         if translations.get('ANDERE_TOON') and translations.get('_andere'): aan.add('andere')
         if translations.get('_banen'): aan.add('banen')
 
+    # Kamerdetailpagina (kamer-w1): kop/voet uit lander-w1 + lijstblokken, vóór de blokken en de {{KEY}}-pass
+    if config.get('kamer'):
+        html = render_kamer(html, translations)
+
     # Variantblokken (bijv. zijkaart, ladder, cadeau, arrangement) vóór de {{KEY}}-pass
     html = apply_blokken(html, aan)
     if ladder:
@@ -1378,11 +1621,16 @@ def build(template_name, lang):
         # lege OVERZICHT_*_URL = geen overzichtsknop (later met één regel terug)
         html = html.replace('<a class="btn btn-secondary" href="">Bekijk alle kamers</a>', '')
         html = html.replace('<a class="btn btn-secondary" href="">' + translations.get('AANBOD_KNOP', '') + '</a>', '')
-        if 'kamertypes' not in aan:   # kamertypes-v2: de kaartknop blijft 'Boek deze kamer' (staging)
+        if 'kamertypes' not in aan and not config.get('kamer'):   # kamertypes-v2 en kamerpagina's: 'Boek deze kamer' blijft (staging)
             html = html.replace('>Boek deze kamer</a>', '>Bekijk beschikbaarheid</a>')
 
     if 'spiegel' in aan:
+        if not config.get('kamer'):
+            html = kamerkaart_links(html)
         html = vul_spiegel_links(html)
+
+    if config.get('kamer'):
+        html = kamer_absoluut(html)
 
     # Zonder actiecode: lege voucher uit de Mews-links en labels
     if translations.get('VOUCHER', None) == '':

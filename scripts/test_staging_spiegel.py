@@ -301,6 +301,20 @@ with sync_playwright() as p:
                     mt = pg.evaluate('window.spiegelContact || ""')
                     check(f'{tag} contactformulier -> mailto info@asteria.nl', mt.startswith('mailto:info@asteria.nl?subject=') and 'Testbericht' in urllib.parse.unquote(mt), mt[:80])
 
+            # wellness: 3D-plattegrond van wellnessasteria.nl met 11 stippen binnen de tekening; klik op stip 7 = Boscabine
+            if pg.locator('[data-plattegrond]').count():
+                pg.locator('.plattegrond-interactief__kaart').scroll_into_view_if_needed(); pg.wait_for_timeout(500)
+                pl = pg.evaluate("""(()=>{const i=document.querySelector('.plattegrond-interactief__img'),r=i.getBoundingClientRect();
+                    const st=[...document.querySelectorAll('.plattegrond__stip')].map(s=>{const q=s.getBoundingClientRect();
+                      return [(q.left+q.width/2-r.left)/r.width,(q.top+q.height/2-r.top)/r.height]});
+                    return {src:i.currentSrc, w:i.naturalWidth, h:i.naturalHeight, st}})()""")
+                binnen = all(0.05 < x < 0.95 and 0.05 < y < 0.95 for x, y in pl['st'])
+                check(f'{tag} plattegrond: 3D-render, 11 stippen binnen de tekening',
+                      'wellness-plattegrond-3d-' in pl['src'] and len(pl['st']) == 11 and binnen, str(pl)[:200])
+                pg.locator('.plattegrond__stip').nth(6).click(); pg.wait_for_timeout(300)
+                act = pg.evaluate("(document.querySelector('.plattegrond__plek.is-actief .plattegrond__plek-naam')||{}).textContent||''")
+                check(f'{tag} plattegrond: klik op stip 7 toont Boscabine', 'Boscabine' in act, act)
+
             # pixelvergelijking met de staging
             if not ZONDER_STAGING and not eigen_pg:
                 pg.goto(url, wait_until='load', timeout=90000); pg.wait_for_timeout(1000); stil_maken(pg)

@@ -48,6 +48,10 @@ KAMER_NAAM = [('comfort 3-persoons', 'comfort-3'), ('comfort kamer 3', 'comfort-
 # kaartkop precies gelijk aan een kamernaam -> sleutel (boekknop in een kamerkaart krijgt die kamer)
 KAMER_KOP = {'comfort kamer': 'comfort', 'comfort 3-persoons': 'comfort-3', 'royale kamer': 'royale', 'deluxe kamer': 'deluxe',
              'junior suite': 'junior-suite', 'suite': 'suite', 'bruidssuite': 'bruidssuite', 'mindervalide kamer': 'mindervalide'}
+# kamer -> sleutel van de detailpagina in de linkset (Comfort/Deluxe = spiegelpagina, de andere vijf = eigen kamer-w1-pagina's
+# onder /kamers/, build.py kamers/<slug>). Junior Suite heeft geen detailpagina: die knoppen blijven Mews met de kamer.
+KAMER_DETAIL = {'comfort': 'kamer-comfort', 'deluxe': 'kamer-deluxe', 'comfort-3': 'kamer-comfort-3',
+                'mindervalide': 'kamer-mindervalide', 'royale': 'kamer-royale', 'suite': 'kamer-suite', 'bruidssuite': 'kamer-bruidssuite'}
 # staging-pad -> sleutel van de linkset
 PAD_SLEUTEL = {'/': 'home', '/kamers/': 'kamers', '/kamers/comfort-kamer/': 'kamer-comfort',
                '/kamers/deluxe-kamer/': 'kamer-deluxe', '/arrangementen/': 'arrangementen', '/faciliteiten/': 'faciliteiten',
@@ -314,7 +318,7 @@ def verwerk_links(soup, links, eigen_pad, heeft_boeking, log, pagina_kamer=None)
                     and not a.find_parent('footer'):
                 continue   # anker naar de boekkaart op dezelfde pagina blijft
             if suite and re.match(r'bekijk', t, re.I) or (suite and a.find_parent('footer')):
-                doel = {'comfort': 'kamer-comfort', 'deluxe': 'kamer-deluxe'}.get(kamer)
+                doel = KAMER_DETAIL.get(kamer)
                 if doel:
                     zet_link(a, paginas[doel])
                     for k in ('data-suite', 'data-scroll-to-booking'):
@@ -413,6 +417,39 @@ def herschrijf_assets(soup, assets):
                     el[attr] = n
 
 
+# Wellness: de 2D-plattegrond van de staging (blok plattegrond-interactief, 600x400) vervangen door de 3D-render van
+# wellnessasteria.nl (static/assets/wellness-floorplan-v2.webp, 1920x1433). Eigen bestanden in nieuw-assets/ (blijven bij het
+# opruimen staan, zie EIGEN_ASSETS); stippen in de volgorde van de lijst op de staging, (naam, x %, y %) op de 3D-afbeelding.
+PLATTEGROND_3D = {'src': '/nieuw-assets/wellness-plattegrond-3d-1200.webp', 'groot': '/nieuw-assets/wellness-plattegrond-3d-1920.webp',
+                  'breed': 1200, 'hoog': 896}
+PLATTEGROND_PLEKKEN = [('Entree en kleedruimte', 15, 24), ('Stoomcabine', 42, 49), ('Twee baden', 45, 34), ('Belevenisdouches', 59, 47),
+                       ('Infraroodcabine', 53, 17), ('Voetenbaden', 65, 32), ('Boscabine', 73, 15), ('Zoutsteensauna', 88, 15),
+                       ('Notenhouten sauna', 88, 33), ('Relaxruimte', 78, 70), ('Fitness', 21, 70)]
+EIGEN_ASSETS = {PLATTEGROND_3D['src'].lstrip('/'), PLATTEGROND_3D['groot'].lstrip('/')}
+
+
+def plattegrond_3d(soup, log):
+    """Blok plattegrond-interactief (alleen /wellness): img -> 3D-render (src 1200, srcset 1200/1920, width/height), de --x/--y
+    van de plekken uit PLATTEGROND_PLEKKEN. Stopt als de staging andere plekken of een andere volgorde heeft."""
+    for blok in soup.select('.plattegrond-interactief'):
+        img = blok.select_one('img.plattegrond-interactief__img')
+        plekken = blok.select('li.plattegrond__plek')
+        namen = [tekst_van(li.select_one('.plattegrond__plek-naam')) for li in plekken]
+        if img is None or namen != [n for n, _, _ in PLATTEGROND_PLEKKEN]:
+            raise SystemExit(f'plattegrond: andere plekken op de staging dan PLATTEGROND_PLEKKEN: {namen}')
+        img['src'] = PLATTEGROND_3D['src']
+        img['srcset'] = f'{PLATTEGROND_3D["src"]} 1200w, {PLATTEGROND_3D["groot"]} 1920w'
+        img['sizes'] = '(min-width: 1024px) 66vw, 100vw'
+        img['width'] = str(PLATTEGROND_3D['breed'])
+        img['height'] = str(PLATTEGROND_3D['hoog'])
+        for k in ('data-media-source', 'data-media-score'):
+            if k in img.attrs:
+                del img[k]
+        for li, (_, x, y) in zip(plekken, PLATTEGROND_PLEKKEN):
+            li['style'] = f'--x: {x}%; --y: {y}%'
+        log.append(('plattegrond', f'3D-render wellnessasteria.nl, {len(plekken)} stippen'))
+
+
 def spiegel_pagina(staging_pad, info, links, assets, droog):
     log = []
     status, data = haal(BASIS + staging_pad)
@@ -468,6 +505,7 @@ def spiegel_pagina(staging_pad, info, links, assets, droog):
     pagina_kamer = info['sleutel'][len('kamer-'):] if info['sleutel'].startswith('kamer-') else None
     verwerk_links(soup, links, staging_pad, heeft_boeking, log, pagina_kamer)
     markeer_prijzen(soup, pagina_kamer, log)
+    plattegrond_3d(soup, log)
 
     # formulieren
     for f in soup.find_all('form'):
@@ -532,7 +570,10 @@ def main():
         print(f'   -> {eigen} ({n} tekens)')
         alles[staging_pad] = {'adres': eigen, 'bestand': info['bestand'], 'log': log}
     # opruimen: bestanden in nieuw-assets/ die niet meer gebruikt worden
-    gebruikt = {p.lstrip('/') for p in assets.bytes}
+    gebruikt = {p.lstrip('/') for p in assets.bytes} | EIGEN_ASSETS
+    for p in EIGEN_ASSETS:
+        if not os.path.exists(os.path.join(ROOT, p)):
+            raise SystemExit(f'eigen asset ontbreekt: {p}')
     weg = []
     if not droog:
         for dp, _, fs in os.walk(os.path.join(ROOT, ASSETMAP)):
