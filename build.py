@@ -163,6 +163,16 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
     } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement')},
+    # Winterarrangement 2027 (nov 2026, preview): eigen bestand -v2 (canonical op zichzelf, noindex), ARR_KALENDER false
+    # zolang WINTER27 nog niet in Mews staat (de prijskalender zou dan alleen grijze dagen tonen en boeken blokkeren).
+    'winterarrangement': {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': ('winterarrangement-v2.html', 'translations/winterarrangement-nl.json'),
+        },
+        'reviews': 'content/reviews-google-asteria.json',
+        'blokken': {'zijkaart': True, 'arrangement': True},
+    },
     # Algemene hotellander (tegenhanger van parkhotelhorst.nl/hotel-horst-2/, voor Meta-verkoopads en branded Google Ads):
     # lander-w1 met blok 'hotel' = geen vouchercode (VOUCHER leeg, zie zonder_voucher), geen tegelstrook en geen
     # uitklaptab; ster-split = 'Een verblijf dat bij je past'; na de kamers faciliteiten, omgeving en arrangementen
@@ -854,7 +864,14 @@ def apply_arrangement(html, data):
         sys.exit(f'ARR_NACHTEN moet een heel getal van 1 of meer zijn, niet {nachten!r}')
     if nachten > 1:
         html = html.replace(' data-boekbalk ', f' data-boekbalk data-nachten="{nachten}" ')
-    if '{{KAL_KOP}}' in html:
+    if data.get('ARR_KALENDER') is False:
+        # Prijskalender en live vanaf-prijs uit (bijv. code nog niet actief in Mews): dialoog, css en js eruit; de
+        # boekknoppen gaan dan rechtstreeks via de Mews-flow van lander-w1.js, de prijs blijft vaste tekst uit de JSON.
+        html = re.sub(r'\n  <!-- ══ PRIJSKALENDER.*?</dialog>', '', html, count=1, flags=re.S)
+        html = html.replace('<link rel="stylesheet" href="arrangement-kalender.css">', '')
+        html = html.replace('<script src="arrangement-kalender.js" defer></script>', '')
+        html = html.replace('<script src="arr-vanaf.js" defer></script>', '')
+    elif '{{KAL_KOP}}' in html:
         html = apply_kalender(html, data, kamers, nachten)
         html = markeer_vanaf(html, data['VOUCHER'])
 
