@@ -10,3 +10,8 @@
 .footer .spiegel-melding{color:var(--on-ink-body)}
 /* Live kamerprijs (/api/kamer-vanaf, spiegel.js): verborgen tot gevuld, de ruimte blijft (geen verspringen); geen prijs = blijft verborgen */
 [data-kamer-vanaf]:not(.is-gevuld){visibility:hidden}
+/* Vaste boekbalk onderin (kamerdetail .boekbalk, home .booking-bar--stacked als pil) dekte op telefoon/tablet aan het eind van
+   de pagina "Privacybeleid · Algemene voorwaarden" af (ook op de staging). Ruimte onder de voet = balk (58-68 px) + 12-14 px marge. */
+@media (max-width: 1023px){
+  body:has(.boekbalk) .footer, body:has(.booking-bar--stacked) .footer{padding-bottom:calc(24px + 88px + env(safe-area-inset-bottom, 0px))}
+}
