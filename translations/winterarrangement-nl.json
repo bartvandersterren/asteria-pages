@@ -76,7 +76,7 @@
   "INB_KOP_A": "Dit is",
   "INB_KOP_EM": "inbegrepen",
   "ARR_INB_INTRO": "Totale waarde € 181,00 per persoon, nu € 134,50. Eén keer boeken en de rest regelen wij, van het welkomstdrankje tot het ontbijt op je laatste ochtend.",
-  "ZV_TOON": true,
+  "ZV_TOON": false,
   "ZV_KOP_A": "Op zondag",
   "ZV_KOP_EM": "€ 20 per kamer",
   "ZV_KOP_B": "voordeliger",
@@ -181,16 +181,11 @@
   "_faq": [
     {
       "q": "Wat zit er in het winterarrangement?",
-      "a": "Twee overnachtingen in een comfortabele kamer, beide ochtenden een uitgebreid ontbijt, een driegangendiner in ons restaurant op de avond van aankomst, een welkomstdrankje (een glas huiswijn of speciaalbier), badjas en slippers en de wellness tijdens je verblijf. Early check-in vanaf 12.00 en late check-out tot 14.00 krijg je op basis van beschikbaarheid. Parkeren is gratis. Nu € 134,50 per persoon, € 269,00 per kamer op basis van twee personen en twee nachten; de verblijfsbelasting van € 2,– per persoon per nacht komt erbij."
+      "a": "Twee overnachtingen in een comfortabele kamer, beide ochtenden een uitgebreid ontbijt, een driegangendiner in ons restaurant op de avond van aankomst, een welkomstdrankje (een glas huiswijn of speciaalbier), badjas en slippers en de wellness tijdens je verblijf. Early check-in vanaf 12.00 en late check-out tot 14.00 krijg je op basis van beschikbaarheid. Parkeren is gratis."
     },
     {
       "q": "Wanneer kan ik komen?",
-      "a": "Aankomst kan van 1 december 2026 tot en met 31 maart 2027. Van 1 tot en met 23 december kom je aan op zondag tot en met donderdag. Van 24 december tot en met 2 januari is het arrangement niet te boeken, en ook niet op 19 en 20 maart en van 26 tot en met 29 maart. Kom je op vrijdag of zaterdag aan, dan komt er € 40 per verblijf bij."
-    },
-    {
-      "q": "Is er korting op zondag?",
-      "a": "Ja. Kom je op zondag aan, dan betaal je € 20 per kamer minder: € 249,00 per kamer, € 124,50 per persoon. De korting wordt automatisch verrekend met code WINTER27 en geldt eenmalig per kamer per verblijf dat op zondag begint.",
-      "zondag": true
+      "a": "Aankomst kan van 1 december 2026 tot en met 31 maart 2027. Van 1 tot en met 23 december kom je aan op zondag tot en met donderdag. Van 24 december tot en met 2 januari is het arrangement niet te boeken, en ook niet op 19 en 20 maart en van 26 tot en met 29 maart."
     },
     {
       "q": "Kan ik ook op de tweede avond dineren?",
