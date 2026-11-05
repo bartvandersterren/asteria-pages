@@ -163,8 +163,8 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
     } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement')},
-    # Winterarrangement 2027 (nov 2026, preview): eigen bestand -v2 (canonical op zichzelf, noindex), ARR_KALENDER false
-    # zolang WINTER27 nog niet in Mews staat (de prijskalender zou dan alleen grijze dagen tonen en boeken blokkeren).
+    # Winterarrangement 2027 (nov 2026, preview): eigen bestand -v2 (canonical op zichzelf, noindex). ARR_KALENDER stond
+    # false zolang WINTER27 niet in Mews stond; sinds 5 nov true (prijskalender aan), ZV_BEREKENEN false (zondag uit Mews).
     'winterarrangement': {
         'template': 'lander-w1.template.html',
         'langs': {
@@ -994,6 +994,9 @@ def apply_kalender(html, data, kamers, nachten):
     alle = {c: v for c, v in alle.items() if c == code or v.get('slug') != slug}
     alle[code] = {'slug': slug, 'nachten': nachten, 'aankomstdagen': sorted(dagen) if dagen else None,
                   'zondag': zondag, 'standaardkamer': std}
+    if data.get('ZV_BEREKENEN') is False:
+        # zondagkorting staat in Mews (geen berekende EUR 20) en een zondag zonder lagere prijs krijgt geen goud
+        alle[code]['zondag_berekenen'] = False
     nieuw = json.dumps(dict(sorted(alle.items())), ensure_ascii=False, indent=2) + '\n'
     try:
         with open(KALENDER_JSON, encoding='utf-8') as f:

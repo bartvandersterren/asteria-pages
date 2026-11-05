@@ -1,7 +1,7 @@
 {
   "_controleren": [
-    "WINTER27 en de directe tarieven (WINTER27BD) staan nog niet aan in Mews (5 nov 2026). Daarom staan de prijskalender en de live vanaf-prijs uit (ARR_KALENDER false in de JSON); alle prijzen zijn vaste tekst uit de dealmail. Zodra het tarief actief is: ARR_KALENDER weghalen, ARR_AANKOMSTDAGEN overwegen en opnieuw bouwen, dan dwingt de kalender 2 nachten af en worden de prijzen gemeten.",
-    "Zonder kalender dwingt de pagina de aankomstdagen niet af (1 t/m 23 december alleen zondag t/m donderdag; dicht 24 dec t/m 2 jan, 19 en 20 maart, 26 t/m 29 maart). Dat moet in de Mews-tariefrestricties staan. Het vertrek wordt wel automatisch op aankomst + 2 nachten gezet (ARR_NACHTEN 2).",
+    "WINTER27 staat sinds 5 nov 2026 aan in Mews (direct tarief WINTER27BD, Privé, precies 2 nachten). Prijskalender en live vanaf-prijs staan aan (ARR_KALENDER true). ZV_BEREKENEN false: de zondagkorting komt uit Mews zelf (jan t/m mrt zo € 249 tegen ma € 269); in december is zondag gelijk aan de andere dagen (€ 309), dus geen berekende korting en geen goud op decemberzondagen. De pagina-tekst noemt de zondagkorting zonder uitzondering voor december: controleren.",
+    "Aankomstdagen en dichte data (1 t/m 23 december geen vr/za; dicht 24 dec t/m 2 jan, 19 en 20 maart, 26 t/m 29 maart) komen uit de Mews-restricties: de kalender toont die dagen grijs. Geen ARR_AANKOMSTDAGEN nodig. Vertrek = aankomst + 2 nachten (ARR_NACHTEN 2).",
     "Zondagkorting (€ 20 per kamer, zondag € 249,00 per kamer = € 124,50 p.p.) en vr/za-toeslag (€ 40 per verblijf): de pagina zegt dat de zondagkorting automatisch wordt verrekend met WINTER27. Controleren in Mews zodra het tarief aan staat.",
     "Toeslagen per kamertype voor dit arrangement zijn niet bekend. De pagina toont alleen de Comfort kamer (inbegrepen, € 134,50 p.p.) zonder upgrades of toeslagrij. Royale, Deluxe, Suite e.d. toevoegen aan _kamers zodra de meerprijzen vastliggen.",
     "Annuleren: de mail noemt 'tot 24 uur van tevoren kosteloos annuleren', niet bevestigd voor het wintertarief. Het sjabloon toont annuleren niet standaard; de FAQ zegt daarom: zie je bij het boeken. Na bevestiging Stijn eventueel in ARR_VOORWAARDEN, KAART_VINK en FAQ zetten.",
@@ -227,5 +227,6 @@
     }
   ],
   "ARR_NACHTEN": 2,
-  "ARR_KALENDER": false
+  "ARR_KALENDER": true,
+  "ZV_BEREKENEN": false
 }
