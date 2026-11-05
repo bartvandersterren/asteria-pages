@@ -296,6 +296,12 @@ def verwerk_links(soup, links, eigen_pad, heeft_boeking, log, pagina_kamer=None)
             sleutel = PAD_SLEUTEL.get(pad if pad.endswith('/') or pad == '/bookingEngine' else pad + '/')
             if sleutel is None:
                 raise SystemExit(f'onbekend staging-pad {href!r} ({t!r}) op {eigen_pad}')
+            # kamerkaart waarvan de staging naar een andere kamerpagina linkt (Comfort 3-persoons -> /kamers/comfort-kamer/):
+            # de kamer van de kaartkop wint als die een eigen detailpagina heeft
+            kk = KAMER_DETAIL.get(KAMER_KOP.get(kop_bij(a).lower()))
+            if sleutel.startswith('kamer-') and kk and kk != sleutel:
+                log.append(('kamerkaart -> eigen detailpagina', f'{t} {kop_bij(a)}: {sleutel} -> {kk}'))
+                sleutel = kk
         elif href == '#boeking':
             sleutel = 'boeking'
         else:
