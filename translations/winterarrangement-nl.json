@@ -1,6 +1,6 @@
 {
   "_controleren": [
-    "WINTER27 staat sinds 5 nov 2026 aan in Mews (direct tarief WINTER27BD, Privé, precies 2 nachten). Prijskalender en live vanaf-prijs staan aan (ARR_KALENDER true). ZV_BEREKENEN false: de zondagkorting komt uit Mews zelf (jan t/m mrt zo € 249 tegen ma € 269); in december is zondag gelijk aan de andere dagen (€ 309), dus geen berekende korting en geen goud op decemberzondagen. De pagina-tekst noemt de zondagkorting zonder uitzondering voor december: controleren.",
+    "WINTER27 staat sinds 5 nov 2026 aan in Mews (direct tarief WINTER27BD, Privé, precies 2 nachten). Prijskalender staat aan (ARR_KALENDER true). Live vanaf-prijs staat uit (ARR_VANAF_LIVE false): die kijkt 56 dagen vooruit = alleen december (€ 309 = € 155 p.p.) en zou de vanaf-prijs € 134,50 (januari t/m maart) overschrijven. ZV_BEREKENEN false: de zondagkorting komt uit Mews zelf (jan t/m mrt zo € 249 tegen ma € 269); in december is zondag gelijk aan de andere dagen (€ 309), dus geen berekende korting en geen goud op decemberzondagen. De pagina-tekst noemt de zondagkorting zonder uitzondering voor december: controleren.",
     "Aankomstdagen en dichte data (1 t/m 23 december geen vr/za; dicht 24 dec t/m 2 jan, 19 en 20 maart, 26 t/m 29 maart) komen uit de Mews-restricties: de kalender toont die dagen grijs. Geen ARR_AANKOMSTDAGEN nodig. Vertrek = aankomst + 2 nachten (ARR_NACHTEN 2).",
     "Zondagkorting (€ 20 per kamer, zondag € 249,00 per kamer = € 124,50 p.p.) en vr/za-toeslag (€ 40 per verblijf): de pagina zegt dat de zondagkorting automatisch wordt verrekend met WINTER27. Controleren in Mews zodra het tarief aan staat.",
     "Toeslagen per kamertype voor dit arrangement zijn niet bekend. De pagina toont alleen de Comfort kamer (inbegrepen, € 134,50 p.p.) zonder upgrades of toeslagrij. Royale, Deluxe, Suite e.d. toevoegen aan _kamers zodra de meerprijzen vastliggen.",
@@ -228,5 +228,6 @@
   ],
   "ARR_NACHTEN": 2,
   "ARR_KALENDER": true,
-  "ZV_BEREKENEN": false
+  "ZV_BEREKENEN": false,
+  "ARR_VANAF_LIVE": false
 }

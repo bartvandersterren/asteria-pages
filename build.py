@@ -873,7 +873,12 @@ def apply_arrangement(html, data):
         html = html.replace('<script src="arr-vanaf.js" defer></script>', '')
     elif '{{KAL_KOP}}' in html:
         html = apply_kalender(html, data, kamers, nachten)
-        html = markeer_vanaf(html, data['VOUCHER'])
+        if data.get('ARR_VANAF_LIVE') is False:
+            # alleen de live vanaf-prijs uit (bijv. de komende 56 dagen zijn duurder dan de vanaf-prijs van het
+            # arrangement, Winter: december EUR 309 tegen januari EUR 269): prijzen blijven vaste tekst uit de JSON
+            html = html.replace('<script src="arr-vanaf.js" defer></script>', '')
+        else:
+            html = markeer_vanaf(html, data['VOUCHER'])
 
     wolk = data.get('_fotowolk')
     if wolk:

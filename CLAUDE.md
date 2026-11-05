@@ -340,6 +340,11 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
     die tellen niet mee). Zondag (`ZV_TOON`): niet lager dan za/ma = korting nog niet in Mews -> gewoon - EUR 20 per kamer,
     `berekend:true`; wel lager = echte Mews-prijs. Cache API 6 u per code/maand/deel (5 min met storingsdagen), concurrency 2,
     3 pogingen, subrequestteller < 45, tijdbudget 25 s; de pop-up vraagt hoogstens 4 delen tegelijk.
+  - Schakelaars per arrangement-JSON (nov 2026, eerst Winterarrangement 2027/WINTER27): `ARR_KALENDER: false` = kalender en
+    live vanaf-prijs helemaal uit (code nog niet in Mews); `ZV_BEREKENEN: false` = `zondag_berekenen:false` in arr-kalender.json:
+    de API rekent geen EUR 20 zelf, en een zondag die niet lager is dan za/ma krijgt `zondag:false` (geen goud; Winter: december
+    zondag = EUR 309 zoals de rest); `ARR_VANAF_LIVE: false` = alleen de live vanaf-prijs uit (Winter: de 56 dagen vooruit zijn
+    alleen december, duurder dan de vanaf-prijs van jan-mrt). Weglaten = standaardgedrag, andere pagina's ongewijzigd.
   - Test: `python3 scripts/test_arr_kalender.py http://localhost:8765/najaarsarrangement.html [--echt] [--schermafdruk qa/arr-kalender]`
     (mockt /api/arr-kalender; `--echt` tegen `npx wrangler pages dev . --port 8788` of de preview). `test_lander_w1.py` zet de
     kalender in arrangementmodus uit (lege arrangement-kalender.js), zodat de oude Mews-checks blijven gelden.
