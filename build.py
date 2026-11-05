@@ -163,12 +163,14 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
     } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement')},
-    # Winterarrangement 2027 (nov 2026, preview): eigen bestand -v2 (canonical op zichzelf, noindex). ARR_KALENDER stond
-    # false zolang WINTER27 niet in Mews stond; sinds 5 nov true (prijskalender aan), ZV_BEREKENEN false (zondag uit Mews).
+    # Winterarrangement 2027: sinds 5 nov 2026 LIVE op /winterarrangement (index, follow via 'index'; /winterarrangement-v2
+    # 301 in _redirects, bestand weg). ARR_KALENDER stond false zolang WINTER27 niet in Mews stond; sinds 5 nov true
+    # (prijskalender aan), ZV_BEREKENEN false (zondag uit Mews).
     'winterarrangement': {
         'template': 'lander-w1.template.html',
+        'index': ('nl',),
         'langs': {
-            'nl': ('winterarrangement-v2.html', 'translations/winterarrangement-nl.json'),
+            'nl': ('winterarrangement.html', 'translations/winterarrangement-nl.json'),
         },
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
@@ -1361,6 +1363,11 @@ def build(template_name, lang):
         html = re.sub(r'(<meta charset="[^"]*">)', r'\1\n  <meta name="robots" content="noindex, follow">', html, count=1)
         if 'name="robots"' not in html:
             sys.exit(f'noindex: geen <meta charset> in {output_file}')
+    # Wel indexeren (bijv. winterarrangement): de noindex-meta uit het sjabloon wordt index, follow
+    if lang in config.get('index', ()):
+        html, n = re.subn(r'<meta name="robots" content="noindex, follow">', '<meta name="robots" content="index, follow">', html)
+        if n != 1:
+            sys.exit(f'index: robots-meta niet precies een keer gevonden in {output_file}')
 
     # Sanity check: no unreplaced markers
     remaining = re.findall(r'\{\{[A-Z_0-9]+\}\}', html)

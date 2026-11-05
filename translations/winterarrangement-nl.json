@@ -9,11 +9,11 @@
     "Welkomstdrankje = een glas huiswijn of speciaalbier (uit de mail). Driegangendiner op de avond van aankomst; tweede avond bijboeken zonder prijs.",
     "Herofoto l26-winterarrangement-hero.webp = P1057456 (contentshoot, stel in badjas met ontbijt op bed); kaartfoto l26-winterarrangement-voetbad.webp = P1058010 (voetenbaden wellness). Geen echte winterfoto (sneeuw) beschikbaar in de Asteria-fotobank/repo.",
     "Ook interessant: Wellness Arrangement vanaf € 139,50 en Oorlogsmuseum Arrangement vanaf € 131,00 overgenomen van de andere arrangementpagina's; Kerstarrangement (asteria.nl) zonder prijs. Kerst valt in de periode waarin het winterarrangement dicht is.",
-    "De dealmail linkt naar de oude Mews-config bee2f902. Deze pagina boekt sinds 5 nov 2026 via de eigen boekingsmodule Winter-actie 95c70e27 (MEWS_CONFIG; WINTER27 staat daar vooraf ingevuld, alleen het tarief Winterarrangement 2027 zichtbaar); de andere arrangementpagina's blijven op 6dc9094c. Mail-link nog omzetten naar visit.asteria.nl/winterarrangement-v2 (of de definitieve URL) na akkoord."
+    "De dealmail linkt naar de oude Mews-config bee2f902. Deze pagina boekt sinds 5 nov 2026 via de eigen boekingsmodule Winter-actie 95c70e27 (MEWS_CONFIG; WINTER27 staat daar vooraf ingevuld, alleen het tarief Winterarrangement 2027 zichtbaar); de andere arrangementpagina's blijven op 6dc9094c. Mail-link nog omzetten naar visit.asteria.nl/winterarrangement (live sinds 5 nov 2026)."
   ],
   "PAGE_TITLE": "Winterarrangement: 2 nachten met diner en wellness | Hotel Asteria Venray",
   "META_DESC": "Winterarrangement bij Hotel Asteria in Venray: twee nachten met ontbijt, een driegangendiner, welkomstdrankje, badjas en slippers en de wellness. Nu € 134,50 p.p.",
-  "CANONICAL_URL": "https://visit.asteria.nl/winterarrangement-v2",
+  "CANONICAL_URL": "https://visit.asteria.nl/winterarrangement",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-winterarrangement-hero.webp",
   "H_EEN_A": "Twee winterse",
   "H_EEN_EM": "dagen in Venray",

@@ -254,6 +254,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `/najaarsarrangement-v2`, `/wellness-arrangement-v3`, `/oorlogsmuseum-arrangement-v2`, `/limburg-arrangement-v2`,
   `/weekend-aanbieding-v2`, `/golfarrangement-v2` sturen met een 301 door (`_redirects`); de HTML-bestanden zijn weg.
   `/wellness-arrangement-v2` is een losse oude pagina (geen build-entry) en blijft staan.
+  **Winterarrangement 2027 (WINTER27, Mews-config Winter-actie 95c70e27) LIVE sinds 5 nov 2026 op `/winterarrangement`**, als enige
+  arrangementpagina `index, follow` (build-config `'index': ('nl',)` zet de sjabloon-noindex om); `/winterarrangement-v2` 301 in
+  `_redirects`, bestand weg. Niet in menu, arrangementenoverzicht of sitemap.xml (aparte beslissing).
   `_andere` (Ook interessant) linkt naar elkaars visit.asteria.nl-adres; kerst blijft naar asteria.nl.
 - **Opbouw (wireframe-ideaal 14 okt 2026, bron `~/Documents/Parkhotel /Website ontwerp/asteria-arrangement-blokkenkiezer/bron/wireframe-ideaal.html`):**
   1 hero + boekbalk met prijs-pil en chips, zijkaart (sticky, zonder foto) naast 2-5 die stopt na de kamers, 2 dit is inbegrepen
