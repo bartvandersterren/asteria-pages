@@ -16,7 +16,7 @@ if '--schermafdruk' in args:
     i = args.index('--schermafdruk'); shot = args[i + 1]; del args[i:i + 2]
 if '--basis' in args:
     i = args.index('--basis'); basis = args[i + 1]; del args[i:i + 2]
-SLUGS = args or ['wellness-arrangement', 'najaarsarrangement-v2', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement']
+SLUGS = args or ['wellness-arrangement', 'najaarsarrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement']
 res = []
 def check(n, ok, info=''):
     res.append(ok); print(('OK   ' if ok else 'FOUT ') + n + (f'  ({info})' if info else ''))
