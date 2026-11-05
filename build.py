@@ -1297,6 +1297,9 @@ def build(template_name, lang):
         if isinstance(value, str) and not key.startswith('_'):
             html = html.replace('{{' + key + '}}', value)
 
+    # Lege zondagregel in de zijkaart (ZV_KAART_REGEL = "") laat geen leeg streepje achter
+    html = html.replace('<p class="ar-zondagregel"></p>', '')
+
     # Arrangement: kamers + pillen uit '_kamers' (alleen met blok 'arrangement')
     if 'arrangement' in aan:
         html = apply_arrangement(html, translations)
