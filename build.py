@@ -1002,6 +1002,9 @@ def apply_kalender(html, data, kamers, nachten):
     if data.get('ZV_BEREKENEN') is False:
         # zondagkorting staat in Mews (geen berekende EUR 20) en een zondag zonder lagere prijs krijgt geen goud
         alle[code]['zondag_berekenen'] = False
+    if data.get('MEWS_CONFIG'):
+        # eigen Mews-boekingsmodule voor deze pagina (bijv. Winter-actie 95c70e27): de API bevraagt die config
+        alle[code]['config'] = data['MEWS_CONFIG']
     nieuw = json.dumps(dict(sorted(alle.items())), ensure_ascii=False, indent=2) + '\n'
     try:
         with open(KALENDER_JSON, encoding='utf-8') as f:
@@ -1331,6 +1334,18 @@ def build(template_name, lang):
     # Zonder actiecode: lege voucher uit de Mews-links en labels
     if translations.get('VOUCHER', None) == '':
         html = zonder_voucher(html)
+
+    # Eigen Mews-boekingsmodule (optioneel JSON-veld MEWS_CONFIG, bijv. winterarrangement = Winter-actie 95c70e27):
+    # alle distributor-links op deze pagina naar die config, en data-mews-config op <html> zodat lander-w1.js en
+    # arrangement-kalender.js de widget/deeplinks met die config openen. Zonder het veld: niets verandert.
+    mews_cfg = translations.get('MEWS_CONFIG')
+    if mews_cfg:
+        if not re.fullmatch(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', mews_cfg):
+            sys.exit(f'MEWS_CONFIG is geen Mews-config-id: {mews_cfg!r}')
+        html = html.replace('distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556', 'distributor/' + mews_cfg)
+        html, n = re.subn(r'<html( [^>]*)?>', lambda m: m.group(0)[:-1] + f' data-mews-config="{mews_cfg}">', html, count=1)
+        if not n or '6dc9094c' in html:
+            sys.exit(f'MEWS_CONFIG: niet volledig doorgevoerd in {output_file}')
 
     # Mews-boekingslinks in de juiste taal openen (alleen EN/DE)
     html = add_mews_language(html, lang)

@@ -27,7 +27,8 @@
  *   haalt opnieuw op (hoogstens eens per 2 minuten per sleutel). Geen KV (schrijflimieten).
  * - Mews niet overbelasten: 2 tegelijk, 3 pogingen met wachttijd, harde subrequestteller (onder 45 van de 50
  *   op het Free-plan), tijdbudget per aanvraag. Liever een paar storingsdagen dan een hangende aanvraag.
- * Mews-config 6dc9094c (CLAUDE.md); de oude config wordt hier nooit gebruikt.
+ * Mews-config 6dc9094c (CLAUDE.md); de oude config wordt hier nooit gebruikt. Optioneel per code een eigen
+ * boekingsmodule via `config` in arr-kalender.json (JSON-veld MEWS_CONFIG, bijv. WINTER27 = Winter-actie 95c70e27).
  */
 
 import CONFIG from '../../content/arr-kalender.json';
@@ -249,8 +250,9 @@ function privePrijzen(av) {
 
 async function peil(code, nachten, datum, tot, teller) {
   const deadline = Math.min(Date.now() + DAG_BUDGET, tot);
+  const cfg = CONFIG[code] || {};
   return privePrijzen(await vraag({
-    Client: CLIENT, ConfigurationId: CONFIGURATIE, HotelId: HOTEL,
+    Client: CLIENT, ConfigurationId: cfg.config || CONFIGURATIE, HotelId: HOTEL,
     StartUtc: utc(datum), EndUtc: utc(plusDagen(datum, nachten)),
     AdultCount: PERSONEN, ChildCount: 0, VoucherCode: code,
   }, deadline, teller));
