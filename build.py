@@ -20,7 +20,7 @@ Gebruik:
   python3 build.py wellness nl        # wellness, alleen NL
 """
 
-import json, os, re, sys
+import json, os, re, sys, urllib.parse
 
 base = os.path.dirname(os.path.abspath(__file__))
 
@@ -504,7 +504,54 @@ PIJL_SVG = ('<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><line 
             '<polyline points="12 5 19 12 12 19"/></svg>')
 
 
-def render_hotel(html, data, gesloten=False):
+def spiegel_linkset():
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'translations', 'spiegel-links.json'), encoding='utf-8') as f:
+        return json.load(f)
+
+
+def spiegel_adres(sleutel, links=None):
+    """Sleutel uit translations/spiegel-links.json -> adres ('arrangementen' = het arrangementenoverzicht)."""
+    links = links or spiegel_linkset()
+    if sleutel == 'arrangementen':
+        return links['arrangementenoverzicht']
+    if sleutel not in links['paginas']:
+        sys.exit(f'spiegel: onbekende sleutel {sleutel!r} (zie translations/spiegel-links.json)')
+    return links['paginas'][sleutel]
+
+
+def vul_spiegel_links(html):
+    """Spiegelstand: href="spiegel:<sleutel>" (sjabloon, JSON-velden) en "info": "spiegel:<sleutel>" (pop-updata) -> adres.
+    Daarna mag er geen link naar asteria.nl meer staan, behalve privacy en algemene voorwaarden."""
+    links = spiegel_linkset()
+    html = re.sub(r'spiegel:([a-z][a-z0-9-]*)', lambda m: spiegel_adres(m.group(1), links), html)
+    rest = [u for u in re.findall(r'(?:href="|"link": ")(https://www\.asteria\.nl[^"]*)"', html)
+            if u not in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden')]
+    if rest:
+        sys.exit(f'spiegel: nog links naar asteria.nl: {rest[:5]}')
+    return html
+
+
+# asteria.nl-pagina -> sleutel van de spiegel (inhoudslinks op het arrangementenoverzicht; andere asteria.nl-links blijven)
+SPIEGEL_INHOUD = {'/kamers': 'kamers', '/wellness': 'wellness', '/restaurant': 'restaurant', '/omgeving': 'omgeving',
+                  '/contact': 'contact', '/faciliteiten': 'faciliteiten', '/over-ons': 'over-ons'}
+
+
+def spiegel_inhoud(html):
+    """Inhoudslinks naar spiegeladressen: asteria.nl-pagina's uit SPIEGEL_INHOUD en de kamerpagina's in #lp-kamerdata
+    ("pagina": oude kamerpagina's op visit.asteria.nl -> Comfort/Deluxe-spiegel, de rest het kameroverzicht van de spiegel)."""
+    links = spiegel_linkset()
+    kamerpagina = {'/comfort-kamer': 'kamer-comfort', '/deluxe-kamer': 'kamer-deluxe'}
+    html = html.replace('<a class="lp-pop__link" href="/">', f'<a class="lp-pop__link" href="{spiegel_adres("kamers", links)}">')
+    html = re.sub(r'("pagina": )"(/[a-z0-9-]+)"', lambda m: f'{m.group(1)}"{spiegel_adres(kamerpagina.get(m.group(2), "kamers"), links)}"', html)
+    return re.sub(r'href="https://www\.asteria\.nl(/[a-z-]+)/?"',
+                  lambda m: f'href="{spiegel_adres(SPIEGEL_INHOUD[m.group(1)], links)}"' if m.group(1) in SPIEGEL_INHOUD else m.group(0), html)
+
+
+# asteria.nl-pad uit de pop-updata -> sleutel van de spiegel (Meer informatie in de faciliteit-pop-up)
+SPIEGEL_POP = {'/wellness': 'wellness', '/restaurant': 'restaurant', '/faciliteiten': 'faciliteiten', '/omgeving': 'omgeving'}
+
+
+def render_hotel(html, data, gesloten=False, spiegel=False):
     """Blok 'hotel' (algemene lander hotel-venray-v2): vult de drie hotelblokken uit lijsten in de JSON.
       _faciliteiten: precies 5 tegels {titel, regel, img, alt, pos?, knop, url | fac} (fac = sleutel in #lp-facdata: 'wellness',
                      'restaurant' of een sleutel uit _facdata; opent de faciliteit-pop-up van lander-w1); tegel 2 en 3 zijn breed
@@ -535,9 +582,23 @@ def render_hotel(html, data, gesloten=False):
             f'          <div class="ho-fac-tekst"><h3>{t["titel"]}</h3><p>{t["regel"]}</p>{knop}</div>\n'
             '        </div>')
     html = html.replace('<!-- HO_FAC -->', '\n'.join(tegels))
+    if spiegel:   # Meer informatie in de pop-up = spiegelpagina; de knop blijft Bekijk beschikbaarheid
+        def pop_info(m):
+            pad = m.group(2).rstrip('/')
+            return f'{m.group(1)}"", "info": "spiegel:{SPIEGEL_POP[pad]}"' if pad in SPIEGEL_POP else m.group(0)
+        html = re.sub(r'("link": )"https://www\.asteria\.nl(/[^"]*)"', pop_info, html)
     if gesloten:   # geen asteria.nl-links in de pop-updata (de knop is dan Bekijk beschikbaarheid)
         html = re.sub(r'("link": )"https://www\.asteria\.nl[^"]*"', r'\1""', html)
     extra = data.get('_facdata') or {}
+    if spiegel:
+        def info(k, v):
+            pad = urllib.parse.urlsplit(v.get('link') or '').path.rstrip('/') if 'asteria.nl' in (v.get('link') or '') else ''
+            if pad in SPIEGEL_POP:
+                return dict(v, info='spiegel:' + SPIEGEL_POP[pad])
+            if k.startswith('omg-'):
+                return dict(v, info='spiegel:omgeving')
+            return v
+        extra = {k: info(k, v) for k, v in extra.items()}
     if gesloten:
         extra = {k: dict(v, link='') for k, v in extra.items()}
     # Video in de faciliteit-pop-up ('_fac_video': {sleutel: pad}); wellness/restaurant staan vast in het sjabloon
@@ -1000,10 +1061,12 @@ def ao_vak(paden):
     return f'<span class="ao-vak">{icoon(paden)}</span>'
 
 
-def w1_blokken():
+def w1_blokken(spiegel=False):
     """Kop, kamers (4b), reviews (5a), kamer-pop-up en voet letterlijk uit lander-w1.template.html, zodat het overzicht
     met de flow-landers en arrangementen meeloopt. Zonder vouchercode: '?mewsVoucherCode={{VOUCHER}}' en
-    data-voucher="{{VOUCHER}}" vallen weg (kamerknoppen openen de widget met data-room); de pil op de kamerfoto ook."""
+    data-voucher="{{VOUCHER}}" vallen weg (kamerknoppen openen de widget met data-room); de pil op de kamerfoto ook.
+    spiegel=True: kop en voet in de spiegelstand van hotel-venray-v2 (blokken gesloten + spiegel, links uit
+    translations/spiegel-links.json, geen asteria.nl behalve privacy/voorwaarden); kamers, reviews en pop-up ongewijzigd."""
     with open(os.path.join(base, 'lander-w1.template.html'), encoding='utf-8') as f:
         w1 = f.read()
 
@@ -1016,18 +1079,18 @@ def w1_blokken():
             sys.exit(f'apply_overzicht: {eind!r} na {begin!r} niet gevonden in lander-w1.template.html')
         return w1[i:j + len(eind)]
 
-    i, j = w1.find('<header class="top-stack">'), w1.find('<main class="lp">')
+    i, j = w1.find('<header class="top-stack'), w1.find('<main class="lp">')
     if i < 0 or j < i:
         sys.exit('apply_overzicht: kop van lander-w1 niet gevonden')
     delen = {
-        'W1_KOP': w1[i:j].rstrip(),
+        'W1_KOP': w1[i:j],   # rstrip na de blokkenpass (de slotmarker van de drawer staat op een eigen regel)
         'W1_KAMERS': '  ' + stuk('<section class="sec b4b"', '</section>'),
         'W1_REVIEWS': '  ' + stuk('<section class="sec b5a"', '</section>'),
         'W1_POP': '  ' + '\n  '.join([stuk('<dialog class="lp-pop lp-pop--kamer"', '</dialog>'),
                                       '<div class="lp-pop-overlay" hidden></div>',
                                       stuk('<template id="lp-pop-vink">', '</template>'),
                                       stuk('<script type="application/json" id="lp-kamerdata">', '</script>')]),
-        'W1_VOET': stuk('<footer class="footer">', '</footer>') + '\n\n' + stuk('<div class="cookie-banner"', '</div>'),
+        'W1_VOET': stuk('<footer class="footer', '</footer>') + '\n\n' + stuk('<div class="cookie-banner"', '</div>'),
     }
     for k, s in delen.items():
         s = s.replace(f'data-basis="{MEWS_BASIS}?mewsVoucherCode={{{{VOUCHER}}}}"', f'data-basis="{MEWS_BASIS}?"')
@@ -1037,7 +1100,11 @@ def w1_blokken():
         if '{{VOUCHER}}' in s:
             sys.exit(f'apply_overzicht: {{{{VOUCHER}}}} blijft over in {k}')
         # reviewsticker: de arrangementvariant (met het aantal reviews)
-        delen[k] = apply_blokken(s, {'arrangement'})
+        if spiegel and k in ('W1_KOP', 'W1_VOET'):
+            delen[k] = vul_spiegel_links(apply_blokken(s, {'arrangement', 'gesloten', 'spiegel'}))
+        else:
+            delen[k] = apply_blokken(s, {'arrangement'})
+    delen['W1_KOP'] = delen['W1_KOP'].rstrip()
     return delen
 
 
@@ -1050,7 +1117,8 @@ def apply_overzicht(html, data):
       ZV_TOON + ZV_ZONDAG_PRIJS (zondagregel; die kaarten krijgen categorie 'zondag'). Zo lopen prijzen niet uit de pas met de arrangementpagina's.
     - '_meest_geboekt' (3 slugs), '_categorieen' (chips), '_kh_vragen' (4 vragen), '_intro_tegels' (4), '_praktisch' (6), '_faq'."""
     from html import escape
-    for k, s in w1_blokken().items():
+    spiegel = bool(data.get('_kop_spiegel'))
+    for k, s in w1_blokken(spiegel).items():
         html = html.replace(f'<!-- {k} -->', s, 1)
 
     cats = data['_categorieen']
@@ -1189,6 +1257,8 @@ def apply_overzicht(html, data):
     html = html.replace('<!-- AO_FAQ -->', '\n'.join(
         f'          <details class="as-accordeon__item"{" open" if i == 0 else ""}><summary class="as-accordeon__kop">{f["q"]}</summary>'
         f'<div class="as-accordeon__paneel"><p>{f["a"]}</p></div></details>' for i, f in enumerate(data['_faq'])))
+    if spiegel:   # links in de inhoud naar kamers/wellness/restaurant/omgeving/contact/... -> spiegeladressen
+        html = spiegel_inhoud(html)
     if '<!-- AO_' in html or '<!-- W1_' in html:
         sys.exit('apply_overzicht: niet alle plekken zijn gevuld: ' + ', '.join(re.findall(r'<!-- ((?:AO|W1)_[A-Z_]+) -->', html)))
     return html
@@ -1239,7 +1309,15 @@ def build(template_name, lang):
     # Bekijk beschikbaarheid (Mews), geen Alle faciliteiten/Ontdek de omgeving/Alle arrangementen/Neem contact op/Bekijk alle
     # kamers; kamerknoppen 'Bekijk beschikbaarheid' (Mews + data-room), geen link naar de kamerpagina's (oude stijl).
     # Overzichtsknoppen in de nieuwe stijl: OVERZICHT_ARR_URL (Alle arrangementen) en OVERZICHT_KAMERS_URL (Bekijk alle kamers). Volledig menu terug = schakelaar op false.
-    aan = ({'gesloten'} if translations.get('GESLOTEN_LANDER') is True else set()) | ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
+    # Spiegelstand (GESLOTEN_LANDER: "spiegel"): inhoud als de gesloten lander (blok 'gesloten': kamerknoppen en pop-upknop
+    # = Bekijk beschikbaarheid), maar kop en voet volledig zoals de staging (blok 'spiegel' i.p.v. 'kopdicht') met alle menu- en
+    # voetlinks naar de spiegel van de staging op visit.asteria.nl. Links staan in het sjabloon als href="spiegel:<sleutel>"
+    # en komen uit translations/spiegel-links.json (vul_spiegel_links); met één wijziging daar later naar de echte asteria.nl.
+    # Plus Alle faciliteiten / Ontdek de omgeving / Neem contact op naar de spiegel en Meer informatie in de faciliteit-pop-up.
+    gesloten_stand = translations.get('GESLOTEN_LANDER')
+    if gesloten_stand not in (None, True, False, 'spiegel'):
+        sys.exit(f'GESLOTEN_LANDER moet true, false of "spiegel" zijn, niet {gesloten_stand!r}')
+    aan = ({'gesloten', 'kopdicht'} if gesloten_stand is True else {'gesloten', 'spiegel'} if gesloten_stand == 'spiegel' else set()) | ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
     # Staging-boekkaart op de telefoon (blok 'boekkaart'): op de algemene lander (blok 'hotel') vervangt hij de boekkaart onder de hero
@@ -1261,7 +1339,7 @@ def build(template_name, lang):
         html = html.replace('<!-- CADEAU_ITEMS -->', render_cadeau(cadeau, cadeau_voet))
 
     if 'hotel' in aan:
-        html = render_hotel(html, translations, 'gesloten' in aan)
+        html = render_hotel(html, translations, 'gesloten' in aan, 'spiegel' in aan)
     if 'kamertypes' in aan:
         html = render_kamertypes(html, translations)
 
@@ -1302,6 +1380,9 @@ def build(template_name, lang):
         html = html.replace('<a class="btn btn-secondary" href="">' + translations.get('AANBOD_KNOP', '') + '</a>', '')
         if 'kamertypes' not in aan:   # kamertypes-v2: de kaartknop blijft 'Boek deze kamer' (staging)
             html = html.replace('>Boek deze kamer</a>', '>Bekijk beschikbaarheid</a>')
+
+    if 'spiegel' in aan:
+        html = vul_spiegel_links(html)
 
     # Zonder actiecode: lege voucher uit de Mews-links en labels
     if translations.get('VOUCHER', None) == '':

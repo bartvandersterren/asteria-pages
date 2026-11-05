@@ -671,6 +671,18 @@
       meer.setAttribute('href', f.link);
       meer.setAttribute('aria-label', 'Meer over ' + f.titel.toLowerCase() + ' op asteria.nl');
     }
+    /* spiegel-menu (hotel-venray-v2, GESLOTEN_LANDER "spiegel"): tekstlink Meer informatie (f.info = spiegelpagina) naast
+       Bekijk beschikbaarheid. Pas aangemaakt als een pop-up hem heeft, zodat andere pagina's gelijk blijven. */
+    var info = popFac.querySelector('.lp-pop__info');
+    if (f.info) {
+      if (!info) {
+        info = maak('a', 'lp-pop__link lp-pop__info', 'Meer informatie');
+        meer.parentNode.insertBefore(info, meer.nextSibling);
+      }
+      info.hidden = false;
+      info.href = f.info;
+      info.setAttribute('aria-label', 'Meer informatie over ' + f.titel.toLowerCase());
+    } else if (info) { info.hidden = true; info.removeAttribute('href'); }
     /* plekken in de omgeving (hotel-venray-v2): tekstlink Route plannen (f.route, Google Maps, nieuw tabblad) naast de knop
        en een fotoregel (f.credit, naamsvermelding). Pas aangemaakt als een pop-up ze heeft, zodat andere pagina's gelijk blijven. */
     var route = popFac.querySelector('.lp-pop__route');

@@ -11,9 +11,9 @@
     "Kasteeltuinen Arcen: chip 'Weer open vanaf eind maart' klopt voor seizoen 2027 (kasteeltuinen.nl: weer open 25 maart 2027); na de opening aanpassen.",
     "Hertog Jan: rondleiding vooraf boeken en 144 treden volgens brouwerij.hertogjan.nl (3 nov 2026); tapfoto = Fotobank Asteria _O0A9910 (Zaal Zeven, details), dus geen claim dat het hotel Hertog Jan tapt."
   ],
-  "GESLOTEN_LANDER": true,
-  "OVERZICHT_ARR_URL": "",
-  "OVERZICHT_KAMERS_URL": "",
+  "GESLOTEN_LANDER": "spiegel",
+  "OVERZICHT_ARR_URL": "spiegel:arrangementen",
+  "OVERZICHT_KAMERS_URL": "spiegel:kamers",
   "PAGE_TITLE": "Hotel Asteria Venray | Familiehotel met wellness aan de A73",
   "META_DESC": "Welkom bij Hotel Asteria, waar Limburgse gastvrijheid voelt als thuiskomen. Slaap in een sfeervolle kamer, kom tot rust in ruim 300 m² wellness op de Top Floor en schuif 's avonds aan in ons eigen restaurant.",
   "CANONICAL_URL": "https://visit.asteria.nl/hotel-venray-v2",

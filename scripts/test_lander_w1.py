@@ -75,7 +75,10 @@ CADEAU = '--cadeau' in args
 if CADEAU: args.remove('--cadeau')
 HOTEL = '--hotel' in args
 if HOTEL: args.remove('--hotel')
-GESLOTEN = HOTEL   # hotel-venray-v2 heeft GESLOTEN_LANDER: true (geen links naar asteria.nl)
+GESLOTEN = HOTEL   # hotel-venray-v2: inhoud zoals de gesloten lander (geen links naar asteria.nl, pop-upknop = Mews)
+# Spiegelstand (GESLOTEN_LANDER: "spiegel", sinds 3 nov 2026 op hotel-venray-v2): kop en voet volledig zoals de staging, alle
+# menu- en voetlinks naar de spiegel van de staging op visit.asteria.nl (translations/spiegel-links.json).
+SPIEGEL = HOTEL
 VOUCHER = '' if HOTEL else 'JUBILEUM'
 if '--voucher' in args:
     i = args.index('--voucher'); VOUCHER = args[i + 1]; del args[i:i + 2]
@@ -187,7 +190,7 @@ with sync_playwright() as p:
                                        'https://www.google.com/maps/'))
                          or not h.startswith('http') or 'asteria.nl' not in h or h in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden'))
         fout = [h for h in hrefs_alle if not mag(h)]
-        check('[bron] gesloten lander: geen links naar asteria.nl behalve privacy en algemene voorwaarden', not fout, ', '.join(fout))
+        check('[bron] geen links naar asteria.nl behalve privacy en algemene voorwaarden', not fout, ', '.join(fout))
         # omgevingsblok: pop-updata zonder asteria.nl-links; Route plannen alleen naar Google Maps (allowlist)
         _fd = json.loads(_re.search(r'<script type="application/json" id="lp-facdata">(.*?)</script>', bron, _re.S).group(1))
         _omg = {k: v for k, v in _fd.items() if k.startswith('omg-')}
@@ -200,20 +203,55 @@ with sync_playwright() as p:
         check('[bron] omgeving-pop-ups: geen &, geen em- of en-dash', '&' not in _tekst and '—' not in _tekst and '–' not in _tekst)
         jur = _re.findall(r'<a href="https://www\.asteria\.nl/(privacy|algemene-voorwaarden)" target="_blank" rel="noopener">', bron)
         check('[bron] juridische links (voet + cookiemelding) openen in een nieuw tabblad (rel noopener)', set(jur) == {'algemene-voorwaarden', 'privacy'}, str(jur))
-        check('[bron] kop zonder menu, utility-balk, hamburger en mobiel menu; logo naar /hotel-venray-v2',
-              'class="nav-links"' not in bron and 'class="utility-bar"' not in bron and 'nav-hamburger' not in bron and 'id="nav-drawer"' not in bron
-              and '<a href="/hotel-venray-v2" class="logo"' in bron and 'class="nav-phone"' in bron and 'nav-cta mews-open' in bron)
+        if SPIEGEL:
+            _sl = json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', 'translations', 'spiegel-links.json'), encoding='utf-8'))
+            _pg = _sl['paginas']; _ovz = _sl['arrangementenoverzicht']
+            _spiegel = {_pg[v['sleutel']] for v in _sl['spiegel'].values()} | {_ovz, _pg['home']}
+            _kop = bron[bron.index('<header'):bron.index('</header>')]
+            _drawer = bron[bron.index('<aside class="nav-drawer"'):bron.index('</aside>')]
+            _voet = bron[bron.index('<footer'):bron.index('</footer>')]
+            _kl = lambda deel: [h for h in _re.findall(r'href="([^"]*)"', deel) if not h.startswith(('tel:', 'mailto:', 'https://app.mews.com/distributor/6dc9094c'))]
+            _menu = {'Kamers &amp; suites': _pg['kamers'], 'Faciliteiten': _pg['faciliteiten'], 'Wellness &amp; fitness': _pg['wellnessfaciliteiten'],
+                     'Arrangementen': _ovz, 'Omgeving': _pg['omgeving'], 'Restaurant': _pg['restaurant'], 'Wellness': _pg['wellness'],
+                     'Ons verhaal': _pg['over-ons'], 'Contact': _pg['contact']}
+            _menu_ok = all(f'<li><a href="{u}">{t}</a></li>' in _kop and f'<li><a href="{u}">{t}</a></li>' in _drawer for t, u in _menu.items())
+            check('[bron] spiegel: kop met utility-balk, menu (Hotel en Over ons met submenu), hamburger en mobiel menu; logo naar /hotel-venray-v2',
+                  'class="utility-bar"' in _kop and 'class="nav-links"' in _kop and _kop.count('class="has-sub"') == 2 and 'nav-hamburger' in _kop
+                  and 'id="nav-drawer"' in bron and _drawer.count('class="has-sub"') == 2 and _menu_ok
+                  and '<a href="/hotel-venray-v2" class="logo"' in bron and 'nav-cta mews-open' in bron and 'langswitch' not in _kop)
+            _zalen = [x for x in (_kop + _drawer + _voet).split('\n') if _re.search(r'zalen|vergader|feesten|vacature|veelgestelde', x, _re.I)]
+            check('[bron] spiegel: geen Zalen & feesten, Vergaderen, FAQ of Werken bij in kop, drawer en voet', not _zalen, str(_zalen)[:200])
+            _alle = _kl(_kop) + _kl(_drawer) + _kl(_voet)
+            _buiten = [h for h in _alle if h not in _spiegel and h not in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden')
+                       and not h.startswith(('https://maps.google.com/', 'https://www.facebook.com/', 'https://www.instagram.com/', 'https://www.linkedin.com/'))]
+            check(f'[bron] spiegel: alle {len(_alle)} kop-, drawer- en voetlinks naar spiegeladressen (of Mews/tel/mail/juridisch/kaart/social)', not _buiten, str(_buiten))
+            check('[bron] spiegel: voet met kolommen Verblijf/Bij ons/Contact en socials; Comfort/Deluxe naar de spiegel, Bruidssuite/Junior suite naar Mews met kamer',
+                  'footer__socials' in _voet and all(f'<h3>{k}</h3>' in _voet for k in ('Verblijf', 'Bij ons', 'Contact'))
+                  and f'<a href="{_pg["kamer-comfort"]}">Comfort kamer</a>' in _voet and f'<a href="{_pg["kamer-deluxe"]}">Deluxe kamer</a>' in _voet
+                  and 'data-room="a9f18d18-561b-47a9-8ba7-b2a800cfd0e2">Bruidssuite' in _voet and 'data-room="27ea8deb-ded5-4856-8fdd-af1d00ffc315">Junior suite' in _voet)
+            _ovk = {t: _re.findall(r'<a class="btn [^"]*" href="([^"]*)">' + t + '</a>', bron) for t in ('Alle arrangementen', 'Bekijk alle kamers', 'Alle faciliteiten', 'Plan een dag in de buurt', 'Neem contact op')}
+            check('[bron] spiegel: overzichtsknoppen Alle arrangementen/Bekijk alle kamers/Alle faciliteiten/Plan een dag in de buurt/Neem contact op naar de spiegel',
+                  _ovk == {'Alle arrangementen': [_ovz], 'Bekijk alle kamers': [_pg['kamers']], 'Alle faciliteiten': [_pg['faciliteiten']],
+                           'Plan een dag in de buurt': [_pg['omgeving']], 'Neem contact op': [_pg['contact']]}, str(_ovk))
+            check('[bron] spiegel: faciliteit-pop-ups met Meer informatie naar de spiegel (info), knop blijft Mews',
+                  all(v.get('info') in _spiegel and not v.get('link') for v in _fd.values()) and _fd['wellness']['info'] == _pg['wellness'], str({k: v.get('info') for k, v in _fd.items()}))
+        else:
+            check('[bron] kop zonder menu, utility-balk, hamburger en mobiel menu; logo naar /hotel-venray-v2',
+                  'class="nav-links"' not in bron and 'class="utility-bar"' not in bron and 'nav-hamburger' not in bron and 'id="nav-drawer"' not in bron
+                  and '<a href="/hotel-venray-v2" class="logo"' in bron and 'class="nav-phone"' in bron and 'nav-cta mews-open' in bron)
+            check('[bron] voet alleen logo, adres, contact en juridisch (geen kolommen, geen socials)',
+                  'footer__socials' not in bron and '<h3>Verblijf</h3>' not in bron and '<h3>Bij ons</h3>' not in bron and '0478 511 466' in bron and 'Maasheseweg 80a' in bron)
         kamerp = [h for h in hrefs_alle if h.rstrip('/').rsplit('/', 1)[-1] in ('kamertypes', 'comfort-kamer', 'comfort-kamer-3-personen', 'mindervalide-kamer',
-                                                                           'royale-kamer', 'deluxe-kamer', 'junior-suite', 'suite', 'bruidssuite')]
-        check('[bron] geen links naar /kamertypes of de oude kamerpagina\'s, geen kamerpaginalink in de pop-up',
-              not kamerp and 'lp-pop__link' not in bron, str(kamerp))
-        # OVERZICHT_ARR_URL is leeg tot /arrangementen-v2 live staat (PR #180); dan weer '/arrangementen-v2' verwachten.
-        check('[bron] geen Alle arrangementen en geen Bekijk alle kamers zolang de overzichten niet live zijn (OVERZICHT_*_URL leeg)',
-              'Alle arrangementen' not in bron and 'Bekijk alle kamers' not in bron and 'href=""' not in bron)
+                                                                           'royale-kamer', 'deluxe-kamer', 'junior-suite', 'suite', 'bruidssuite')
+                  and not (SPIEGEL and h in _spiegel)]
+        check('[bron] geen links naar /kamertypes of de oude kamerpagina\'s (wel de spiegel), geen kamerpaginalink in de pop-up',
+              not kamerp and 'class="lp-pop__link" href="/"' not in bron, str(kamerp))
+        if not SPIEGEL:
+            # OVERZICHT_ARR_URL is leeg tot /arrangementen-v2 live staat (PR #180); dan weer '/arrangementen-v2' verwachten.
+            check('[bron] geen Alle arrangementen en geen Bekijk alle kamers zolang de overzichten niet live zijn (OVERZICHT_*_URL leeg)',
+                  'Alle arrangementen' not in bron and 'Bekijk alle kamers' not in bron and 'href=""' not in bron)
         check('[bron] kamerknoppen heten Bekijk beschikbaarheid (8 kaarten + pop-up), met data-room',
               len(_re.findall(r'data-room="[^"]+"[^>]*>Bekijk beschikbaarheid</a>', bron)) >= 8 and '>Boek deze kamer<' not in bron and '>Boek nu</a><button' not in bron)
-        check('[bron] voet alleen logo, adres, contact en juridisch (geen kolommen, geen socials)',
-              'footer__socials' not in bron and '<h3>Verblijf</h3>' not in bron and '<h3>Bij ons</h3>' not in bron and '0478 511 466' in bron and 'Maasheseweg 80a' in bron)
         arr = _re.findall(r'<a class="ho-arr-kaart" href="https://visit\.asteria\.nl/([a-z0-9-]+)"', bron)
         check(f'[bron] {len(arr)} arrangementkaarten naar bestaande pagina\'s', 3 <= len(arr) <= 8 and all(_os.path.exists(a + '.html') for a in arr), ', '.join(arr))
     for w in ((1280, 1100, 1024, 800) if V3 else (1100, 800)):
@@ -542,12 +580,15 @@ with sync_playwright() as p:
                 fk.click(); pg.wait_for_timeout(1200)
                 f = pg.evaluate("""()=>{const d=document.getElementById('lp-pop-fac'),r=d.getBoundingClientRect(),bi=d.querySelector('.lp-pop__binnen');
                     const imgs=[...d.querySelectorAll('.lp-pop__hero:not([hidden]),.lp-pop__fotos img')],v=d.querySelector('.lp-pop__video:not([hidden])');
-                    return {open:d.open,titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),knop:d.querySelector('.lp-pop__meer').textContent.trim(),boek:d.querySelector('.lp-pop__meer').classList.contains('mews-open'),
+                    return {open:d.open,info:(d.querySelector('.lp-pop__info:not([hidden])')||{getAttribute:()=>null}).getAttribute('href'),titel:d.querySelector('.lp-pop__titel').textContent,link:d.querySelector('.lp-pop__meer').getAttribute('href'),knop:d.querySelector('.lp-pop__meer').textContent.trim(),boek:d.querySelector('.lp-pop__meer').classList.contains('mews-open'),
                       fotos:imgs.length+(v?1:0),geladen:imgs.filter(i=>i.complete&&i.naturalWidth>0).length+(v&&v.poster?1:0),video:v?{src:v.currentSrc.split('/').pop(),t:v.currentTime,paused:v.paused,muted:v.muted,poster:v.poster.split('/').pop()}:null,chips:d.querySelectorAll('.lp-pop__chips li').length,
                       t:Math.round(r.top),b:Math.round(r.bottom),l:Math.round(r.left),r:Math.round(r.right),
                       scroll:bi.scrollHeight-bi.clientHeight,sw:document.documentElement.scrollWidth}}""")
                 check(f'{tag} {key}-knop opent pop-up met juiste titel, link en geladen foto\'s',
                       f['open'] and f['titel'] == titel_v and (f['link'] == link_v if not GESLOTEN else (f['link'].startswith('https://app.mews.com/distributor/6dc9094c') and f['boek'] and f['knop'] == 'Bekijk beschikbaarheid')) and f['fotos'] == 4 and f['geladen'] == 4 and f['chips'] == 4, str(f))
+                if SPIEGEL:
+                    check(f'{tag} {key}-pop-up: tekstlink Meer informatie naar de spiegel naast Bekijk beschikbaarheid',
+                          f['info'] in ('/wellness', '/restaurant', '/faciliteiten'), str(f['info']))
                 vid = FACVIDEO.get(key)
                 if vid:
                     pg.wait_for_timeout(1200)
@@ -769,6 +810,27 @@ with sync_playwright() as p:
           t0 = tabst()
           pg.evaluate("window.scrollTo(0, document.querySelector('.b4b').offsetTop)"); pg.wait_for_timeout(900)
           t1 = tabst()
+        if SPIEGEL and mob:
+            pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
+            pg.locator('.nav-hamburger').click(); pg.wait_for_timeout(500)
+            d1 = pg.evaluate("document.getElementById('nav-drawer').classList.contains('is-open')")
+            pg.locator('#nav-drawer .drawer-parent').first.click(); pg.wait_for_timeout(400)
+            d2 = pg.evaluate("(()=>{const li=document.querySelector('#nav-drawer .has-sub');return li.classList.contains('is-open')&&li.querySelector('.drawer-sub').getBoundingClientRect().height>100})()")
+            pg.locator('#nav-drawer .nav-drawer__close').click(); pg.wait_for_timeout(500)
+            d3 = not pg.evaluate("document.getElementById('nav-drawer').classList.contains('is-open')")
+            check(f'{tag} spiegel: hamburger opent de drawer, Hotel klapt uit, sluitknop sluit', d1 and d2 and d3, f'{d1} {d2} {d3}')
+            if shotdir:
+                pg.locator('.nav-hamburger').click(); pg.wait_for_timeout(500)   # Hotel staat nog uitgeklapt
+                pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-drawer.png')
+                pg.locator('#nav-drawer .nav-drawer__close').click(); pg.wait_for_timeout(400)
+        elif SPIEGEL:
+            pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
+            pg.locator('.nav-links .has-sub').first.hover(); pg.wait_for_timeout(500)
+            m = pg.evaluate("(()=>{const s=document.querySelector('.nav-links .has-sub .nav-sub'),r=s.getBoundingClientRect();return {vis:getComputedStyle(s).visibility,items:s.querySelectorAll('a').length,r:Math.round(r.right),w:innerWidth}})()")
+            check(f'{tag} spiegel: submenu Hotel opent bij hover (4 links, binnen beeld)', m['vis'] == 'visible' and m['items'] == 4 and m['r'] <= m['w'], str(m))
+            if shotdir:
+                pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-submenu.png')
+            pg.mouse.move(5, h - 5); pg.wait_for_timeout(300)
         if HOTEL:
             check(f'{tag} geen uitklaptab en geen zijkaart', pg.evaluate("!document.querySelector('.b1k-uitklap, .b1k-tab, .b1k-paneel, .lp-zone-kant')"))
         elif V3:
