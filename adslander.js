@@ -513,12 +513,45 @@
       return s;
     };
     var heroBoek = function () { var h = document.querySelector('.al-hero .mews-open'); return h ? h.getAttribute('href') : ''; };
+    /* arrangement-pop-up = kiezeroptie c "Fotoband bovenaan met boekkaart" (letterlijk nagebouwd): bovenaan drie foto's als
+       mozaiek (telefoon: een groot + twee klein), sluitkruis rond op de band; daaronder links pil, naam, subregel, omschrijving
+       en Das ist inbegriffen (bureaublad twee kolommen), rechts een boekkaart met de prijs van de kaart, de zondagregel (alleen
+       als de kaart data-zondag="ja" heeft), drie zekerheden en Arrangement buchen. Telefoon: de knop vast onderin. De knop is de
+       kaartknop (mews-open + data-voucher), dus de prijskalender opent zoals vanaf de kaart. */
+    var PCVINK = '<svg class="al-pc-vink" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>';
+    var PCKAL = '<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>';
+    var bouwArr = function (r, kaart) {
+      var naam = tekstVan(kaart, '.al-ak__naam') || esc(r.naam), badge = tekstVan(kaart, '.al-ak__tag');
+      var pr = kaart && kaart.querySelector('.al-ak__prijs'), bedragEl = pr && pr.querySelector('[data-arr-vanaf]') || (pr && pr.querySelectorAll('span')[1]);
+      var vf = tekstVan(kaart, '.al-ak__vf'), eenheid = tekstVan(kaart, '.al-ak__prijs small');
+      var k = kaart && kaart.querySelector('.al-ak__knop');
+      var knopHtml = k ? '<a class="btn btn-primary al-pop__boek mews-open" href="' + esc(k.getAttribute('href')) + '" data-voucher="' + esc(k.getAttribute('data-voucher')) + '" data-pop-boek>' + esc(L.lArrboek) + '</a>' : '';
+      var zondag = kaart && kaart.getAttribute('data-zondag') === 'ja' && L.lZondag;
+      var fotos = (r.fotos || []).slice(0, 3);
+      var zeker = (L.lZeker || '').split('|').filter(Boolean);
+      popN = 0; popIdx = 0;
+      return '<div class="al-pc-band">' + fotos.map(function (f, i) { return '<img class="al-pc-foto" src="' + esc(f) + '" alt="' + (i ? '' : esc(plat(naam))) + '" decoding="async" draggable="false">'; }).join('') +
+          '<button type="button" class="al-pc-sluit" data-pop-sluit aria-label="' + esc(L.lSluit) + '">' + KRUIS + '</button></div>' +
+        '<div class="al-pc-scroll"><div class="al-pc-tekst">' +
+          (badge ? '<span class="al-pop__badge">' + badge + '</span>' : '') +
+          '<h3 class="al-pop__naam al-pc-naam" id="al-pop-naam">' + naam + '</h3>' +
+          (r.sub ? '<p class="al-pc-sub">' + esc(r.sub) + '</p>' : '') +
+          '<p class="al-pc-desc">' + esc(r.desc) + '</p>' +
+          (r.incl && r.incl.length ? '<p class="al-pop__tk al-pc-tk">' + esc(L.lIncl) + '</p><ul class="al-pc-lijst">' + r.incl.map(function (i) { return '<li>' + PCVINK + '<span>' + esc(i) + '</span></li>'; }).join('') + '</ul>' : '') +
+        '</div><aside class="al-pc-boek" aria-label="' + esc(L.lArrboek) + '">' +
+          '<p class="al-pc-prijs"><span class="vf">' + vf + '</span><b>' + (bedragEl ? bedragEl.innerHTML : '') + '</b><small>' + eenheid + '</small></p>' +
+          (zondag ? '<p class="al-pc-zondag">' + PCKAL + '<span>' + esc(L.lZondag) + '</span></p>' : '') +
+          (zeker.length ? '<ul class="al-pc-zeker">' + zeker.map(function (z) { return '<li>' + PCVINK + '<span>' + esc(z) + '</span></li>'; }).join('') + '</ul>' : '') +
+          knopHtml + '</aside></div>' +
+        (knopHtml ? '<div class="al-pc-voet">' + knopHtml + '</div>' : '');
+    };
     var bouw = function (soort, sleutel, knop) {
       var r = ((POP || {})[soort] || {})[sleutel]; if (!r) return null;
       var kaart = knop.closest('.al-ak, .kk-kaart, .al-tegel, .al-uk');
       var naam = r.naam || '', badge = '', prijs = '', kenm = '', extra = '', voet = '', sub = r.sub || '';
       var boek = null, boeklabel = '', boekAttr = '', ext = false;
-      if (soort === 'arr') {
+      if (soort === 'arr') return bouwArr(r, kaart);
+      if (soort === 'arr-oud') {
         naam = tekstVan(kaart, '.al-ak__naam') || esc(naam); badge = tekstVan(kaart, '.al-ak__tag');
         var pb = kaart && kaart.querySelector('.al-ak__prijsblok'); prijs = pb ? '<div class="al-pop__prijs">' + pb.innerHTML + '</div>' : '';
         if (r.incl && r.incl.length) extra += '<p class="al-pop__tk">' + esc(L.lIncl) + '</p><ul class="al-pop__lijst">' + r.incl.map(function (i) { return '<li>' + VINK + '<span>' + esc(i) + '</span></li>'; }).join('') + '</ul>';
@@ -584,7 +617,7 @@
     };
     var popOpen = function (soort, sleutel, knop) {
       var h = bouw(soort, sleutel, knop); if (!h) return false;
-      kaartEl.innerHTML = h; popSoort = soort; popSleutel = sleutel; popTerug = knop; popOpenIdx = false;
+      kaartEl.innerHTML = h; kaartEl.classList.toggle('al-pop__kaart--arr', soort === 'arr'); popSoort = soort; popSleutel = sleutel; popTerug = knop; popOpenIdx = false;
       var v = kaartEl.querySelector('.al-pop__video');
       if (v) {
         var vd = v.parentNode, sk = vd.querySelector('[data-pop-speel]');

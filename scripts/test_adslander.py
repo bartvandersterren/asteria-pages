@@ -254,9 +254,14 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
             await el.click()
             await pg.wait_for_timeout(250)
             r = await pg.evaluate("""()=>{const p=document.querySelector('[data-pop-dialog]');if(p.hidden)return null;const k=p.querySelector('.al-pop__kaart'),
-              b=p.querySelector('.al-pop__body'),kr=k.getBoundingClientRect();return {scroll:b.scrollHeight-b.clientHeight,kh:k.scrollHeight-k.clientHeight,
+              b=p.querySelector('.al-pop__body')||p.querySelector('.al-pc-scroll'),kr=k.getBoundingClientRect(),arr=k.classList.contains('al-pop__kaart--arr');
+              const zicht=e=>!!e&&e.getBoundingClientRect().height>0&&getComputedStyle(e).display!=='none';
+              const knop=arr?(innerWidth>=1024?p.querySelector('.al-pc-boek .al-pop__boek'):p.querySelector('.al-pc-voet .al-pop__boek')):null;
+              return {scroll:(arr&&innerWidth<1024)?0:b.scrollHeight-b.clientHeight,kh:k.scrollHeight-k.clientHeight,
               top:kr.top,bot:kr.bottom,vh:innerHeight,naam:(p.querySelector('.al-pop__naam')||{}).textContent,boek:!!p.querySelector('.al-pop__boek'),
-              video:!!p.querySelector('video')}}""")
+              video:!!p.querySelector('video'),arr:arr,band:p.querySelectorAll('.al-pc-band img').length,prijs:(p.querySelector('.al-pc-prijs b')||{}).textContent||'',
+              zondag:!!p.querySelector('.al-pc-zondag'),zeker:p.querySelectorAll('.al-pc-zeker li').length,knop:zicht(knop),knopb:knop?knop.getBoundingClientRect().bottom:0,
+              voet:innerWidth<1024?zicht(p.querySelector('.al-pc-voet')):false}}""")
             if not r:
                 mis.append(s + ':niet open')
             else:
@@ -264,6 +269,12 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
                     mis.append(f"{s}:scroll {r['scroll']}/{r['kh']}")
                 if mob and r['bot'] > r['vh'] + 1:
                     mis.append(f'{s}:buiten beeld')
+                if s.startswith('arr:'):
+                    kaart = await pg.evaluate("(s)=>{const a=document.querySelector('[data-pop=\"'+s+'\"]').closest('.al-ak');return {z:a.getAttribute('data-zondag'),p:a.querySelector('.al-ak__prijs').textContent.replace(/\\s+/g,' ')}}", s)
+                    prijs_ok = r['prijs'].replace('\xa0', ' ').strip() in kaart['p'].replace('\xa0', ' ')
+                    if not (r['arr'] and r['band'] == 3 and prijs_ok and r['zeker'] == 3 and r['knop'] and r['knopb'] <= r['vh'] + 1
+                            and r['zondag'] == (kaart['z'] == 'ja') and (r['voet'] if vw < 1024 else True)):
+                        mis.append(f"{s}:optie-c band={r['band']} prijs={r['prijs']!r} zondag={r['zondag']}/{kaart['z']} knop={r['knop']}")
             await pg.keyboard.press('Escape')
             await pg.wait_for_timeout(80)
         ok(not mis, f'pop-ups {len(sleutels)} stuks op {vw}x{vh} open en zonder scroll ' + ' '.join(mis[:5]))
@@ -326,6 +337,19 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
     if mob:
         sheet = await pg.evaluate("()=>getComputedStyle(document.querySelector('.al-pop')).alignItems")
         ok(sheet == 'flex-end', 'telefoon: pop-up als sheet van onderaf')
+
+    # arrangement-pop-up: Arrangement buchen in de boekkaart (telefoon: de vaste knop onderin) opent de prijskalender
+    for sl, code in (('wellness', 'WELLNESS2026'), ('herbst', 'NAJAAR2D')):
+        el = pg.locator(f'[data-pop="arr:{sl}"]').first
+        await el.scroll_into_view_if_needed(); await el.click(); await pg.wait_for_timeout(400)
+        await pg.click('.al-pc-voet .al-pop__boek' if mob else '.al-pc-boek .al-pop__boek'); await pg.wait_for_timeout(700)
+        kk = await pg.evaluate("()=>{const k=document.getElementById('ar-kal');return k&&k.open?k.dataset.code:null}")
+        ok(kk == code and log['mews_script'] == 0, f'arrangement-pop-up {sl}: boekkaartknop opent de prijskalender {code} ({kk})')
+        await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
+        await pg.evaluate("()=>{const k=document.getElementById('ar-kal');if(k&&k.open)k.close();document.documentElement.classList.remove('ark-open','ark-slot')}")
+        await pg.keyboard.press('Escape'); await pg.wait_for_timeout(200)
+        await pg.evaluate("()=>{const p=document.querySelector('[data-pop-dialog]');if(p&&!p.hidden)p.querySelector('[data-pop-sluit]').click()}")
+        await pg.wait_for_timeout(200)
 
     # prijskalender (WELLNESS2026) opent en geeft prijzen
     await pg.locator('.al-ak--uit .al-ak__knop').scroll_into_view_if_needed()

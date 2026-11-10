@@ -6,6 +6,7 @@
     "Reistijd Kriegsmuseum Overloon staat niet in de repo (OSRM-meting ontbreekt): kaart toont geen reistijd. Graag meten en omg-6-auto invullen.",
     "Reistijden Maasduinen 15, Arcen 25, Venray 7, Hertog Jan 25 Min. komen uit hotel-venray-v2 (_controleren daar: OSRM 3 nov 2026).",
     "Kostenlos stornieren bis 24 Stunden vor Anreise (trustregel, slot-USP, FAQ): uit hotel-venray-v2 KAART_VINK_B; geldt voor kamertarieven. Bij arrangementen staan de voorwaarden bij het boeken (FAQ arrangementpagina's); de FAQ zegt dat er ook bij.",
+    "Arrangement-pop-up (kiezeroptie c): de boekkaart noemt ook 'Kostenlos stornierbar bis 24 Stunden vor Anreise' (letterlijk uit de kiezer); voor arrangementen staan de annuleringsvoorwaarden pas bij het boeken, dus nog bevestigen of de 24 uur ook voor WINTER27/WELLNESS2026/NAJAAR2D geldt. Zondagregel alleen bij codes met zondag in content/arr-kalender.json (Wellness en Herbst, niet Winter).",
     "Trustregels hero: vertaling van KAART_VINK_A..C + PUNT_VIER van hotel-venray-v2 (Bestpreisgarantie / 24 uur / Sofortige Bestätigung / Kostenlose Parkplätze).",
     "Duitse vertaling van de Google-reviews (content/reviews-google-asteria-de.json) is door Claude gemaakt; regel 'Aus dem Niederländischen übersetzt' staat bij het blok.",
     "Herovideo telefoon = 9:16-uitsnede (midden) van videos/wellness-walk.mp4, geen eigen staande opname.",
@@ -295,6 +296,10 @@
   "pop-vanaf-hotel": "Fahrzeiten ab dem Hotel",
   "pop-video-speel": "Video abspielen",
   "pop-video-pauze": "Video anhalten",
+  "pop-zondag": "Sonntags 20 € pro Zimmer günstiger",
+  "pop-zeker-1": "Bestpreisgarantie",
+  "pop-zeker-2": "Kostenlos stornierbar bis 24 Stunden vor Anreise",
+  "pop-zeker-3": "Kostenlose Parkplätze",
 
   "sticky-kop": "Hotel Asteria Venray",
   "sticky-sub": "Direkt beim Hotel buchen",

@@ -1740,8 +1740,9 @@ def build_adslander(config, output_file, json_file, template_name, lang):
         past = f'<span class="al-ak__past">{d[p + "past"]}</span>' if d.get(p + 'past') else ''
         cls = 'al-ak al-ak--uit' if slot == 'uit' else 'al-ak al-ak--buiten'
         href = mews(cfg, f'&amp;mewsVoucherCode={code}')
+        zondag_kaart = bool(kalender and kal_cfg[code].get('zondag'))
         kaarten.append(
-            f'<article class="{cls}" data-code="{code}">'
+            f'<article class="{cls}" data-code="{code}" data-zondag="{"ja" if zondag_kaart else "nee"}">'
             f'<div class="al-ak__foto"><img src="{bestaat(d[p + "foto"])}" alt="{d[p + "alt"]}" width="800" height="533" loading="lazy" decoding="async">{past}</div>'
             f'<div class="al-ak__kop"><p class="al-ak__tag">{d[p + "tag"]}</p><h3 class="al-ak__naam">{d[p + "naam"]}</h3></div>'
             f'<div class="al-ak__prijsblok"><p class="al-ak__prijs"><span class="al-ak__vf">{d["arr-vanaf-label"]}</span> {bedrag_html} <small>{eenheid}</small></p></div>'

@@ -23,10 +23,10 @@
     "wellness": {
       "naam": "Wellnessarrangement",
       "sub": "Eine Nacht im Comfort-Zimmer, für zwei Personen",
-      "desc": "Eine Übernachtung im Comfort-Zimmer mit freiem Zugang zum Wellnessbereich auf der Top Floor: vier Saunen, Dampfkabine, Tauch- und Kräuterbad und Ruheraum. Am Abend ein 3-Gänge-Abendessen mit regionalen Produkten, am nächsten Morgen das Frühstücksbuffet. Bei Anreise am Sonntag zahlen Sie 20 € pro Zimmer weniger.",
+      "desc": "Eine Übernachtung im Comfort-Zimmer mit freiem Zugang zum Wellnessbereich auf der Top Floor: vier Saunen, Dampfkabine, Tauch- und Kräuterbad und Ruheraum. Am Abend ein 3-Gänge-Abendessen mit regionalen Produkten, am nächsten Morgen das Frühstücksbuffet.",
       "incl": [
         "Übernachtung im Comfort-Zimmer",
-        "Begrüßungsgetränk: ein Fläschchen Botega auf dem Zimmer",
+        "Begrüßungsgetränk: ein Fläschchen Botega",
         "Bademantel, Badeschuhe und Handtuchpaket",
         "Freier Zugang zum Wellnessbereich (300 m²)",
         "3-Gänge-Abendessen mit regionalen Produkten",
@@ -42,7 +42,7 @@
     "herbst": {
       "naam": "Herbstarrangement",
       "sub": "Deluxe-Zimmer für zwei Personen, buchbar bis 30. November",
-      "desc": "Sie werden mit Kaffee oder Tee und einem Stück Limburger Vlaai empfangen und übernachten im Deluxe-Zimmer mit eigener Infrarotsauna. Am Abend ein 3-Gänge-Abendessen mit Gerichten der Saison, am nächsten Morgen das Frühstücksbuffet. Bei Anreise am Sonntag zahlen Sie 20 € pro Zimmer weniger.",
+      "desc": "Sie werden mit Kaffee oder Tee und einem Stück Limburger Vlaai empfangen und übernachten im Deluxe-Zimmer mit eigener Infrarotsauna. Am Abend ein 3-Gänge-Abendessen mit Gerichten der Saison, am nächsten Morgen das Frühstücksbuffet.",
       "incl": [
         "Empfang mit Kaffee oder Tee und Limburger Vlaai",
         "Deluxe-Zimmer mit eigener Infrarotsauna",
