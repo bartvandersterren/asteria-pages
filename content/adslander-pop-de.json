@@ -1,5 +1,5 @@
 {
-  "_uitleg": "Pop-upinhoud van de Duitse ads-landers (adslander.template.html / adslander.js), opgehaald bij het eerste gebruik van een Mehr-info-knop. Vier secties: arr (sleutel = arr-*-sleutel in de lander-JSON), kamer (sleutel uit build.py KAMER_MEWS; ook de kaartteksten van de kamerrij), fac (fac-N-sleutel), uitje (omg-N-sleutel). Teksten = Duitse vertaling van de NL-bronnen: arrangement-JSON's (_inbegrepen, _faq), lander-w1.template.html (lp-kamerdata, lp-facdata), translations/hotel-venray-v2-nl.json (_facdata). Prijzen en namen neemt het script over van de kaart waarop geklikt is. Geen links naar NL-pagina's.",
+  "_uitleg": "Pop-upinhoud van de Duitse ads-landers (adslander.template.html / adslander.js), opgehaald bij het eerste gebruik van een Mehr-info-knop. Vier secties: arr (sleutel = arr-*-sleutel in de lander-JSON), kamer (sleutel uit build.py KAMER_MEWS; kaart: naam/kort/kaart/kaart_foto; kamer-pop-up vanaf 768 px = lander-w1 #lp-pop-kamer met naam/video/fotos/tekst/kenmerken/kamer zoals #lp-kamerdata; onder 768 px de al-pop-sheet met desc/pop_fotos/video/kenmerken), fac (fac-N-sleutel), uitje (omg-N-sleutel). Teksten = Duitse vertaling van de NL-bronnen: arrangement-JSON's (_inbegrepen, _faq), lander-w1.template.html (lp-kamerdata, lp-facdata), translations/hotel-venray-v2-nl.json (_facdata). Prijzen en namen neemt het script over van de kaart waarop geklikt is. Geen links naar NL-pagina's.",
   "arr": {
     "winter": {
       "naam": "Winterarrangement",
@@ -79,7 +79,24 @@
           "Klimaanlage"
         ]
       ],
+      "kaart_foto": "fotos/l26-vk-comfort.webp",
       "desc": "Ein komfortables, modern eingerichtetes Zimmer, ideal für einen entspannten Aufenthalt in Nord-Limburg. Das Zimmer hat zwei Einzelbetten, ein eigenes Bad mit Dusche und eine Sitzecke mit bequemen Sesseln.",
+      "pop_fotos": [
+        "fotos/l26-vk-comfort.webp",
+        "fotos/kamer-comfort-a.webp",
+        "fotos/kamer-comfort-b.webp",
+        "fotos/kamer-comfort-c.webp"
+      ],
+      "video": "videos/comfort.mp4",
+      "fotos": [
+        "fotos/kamer-comfort-a.webp",
+        "fotos/kamer-comfort-b.webp",
+        "fotos/kamer-comfort-c.webp"
+      ],
+      "tekst": [
+        "Ein komfortables, modern eingerichtetes Zimmer, ideal für einen entspannten Aufenthalt in Nord-Limburg. Ob für einen kurzen Urlaub oder eine Geschäftsreise: In unserem Comfort-Zimmer fühlen Sie sich sofort zu Hause.",
+        "Das Zimmer hat zwei Einzelbetten, ein eigenes Bad mit Dusche und eine Sitzecke mit bequemen Sesseln: alles, was Sie brauchen, um zur Ruhe zu kommen."
+      ],
       "kenmerken": [
         "Ca. 22 m²",
         "Twinbetten (2 Einzelbetten)",
@@ -88,13 +105,7 @@
         "Eigenes Bad mit Dusche",
         "Klimaanlage"
       ],
-      "video": "videos/comfort.mp4",
-      "fotos": [
-        "fotos/l26-vk-comfort.webp",
-        "fotos/kamer-comfort-a.webp",
-        "fotos/kamer-comfort-b.webp",
-        "fotos/kamer-comfort-c.webp"
-      ]
+      "kamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
     },
     "comfort-3": {
       "naam": "Comfort-Zimmer für 3 Personen",
@@ -117,7 +128,24 @@
           "Klimaanlage"
         ]
       ],
+      "kaart_foto": "fotos/l26-vk-comfort-3.webp",
       "desc": "Unser Comfort-Zimmer für drei Personen bietet extra Platz für Familien oder Freunde, die zusammen unterwegs sind. Drei Einzelbetten, ein eigenes Bad und eine gemütliche Sitzecke.",
+      "pop_fotos": [
+        "fotos/l26-vk-comfort-3.webp",
+        "fotos/room-comfort-3-1.webp",
+        "fotos/room-comfort-3-2.webp",
+        "fotos/room-comfort-3-3.webp"
+      ],
+      "video": "videos/comfort-3.mp4",
+      "fotos": [
+        "fotos/room-comfort-3-1.webp",
+        "fotos/room-comfort-3-2.webp",
+        "fotos/room-comfort-3-3.webp"
+      ],
+      "tekst": [
+        "Unser Comfort-Zimmer für drei Personen bietet extra Platz für Familien oder Freunde, die zusammen unterwegs sind. Alles ist da für einen angenehmen und unbeschwerten Aufenthalt im grünen Nord-Limburg.",
+        "Drei Einzelbetten, ein eigenes Bad und eine gemütliche Sitzecke machen dieses Zimmer ideal für alle, die zusammen reisen."
+      ],
       "kenmerken": [
         "Ca. 22 m²",
         "3 Einzelbetten",
@@ -126,13 +154,7 @@
         "Eigenes Bad mit Dusche und/oder Badewanne",
         "Klimaanlage"
       ],
-      "video": "videos/comfort-3.mp4",
-      "fotos": [
-        "fotos/l26-vk-comfort-3.webp",
-        "fotos/room-comfort-3-1.webp",
-        "fotos/room-comfort-3-2.webp",
-        "fotos/room-comfort-3-3.webp"
-      ]
+      "kamer": "85ca19d7-eea5-41c8-8b93-af1d00ffc315"
     },
     "mindervalide": {
       "naam": "Barrierefreies Zimmer",
@@ -155,7 +177,24 @@
           "Angepasste Dusche"
         ]
       ],
+      "kaart_foto": "fotos/l26-vk-mindervalide.webp",
       "desc": "Unser angepasstes Zimmer ist speziell für Gäste mit eingeschränkter Mobilität eingerichtet. Großzügige Aufteilung, extra breite Türen und ein angepasstes Bad sorgen für Komfort und Selbstständigkeit. Auch Restaurant und Terrasse sind rollstuhlgerecht.",
+      "pop_fotos": [
+        "fotos/l26-vk-mindervalide.webp",
+        "fotos/room-mindervalide-1.webp",
+        "fotos/room-mindervalide-2.webp",
+        "fotos/room-mindervalide-3.webp"
+      ],
+      "video": "videos/mindervalide.mp4",
+      "fotos": [
+        "fotos/room-mindervalide-1.webp",
+        "fotos/room-mindervalide-2.webp",
+        "fotos/room-mindervalide-3.webp"
+      ],
+      "tekst": [
+        "Unser angepasstes Zimmer ist speziell für Gäste mit eingeschränkter Mobilität eingerichtet. Auch Restaurant und Terrasse sind rollstuhlgerecht, sodass Sie während Ihres Aufenthalts unbeschwert ein gutes Abendessen und die Gastfreundschaft von Asteria genießen können.",
+        "Eine großzügige Aufteilung, extra breite Türen und ein angepasstes Bad sorgen für Komfort und Selbstständigkeit."
+      ],
       "kenmerken": [
         "Ca. 37 m²",
         "Twinbetten (2 Einzelbetten)",
@@ -164,13 +203,7 @@
         "Große Sitzecke mit bequemen Sesseln",
         "Rollstuhlgerechtes Bad mit Dusche"
       ],
-      "video": "videos/mindervalide.mp4",
-      "fotos": [
-        "fotos/l26-vk-mindervalide.webp",
-        "fotos/room-mindervalide-1.webp",
-        "fotos/room-mindervalide-2.webp",
-        "fotos/room-mindervalide-3.webp"
-      ]
+      "kamer": "fa5b6540-7234-49ce-beb1-af1d00ffc315"
     },
     "royale": {
       "naam": "Royale-Zimmer",
@@ -193,7 +226,24 @@
           "Dusche oder Bad"
         ]
       ],
+      "kaart_foto": "fotos/l26-vk-royale.webp",
       "desc": "Unsere Royale-Zimmer sind größer als die Comfort-Zimmer und bieten das gewisse Extra. Wählen Sie ein Doppelbett oder Twinbetten und genießen Sie den zusätzlichen Platz und ein eigenes Bad mit Dusche oder Badewanne.",
+      "pop_fotos": [
+        "fotos/l26-vk-royale.webp",
+        "fotos/room-royale-1.webp",
+        "fotos/room-royale-2.webp",
+        "fotos/room-royale-3.webp"
+      ],
+      "video": "videos/royale.mp4",
+      "fotos": [
+        "fotos/room-royale-1.webp",
+        "fotos/room-royale-2.webp",
+        "fotos/room-royale-3.webp"
+      ],
+      "tekst": [
+        "Unsere Royale-Zimmer sind größer als die Comfort-Zimmer und bieten das gewisse Extra. Das großzügige Raumgefühl und die bequeme Sitzecke machen dieses Zimmer ideal für alle, die etwas mehr Luxus möchten.",
+        "Wählen Sie ein Doppelbett oder Twinbetten und genießen Sie den zusätzlichen Platz und ein eigenes Bad mit Dusche oder Badewanne."
+      ],
       "kenmerken": [
         "Ca. 25 m²",
         "Doppelbett oder Twinbetten",
@@ -202,13 +252,7 @@
         "Eigenes Bad mit Dusche und/oder Badewanne",
         "Klimaanlage"
       ],
-      "video": "videos/royale.mp4",
-      "fotos": [
-        "fotos/l26-vk-royale.webp",
-        "fotos/room-royale-1.webp",
-        "fotos/room-royale-2.webp",
-        "fotos/room-royale-3.webp"
-      ]
+      "kamer": "a8fd7310-0d61-422f-89e6-af1d00ffc315"
     },
     "deluxe": {
       "naam": "Deluxe-Zimmer",
@@ -231,7 +275,24 @@
           "Sitzecke"
         ]
       ],
+      "kaart_foto": "fotos/l26-vk-deluxe.webp",
       "desc": "Unsere Deluxe-Zimmer haben alles für einen luxuriösen Aufenthalt in Nord-Limburg. Die private Infrarotsauna im Bad macht dieses Zimmer ideal für alle, die richtig entspannen wollen: ein kleines Wellnesserlebnis auf dem eigenen Zimmer.",
+      "pop_fotos": [
+        "fotos/l26-vk-deluxe.webp",
+        "fotos/room-deluxe-1.webp",
+        "fotos/room-deluxe-2.webp",
+        "fotos/room-deluxe-3.webp"
+      ],
+      "video": "videos/deluxe.mp4",
+      "fotos": [
+        "fotos/room-deluxe-1.webp",
+        "fotos/room-deluxe-2.webp",
+        "fotos/room-deluxe-3.webp"
+      ],
+      "tekst": [
+        "Unsere Deluxe-Zimmer haben alles für einen luxuriösen Aufenthalt in Nord-Limburg. Die private Infrarotsauna im Bad macht dieses Zimmer ideal für alle, die richtig entspannen wollen: ein kleines Wellnesserlebnis auf dem eigenen Zimmer.",
+        "Neben der eigenen Sauna genießen Sie eine bequeme Sitzecke und alle Annehmlichkeiten in Reichweite."
+      ],
       "kenmerken": [
         "Ca. 25 m²",
         "Doppelbett oder Twinbetten",
@@ -240,13 +301,7 @@
         "Private Infrarotsauna",
         "Eigenes Bad mit Dusche"
       ],
-      "video": "videos/deluxe.mp4",
-      "fotos": [
-        "fotos/l26-vk-deluxe.webp",
-        "fotos/room-deluxe-1.webp",
-        "fotos/room-deluxe-2.webp",
-        "fotos/room-deluxe-3.webp"
-      ]
+      "kamer": "c737de50-e41e-4c8d-a818-af1d00ffc315"
     },
     "suite": {
       "naam": "Suite",
@@ -269,7 +324,24 @@
           "Kingsize-Bett"
         ]
       ],
+      "kaart_foto": "fotos/l26-vk-suite.webp",
       "desc": "Erleben Sie Asteria in unserem geräumigsten und luxuriösesten Zimmer. Mit eigener Infrarotsauna, großer Sitzecke und allem in Reichweite ist die Suite der Ort, um ganz zur Ruhe zu kommen. Kingsize-Bett und Schlafsofa bieten Platz für bis zu vier Personen.",
+      "pop_fotos": [
+        "fotos/l26-vk-suite.webp",
+        "fotos/room-suite-1.webp",
+        "fotos/room-suite-2.webp",
+        "fotos/room-suite-3.webp"
+      ],
+      "video": "videos/suite.mp4",
+      "fotos": [
+        "fotos/room-suite-1.webp",
+        "fotos/room-suite-2.webp",
+        "fotos/room-suite-3.webp"
+      ],
+      "tekst": [
+        "Erleben Sie Asteria in unserem geräumigsten und luxuriösesten Zimmer. Mit eigener Infrarotsauna, großer Sitzecke und allem in Reichweite ist die Suite der Ort, um ganz zur Ruhe zu kommen: mehr als ein Hotelzimmer, ein komplettes Erlebnis.",
+        "Ein Kingsize-Bett und ein Schlafsofa bieten Platz für bis zu vier Personen."
+      ],
       "kenmerken": [
         "Ca. 40 m²",
         "Kingsize-Doppelbett",
@@ -278,13 +350,7 @@
         "Große Sitzecke mit bequemen Sesseln",
         "Private Infrarotsauna"
       ],
-      "video": "videos/suite.mp4",
-      "fotos": [
-        "fotos/l26-vk-suite.webp",
-        "fotos/room-suite-1.webp",
-        "fotos/room-suite-2.webp",
-        "fotos/room-suite-3.webp"
-      ]
+      "kamer": "4a642b66-68e6-444c-beeb-af1d00ffc315"
     },
     "bruidssuite": {
       "naam": "Brautsuite",
@@ -307,7 +373,24 @@
           "Sitzecke"
         ]
       ],
+      "kaart_foto": "fotos/l26-vk-bruidssuite.webp",
       "desc": "Unsere Brautsuite ist für besondere Momente gemacht. Ob frisch verheiratet oder ein romantisches Wochenende: genießen Sie zu zweit den Luxus, die Ruhe und die warme Atmosphäre von Asteria. Eine freistehende Badewanne, eine große begehbare Dusche sowie Bademäntel und Badeschuhe machen den Aufenthalt komplett.",
+      "pop_fotos": [
+        "fotos/l26-vk-bruidssuite.webp",
+        "fotos/room-bruidssuite-1.webp",
+        "fotos/room-bruidssuite-2.webp",
+        "fotos/room-bruidssuite-3.webp"
+      ],
+      "video": "videos/bruidssuite.mp4",
+      "fotos": [
+        "fotos/room-bruidssuite-1.webp",
+        "fotos/room-bruidssuite-2.webp",
+        "fotos/room-bruidssuite-3.webp"
+      ],
+      "tekst": [
+        "Unsere Brautsuite ist für besondere Momente gemacht. Ob frisch verheiratet oder ein romantisches Wochenende: Genießen Sie zu zweit den Luxus, die Ruhe und die warme Atmosphäre, für die Asteria steht.",
+        "Eine freistehende Badewanne, eine große begehbare Dusche sowie Bademäntel und Badeschuhe machen den Aufenthalt komplett."
+      ],
       "kenmerken": [
         "Ca. 36 m²",
         "Kingsize-Doppelbett",
@@ -316,13 +399,7 @@
         "Luxusbad mit begehbarer Dusche",
         "Freistehende Badewanne"
       ],
-      "video": "videos/bruidssuite.mp4",
-      "fotos": [
-        "fotos/l26-vk-bruidssuite.webp",
-        "fotos/room-bruidssuite-1.webp",
-        "fotos/room-bruidssuite-2.webp",
-        "fotos/room-bruidssuite-3.webp"
-      ]
+      "kamer": "a9f18d18-561b-47a9-8ba7-b2a800cfd0e2"
     }
   },
   "fac": {

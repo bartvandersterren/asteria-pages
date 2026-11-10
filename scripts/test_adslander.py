@@ -21,12 +21,17 @@ SHOT = args[args.index('--schermafdruk') + 1] if '--schermafdruk' in args else N
 BREEDTES = [int(x) for x in (args[args.index('--breedtes') + 1] if '--breedtes' in args else '1440,390').split(',')]
 
 KAL = json.load(open(os.path.join(BASE, 'content', 'arr-kalender.json'), encoding='utf-8'))
+_SL = json.load(open(os.path.join(BASE, 'translations', 'spiegel-links.json'), encoding='utf-8'))
+SPIEGEL = dict(_SL['paginas'])
+if isinstance(_SL.get('arrangementenoverzicht'), str):
+    SPIEGEL['arrangementenoverzicht'] = _SL['arrangementenoverzicht']
 KAMERS = ['98900f3b-e5e2-49c9-9776-af1d00ffc315', '85ca19d7-eea5-41c8-8b93-af1d00ffc315', 'fa5b6540-7234-49ce-beb1-af1d00ffc315',
           'a8fd7310-0d61-422f-89e6-af1d00ffc315', 'c737de50-e41e-4c8d-a818-af1d00ffc315', '4a642b66-68e6-444c-beeb-af1d00ffc315',
           'a9f18d18-561b-47a9-8ba7-b2a800cfd0e2']
 VOLGORDE = ['al-hero', 'al-intro', 'al-rond', 'al-arr', 'al-kamers', 'al-fac', 'al-omg', 'al-fotorij', 'al-rev', 'al-faq', 'al-nb', 'al-slot']
 NL_WOORDEN = ['Boek nu', 'Bekijk', 'beschikbaarheid', 'Reserveer', 'Privacyverklaring', 'Algemene voorwaarden', 'Akkoord', 'kamer ',
-              'Kies je', 'Sluiten', 'Vorige', 'Volgende', ' en de ', ' het ', ' een ', 'Wissen', 'nachten', 'Meer info']
+              'Kies je', 'Sluiten', 'Vorige', 'Volgende', ' en de ', ' het ', ' een ', 'Wissen', 'nachten', 'Meer info',
+              'Kamers', 'Faciliteiten', 'Omgeving', 'Over ons', 'Ons verhaal', 'Verblijf', 'Bij ons', 'Beschikbaarheid', 'Bel ons', 'Sluit menu', 'Hoofdnavigatie']
 
 MEWS_STUB = """window.Mews={Distributor:function(opt,cb){window.__mews=window.__mews||[];var log={cfg:opt.configurationIds[0],taal:opt.language,calls:[]};
 window.__mews.push(log);var api={};['setVoucherCode','setStartDate','setEndDate','setAdultCount','showRates','showRooms','setLanguageCode','open']
@@ -117,11 +122,55 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
     over = await pg.evaluate("()=>document.documentElement.scrollWidth - document.documentElement.clientWidth")
     ok(over <= 0, f'geen horizontale overloop ({over})')
 
-    # links: geen asteria.nl behalve privacy/voorwaarden, geen NL-pagina's van visit.asteria.nl
-    hrefs = await pg.evaluate("()=>Array.from(document.querySelectorAll('a[href]')).map(a=>a.getAttribute('href'))")
-    slecht = [x for x in hrefs if re.search(r'asteria\.nl', x) and not x.startswith('mailto:') and not re.search(r'www\.asteria\.nl/(privacy|algemene-voorwaarden|de/datenschutz)$|visit\.asteria\.nl/wellnesshotel-limburg-de', x)]
+    # links: inhoud zonder links naar asteria.nl of andere pagina's; kop/lade/voet alleen de bestemmingen van spiegel-links.json
+    hrefs = await pg.evaluate("()=>Array.from(document.querySelectorAll('main a[href], .mob-cta a[href], .cookie-banner a[href]')).map(a=>a.getAttribute('href'))")
+    slecht = [x for x in hrefs if re.search(r'asteria\.nl', x) and not x.startswith('mailto:') and not re.search(r'www\.asteria\.nl/(privacy|algemene-voorwaarden|de/datenschutz)$', x)]
     slecht += [x for x in hrefs if x.startswith('/') and x not in ('/wellnesshotel-limburg-de',)]
-    ok(not slecht, 'geen links naar asteria.nl of NL-pagina\'s ' + ' '.join(slecht[:4]))
+    ok(not slecht, 'inhoud: geen links naar asteria.nl of andere pagina\'s ' + ' '.join(slecht[:4]))
+    kv = await pg.evaluate("()=>Array.from(document.querySelectorAll('header a[href], #nav-drawer a[href], footer a[href]')).map(a=>a.getAttribute('href'))")
+    mag = set(SPIEGEL.values()) | {'/wellnesshotel-limburg-de', 'tel:+31478511466', 'mailto:info@asteria.nl', 'https://maps.google.com/?q=Maasheseweg+80a+Venray',
+           'https://www.facebook.com/AsteriaVenray', 'https://www.instagram.com/hotelasteriavenray', 'https://www.linkedin.com/company/hotel-asteria-venray'}
+    buiten = [x for x in kv if x not in mag and not x.startswith('https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?')]
+    ok(not buiten, 'kop/lade/voet: alleen bestemmingen uit spiegel-links.json ' + ' '.join(buiten[:4]))
+    if w == BREEDTES[0]:
+        import urllib.request
+        dood = []
+        for x in sorted(set(k for k in kv if (k.startswith('/') or 'asteria.nl/' in k) and k != '/wellnesshotel-limburg-de')):
+            u = 'https://visit.asteria.nl' + x if x.startswith('/') else x
+            try:
+                with urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0'}), timeout=20) as r:
+                    titel = (re.search(r'<title>([^<]*)', r.read().decode('utf-8', 'replace')) or [None, ''])[1]
+                    if r.status != 200 or titel.strip() == 'Asteria':
+                        dood.append(f'{x}:{r.status}:{titel}')
+            except Exception as e:
+                if x != '/wellnesshotel-limburg-de':
+                    dood.append(f'{x}:{e}')
+        ok(not dood, 'alle kop-/voetlinks 200 zonder soft-404 (live visit.asteria.nl) ' + ' '.join(dood[:4]))
+    menu = await pg.evaluate("()=>Array.from(document.querySelectorAll('.nav-links > li > a, .nav-links > li > .nav-parent')).map(e=>e.textContent.trim())")
+    ok(menu == ['Zimmer & Suiten', 'Hotel', 'Restaurant', 'Wellness', 'Über uns'], 'menu ' + ' | '.join(menu))
+    subm = await pg.evaluate("()=>Array.from(document.querySelectorAll('.nav-links .nav-sub a')).map(e=>e.textContent.trim())")
+    ok(subm == ['Einrichtungen', 'Wellness & Fitness', 'Arrangements', 'Umgebung', 'Unsere Geschichte', 'Kontakt'], 'submenu ' + ' | '.join(subm))
+    kop = await pg.evaluate("""()=>{const k=document.querySelector('.top-stack'),u=document.querySelector('.utility-bar'),c=document.querySelector('.nav-cta'),
+      h=document.querySelector('.al-hero').getBoundingClientRect(),g=document.querySelector('.al-hero__badge').getBoundingClientRect();
+      return {pos:getComputedStyle(k).position,kb:k.getBoundingClientRect().bottom,ub:u?getComputedStyle(u).display:'',cta:c.textContent.trim(),
+      bg:getComputedStyle(document.querySelector('.main-nav')).backgroundColor,ht:h.top,gt:g.top}}""")
+    ok(kop['pos'] == 'sticky' and kop['cta'] == 'Jetzt buchen' and '247, 231, 209' in kop['bg'], f'kop dekkend en sticky, Jetzt buchen ({kop})')
+    ok(abs(kop['ht'] - kop['kb']) < 1 and kop['gt'] >= kop['kb'], 'hero en Google-badge beginnen onder de kop')
+    if not mob:
+        ok(kop['ub'] != 'none', 'utility-balk op het bureaublad')
+        await pg.hover('.nav-links .has-sub >> nth=0')
+        await pg.wait_for_timeout(300)
+        ok(await pg.locator('.nav-links .nav-sub >> nth=0').is_visible(), 'submenu Hotel opent bij hover')
+        await pg.mouse.move(5, 600)
+    else:
+        await pg.click('.nav-hamburger')
+        await pg.wait_for_timeout(400)
+        lade = await pg.evaluate("()=>({open:document.getElementById('nav-drawer').classList.contains('is-open'),items:Array.from(document.querySelectorAll('.nav-drawer__list > li > a, .nav-drawer__list > li > .drawer-parent')).map(e=>e.textContent.trim())})")
+        ok(lade['open'] and lade['items'] == ['Zimmer & Suiten', 'Hotel', 'Restaurant', 'Wellness', 'Über uns'], 'telefoon: lade opent met het Duitse menu')
+        await pg.click('.drawer-parent >> nth=0'); await pg.wait_for_timeout(200)
+        ok(await pg.locator('.drawer-sub >> nth=0').is_visible(), 'telefoon: submenu in de lade')
+        await pg.click('.nav-drawer__close'); await pg.wait_for_timeout(300)
+        ok(not await pg.evaluate("()=>document.getElementById('nav-drawer').classList.contains('is-open')"), 'telefoon: lade sluit')
 
     # geen Nederlandse literals in de zichtbare tekst + aria-labels
     tekst = await pg.evaluate("""()=>document.body.innerText+' '+Array.from(document.querySelectorAll('[aria-label],[alt],[placeholder]'))
@@ -134,17 +183,14 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
     # hero
     hero = await pg.evaluate("""()=>{const h=document.querySelector('.al-hero'),f=h.querySelector('.al-hero__foto').getBoundingClientRect(),
       b=h.querySelector('.al-hero .mews-open').getBoundingClientRect(),g=h.querySelector('.al-hero__badge').getBoundingClientRect(),
-      v=h.querySelector('video');return {fh:f.height,fb:f.bottom,ht:h.getBoundingClientRect().top,bt:b.top,bb:b.bottom,gx:g.right,gy:g.top,vsrc:v.currentSrc||v.src||'',
-      over:document.documentElement.classList.contains('al-kop-over')}}""")
-    ok(hero['over'], 'kop doorschijnend over de hero')
+      v=h.querySelector('video');return {fh:f.height,fb:f.bottom,ht:h.getBoundingClientRect().top,bt:b.top,bb:b.bottom,gx:g.right,gy:g.top,vsrc:v.currentSrc||v.src||''}}""")
     if mob:
-        ok(abs(hero['fh'] - 0.75 * h) < 4, f'telefoon: videovak 75svh ({hero["fh"]:.0f} van {h})')
+        ok(abs(hero['fb'] - 0.75 * h) < 4, f'telefoon: videovak eindigt op 75svh ({hero["fb"]:.0f} van {h})')
         ok(hero['bt'] < hero['fb'] < hero['bb'], 'telefoon: knop op de onderrand van de video')
-        ok(abs(hero['ht']) < 1, f"hero begint bovenaan de pagina, onder de doorschijnende kop ({hero['ht']})")
         ok('9x16' in hero['vsrc'], 'telefoon: 9:16-video')
     else:
         ok('16x9' in hero['vsrc'], 'bureaublad: 16:9-video')
-        ok(hero['gx'] >= w - 1 and hero['gy'] < 200, 'Google-badge rechtsboven')
+        ok(hero['gx'] >= w - 1 and hero['gy'] < 300, 'Google-badge rechtsboven')
     balk = await pg.evaluate("()=>document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
     ok(not balk, 'onderbalk niet zichtbaar in de hero')
 
@@ -218,11 +264,63 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
                     mis.append(f"{s}:scroll {r['scroll']}/{r['kh']}")
                 if mob and r['bot'] > r['vh'] + 1:
                     mis.append(f'{s}:buiten beeld')
-                if s.startswith('kamer:') and not r['video']:
-                    mis.append(s + ':geen video')
             await pg.keyboard.press('Escape')
             await pg.wait_for_timeout(80)
         ok(not mis, f'pop-ups {len(sleutels)} stuks op {vw}x{vh} open en zonder scroll ' + ' '.join(mis[:5]))
+        # kamer-pop-up = lander-w1-dialoog #lp-pop-kamer, voor alle 7 kamers
+        kmis = []
+        kamers = await pg.evaluate("()=>[...new Set(Array.from(document.querySelectorAll('.kk-knoppen [data-kamer]')).map(a=>a.getAttribute('data-kamer')))]")
+        for k in kamers:
+            knop = pg.locator(f'.kk-kaart:not([data-kloon]) .kk-knoppen [data-kamer="{k}"]')
+            await knop.scroll_into_view_if_needed()
+            await knop.click()
+            await pg.wait_for_timeout(350)
+            if mob:
+                # telefoon: de al-pop-sheet (video als eerste dia, vaste knop onderin), niet de w1-dialoog
+                r = await pg.evaluate("""(k)=>{const p=document.querySelector('[data-pop-dialog]');if(p.hidden)return null;const kaart=document.querySelector('.kk-kaart:not([data-kloon])[data-kamerkaart="'+k+'"]'),
+                  boek=p.querySelector('.al-pop__boek'),v=p.querySelector('.al-pop__video'),r=p.querySelector('.al-pop__kaart').getBoundingClientRect();return {w1:document.getElementById('lp-pop-kamer').open,
+                  naam:p.querySelector('.al-pop__naam').textContent,video:v?(v.getAttribute('src')||v.getAttribute('data-src')||''):'',eerste:p.querySelector('.al-pop__spoor').firstElementChild.className,
+                  kenm:p.querySelectorAll('.al-pop__kenmerken li').length,room:boek&&boek.getAttribute('data-room'),kroom:kaart.querySelector('.mews-open').getAttribute('data-room'),
+                  boekt:boek&&boek.textContent,voet:!!p.querySelector('.al-pop__voet .al-pop__boek'),bot:r.bottom,vh:innerHeight,txt:p.innerText,align:getComputedStyle(p).alignItems}}""", k)
+                if not r:
+                    kmis.append(k + ':niet open')
+                else:
+                    if r['w1'] or not r['eerste'].startswith('al-pop__vid') or r['video'] != f'videos/{k}.mp4' or r['kenm'] != 6 or not r['voet'] or r['align'] != 'flex-end' or r['bot'] > r['vh'] + 1:
+                        kmis.append(f'{k}:al-pop {r["eerste"]} {r["video"]} {r["kenm"]} w1={r["w1"]}')
+                    if r['room'] != r['kroom'] or r['boekt'] != 'Zimmer buchen':
+                        kmis.append(f'{k}:knop {r["room"]}')
+                    nlk = [x for x in NL_WOORDEN + ['Circa', 'personen', 'Eigen badkamer'] if re.search(r'(?<![A-Za-zÄÖÜäöüß])' + re.escape(x.strip()) + r'(?![A-Za-zÄÖÜäöüß])', r['txt'])]
+                    if nlk:
+                        kmis.append(f'{k}:NL {nlk}')
+                await pg.keyboard.press('Escape'); await pg.wait_for_timeout(150)
+                if not await pg.evaluate("()=>document.querySelector('[data-pop-dialog]').hidden"):
+                    kmis.append(k + ':sluit niet')
+                continue
+            r = await pg.evaluate("""()=>{const d=document.getElementById('lp-pop-kamer');if(!d||!d.open)return null;const b=d.querySelector('.lp-pop__binnen'),
+              r=d.getBoundingClientRect(),boek=d.querySelector('.lp-pop__boek');return {scroll:b.scrollHeight-b.clientHeight,top:r.top,bot:r.bottom,vh:innerHeight,
+              titel:d.querySelector('.lp-pop__titel').textContent,video:(d.querySelector('.lp-pop__video').getAttribute('src')||''),fotos:d.querySelectorAll('.lp-pop__fotos img').length,
+              kenm:d.querySelectorAll('.lp-pop__kenmerken li .as-icoon').length,tekst:d.querySelectorAll('.lp-pop__tekst p').length,boek:boek.getAttribute('href'),boekt:boek.textContent,
+              room:boek.getAttribute('data-room'),voucher:boek.getAttribute('data-voucher'),links:d.querySelectorAll('a').length,badge:!!d.querySelector('.lp-pop__badge'),
+              txt:d.innerText,focus:document.activeElement===d.querySelector('.lp-pop__sluit')}}""")
+            if not r:
+                kmis.append(k + ':niet open'); continue
+            if not mob and r['scroll'] > 1:
+                kmis.append(f"{k}:scroll {r['scroll']}")
+            if r['top'] < 0 or r['bot'] > r['vh'] + 1:
+                kmis.append(f'{k}:buiten beeld')
+            if not (r['video'] == f'videos/{k}.mp4' and r['fotos'] == 3 and r['kenm'] == 6 and r['tekst'] == 2 and r['focus']):
+                kmis.append(f'{k}:inhoud {r}'[:160])
+            if not (r['room'] and r['room'] in r['boek'] and 'language=de-DE' in r['boek'] and 'mewsRoute=rooms' in r['boek'] and r['boekt'] == 'Zimmer buchen'
+                    and not r['voucher'] and r['links'] == 1 and not r['badge']):
+                kmis.append(f'{k}:knop {r["boek"]}')
+            nlk = [x for x in NL_WOORDEN + ['Circa', 'personen', 'Eigen badkamer', 'Boek deze kamer'] if re.search(r'(?<![A-Za-zÄÖÜäöüß])' + re.escape(x.strip()) + r'(?![A-Za-zÄÖÜäöüß])', r['txt'])]
+            if nlk:
+                kmis.append(f'{k}:NL {nlk}')
+            await pg.keyboard.press('Escape')
+            await pg.wait_for_timeout(150)
+            if await pg.evaluate("()=>document.getElementById('lp-pop-kamer').open"):
+                kmis.append(k + ':sluit niet')
+        ok(len(kamers) == 7 and not kmis, f'kamer-pop-up ({"al-pop-sheet" if mob else "w1 #lp-pop-kamer"}) 7 kamers op {vw}x{vh}: open, inhoud, Duits, sluiten ' + ' '.join(kmis[:4]))
     await pg.set_viewport_size({'width': w, 'height': h})
     await pg.wait_for_timeout(200)
     if mob:
@@ -271,6 +369,28 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
     mw = await pg.evaluate("()=>window.__mews")
     calls = [c for m in mw for c in m['calls']]
     ok(['showRates', 'c737de50-e41e-4c8d-a818-af1d00ffc315'] in calls and ['open'] in calls, 'kamerknop (Deluxe) opent Mews met de kamer')
+
+    # kamer-pop-up: boekknop opent Mews met die kamer en sluit de pop-up
+    knop = pg.locator('.kk-kaart:not([data-kloon]) .kk-knoppen [data-kamer="suite"]')
+    await knop.scroll_into_view_if_needed(); await knop.click(); await pg.wait_for_timeout(300)
+    await pg.click('.al-pop__boek' if mob else '#lp-pop-kamer .lp-pop__boek'); await pg.wait_for_timeout(500)
+    mw = await pg.evaluate("()=>window.__mews||[]")
+    calls = [c for m in mw for c in m['calls']]
+    ok(['showRates', '4a642b66-68e6-444c-beeb-af1d00ffc315'] in calls and ['setLanguageCode', 'de-DE'] in calls and ['open'] in calls
+       and not any(c[0] == 'setVoucherCode' for c in calls) and not await pg.evaluate("()=>document.getElementById('lp-pop-kamer').open || !document.querySelector('[data-pop-dialog]').hidden"),
+       'kamer-pop-up: Zimmer buchen opent Mews met de Suite (de-DE, zonder code) en sluit')
+    await pg.evaluate("()=>(window.__mews||[]).forEach(m=>m.calls=[])")
+    if not mob:
+        # venster over 768 px: de w1-dialoog gaat dicht, er staat niets dubbel open
+        knop = pg.locator('.kk-kaart:not([data-kloon]) .kk-knoppen [data-kamer="deluxe"]')
+        await knop.scroll_into_view_if_needed(); await knop.click(); await pg.wait_for_timeout(300)
+        await pg.set_viewport_size({'width': 700, 'height': h}); await pg.wait_for_timeout(300)
+        st = await pg.evaluate("()=>[document.getElementById('lp-pop-kamer').open, !document.querySelector('[data-pop-dialog]').hidden]")
+        await knop.click(); await pg.wait_for_timeout(500)
+        st2 = await pg.evaluate("()=>[document.getElementById('lp-pop-kamer').open, !document.querySelector('[data-pop-dialog]').hidden]")
+        await pg.set_viewport_size({'width': w, 'height': h}); await pg.wait_for_timeout(300)
+        st3 = await pg.evaluate("()=>[document.getElementById('lp-pop-kamer').open, !document.querySelector('[data-pop-dialog]').hidden]")
+        ok(st == [False, False] and st2 == [False, True] and st3 == [False, False], f'kamer-pop-up wisselt bij 768 px zonder dubbel open ({st} {st2} {st3})')
 
     # onderbalk na de hero (telefoon)
     if mob:
@@ -354,7 +474,7 @@ async def schermafdrukken(pg, w, map_):
     await pg.evaluate("()=>{document.querySelector('.top-stack').style.visibility='';document.querySelector('.mob-cta').style.display=''}")
     # een pop-up per soort
     for s in ['arr:wellness', 'kamer:deluxe', 'fac:wellness', 'uitje:maasduinen']:
-        el = pg.locator(f'[data-pop="{s}"]').first
+        el = pg.locator(f'.kk-kaart:not([data-kloon]) .kk-knoppen [data-kamer="{s[6:]}"]') if s.startswith('kamer:') else pg.locator(f'[data-pop="{s}"]').first
         await el.scroll_into_view_if_needed(); await el.click(); await pg.wait_for_timeout(500)
         await pg.screenshot(path=os.path.join(map_, f'al-{w}-pop-{s.replace(":", "-")}.png'))
         await pg.keyboard.press('Escape'); await pg.wait_for_timeout(150)

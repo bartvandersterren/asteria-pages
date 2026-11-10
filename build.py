@@ -1609,32 +1609,64 @@ def al_kalender_teksten(nachten, zondag):
 
 
 def al_kop_voet(d, mews_basis):
-    """Gesloten kop en voet letterlijk uit lander-w1.template.html (blokken gesloten + kopdicht), in het Duits."""
+    """Kop (utility-balk, menu met submenu's, telefoonknop, boekknop), mobiele lade en voet letterlijk uit
+    lander-w1.template.html in de spiegelstand zoals /hotel-venray-v2 (blokken gesloten + spiegel; links uit
+    translations/spiegel-links.json via vul_spiegel_links, dus dezelfde bestemmingen), met Duitse labels en zonder actiecode.
+    Logo naar de lander zelf."""
     with open(os.path.join(base, 'lander-w1.template.html'), encoding='utf-8') as f:
-        w1 = apply_blokken(f.read(), {'gesloten', 'kopdicht'})
+        w1 = apply_blokken(f.read(), {'gesloten', 'spiegel'})
     kop = re.search(r'<header class="top-stack[\s\S]*?</header>', w1).group(0)
+    lade = re.search(r'<aside class="nav-drawer[\s\S]*?</aside>', w1).group(0)
     voet = re.search(r'<footer class="footer[\s\S]*?</footer>', w1).group(0)
     eigen = '/' + d['canonical'].rstrip('/').rsplit('/', 1)[-1]
+    tel = d['telefoon']
     vervang = [
         ('{{GESLOTEN_LOGO_URL}}', eigen),
+        ('?mewsVoucherCode={{VOUCHER}}&amp;', '?'),
+        ('?mewsVoucherCode={{VOUCHER}}', '?language=' + d.get('mews-taal', 'de-DE')),
+        (' data-voucher="{{VOUCHER}}"', ''),
         ('Hotel Asteria, naar het begin van de pagina', 'Hotel Asteria, zum Seitenanfang'),
         ('aria-label="Hoofdnavigatie"', 'aria-label="Hauptnavigation"'),
-        ('aria-label="Bel Hotel Asteria: 0478 511466"', 'aria-label="Hotel Asteria anrufen: ' + d['telefoon'] + '"'),
-        ('0478 511 466', d['telefoon']),
+        ('aria-label="Bel Hotel Asteria: 0478 511466"', f'aria-label="Hotel Asteria anrufen: {tel}"'),
+        ('aria-label="Bel ons"', 'aria-label="Rufen Sie uns an"'),
+        ('aria-label="E-mail ons"', 'aria-label="Schreiben Sie uns"'),
+        ('aria-label="Open menu"', 'aria-label="Menü öffnen"'),
+        ('aria-label="Mobiel menu"', 'aria-label="Mobiles Menü"'),
+        ('aria-label="Sluit menu"', 'aria-label="Menü schließen"'),
+        ('aria-label="Volg ons"', 'aria-label="Folgen Sie uns"'),
+        ('>0478 511466<', f'>{tel}<'),
+        ('>0478 511 466<', f'>{tel}<'),
+        ('>Kamers &amp; suites<', '>Zimmer &amp; Suiten<'),
+        ('>Faciliteiten<', '>Einrichtungen<'),
+        ('>Wellness &amp; fitness<', '>Wellness &amp; Fitness<'),
+        ('>Arrangementen<', '>Arrangements<'),
+        ('>Omgeving<', '>Umgebung<'),
+        ('>Over ons <', '>Über uns <'),
+        ('>Ons verhaal<', '>Unsere Geschichte<'),
+        ('>Contact<', '>Kontakt<'),
+        ('>Boek nu<', '>' + d['kop-boek'] + '<'),
+        ('>Verblijf<', '>Aufenthalt<'),
+        ('>Bruidssuite<', '>Brautsuite<'),
+        ('>Junior suite<', '>Junior Suite<'),
+        ('>Comfort kamer<', '>Comfort-Zimmer<'),
+        ('>Deluxe kamer<', '>Deluxe-Zimmer<'),
+        ('>Beschikbaarheid<', '>Verfügbarkeit<'),
+        ('>Bij ons<', '>Bei uns<'),
+        ('>Route &amp; parkeren<', '>Anfahrt &amp; Parken<'),
         ('Privacyverklaring', 'Datenschutz'),
         ('Algemene voorwaarden', 'AGB'),
         ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
          'A73, Ausfahrt 8 Venray-Noord &middot; KvK 12028838 &middot; USt-IdNr. NL804668528B01'),
     ]
-    for a, b in vervang:
-        kop, voet = kop.replace(a, b), voet.replace(a, b)
-    kop, n = re.subn(r'<a href="https://app\.mews\.com/distributor/[^"]*" class="btn btn-primary nav-cta mews-open"[^>]*>Boek nu</a>',
-                     f'<a href="{mews_basis}" class="btn btn-primary nav-cta mews-open">{d["kop-boek"]}</a>', kop)
-    if n != 1:
-        sys.exit('adslander: boekknop in de kop niet gevonden')
-    if re.search(r'(asteria\.nl/(?!privacy|algemene-voorwaarden))|\{\{[A-Z_]+\}\}', kop + voet):
-        sys.exit('adslander: kop/voet bevat een asteria.nl-link of een open veld')
-    return kop, voet
+    delen = []
+    for x in (kop, lade, voet):
+        for a_, b_ in vervang:
+            x = x.replace(a_, b_)
+        delen.append(vul_spiegel_links(x))
+    kop, lade, voet = delen
+    if re.search(r'\{\{[A-Z_]+\}\}|mewsVoucherCode', kop + lade + voet):
+        sys.exit('adslander: kop/voet bevat een open veld of een actiecode')
+    return kop + '\n' + lade, voet
 
 
 def build_adslander(config, output_file, json_file, template_name, lang):
@@ -1747,22 +1779,49 @@ def build_adslander(config, output_file, json_file, template_name, lang):
     blok['AL_VANAF_SCRIPT'] = '<script src="arr-vanaf.js" defer></script>' if live else ''
 
     # 5 kamerrij
-    kk = []
+    kk, kamerdata = [], {}
     for k in d['kamers']:
         if k not in KAMER_MEWS or k not in pop['kamer']:
             sys.exit(f'adslander: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen pop-updata')
         r, room = pop['kamer'][k], KAMER_MEWS[k]
-        for x in r['fotos'] + [r.get('video') or '']:
+        if r.get('kamer') != room:
+            sys.exit(f'adslander: Mews-id van {k} in {AL_POP} wijkt af van KAMER_MEWS')
+        for x in r['fotos'] + r.get('pop_fotos', []) + [r.get('video') or '', r['kaart_foto']]:
             bestaat(x)
         kenm = ''.join(f'<li>{icoon(AL_KAMER_IC[ic])}<span>{escape(t, quote=False)}</span></li>' for ic, t in r['kaart'])
+        naam = escape(r['naam'], quote=False)
         kk.append(
-            f'<article class="kk-kaart" data-kamer="{k}"><a class="kk-foto" href="#al-kamers" data-pop="kamer:{k}" tabindex="-1" aria-hidden="true"><img src="{r["fotos"][0]}" width="1400" height="934" alt="" loading="lazy" decoding="async"></a>'
-            f'<div class="kk-inhoud"><h3 class="kk-naam">{escape(r["naam"], quote=False)}</h3><p class="kk-tekst">{escape(r["kort"], quote=False)}</p>'
+            f'<article class="kk-kaart" data-kamerkaart="{k}"><a class="kk-foto" href="#al-kamers" data-kamer="{k}" aria-haspopup="dialog" tabindex="-1" aria-hidden="true"><img src="{r["kaart_foto"]}" width="1400" height="934" alt="" loading="lazy" decoding="async"></a>'
+            f'<div class="kk-inhoud"><h3 class="kk-naam">{naam}</h3><p class="kk-tekst">{escape(r["kort"], quote=False)}</p>'
             f'<ul class="kk-kenmerken">{kenm}</ul>'
             f'<p class="kk-prijs" data-kamer-vanaf="{k}"><span>{d["kamer-vanaf"]}</span> <span class="kk-bedrag" data-kamer-vanaf-bedrag>€ …</span> <span>{d["kamer-per"]}</span></p>'
             f'<p class="kk-knoppen"><a class="btn btn-primary mews-open" href="{mews(extra="&amp;mewsRoom=" + room + "&amp;mewsRoute=rooms")}" data-room="{room}">{d["kamer-boek"]}</a>'
-            f'<a class="btn btn-secondary" href="#al-kamers" data-pop="kamer:{k}">{d["kamer-info"]}</a></p></div></article>')
+            f'<a class="btn btn-secondary" href="#al-kamers" data-kamer="{k}" aria-haspopup="dialog" aria-label="{d["kamer-info"]}: {naam}">{d["kamer-info"]}</a></p></div></article>')
+        kamerdata[k] = {x: r[x] for x in ('naam', 'video', 'fotos', 'tekst', 'kenmerken', 'kamer')}
     blok['AL_KAMERS'] = ''.join(kk)
+    # kamer-pop-up = de lander-w1-dialoog #lp-pop-kamer (opmaak uit lander-w1.css), Duitse labels, geen pil/actiecode/kamerpagina
+    blok['AL_KAMERPOP'] = (
+        f'<dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam" data-l-foto="{d["kamer-pop-foto"]}" data-l-boek="{d["kamer-boek"]}">\n'
+        f'    <button type="button" class="lp-pop__sluit" aria-label="{d["rond-sluit"]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>\n'
+        '    <div class="lp-pop__binnen">\n'
+        '      <div class="lp-pop__media">\n'
+        f'        <video class="lp-pop__video" muted playsinline loop autoplay preload="none" aria-label="{d["kamer-pop-video"]}"></video>\n'
+        '        <img class="lp-pop__hero" alt="" hidden>\n'
+        '      </div>\n'
+        '      <div class="lp-pop__fotos"></div>\n'
+        '      <div class="lp-pop__body">\n'
+        '        <h3 class="lp-pop__titel" id="lp-pop-kamer-naam"></h3>\n'
+        '        <div class="lp-pop__tekst"></div>\n'
+        '        <ul class="lp-pop__kenmerken"></ul>\n'
+        '        <div class="lp-pop__acties">\n'
+        f'          <a class="btn btn-primary mews-open lp-pop__boek" data-basis="{mews()}" href="{mews()}">{d["kamer-boek"]}</a>\n'
+        '        </div>\n'
+        '      </div>\n'
+        '    </div>\n'
+        '  </dialog>\n'
+        '  <div class="lp-pop-overlay" hidden></div>\n'
+        '  <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>\n'
+        '  <script type="application/json" id="al-kamerdata">' + json.dumps(kamerdata, ensure_ascii=False).replace('</', '<\\/') + '</script>')
     blok['AL_KAMER_KOP'] = f'<h2 class="al-kamers__kop">{d["kamer-kop"]}</h2>' if d.get('kamer-kop') else ''
 
     # 6 faciliteiten (precies 5: een groot + vier klein)

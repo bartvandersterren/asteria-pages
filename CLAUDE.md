@@ -534,7 +534,14 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Bestanden: `adslander.template.html`, `adslander.css` (prefix `al-`, laadt na lander-w1.css voor tokens/.btn/.as-accordeon),
   `adslander-pop.css`, `adslander.js` (eigen Mews-poort de-DE met config per link, kaartenrij/lus, coverflow + lightbox, pop-up,
   FAQ-tabs, kamerprijzen, nieuwsbrief inline, onderbalk, cookie, scratchcard-wachter). lander-w1.js wordt hier NIET geladen.
-- build.py `build_adslander`: kop/voet in de gesloten stand uit lander-w1.template.html (Duits), genummerde slots uit de JSON
+- Kop, mobiele lade en voet = de spiegelstand van /hotel-venray-v2 (build.py `al_kop_voet`: blokken gesloten + spiegel uit
+  lander-w1.template.html, links via spiegel-links.json/`vul_spiegel_links`, Duitse labels, logo naar de lander zelf); dekkend en
+  sticky, de hero begint eronder. Lade en submenu's: port van lander-w1.js in adslander.js.
+- Kamer-pop-up: vanaf 768 px de lander-w1-dialoog `#lp-pop-kamer` (opmaak lander-w1.css, data `#al-kamerdata`, Duits, knop Zimmer
+  buchen = Mews met de kamer, geen pil/code/kamerpagina); onder 768 px de al-pop-sheet (velden desc/pop_fotos). Bij wisselen over
+  768 px gaat de open variant dicht.
+- Nieuwsbrief (blok 11) op kastanje (--ink #442A06) met nieuw-assets/svg/ster.svg op 5 % zoals de voet.
+- build.py `build_adslander`: genummerde slots uit de JSON
   (veldnamen zoals Parkhotel), arrangementkaarten via `arr-<slot>-bron` = slug van een arrangement-JSON (code, MEWS_CONFIG,
   ARR_PRIJS als terugval, ARR_NACHTEN, ARR_KALENDER/ARR_VANAF_LIVE), een `dialog.ark` per code (instellingen uit content/arr-kalender.json),
   kamers uit `kamers` + KAMER_MEWS, pop-upinhoud en kamerkaarten uit `content/adslander-pop-de.json`, reviews uit

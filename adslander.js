@@ -2,7 +2,7 @@
    Port van parkhotel-site src/gedrag/pagina-adslander.js + blok-kaartenrij.js + blok-hero-video.js + lander-fotorij.js,
    aangevuld met wat lander-w1.js op de andere Asteria-pagina's doet (hier niet geladen: die zet de widget op nl-NL).
 
-   0  KOP over de hero: html.al-kop-over zolang de hero onder de kop ligt; --kophoogte = gemeten kophoogte.
+   0  KOP in de spiegelstand van /hotel-venray-v2 (lade + submenu's zoals lander-w1.js); --kophoogte = gemeten kophoogte.
    1  MEWS-POORT: de widget wordt pas opgehaald bij de eerste klik op een boekknop (.mews-open of een distributor-link),
       taal de-DE, per link de eigen config uit de href (Winterarrangement = Winter-actie 95c70e27), vouchercode uit
       data-voucher, kamer uit data-room (showRates + open), datums uit mewsStart/mewsEnd in de href (prijskalender).
@@ -34,15 +34,43 @@
   meetKop();
   window.addEventListener('resize', meetKop);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(meetKop);
-  if (kop && heroEl) {
-    var kopStand = function () {
-      var r = heroEl.querySelector('.al-hero__foto').getBoundingClientRect();
-      root.classList.toggle('al-kop-over', r.bottom > kop.offsetHeight + 4);
-    };
-    kopStand();
-    window.addEventListener('scroll', kopStand, { passive: true });
-    window.addEventListener('resize', kopStand);
+  /* ---- 0b kop in de spiegelstand (zoals /hotel-venray-v2): mobiele lade en submenu's, 1-op-1 uit lander-w1.js ---- */
+  var drawer = document.getElementById('nav-drawer');
+  var hamburger = document.querySelector('.nav-hamburger');
+  function openDrawer() {
+    if (!drawer) return;
+    drawer.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    if (hamburger) hamburger.setAttribute('aria-expanded', 'true');
+    var sl = drawer.querySelector('.nav-drawer__close'); if (sl) sl.focus();
   }
+  function sluitDrawer() {
+    if (!drawer || !drawer.classList.contains('is-open')) return;
+    drawer.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (hamburger) { hamburger.setAttribute('aria-expanded', 'false'); hamburger.focus(); }
+  }
+  if (hamburger) hamburger.addEventListener('click', openDrawer);
+  if (drawer) {
+    drawer.addEventListener('click', function (e) { if (e.target === drawer || e.target.closest('.nav-drawer__close')) sluitDrawer(); });
+    drawer.querySelectorAll('.drawer-parent').forEach(function (b) {
+      b.addEventListener('click', function () { var li = b.parentElement, open = li.classList.toggle('is-open'); b.setAttribute('aria-expanded', open ? 'true' : 'false'); });
+    });
+  }
+  var subs = document.querySelectorAll('.nav-links .has-sub');
+  function sluitSubs(behalve) {
+    subs.forEach(function (li) { if (li === behalve) return; li.classList.remove('is-open'); var b = li.querySelector('.nav-parent'); if (b) b.setAttribute('aria-expanded', 'false'); });
+  }
+  subs.forEach(function (li) {
+    var b = li.querySelector('.nav-parent'); if (!b) return;
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = !li.classList.contains('is-open');
+      sluitSubs(li); li.classList.toggle('is-open', open); b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest || !e.target.closest('.nav-links .has-sub')) sluitSubs(null); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { sluitDrawer(); sluitSubs(null); } });
 
   /* ---- 1 Mews-poort ---- */
   var STD_CFG = '6dc9094c-76e3-4fd8-83a7-af1d00ffc556', HOTEL = '65a522c9-4828-413d-9ad8-af1d00ffb83f';
@@ -114,6 +142,7 @@
     if (!el || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
     e.preventDefault();
     if (window.alPopDicht) window.alPopDicht(true);
+    sluitDrawer();
     if (apis[cfgVan(el.getAttribute('href'))]) { openVoor(el); return; }
     wacht = el; laad();
     if (!timer) timer = setTimeout(function () { timer = null; if (wacht && wacht.href) location.href = wacht.href; }, 8000);
@@ -455,7 +484,7 @@
     };
     var POPKNOP = '[data-pop]';
     ['pointerover', 'focusin', 'touchstart'].forEach(function (ev) {
-      document.addEventListener(ev, function (e) { if (!POP && e.target.closest && e.target.closest(POPKNOP)) haalPop(); }, { passive: true });
+      document.addEventListener(ev, function (e) { if (!POP && e.target.closest && e.target.closest(POPKNOP + ', [data-kamer]')) haalPop(); }, { passive: true });
     });
     var kaartEl = popEl.querySelector('.al-pop__kaart'), L = popEl.dataset, popTerug = null, popIdx = 0, popN = 0, popSoort = '', popSleutel = '', popOpenIdx = false;
     var VINK = '<svg class="al-vink" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>';
@@ -515,7 +544,7 @@
         if (r.credit) extra += '<p class="al-pop__credit">' + esc(r.credit) + '</p>';
         if (r.route) { boek = r.route; boeklabel = L.lRoute; ext = true; }
       }
-      var fotos = r.fotos || [], vid = r.video || ''; popN = fotos.length + (vid ? 1 : 0); popIdx = 0;
+      var fotos = (soort === 'kamer' && r.pop_fotos) || r.fotos || [], vid = r.video || ''; popN = fotos.length + (vid ? 1 : 0); popIdx = 0;
       var dia = (vid ? '<div class="al-pop__vid"><video class="al-pop__video" muted playsinline loop preload="none" poster="' + esc(fotos[0] || '') + '" data-src="' + esc(vid) + '" aria-label="' + esc(plat(naam)) + '"></video>' +
           '<button type="button" class="al-pop__speel" data-pop-speel aria-label="' + esc(L.lSpeel) + '">' + SPEEL + '</button></div>' : '') +
         fotos.map(function (f, i) { return '<img class="al-pop__foto" draggable="false" data-src="' + esc(f) + '" alt="' + (i === 0 && !vid ? esc(plat(naam)) : '') + '" decoding="async">'; }).join('');
@@ -579,6 +608,9 @@
     };
     /* een boekknop in de pop-up die Mews opent (geen kalender): pop-up eerst dicht. De kalender ligt erboven, daar blijft hij open. */
     window.alPopDicht = function (stil) { popDicht(stil); };
+    /* kamer-pop-up op de telefoon (< 768 px): de al-pop-sheet; vanaf 768 px de lander-w1-dialoog (5b) */
+    window.alPopKamer = function (sleutel, knop) { if (POP) popOpen('kamer', sleutel, knop); else haalPop().then(function () { popOpen('kamer', sleutel, knop); }); };
+    window.alPopKamerDicht = function () { if (popSoort === 'kamer') popDicht(true); };
     document.addEventListener('click', function (e) {
       if (!e.target.closest || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
       var a = e.target.closest(POPKNOP);
@@ -626,6 +658,110 @@
       wiel: function (r) { if (popN > 1) gaFoto(popIdx + r); }
     });
   }
+
+  /* ---- 5b kamer-pop-up vanaf 768 px = de lander-w1-dialoog #lp-pop-kamer (telefoon: al-pop-sheet, zie 5) (opmaak lander-w1.css), gedrag 1-op-1 uit lander-w1.js
+          (toonPop/sluitPop/opruimen/vulKamer + focusrand-logica), data uit #al-kamerdata, Duitse labels uit de dialoog.
+          Native showModal (Escape, top layer, ::backdrop); zonder showModal hidden + overlay. Video pas bij openen,
+          leeg bij sluiten; focus terug naar de knop die opende. Boekknop = Mews met de kamer via de poort hierboven. ---- */
+  (function () {
+    var popKamer = document.getElementById('lp-pop-kamer');
+    var dataEl = document.getElementById('al-kamerdata');
+    var telefoon = window.matchMedia('(max-width:767.98px)');
+    if (!popKamer || !dataEl) return;
+    var kamerData = {};
+    try { kamerData = JSON.parse(dataEl.textContent); } catch (e) { return; }
+    var popOverlay = document.querySelector('.lp-pop-overlay');
+    var vinkSjabloon = document.getElementById('lp-pop-vink');
+    var kanModal = typeof popKamer.showModal === 'function';
+    var rustig = !zacht;
+    var LF = popKamer.getAttribute('data-l-foto') || 'Foto', LB = popKamer.getAttribute('data-l-boek') || '';
+    var openPop = null, opener = null, laatsteToets = false;
+    if (!kanModal) popKamer.hidden = true;
+    document.addEventListener('keydown', function (e) { if (e.key === 'Tab' || e.key === 'Enter' || e.key === ' ') laatsteToets = true; }, true);
+    document.addEventListener('pointerdown', function () { laatsteToets = false; popKamer.classList.remove('lp-pop--muis'); }, true);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Tab') popKamer.classList.remove('lp-pop--muis'); }, true);
+    function maak(tag, cls, tekst) { var el = document.createElement(tag); if (cls) el.className = cls; if (tekst != null) el.textContent = tekst; return el; }
+    function toonPop(d, knop) {
+      if (openPop) sluitPop(openPop, true);
+      opener = knop || null; openPop = d;
+      root.classList.add('lp-pop-vast');
+      var binnen = d.querySelector('.lp-pop__binnen'); if (binnen) binnen.scrollTop = 0;
+      if (kanModal) d.showModal();
+      else { d.hidden = false; d.classList.add('is-open'); d.setAttribute('role', 'dialog'); if (popOverlay) popOverlay.hidden = false; }
+      var sluit = d.querySelector('.lp-pop__sluit');
+      d.classList.toggle('lp-pop--muis', !laatsteToets);
+      if (sluit) sluit.focus();
+      meet('adslander_popup_open', { popup_soort: 'kamer', popup_sleutel: knop ? knop.getAttribute('data-kamer') : '' });
+    }
+    function opruimen(d, stil) {
+      var v = d.querySelector('video');
+      if (v) { try { v.pause(); } catch (e) {} v.removeAttribute('src'); v.load(); }
+      root.classList.remove('lp-pop-vast');
+      if (openPop === d) openPop = null;
+      var terug = opener; opener = null;
+      if (!stil && terug && document.contains(terug)) terug.focus();
+    }
+    function sluitPop(d, stil) {
+      if (kanModal) { if (!d.open) return; d._stil = !!stil; d.close(); }
+      else { if (d.hidden) return; d.hidden = true; d.classList.remove('is-open'); if (popOverlay) popOverlay.hidden = true; opruimen(d, stil); }
+    }
+    if (kanModal) popKamer.addEventListener('close', function () { var stil = popKamer._stil; popKamer._stil = false; opruimen(popKamer, stil); });
+    popKamer.addEventListener('click', function (e) {
+      if (e.target === popKamer || (e.target.closest && e.target.closest('.lp-pop__sluit'))) { sluitPop(popKamer); return; }
+      if (e.target.closest && e.target.closest('.mews-open')) sluitPop(popKamer, true);
+    });
+    if (popOverlay) popOverlay.addEventListener('click', function () { if (openPop) sluitPop(openPop); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && openPop && !kanModal) sluitPop(openPop); });
+    function vulKamer(key) {
+      var k = kamerData[key];
+      if (!k) return false;
+      var fotos = k.fotos || [];
+      var video = popKamer.querySelector('.lp-pop__video'), hero = popKamer.querySelector('.lp-pop__hero'), rij = popKamer.querySelector('.lp-pop__fotos');
+      rij.textContent = '';
+      var rijFotos;
+      if (k.video) {
+        hero.hidden = true; hero.removeAttribute('src');
+        video.hidden = false; video.poster = fotos[0] || ''; video.autoplay = !rustig; video.controls = rustig; video.src = k.video;
+        if (!rustig) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+        rijFotos = fotos.slice(0, 3);
+      } else {
+        video.hidden = true; video.removeAttribute('src'); video.removeAttribute('poster');
+        hero.hidden = false; hero.src = fotos[0] || ''; hero.alt = k.naam;
+        rijFotos = fotos.slice(1, 4);
+      }
+      rij.setAttribute('data-n', rijFotos.length);
+      rijFotos.forEach(function (src, i) {
+        var img = maak('img'); img.src = src; img.alt = k.naam + ', ' + LF + ' ' + (i + 1); img.loading = 'lazy'; img.decoding = 'async';
+        rij.appendChild(img);
+      });
+      popKamer.querySelector('.lp-pop__titel').textContent = k.naam;
+      var tekst = popKamer.querySelector('.lp-pop__tekst'); tekst.textContent = '';
+      (k.tekst || []).forEach(function (t) { tekst.appendChild(maak('p', null, t)); });
+      var lijst = popKamer.querySelector('.lp-pop__kenmerken'); lijst.textContent = '';
+      (k.kenmerken || []).forEach(function (t) {
+        var li = maak('li');
+        if (vinkSjabloon && vinkSjabloon.content) li.appendChild(vinkSjabloon.content.cloneNode(true));
+        li.appendChild(maak('span', null, t));
+        lijst.appendChild(li);
+      });
+      var boek = popKamer.querySelector('.lp-pop__boek');
+      boek.setAttribute('data-room', k.kamer);
+      boek.setAttribute('href', boek.getAttribute('data-basis') + '&mewsRoom=' + k.kamer + '&mewsRoute=rooms');
+      boek.setAttribute('aria-label', k.naam + ': ' + LB);
+      return true;
+    }
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
+      var kk = e.target.closest('[data-kamer]');
+      if (!kk) return;
+      e.preventDefault();
+      if (telefoon.matches && window.alPopKamer) { window.alPopKamer(kk.getAttribute('data-kamer'), kk); return; }
+      if (vulKamer(kk.getAttribute('data-kamer'))) toonPop(popKamer, kk);
+    });
+    /* draaien/venster over 768 px: geen kamer-pop-up van de andere vorm laten openstaan */
+    var wissel = function () { sluitPop(popKamer, true); if (window.alPopKamerDicht) window.alPopKamerDicht(); };
+    if (telefoon.addEventListener) telefoon.addEventListener('change', wissel); else if (telefoon.addListener) telefoon.addListener(wissel);
+  })();
 
   /* ---- 6 vragen: tabs ---- */
   Array.prototype.forEach.call(document.querySelectorAll('[data-faq]'), function (faq) {
@@ -717,7 +853,7 @@
   (function wachter() {
     if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', wachter); return; }
     if (!window.MutationObserver) return;
-    var bezet = function () { return root.classList.contains('al-pop-open') || root.classList.contains('al-lb-open') || root.classList.contains('ark-open'); };
+    var bezet = function () { return root.classList.contains('al-pop-open') || root.classList.contains('al-lb-open') || root.classList.contains('ark-open') || root.classList.contains('lp-pop-vast'); };
     var k = document.getElementById('scClose'), sc = k ? k.closest('[data-stijl]') : null, wacht = false;
     if (!sc) return;
     var kijk = function () {

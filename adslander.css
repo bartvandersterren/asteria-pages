@@ -15,9 +15,7 @@
    ========================================================================== */
 
 /* -- gedeeld --------------------------------------------------------------- */
-:root { --kophoogte:60px }
-@media (min-width:720px) { :root { --kophoogte:72px } }
-@media (min-width:1024px) { :root { --kophoogte:78px } }
+:root { --kophoogte:64px }
 .al { color:var(--ink); font-size:16px; line-height:1.55 }
 :where(.al) *,:where(.al) *::before,:where(.al) *::after { box-sizing:border-box }
 :where(.al) a { text-decoration:none; color:inherit }
@@ -56,18 +54,12 @@
   display:flex; align-items:center; justify-content:center; cursor:pointer }
 .al-nav__pijl:disabled { opacity:.38; cursor:default }
 
-/* -- kop: doorschijnend over de hero (adslander.js zet html.al-kop-over zolang de hero onder de kop ligt) ---- */
-.top-stack { transition:background .25s var(--ease-soft) }
-.top-stack .main-nav { transition:background .25s var(--ease-soft), box-shadow .25s var(--ease-soft) }
-html.al-kop-over .top-stack .main-nav { background:transparent; box-shadow:none }
-html.al-kop-over .top-stack .logo img { filter:brightness(0) invert(1) }
-html.al-kop-over .top-stack .nav-phone { color:var(--surface); border-color:rgba(255,250,241,.55) }
-html:not(.al-kop-over) .top-stack .main-nav { box-shadow:0 1px 0 var(--hairline) }
+/* -- kop en voet: de spiegelstand van /hotel-venray-v2 (lander-w1.css), dekkend; de hero begint eronder -- */
 
 /* ==========================================================================
    1 hero: volle video/foto, tekst gecentreerd, Google-badge rechtsboven (Parkhotel 1k)
    ========================================================================== */
-.al-hero { position:relative; height:calc(clamp(700px, 46vw, 940px) + var(--kophoogte)); margin-top:calc(var(--kophoogte) * -1); overflow:hidden; color:var(--surface) }
+.al-hero { position:relative; height:clamp(700px, 46vw, 940px); overflow:hidden; color:var(--surface) }
 .al-hero__foto { position:absolute; inset:0; background:var(--ink) }
 .al-hero__foto img { width:100%; height:100%; object-fit:cover; object-position:50% 50% }
 .al-hero__foto picture { display:contents }
@@ -77,7 +69,7 @@ html:not(.al-kop-over) .top-stack .main-nav { box-shadow:0 1px 0 var(--hairline)
 .al-hero__foto::after { content:''; position:absolute; inset:0;
   background:linear-gradient(180deg, rgba(43,26,4,.45) 0%, rgba(43,26,4,.42) 55%, rgba(43,26,4,.82) 100%) }
 .al-hero__wrap { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-  padding:calc(70px + var(--kophoogte)) 0 40px }
+  padding:70px 0 40px }
 .al-hero__tekst { display:flex; flex-direction:column; align-items:center; gap:18px; width:100% }
 .al-hero__titel { display:flex; flex-direction:column; align-items:inherit; gap:inherit; width:100% }
 .al .al-hero__tekst h1 { color:var(--surface); max-width:860px; text-wrap:balance }
@@ -91,7 +83,7 @@ html:not(.al-kop-over) .top-stack .main-nav { box-shadow:0 1px 0 var(--hairline)
 .al-hero__trust li { gap:9px }
 .al-hero__trust .al-trust__ic { width:20px; height:20px; color:#E9A68C }
 @media (max-width:1279px) { .al-hero__trust { display:grid; grid-template-columns:auto auto; justify-content:center; gap:10px 26px; text-align:left } }
-.al-hero__badge { position:absolute; top:calc(var(--kophoogte) + 40px); right:0; z-index:3; display:flex; align-items:center; gap:14px;
+.al-hero__badge { position:absolute; top:40px; right:0; z-index:3; display:flex; align-items:center; gap:14px;
   min-height:68px; padding:12px 36px 12px 22px; background:var(--surface); color:var(--ink);
   border-radius:var(--radius-card) 0 0 var(--radius-card); box-shadow:0 6px 24px rgba(43,26,4,.22) }
 .al-hero__score { display:flex; align-items:center; gap:8px; color:var(--star) }
@@ -536,20 +528,21 @@ html.al-lb-open { overflow:hidden }
   .al-hero { height:auto; min-height:min(170vw, 900px); display:flex }
   .al-hero__foto { bottom:auto; height:min(170vw, 900px) }
   .al-hero__foto::after { background:linear-gradient(180deg, rgba(43,26,4,.35) 0%, rgba(43,26,4,.35) 30%, rgba(43,26,4,.8) 62%, rgba(43,26,4,.95) 100%) }
-  .al-hero__wrap { height:auto; padding:max(calc(110px + var(--kophoogte)), calc(52vw + 8px)) 0 112px }
+  .al-hero__wrap { height:auto; padding:max(110px, calc(52vw + 8px)) 0 112px }
   .al-hero__tekst { gap:14px }
-  .al-hero--video { --al-hv:clamp(calc(var(--kophoogte) + 312px), 75vh, 177.78vw); min-height:0; color:var(--ink) }
-  @supports (height:100svh) { .al-hero--video { --al-hv:clamp(calc(var(--kophoogte) + 312px), 75svh, 177.78vw) } }
+  /* videovak eindigt op 75svh van het venster (de kop staat erboven), nooit lager dan 312 px, nooit hoger dan 9:16 */
+  .al-hero--video { --al-hv:clamp(312px, calc(75vh - var(--kophoogte)), 177.78vw); min-height:0; color:var(--ink) }
+  @supports (height:100svh) { .al-hero--video { --al-hv:clamp(312px, calc(75svh - var(--kophoogte)), 177.78vw) } }
   .al-hero--video .al-hero__foto { height:var(--al-hv) }
   .al-hero--video .al-hero__foto::after { background:radial-gradient(ellipse 100% 30% at 50% 60%, rgba(43,26,4,.6) 0%, rgba(43,26,4,.32) 55%, rgba(43,26,4,0) 100%),
     linear-gradient(180deg, rgba(43,26,4,.4) 0%, rgba(43,26,4,0) 18%, rgba(43,26,4,0) 78%, rgba(43,26,4,.5) 100%) }
-  .al-hero--video .al-hero__wrap { box-sizing:border-box; min-height:0; padding:calc(var(--kophoogte) + 84px) 0 34px; display:block }
-  .al-hero--video .al-hero__titel { min-height:calc(var(--al-hv) - var(--kophoogte) - 121.5px); justify-content:center; gap:14px }
+  .al-hero--video .al-hero__wrap { box-sizing:border-box; min-height:0; padding:84px 0 34px; display:block }
+  .al-hero--video .al-hero__titel { min-height:calc(var(--al-hv) - 121.5px); justify-content:center; gap:14px }
   .al-hero--video .al-hero__tekst .al-btn { margin-top:0; min-height:47px; box-shadow:0 8px 22px rgba(43,26,4,.38), 0 2px 6px rgba(43,26,4,.2) }
   .al-hero--video h1,.al-hero--video .al-hero__sub { text-shadow:0 2px 18px rgba(0,0,0,.45) }
   .al-hero--video .al-hero__trust { margin-top:4px; color:var(--ink) }
   .al-hero--video .al-hero__trust .al-trust__ic { color:var(--terracotta) }
-  .al-hero--video .al-hero__badge { top:calc(var(--kophoogte) + 14px); bottom:auto; left:auto; right:0; transform:none; width:auto; max-width:none;
+  .al-hero--video .al-hero__badge { top:14px; bottom:auto; left:auto; right:0; transform:none; width:auto; max-width:none;
     min-height:56px; border-radius:var(--radius-image) 0 0 var(--radius-image) }
   .al-hero__sub { font-size:17px }
   .al-hero__tekst .al-btn { width:100%; white-space:normal; text-align:center }
@@ -657,7 +650,7 @@ html.al-lb-open { overflow:hidden }
 }
 
 @media (prefers-reduced-motion:reduce) {
-  .al-rond__item,.al-rond__beeld::after,.al-tegel,.al-tegel img,.al-btn,.al-rond__pijl,.top-stack .main-nav { transition:none }
+  .al-rond__item,.al-rond__beeld::after,.al-tegel,.al-tegel img,.al-btn,.al-rond__pijl { transition:none }
   .al-arr__rij,.al-omg__grid,.al-kamers .kk-spoor,.al-fotorij__spoor,.al-rev__spoor { scroll-behavior:auto }
   .al-tegel:hover,.al-tegel:hover img { transform:none }
 }
@@ -665,3 +658,18 @@ html.al-lb-open { overflow:hidden }
 /* onderbalk op de telefoon: verborgen zolang een eigen pop-up, de lightbox of de prijskalender open is */
 html.al-pop-open .mob-cta,html.al-lb-open .mob-cta { visibility:hidden }
 .al-rev__woord:empty { display:none }
+
+/* 11 nieuwsbrief op kastanje (--ink #442A06, "kastanje" in functions/seizoen/[[path]].js) met het beeldmerk als achtergrond,
+   precies zoals de voet van de nieuwe huisstijl: nieuw-assets/svg/ster.svg (licht beeldmerk voor donkere grond), 5 % dekking
+   (base.css .footer__star-bg). Tekst ivoor, veld ivoor met donkere tekst, knop terracotta; meldingen en focus leesbaar op donker. */
+.al-nb__vlak { position:relative; overflow:hidden; background:var(--ink); color:var(--on-ink); box-shadow:var(--shadow-deep) }
+.al-nb__ster { position:absolute; top:50%; right:3%; transform:translateY(-50%); width:min(45vw, 520px); height:auto; opacity:.05; pointer-events:none; z-index:0 }
+.al-nb__vlak > :not(.al-nb__ster) { position:relative; z-index:1 }
+.al .al-nb__tekst h2 { color:var(--on-ink) }
+.al-nb__tekst p { color:var(--on-ink-body) }
+.al-nb__veld { background:var(--surface); color:var(--ink); border-color:transparent }
+.al-nb__veld:focus { outline:3px solid var(--surface); outline-offset:2px; border-color:var(--terracotta) }
+.al .al-nb__knop:focus-visible { outline:3px solid var(--surface); outline-offset:2px }
+.al-nb__melding { color:var(--on-ink) }
+.al-nb__melding.is-fout { color:var(--error-line) }
+@media (max-width:767px) { .al-nb__ster { width:min(90vw, 420px); right:-18%; } }
