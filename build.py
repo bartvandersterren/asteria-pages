@@ -247,6 +247,17 @@ TEMPLATES = {
         },
         'adslander': True,
     },
+    # Uitjepagina's (nov 2026): sjabloon uitje.template.html + uitje.css/.js + kaart-getekend.css/.js, nabouw van de
+    # Parkhotel-omgevingspagina's (parkhotelhorst.nl/gebied/<slug>/) in de Asteria-stijl van de adslander. Alles per uitje in
+    # translations/uitje-<slug>-nl.json (vaste labels in translations/uitje-labels-nl.json, kamers in content/uitje-kamers-nl.json);
+    # build_uitje() doet de rest. Volgend uitje = JSON kopieren + regel hieronder. Proef: noindex, follow.
+    'uitje-zooparc-overloon': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('zooparc-overloon-v2.html', 'translations/uitje-zooparc-overloon-nl.json'),
+        },
+        'uitje': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -1608,23 +1619,41 @@ def al_kalender_teksten(nachten, zondag):
             'dicht': 'Grau: nicht verfügbar, Abreise ist möglich'}
 
 
-def al_kop_voet(d, mews_basis):
+def al_kop_voet(d, mews_basis, taal='de'):
     """Kop (utility-balk, menu met submenu's, telefoonknop, boekknop), mobiele lade en voet letterlijk uit
     lander-w1.template.html in de spiegelstand zoals /hotel-venray-v2 (blokken gesloten + spiegel; links uit
     translations/spiegel-links.json via vul_spiegel_links, dus dezelfde bestemmingen), met Duitse labels en zonder actiecode.
-    Logo naar de lander zelf."""
+    Logo naar de lander zelf. taal='nl' (uitje-sjabloon): de Duitse labelvervanging wordt overgeslagen, de NL-labels uit
+    lander-w1.template.html blijven staan; logo, actiecode en Mews-taal gaan wel om."""
     with open(os.path.join(base, 'lander-w1.template.html'), encoding='utf-8') as f:
         w1 = apply_blokken(f.read(), {'gesloten', 'spiegel'})
     kop = re.search(r'<header class="top-stack[\s\S]*?</header>', w1).group(0)
     lade = re.search(r'<aside class="nav-drawer[\s\S]*?</aside>', w1).group(0)
     voet = re.search(r'<footer class="footer[\s\S]*?</footer>', w1).group(0)
     eigen = '/' + d['canonical'].rstrip('/').rsplit('/', 1)[-1]
-    tel = d['telefoon']
     vervang = [
         ('{{GESLOTEN_LOGO_URL}}', eigen),
         ('?mewsVoucherCode={{VOUCHER}}&amp;', '?'),
         ('?mewsVoucherCode={{VOUCHER}}', '?language=' + d.get('mews-taal', 'de-DE')),
         (' data-voucher="{{VOUCHER}}"', ''),
+    ]
+    if taal == 'de':
+        vervang += al_kop_voet_de(d)
+    delen = []
+    for x in (kop, lade, voet):
+        for a_, b_ in vervang:
+            x = x.replace(a_, b_)
+        delen.append(vul_spiegel_links(x))
+    kop, lade, voet = delen
+    if re.search(r'\{\{[A-Z_]+\}\}|mewsVoucherCode', kop + lade + voet):
+        sys.exit('adslander: kop/voet bevat een open veld of een actiecode')
+    return kop + '\n' + lade, voet
+
+
+def al_kop_voet_de(d):
+    """Duitse labels van de spiegelkop/-voet (adslander), in deze volgorde na de vier vaste vervangingen."""
+    tel = d['telefoon']
+    return [
         ('Hotel Asteria, naar het begin van de pagina', 'Hotel Asteria, zum Seitenanfang'),
         ('aria-label="Hoofdnavigatie"', 'aria-label="Hauptnavigation"'),
         ('aria-label="Bel Hotel Asteria: 0478 511466"', f'aria-label="Hotel Asteria anrufen: {tel}"'),
@@ -1658,15 +1687,6 @@ def al_kop_voet(d, mews_basis):
         ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
          'A73, Ausfahrt 8 Venray-Noord &middot; KvK 12028838 &middot; USt-IdNr. NL804668528B01'),
     ]
-    delen = []
-    for x in (kop, lade, voet):
-        for a_, b_ in vervang:
-            x = x.replace(a_, b_)
-        delen.append(vul_spiegel_links(x))
-    kop, lade, voet = delen
-    if re.search(r'\{\{[A-Z_]+\}\}|mewsVoucherCode', kop + lade + voet):
-        sys.exit('adslander: kop/voet bevat een open veld of een actiecode')
-    return kop + '\n' + lade, voet
 
 
 def build_adslander(config, output_file, json_file, template_name, lang):
@@ -1914,11 +1934,308 @@ def build_adslander(config, output_file, json_file, template_name, lang):
     print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
 
 
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+# Uitjepagina's (sjabloon uitje.template.html). Exacte nabouw van de Parkhotel-omgevingspagina
+# (parkhotel-site src/fragmenten/pagina-gebied-v2.html) in de Asteria-stijl van de adslander; zie de kop van het
+# sjabloon en CLAUDE.md (Uitje-sjabloon). Gegevens: translations/uitje-labels-nl.json (vaste labels, eerst geladen)
+# + translations/uitje-<slug>-nl.json (wint); kamers uit content/uitje-kamers-nl.json + KAMER_MEWS; kop/voet uit
+# al_kop_voet(taal='nl'). Genummerde slots via al_lijst. Stopt bij een open veld, ontbrekend bestand, em-dash of
+# een half gevuld FAQ-/meer-slot.
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+
+UT_LABELS = 'translations/uitje-labels-nl.json'
+UT_KAMERS = 'content/uitje-kamers-nl.json'
+UT_PIJL = ('<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" '
+           'stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>')
+UT_EXTERN = ('<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
+             'stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 7.5 8.5M11.5 9.5v3a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3"/></svg>')
+UT_VK = {
+    'auto': AL_REIS['auto'],
+    'fiets': AL_REIS['rad'],
+    'lopen': AL_REIS['voet'],
+    'km': '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.5" cy="18.5" r="2"/><path d="M7.5 18.5h8a3 3 0 0 0 0-6h-7a3 3 0 0 1 0-6h9.5"/><path d="M15.5 3.5l3 3-3 3"/></svg>',
+}
+UT_SPELD = ('<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
+            'stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5c-3.6-4-6.8-7.6-6.8-11.3a6.8 6.8 0 0 1 13.6 0c0 3.7-3.2 7.3-6.8 11.3z"/><circle cx="12" cy="10.2" r="2.6"/></svg>')
+UT_CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
+
+
+def build_uitje(config, output_file, json_file, template_name, lang):
+    from html import escape
+    with open(os.path.join(base, config['template']), encoding='utf-8') as f:
+        html = f.read()
+    with open(os.path.join(base, UT_LABELS), encoding='utf-8') as f:
+        d = json.load(f)
+    with open(os.path.join(base, json_file), encoding='utf-8') as f:
+        d.update(json.load(f))   # het uitje-JSON wint van de labels
+    with open(os.path.join(base, UT_KAMERS), encoding='utf-8') as f:
+        kamerbron = json.load(f)['kamer']
+    taal = d.get('mews-taal', 'nl-NL')
+    mews = lambda extra='': f'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?language={taal}{extra}'
+    d['mews-basis'] = mews()
+    d.setdefault('hero-foto-klein', d.get('hero-foto', ''))
+    d.setdefault('slot-foto-klein', d.get('slot-foto', ''))
+    fouten = []
+    plat = lambda t: re.sub(r'<[^>]+>', '', t).replace('&amp;', '&')
+
+    def bestaat(pad):
+        if pad and not pad.startswith('http') and not os.path.exists(os.path.join(base, pad)):
+            fouten.append('bestand ontbreekt: ' + pad)
+        return pad
+
+    def klein(p):
+        return d.get(p + '-foto-klein') or d[p + '-foto']
+
+    def slot_compleet(voorvoegsel, nummers, achtervoegsels, verplicht):
+        """Een slot is heel of leeg: staat een van de verplichte velden er, dan moeten ze er allemaal (gevuld) zijn."""
+        for i in nummers:
+            velden = [f'{voorvoegsel}{i}{a}' for a in verplicht]
+            gevuld = [v for v in velden if d.get(v)]
+            if gevuld and len(gevuld) != len(velden):
+                fouten.append(f'slot {voorvoegsel}{i} is half gevuld: {", ".join(v for v in velden if not d.get(v))} ontbreekt')
+
+    for k in ('hero-foto', 'hero-foto-klein', 'slot-foto', 'slot-foto-klein', 'kaart-foto', 'kaart-foto-klein', 'kaart-vignet'):
+        bestaat(d.get(k))
+
+    blok = {}
+
+    # 2 oogopslag: vakjes alleen als het veld gevuld is; tabel t1..t5; routelink
+    vk_label = {'auto': d['l-auto'], 'fiets': d['l-fiets'], 'lopen': d['l-lopen'], 'km': d['l-afstand']}
+    vk_ico = {s: v.replace('<svg ', '<svg class="ut-vk__ico" ', 1) for s, v in UT_VK.items()}
+    blok['UT_VAKJES'] = ''.join(f'<div class="ut-vk"><span class="ut-vk__ib">{vk_ico[s]}</span>'
+                                f'<span class="ut-vk__t"><strong>{d["vk-" + s]}</strong><span>{vk_label[s]}</span></span></div>'
+                                for s in ('auto', 'fiets', 'lopen', 'km') if d.get('vk-' + s))
+    blok['UT_TABEL'] = ''.join(f'<div class="ut-tabel__rij"><dt>{d[f"t{i}-label"]}</dt><dd>{d.get(f"t{i}-waarde", "")}</dd></div>'
+                               for i in al_lijst(d, 't', '-label') if d[f't{i}-label'])
+    blok['UT_ROUTE'] = (f'<a class="al-intro__link ut-route" href="{d["route-url"]}" target="_blank" rel="noopener">{d["knop-route"]} {UT_PIJL}'
+                        f'<span class="al-vh"> {d["l-nieuw-tabblad"]}</span></a>') if d.get('route-url') else ''
+
+    # 3 verhaal: v1 foto rechts, v2 links, v3 rechts; v2 en v3 in .ut-verhaal__meer achter Lees meer
+    def rij(i, rechts):
+        p = f'v{i}-'
+        foto = bestaat(d[p + 'foto'])
+        b, h = d.get(p + 'b', '1400'), d.get(p + 'h', '933')
+        link = ''
+        if d.get(p + 'knop'):
+            ext = str(d.get(p + 'knop-extern', '')).lower() in ('ja', 'true', '1')
+            link = (f'<p class="ut-it__link"><a class="al-intro__link ut-verwijs" href="{d[p + "knop-url"]}"'
+                    + (' target="_blank" rel="noopener"' if ext else '') + f'><span>{d[p + "knop"]}</span>'
+                    + (f'<span class="al-vh"> {d["l-nieuw-tabblad"]}</span>{UT_EXTERN}' if ext else UT_PIJL) + '</a></p>')
+        p2 = f'<p>{d[p + "p2"]}</p>' if d.get(p + 'p2') else ''
+        return (f'<div class="ut-it{" ut-it--rechts" if rechts else ""}"><div class="ut-it__omhulsel"><div class="ut-it__rij">'
+                f'<div class="ut-it__kolom ut-it__kolom--foto"><div class="ut-it__foto"><img src="{klein(p[:-1])}" srcset="{klein(p[:-1])} 700w, {foto} {b}w" '
+                f'sizes="(min-width:1024px) 50vw, 100vw" alt="{d[p + "alt"]}" width="{b}" height="{h}" loading="lazy" decoding="async"></div></div>'
+                f'<div class="ut-it__kolom ut-it__kolom--tekst"><div class="ut-it__tekst"><h2>{d[p + "kop"]}</h2><p>{d[p + "p1"]}</p>{p2}{link}</div></div>'
+                '</div></div></div>')
+    v = [i for i in al_lijst(d, 'v', '-kop') if d[f'v{i}-kop']][:3]
+    if not v:
+        sys.exit('uitje: het verhaal heeft minstens v1 nodig')
+    meer = ''
+    if len(v) > 1:
+        meer = ('<div class="ut-verhaal__meer" id="ut-verhaal-meer">' + ''.join(rij(i, j % 2 == 0) for j, i in enumerate(v) if j) + '</div>'
+                f'<div class="ut-meerbalk" hidden><button type="button" class="btn btn-primary ut-meerbalk__knop" aria-expanded="false" aria-controls="ut-verhaal-meer" '
+                f'data-open="{d["l-leesmeer"]}" data-dicht="{d["l-leesminder"]}"><span class="ut-meerbalk__label">{d["l-leesmeer"]}</span>'
+                f'<span class="ut-meerbalk__chev" aria-hidden="true">{UT_CHEV}</span></button></div>')
+    credit = f'<div class="al-wrap"><p class="ut-fotocredit">{d["fotocredit-verhaal"]}</p></div>' if d.get('fotocredit-verhaal') else ''
+    blok['UT_VERHAAL'] = f'<section data-component="ut-verhaal" class="ut-verhaal">{rij(v[0], True)}{meer}{credit}</section>'
+
+    # 4 tip (alleen als gevuld)
+    blok['UT_TIP'] = (f'<section data-component="ut-tip" class="al-sec ut-tip"><div class="al-wrap"><div class="al-paneel ut-tip__strook">'
+                      f'<div class="ut-tip__kop"><h2>{d["tip-kop"]}</h2></div><div class="ut-tip__tekst"><p class="ut-tip__tip">{d["tip"]}</p>'
+                      f'<p class="ut-tip__van">{d.get("tip-van", "")}</p></div></div></div></section>') if d.get('tip') else ''
+
+    # 5 goed om te weten: tot zes kaarten; zonder foto een kaart met groot icoon
+    kaarten = []
+    for i in [i for i in al_lijst(d, 'g', '-kop') if d[f'g{i}-kop']][:6]:
+        p = f'g{i}-'
+        ico = f'<svg class="as-icoon ut-fk__ico" viewBox="0 0 24 24" aria-hidden="true">{d.get(p + "ico", "")}</svg>'
+        if d.get(p + 'foto'):
+            beeld = f'<img class="ut-fk__foto" src="{bestaat(d[p + "foto"])}" alt="{d.get(p + "alt", "")}" width="440" height="330" loading="lazy" decoding="async">'
+            kaarten.append(f'<li class="ut-fk">{beeld}<div class="ut-fk__body">{ico}<h3 class="ut-fk__naam">{d[p + "kop"]}</h3><p>{d.get(p + "tekst", "")}</p></div></li>')
+        else:
+            kaarten.append(f'<li class="ut-fk ut-fk--leeg"><span class="ut-fk__leeg">{ico}</span><div class="ut-fk__body"><h3 class="ut-fk__naam">{d[p + "kop"]}</h3><p>{d.get(p + "tekst", "")}</p></div></li>')
+    credit = f'<p class="ut-fotocredit">{d["fotocredit-prak"]}</p>' if d.get('fotocredit-prak') else ''
+    blok['UT_PRAK'] = (f'<section data-component="ut-prak" class="al-sec ut-prak"><div class="ut-wrap--breed"><div class="ut-prak__kop"><h2>{d["g-kop"]}</h2></div>'
+                       f'<ul class="ut-prak__tegels">{"".join(kaarten)}</ul>{credit}</div></section>') if kaarten else ''
+
+    # 6 dag in vier momenten (alleen als dag-kop gevuld is)
+    if d.get('dag-kop'):
+        m = [i for i in al_lijst(d, 'm', '-naam') if d[f'm{i}-naam']][:4]
+        beelden = ''.join(f'<figure class="ut-dag__beeld{" is-aan" if j == 0 else ""}" data-beeld="{i}"><img src="{klein(f"m{i}")}" '
+                          f'alt="{d[f"m{i}-alt"]}" width="800" height="1000" loading="lazy" decoding="async" style="object-position:{d.get(f"m{i}-positie", "50% 50%")}"></figure>'
+                          for j, i in enumerate(m) if bestaat(d[f'm{i}-foto']))
+        momenten = ''.join(f'<li class="ut-moment{" is-aan" if j == 0 else ""}" data-moment="{i}"><h3 class="ut-moment__kop"><button type="button" class="ut-moment__kies" '
+                           f'aria-expanded="{"true" if j == 0 else "false"}" aria-controls="ut-moment-{i}-open"><span class="ut-moment__deel">{d[f"m{i}-deel"]}</span>'
+                           f'<span class="ut-moment__naam">{d[f"m{i}-naam"]}</span></button></h3><div class="ut-moment__open" id="ut-moment-{i}-open"><div>'
+                           f'<p class="ut-moment__tekst">{d[f"m{i}-tekst"]}</p></div></div></li>' for j, i in enumerate(m))
+        credit = f'<p class="ut-fotocredit">{d["fotocredit-dag"]}</p>' if d.get('fotocredit-dag') else ''
+        sub = f'<p class="ut-dag__sub">{d["dag-sub"]}</p>' if d.get('dag-sub') else ''
+        blok['UT_DAG'] = (f'<section data-component="ut-dag" class="al-sec ut-dag" data-start="{d.get("dag-start", "1")}"><div class="al-wrap">'
+                          f'<div class="ut-dag__blok"><div class="ut-dag__bg" aria-hidden="true"></div><div class="ut-dag__foto">{beelden}</div>'
+                          f'<div class="ut-dag__inner"><h2>{d["dag-kop"]}</h2>{sub}<ol class="ut-dag__lijst">{momenten}</ol></div></div>{credit}</div></section>')
+    else:
+        blok['UT_DAG'] = ''
+
+    # 6k kamers: kaarten zoals de adslander, ZONDER prijs; Mews met kamer-id (KAMER_MEWS), Meer info = kamer-pop-up
+    kk, kamerdata, popkamer = [], {}, {}
+    for k in d['kamers']:
+        if k not in KAMER_MEWS or k not in kamerbron:
+            sys.exit(f'uitje: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen kamerdata ({UT_KAMERS})')
+        r, room = kamerbron[k], KAMER_MEWS[k]
+        if r.get('kamer') != room:
+            sys.exit(f'uitje: Mews-id van {k} in {UT_KAMERS} wijkt af van KAMER_MEWS')
+        for x in r['fotos'] + r.get('pop_fotos', []) + [r.get('video') or '', r['kaart_foto']]:
+            bestaat(x)
+        kenm = ''.join(f'<li>{icoon(AL_KAMER_IC[ic])}<span>{escape(t, quote=False)}</span></li>' for ic, t in r['kaart'])
+        naam = escape(r['naam'], quote=False)
+        kk.append(
+            f'<article class="kk-kaart" data-kamerkaart="{k}"><a class="kk-foto" href="#kamers" data-kamer="{k}" aria-haspopup="dialog" tabindex="-1" aria-hidden="true"><img src="{r["kaart_foto"]}" width="1400" height="934" alt="" loading="lazy" decoding="async"></a>'
+            f'<div class="kk-inhoud"><h3 class="kk-naam">{naam}</h3><p class="kk-tekst">{escape(r["kort"], quote=False)}</p>'
+            f'<ul class="kk-kenmerken">{kenm}</ul>'
+            f'<p class="kk-knoppen"><a class="btn btn-primary mews-open" href="{mews("&amp;mewsRoom=" + room + "&amp;mewsRoute=rooms")}" data-room="{room}">{d["knop-kamer"]}</a>'
+            f'<a class="btn btn-secondary" href="#kamers" data-kamer="{k}" aria-haspopup="dialog" aria-label="{d["knop-info"]}: {naam}">{d["knop-info"]}</a></p></div></article>')
+        kamerdata[k] = {x: r[x] for x in ('naam', 'video', 'fotos', 'tekst', 'kenmerken', 'kamer')}
+        popkamer[k] = {x: r[x] for x in ('naam', 'desc', 'pop_fotos', 'video', 'fotos', 'kenmerken', 'kamer') if x in r}
+    blok['UT_KAMERS'] = ''.join(kk)
+    blok['UT_KAMERPOP'] = (
+        f'<dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam" data-l-foto="{d["kamer-pop-foto"]}" data-l-boek="{d["knop-kamer"]}">\n'
+        f'    <button type="button" class="lp-pop__sluit" aria-label="{d["pop-sluit"]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>\n'
+        '    <div class="lp-pop__binnen">\n'
+        '      <div class="lp-pop__media">\n'
+        f'        <video class="lp-pop__video" muted playsinline loop autoplay preload="none" aria-label="{d["kamer-pop-video"]}"></video>\n'
+        '        <img class="lp-pop__hero" alt="" hidden>\n'
+        '      </div>\n'
+        '      <div class="lp-pop__fotos"></div>\n'
+        '      <div class="lp-pop__body">\n'
+        '        <h3 class="lp-pop__titel" id="lp-pop-kamer-naam"></h3>\n'
+        '        <div class="lp-pop__tekst"></div>\n'
+        '        <ul class="lp-pop__kenmerken"></ul>\n'
+        '        <div class="lp-pop__acties">\n'
+        f'          <a class="btn btn-primary mews-open lp-pop__boek" data-basis="{mews()}" href="{mews()}">{d["knop-kamer"]}</a>\n'
+        '        </div>\n'
+        '      </div>\n'
+        '    </div>\n'
+        '  </dialog>\n'
+        '  <div class="lp-pop-overlay" hidden></div>\n'
+        '  <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>\n'
+        '  <script type="application/json" id="al-kamerdata">' + json.dumps(kamerdata, ensure_ascii=False).replace('</', '<\\/') + '</script>')
+
+    # 9 meer-uitjes (eerst, want de kaartknoppen verwijzen naar dezelfde pop-ups)
+    pop_uitje = (d.get('_pop') or {}).get('uitje', {})
+    for s, r in pop_uitje.items():
+        for f in r.get('fotos', []):
+            bestaat(f)
+    meer_slots = al_lijst(d, 'meer', '-naam')
+    slot_compleet('meer', meer_slots, ('-naam', '-cat', '-foto', '-alt'), ('-naam', '-cat', '-foto', '-alt'))
+    uk = []
+    for i in meer_slots[:3]:
+        p = f'meer{i}-'
+        if not d[p + 'naam']:
+            continue
+        url, pop = d.get(p + 'url', ''), d.get(p + 'pop', '')
+        if not url and not pop:
+            fouten.append(f'slot meer{i} heeft geen url en geen pop')
+        if not url and pop not in pop_uitje:
+            fouten.append(f'pop-updata ontbreekt voor uitje:{pop} (_pop.uitje in {json_file})')
+        attr = f'href="{url}"' if url else f'href="#ut-meer" data-pop="uitje:{pop}"'
+        reis = ''
+        for soort, ic in (('auto', 'auto'), ('lopen', 'voet'), ('fiets', 'rad')):
+            if d.get(p + soort):
+                reis += f'<span>{AL_REIS[ic]}{d[p + soort]}<span class="al-vh"> {d["l-" + soort]}</span></span>'
+        uk.append(f'<a class="al-uk ut-uk" {attr}><img src="{bestaat(d[p + "foto"])}" alt="{d[p + "alt"]}" width="1400" height="980" loading="lazy" decoding="async">'
+                  f'<span class="al-uk__body"><span class="al-uk__cat ut-uk__cat">{d[p + "cat"]}</span><span class="al-uk__naam">{d[p + "naam"]}</span>'
+                  f'<span class="al-uk__reis">{reis}</span><span class="al-uk__meer">{d["knop-meer"]} {AL_PIJL}</span></span></a>')
+    credit = f'<p class="ut-fotocredit">{d["fotocredit-meer"]}</p>' if d.get('fotocredit-meer') else ''
+    blok['UT_MEER'] = (f'<section data-component="ut-meer" class="al-sec ut-meer" id="ut-meer"><div class="ut-wrap--breed"><div class="ut-meer__kop"><h2>{d["meer-kop"]}</h2></div>'
+                       f'<div class="ut-meer__rij">{"".join(uk)}</div>{credit}</div></section>') if d.get('meer-kop') and uk else ''
+
+    # 7 ligging: getekende kaart; punten met pop moeten een bekende pop-up hebben
+    if d.get('kaart-kop'):
+        kaart = d.get('kaart') or {}
+        if not isinstance(kaart, dict) or len(kaart.get('hotel') or []) != 2 or not kaart.get('punten'):
+            sys.exit('uitje: kaart moet een object zijn met hotel [lat, lng] en punten')
+        for pt in kaart['punten']:
+            if not pt.get('hoofd'):
+                if pt.get('pop') and pt['pop'].split(':', 1)[-1] not in pop_uitje:
+                    fouten.append(f'kaartpunt {pt.get("naam")}: pop-updata ontbreekt voor {pt["pop"]}')
+                if not pt.get('pop') and not pt.get('url'):
+                    fouten.append(f'kaartpunt {pt.get("naam")}: geen url en geen pop')
+        meta = ''
+        if d.get('kaart-rijtijd') or d.get('kaart-km'):
+            delen = [f'<b>{d["kaart-rijtijd"]}</b> {d["l-met-auto"]}'] if d.get('kaart-rijtijd') else []
+            if d.get('kaart-km'):
+                delen.append(f'({d["kaart-km"]})' if delen else d['kaart-km'])
+            meta = f'<p class="ut-voet__meta">{AL_REIS["auto"]}<span>{" ".join(delen)}</span></p>'
+        naam = f'<p class="ut-voet__naam">{d["kaart-naam"]}</p>' if d.get('kaart-naam') else ''
+        knop = (f'<a class="btn btn-primary ut-voet__knop" href="{d["route-url"]}" target="_blank" rel="noopener">{d["knop-route"]}'
+                f'<span class="al-vh"> {d["l-nieuw-tabblad"]}</span></a>') if d.get('route-url') else ''
+        regel = f'<p>{d["kaart-regel"]}</p>' if d.get('kaart-regel') else ''
+        t = lambda k: escape(d[k], quote=True)
+        blok['UT_KAART'] = (
+            f'<section data-component="ut-kaart" class="al-sec ut-kaart"><div class="al-wrap"><div class="al-paneel ut-kaart__paneel">'
+            f'<div class="ut-kaart__kop"><h2>{d["kaart-kop"]}</h2>{regel}</div><div class="ut-kaart__veld">'
+            f'<div class="ut-kaart__beeld" data-kaart data-geo="content/kaart/getekend.json" data-punten="#ut-kaart-punten" data-vignet="{d["kaart-vignet"]}" '
+            f'data-t-in="{t("kaart-knop-inzoomen")}" data-t-uit="{t("kaart-knop-uitzoomen")}" data-t-alles="{t("kaart-knop-alles")}" '
+            f'data-t-wiel="{t("kaart-hint-wiel")}" data-t-vingers="{t("kaart-hint-vingers")}" data-t-attributie="{t("kaart-attributie")}">'
+            f'<img class="ut-kaart__grond" src="{d["kaart-foto-klein"]}" srcset="{d["kaart-foto-klein"]} 720w, {d["kaart-foto"]} 1200w" sizes="(max-width:767px) 100vw, 1060px" '
+            f'alt="{d["kaart-alt"]}" width="1200" height="675" loading="lazy" decoding="async"></div>'
+            f'<div class="ut-voet"><span class="ut-voet__ic" aria-hidden="true">{UT_SPELD}</span><div class="ut-voet__tk">{naam}{meta}</div>{knop}</div>'
+            '</div></div></div>'
+            '<script type="application/json" id="ut-kaart-punten">' + json.dumps(kaart, ensure_ascii=False).replace('</', '<\\/') + '</script></section>')
+    else:
+        blok['UT_KAART'] = ''
+
+    # 8 FAQ + FAQPage (tekst = zichtbare tekst zonder tags)
+    faq_slots = al_lijst(d, 'f', '-v')
+    slot_compleet('f', faq_slots, (), ('-v', '-a'))
+    items, ld = [], []
+    for j, i in enumerate([i for i in faq_slots if d.get(f'f{i}-v')][:6]):
+        vr, an = d[f'f{i}-v'], d[f'f{i}-a']
+        items.append(f'<details class="as-accordeon__item"{" open" if j == 0 else ""}><summary class="as-accordeon__kop"><h3>{vr}</h3></summary>'
+                     f'<div class="as-accordeon__paneel"><p>{an}</p></div></details>')
+        ld.append({'@type': 'Question', 'name': plat(vr), 'acceptedAnswer': {'@type': 'Answer', 'text': plat(an)}})
+    if not items:
+        sys.exit('uitje: minstens een FAQ-vraag (f1-v + f1-a) nodig')
+    blok['UT_FAQ'] = ''.join(items)
+    blok['UT_FAQ_LD'] = json.dumps({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': ld}, ensure_ascii=False).replace('</', '<\\/')
+
+    # fotocredit voor de hele pagina (voor het slot)
+    blok['UT_FOTOCREDIT'] = f'<div class="al-wrap ut-fotocredit-rij"><p class="ut-fotocredit">{d["fotocredit"]}</p></div>' if d.get('fotocredit') else ''
+
+    # pop-upinhoud inline: uitjes (meer-kaarten, kaartknoppen) + kamers (telefoonvariant van de kamer-pop-up)
+    blok['UT_POPDATA'] = ('<script type="application/json" id="ut-popdata">'
+                          + json.dumps({'uitje': pop_uitje, 'kamer': popkamer}, ensure_ascii=False).replace('</', '<\\/') + '</script>')
+
+    blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'], taal='nl')
+    # kamerlinks in de spiegelvoet (zonder actiecode) krijgen ook de Mews-taal, net als de rest van de pagina
+    blok['AL_KOP'], blok['AL_VOET'] = (x.replace('af1d00ffc556?mewsRoom=', f'af1d00ffc556?language={taal}&amp;mewsRoom=') for x in (blok['AL_KOP'], blok['AL_VOET']))
+
+    for k, v in blok.items():
+        if f'<!-- {k} -->' not in html:
+            sys.exit(f'uitje: plek <!-- {k} --> niet in het sjabloon')
+        html = html.replace(f'<!-- {k} -->', v)
+    for k, v in d.items():
+        if isinstance(v, str) and not k.startswith('_'):
+            html = html.replace('{{' + k + '}}', v)
+    open_velden = sorted(set(re.findall(r'\{\{[^}]+\}\}', html)))
+    if open_velden:
+        sys.exit(f'uitje: open velden in {output_file}: {open_velden}')
+    if fouten:
+        sys.exit('uitje:\n  ' + '\n  '.join(fouten))
+    if '—' in html:
+        sys.exit('uitje: em-dash in de uitvoer')
+    with open(os.path.join(base, output_file), 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
     if config.get('adslander'):
         return build_adslander(config, output_file, json_file, template_name, lang)
+    if config.get('uitje'):
+        return build_uitje(config, output_file, json_file, template_name, lang)
 
     template_path = os.path.join(base, config['template'])
     json_path     = os.path.join(base, json_file)

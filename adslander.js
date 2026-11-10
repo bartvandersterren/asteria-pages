@@ -18,7 +18,8 @@
 (function () {
   'use strict';
   var root = document.documentElement;
-  var LANG = 'de-DE';
+  /* taal van de Mews-widget: data-mews-taal op <html> (uitje-sjabloon nl-NL), anders de-DE (adslander) */
+  var LANG = root.getAttribute('data-mews-taal') || 'de-DE';
   var zacht = !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
   var meet = function (naam, extra) {
     window.dataLayer = window.dataLayer || [];
@@ -478,7 +479,11 @@
   if (popEl && popEl.getAttribute('data-bron')) {
     var POP = null, popLaden = null;
     var haalPop = function () {
-      if (!popLaden) popLaden = fetch(popEl.getAttribute('data-bron')).then(function (r) { if (!r.ok) throw r; return r.json(); })
+      /* data-bron '#id' = de inhoud staat in de pagina (script type=application/json, uitje-sjabloon); anders ophalen */
+      var bronAttr = popEl.getAttribute('data-bron'), inline = bronAttr.charAt(0) === '#' ? document.querySelector(bronAttr) : null;
+      if (!popLaden && inline) popLaden = Promise.resolve().then(function () { return JSON.parse(inline.textContent); })
+        .then(function (d) { POP = d; return d; }).catch(function () { popLaden = null; return null; });
+      if (!popLaden) popLaden = fetch(bronAttr).then(function (r) { if (!r.ok) throw r; return r.json(); })
         .then(function (d) { POP = d; return d; }).catch(function () { popLaden = null; return null; });
       return popLaden;
     };
@@ -569,7 +574,8 @@
         naam = tekstVan(kaart, '.al-tegel__naam'); badge = esc(L.lFacbadge); kenm = r.kenmerken;
         if (r.hotelboek) { boek = heroBoek(); boeklabel = L.lHotelboek; }
       } else if (soort === 'uitje') {
-        naam = tekstVan(kaart, '.al-uk__naam'); badge = tekstVan(kaart, '.al-uk__cat');
+        /* zonder kaart (genummerde knop op de kaart) komen naam en categorie uit de pop-updata */
+        naam = tekstVan(kaart, '.al-uk__naam') || esc(r.naam); badge = tekstVan(kaart, '.al-uk__cat') || esc(r.cat || '');
         var reis = ['auto', 'voet', 'rad'].filter(function (x) { return r[x]; }).map(function (x) {
           return '<span>' + REIS[x] + '<b>' + esc(r[x]) + '</b> ' + esc(L['l' + x.charAt(0).toUpperCase() + x.slice(1)]) + '</span>'; }).join('');
         if (r.start) reis += '<span>' + REIS.start + '<b>' + esc(r.start) + '</b></span>';

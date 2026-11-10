@@ -550,3 +550,26 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `data-mews-config` per dialoog en Duitse labels bij `<html lang="de">`; pagina's met één #ar-kal werken als voorheen.
 - Volgende lander = JSON kopiëren + entry in TEMPLATES (`'adslander': True`). Test: `python3 -m http.server 8791` +
   `python3 scripts/test_adslander.py [URL] [--schermafdruk qa/adslander]` (API's en Mews gemockt).
+
+## Uitje-sjabloon (omgevings-detailpagina, nov 2026, proef)
+
+- Exacte nabouw van de Parkhotel-omgevingspagina (parkhotelhorst.nl/gebied/<slug>/, parkhotel-site `src/fragmenten/pagina-gebied-v2.html`)
+  in de Asteria-stijl van de adslander. Eerste: `/zooparc-overloon-v2` (build-entry `uitje-zooparc-overloon`), noindex, follow.
+- Bestanden: `uitje.template.html`, `uitje.css` (prefix `ut-`, laadt na lander-w1.css + adslander.css), `uitje.js` (Lees meer, dagverloop,
+  kaartpunten + namen inpassen), `kaart-getekend.js` + `kaart-getekend.css` (port van de Parkhotel-bouwsteen, `window.AsteriaKaart`,
+  ondergrond `content/kaart/getekend.json`), `adslander.js` (Mews, kamerslider, pop-ups, onderbalk, cookie; taal via
+  `<html data-mews-taal>`, pop-updata inline via `data-bron="#id"`), `translations/uitje-labels-nl.json` (vaste labels, eerst geladen),
+  `translations/uitje-<slug>-nl.json` (het ene gegevensbestand per uitje, wint), `content/uitje-kamers-nl.json` (NL-kamerkaarten +
+  kamer-pop-up, uit lp-kamerdata en kamertypes-v2-nl), hotelvignet `fotos/l26-uitje-vignet-asteria.webp` (uit parkhotel-os
+  hotels/asteria/public/omgevingsscherm/vignetten/hotel.webp).
+- Blokken (volgorde = Parkhotel): hero, oogopslag (paneel 120/64 px over de hero), verhaal (v1-v3, rij 2-3 achter Lees meer), tip,
+  goed om te weten (g1-g6), dagverloop (m1-m4, een open, foto wisselt), kamers (adslander-slider zonder prijs), ligging (getekende kaart),
+  FAQ (f1-f6, FAQPage JSON-LD), meer in de omgeving (meer1-3: zonder `url` opent de kaart de uitje-pop-up `_pop.uitje.<pop>`), slot.
+- Velden: zie `_uitleg` en de sleutels in `translations/uitje-zooparc-overloon-nl.json`; `kaart` = {hotel [lat,lng], punten [{naam, lat, lng,
+  hoofd, nr, label, pop|url}]}. Build `build_uitje` stopt bij een open veld, ontbrekend fotobestand, em-dash, of een half gevuld FAQ-/meer-slot.
+  `al_kop_voet(d, mews, taal='nl')` = spiegelkop/-voet met de NL-labels (standaard `de` voor de adslander, uitvoer daar ongewijzigd).
+- Volgend uitje = `translations/uitje-zooparc-overloon-nl.json` kopiëren naar `translations/uitje-<slug>-nl.json`, invullen, en een regel in
+  TEMPLATES (`'uitje': True`) + `python3 build.py uitje-<slug>`. Vangnet-kaartfoto (`kaart-foto`, 1200x675 en 720x540) = de kaart zelf,
+  gerenderd met Playwright (element `.ut-kaart__beeld`, knoppen en voetstrook verborgen).
+- Test: `python3 -m http.server 8792` + `python3 scripts/test_uitje.py [URL] [--schermafdruk qa/uitje]` (Mews en /api gemockt; platen
+  `asteria-<breedte>-<blok>.png` naast de Parkhotel-platen `parkhotel-<breedte>-<blok>.png`).

@@ -1,0 +1,366 @@
+/* ==========================================================================
+   UITJE: de omgevings-detailpagina van Hotel Asteria (eerste: /zooparc-overloon-v2)
+   --------------------------------------------------------------------------
+   Sjabloon : uitje.template.html (build.py entry uitje-<slug>, build_uitje)
+   Gedrag   : uitje.js (Lees meer, dagverloop, kaartpunten); adslander.js (Mews, kamerslider, pop-ups, onderbalk)
+   Bron     : exacte nabouw van parkhotel-site src/stijl/pagina-gebied-v2.css (blokken, rasters, maten, gedrag), prefix
+              gd- -> ut-. Alleen wat de adslander niet al heeft: hero, kamerslider, paneel, kaarten, FAQ-accordeon, slotband
+              en pop-ups komen uit adslander.css / lander-w1.css (laden ervoor). Kleuren en letters uitsluitend uit de
+              tokens van lander-w1.css; Parkhotel-creme = --surface, de patroongrond = --paper, goud = --terracotta.
+              Breekpunten 1279 / 1023 / 767 / 599 en min-width 1024, zoals de adslander.
+   Geen eyebrows, geen ornamenten, iconen als SVG.
+   ========================================================================== */
+
+.ut-wrap--breed { width:min(1440px, calc(100% - 60px)); margin-inline:auto; position:relative }
+
+/* fotocredit: kleine regel met bronlinks (alleen als gevuld) */
+.ut-fotocredit { margin:14px 0 0; font-size:12px; line-height:1.5; color:var(--ink-soft) }
+.ut .ut-fotocredit a { text-decoration:underline; text-underline-offset:2px }
+.ut .ut-fotocredit a:hover { color:var(--ink) }
+.ut-fotocredit-rij { padding-bottom:24px }
+
+/* ==========================================================================
+   1 hero: volle foto, categorie cursief, h1 + ondertitel optisch midden tussen kop en paneel (rust onderin = overlap)
+   ========================================================================== */
+.ut-hero .al-hero__foto img { object-position:50% var(--ut-hero-focus, 50%) }
+.ut-hero .ut-hero__wrap { padding:30px 0 150px }
+.ut-hero__tekst { max-width:760px; margin-inline:auto }
+.al .ut-hero .al-g { color:color-mix(in srgb, var(--terracotta) 60%, var(--surface)) }
+.ut-hero__cat { font-family:var(--font-display); font-style:italic; font-weight:700; font-size:24px; line-height:1.2; color:var(--surface) }
+
+/* ==========================================================================
+   2 in één oogopslag: paneel hangt 120 px over de hero; kop + vakjes links, tabel + routelink rechts
+   ========================================================================== */
+.ut-oog { padding-top:0; margin-top:-120px; z-index:2 }
+.ut-oog__paneel { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:64px; align-items:start; padding:44px 52px }
+.al .ut-oog__kop { font-size:36px; line-height:1.15 }
+.ut-vakjes { display:flex; flex-wrap:wrap; gap:12px; margin-top:26px; font-variant-numeric:tabular-nums }
+.ut-vk { width:96px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; min-width:0 }
+.ut-vk__ib { width:64px; height:64px; border-radius:var(--radius-chip); display:flex; align-items:center; justify-content:center;
+  background:var(--paper-shade-2); border:1px solid var(--hairline-strong) }
+.ut-vk__ico { width:40px; height:40px; flex:none; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.ut-vk__t { display:flex; flex-direction:column; align-items:center; min-width:0; line-height:1.2 }
+.ut-vk__t strong { font-size:17px; font-weight:700; color:var(--ink); white-space:nowrap }
+.ut-vk__t span { font-size:14px; color:var(--ink-soft) }
+.ut-tabel { margin:0; padding:0; border-top:1px solid var(--hairline-strong) }
+.ut-tabel__rij { display:grid; grid-template-columns:96px minmax(0,1fr); gap:16px; padding:13px 0; border-bottom:1px solid var(--hairline-strong);
+  font-size:16px; line-height:1.4 }
+.ut-tabel__rij dt { font-family:var(--font-display); font-weight:700; font-size:17px; color:var(--ink) }
+.ut-tabel__rij dd { margin:0; color:var(--ink-soft) }
+.al a.ut-route { margin-top:18px }
+
+/* ==========================================================================
+   3 het verhaal: tekst op een surface-vlak tot de schermrand, foto steekt erover en wisselt van kant;
+     rij 2 en 3 in .ut-verhaal__meer, met script ingeklapt (verloop naar --paper) achter Lees meer
+   ========================================================================== */
+.ut-verhaal { padding:44px 0 }
+.ut-it { width:100%; overflow-x:hidden }
+.ut-it__omhulsel { max-width:1530px; margin:0 auto; padding:0 15px }
+.ut-it__rij { display:flex; flex-wrap:wrap }
+.ut-it--rechts .ut-it__rij { flex-direction:row-reverse }
+.ut-it__kolom { flex:0 0 auto; width:100%; min-width:0 }
+.ut-it__foto { position:relative; z-index:2; width:100%; line-height:0 }
+.ut-it__foto img { width:100%; height:auto; border-radius:var(--radius-image); box-shadow:var(--shadow-card) }
+.ut-it__tekst { position:relative; z-index:1; padding:30px 20px; color:var(--ink) }
+.ut-it__tekst::before { content:""; position:absolute; top:0; left:0; z-index:-1; width:100%; height:100%; background:var(--surface) }
+.ut-it--rechts .ut-it__tekst::before { right:0; left:auto }
+.al .ut-it__tekst h2 { font-size:32px; line-height:1.12; margin:0 0 20px }
+.ut-it__tekst p { margin:0 0 18px; font-size:17px; line-height:1.6 }
+.ut-it__link { margin:24px 0 0 }
+.ut-verhaal__meer { position:relative; margin-top:60px }
+.ut-verhaal__meer.is-dicht { max-height:300px; overflow:hidden }
+.ut-verhaal__meer.is-dicht::after { content:""; position:absolute; left:0; right:0; bottom:0; height:220px; z-index:3; pointer-events:none;
+  background:linear-gradient(180deg, color-mix(in srgb, var(--paper) 0%, transparent) 0%, color-mix(in srgb, var(--paper) 85%, transparent) 60%, var(--paper) 100%) }
+.ut-meerbalk { display:flex; justify-content:center; padding:0 24px; margin-top:32px; position:relative; z-index:4 }
+.ut-meerbalk[hidden] { display:none }
+.ut-verhaal__meer.is-dicht + .ut-meerbalk { margin-top:-26px }
+.ut .ut-meerbalk__knop { display:inline-flex; align-items:center; justify-content:center; gap:12px; min-width:210px; font-size:16px; padding:16px 30px }
+.ut-meerbalk__chev { display:inline-flex; width:18px; height:18px; transition:transform .25s ease-out }
+.ut-meerbalk__chev svg { width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round }
+.ut-meerbalk__knop[aria-expanded="true"] .ut-meerbalk__chev { transform:rotate(180deg) }
+.ut-verhaal .ut-fotocredit { margin-top:24px }
+@media (min-width:1024px) {
+  .ut-it__kolom--foto { width:41.6666666667% }
+  .ut-it__kolom--tekst { width:58.3333333333% }
+  .ut-it__foto { width:calc(100% + 60px); margin-top:52px; margin-left:-15px }
+  .ut-it--rechts .ut-it__foto { margin-left:-46px }
+  .ut-it__tekst { padding:60px 0 60px 80px }
+  .ut-it--rechts .ut-it__tekst { padding-left:0; padding-right:80px }
+  .ut-it__tekst::before { width:100vw }
+  .al .ut-it__tekst h2 { font-size:42px }
+}
+@media (min-width:1200px) {
+  .ut-it__tekst { padding:80px 0 80px 100px }
+  .ut-it--rechts .ut-it__tekst { padding-right:100px }
+}
+@media (min-width:1440px) {
+  .ut-it__foto { width:calc(100% + 245px); margin-left:-200px }
+  .ut-it--rechts .ut-it__foto { margin-left:-46px }
+  .ut-it__tekst { padding:123px 0 118px 146px }
+  .ut-it--rechts .ut-it__tekst { padding-left:0; padding-right:140px }
+  .al .ut-it__tekst h2 { font-size:56px }
+  .ut-it__link { margin-top:36px }
+}
+
+/* ==========================================================================
+   4 tip van de receptie: strook zonder foto, kop links achter een haarlijn, citaat cursief rechts
+   ========================================================================== */
+.ut-tip__strook { display:grid; grid-template-columns:minmax(0,300px) minmax(0,1fr); column-gap:44px; align-items:center; padding:34px 44px }
+.ut-tip__kop { padding-right:44px; border-right:1px solid var(--hairline-strong); align-self:stretch; display:flex; align-items:center }
+.al .ut-tip__kop h2 { font-size:40px }
+.ut-tip__tekst { display:flex; flex-direction:column; gap:14px; min-width:0; max-width:660px }
+.ut-tip__tip { font-family:var(--font-display); font-style:italic; font-weight:700; font-size:24px; line-height:1.4; color:var(--ink) }
+.ut-tip__van { font-size:15px; color:var(--ink-soft) }
+
+/* ==========================================================================
+   5 goed om te weten: kop gecentreerd, fotokaarten (foto 4:3, icoon, naam, regel); telefoon veegrij
+   ========================================================================== */
+.ut-prak__kop { max-width:760px; margin-inline:auto; text-align:center }
+.ut-prak__tegels { list-style:none; margin:32px 0 0; padding:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px }
+.ut-fk { background:var(--surface); color:var(--ink); border-radius:var(--radius-card); box-shadow:var(--shadow-card); overflow:hidden;
+  display:flex; flex-direction:column }
+.ut-fk__foto { display:block; width:100%; aspect-ratio:4 / 3; height:auto; object-fit:cover; flex:none }
+.ut-fk__leeg { display:flex; align-items:center; justify-content:center; aspect-ratio:4 / 3; flex:none; background:var(--paper-shade-2); color:var(--terracotta) }
+.ut-fk__leeg .ut-fk__ico { width:72px; height:72px }
+.ut-fk__body { flex:1; display:flex; flex-direction:column; align-items:center; gap:10px; padding:20px 14px 22px; text-align:center }
+.ut-fk__ico { width:32px; height:32px; color:var(--terracotta) }
+.al .ut-fk__naam { font-size:21px; line-height:1.15 }
+.ut-fk__body p { font-size:15px; line-height:1.4; color:var(--ink-soft) }
+.ut-prak .ut-fotocredit { text-align:left }
+@media (min-width:1280px) {
+  .ut-prak__tegels { gap:20px; margin-top:36px }
+  .ut-fk__body { padding:24px 18px 26px; gap:12px }
+  .ut-fk__body p { font-size:16px }
+}
+@media (min-width:768px) and (max-width:1023px) {
+  .ut-prak__tegels { grid-template-columns:repeat(2, minmax(0,1fr)) }
+}
+
+/* ==========================================================================
+   6 de dag in vier momenten: surface-paneel vanaf de linker schermrand, staande foto rechts die per moment wisselt;
+     met script klapt alleen het gekozen moment open (uitje.js), zonder script staan alle teksten open
+   ========================================================================== */
+.ut-dag__blok { position:relative; color:var(--ink) }
+.ut-dag__bg { position:absolute; top:47px; bottom:0; left:0; right:317px; background:var(--surface); border-radius:var(--radius-card);
+  box-shadow:var(--shadow-card) }
+.ut-dag__inner { position:relative; padding:105px 0 95px 56px; max-width:620px; display:flex; flex-direction:column; gap:12px; align-items:flex-start }
+.ut-dag__sub { font-size:18px; line-height:1.5; color:var(--ink-soft) }
+.ut-dag__lijst { list-style:none; margin:22px 0 0; padding:0; display:flex; flex-direction:column; gap:8px; align-self:stretch }
+.ut-moment { padding:16px 18px; border:1px solid var(--hairline-strong); border-left:3px solid var(--hairline-strong); border-radius:var(--radius-chip);
+  cursor:pointer; transition:border-color .2s, background .2s }
+.ut-moment.is-aan { border-color:var(--terracotta); background:var(--paper-shade-2) }
+.ut-moment__kop { margin:0; font:inherit }
+.ut-moment__kies { display:grid; grid-template-columns:112px minmax(0,1fr); column-gap:18px; align-items:baseline; width:100%; padding:0; border:0;
+  background:none; text-align:left; cursor:pointer; font:inherit; color:inherit }
+.ut-moment__kies:focus-visible { outline:3px solid var(--terracotta); outline-offset:4px; border-radius:2px }
+.ut-moment__deel { font-family:var(--font-display); font-weight:700; font-size:22px; line-height:1.2; color:var(--terracotta-text) }
+.ut-moment__naam { font-family:var(--font-body); font-weight:700; font-size:17px; line-height:1.3; color:var(--ink) }
+.ut-moment__open { margin-left:130px }
+.ut-moment__tekst { margin:4px 0 0; font-size:15px; line-height:1.5; color:var(--ink-soft) }
+.ut-dag--js .ut-moment__open { display:grid; grid-template-rows:0fr; transition:grid-template-rows .3s ease }
+.ut-dag--js .ut-moment__open > div { overflow:hidden }
+.ut-dag--js .ut-moment.is-aan .ut-moment__open { grid-template-rows:1fr }
+.ut-dag--js .ut-moment:not(.is-aan) .ut-moment__open > div { visibility:hidden; transition:visibility 0s .3s }
+.ut-dag__foto { position:absolute; top:0; right:0; width:500px; height:640px; overflow:hidden; border-radius:var(--radius-image); background:var(--ink);
+  box-shadow:var(--shadow-deep) }
+.ut-dag__beeld { position:absolute; inset:0; margin:0; opacity:0; visibility:hidden; transition:opacity .3s, visibility .3s }
+.ut-dag__beeld.is-aan { opacity:1; visibility:visible }
+.ut-dag__beeld img { width:100%; height:100%; object-fit:cover }
+.ut-dag .ut-fotocredit { margin-top:18px }
+@media (min-width:1024px) {
+  .ut-dag { overflow-x:clip }
+  .ut-dag__blok { display:flow-root; min-height:687px }
+  .ut-dag__bg { --over:max(30px, 50vw - 560px); left:calc(var(--over) * -1); border-radius:0 var(--radius-card) var(--radius-card) 0 }
+  .ut-dag__inner { margin-top:47px; min-height:640px; max-width:684px; padding:56px 0 56px 0; justify-content:center }
+}
+@media (min-width:1280px) { .ut-dag__foto { right:-80px } }
+@media (min-width:1024px) and (max-width:1279px) {
+  .ut-dag__foto { width:420px }
+  .ut-dag__bg { right:237px }
+  .ut-dag__inner { max-width:calc(100% - 470px) }
+}
+
+/* ==========================================================================
+   6k kamers: kamerslider van de adslander (adslander.css .al-kamers/.kk-*), zonder prijs
+   ========================================================================== */
+.ut-kamers__kop { margin:0 0 24px }
+.ut-kamers__kop .al-kamers__kop { margin:0 }
+.ut-kamers__sub { margin-top:10px; max-width:660px; font-size:18px; line-height:1.5; color:var(--ink-soft) }
+.ut-kamers .kk-knoppen { margin-top:auto }
+.ut-kamers .kk-kenmerken li { min-width:0 }
+.ut-kamers .kk-kenmerken span { overflow-wrap:anywhere; hyphens:auto }
+@media (min-width:1024px) { .ut-kamers { padding:44px 0 } }
+
+/* ==========================================================================
+   7 ligging: paneel met de getekende kaart; voetstrook (adres, rijtijd, routeknop) over de onderrand van de kaart
+   ========================================================================== */
+.ut-kaart__paneel { padding:36px 32px 34px 36px }
+.ut-kaart__kop { display:flex; flex-direction:column; gap:10px; margin-bottom:20px }
+.ut-kaart__kop p { font-size:17px; color:var(--ink-soft) }
+.ut-kaart__veld { position:relative }
+.ut-kaart__beeld { position:relative; height:440px; border:1px solid var(--hairline-strong); border-radius:var(--radius-image); overflow:hidden;
+  background:var(--paper-shade) }
+.ut-kaart__grond { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50% }
+.ut-kaart__beeld .gk-attr { left:auto; right:6px; bottom:102px }
+.ut-kaart .gk-punt__lijn { position:absolute; height:1px; background:var(--ink-soft); transform-origin:0 50%; pointer-events:none; opacity:.85 }
+.ut-kaart .gk-plaats.ut-plaats-weg { visibility:hidden }
+.ut-kaart .gk-punt__stip { position:absolute; left:-4px; top:-4px; width:8px; height:8px; border-radius:50%; background:var(--ink);
+  box-shadow:0 0 0 2px var(--surface); pointer-events:none }
+.ut-kaart .gk-punt__knoplijn { position:absolute; left:0; top:0; height:2px; margin-top:-1px; background:var(--ink); transform-origin:0 50%; pointer-events:none }
+.ut-kaart--legenda .gk-punt__naam,.ut-kaart--legenda .gk-punt__lijn { display:none }
+.ut-kaart .gk-punt__letter { display:none }
+.ut-kaart--legenda .gk-punt__letter { position:absolute; left:-9px; top:-34.5px; width:18px; height:18px; border-radius:50%; display:flex; align-items:center;
+  justify-content:center; background:var(--ink); color:var(--surface); font-size:11px; font-weight:700; line-height:1; pointer-events:none }
+.ut-kaart__legenda { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:8px 20px; font-size:15px; line-height:1.35; color:var(--ink) }
+.ut-kaart__legenda li { display:flex; align-items:center; gap:8px }
+.ut-kaart__teken { flex:none; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;
+  color:var(--surface); background:var(--terracotta) }
+.ut-kaart__legenda .is-hoofd .ut-kaart__teken { background:var(--ink) }
+.ut .ut-kaart__legenda a { text-decoration:underline; text-underline-offset:3px }
+.ut-voet { position:absolute; left:12px; right:12px; bottom:12px; z-index:6; height:84px; display:flex; align-items:center; gap:14px; padding-right:14px;
+  background:var(--surface); border-radius:var(--radius-chip); box-shadow:var(--shadow-card); overflow:hidden }
+.ut-voet__ic { flex:none; width:84px; height:84px; display:flex; align-items:center; justify-content:center; background:var(--paper-shade-2); color:var(--terracotta) }
+.ut-voet__tk { flex:1; min-width:0; display:flex; flex-direction:column; gap:4px }
+.ut-voet__naam { font-family:var(--font-display); font-weight:700; font-size:18px; line-height:1.2; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.ut-voet__meta { display:flex; align-items:center; gap:8px; font-size:14px; line-height:1.3; color:var(--ink-soft); white-space:nowrap }
+.ut-voet__meta svg { flex:none; width:20px; height:20px; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.ut-voet__meta b { color:var(--ink) }
+.ut .ut-voet__knop { flex:none; min-height:48px; padding:14px 22px; font-size:15px }
+@media (min-width:1024px) and (max-width:1279px) { .ut-kaart__beeld { height:360px } }
+
+/* ==========================================================================
+   8 FAQ: adslander-opmaak (.al-faq, .as-accordeon), zonder tabs
+   ========================================================================== */
+.ut-faq .as-accordeon { margin-top:0 }
+
+/* ==========================================================================
+   9 meer in de omgeving: drie kaarten (.al-uk), telefoon veegrij
+   ========================================================================== */
+.ut-meer__kop { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:30px }
+.ut-meer__rij { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:28px }
+.ut-meer .ut-uk { position:relative; flex:none; cursor:pointer }
+.ut-meer .ut-uk img { height:auto; aspect-ratio:10 / 7 }
+.ut-uk__cat.al-uk__cat { font-family:var(--font-display); font-style:italic; font-size:17px; letter-spacing:0; text-transform:none; color:var(--ink-soft) }
+.ut-meer .al-uk__reis { margin-top:12px }
+@media (max-width:1023px) { .ut-meer__rij { gap:16px } }
+
+/* ==========================================================================
+   10 slot: fotoband (adslander .al-slot__band) met kop, tekst, een boekknop en het telefoonnummer
+   ========================================================================== */
+.ut-slot { position:relative; padding:44px 0 0 }
+.ut-slot .ut-slot__band { height:clamp(520px, 36vw, 760px) }
+.ut-slot .ut-slot__band img { object-position:50% var(--ut-slot-focus, 50%) }
+.ut-slot__tel { margin-top:4px }
+.ut .ut-slot__tel a { display:inline-flex; align-items:center; gap:8px; font-size:15px; color:var(--on-ink-body) }
+.ut .ut-slot__tel a:hover { color:var(--on-ink) }
+.ut-slot__tel svg { color:color-mix(in srgb, var(--terracotta) 60%, var(--surface)) }
+
+/* ==========================================================================
+   <= 1023 px: dagblok stapelt
+   ========================================================================== */
+@media (max-width:1023px) {
+  .ut-oog__paneel { gap:40px; padding:40px 36px }
+  .ut-dag__blok { display:flex; flex-direction:column }
+  .ut-dag__bg { display:none }
+  .ut-dag__foto { order:1; position:relative; top:auto; left:auto; right:auto; width:100%; height:380px; border-radius:var(--radius-image) var(--radius-image) 0 0; box-shadow:none }
+  .ut-dag__inner { order:2; background:var(--surface); border-radius:0 0 var(--radius-card) var(--radius-card); max-width:none; margin-left:0; padding:40px 40px 32px;
+    box-shadow:var(--shadow-card) }
+}
+
+/* ==========================================================================
+   <= 767 px: telefoon
+   ========================================================================== */
+@media (max-width:767px) {
+  .ut-wrap--breed { width:calc(100% - 30px) }
+
+  /* 1 */
+  .ut-hero.al-hero { height:auto; min-height:640px; display:flex }
+  .ut-hero .al-hero__foto { bottom:0; height:auto }
+  .ut-hero .ut-hero__wrap { height:auto; flex:1; padding:48px 0 112px; display:flex }
+  .ut-hero__tekst { gap:14px }
+  .ut-hero__cat { font-size:18px }
+  .al .ut-hero h1 { font-size:38px }
+
+  /* 2 */
+  .ut-oog { margin-top:-64px }
+  .ut-oog__paneel { grid-template-columns:minmax(0,1fr); gap:24px; padding:28px 18px 24px }
+  .al .ut-oog__kop { font-size:27px }
+  .ut-vakjes { margin-top:20px }
+  .ut-tabel__rij { grid-template-columns:76px minmax(0,1fr); gap:12px; font-size:15px; padding:11px 0 }
+  .ut-tabel__rij dt { font-size:15px }
+
+  /* 3 */
+  .ut-verhaal { padding:28px 0 }
+  .ut-it + .ut-it { margin-top:32px }
+  .al .ut-it__tekst h2 { font-size:32px }
+  .ut-it__tekst p { font-size:16px }
+  .ut-verhaal__meer { margin-top:40px }
+  .ut-verhaal__meer.is-dicht { max-height:240px }
+  .ut-verhaal__meer.is-dicht::after { height:180px }
+  .ut-meerbalk { padding:0 15px }
+  .ut .ut-meerbalk__knop { width:100%; min-width:0 }
+
+  /* 4 */
+  .ut-tip__strook { grid-template-columns:minmax(0,1fr); row-gap:16px; padding:26px 20px 24px }
+  .ut-tip__kop { padding:0 0 16px; border-right:0; border-bottom:1px solid var(--hairline-strong) }
+  .al .ut-tip__kop h2 { font-size:28px }
+  .ut-tip__tip { font-size:20px }
+
+  /* 5 */
+  .ut-prak__tegels { display:flex; gap:12px; margin:24px -15px 0; padding:0 15px 8px; overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x mandatory; scroll-padding-left:15px; scrollbar-width:none }
+  .ut-prak__tegels::-webkit-scrollbar { display:none }
+  .ut-prak__tegels li { flex:0 0 72%; scroll-snap-align:start }
+  .ut-fk__body { padding:14px 10px 16px; gap:8px }
+  .ut-fk__body p { font-size:14px }
+  .ut-fk__ico { width:28px; height:28px }
+  .al .ut-fk__naam { font-size:19px }
+
+  /* 6 */
+  .ut-dag__foto { height:260px }
+  .ut-dag__inner { padding:34px 20px 28px }
+  .ut-dag__sub { font-size:16px }
+  .ut-dag__lijst { margin-top:10px }
+  .ut-moment { padding:12px }
+  .ut-moment__kies { grid-template-columns:minmax(0,1fr) }
+  .ut-moment__deel { font-size:17px }
+  .ut-moment__naam { font-size:17px }
+  .ut-moment__open { margin-left:0 }
+
+  /* 6k */
+  .ut-kamers__kop { margin-bottom:18px }
+  .ut-kamers__sub { font-size:16px }
+  .ut-kamers .kk-kenmerken { gap:8px; font-size:12px }
+
+  /* 7 */
+  .ut-kaart__paneel { padding:22px 0 24px }
+  .ut-kaart__kop { padding:0 20px; margin-bottom:14px }
+  .ut-kaart__kop p { font-size:16px }
+  .ut-kaart__beeld { height:auto; aspect-ratio:4 / 3; border-left:0; border-right:0; border-radius:0 }
+  .ut-kaart__beeld.is-interactief { aspect-ratio:auto; height:320px }
+  .ut-kaart__beeld .gk-attr { bottom:5px }
+  .ut-kaart .gk-knoppen { right:8px; top:8px; gap:6px }
+  .ut-kaart .gk-knop { width:32px; height:32px }
+  .ut-kaart .gk-punt__naam { font-size:12px; padding:3px 6px 4px }
+  .ut-kaart .gk-punt--hoofd .gk-punt__naam { font-size:14px; padding:4px 8px 5px }
+  .ut-kaart__legenda { margin:14px 20px 0; font-size:14px; gap:8px 16px }
+  .ut-voet { position:static; height:auto; flex-wrap:wrap; gap:12px; padding:16px 20px 0; box-shadow:none; background:transparent; border-radius:0 }
+  .ut-voet__ic { width:52px; height:52px; border:1px solid var(--hairline-strong); border-radius:var(--radius-chip) }
+  .ut-voet__naam,.ut-voet__meta { white-space:normal }
+  .ut .ut-voet__knop { flex:1 1 100%; width:100%; margin-top:4px; white-space:normal; line-height:1.25 }
+
+  /* 9 */
+  .ut-meer__kop { flex-direction:column; align-items:flex-start; gap:10px; margin-bottom:20px }
+  .ut-meer__rij { display:flex; gap:12px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; scrollbar-width:none;
+    margin:0 -15px; padding:0 15px 8px; scroll-padding-left:15px }
+  .ut-meer__rij::-webkit-scrollbar { display:none }
+  .ut-meer .ut-uk { flex:0 0 72%; scroll-snap-align:start }
+
+  /* 10 */
+  .ut-slot { padding-top:28px }
+  .ut-slot .ut-slot__band { height:auto; min-height:560px }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .ut-meerbalk__chev,.ut-moment,.ut-dag__beeld,.ut-dag--js .ut-moment__open { transition:none }
+}
