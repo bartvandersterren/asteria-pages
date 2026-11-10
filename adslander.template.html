@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, sjabloon ADSLANDER: Duitse Google Ads-landers (eerste: /wellnesshotel-limburg-de).
+  Nabouw van parkhotelhorst.nl/de/wellnesshotel-limburg-nieuw/ (parkhotel-site src/fragmenten/pagina-adslander.html)
+  in de Asteria-stijl. Plan: ~/.claude/plans/curried-riding-lark.md.
+
+  BLOKVOLGORDE
+    kop        gesloten kop uit lander-w1.template.html (blok kopdicht), doorschijnend over de hero
+    1  hero    .al-hero   video (16:9 / 9:16), h1, sub, boekknop, vier zekerheden, Google-badge rechtsboven
+    2  intro   .al-intro  paneel, tekst + link (pop-up), vier feiten
+    3  slider  .al-rond   coverflow met lus + lightbox
+    4  arr     .al-arr    drie arrangementkaarten, midden uitgelicht; telefoon = veegrij
+    5  kamers  .al-kamers kamerrij met lus (kaartdata uit content/adslander-pop-de.json, Mews-id's uit build.py KAMER_MEWS)
+    6  fac     .al-fac    mozaiek een groot + vier klein
+    7  omg     .al-omg    randslider zonder lus, compacte kaarten
+    8  fotorij .al-fotorij band met lus
+    9  reviews .al-rev    Google-scorepaneel + kaarten (Duitse vertaling, content/reviews-google-asteria-de.json)
+    10 faq     .al-faq    tabs Wellness / Allgemein, .as-accordeon, FAQPage JSON-LD
+    11 nb      .al-nb     nieuwsbrief inline (POST /api/nieuwsbrief, taal de)
+    12 slot    .al-slot   fotoband + USP's, overlegstrook met portret
+    voet       gesloten voet uit lander-w1.template.html
+    + pop-up .al-pop, prijskalenders (dialog.ark per code), onderbalk .mob-cta, cookiemelding, scratchcard-pop-up
+
+  Velden (dubbele accolades + veldnaam) komen uit translations/adslander-<naam>-de.json; de AL-plekken (HTML-commentaar met AL_ en een naam) vult build.py (build_adslander).
+  Bouwen: python3 build.py adslander-wellnesshotel
+-->
+<html lang="{{html-taal}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{titel}}</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{{omschrijving}}">
+  <meta name="robots" content="{{robots}}">
+  <link rel="canonical" href="{{canonical}}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{titel}}">
+  <meta property="og:description" content="{{omschrijving}}">
+  <meta property="og:image" content="{{og-image}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:locale" content="{{og-locale}}">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preconnect" href="https://app.mews.com">
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- het eerste videobeeld (poster) is het grootste beeld in het eerste scherm: telefoon en bureaublad elk hun eigen -->
+  <link rel="preload" as="image" fetchpriority="high" media="(max-width:767px)" href="{{hero-poster-mobiel}}">
+  <link rel="preload" as="image" fetchpriority="high" media="(min-width:768px)" href="{{hero-poster-bureaublad}}" imagesrcset="{{hero-poster-bureaublad-klein}} 960w, {{hero-poster-bureaublad}} 1280w" imagesizes="100vw">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="adslander.css">
+  <link rel="stylesheet" href="arrangement-kalender.css">
+  <script src="adslander.js" defer></script>
+  <script src="arrangement-kalender.js" defer></script>
+  <!-- AL_VANAF_SCRIPT -->
+  <!-- AL_SCRATCHCARD -->
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    gtag('set', 'linker', { accept_incoming: true });
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Hotel","name":"Hotel Asteria","url":"{{canonical}}","inLanguage":"{{html-taal}}","address":{"@type":"PostalAddress","streetAddress":"Maasheseweg 80a","postalCode":"5804 AD","addressLocality":"Venray","addressCountry":"NL"},"telephone":"+31478511466","email":"info@asteria.nl","image":"{{og-image}}","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.2","reviewCount":"2280","bestRating":"5"}}
+  </script>
+  <!-- FAQPage: alle vragen (Wellness en Allgemein), tekst gelijk aan de zichtbare tekst in blok 10 -->
+  <script type="application/ld+json"><!-- AL_FAQ_LD --></script>
+</head>
+<body class="al-pagina">
+
+<!-- AL_KOP -->
+
+<main id="inhoud" class="lp al">
+
+  <!-- 1. Hero: video (poster = eerste frame), tekst gecentreerd, Google-badge rechtsboven -->
+  <section data-component="al-hero" class="al-hero al-hero--video">
+    <div class="al-hero__foto">
+      <picture><source media="(min-width:768px)" srcset="{{hero-poster-bureaublad-klein}} 960w, {{hero-poster-bureaublad}} 1280w" sizes="100vw" width="1280" height="720"><img src="{{hero-poster-mobiel}}" alt="{{hero-alt}}" width="480" height="854" fetchpriority="high" decoding="async"></picture>
+      <video class="al-hero__video" muted loop playsinline preload="none" aria-hidden="true" data-bron-bureaublad="{{hero-video-bureaublad}}" data-bron-mobiel="{{hero-video-mobiel}}"></video>
+    </div>
+    <div class="al-hero__badge" role="img" aria-label="{{google-aria}}"><span class="al-hero__score"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="al-hero__cijfer">{{google-score}}</span></span><span class="al-hero__lijn"></span><span class="al-hero__bron"><!-- AL_GOOGLE_G --><span class="al-hero__regels"><b>{{google-aantal}}</b><span>{{google-label}}</span></span></span></div>
+    <div class="al-wrap al-hero__wrap">
+      <div class="al-hero__tekst">
+        <div class="al-hero__titel">
+          <h1>{{hero-kop}}</h1>
+          <p class="al-hero__sub">{{hero-sub}}</p>
+        </div>
+        <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+        <ul class="al-trust al-hero__trust"><!-- AL_HERO_TRUST --></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Intro -->
+  <section data-component="al-intro" class="al-sec al-intro">
+    <div class="al-wrap">
+      <div class="al-paneel al-intro__paneel">
+        <div class="al-intro__links">
+          <h2>{{intro-kop}}</h2>
+          <p class="al-intro__tekst">{{intro-tekst}}</p>
+          <a class="al-intro__link" href="#al-fac" data-pop="{{intro-pop}}">{{intro-link}} <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+        <ul class="al-intro__lijst"><!-- AL_FEITEN --></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Fotoslider: lus, middelste actief (adslander.js zet de standklassen) -->
+  <section data-component="al-rond" class="al-rond" data-rond>
+    <div class="al-wrap al-rond__kop">
+      <h2>{{rond-kop}}</h2>
+      <p class="al-rond__sub">{{rond-sub}}</p>
+    </div>
+    <ul class="al-rond__rij" aria-label="{{rond-label}}"><!-- AL_ROND --></ul>
+    <div class="al-rond__pijlen">
+      <button type="button" class="al-rond__pijl" data-rond-stap="-1" aria-label="{{rond-vorige}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button type="button" class="al-rond__pijl" data-rond-stap="1" aria-label="{{rond-volgende}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+    <p class="al-rond__status" aria-live="polite"></p>
+  </section>
+  <div class="al-lb" data-lb hidden role="dialog" aria-modal="true" aria-label="{{rond-kop-kaal}}">
+    <button type="button" class="al-lb__sluit" data-lb-sluit aria-label="{{rond-sluit}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button type="button" class="al-lb__nav al-lb__nav--vorige" data-lb-stap="-1" aria-label="{{rond-vorige}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button type="button" class="al-lb__nav al-lb__nav--volgende" data-lb-stap="1" aria-label="{{rond-volgende}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    <figure class="al-lb__kader"><img class="al-lb__beeld" alt="" decoding="async"></figure>
+    <p class="al-lb__onder"><span class="al-lb__teller" aria-live="polite"></span><span class="al-lb__bijschrift"></span></p>
+  </div>
+
+  <!-- Pop-up achter de Mehr-info-knoppen: inhoud uit content/adslander-pop-de.json (pas bij gebruik opgehaald) -->
+  <div class="al-pop" data-pop-dialog hidden role="dialog" aria-modal="true" aria-labelledby="al-pop-naam"
+    data-bron="{{pop-bron}}"
+    data-l-sluit="{{rond-sluit}}" data-l-vorige="{{rond-vorige}}" data-l-volgende="{{rond-volgende}}"
+    data-l-incl="{{pop-incl-kop}}" data-l-arrboek="{{arr-knop}}" data-l-kamerboek="{{kamer-boek}}" data-l-kamerbadge="{{pop-kamer-badge}}"
+    data-l-hotelboek="{{knop-boek}}" data-l-facbadge="{{pop-fac-badge}}" data-l-route="{{pop-route}}"
+    data-l-auto="{{reis-auto}}" data-l-voet="{{reis-voet}}" data-l-rad="{{reis-rad}}" data-l-vanaf="{{pop-vanaf-hotel}}"
+    data-l-speel="{{pop-video-speel}}" data-l-pauze="{{pop-video-pauze}}">
+    <div class="al-pop__kaart" role="document"></div>
+  </div>
+
+  <!-- 4. Arrangementen: drie kaarten, de middelste uitgelicht; telefoon = veegrij (uitgelicht eerst) -->
+  <section data-component="al-arr" class="al-sec al-arr" id="al-arr">
+    <div class="al-wrap" data-rij>
+      <div class="al-arr__kop">
+        <h2>{{arr-kop}}</h2>
+        <p class="al-arr__sub">{{arr-sub}}</p>
+      </div>
+      <div class="al-arr__rij" data-spoor><!-- AL_ARR --></div>
+      <div class="al-arr__voet">
+        <div class="al-nav"><span class="al-nav__teller" data-teller>1/3</span><button type="button" class="al-nav__pijl" data-stap="-1" aria-label="{{rij-vorige}}"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6"/></svg></button><button type="button" class="al-nav__pijl" data-stap="1" aria-label="{{rij-volgende}}"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Kamerrij met lus -->
+  <section data-component="al-kamers" class="al-kamers" id="al-kamers">
+    <div class="al-kamers__wrap">
+      <!-- AL_KAMER_KOP -->
+      <div class="kk-rij" data-rij data-lus>
+        <div class="kk-spoor" data-spoor tabindex="0" role="group" aria-label="{{kamer-rij-label}}"><!-- AL_KAMERS --></div>
+        <div class="kk-nav">
+          <span class="kk-teller" data-teller aria-live="polite"></span>
+          <button type="button" class="kk-pijl" data-stap="-1" aria-label="{{kamer-vorige}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button type="button" class="kk-pijl" data-stap="1" aria-label="{{kamer-volgende}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Faciliteiten: mozaiek, alle tegels openen de pop-up -->
+  <section data-component="al-fac" class="al-sec al-fac" id="al-fac">
+    <div class="al-fac__wrap">
+      <div class="al-fac__kop"><h2>{{fac-kop}}</h2><p class="al-fac__sub">{{fac-sub}}</p></div>
+      <div class="al-fac__grid"><!-- AL_FAC --></div>
+    </div>
+  </section>
+
+  <!-- 7. Omgeving: randslider zonder lus -->
+  <section data-component="al-omg" class="al-sec al-omg" id="al-omg">
+    <div class="al-omg__wrap" data-rij>
+      <h2 class="al-omg__kop">{{omg-kop}}</h2>
+      <p class="al-omg__sub">{{omg-sub}}</p>
+      <div class="al-omg__nav"><span class="al-omg__teller" data-teller aria-live="polite">1/6</span><button type="button" class="al-omg__pijl" data-stap="-1" aria-label="{{rij-vorige}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button><button type="button" class="al-omg__pijl" data-stap="1" aria-label="{{rij-volgende}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button></div>
+      <div class="al-omg__grid" data-spoor tabindex="0" role="group" aria-label="{{omg-rij-label}}"><!-- AL_OMG --></div>
+    </div>
+  </section>
+
+  <!-- 8. Fotorij met lus -->
+  <section data-component="al-fotorij" class="al-fotorij" data-rij data-lus>
+    <div class="al-fotorij__spoor" data-spoor data-fotorij tabindex="0" role="group" aria-label="{{fotorij-2-label}}"><!-- AL_FOTORIJ --></div>
+  </section>
+
+  <!-- 9. Reviews: Google-scorepaneel + kaarten -->
+  <section data-component="al-rev" class="al-rev">
+    <div class="al-rev__omhulsel">
+      <div class="al-rev__kop">
+        <h2>{{rev-kop}}</h2>
+        <p class="al-rev__score"><b>{{google-score}}</b><span class="al-rev__sterren" role="img" aria-label="{{google-score}}/5"><!-- AL_STERREN --></span><a class="al-rev__aantal" href="{{rev-profiel}}" target="_blank" rel="noopener">{{google-aantal}}</a></p>
+      </div>
+      <div class="al-rev__strook">
+        <div class="al-rev__paneel">
+          <p class="al-rev__merk"><!-- AL_GOOGLE_G -->Google</p>
+          <div class="al-rev__pkop"><span class="al-rev__cijfer">{{google-score}}</span><div><p class="al-rev__woord">{{rev-woord}}</p><p class="al-rev__pregel"><span class="al-rev__sterren" aria-hidden="true"><!-- AL_STERREN --></span>{{google-aantal}}</p></div></div>
+          <p class="al-rev__vertaald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>{{rev-vertaald}}</p>
+          <a class="al-rev__alle" href="{{rev-profiel}}" target="_blank" rel="noopener">{{rev-alle}}</a>
+        </div>
+        <div class="al-rev__spoor" data-spoor tabindex="0" role="group" aria-label="{{rev-rij-label}}"><!-- AL_REVIEWS --></div>
+        <button type="button" class="al-rev__pijl" data-stap="1" aria-label="{{rev-volgende}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Vragen: tabs; zonder script beide lijsten onder elkaar met tussenkop -->
+  <section data-component="al-faq" class="al-sec al-faq">
+    <div class="al-wrap al-faq__raster">
+      <div class="al-faq__kop">
+        <h2>{{faq-kop}}</h2>
+        <a class="al-faq__tel" href="{{tel-url}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg><span>{{faq-tel}}</span></a>
+      </div>
+      <div class="al-faq__rechts" data-faq>
+        <div class="al-faq__tabs" role="tablist" aria-label="{{faq-kop-kaal}}" hidden>
+          <button type="button" class="al-chip al-chip--aan" role="tab" id="al-tab-thema" aria-controls="al-faq-thema" aria-selected="true">{{faq-tab-thema}}</button>
+          <button type="button" class="al-chip" role="tab" id="al-tab-alg" aria-controls="al-faq-alg" aria-selected="false" tabindex="-1">{{faq-tab-alg}}</button>
+        </div>
+        <div class="al-faq__paneel" id="al-faq-thema" role="tabpanel" aria-labelledby="al-tab-thema">
+          <h3 class="al-faq__tk">{{faq-tk-thema}}</h3>
+          <div class="as-accordeon"><!-- AL_FAQ_THEMA --></div>
+        </div>
+        <div class="al-faq__paneel" id="al-faq-alg" role="tabpanel" aria-labelledby="al-tab-alg">
+          <h3 class="al-faq__tk">{{faq-tk-alg}}</h3>
+          <div class="as-accordeon"><!-- AL_FAQ_ALG --></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Nieuwsbrief (POST /api/nieuwsbrief, taal de, bron pagina) -->
+  <section data-component="al-nb" class="al-nb">
+    <div class="al-nb__wrap">
+      <div class="al-nb__vlak">
+        <div class="al-nb__tekst">
+          <h2>{{nb-kop}}</h2>
+          <p>{{nb-tekst}}</p>
+        </div>
+        <form class="al-nb__form" id="al-nb" action="/api/nieuwsbrief" method="post" novalidate data-ok="{{nb-ok}}" data-fout="{{nb-fout}}">
+          <label class="al-nb__verborgen" for="al-nb-email">{{nb-label}}</label>
+          <input id="al-nb-email" class="al-nb__veld" type="email" name="email" placeholder="{{nb-plaats}}" autocomplete="email" required>
+          <button class="btn btn-primary al-nb__knop" type="submit">{{nb-knop}}</button>
+          <input class="al-nb__pot" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <p class="al-nb__melding" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. Slot: fotoband met boekknop en USP's, daaronder de overlegstrook -->
+  <section data-component="al-slot" class="al-slot">
+    <div class="al-slot__band">
+      <img src="{{slot-foto}}" alt="{{slot-alt}}" width="1200" height="800" loading="lazy" decoding="async">
+      <div class="al-slot__verloop"></div>
+      <div class="al-wrap al-slot__inhoud">
+        <h2>{{slot-kop}}</h2>
+        <p class="al-slot__regel">{{slot-tekst}}</p>
+        <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+        <ul class="al-trust al-slot__usps"><!-- AL_SLOT_USPS --></ul>
+      </div>
+    </div>
+    <div class="al-wrap">
+      <div class="al-paneel al-slot__strook">
+        <div class="al-slot__portret"><img src="{{slot-portret}}" alt="{{slot-portret-alt}}" width="96" height="96" loading="lazy" decoding="async"></div>
+        <div class="al-slot__tekst">
+          <h2>{{slot-paneel-kop}}</h2>
+          <p>{{slot-paneel-tekst}}</p>
+        </div>
+        <div class="al-slot__knoppen">
+          <a class="btn al-btn al-btn--ghost-donker" href="{{tel-url}}"><svg class="al-vink" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg>{{telefoon}}</a>
+          <a class="btn al-btn al-btn--ghost-donker" href="mailto:{{mail}}"><svg class="al-vink" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1"/><path d="M2 4.5l6 4.5 6-4.5"/></svg>{{mail}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prijskalenders achter "Arrangement buchen": een dialog.ark per code (arrangement-kalender.js; de open kalender draagt id ar-kal) -->
+  <!-- AL_KALENDERS -->
+
+</main>
+
+<!-- AL_VOET -->
+
+<div class="mob-cta-ruimte" aria-hidden="true"></div>
+<div class="mob-cta" aria-hidden="true">
+  <a class="mob-cta-bel" href="{{tel-url}}" aria-label="{{telefoon}}" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
+  <div><b>{{sticky-kop}}</b><span class="om">{{sticky-sub}}</span></div>
+  <a class="btn btn-primary mews-open" href="{{mews-basis}}" tabindex="-1">{{sticky-knop}}</a>
+</div>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookies">
+  <span>{{cookie-tekst}} <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">{{cookie-meer}}</a></span>
+  <button type="button" id="cookieAccept">{{cookie-knop}}</button>
+</div>
+
+<link rel="stylesheet" href="adslander-pop.css">
+</body>
+</html>

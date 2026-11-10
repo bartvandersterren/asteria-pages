@@ -526,3 +526,20 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `python3 -m http.server 8796 --directory <map met seizoen/asteria/actief.json + jpg's>` en `wrangler pages dev … --binding SEIZOEN_BASIS=http://127.0.0.1:8796`.
 - Testen: `?datum=YYYY-MM-DD` op elke URL, bv. `curl -sI "https://visit.asteria.nl/seizoen/hero.jpg?datum=2026-12-15"` (X-Seizoen: winter).
   Lokaal: `~/projects/parkhotel-site/node_modules/.bin/wrangler pages dev . --compatibility-date=2026-06-01` (zonder datum weigert workerd 4.103 de datum van vandaag).
+
+## Duitse Google Ads-landers (adslander, nov 2026, preview)
+
+- Nabouw van parkhotelhorst.nl/de/wellnesshotel-limburg-nieuw/ in de Asteria-stijl. Eerste: `/wellnesshotel-limburg-de`
+  (build-entry `adslander-wellnesshotel`, `translations/adslander-wellnesshotel-de.json`), noindex, nofollow, niet in sitemap, nergens gelinkt.
+- Bestanden: `adslander.template.html`, `adslander.css` (prefix `al-`, laadt na lander-w1.css voor tokens/.btn/.as-accordeon),
+  `adslander-pop.css`, `adslander.js` (eigen Mews-poort de-DE met config per link, kaartenrij/lus, coverflow + lightbox, pop-up,
+  FAQ-tabs, kamerprijzen, nieuwsbrief inline, onderbalk, cookie, scratchcard-wachter). lander-w1.js wordt hier NIET geladen.
+- build.py `build_adslander`: kop/voet in de gesloten stand uit lander-w1.template.html (Duits), genummerde slots uit de JSON
+  (veldnamen zoals Parkhotel), arrangementkaarten via `arr-<slot>-bron` = slug van een arrangement-JSON (code, MEWS_CONFIG,
+  ARR_PRIJS als terugval, ARR_NACHTEN, ARR_KALENDER/ARR_VANAF_LIVE), een `dialog.ark` per code (instellingen uit content/arr-kalender.json),
+  kamers uit `kamers` + KAMER_MEWS, pop-upinhoud en kamerkaarten uit `content/adslander-pop-de.json`, reviews uit
+  `content/reviews-google-asteria-de.json` (Duitse vertaling). Stopt bij open velden, ontbrekende bestanden of een em-dash.
+- `arrangement-kalender.js` kent sinds deze lander meerdere dialogen (`dialog.ark[data-code]`, de open draagt id `ar-kal`),
+  `data-mews-config` per dialoog en Duitse labels bij `<html lang="de">`; pagina's met één #ar-kal werken als voorheen.
+- Volgende lander = JSON kopiëren + entry in TEMPLATES (`'adslander': True`). Test: `python3 -m http.server 8791` +
+  `python3 scripts/test_adslander.py [URL] [--schermafdruk qa/adslander]` (API's en Mews gemockt).
