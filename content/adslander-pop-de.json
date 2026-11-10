@@ -1,0 +1,478 @@
+{
+  "_uitleg": "Pop-upinhoud van de Duitse ads-landers (adslander.template.html / adslander.js), opgehaald bij het eerste gebruik van een Mehr-info-knop. Vier secties: arr (sleutel = arr-*-sleutel in de lander-JSON), kamer (sleutel uit build.py KAMER_MEWS; ook de kaartteksten van de kamerrij), fac (fac-N-sleutel), uitje (omg-N-sleutel). Teksten = Duitse vertaling van de NL-bronnen: arrangement-JSON's (_inbegrepen, _faq), lander-w1.template.html (lp-kamerdata, lp-facdata), translations/hotel-venray-v2-nl.json (_facdata). Prijzen en namen neemt het script over van de kaart waarop geklikt is. Geen links naar NL-pagina's.",
+  "arr": {
+    "winter": {
+      "naam": "Winterarrangement",
+      "sub": "Zwei Nächte, Anreise vom 1. Dezember 2026 bis zum 31. März 2027",
+      "desc": "Zwei Übernachtungen im Comfort-Zimmer mit Frühstück an beiden Morgen und einem 3-Gänge-Abendessen am Anreiseabend. Der Wellnessbereich auf der Top Floor ist während Ihres Aufenthalts inklusive.",
+      "incl": [
+        "Zwei Übernachtungen mit Frühstück",
+        "3-Gänge-Abendessen am Anreiseabend",
+        "Begrüßungsgetränk: Hauswein oder Spezialbier",
+        "Bademantel und Badeschuhe",
+        "Wellness während Ihres Aufenthalts",
+        "Early Check-in und Late Check-out (je nach Verfügbarkeit)"
+      ],
+      "fotos": [
+        "fotos/l26-winterarrangement-voetbad.webp",
+        "fotos/l26-weekend-aanbieding-comfort.webp",
+        "fotos/l26-wellness-arrangement-diner.webp",
+        "fotos/l26-wellness-arrangement-ontbijt.webp"
+      ]
+    },
+    "wellness": {
+      "naam": "Wellnessarrangement",
+      "sub": "Eine Nacht im Comfort-Zimmer, für zwei Personen",
+      "desc": "Eine Übernachtung im Comfort-Zimmer mit freiem Zugang zum Wellnessbereich auf der Top Floor: vier Saunen, Dampfkabine, Tauch- und Kräuterbad und Ruheraum. Am Abend ein 3-Gänge-Abendessen mit regionalen Produkten, am nächsten Morgen das Frühstücksbuffet. Bei Anreise am Sonntag zahlen Sie 20 € pro Zimmer weniger.",
+      "incl": [
+        "Übernachtung im Comfort-Zimmer",
+        "Begrüßungsgetränk: ein Fläschchen Botega auf dem Zimmer",
+        "Bademantel, Badeschuhe und Handtuchpaket",
+        "Freier Zugang zum Wellnessbereich (300 m²)",
+        "3-Gänge-Abendessen mit regionalen Produkten",
+        "Reichhaltiges Frühstücksbuffet"
+      ],
+      "fotos": [
+        "fotos/l26-wellness-arrangement-relax.webp",
+        "fotos/l26-wellness-arrangement-zoutsteen.webp",
+        "fotos/l26-wellness-arrangement-diner.webp",
+        "fotos/l26-wellness-arrangement-ontbijt.webp"
+      ]
+    },
+    "herbst": {
+      "naam": "Herbstarrangement",
+      "sub": "Deluxe-Zimmer für zwei Personen, buchbar bis 30. November",
+      "desc": "Sie werden mit Kaffee oder Tee und einem Stück Limburger Vlaai empfangen und übernachten im Deluxe-Zimmer mit eigener Infrarotsauna. Am Abend ein 3-Gänge-Abendessen mit Gerichten der Saison, am nächsten Morgen das Frühstücksbuffet. Bei Anreise am Sonntag zahlen Sie 20 € pro Zimmer weniger.",
+      "incl": [
+        "Empfang mit Kaffee oder Tee und Limburger Vlaai",
+        "Deluxe-Zimmer mit eigener Infrarotsauna",
+        "3-Gänge-Abendessen mit Gerichten der Saison",
+        "Reichhaltiges Frühstücksbuffet"
+      ],
+      "fotos": [
+        "fotos/l26-najaar-deluxe.webp",
+        "fotos/l26-najaar-vlaai.webp",
+        "fotos/l26-najaar-sauna.webp",
+        "fotos/l26-najaar-diner.webp"
+      ]
+    }
+  },
+  "kamer": {
+    "comfort": {
+      "naam": "Comfort-Zimmer",
+      "kort": "Modern eingerichtet, mit Sitzecke und eigenem Bad: alles für einen entspannten Aufenthalt in Nord-Limburg.",
+      "kaart": [
+        [
+          "m2",
+          "ca. 22 m²"
+        ],
+        [
+          "bed",
+          "Twinbetten"
+        ],
+        [
+          "personen",
+          "max. 2 Pers."
+        ],
+        [
+          "airco",
+          "Klimaanlage"
+        ]
+      ],
+      "desc": "Ein komfortables, modern eingerichtetes Zimmer, ideal für einen entspannten Aufenthalt in Nord-Limburg. Das Zimmer hat zwei Einzelbetten, ein eigenes Bad mit Dusche und eine Sitzecke mit bequemen Sesseln.",
+      "kenmerken": [
+        "Ca. 22 m²",
+        "Twinbetten (2 Einzelbetten)",
+        "Für maximal 2 Personen",
+        "Sitzecke mit bequemen Sesseln",
+        "Eigenes Bad mit Dusche",
+        "Klimaanlage"
+      ],
+      "video": "videos/comfort.mp4",
+      "fotos": [
+        "fotos/l26-vk-comfort.webp",
+        "fotos/kamer-comfort-a.webp",
+        "fotos/kamer-comfort-b.webp",
+        "fotos/kamer-comfort-c.webp"
+      ]
+    },
+    "comfort-3": {
+      "naam": "Comfort-Zimmer für 3 Personen",
+      "kort": "Extra Platz für Familien oder Freunde, die zusammen unterwegs sind, mit drei Einzelbetten und Sitzecke.",
+      "kaart": [
+        [
+          "m2",
+          "ca. 22 m²"
+        ],
+        [
+          "bed",
+          "3 Einzelbetten"
+        ],
+        [
+          "personen",
+          "max. 3 Pers."
+        ],
+        [
+          "airco",
+          "Klimaanlage"
+        ]
+      ],
+      "desc": "Unser Comfort-Zimmer für drei Personen bietet extra Platz für Familien oder Freunde, die zusammen unterwegs sind. Drei Einzelbetten, ein eigenes Bad und eine gemütliche Sitzecke.",
+      "kenmerken": [
+        "Ca. 22 m²",
+        "3 Einzelbetten",
+        "Für maximal 3 Personen",
+        "Sitzecke mit bequemen Sesseln",
+        "Eigenes Bad mit Dusche und/oder Badewanne",
+        "Klimaanlage"
+      ],
+      "video": "videos/comfort-3.mp4",
+      "fotos": [
+        "fotos/l26-vk-comfort-3.webp",
+        "fotos/room-comfort-3-1.webp",
+        "fotos/room-comfort-3-2.webp",
+        "fotos/room-comfort-3-3.webp"
+      ]
+    },
+    "mindervalide": {
+      "naam": "Barrierefreies Zimmer",
+      "kort": "Für Gäste mit eingeschränkter Mobilität: großzügig geschnitten, mit breiten Türen und angepasstem Bad.",
+      "kaart": [
+        [
+          "m2",
+          "ca. 37 m²"
+        ],
+        [
+          "bed",
+          "Twinbetten"
+        ],
+        [
+          "rolstoel",
+          "Rollstuhlgerecht"
+        ],
+        [
+          "douche",
+          "Angepasste Dusche"
+        ]
+      ],
+      "desc": "Unser angepasstes Zimmer ist speziell für Gäste mit eingeschränkter Mobilität eingerichtet. Großzügige Aufteilung, extra breite Türen und ein angepasstes Bad sorgen für Komfort und Selbstständigkeit. Auch Restaurant und Terrasse sind rollstuhlgerecht.",
+      "kenmerken": [
+        "Ca. 37 m²",
+        "Twinbetten (2 Einzelbetten)",
+        "Schlafsofa als zusätzliche Schlafgelegenheit",
+        "Extra breite Türen für Rollstuhl oder Rollator",
+        "Große Sitzecke mit bequemen Sesseln",
+        "Rollstuhlgerechtes Bad mit Dusche"
+      ],
+      "video": "videos/mindervalide.mp4",
+      "fotos": [
+        "fotos/l26-vk-mindervalide.webp",
+        "fotos/room-mindervalide-1.webp",
+        "fotos/room-mindervalide-2.webp",
+        "fotos/room-mindervalide-3.webp"
+      ]
+    },
+    "royale": {
+      "naam": "Royale-Zimmer",
+      "kort": "Größer als das Comfort-Zimmer und mit dem gewissen Extra: viel Platz und eine bequeme Sitzecke.",
+      "kaart": [
+        [
+          "m2",
+          "ca. 25 m²"
+        ],
+        [
+          "bed",
+          "Doppel- oder Twinbett"
+        ],
+        [
+          "personen",
+          "max. 2 Pers."
+        ],
+        [
+          "bad",
+          "Dusche oder Bad"
+        ]
+      ],
+      "desc": "Unsere Royale-Zimmer sind größer als die Comfort-Zimmer und bieten das gewisse Extra. Wählen Sie ein Doppelbett oder Twinbetten und genießen Sie den zusätzlichen Platz und ein eigenes Bad mit Dusche oder Badewanne.",
+      "kenmerken": [
+        "Ca. 25 m²",
+        "Doppelbett oder Twinbetten",
+        "Für maximal 2 Personen",
+        "Große Sitzecke mit bequemen Sesseln",
+        "Eigenes Bad mit Dusche und/oder Badewanne",
+        "Klimaanlage"
+      ],
+      "video": "videos/royale.mp4",
+      "fotos": [
+        "fotos/l26-vk-royale.webp",
+        "fotos/room-royale-1.webp",
+        "fotos/room-royale-2.webp",
+        "fotos/room-royale-3.webp"
+      ]
+    },
+    "deluxe": {
+      "naam": "Deluxe-Zimmer",
+      "kort": "Mit eigener Infrarotsauna im Bad: ein kleines Wellnesserlebnis auf Ihrem Zimmer.",
+      "kaart": [
+        [
+          "m2",
+          "ca. 25 m²"
+        ],
+        [
+          "sauna",
+          "Infrarotsauna"
+        ],
+        [
+          "personen",
+          "max. 2 Pers."
+        ],
+        [
+          "stoel",
+          "Sitzecke"
+        ]
+      ],
+      "desc": "Unsere Deluxe-Zimmer haben alles für einen luxuriösen Aufenthalt in Nord-Limburg. Die private Infrarotsauna im Bad macht dieses Zimmer ideal für alle, die richtig entspannen wollen: ein kleines Wellnesserlebnis auf dem eigenen Zimmer.",
+      "kenmerken": [
+        "Ca. 25 m²",
+        "Doppelbett oder Twinbetten",
+        "Für maximal 2 Personen",
+        "Sitzecke mit bequemen Sesseln",
+        "Private Infrarotsauna",
+        "Eigenes Bad mit Dusche"
+      ],
+      "video": "videos/deluxe.mp4",
+      "fotos": [
+        "fotos/l26-vk-deluxe.webp",
+        "fotos/room-deluxe-1.webp",
+        "fotos/room-deluxe-2.webp",
+        "fotos/room-deluxe-3.webp"
+      ]
+    },
+    "suite": {
+      "naam": "Suite",
+      "kort": "Unser geräumigstes Zimmer, mit eigener Infrarotsauna, großer Sitzecke und Platz für bis zu vier Personen.",
+      "kaart": [
+        [
+          "m2",
+          "ca. 40 m²"
+        ],
+        [
+          "sauna",
+          "Infrarotsauna"
+        ],
+        [
+          "personen",
+          "max. 4 Pers."
+        ],
+        [
+          "bed",
+          "Kingsize-Bett"
+        ]
+      ],
+      "desc": "Erleben Sie Asteria in unserem geräumigsten und luxuriösesten Zimmer. Mit eigener Infrarotsauna, großer Sitzecke und allem in Reichweite ist die Suite der Ort, um ganz zur Ruhe zu kommen. Kingsize-Bett und Schlafsofa bieten Platz für bis zu vier Personen.",
+      "kenmerken": [
+        "Ca. 40 m²",
+        "Kingsize-Doppelbett",
+        "Schlafsofa als zusätzliche Schlafgelegenheit",
+        "Für maximal 4 Personen",
+        "Große Sitzecke mit bequemen Sesseln",
+        "Private Infrarotsauna"
+      ],
+      "video": "videos/suite.mp4",
+      "fotos": [
+        "fotos/l26-vk-suite.webp",
+        "fotos/room-suite-1.webp",
+        "fotos/room-suite-2.webp",
+        "fotos/room-suite-3.webp"
+      ]
+    },
+    "bruidssuite": {
+      "naam": "Brautsuite",
+      "kort": "Für besondere Momente: freistehende Badewanne, große begehbare Dusche, Bademäntel und Badeschuhe.",
+      "kaart": [
+        [
+          "m2",
+          "ca. 36 m²"
+        ],
+        [
+          "bad",
+          "Freistehende Wanne"
+        ],
+        [
+          "bed",
+          "Kingsize-Bett"
+        ],
+        [
+          "stoel",
+          "Sitzecke"
+        ]
+      ],
+      "desc": "Unsere Brautsuite ist für besondere Momente gemacht. Ob frisch verheiratet oder ein romantisches Wochenende: genießen Sie zu zweit den Luxus, die Ruhe und die warme Atmosphäre von Asteria. Eine freistehende Badewanne, eine große begehbare Dusche sowie Bademäntel und Badeschuhe machen den Aufenthalt komplett.",
+      "kenmerken": [
+        "Ca. 36 m²",
+        "Kingsize-Doppelbett",
+        "Große Sitzecke mit bequemen Sesseln",
+        "Bademäntel und Badeschuhe",
+        "Luxusbad mit begehbarer Dusche",
+        "Freistehende Badewanne"
+      ],
+      "video": "videos/bruidssuite.mp4",
+      "fotos": [
+        "fotos/l26-vk-bruidssuite.webp",
+        "fotos/room-bruidssuite-1.webp",
+        "fotos/room-bruidssuite-2.webp",
+        "fotos/room-bruidssuite-3.webp"
+      ]
+    }
+  },
+  "fac": {
+    "wellness": {
+      "desc": "Auf der Top Floor des Hotels liegt der Wellnessbereich mit 300 m²: vier Saunen (Nussbaum, Waldkabine, Salzstein und Infrarot), Dampfkabine, Erlebnisduschen, Tauch- und Kräuterbad, vier Fußbäder und ein Ruheraum. Textilfrei, dienstags ist Badekleidungstag. Hotelgäste zahlen 12,50 € pro Person; reservieren Sie Ihre Zeit vorab an der Rezeption.",
+      "kenmerken": [
+        "300 m² auf der Top Floor",
+        "Vier Saunen und Dampfkabine",
+        "Mo-Do 16.00-22.00 Uhr",
+        "Fr-So 12.00-22.00 Uhr"
+      ],
+      "video": "videos/wellness-walk-pop.mp4",
+      "fotos": [
+        "fotos/wellness-spa.webp",
+        "fotos/wp-sauna-fins.webp",
+        "fotos/wp-sauna-zoutsteen.webp",
+        "fotos/l26-wellness-dompelbad.webp"
+      ],
+      "hotelboek": true
+    },
+    "fitness": {
+      "desc": "Ein moderner Fitnessraum mit professionellen Geräten von Technogym für Cardio- und Krafttraining. Der Fitnessraum ist für alle Hotelgäste frei zugänglich und liegt direkt neben dem Wellnessbereich.",
+      "kenmerken": [
+        "Frei für Hotelgäste",
+        "Cardio und Kraft",
+        "Geräte von Technogym",
+        "Direkt neben der Wellness"
+      ],
+      "video": "videos/gym-pop.mp4",
+      "fotos": [
+        "fotos/l26-fitness.webp",
+        "fotos/l26-fac-fitness-2.webp",
+        "fotos/l26-fac-fitness-3.webp",
+        "fotos/l26-fac-fitness-4.webp"
+      ],
+      "hotelboek": true
+    },
+    "restaurant": {
+      "desc": "Im Restaurant kochen wir mit den Jahreszeiten, mit tagesfrischen Produkten aus der Region. Das Abendessen servieren wir bis 21.30 Uhr. An festen Terminen gibt es einen Sonntagsbrunch mit Live-Cooking.",
+      "kenmerken": [
+        "Gerichte der Saison",
+        "Regionale Produkte",
+        "Abendessen bis 21.30 Uhr",
+        "Sonntagsbrunch an festen Terminen"
+      ],
+      "fotos": [
+        "fotos/l26-fac-restaurant-1.webp",
+        "fotos/l26-fac-restaurant-2.webp",
+        "fotos/l26-fac-restaurant-3.webp",
+        "fotos/l26-fac-restaurant-4.webp"
+      ],
+      "hotelboek": true
+    },
+    "brasserie": {
+      "desc": "In der Brasserie mit offenem Kamin sind Sie willkommen zum Lunch, zum Abendessen oder auf einen Drink. Bei schönem Wetter sitzen Sie auf unserer sonnigen Terrasse am Wald.",
+      "kenmerken": [
+        "Brasserie Mo-Fr 07.00-00.00 Uhr",
+        "Sa-So 08.00-01.00 Uhr",
+        "Offener Kamin",
+        "Sonnige Terrasse"
+      ],
+      "fotos": [
+        "fotos/l26-brasserie.webp",
+        "fotos/l26-terras.webp",
+        "fotos/l26-fac-terras-2.webp",
+        "fotos/l26-fac-terras-3.webp"
+      ],
+      "hotelboek": true
+    },
+    "fietsen": {
+      "desc": "Ihr eigenes Fahrrad steht sicher in unserem abgeschlossenen, überdachten Fahrradschuppen, in dem Sie auch den Akku laden können. Kein Fahrrad dabei? Im Hotel leihen Sie ein Fahrrad oder E-Bike, fragen Sie an der Rezeption. Dort bekommen Sie auch kostenlose Rad- und Wanderrouten, zum Beispiel durch De Maasduinen oder De Groote Peel.",
+      "kenmerken": [
+        "Abgeschlossener Fahrradschuppen",
+        "Akku laden im Schuppen",
+        "Fahrräder und E-Bikes zu leihen",
+        "Kostenlose Radrouten"
+      ],
+      "fotos": [
+        "fotos/l26-fac-fiets-1.webp",
+        "fotos/l26-fac-fiets-2.webp",
+        "fotos/l26-fac-fiets-3.webp",
+        "fotos/l26-fac-fiets-4.webp"
+      ],
+      "hotelboek": true
+    }
+  },
+  "uitje": {
+    "maasduinen": {
+      "desc": "Zwischen der Maas und der deutschen Grenze liegt der längste Flussdünengürtel der Niederlande: mehr als 4.500 Hektar Wald, Heide, Flugsand und Moorseen. Am Besucherzentrum in Well wählen Sie Ihre Wander- oder Radroute. Nach einem Tag draußen wartet im Hotel der Wellnessbereich auf der Top Floor.",
+      "fotos": [
+        "fotos/l26-omg-maasduinen-1.webp",
+        "fotos/l26-omg-maasduinen-2.webp",
+        "fotos/l26-omg-maasduinen-3.webp",
+        "fotos/l26-omg-maasduinen-4.webp"
+      ],
+      "auto": "15 Min.",
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
+      "credit": "Fotos: Lieblingsgouda, Steven Lek, Carelbullens und Jonathation via Wikimedia Commons (CC BY-SA), zugeschnitten."
+    },
+    "arcen": {
+      "desc": "Rund um ein Schloss aus dem 17. Jahrhundert liegen mehr als fünfzehn Gärten, vom Rosarium und dem Orientalischen Wassergarten bis zum tropischen Gewächshaus Casa Verde. Die Hertog Jan Brauerei liegt im selben Dorf, so wird ein ganzer Tag daraus. Im Winter sind die Gärten geschlossen.",
+      "fotos": [
+        "fotos/l26-omg-arcen-1.webp",
+        "fotos/l26-omg-arcen-2.webp",
+        "fotos/l26-omg-arcen-3.webp",
+        "fotos/l26-omg-arcen-4.webp"
+      ],
+      "auto": "25 Min.",
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Kasteeltuinen+Arcen%2C+Lingsforterweg+26%2C+5944+BE+Arcen",
+      "credit": "Fotos: Vincent van Zeijst und Kasteeltuinen Arcen via Wikimedia Commons (CC BY-SA 4.0), zugeschnitten."
+    },
+    "venray": {
+      "desc": "Das Zentrum von Venray liegt rund 4 Kilometer vom Hotel entfernt. Am Grote Markt steht die Sint-Petrus-Bandenkerk, auch die Kathedrale der Peel genannt, mit einem fast 80 Meter hohen Turm. Rund um den Markt sitzen Sie auf einer Terrasse bei Kaffee oder Lunch.",
+      "fotos": [
+        "fotos/l26-omg-venray-1.webp",
+        "fotos/l26-omg-venray-2.webp",
+        "fotos/l26-omg-venray-3.webp",
+        "fotos/l26-omg-venray-4.webp"
+      ],
+      "auto": "7 Min.",
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Grote+Markt%2C+5801+BL+Venray",
+      "credit": "Fotos: Dosseman, giggel, WoodenSpoon und Sindala via Wikimedia Commons (CC BY-SA und CC BY), zugeschnitten."
+    },
+    "hertogjan": {
+      "desc": "In Arcen braut Hertog Jan sein Bier. Mit einem Guide folgen Sie dem ganzen Brauprozess: Sie riechen den Hopfen, probieren das Malz und natürlich das Bier. Buchen Sie die Führung vorab; Sie gehen durch schmale Gänge und über 144 Stufen.",
+      "fotos": [
+        "fotos/l26-omg-hertogjan-1.webp",
+        "fotos/l26-omg-hertogjan-2.webp"
+      ],
+      "auto": "25 Min.",
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Hertog+Jan+Brouwerij%2C+Kruisweg+44%2C+5944+EN+Arcen",
+      "credit": "Fotos: B. Hulshoff und Steven Lek via Wikimedia Commons (CC BY-SA 4.0), zugeschnitten."
+    },
+    "fietsen": {
+      "desc": "Vom Hotel aus sind Sie gleich im Wald. Im Hotel leihen Sie ein Fahrrad oder E-Bike, und an der Rezeption bekommen Sie kostenlose Rad- und Wanderrouten, zum Beispiel durch De Maasduinen oder De Groote Peel. Ihr eigenes Fahrrad steht im abgeschlossenen, überdachten Fahrradschuppen, wo Sie auch den Akku laden.",
+      "fotos": [
+        "fotos/l26-omg-fietsen-1.webp",
+        "fotos/l26-fac-fiets-3.webp",
+        "fotos/l26-omg-fietsen-2.webp",
+        "fotos/l26-omg-fietsen-3.webp"
+      ],
+      "start": "Start am Hotel"
+    },
+    "overloon": {
+      "desc": "Im Kriegsmuseum Overloon sehen Sie Fahrzeuge und nachgebaute Szenen aus dem Zweiten Weltkrieg; draußen steht ein Sherman-Panzer.",
+      "fotos": [
+        "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+        "fotos/l26-oorlogsmuseum-arrangement-sherman.webp"
+      ],
+      "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Oorlogsmuseum+Overloon"
+    }
+  }
+}

@@ -236,6 +236,17 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'overzicht': True,
     },
+    # Duitse Google Ads-landers (nov 2026): eigen sjabloon adslander.template.html + adslander.css/-pop.css/.js, nabouw van
+    # parkhotelhorst.nl/de/wellnesshotel-limburg-nieuw/ in de Asteria-stijl. Alles per lander in translations/adslander-<naam>-de.json
+    # (veldnamen zoals Parkhotel), pop-upinhoud in content/adslander-pop-de.json; build_adslander() doet de rest.
+    # noindex, nofollow, niet in sitemap, nergens gelinkt. Volgende lander = JSON + entry hieronder.
+    'adslander-wellnesshotel': {
+        'template': 'adslander.template.html',
+        'langs': {
+            'de': ('wellnesshotel-limburg-de.html', 'translations/adslander-wellnesshotel-de.json'),
+        },
+        'adslander': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -1533,9 +1544,321 @@ def render_kamer(html, data):
     return html
 
 
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+# Duitse Google Ads-landers (sjabloon adslander.template.html). Nabouw van de Parkhotel-lander
+# /de/wellnesshotel-limburg-nieuw/ in de Asteria-stijl; zie de kop van het sjabloon en CLAUDE.md.
+# Alle teksten/foto's/slots uit translations/adslander-<naam>-de.json (veldnamen zoals Parkhotel),
+# pop-upinhoud + kamerkaarten uit content/adslander-pop-de.json, arrangementcode/prijs/nachten/
+# Mews-config uit de arrangement-JSON (veld arr-<slot>-bron), kalenderinstellingen uit
+# content/arr-kalender.json, kop en voet letterlijk (gesloten stand) uit lander-w1.template.html.
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+
+AL_POP = 'content/adslander-pop-de.json'
+AL_GOOGLE_G = ('<svg width="26" height="26" viewBox="0 0 48 48" aria-hidden="true"><path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>'
+               '<path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/>'
+               '<path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/>'
+               '<path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/></svg>')
+AL_STER = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>'
+AL_VINK = ('<svg class="al-vink" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" '
+           'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>')
+AL_TRUST_IC = ('<svg class="al-trust__ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+               'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg>')
+AL_PIJL = ('<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" '
+           'stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>')
+AL_VERGROOT = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" '
+               'aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5M11 8v6M8 11h6"/></svg>')
+AL_REIS = {
+    'auto': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.75 15.25V13a2 2 0 0 1 1.5-1.94l2.1-.53 2.05-2.9a2 2 0 0 1 1.63-.88h4.1a2 2 0 0 1 1.6.8l2.27 3.03 1.8.45A2 2 0 0 1 21.25 13v2.25"/><path d="M2.75 15.25h1.9M9.15 15.25h5.7M19.35 15.25h1.9"/><path d="M6.35 10.6h11.9M12 6.75v3.85"/><circle cx="6.9" cy="15.75" r="2.25"/><circle cx="17.1" cy="15.75" r="2.25"/></svg>',
+    'voet': '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="13.6" cy="4.1" r="1.75"/><path d="M12.6 7.6 10.4 13.2 8.2 20.5"/><path d="M10.4 13.2 13.2 16l1 4.5"/><path d="M12.3 8.4l2.3 3 2.4.8"/><path d="M12 8.5 9.2 10.2l-1 2.6"/></svg>',
+    'rad': '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5.75" cy="16.25" r="3.5"/><circle cx="18.25" cy="16.25" r="3.5"/><path d="M5.75 16.25h5.75l4.1-6.85M5.75 16.25 9.3 9.4l2.2 6.85M9.3 9.4h6.3l2.65 6.85"/><path d="M15.6 9.4l-.5-2.65h2.3M9.3 9.4l-.4-2h-1.4h3"/></svg>',
+    'start': '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+}
+# kenmerk-iconen op de kamerkaart (as-icoon: stroke currentColor)
+AL_KAMER_IC = {
+    'm2': '<path d="M3 3h18v18H3z"/><path d="M3 9h4M3 15h4M9 3v4M15 3v4"/>',
+    'bed': '<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>',
+    'personen': '<circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/>',
+    'airco': '<path d="M12 2v20"/><path d="M4.93 7l14.14 10"/><path d="M4.93 17L19.07 7"/><path d="M9 4l3 2 3-2"/><path d="M9 20l3-2 3 2"/>',
+    'sauna': '<path d="M8 3c-1 1.5 1 2.5 0 4M12 3c-1 1.5 1 2.5 0 4M16 3c-1 1.5 1 2.5 0 4"/><path d="M3 11h18v4H3z"/><path d="M5 15v6M19 15v6M3 19h18"/>',
+    'stoel': '<path d="M6 19v2M18 19v2"/><path d="M5 11V7a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v4"/><path d="M3 13a2 2 0 0 1 4 0v2h10v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    'bad': '<path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.68 3 4 3.68 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><path d="M2 12h20"/><path d="M7 19v2M17 19v2"/>',
+    'douche': '<path d="M4 4l2.5 2.5"/><path d="M13.5 6.5a4.95 4.95 0 0 0-7 7"/><path d="M15 5 5 15"/><path d="M14 17v.01M10 16v.01M13 13v.01M16 10v.01M11 20v.01M17 14v.01M20 11v.01"/>',
+    'rolstoel': '<circle cx="12" cy="4" r="2"/><path d="M12 6v7h5l2 5"/><path d="M12 9h4"/><path d="M8.5 10.5a6 6 0 1 0 7.9 7.9"/>',
+}
+
+
+def al_lijst(d, voorvoegsel, achtervoegsel=''):
+    """Genummerde slots ({voorvoegsel}1{achtervoegsel}, 2, ...) tot het eerste ontbrekende nummer."""
+    uit, i = [], 1
+    while (voorvoegsel + str(i) + achtervoegsel) in d:
+        uit.append(i)
+        i += 1
+    return uit
+
+
+def al_kalender_teksten(nachten, zondag):
+    if nachten > 1:
+        return {'kop': 'Wählen Sie Ihren Anreisetag',
+                'sub': f'Klicken Sie auf Ihren Anreisetag. Die Abreise nach {nachten} Nächten kommt automatisch dazu.',
+                'noot': f'Preis pro Person für {nachten} Nächte bei Anreise an diesem Tag,',
+                'dicht': 'Grau: keine Anreise möglich'}
+    return {'kop': 'Wählen Sie Ihre Nächte',
+            'sub': 'Klicken Sie auf Ihren Anreisetag und danach auf Ihren Abreisetag. Abreisen geht auch an einem grauen Tag.',
+            'noot': 'Preis pro Person und Nacht bei Anreise an diesem Tag,',
+            'dicht': 'Grau: nicht verfügbar, Abreise ist möglich'}
+
+
+def al_kop_voet(d, mews_basis):
+    """Gesloten kop en voet letterlijk uit lander-w1.template.html (blokken gesloten + kopdicht), in het Duits."""
+    with open(os.path.join(base, 'lander-w1.template.html'), encoding='utf-8') as f:
+        w1 = apply_blokken(f.read(), {'gesloten', 'kopdicht'})
+    kop = re.search(r'<header class="top-stack[\s\S]*?</header>', w1).group(0)
+    voet = re.search(r'<footer class="footer[\s\S]*?</footer>', w1).group(0)
+    eigen = '/' + d['canonical'].rstrip('/').rsplit('/', 1)[-1]
+    vervang = [
+        ('{{GESLOTEN_LOGO_URL}}', eigen),
+        ('Hotel Asteria, naar het begin van de pagina', 'Hotel Asteria, zum Seitenanfang'),
+        ('aria-label="Hoofdnavigatie"', 'aria-label="Hauptnavigation"'),
+        ('aria-label="Bel Hotel Asteria: 0478 511466"', 'aria-label="Hotel Asteria anrufen: ' + d['telefoon'] + '"'),
+        ('0478 511 466', d['telefoon']),
+        ('Privacyverklaring', 'Datenschutz'),
+        ('Algemene voorwaarden', 'AGB'),
+        ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
+         'A73, Ausfahrt 8 Venray-Noord &middot; KvK 12028838 &middot; USt-IdNr. NL804668528B01'),
+    ]
+    for a, b in vervang:
+        kop, voet = kop.replace(a, b), voet.replace(a, b)
+    kop, n = re.subn(r'<a href="https://app\.mews\.com/distributor/[^"]*" class="btn btn-primary nav-cta mews-open"[^>]*>Boek nu</a>',
+                     f'<a href="{mews_basis}" class="btn btn-primary nav-cta mews-open">{d["kop-boek"]}</a>', kop)
+    if n != 1:
+        sys.exit('adslander: boekknop in de kop niet gevonden')
+    if re.search(r'(asteria\.nl/(?!privacy|algemene-voorwaarden))|\{\{[A-Z_]+\}\}', kop + voet):
+        sys.exit('adslander: kop/voet bevat een asteria.nl-link of een open veld')
+    return kop, voet
+
+
+def build_adslander(config, output_file, json_file, template_name, lang):
+    from html import escape
+    import hashlib
+    with open(os.path.join(base, config['template']), encoding='utf-8') as f:
+        html = f.read()
+    with open(os.path.join(base, json_file), encoding='utf-8') as f:
+        d = json.load(f)
+    with open(os.path.join(base, AL_POP), encoding='utf-8') as f:
+        pop_tekst = f.read()
+    pop = json.loads(pop_tekst)
+    with open(KALENDER_JSON, encoding='utf-8') as f:
+        kal_cfg = json.load(f)
+    taal = d.get('mews-taal', 'de-DE')
+    mews = lambda cfg='6dc9094c-76e3-4fd8-83a7-af1d00ffc556', extra='': f'https://app.mews.com/distributor/{cfg}?language={taal}{extra}'
+    d['mews-basis'] = mews()
+    d['pop-bron'] = AL_POP + '?v=' + hashlib.md5(pop_tekst.encode()).hexdigest()[:8]
+    fouten = []
+
+    def bestaat(pad):
+        if pad and not os.path.exists(os.path.join(base, pad)):
+            fouten.append('bestand ontbreekt: ' + pad)
+        return pad
+
+    for k in ('hero-video-bureaublad', 'hero-video-mobiel', 'hero-poster-bureaublad', 'hero-poster-bureaublad-klein', 'hero-poster-mobiel',
+              'slot-foto', 'slot-portret'):
+        bestaat(d.get(k))
+
+    blok = {}
+    blok['AL_GOOGLE_G'] = AL_GOOGLE_G
+    blok['AL_STERREN'] = AL_STER * 4 + AL_STER.replace('<svg ', '<svg style="opacity:.35" ', 1)
+    blok['AL_HERO_TRUST'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"hero-trust-{i}"]}</span></li>' for i in al_lijst(d, 'hero-trust-') if d[f'hero-trust-{i}'])
+    blok['AL_SLOT_USPS'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"slot-usp-{i}"]}</span></li>' for i in al_lijst(d, 'slot-usp-') if d[f'slot-usp-{i}'])
+    blok['AL_FEITEN'] = ''.join(f'<li>{AL_VINK}<span>{d[f"feit-{i}"]}</span></li>' for i in al_lijst(d, 'feit-'))
+
+    # 3 fotoslider: beginstand rond-1 in het midden, de rest links/rechts verdeeld zoals adslander.js
+    rond = al_lijst(d, 'rond-', '-foto')
+    n = len(rond)
+    if n < 5:
+        sys.exit('adslander: de fotoslider heeft minstens 5 foto\'s nodig')
+    standen = {-3: 'm3', -2: 'm2', -1: 'm1', 0: '0', 1: 'p1', 2: 'p2', 3: 'p3'}
+    li = []
+    for j, i in enumerate(rond):
+        dd = j if j <= n // 2 else j - n
+        foto = bestaat(d[f'rond-{i}-foto'])
+        groot = d.get(f'rond-{i}-groot') or foto
+        li.append(f'<li class="al-rond__item al-rond__item--{standen.get(dd, "weg")}" data-i="{j}"><div class="al-rond__beeld"><img src="{foto}" alt="{d[f"rond-{i}-alt"]}" width="600" height="800" loading="lazy" decoding="async">'
+                  f'<button type="button" class="al-rond__vergroot" data-groot="{groot}" aria-label="{d["rond-vergroot"]}">{AL_VERGROOT}</button></div></li>')
+    blok['AL_ROND'] = ''.join(li)
+
+    # 4 arrangementen: drie slots, code/prijs/nachten uit de arrangement-JSON (arr-<slot>-bron)
+    kamer_namen = {KAMER_MEWS[k]: v['naam'] for k, v in pop['kamer'].items() if k in KAMER_MEWS}
+    kaarten, kalenders, live = [], [], False
+    for slot in ('links', 'uit', 'rechts'):
+        p = f'arr-{slot}-'
+        with open(os.path.join(base, 'translations', d[p + 'bron'] + '-nl.json'), encoding='utf-8') as f:
+            a = json.load(f)
+        code, cfg = a['VOUCHER'], a.get('MEWS_CONFIG') or '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
+        nachten = int(a.get('ARR_NACHTEN') or 1)
+        kalender = a.get('ARR_KALENDER', True) is not False and code in kal_cfg
+        vanaf_live = kalender and a.get('ARR_VANAF_LIVE', True) is not False
+        live = live or vanaf_live
+        eenheid = 'p.P. pro Nacht' if nachten == 1 else f'p.P. für {nachten} Nächte'
+        bedrag = a['ARR_PRIJS'].replace('€ ', '€&nbsp;')
+        bedrag_html = f'<span data-arr-vanaf="{code}">{bedrag}</span>' if vanaf_live else f'<span>{bedrag}</span>'
+        sleutel = d[p + 'sleutel']
+        if sleutel not in pop['arr']:
+            fouten.append(f'pop-updata ontbreekt voor arr:{sleutel}')
+        incl = ''.join(f'<li>{AL_VINK}<span>{d[f"{p}incl-{i}"]}</span></li>' for i in al_lijst(d, p + 'incl-'))
+        past = f'<span class="al-ak__past">{d[p + "past"]}</span>' if d.get(p + 'past') else ''
+        cls = 'al-ak al-ak--uit' if slot == 'uit' else 'al-ak al-ak--buiten'
+        href = mews(cfg, f'&amp;mewsVoucherCode={code}')
+        kaarten.append(
+            f'<article class="{cls}" data-code="{code}">'
+            f'<div class="al-ak__foto"><img src="{bestaat(d[p + "foto"])}" alt="{d[p + "alt"]}" width="800" height="533" loading="lazy" decoding="async">{past}</div>'
+            f'<div class="al-ak__kop"><p class="al-ak__tag">{d[p + "tag"]}</p><h3 class="al-ak__naam">{d[p + "naam"]}</h3></div>'
+            f'<div class="al-ak__prijsblok"><p class="al-ak__prijs"><span class="al-ak__vf">{d["arr-vanaf-label"]}</span> {bedrag_html} <small>{eenheid}</small></p></div>'
+            f'<ul class="al-ak__incl">{incl}</ul>'
+            f'<div class="al-ak__acties"><a class="btn btn-primary al-ak__knop mews-open" href="{href}" data-voucher="{code}">{d["arr-knop"]}</a>'
+            f'<a class="al-ak__ontdek" href="#al-arr" data-pop="arr:{sleutel}">{d["arr-link"]}&nbsp;&rarr;</a></div></article>')
+        if kalender:
+            k = kal_cfg[code]
+            zondag = bool(k.get('zondag'))
+            t = al_kalender_teksten(nachten, zondag)
+            dagen = k.get('aankomstdagen') or []
+            leg_zondag = '<span><i class="o"></i>Gold: Anreise am Sonntag, 20 € pro Zimmer günstiger</span>' if zondag else ''
+            kid = 'ar-kal-kop-' + code.lower()
+            kalenders.append(
+                f'<dialog class="ark" aria-labelledby="{kid}" data-code="{code}" data-mews-config="{cfg}" data-nachten="{nachten}" '
+                f'data-aankomstdagen="{",".join(str(x) for x in dagen)}" data-zondag="{"ja" if zondag else "nee"}" data-kamer-standaard="{k["standaardkamer"]}" '
+                f'data-kamers="{escape(json.dumps(kamer_namen, ensure_ascii=False, separators=(",", ":")))}" '
+                'data-aankomst="Anreise" data-vertrek="Abreise" data-vertrek-vraag="Abreise?" data-nacht="Nacht" data-nachten-woord="Nächte" '
+                'data-vorige="Vorheriger Monat" data-volgende="Nächster Monat">\n'
+                '    <div class="ark-greep" aria-hidden="true"></div>\n'
+                f'    <div class="ark-kopr"><div><p class="ark-kop" id="{kid}">{t["kop"]}</p><p class="ark-sub">{t["sub"]}</p></div><button type="button" class="ark-x" aria-label="{d["rond-sluit"]}"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>\n'
+                '    <div class="ark-mid">\n'
+                f'      <div class="ark-kal"><div class="ark-maanden"></div><p class="ark-noot">{t["noot"]} <span class="ark-kamer"></span>, 2 Personen</p></div>\n'
+                f'      <div class="ark-leg">{leg_zondag}<span><i class="c"></i>{t["dicht"]}</span><span><i class="s"></i>Gefüllt: Ihre gewählten Nächte</span></div>\n'
+                '    </div>\n'
+                '    <div class="ark-voet">\n'
+                '      <div class="ark-samen"><span class="ark-wat" aria-live="polite"></span><button type="button" class="ark-wis" hidden>Löschen</button></div>\n'
+                '      <button type="button" class="btn btn-primary ark-btn" disabled>Zimmer und Preise ansehen</button>\n'
+                f'      <p class="ark-code">Aktionscode <b>{code}</b> wird automatisch eingetragen</p>\n'
+                '    </div>\n'
+                '    <span class="ark-tip" aria-hidden="true"></span>\n'
+                '  </dialog>')
+    blok['AL_ARR'] = ''.join(kaarten)
+    blok['AL_KALENDERS'] = '\n  '.join(kalenders)
+    blok['AL_VANAF_SCRIPT'] = '<script src="arr-vanaf.js" defer></script>' if live else ''
+
+    # 5 kamerrij
+    kk = []
+    for k in d['kamers']:
+        if k not in KAMER_MEWS or k not in pop['kamer']:
+            sys.exit(f'adslander: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen pop-updata')
+        r, room = pop['kamer'][k], KAMER_MEWS[k]
+        for x in r['fotos'] + [r.get('video') or '']:
+            bestaat(x)
+        kenm = ''.join(f'<li>{icoon(AL_KAMER_IC[ic])}<span>{escape(t, quote=False)}</span></li>' for ic, t in r['kaart'])
+        kk.append(
+            f'<article class="kk-kaart" data-kamer="{k}"><a class="kk-foto" href="#al-kamers" data-pop="kamer:{k}" tabindex="-1" aria-hidden="true"><img src="{r["fotos"][0]}" width="1400" height="934" alt="" loading="lazy" decoding="async"></a>'
+            f'<div class="kk-inhoud"><h3 class="kk-naam">{escape(r["naam"], quote=False)}</h3><p class="kk-tekst">{escape(r["kort"], quote=False)}</p>'
+            f'<ul class="kk-kenmerken">{kenm}</ul>'
+            f'<p class="kk-prijs" data-kamer-vanaf="{k}"><span>{d["kamer-vanaf"]}</span> <span class="kk-bedrag" data-kamer-vanaf-bedrag>€ …</span> <span>{d["kamer-per"]}</span></p>'
+            f'<p class="kk-knoppen"><a class="btn btn-primary mews-open" href="{mews(extra="&amp;mewsRoom=" + room + "&amp;mewsRoute=rooms")}" data-room="{room}">{d["kamer-boek"]}</a>'
+            f'<a class="btn btn-secondary" href="#al-kamers" data-pop="kamer:{k}">{d["kamer-info"]}</a></p></div></article>')
+    blok['AL_KAMERS'] = ''.join(kk)
+    blok['AL_KAMER_KOP'] = f'<h2 class="al-kamers__kop">{d["kamer-kop"]}</h2>' if d.get('kamer-kop') else ''
+
+    # 6 faciliteiten (precies 5: een groot + vier klein)
+    fac = al_lijst(d, 'fac-', '-naam')
+    if len(fac) != 5:
+        sys.exit('adslander: het mozaiek heeft precies 5 faciliteiten nodig')
+    tegels = []
+    for j, i in enumerate(fac):
+        s = d[f'fac-{i}-sleutel']
+        if s not in pop['fac']:
+            fouten.append(f'pop-updata ontbreekt voor fac:{s}')
+        regel = f'<span class="al-tegel__regel">{d[f"fac-{i}-regel"]}</span>' if d.get(f'fac-{i}-regel') else ''
+        tegels.append(f'<a class="al-tegel{" al-tegel--breed" if j == 0 else ""}" href="#al-fac" data-pop="fac:{s}"><img src="{bestaat(d[f"fac-{i}-foto"])}" alt="{d[f"fac-{i}-alt"]}" width="1400" height="934" loading="lazy" decoding="async">'
+                      f'<span class="al-tegel__tekst"><span class="al-tegel__naam">{d[f"fac-{i}-naam"]}</span>{regel}<span class="al-tegel__meer">{d["fac-meer"]} {AL_PIJL}</span></span></a>')
+    blok['AL_FAC'] = ''.join(tegels)
+
+    # 7 omgeving (tot zes kaarten; leeg naam-veld = kaart weg)
+    uk = []
+    for i in al_lijst(d, 'omg-', '-naam'):
+        p = f'omg-{i}-'
+        if not d[p + 'naam']:
+            continue
+        s = d[p + 'sleutel']
+        if s not in pop['uitje']:
+            fouten.append(f'pop-updata ontbreekt voor uitje:{s}')
+        reis = ''
+        for soort in ('auto', 'voet', 'rad'):
+            if d.get(p + soort):
+                reis += f'<span title="{d["reis-" + soort]}">{AL_REIS[soort]}{d[p + soort]}<span class="al-vh"> {d["reis-" + soort]}</span></span>'
+        if d.get(p + 'start'):
+            reis += f'<span>{AL_REIS["start"]}{d[p + "start"]}</span>'
+        uk.append(f'<a class="al-uk" href="#al-omg" data-pop="uitje:{s}"><img src="{bestaat(d[p + "foto"])}" alt="{d[p + "alt"]}" width="1400" height="932" loading="lazy" decoding="async">'
+                  f'<span class="al-uk__body"><span class="al-uk__cat">{d[p + "cat"]}</span><span class="al-uk__naam">{d[p + "naam"]}</span><span class="al-uk__tekst">{d[p + "tekst"]}</span>'
+                  f'<span class="al-uk__reis">{reis}</span><span class="al-uk__meer">{d["omg-knop"]} {AL_PIJL}</span></span></a>')
+    blok['AL_OMG'] = ''.join(uk)
+    html = html.replace('aria-live="polite">1/6</span>', f'aria-live="polite">1/{len(uk)}</span>')
+
+    # 8 fotorij
+    blok['AL_FOTORIJ'] = ''.join(f'<img class="al-fotorij__foto" src="{bestaat(d[f"fotorij-2-{i}-foto"])}" width="460" height="402" alt="{d[f"fotorij-2-{i}-alt"]}" loading="lazy" decoding="async">'
+                                 for i in al_lijst(d, 'fotorij-2-', '-foto'))
+
+    # 9 reviews (Duitse vertaling)
+    with open(os.path.join(base, d['rev-bestand']), encoding='utf-8') as f:
+        rv = json.load(f)
+    d['rev-profiel'] = escape(rv.get('profiel_url', 'https://www.google.com/maps?cid=10392502528258527703'))
+    rk = []
+    for r in rv['reviews']:
+        st = max(1, min(5, int(r.get('sterren') or 5)))
+        rk.append(f'<article class="al-rev__kaart"><span class="al-rev__sterren" role="img" aria-label="{st}/5">{AL_STER * st}</span>'
+                  f'<p class="al-rev__naam">{escape(r["naam"], quote=False)} <span class="al-rev__datum">&middot; {escape(r.get("datum", ""), quote=False)}</span></p>'
+                  f'<p class="al-rev__tekst">„{escape(r["tekst"], quote=False)}“</p>'
+                  f'<p class="al-rev__bron">{d["rev-bron"]} <b>Google</b></p></article>')
+    blok['AL_REVIEWS'] = ''.join(rk)
+
+    # 10 vragen + FAQPage
+    ld = []
+    for soort, plek in (('thema', 'AL_FAQ_THEMA'), ('alg', 'AL_FAQ_ALG')):
+        items = []
+        for j, i in enumerate(al_lijst(d, f'faq-{soort}-', '-v')):
+            v, a = d[f'faq-{soort}-{i}-v'], d[f'faq-{soort}-{i}-a']
+            items.append(f'<details class="as-accordeon__item"{" open" if soort == "thema" and j == 0 else ""}><summary class="as-accordeon__kop"><h3>{v}</h3></summary>'
+                         f'<div class="as-accordeon__paneel"><p>{a}</p></div></details>')
+            plat = lambda t: re.sub(r'<[^>]+>', '', t).replace('&amp;', '&')
+            ld.append({'@type': 'Question', 'name': plat(v), 'acceptedAnswer': {'@type': 'Answer', 'text': plat(a)}})
+        blok[plek] = ''.join(items)
+    blok['AL_FAQ_LD'] = json.dumps({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': ld}, ensure_ascii=False).replace('</', '<\\/')
+
+    blok['AL_SCRATCHCARD'] = ('<script>window.ScratchcardConfig = { stijl: \'2026\' };</script><link rel="stylesheet" href="scratchcard-2026.css">'
+                              '<script src="analytics-d1.js" defer></script><script src="nieuwsbrief.js" defer></script><script src="scratchcard-popup.js" defer></script>'
+                              if d.get('_popup_scratchcard') else '<script src="analytics-d1.js" defer></script><script src="nieuwsbrief.js" defer></script>')
+    blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'])
+
+    for k, v in blok.items():
+        if f'<!-- {k} -->' not in html:
+            sys.exit(f'adslander: plek <!-- {k} --> niet in het sjabloon')
+        html = html.replace(f'<!-- {k} -->', v)
+    for k, v in d.items():
+        if isinstance(v, str) and not k.startswith('_'):
+            html = html.replace('{{' + k + '}}', v)
+    open_velden = sorted(set(re.findall(r'\{\{[^}]+\}\}', html)))
+    if open_velden:
+        sys.exit(f'adslander: open velden in {output_file}: {open_velden}')
+    if fouten:
+        sys.exit('adslander:\n  ' + '\n  '.join(fouten))
+    if '—' in html:
+        sys.exit('adslander: em-dash in de uitvoer')
+    with open(os.path.join(base, output_file), 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
+    if config.get('adslander'):
+        return build_adslander(config, output_file, json_file, template_name, lang)
 
     template_path = os.path.join(base, config['template'])
     json_path     = os.path.join(base, json_file)
