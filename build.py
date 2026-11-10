@@ -1699,7 +1699,37 @@ def build_adslander(config, output_file, json_file, template_name, lang):
     blok = {}
     blok['AL_GOOGLE_G'] = AL_GOOGLE_G
     blok['AL_STERREN'] = AL_STER * 4 + AL_STER.replace('<svg ', '<svg style="opacity:.35" ', 1)
-    blok['AL_HERO_TRUST'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"hero-trust-{i}"]}</span></li>' for i in al_lijst(d, 'hero-trust-') if d[f'hero-trust-{i}'])
+    # hero-opzet (JSON-veld): "v1" = de eerste opzet (video tot 75svh, knop op de onderrand, badge en zekerheden ook op de telefoon);
+    # "v2" = de opzet van parkhotelhorst.nl/de/hotel-mit-schwimmbad-nieuw/ (bureaublad: grotere zekerheden met gevuld rondje en
+    # vet eerste deel; telefoon: beeld over het hele eerste scherm, tekst linksonder, vier chips, Google-regel, knop over de breedte)
+    opzet = d.get('hero-opzet', 'v1')
+    if opzet not in ('v1', 'v2'):
+        sys.exit(f'adslander: hero-opzet moet v1 of v2 zijn, niet {opzet!r}')
+    blok['AL_HERO_KLASSE'] = 'al-hero--v2' if opzet == 'v2' else 'al-hero--video'
+    if opzet == 'v2':
+        vol = ('<svg class="al-vink-vol" width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13"/>'
+               '<path d="M8 13.5l3.2 3.2 6.6-7" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+        blok['AL_HERO_TRUST'] = ''.join(
+            f'<li>{vol}<span><b>{d[f"hero-trust-{i}-vet"]}</b>' + (f' {d[f"hero-trust-{i}-rest"]}' if d.get(f'hero-trust-{i}-rest') else '') + '</span></li>'
+            for i in al_lijst(d, 'hero-trust-', '-vet'))
+        chip = ('<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12"/>'
+                '<path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>')
+        ster = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>'
+        # sterren naar de score (4,2 = vier vol en de vijfde voor 20 %)
+        score = float(d['google-score'].replace(',', '.'))
+        vol_n, rest = int(score), round((score - int(score)) * 100)
+        sterren = ster * vol_n + (f'<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="al-oo-ster"><stop offset="{rest}%" stop-color="#fff"/>'
+                                  f'<stop offset="{rest}%" stop-color="#fff" stop-opacity=".3"/></linearGradient></defs><polygon fill="url(#al-oo-ster)" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>' if vol_n < 5 else '')
+        with open(os.path.join(base, d['rev-bestand']), encoding='utf-8') as f:
+            profiel = json.load(f).get('profiel_url', 'https://www.google.com/maps?cid=10392502528258527703')
+        google_g = AL_GOOGLE_G.replace('<svg ', '<svg class="al-hero__oog" ', 1)
+        blok['AL_HERO_TELEFOON'] = (
+            '<ul class="al-hero__chips">' + ''.join(f'<li>{chip}<span>{d[f"hero-chip-{i}"]}</span></li>' for i in al_lijst(d, 'hero-chip-')) + '</ul>'
+            f'<a class="al-hero__oo" href="{escape(profiel)}" target="_blank" rel="noopener" aria-label="{d["google-aria"]}">{google_g}'
+            f'<span class="al-hero__oocijfer">{d["google-score"]}</span><span class="al-hero__sterren">{sterren}</span><span>{d["google-aus"]} {d["google-aantal"]}</span></a>')
+    else:
+        blok['AL_HERO_TRUST'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"hero-trust-{i}"]}</span></li>' for i in al_lijst(d, 'hero-trust-') if d[f'hero-trust-{i}'])
+        blok['AL_HERO_TELEFOON'] = ''
     blok['AL_SLOT_USPS'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"slot-usp-{i}"]}</span></li>' for i in al_lijst(d, 'slot-usp-') if d[f'slot-usp-{i}'])
     blok['AL_FEITEN'] = ''.join(f'<li>{AL_VINK}<span>{d[f"feit-{i}"]}</span></li>' for i in al_lijst(d, 'feit-'))
 

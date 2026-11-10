@@ -80,9 +80,9 @@
 <main id="inhoud" class="lp al">
 
   <!-- 1. Hero: video (poster = eerste frame), tekst gecentreerd, Google-badge rechtsboven -->
-  <section data-component="al-hero" class="al-hero al-hero--video">
+  <section data-component="al-hero" class="al-hero <!-- AL_HERO_KLASSE -->">
     <div class="al-hero__foto">
-      <picture><source media="(min-width:768px)" srcset="{{hero-poster-bureaublad-klein}} 960w, {{hero-poster-bureaublad}} 1280w" sizes="100vw" width="1280" height="720"><img src="{{hero-poster-mobiel}}" alt="{{hero-alt}}" width="480" height="854" fetchpriority="high" decoding="async"></picture>
+      <picture><source media="(min-width:768px)" srcset="{{hero-poster-bureaublad-klein}} 960w, {{hero-poster-bureaublad}} 1280w" sizes="100vw" width="1280" height="720"><img src="{{hero-poster-mobiel}}" alt="{{hero-alt}}" style="--al-hero-focus:{{al-hero-focus}};--al-hero-focus-smal:{{al-hero-focus-smal}}" width="480" height="854" fetchpriority="high" decoding="async"></picture>
       <video class="al-hero__video" muted loop playsinline preload="none" aria-hidden="true" data-bron-bureaublad="{{hero-video-bureaublad}}" data-bron-mobiel="{{hero-video-mobiel}}"></video>
     </div>
     <div class="al-hero__badge" role="img" aria-label="{{google-aria}}"><span class="al-hero__score"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="al-hero__cijfer">{{google-score}}</span></span><span class="al-hero__lijn"></span><span class="al-hero__bron"><!-- AL_GOOGLE_G --><span class="al-hero__regels"><b>{{google-aantal}}</b><span>{{google-label}}</span></span></span></div>
@@ -92,6 +92,7 @@
           <h1>{{hero-kop}}</h1>
           <p class="al-hero__sub">{{hero-sub}}</p>
         </div>
+        <!-- AL_HERO_TELEFOON -->
         <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
         <ul class="al-trust al-hero__trust"><!-- AL_HERO_TRUST --></ul>
       </div>

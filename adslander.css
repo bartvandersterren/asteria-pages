@@ -61,7 +61,7 @@
    ========================================================================== */
 .al-hero { position:relative; height:clamp(700px, 46vw, 940px); overflow:hidden; color:var(--surface) }
 .al-hero__foto { position:absolute; inset:0; background:var(--ink) }
-.al-hero__foto img { width:100%; height:100%; object-fit:cover; object-position:50% 50% }
+.al-hero__foto img { width:100%; height:100%; object-fit:cover; object-position:50% var(--al-hero-focus, 50%) }
 .al-hero__foto picture { display:contents }
 .al-hero__video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; opacity:0; transition:opacity .15s linear }
 .al-hero__video.is-speelt { opacity:1 }
@@ -673,3 +673,42 @@ html.al-pop-open .mob-cta,html.al-lb-open .mob-cta { visibility:hidden }
 .al-nb__melding { color:var(--on-ink) }
 .al-nb__melding.is-fout { color:var(--error-line) }
 @media (max-width:767px) { .al-nb__ster { width:min(90vw, 420px); right:-18%; } }
+
+/* ==========================================================================
+   Hero-opzet v2 (JSON "hero-opzet": "v2"), nabouw van parkhotelhorst.nl/de/hotel-mit-schwimmbad-nieuw/ (10 nov 2026):
+   bureaublad gelijk aan v1, maar de zekerheden groter (19 px, gat 12/40) met een gevuld terracotta rondje (26 px, wit vinkje),
+   eerste deel vet, tekstschaduw; op een regel vanaf 1400 px, daaronder twee om twee. Telefoon (< 768): het beeld vult het
+   eerste scherm onder de dekkende kop (100svh min de kop), geen badge en geen zekerheden; linksonder titel, subregel, vier
+   ivoren chips 2x2, de Google-regel (G, cijfer, sterren naar de score, aantal) en de knop over de volle breedte.
+   ========================================================================== */
+.al-hero--v2 .al-hero__trust { width:max-content; max-width:calc(100vw - 60px); margin-top:8px; gap:12px 40px; font-size:19px; font-weight:500; color:var(--surface);
+  text-shadow:0 1px 10px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.35) }
+.al-hero--v2 .al-hero__trust li { gap:11px }
+.al-hero--v2 .al-hero__trust b { font-weight:700 }
+.al-vink-vol { flex:none; width:26px; height:26px; fill:var(--terracotta); filter:drop-shadow(0 1px 4px rgba(0,0,0,.3)) }
+@media (min-width:1440px) { .al-hero--v2 .al-hero__trust { display:flex } }
+@media (max-width:1439px) { .al-hero--v2 .al-hero__trust { display:grid; grid-template-columns:auto auto; justify-content:center; gap:12px 36px; text-align:left } }
+.al-hero__chips,.al-hero__oo { display:none }
+@media (max-width:767px) {
+  .al-hero.al-hero--v2 { --al-scherm:calc(100vh - var(--kophoogte)); height:var(--al-scherm); min-height:0; display:block; color:var(--surface) }
+  @supports (height:100svh) { .al-hero.al-hero--v2 { --al-scherm:calc(100svh - var(--kophoogte)) } }
+  .al-hero--v2 .al-hero__foto { inset:0; height:auto; bottom:0 }
+  .al-hero--v2 .al-hero__foto img { object-position:var(--al-hero-focus-smal, 50% 50%) }
+  .al-hero--v2 .al-hero__foto::after { background:linear-gradient(180deg, rgba(43,26,4,.28) 0%, rgba(43,26,4,0) 16%, rgba(43,26,4,0) 35%, rgba(43,26,4,.5) 58%, rgba(43,26,4,.85) 100%) }
+  .al-hero--v2 .al-hero__badge,.al-hero--v2 .al-hero__trust { display:none }
+  .al-hero--v2 .al-hero__wrap { position:absolute; left:15px; right:15px; bottom:16px; z-index:2; width:auto; height:auto; padding:0; display:block }
+  .al-hero--v2 .al-hero__tekst,.al-hero--v2 .al-hero__titel { align-items:flex-start; text-align:left; gap:0; min-height:0 }
+  .al .al-hero--v2 .al-hero__tekst h1 { margin-top:12px; font-size:38px; line-height:1.05; text-wrap:pretty; text-shadow:0 2px 18px rgba(0,0,0,.35) }
+  .al-hero--v2 .al-hero__sub { margin-top:10px; font-size:16px; line-height:1.5; color:rgba(255,250,241,.92); max-width:none; text-shadow:0 1px 12px rgba(0,0,0,.35) }
+  .al-hero--v2 .al-hero__chips { list-style:none; margin:18px 0 0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:8px; width:100% }
+  .al-hero--v2 .al-hero__chips li { display:inline-flex; align-items:center; gap:8px; min-width:0; min-height:40px; padding:6px 14px 6px 8px; background:var(--surface);
+    color:var(--ink); border-radius:999px; font-family:var(--font-body); font-weight:600; font-size:14px; line-height:1.15 }
+  .al-hero--v2 .al-hero__chips svg { flex:none; width:22px; height:22px; fill:var(--ink) }
+  .al-hero--v2 .al-hero__oo { align-self:stretch; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:6px 8px; margin-top:14px;
+    color:var(--surface); font-size:14px; font-weight:500; line-height:1.2; text-decoration:none; text-shadow:0 1px 10px rgba(0,0,0,.4) }
+  .al-hero--v2 .al-hero__oog { display:block; flex:none; width:16px; height:16px }
+  .al-hero--v2 .al-hero__oocijfer { font-family:var(--font-display); font-weight:700; font-size:17px }
+  .al-hero--v2 .al-hero__sterren { display:inline-flex; gap:2px; line-height:0; flex:none }
+  .al-hero--v2 .al-hero__sterren svg { width:14px; height:14px; flex:none; fill:#fff }
+  .al-hero--v2 .al-hero__tekst .al-btn { align-self:stretch; width:auto; margin-top:12px; min-height:47px; white-space:normal; text-align:center; box-shadow:0 8px 22px rgba(0,0,0,.3) }
+}

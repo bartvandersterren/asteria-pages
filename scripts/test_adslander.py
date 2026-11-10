@@ -155,7 +155,7 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
       return {pos:getComputedStyle(k).position,kb:k.getBoundingClientRect().bottom,ub:u?getComputedStyle(u).display:'',cta:c.textContent.trim(),
       bg:getComputedStyle(document.querySelector('.main-nav')).backgroundColor,ht:h.top,gt:g.top}}""")
     ok(kop['pos'] == 'sticky' and kop['cta'] == 'Jetzt buchen' and '247, 231, 209' in kop['bg'], f'kop dekkend en sticky, Jetzt buchen ({kop})')
-    ok(abs(kop['ht'] - kop['kb']) < 1 and kop['gt'] >= kop['kb'], 'hero en Google-badge beginnen onder de kop')
+    ok(abs(kop['ht'] - kop['kb']) < 1 and (mob or kop['gt'] >= kop['kb']), 'hero en Google-badge beginnen onder de kop')
     if not mob:
         ok(kop['ub'] != 'none', 'utility-balk op het bureaublad')
         await pg.hover('.nav-links .has-sub >> nth=0')
@@ -183,14 +183,23 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
     # hero
     hero = await pg.evaluate("""()=>{const h=document.querySelector('.al-hero'),f=h.querySelector('.al-hero__foto').getBoundingClientRect(),
       b=h.querySelector('.al-hero .mews-open').getBoundingClientRect(),g=h.querySelector('.al-hero__badge').getBoundingClientRect(),
-      v=h.querySelector('video');return {fh:f.height,fb:f.bottom,ht:h.getBoundingClientRect().top,bt:b.top,bb:b.bottom,gx:g.right,gy:g.top,vsrc:v.currentSrc||v.src||''}}""")
+      v=h.querySelector('video'),zicht=e=>!!e&&getComputedStyle(e).display!=='none'&&e.getBoundingClientRect().height>0,hb=h.getBoundingClientRect();
+      return {fh:f.height,fb:f.bottom,ht:hb.top,hbot:hb.bottom,bt:b.top,bb:b.bottom,gx:g.right,gy:g.top,vsrc:v.currentSrc||v.src||'',v2:h.classList.contains('al-hero--v2'),
+      badge:zicht(h.querySelector('.al-hero__badge')),trust:zicht(h.querySelector('.al-hero__trust')),trustn:h.querySelectorAll('.al-hero__trust li .al-vink-vol').length,
+      trustb:h.querySelectorAll('.al-hero__trust li b').length,chips:zicht(h.querySelector('.al-hero__chips'))?h.querySelectorAll('.al-hero__chips li').length:0,
+      oo:zicht(h.querySelector('.al-hero__oo'))?h.querySelector('.al-hero__oo').textContent:'',ta:getComputedStyle(h.querySelector('.al-hero__tekst')).textAlign}}""")
+    ok(hero['v2'], 'hero-opzet v2 (zoals parkhotelhorst.nl/de/hotel-mit-schwimmbad-nieuw/)')
     if mob:
-        ok(abs(hero['fb'] - 0.75 * h) < 4, f'telefoon: videovak eindigt op 75svh ({hero["fb"]:.0f} van {h})')
-        ok(hero['bt'] < hero['fb'] < hero['bb'], 'telefoon: knop op de onderrand van de video')
+        ok(abs(hero['hbot'] - h) < 2, f'telefoon: beeld vult het eerste scherm onder de kop ({hero["hbot"]:.0f} van {h})')
+        ok(not hero['badge'] and not hero['trust'] and hero['chips'] == 4 and '4,2' in hero['oo'] and '2.280' in hero['oo'] and hero['ta'] == 'left',
+           f'telefoon: geen badge/zekerheden, vier chips, Google-regel, tekst links ({hero["chips"]}, {hero["oo"]!r})')
+        ok(hero['bb'] <= h and hero['bt'] > hero['ht'], 'telefoon: knop onderin het eerste scherm')
         ok('9x16' in hero['vsrc'], 'telefoon: 9:16-video')
     else:
         ok('16x9' in hero['vsrc'], 'bureaublad: 16:9-video')
         ok(hero['gx'] >= w - 1 and hero['gy'] < 300, 'Google-badge rechtsboven')
+        ok(hero['trust'] and hero['trustn'] == 4 and hero['trustb'] == 4 and hero['chips'] == 0 and hero['ta'] == 'center',
+           'bureaublad: vier zekerheden met gevuld rondje en vet deel, gecentreerd, geen chips')
     balk = await pg.evaluate("()=>document.querySelector('.mob-cta').classList.contains('is-zichtbaar')")
     ok(not balk, 'onderbalk niet zichtbaar in de hero')
 
