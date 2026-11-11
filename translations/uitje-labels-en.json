@@ -1,0 +1,59 @@
+{
+  "_uitleg": "Vaste labels van het uitje-sjabloon (uitje.template.html), Engels (Brits, you-vorm, toon als translations/en.json en welkom-en.json). build.py laadt dit bestand eerst voor de EN-pagina; een veld in translations/uitje-<slug>-en.json met dezelfde sleutel wint. Zelfde sleutels als uitje-labels-nl.json, plus telefoon en kop-boek voor de Engelse spiegelkop/-voet (al_kop_voet_en).",
+
+  "html-taal": "en",
+  "og-locale": "en_GB",
+  "mews-taal": "en-US",
+  "robots": "noindex, follow",
+
+  "knop-boek": "Book your stay",
+  "knop-route": "Route in Google Maps",
+  "knop-kamer": "Book this room",
+  "knop-info": "More info",
+  "knop-meer": "Find out more",
+
+  "l-auto": "by car",
+  "l-fiets": "by bike",
+  "l-lopen": "on foot",
+  "l-afstand": "distance",
+  "l-met-auto": "by car from Hotel Asteria",
+  "l-leesmeer": "Read more",
+  "l-leesminder": "Read less",
+  "l-nieuw-tabblad": "(opens in a new tab)",
+  "l-bel": "Any questions? Call reception on +31 478 511 466",
+
+  "tel": "+31 478 511 466",
+  "tel-url": "tel:+31478511466",
+  "telefoon": "+31 478 511 466",
+  "kop-boek": "Book now",
+
+  "kamer-rij-label": "Our rooms and suites",
+  "kamer-vorige": "Previous room",
+  "kamer-volgende": "Next room",
+  "kamer-pop-video": "Video of the room",
+  "kamer-pop-foto": "Photo",
+
+  "kaart-knop-inzoomen": "Zoom in",
+  "kaart-knop-uitzoomen": "Zoom out",
+  "kaart-knop-alles": "Show the whole map",
+  "kaart-hint-wiel": "Ctrl + scroll to zoom",
+  "kaart-hint-vingers": "Use two fingers to move the map",
+  "kaart-attributie": "Borders CBS/Kadaster &middot; water and roads &copy; OpenStreetMap contributors",
+
+  "pop-sluit": "Close",
+  "pop-vorige": "Previous photo",
+  "pop-volgende": "Next photo",
+  "pop-route": "Plan your route",
+  "pop-vanaf-hotel": "Travel times from the hotel",
+  "pop-kamer-badge": "Room",
+  "pop-video-speel": "Play video",
+  "pop-video-pauze": "Pause video",
+
+  "sticky-kop": "Hotel Asteria Venray",
+  "sticky-sub": "Book direct with the hotel",
+  "sticky-knop": "Book your stay",
+
+  "cookie-tekst": "This website uses cookies for an optimal experience.",
+  "cookie-meer": "More info",
+  "cookie-knop": "Accept"
+}

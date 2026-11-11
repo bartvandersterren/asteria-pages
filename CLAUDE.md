@@ -573,3 +573,12 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   gerenderd met Playwright (element `.ut-kaart__beeld`, knoppen en voetstrook verborgen).
 - Test: `python3 -m http.server 8792` + `python3 scripts/test_uitje.py [URL] [--schermafdruk qa/uitje]` (Mews en /api gemockt; platen
   `asteria-<breedte>-<blok>.png` naast de Parkhotel-platen `parkhotel-<breedte>-<blok>.png`).
+- Talen (11 nov 2026): een uitje-entry kan `langs` nl/de/en hebben; uitvoer `<slug>-v2.html`, `<slug>-v2-de.html`, `<slug>-v2-en.html`,
+  gegevens `translations/uitje-<slug>-<taal>.json`. Labels en kamerbron per taal via build.py `ut_taalbron`:
+  `translations/uitje-labels-<taal>.json` en `content/uitje-kamers-<taal>.json` (DE-kamerteksten = sectie kamer van content/adslander-pop-de.json,
+  EN vertaald uit NL). DE/EN-labels hebben ook `telefoon` (+31 478 511 466) en `kop-boek` voor de kop/voet.
+- Kop/voet: `al_kop_voet(..., taal=lang)`; `de` = `al_kop_voet_de`, `en` = `al_kop_voet_en` (zelfde doelen, alleen labels). Mews-taal uit
+  `mews-taal` in de labels (nl-NL, de-DE, en-US), ook op de kamerlinks in de spiegelvoet.
+- hreflang (nl/de/en + x-default = NL) komt via de plek `UT_FAQ_LD` in de head (`ut_hreflang`: sluit het ld+json-script, links, lege
+  `<script>`), alleen voor talen waarvan de JSON bestaat en pas vanaf twee talen. Volledige build slaat een uitje-taal zonder JSON over
+  (regel "overgeslagen"); `python3 build.py uitje-<slug>` stopt dan wel.
