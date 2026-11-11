@@ -258,6 +258,29 @@ TEMPLATES = {
         },
         'uitje': True,
     },
+    # Uitjes met een arrangementkaart (arr-bron) i.p.v. de kamerslider. Ontbreekt het JSON nog, dan slaat een volledige
+    # build (zonder argument) het uitje over; met de entry als argument stopt de build met een fout.
+    'uitje-oorlogsmuseum-overloon': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('oorlogsmuseum-overloon-v2.html', 'translations/uitje-oorlogsmuseum-overloon-nl.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-venray-centrum': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('venray-centrum-v2.html', 'translations/uitje-venray-centrum-nl.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-nationaal-park-de-maasduinen': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('nationaal-park-de-maasduinen-v2.html', 'translations/uitje-nationaal-park-de-maasduinen-nl.json'),
+        },
+        'uitje': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -1607,7 +1630,24 @@ def al_lijst(d, voorvoegsel, achtervoegsel=''):
     return uit
 
 
-def al_kalender_teksten(nachten, zondag):
+def al_kalender_teksten(nachten, zondag, taal='de', dagen=None):
+    """Teksten van de prijskalender (dialog.ark). taal='de' (adslander, standaard) of 'nl' (uitje-sjabloon; zelfde
+    zinnen als apply_kalender op de NL-arrangementpagina's)."""
+    if taal == 'nl':
+        if nachten > 1:
+            if dagen:
+                lijst = [WEEKDAGEN[x] for x in sorted(dagen, key=lambda x: (x + 6) % 7)]
+                wanneer = lijst[0] if len(lijst) == 1 else ', '.join(lijst[:-1]) + ' of ' + lijst[-1]
+                sub = f'Aankomst kan op {wanneer}. Je vertrek na {nachten} nachten komt er vanzelf bij.'
+            else:
+                sub = f'Klik op je aankomstdag. Je vertrek na {nachten} nachten komt er vanzelf bij.'
+            return {'kop': 'Kies je aankomstdag', 'sub': sub,
+                    'noot': f'Prijs per persoon voor {nachten} nachten bij aankomst op die dag,',
+                    'dicht': 'Grijs: geen aankomst mogelijk'}
+        return {'kop': 'Kies je nachten',
+                'sub': 'Klik op je aankomstdag en daarna op je vertrekdag. Vertrekken kan ook op een grijze dag.',
+                'noot': 'Prijs per persoon per nacht bij aankomst op die dag,',
+                'dicht': 'Grijs: niet beschikbaar, vertrekken kan wel'}
     if nachten > 1:
         return {'kop': 'Wählen Sie Ihren Anreisetag',
                 'sub': f'Klicken Sie auf Ihren Anreisetag. Die Abreise nach {nachten} Nächten kommt automatisch dazu.',
@@ -1617,6 +1657,50 @@ def al_kalender_teksten(nachten, zondag):
             'sub': 'Klicken Sie auf Ihren Anreisetag und danach auf Ihren Abreisetag. Abreisen geht auch an einem grauen Tag.',
             'noot': 'Preis pro Person und Nacht bei Anreise an diesem Tag,',
             'dicht': 'Grau: nicht verfügbar, Abreise ist möglich'}
+
+
+AL_KAL_LABELS = {
+    'de': {'aankomst': 'Anreise', 'vertrek': 'Abreise', 'vertrek-vraag': 'Abreise?', 'nacht': 'Nacht', 'nachten-woord': 'Nächte',
+           'vorige': 'Vorheriger Monat', 'volgende': 'Nächster Monat', 'personen': '2 Personen',
+           'zondag': 'Gold: Anreise am Sonntag, 20 € pro Zimmer günstiger', 'gevuld': 'Gefüllt: Ihre gewählten Nächte',
+           'wis': 'Löschen', 'knop': 'Zimmer und Preise ansehen', 'code': 'Aktionscode <b>{code}</b> wird automatisch eingetragen'},
+    # NL = de labels van de dialoog #ar-kal in lander-w1.template.html (NL-arrangementpagina's)
+    'nl': {'aankomst': 'aankomst', 'vertrek': 'vertrek', 'vertrek-vraag': 'vertrek?', 'nacht': 'nacht', 'nachten-woord': 'nachten',
+           'vorige': 'Vorige maand', 'volgende': 'Volgende maand', 'personen': '2 personen',
+           'zondag': 'Goud: aankomst op zondag, € 20 per kamer voordeliger', 'gevuld': 'Gevuld: je gekozen nachten',
+           'wis': 'Wissen', 'knop': 'Bekijk kamers en prijzen', 'code': 'Actiecode <b>{code}</b> wordt automatisch ingevuld'},
+}
+
+
+def al_kalender_dialoog(code, cfg, nachten, k, kamer_namen, sluit_label, taal='de'):
+    """Een prijskalender dialog.ark voor een arrangementcode (arrangement-kalender.js, /api/arr-kalender). k = de instellingen
+    van de code uit content/arr-kalender.json; kamer_namen = {Mews-kamer-id: naam}. taal 'de' (adslander) of 'nl' (uitje)."""
+    from html import escape
+    L = AL_KAL_LABELS[taal]
+    zondag = bool(k.get('zondag'))
+    dagen = k.get('aankomstdagen') or []
+    t = al_kalender_teksten(nachten, zondag, taal, dagen)
+    leg_zondag = f'<span><i class="o"></i>{L["zondag"]}</span>' if zondag else ''
+    kid = 'ar-kal-kop-' + code.lower()
+    return (
+        f'<dialog class="ark" aria-labelledby="{kid}" data-code="{code}" data-mews-config="{cfg}" data-nachten="{nachten}" '
+        f'data-aankomstdagen="{",".join(str(x) for x in dagen)}" data-zondag="{"ja" if zondag else "nee"}" data-kamer-standaard="{k["standaardkamer"]}" '
+        f'data-kamers="{escape(json.dumps(kamer_namen, ensure_ascii=False, separators=(",", ":")))}" '
+        f'data-aankomst="{L["aankomst"]}" data-vertrek="{L["vertrek"]}" data-vertrek-vraag="{L["vertrek-vraag"]}" data-nacht="{L["nacht"]}" data-nachten-woord="{L["nachten-woord"]}" '
+        f'data-vorige="{L["vorige"]}" data-volgende="{L["volgende"]}">\n'
+        '    <div class="ark-greep" aria-hidden="true"></div>\n'
+        f'    <div class="ark-kopr"><div><p class="ark-kop" id="{kid}">{t["kop"]}</p><p class="ark-sub">{t["sub"]}</p></div><button type="button" class="ark-x" aria-label="{sluit_label}"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>\n'
+        '    <div class="ark-mid">\n'
+        f'      <div class="ark-kal"><div class="ark-maanden"></div><p class="ark-noot">{t["noot"]} <span class="ark-kamer"></span>, {L["personen"]}</p></div>\n'
+        f'      <div class="ark-leg">{leg_zondag}<span><i class="c"></i>{t["dicht"]}</span><span><i class="s"></i>{L["gevuld"]}</span></div>\n'
+        '    </div>\n'
+        '    <div class="ark-voet">\n'
+        f'      <div class="ark-samen"><span class="ark-wat" aria-live="polite"></span><button type="button" class="ark-wis" hidden>{L["wis"]}</button></div>\n'
+        f'      <button type="button" class="btn btn-primary ark-btn" disabled>{L["knop"]}</button>\n'
+        f'      <p class="ark-code">{L["code"].format(code=code)}</p>\n'
+        '    </div>\n'
+        '    <span class="ark-tip" aria-hidden="true"></span>\n'
+        '  </dialog>')
 
 
 def al_kop_voet(d, mews_basis, taal='de'):
@@ -1770,31 +1854,7 @@ def build_adslander(config, output_file, json_file, template_name, lang):
             f'<div class="al-ak__acties"><a class="btn btn-primary al-ak__knop mews-open" href="{href}" data-voucher="{code}">{d["arr-knop"]}</a>'
             f'<a class="al-ak__ontdek" href="#al-arr" data-pop="arr:{sleutel}">{d["arr-link"]}&nbsp;&rarr;</a></div></article>')
         if kalender:
-            k = kal_cfg[code]
-            zondag = bool(k.get('zondag'))
-            t = al_kalender_teksten(nachten, zondag)
-            dagen = k.get('aankomstdagen') or []
-            leg_zondag = '<span><i class="o"></i>Gold: Anreise am Sonntag, 20 € pro Zimmer günstiger</span>' if zondag else ''
-            kid = 'ar-kal-kop-' + code.lower()
-            kalenders.append(
-                f'<dialog class="ark" aria-labelledby="{kid}" data-code="{code}" data-mews-config="{cfg}" data-nachten="{nachten}" '
-                f'data-aankomstdagen="{",".join(str(x) for x in dagen)}" data-zondag="{"ja" if zondag else "nee"}" data-kamer-standaard="{k["standaardkamer"]}" '
-                f'data-kamers="{escape(json.dumps(kamer_namen, ensure_ascii=False, separators=(",", ":")))}" '
-                'data-aankomst="Anreise" data-vertrek="Abreise" data-vertrek-vraag="Abreise?" data-nacht="Nacht" data-nachten-woord="Nächte" '
-                'data-vorige="Vorheriger Monat" data-volgende="Nächster Monat">\n'
-                '    <div class="ark-greep" aria-hidden="true"></div>\n'
-                f'    <div class="ark-kopr"><div><p class="ark-kop" id="{kid}">{t["kop"]}</p><p class="ark-sub">{t["sub"]}</p></div><button type="button" class="ark-x" aria-label="{d["rond-sluit"]}"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>\n'
-                '    <div class="ark-mid">\n'
-                f'      <div class="ark-kal"><div class="ark-maanden"></div><p class="ark-noot">{t["noot"]} <span class="ark-kamer"></span>, 2 Personen</p></div>\n'
-                f'      <div class="ark-leg">{leg_zondag}<span><i class="c"></i>{t["dicht"]}</span><span><i class="s"></i>Gefüllt: Ihre gewählten Nächte</span></div>\n'
-                '    </div>\n'
-                '    <div class="ark-voet">\n'
-                '      <div class="ark-samen"><span class="ark-wat" aria-live="polite"></span><button type="button" class="ark-wis" hidden>Löschen</button></div>\n'
-                '      <button type="button" class="btn btn-primary ark-btn" disabled>Zimmer und Preise ansehen</button>\n'
-                f'      <p class="ark-code">Aktionscode <b>{code}</b> wird automatisch eingetragen</p>\n'
-                '    </div>\n'
-                '    <span class="ark-tip" aria-hidden="true"></span>\n'
-                '  </dialog>')
+            kalenders.append(al_kalender_dialoog(code, cfg, nachten, kal_cfg[code], kamer_namen, d['rond-sluit']))
     blok['AL_ARR'] = ''.join(kaarten)
     blok['AL_KALENDERS'] = '\n  '.join(kalenders)
     blok['AL_VANAF_SCRIPT'] = '<script src="arr-vanaf.js" defer></script>' if live else ''
@@ -2005,7 +2065,9 @@ def build_uitje(config, output_file, json_file, template_name, lang):
     blok['UT_VAKJES'] = ''.join(f'<div class="ut-vk"><span class="ut-vk__ib">{vk_ico[s]}</span>'
                                 f'<span class="ut-vk__t"><strong>{d["vk-" + s]}</strong><span>{vk_label[s]}</span></span></div>'
                                 for s in ('auto', 'fiets', 'lopen', 'km') if d.get('vk-' + s))
-    blok['UT_TABEL'] = ''.join(f'<div class="ut-tabel__rij"><dt>{d[f"t{i}-label"]}</dt><dd>{d.get(f"t{i}-waarde", "")}</dd></div>'
+    # tijdvakken (09.30-18.00) en dagbereiken (ma-vr) niet op het streepje afbreken
+    ut_nw = lambda t: re.sub(r'\b(\d{1,2}\.\d{2}-\d{1,2}\.\d{2}|[A-Za-z]{2}-[a-z]{2})\b', r'<span class="ut-nw">\1</span>', t)
+    blok['UT_TABEL'] = ''.join(f'<div class="ut-tabel__rij"><dt>{d[f"t{i}-label"]}</dt><dd>{ut_nw(d.get(f"t{i}-waarde", ""))}</dd></div>'
                                for i in al_lijst(d, 't', '-label') if d[f't{i}-label'])
     blok['UT_ROUTE'] = (f'<a class="al-intro__link ut-route" href="{d["route-url"]}" target="_blank" rel="noopener">{d["knop-route"]} {UT_PIJL}'
                         f'<span class="al-vh"> {d["l-nieuw-tabblad"]}</span></a>') if d.get('route-url') else ''
@@ -2076,9 +2138,66 @@ def build_uitje(config, output_file, json_file, template_name, lang):
     else:
         blok['UT_DAG'] = ''
 
+    # 6a arrangementkaart (arr-bron) OF 6k kamers: sluiten elkaar uit
+    kamers = d.get('kamers') or []
+    if d.get('arr-bron') and kamers:
+        sys.exit(f'uitje: {json_file} heeft zowel arr-bron ({d["arr-bron"]}) als een gevulde kamers-lijst; die sluiten elkaar uit '
+                 '(zet kamers op [] voor een arrangementpagina, of haal arr-bron weg)')
+    blok_arr, kalenders = '', []
+    if d.get('arr-bron'):
+        bron = os.path.join('translations', d['arr-bron'] + '-nl.json')
+        if not os.path.exists(os.path.join(base, bron)):
+            sys.exit(f'uitje: arr-bron {d["arr-bron"]!r}: {bron} bestaat niet')
+        with open(os.path.join(base, bron), encoding='utf-8') as f:
+            a = json.load(f)
+        with open(KALENDER_JSON, encoding='utf-8') as f:
+            kal_cfg = json.load(f)
+        code = a['VOUCHER']
+        cfg = a.get('MEWS_CONFIG') or '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
+        nachten = int(a.get('ARR_NACHTEN') or 1)
+        for x in ('arr-naam', 'arr-regel', 'arr-foto', 'arr-alt', 'arr-knop'):
+            if not d.get(x):
+                fouten.append(f'arrangementkaart: veld {x} ontbreekt of is leeg')
+        # vinkjes: arr-vink1..6 doorlopend tot het eerste ontbrekende/lege; geen arr-vink1 = KAART_VINK_A..D van het arrangement
+        vink = []
+        for i in range(1, 7):
+            if not d.get(f'arr-vink{i}'):
+                break
+            vink.append(d[f'arr-vink{i}'])
+        if not vink:
+            vink = [a[f'KAART_VINK_{x}'] for x in 'ABCD' if a.get(f'KAART_VINK_{x}')]
+        regel2 = f'<p class="ut-arr__regel2">{d["arr-regel2"]}</p>' if d.get('arr-regel2') else ''
+        lijst = (f'<ul class="ut-arr__vinkjes">' + ''.join(f'<li>{AL_VINK}<span>{v}</span></li>' for v in vink) + '</ul>') if vink else ''
+        links = []
+        if d.get('arr-pagina-url') and d.get('arr-paginalink'):
+            links.append(f'<a class="al-intro__link ut-arr__link" href="{d["arr-pagina-url"]}">{d["arr-paginalink"]} {UT_PIJL}</a>')
+        if d.get('arr-kamerlink'):
+            links.append(f'<a class="al-intro__link ut-arr__link mews-open" href="{mews()}">{d["arr-kamerlink"]} {UT_PIJL}</a>')
+        mews_arr = f'https://app.mews.com/distributor/{cfg}?language={taal}&amp;mewsVoucherCode={code}'
+        fb, fh = 1400, 934   # echte fotomaten als Pillow er is (width/height tegen verspringen)
+        try:
+            from PIL import Image
+            with Image.open(os.path.join(base, d['arr-foto'])) as im:
+                fb, fh = im.size
+        except Exception:
+            pass
+        blok_arr = (
+            '  <!-- 6a. Arrangement: kaart met foto, vinkjes en boekknop (prijskalender, arrangement-kalender.js), zonder prijs -->\n'
+            f'  <section data-component="ut-arr" class="al-sec ut-arr" id="arrangement"><div class="al-wrap"><div class="al-paneel ut-arr__kaart">'
+            f'<img class="ut-arr__foto" src="{bestaat(d.get("arr-foto", ""))}" alt="{d.get("arr-alt", "")}" width="{fb}" height="{fh}" loading="lazy" decoding="async">'
+            f'<div class="ut-arr__tekst"><h3 class="ut-arr__kop">{d.get("arr-naam", "")}</h3><p class="ut-arr__regel">{d.get("arr-regel", "")}</p>{regel2}{lijst}'
+            f'<a class="btn btn-primary al-btn mews-open ut-arr__knop" href="{mews_arr}" data-voucher="{code}">{d.get("arr-knop", "")}</a>'
+            + (f'<p class="ut-arr__links">{"".join(links)}</p>' if links else '') + '</div></div></div></section>\n\n')
+        if a.get('ARR_KALENDER', True) is not False and code in kal_cfg:
+            namen = {KAMER_MEWS[k]: v['naam'] for k, v in kamerbron.items() if k in KAMER_MEWS}
+            # één dialoog op de pagina: meteen id ar-kal (daar hangt de stijl aan; arrangement-kalender.js zet de id alleen
+            # zelf bij meerdere dialogen)
+            kalenders.append(al_kalender_dialoog(code, cfg, nachten, kal_cfg[code], namen, d['pop-sluit'], taal='nl')
+                             .replace('<dialog class="ark" ', '<dialog class="ark" id="ar-kal" ', 1))
+
     # 6k kamers: kaarten zoals de adslander, ZONDER prijs; Mews met kamer-id (KAMER_MEWS), Meer info = kamer-pop-up
     kk, kamerdata, popkamer = [], {}, {}
-    for k in d['kamers']:
+    for k in kamers:
         if k not in KAMER_MEWS or k not in kamerbron:
             sys.exit(f'uitje: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen kamerdata ({UT_KAMERS})')
         r, room = kamerbron[k], KAMER_MEWS[k]
@@ -2096,8 +2215,29 @@ def build_uitje(config, output_file, json_file, template_name, lang):
             f'<a class="btn btn-secondary" href="#kamers" data-kamer="{k}" aria-haspopup="dialog" aria-label="{d["knop-info"]}: {naam}">{d["knop-info"]}</a></p></div></article>')
         kamerdata[k] = {x: r[x] for x in ('naam', 'video', 'fotos', 'tekst', 'kenmerken', 'kamer')}
         popkamer[k] = {x: r[x] for x in ('naam', 'desc', 'pop_fotos', 'video', 'fotos', 'kenmerken', 'kamer') if x in r}
-    blok['UT_KAMERS'] = ''.join(kk)
-    blok['UT_KAMERPOP'] = (
+    def regel(plek, inhoud):
+        """Vervang een hele sjabloonregel '  <!-- PLEK -->' (met regeleinde); leeg = de regel verdwijnt zonder spoor."""
+        nonlocal html
+        r = f'  <!-- {plek} -->\n'
+        if html.count(r) != 1:
+            sys.exit(f'uitje: regel <!-- {plek} --> niet precies een keer in het sjabloon')
+        html = html.replace(r, inhoud)
+
+    regel('UT_ARR', blok_arr)
+    regel('UT_KALENDER_KOP', '  <link rel="stylesheet" href="arrangement-kalender.css">\n  <script src="arrangement-kalender.js" defer></script>\n'
+          if kalenders else '')
+    regel('UT_KALENDERS', ''.join(f'  {k}\n' for k in kalenders))
+    if not kamers:
+        # geen kamers: kamersectie (incl. de lege regel erna), kamer-pop-up en kamerdata weg
+        html, n = re.subn(r'  <!-- UT_KAMERSECTIE -->\n[\s\S]*?  <!-- /UT_KAMERSECTIE -->\n\n', '', html)
+        html, m = re.subn(r'  <!-- Kamer-pop-up[^\n]*-->\n  <!-- UT_KAMERPOP -->\n', '', html)
+        if n != 1 or m != 1:
+            sys.exit('uitje: kamersectie of kamer-pop-up niet gevonden in het sjabloon')
+    else:
+        regel('UT_KAMERSECTIE', '')
+        regel('/UT_KAMERSECTIE', '')
+        blok['UT_KAMERS'] = ''.join(kk)
+    if kamers: blok['UT_KAMERPOP'] = (
         f'<dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam" data-l-foto="{d["kamer-pop-foto"]}" data-l-boek="{d["knop-kamer"]}">\n'
         f'    <button type="button" class="lp-pop__sluit" aria-label="{d["pop-sluit"]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>\n'
         '    <div class="lp-pop__binnen">\n'
@@ -2419,6 +2559,7 @@ for arg in args:
     else:
         langs_filter.append(arg)
 
+expliciet = bool(templates_to_build)
 if not templates_to_build:
     templates_to_build = list(TEMPLATES.keys())
 
@@ -2430,6 +2571,13 @@ for tpl in templates_to_build:
         if lang not in config['langs']:
             print(f'  Unknown lang for {tpl}: {lang}')
             sys.exit(1)
+        # uitje zonder gegevensbestand: volledige build slaat het over, expliciet gevraagd = fout
+        json_uitje = config['langs'][lang][1]
+        if config.get('uitje') and not os.path.exists(os.path.join(base, json_uitje)):
+            if expliciet:
+                sys.exit(f'uitje: {json_uitje} bestaat niet (nodig voor {tpl})')
+            print(f'  [{tpl}/{lang}] overgeslagen: {json_uitje} bestaat nog niet')
+            continue
         build(tpl, lang)
 
 # Welkom krijgt dezelfde boekingsmodule als de arrangementen (post-stap,

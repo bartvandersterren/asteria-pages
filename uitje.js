@@ -253,8 +253,8 @@
       if (grond) grond.remove();
       beeld.classList.add('is-interactief');
       var smal = beeld.clientWidth < 600;
-      /* bureaublad: onderrand 136 (Parkhotel 112) zodat het laagste punt boven de attributieregel en de voetstrook blijft */
-      var pad = smal ? { tl: [48, 52], br: [64, 36] } : { tl: [120, 64], br: [150, 136] };
+      /* [x, y]; onderrand bureaublad 136 (Parkhotel 112), telefoon 60 (attributie twee regels): laagste punt boven attributie en voetstrook */
+      var pad = smal ? { tl: [48, 52], br: [64, 60] } : { tl: [120, 64], br: [150, 136] };
       var kt = function (k, nl) { return beeld.getAttribute('data-t-' + k) || nl; };
       var api = window.AsteriaKaart.maak(beeld, {
         geo: res[0],

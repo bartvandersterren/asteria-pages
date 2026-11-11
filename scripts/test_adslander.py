@@ -401,7 +401,7 @@ async def test_breedte(p, w, fouten, schermafdruk=None):
     mw = await pg.evaluate("()=>window.__mews||[]")
     calls = [c for m in mw for c in m['calls']]
     ok(['showRates', '4a642b66-68e6-444c-beeb-af1d00ffc315'] in calls and ['setLanguageCode', 'de-DE'] in calls and ['open'] in calls
-       and not any(c[0] == 'setVoucherCode' for c in calls) and not await pg.evaluate("()=>document.getElementById('lp-pop-kamer').open || !document.querySelector('[data-pop-dialog]').hidden"),
+       and not any(c[0] == 'setVoucherCode' and c[1:] != [''] for c in calls) and not await pg.evaluate("()=>document.getElementById('lp-pop-kamer').open || !document.querySelector('[data-pop-dialog]').hidden"),
        'kamer-pop-up: Zimmer buchen opent Mews met de Suite (de-DE, zonder code) en sluit')
     await pg.evaluate("()=>(window.__mews||[]).forEach(m=>m.calls=[])")
     if not mob:

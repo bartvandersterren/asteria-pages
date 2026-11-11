@@ -569,7 +569,36 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   hoofd, nr, label, pop|url}]}. Build `build_uitje` stopt bij een open veld, ontbrekend fotobestand, em-dash, of een half gevuld FAQ-/meer-slot.
   `al_kop_voet(d, mews, taal='nl')` = spiegelkop/-voet met de NL-labels (standaard `de` voor de adslander, uitvoer daar ongewijzigd).
 - Volgend uitje = `translations/uitje-zooparc-overloon-nl.json` kopiëren naar `translations/uitje-<slug>-nl.json`, invullen, en een regel in
-  TEMPLATES (`'uitje': True`) + `python3 build.py uitje-<slug>`. Vangnet-kaartfoto (`kaart-foto`, 1200x675 en 720x540) = de kaart zelf,
-  gerenderd met Playwright (element `.ut-kaart__beeld`, knoppen en voetstrook verborgen).
-- Test: `python3 -m http.server 8792` + `python3 scripts/test_uitje.py [URL] [--schermafdruk qa/uitje]` (Mews en /api gemockt; platen
-  `asteria-<breedte>-<blok>.png` naast de Parkhotel-platen `parkhotel-<breedte>-<blok>.png`).
+  TEMPLATES (`'uitje': True`) + `python3 build.py uitje-<slug>`. Vier pagina's (uitvoer `<slug>-v2.html`, alle noindex): `uitje-zooparc-overloon`
+  (kamerslider), `uitje-oorlogsmuseum-overloon` (arrangementkaart OORLOGSMUSEUM, `kamers: []`, meer = twee begraafplaats-pop-ups + ZooParc),
+  `uitje-venray-centrum` en `uitje-nationaal-park-de-maasduinen` (kamerslider). Meer-kaarten naar een ander uitje linken onderling naar de
+  -v2-adressen (`url: "/<slug>-v2"`); bij promotie naar het echte adres die `url`-velden in alle vier JSON's omzetten.
+  `hero-focus` = object-position van de herofoto (`"50%"` of `"x y"`, bv. Venray `"74% 50%"` zodat de toren op de telefoon in beeld blijft);
+  `m<n>-positie` = object-position van de dagfoto. Tijdvakken (`09.30-18.00`) en dagbereiken (`ma-vr`) in de oogopslag-tabel breken niet af
+  (build zet ze in `span.ut-nw`). Ontbreekt het JSON, dan slaat `python3 build.py` (zonder argument) het uitje over met een regel
+  "overgeslagen"; `python3 build.py uitje-<slug>` stopt dan met een fout.
+- Arrangementkaart i.p.v. kamerslider (blok `ut-arr`, plek `<!-- UT_ARR -->` direct onder het dagverloop; nabouw Parkhotel `.gd-boek`):
+  aan zodra het uitje-JSON `arr-bron` heeft (= slug van een arrangement-JSON, `translations/<arr-bron>-nl.json`: VOUCHER, MEWS_CONFIG,
+  ARR_NACHTEN, ARR_KALENDER, KAART_VINK_A..D). Velden: `arr-naam` (h3, mag `<span class='al-g'>`), `arr-regel`, `arr-regel2` (optioneel),
+  `arr-vink1..6` (doorlopend tot het eerste lege; geen = KAART_VINK_A..D), `arr-foto`, `arr-alt`, `arr-knop`, `arr-paginalink` +
+  `arr-pagina-url` (tekstlink, alleen met url), `arr-kamerlink` (tekstlink naar Mews zonder code). Standaardteksten `arr-knop`,
+  `arr-paginalink`, `arr-kamerlink` in `uitje-labels-nl.json`; leeg zetten in het uitje-JSON = link weg. GEEN prijs op de kaart
+  (geen `data-arr-vanaf`, geen arr-vanaf.js). Boekknop = `a.mews-open[data-voucher]` met `mewsVoucherCode`; klik opent de prijskalender
+  (een `dialog.ark#ar-kal`, instellingen uit `content/arr-kalender.json`, NL-labels via `al_kalender_dialoog(..., taal='nl')` /
+  `AL_KAL_LABELS`, de adslander gebruikt dezelfde functie met `taal='de'`). `arrangement-kalender.css/.js` laden alleen dan. Staat de code
+  niet in arr-kalender.json of is `ARR_KALENDER` false, dan opent de knop Mews direct met de code. Kop-, slot- en onderbalkknop blijven
+  Mews zonder code: `adslander.js` roept bij elke Mews-knop zonder `data-voucher`/`mewsVoucherCode` `setVoucherCode('')` aan, zodat de widget
+  een eerder gezette actiecode (arrangementknop -> "Liever alleen een kamer?") wist. `arr-bron` + niet-lege `kamers` = build stopt; zonder kamers verdwijnen kamersectie, kamer-pop-up en kamerdata
+  (sjabloonregels `UT_KAMERSECTIE` ... `/UT_KAMERSECTIE`, de build haalt de markeringen weg; ZooParc-uitvoer is byte-gelijk gebleven).
+- Vangnet-kaartfoto (`kaart-foto` 1200x675, `kaart-foto-klein` 720x540) = de kaart zelf: `python3 scripts/uitje_kaartfoto.py <slug>
+  [--poort N] [--naar MAP]` (Playwright, element `.ut-kaart__beeld` op maat, Hele kaart tonen, knoppen/hint/voetstrook verborgen,
+  attributie onderaan; bestandsnamen uit het JSON; zonder `--poort` een eigen tijdelijke server; `--naar` = proef in een andere map).
+  Kip-ei bij een nieuw uitje: eerst tijdelijk de ZooParc-kaartfoto's onder de nieuwe namen kopiëren, bouwen, renderen, opnieuw bouwen.
+  Na een wijziging in `kaart` (coördinaten, `label`) de kaartfoto opnieuw renderen. Kaartpadding in `uitje.js` = [x, y]; telefoon onderrand 60.
+- Test (generiek): `python3 -m http.server 8792` + `python3 scripts/test_uitje.py http://localhost:8792/<slug>-v2.html [--schermafdruk qa/uitje]
+  [--breedtes 1440,390]`. Gegevens uit `translations/uitje-<slug>-nl.json` (+ labels): kamers (0 = geen sliderchecks), verhaalrijen, dagmomenten,
+  kaartpunten (url = link, pop = pop-up), meer-kaarten (url = link, anders pop-up), FAQ's, arrangementkaart (blokvolgorde met `ut-arr`,
+  data-voucher + config, kalender opent met NL-labels via gemockte `/api/arr-kalender`, kamerlink zonder code, `/api` pas na de klik).
+  Titel moet met "Hotel bij" beginnen (harde fout). De Mews-mock houdt per config de laatst gezette code bij (`log.code`): na arrangement
+  boeken -> kamerlink en na de slotknop moet die leeg zijn. Platen `<slug>-<breedte>-<blok>.png`,
+  `<slug>-<breedte>-volledig.png` en op arrangementpagina's `<slug>-<breedte>-kalender.png`.

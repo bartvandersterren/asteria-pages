@@ -89,7 +89,8 @@
     if (!api) return false;
     var p = null; try { p = new URL(href, location.href).searchParams; } catch (x) {}
     var code = el.getAttribute('data-voucher') || (p && p.get('mewsVoucherCode')) || '';
-    if (code && api.setVoucherCode) api.setVoucherCode(code.replace(/[^A-Za-z0-9_-]/g, ''));
+    /* zonder code de code wissen: anders houdt de widget een eerder gezette actiecode vast (arrangementknop -> kamerlink) */
+    if (api.setVoucherCode) api.setVoucherCode(code ? code.replace(/[^A-Za-z0-9_-]/g, '') : '');
     if (p) {
       var s = p.get('mewsStart'), e = p.get('mewsEnd'), a = p.get('mewsAdultCount');
       if (s && api.setStartDate) api.setStartDate(new Date(s));

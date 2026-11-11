@@ -6,14 +6,14 @@
     "Openingstijden: bewust geen tijden op de pagina. Zooparc.nl toont alleen de tijd per gekozen dag (10 nov 2026: 10.00-17.00).",
     "Receptietip is door marketing geschreven op basis van de feiten (binnenverblijven sluiten een half uur eerder). Laten bevestigen door de receptie.",
     "Foto's ZooParc zijn van Wikimedia Commons uit 2010-2016. Niet bevestigd dat pelikanen (g3) en flamingo's (g4) nu nog in het park zijn; eigen of actuele beelden zijn beter.",
-    "Rijtijden: ZooParc 11 min / 10,4 km en fiets 35 min / 7,4 km, Oorlogsmuseum 10 min (OSRM, 10 nov 2026). Maasduinen 15 min en Kasteeltuinen Arcen 25 min zijn gelijk gehouden aan hotel-venray-v2 (OSRM 3 nov 2026); de nieuwe meting gaf 17 en 24 min.",
+    "Rijtijden: ZooParc 11 min / 10,4 km en fiets 35 min / 7,4 km, Oorlogsmuseum 9 min naar het parkeerterrein (OSRM, 10 nov 2026). Maasduinen 18 min en Kasteeltuinen Arcen 24 min (OSRM, 10 nov 2026); hotel-venray-v2 noemt nog 15 en 25 min.",
     "Fietsverhuur via de receptie (FAQ 1) komt uit de hotelfeiten in de repo; prijzen bewust niet genoemd.",
     "Laadpunten bij het hotel bewust niet genoemd (aantal nog af te stemmen).",
-    "Meer in de omgeving opent pop-ups omdat Asteria nog geen andere uitjespagina's heeft; met een gevuld meerN-url wordt de kaart een link."
+    "Meer in de omgeving linkt naar de -v2-adressen van Oorlogsmuseum en De Maasduinen (Arcen blijft een pop-up); bij promotie de adressen aanpassen."
   ],
 
-  "titel": "ZooParc Overloon bij Venray | Dagje uit vanuit Hotel Asteria",
-  "omschrijving": "ZooParc Overloon ligt op 11 minuten rijden van Hotel Asteria in Venray. Lees wat je er ziet, wat handig is om te weten en hoe je de dag afsluit met wellness en diner.",
+  "titel": "Hotel bij ZooParc Overloon | Hotel Asteria Venray",
+  "omschrijving": "Overnacht op 11 minuten rijden van ZooParc Overloon. Na een dag tussen de dieren wachten de wellness, de brasserie en je kamer in Hotel Asteria in Venray.",
   "canonical": "https://visit.asteria.nl/zooparc-overloon-v2",
   "og-image": "https://visit.asteria.nl/fotos/l26-uitje-zooparc-hero.webp",
 
@@ -43,8 +43,8 @@
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&amp;destination=ZooParc+Overloon%2C+Stevensbeekseweg+21%2C+5825+JB+Overloon",
 
   "v1-kop": "Een wereldreis in <span class='al-g'>Overloon</span>",
-  "v1-p1": "ZooParc Overloon is ingedeeld als een expeditie. Het park telt zeven themagebieden en meer dan 80 diersoorten. Je loopt van de pinguïns op Boulders Beach naar de kangoeroes in Outback, langs de tijgers van Jangalee en de leeuwen van Ngorongoro, en verder naar de lemuren van Itampolo.",
-  "v1-p2": "Het nieuwste gebied heet Ngyuwe. Daar vind je onder meer de okapi en de dwerghippo. Volgens het park duurt een bezoek gemiddeld drie tot vier uur. Vanuit Venray ben je er in elf minuten, dus een vroege wekker is niet nodig.",
+  "v1-p1": "Vanaf Hotel Asteria rijd je in 11 minuten naar ZooParc Overloon. Het park is ingedeeld als een expeditie, met zeven themagebieden en meer dan 80 diersoorten. Je loopt van de pinguïns op Boulders Beach naar de kangoeroes in Outback, langs de tijgers van Jangalee en de leeuwen van Ngorongoro, en verder naar de lemuren van Itampolo.",
+  "v1-p2": "Het nieuwste gebied heet Ngyuwe. Daar vind je onder meer de okapi en de dwerghippo. Volgens het park duurt een bezoek gemiddeld drie tot vier uur, dus een vroege wekker is niet nodig.",
   "v1-foto": "fotos/l26-uitje-zooparc-v1.webp",
   "v1-alt": "Een ringstaartmaki in ZooParc Overloon kijkt opzij",
   "v1-b": "1200",
@@ -62,7 +62,7 @@
   "v2-h": "800",
 
   "v3-kop": "Twee uitjes in één <span class='al-g'>dorp</span>",
-  "v3-p1": "Overloon heeft nog een bekende naam: het Oorlogsmuseum. Het ligt zo'n 2,7 kilometer van ZooParc en heeft een eigen parkeerterrein. Wie vroeg begint, bezoekt in de ochtend de dieren en in de middag het museum. Rustiger is het om er twee dagen van te maken. Het museum ligt op tien minuten rijden van het hotel, dus je plant het net zo makkelijk voor de ochtend erna.",
+  "v3-p1": "Overloon heeft nog een bekende naam: het Oorlogsmuseum. Het ligt zo'n 2,7 kilometer van ZooParc en heeft een eigen parkeerterrein. Wie vroeg begint, bezoekt in de ochtend de dieren en in de middag het museum. Rustiger is het om er twee dagen van te maken. Het museum ligt op negen minuten rijden van het hotel, dus je plant het net zo makkelijk voor de ochtend erna.",
   "v3-foto": "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
   "v3-alt": "Legervoertuig in een nagebouwde strandscène in Oorlogsmuseum Overloon",
   "v3-b": "1400",
@@ -139,9 +139,9 @@
     "hotel": [51.54774, 5.99732],
     "punten": [
       {"naam": "ZooParc Overloon", "lat": 51.5787, "lng": 5.93599, "hoofd": true, "label": "boven"},
-      {"naam": "Oorlogsmuseum Overloon", "lat": 51.57037, "lng": 5.9568, "hoofd": false, "nr": 1, "label": "rechts", "pop": "uitje:oorlogsmuseum"},
-      {"naam": "De Maasduinen", "lat": 51.5885, "lng": 6.105, "hoofd": false, "nr": 2, "label": "rechts", "pop": "uitje:maasduinen"},
-      {"naam": "Kasteeltuinen Arcen", "lat": 51.47215, "lng": 6.18548, "hoofd": false, "nr": 3, "label": "links", "pop": "uitje:arcen"}
+      {"naam": "Oorlogsmuseum Overloon", "lat": 51.57037, "lng": 5.9568, "hoofd": false, "nr": 1, "label": "rechts", "url": "/oorlogsmuseum-overloon-v2"},
+      {"naam": "De Maasduinen", "lat": 51.57507, "lng": 6.08658, "hoofd": false, "nr": 2, "label": "rechts", "url": "/nationaal-park-de-maasduinen-v2"},
+      {"naam": "Kasteeltuinen Arcen", "lat": 51.46797, "lng": 6.18468, "hoofd": false, "nr": 3, "label": "links", "pop": "uitje:arcen"}
     ]
   },
 
@@ -162,23 +162,23 @@
   "meer-kop": "Meer in de <span class='al-g'>omgeving</span>",
   "meer1-naam": "Oorlogsmuseum Overloon",
   "meer1-cat": "Geschiedenis",
-  "meer1-foto": "fotos/l26-oorlogsmuseum-arrangement-sherman.webp",
-  "meer1-alt": "Sherman-tank bij Oorlogsmuseum Overloon",
-  "meer1-auto": "10 min",
-  "meer1-pop": "oorlogsmuseum",
-  "meer1-url": "",
+  "meer1-foto": "fotos/l26-uitje-oorlog-hero-klein.webp",
+  "meer1-alt": "B-25 Mitchell-bommenwerper in Oorlogsmuseum Overloon",
+  "meer1-auto": "9 min",
+  "meer1-pop": "",
+  "meer1-url": "/oorlogsmuseum-overloon-v2",
   "meer2-naam": "Nationaal Park De Maasduinen",
   "meer2-cat": "Natuur",
-  "meer2-foto": "fotos/l26-omg-maasduinen-1.webp",
-  "meer2-alt": "Zonsopkomst boven het Eendenmeer in De Maasduinen",
-  "meer2-auto": "15 min",
-  "meer2-pop": "maasduinen",
-  "meer2-url": "",
+  "meer2-foto": "fotos/l26-uitje-maasduinen-hero-klein.webp",
+  "meer2-alt": "Zandpad over de heide in De Maasduinen",
+  "meer2-auto": "18 min",
+  "meer2-pop": "",
+  "meer2-url": "/nationaal-park-de-maasduinen-v2",
   "meer3-naam": "Kasteeltuinen Arcen",
   "meer3-cat": "Tuinen",
   "meer3-foto": "fotos/l26-omg-arcen-1.webp",
   "meer3-alt": "Rode Japanse poort aan de vijver in de Kasteeltuinen Arcen",
-  "meer3-auto": "25 min",
+  "meer3-auto": "24 min",
   "meer3-pop": "arcen",
   "meer3-url": "",
 
@@ -193,33 +193,21 @@
   "fotocredit-verhaal": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Ringstaartmaki_(4497911518)_(3).jpg' target='_blank' rel='noopener'>Tim Strater</a> (CC BY-SA 2.0), <a href='https://commons.wikimedia.org/wiki/File:Vari_Zooparc_Overloon_02.JPG' target='_blank' rel='noopener'>Heinonlein</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-prak": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Vari_Zooparc_Overloon_04.JPG' target='_blank' rel='noopener'>Heinonlein</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:In_trance_-1_(7285054958).jpg' target='_blank' rel='noopener'>jinterwas</a> (CC BY 2.0), <a href='https://commons.wikimedia.org/wiki/File:Kroeskoppelikaan_(4497262693)_(3).jpg' target='_blank' rel='noopener'>Tim Strater</a> (CC BY-SA 2.0) en <a href='https://commons.wikimedia.org/wiki/File:Rode_Flamingo_(4497270047)_(3).jpg' target='_blank' rel='noopener'>Tim Strater</a> (CC BY-SA 2.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-dag": "Foto capibara: <a href='https://commons.wikimedia.org/wiki/File:Capibara_(4497901928)_(3).jpg' target='_blank' rel='noopener'>Tim Strater</a> (CC BY-SA 2.0), bijgesneden; via Wikimedia Commons.",
-  "fotocredit-meer": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(14),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
+  "fotocredit-meer": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:North_American_B-25_Mitchell_(54745918296).jpg' target='_blank' rel='noopener'>Thomas Vogt</a> (CC BY 4.0), <a href='https://commons.wikimedia.org/wiki/File:De_Maasduinen_1.JPG' target='_blank' rel='noopener'>Campinia88</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(14),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
 
   "_pop": {
     "uitje": {
-      "oorlogsmuseum": {
-        "naam": "Oorlogsmuseum Overloon",
-        "cat": "Geschiedenis",
-        "desc": "In Overloon staat een van de grootste museums over de Tweede Wereldoorlog in Nederland. Je loopt langs legervoertuigen in nagebouwde scènes uit de oorlog, en buiten staat een Sherman-tank. Het museum ligt net als ZooParc in Overloon, op tien minuten rijden van het hotel.",
-        "fotos": ["fotos/l26-oorlogsmuseum-arrangement-hero.webp", "fotos/l26-oorlogsmuseum-arrangement-sherman.webp"],
-        "auto": "10 min.",
-        "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Oorlogsmuseum+Overloon%2C+Museumpark+1%2C+5825+AM+Overloon"
-      },
-      "maasduinen": {
-        "naam": "Nationaal Park De Maasduinen",
-        "cat": "Natuur",
-        "desc": "Tussen de Maas en de Duitse grens ligt de langste rivierduingordel van Nederland: ruim 4.500 hectare bos, heide, stuifzand en vennen. Bij het bezoekerscentrum in Well kies je je wandel- of fietsroute. Na een dag buiten wacht in het hotel de wellness op de Top Floor.",
-        "fotos": ["fotos/l26-omg-maasduinen-1.webp", "fotos/l26-omg-maasduinen-2.webp", "fotos/l26-omg-maasduinen-3.webp", "fotos/l26-omg-maasduinen-4.webp"],
-        "auto": "15 min.",
-        "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
-        "credit": "Foto's: Lieblingsgouda, Steven Lek, Carelbullens en Jonathation via Wikimedia Commons (CC BY-SA), bijgesneden."
-      },
       "arcen": {
         "naam": "Kasteeltuinen Arcen",
         "cat": "Tuinen",
         "desc": "Rond een kasteel uit de 17e eeuw liggen meer dan vijftien tuinen, van een rosarium en een Oosterse watertuin tot de tropische kas Casa Verde. De Hertog Jan Brouwerij ligt in hetzelfde dorp, dus je maakt er zo een hele dag van. In de winter zijn de tuinen dicht.",
-        "fotos": ["fotos/l26-omg-arcen-1.webp", "fotos/l26-omg-arcen-2.webp", "fotos/l26-omg-arcen-3.webp", "fotos/l26-omg-arcen-4.webp"],
-        "auto": "25 min.",
+        "fotos": [
+          "fotos/l26-omg-arcen-1.webp",
+          "fotos/l26-omg-arcen-2.webp",
+          "fotos/l26-omg-arcen-3.webp",
+          "fotos/l26-omg-arcen-4.webp"
+        ],
+        "auto": "24 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Kasteeltuinen+Arcen%2C+Lingsforterweg+26%2C+5944+BE+Arcen",
         "credit": "Foto's: Vincent van Zeijst en Kasteeltuinen Arcen via Wikimedia Commons (CC BY-SA 4.0), bijgesneden."
       }
