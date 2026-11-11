@@ -283,7 +283,7 @@ TEMPLATES = {
     },
     # Omgevingspagina's (nov 2026): overzicht + vijf categoriepagina's, nabouw van parkhotelhorst.nl/gebied/ en /gebieden/<cat>/
     # in de Asteria-stijl (omgeving.template.html / omgeving-categorie.template.html + omgeving.css/.js, prefix om-). Kaarten komen
-    # bij elke build uit om_register() (alle uitje-/route-/zoek-JSON's die er dan zijn). Taal zonder JSON = overgeslagen.
+    # bij elke build uit om_register() (alle uitje-/route-JSON's die er dan zijn, geen zoekpagina's). Taal zonder JSON = overgeslagen.
     'omgeving-overzicht': {'template': 'omgeving.template.html', 'omgeving': 'overzicht', 'langs': {
         'nl': ('omgeving-v2.html', 'translations/omgeving-overzicht-nl.json'),
         'de': ('omgeving-v2-de.html', 'translations/omgeving-overzicht-de.json'),
@@ -314,6 +314,17 @@ TEMPLATES = {
             'nl': ('kasteeltuinen-arcen-v2.html', 'translations/uitje-kasteeltuinen-arcen-nl.json'),
             'de': ('kasteeltuinen-arcen-v2-de.html', 'translations/uitje-kasteeltuinen-arcen-de.json'),
             'en': ('kasteeltuinen-arcen-v2-en.html', 'translations/uitje-kasteeltuinen-arcen-en.json'),
+        },
+        'uitje': True,
+    },
+    # Thermaalbad Arcen (11 nov 2026): uitjepagina naast de zoekpagina /hotel-thermaalbad-arcen-v2; titel gericht op de bestemming
+    # (niet 'Hotel bij ...'), arrangementkaart WELLNESS2026, g1-g6 icoonkaarten zonder foto.
+    'uitje-thermaalbad-arcen': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('thermaalbad-arcen-v2.html', 'translations/uitje-thermaalbad-arcen-nl.json'),
+            'de': ('thermaalbad-arcen-v2-de.html', 'translations/uitje-thermaalbad-arcen-de.json'),
+            'en': ('thermaalbad-arcen-v2-en.html', 'translations/uitje-thermaalbad-arcen-en.json'),
         },
         'uitje': True,
     },
@@ -3337,7 +3348,7 @@ def build(template_name, lang):
 # Omgevingspagina's (nov 2026): overzicht /omgeving-v2 (omgeving.template.html) en vijf categoriepagina's
 # /omgeving-<cat>-v2 (omgeving-categorie.template.html), nabouw van parkhotelhorst.nl/gebied/ en /gebieden/<cat>/.
 # Gegevens: translations/omgeving-labels-<taal>.json (vaste labels, eerst geladen) + translations/omgeving-<pagina>-<taal>.json
-# (wint). De kaarten komen bij ELKE build uit om_register(taal): alle uitje-/route-/zoek-JSON's die er op dat moment zijn,
+# (wint). De kaarten komen bij ELKE build uit om_register(taal): alle uitje-/route-JSON's (geen zoek-*) die er op dat moment zijn,
 # dus een nieuw uitje verschijnt vanzelf. Velden via de aliaslijst OM_ALIAS hieronder (uitbreiden = naam erbij zetten).
 # Categorie: veld 'categorie' -> content/omgeving-categorie.json -> OM_HEROCAT -> alleen overzicht + waarschuwing.
 # Stopt bij een open veld, ontbrekend fotobestand of een em-dash. Zie ook CLAUDE.md (Omgevingspagina's).
@@ -3345,7 +3356,7 @@ def build(template_name, lang):
 
 OM_CATS = ['golf', 'natuur', 'cultuur', 'dagje-uit', 'shoppen-steden']   # volgorde filterbalk en tegels (zoals Parkhotel)
 OM_MODES = ['auto', 'lopen', 'fiets']
-OM_BRONNEN = [('uitje', 'uitje-'), ('route', 'route-'), ('zoek', 'zoek-')]   # soort, voorvoegsel van het bestand
+OM_BRONNEN = [('uitje', 'uitje-'), ('route', 'route-')]   # soort, voorvoegsel van het bestand; zoekpagina's (zoek-*) bewust NIET (11 nov 2026)
 # aliaslijst: eerste gevulde veld wint. naam/regel zonder HTML-tags; plaats zie om_plaats; adres = pad uit canonical.
 OM_ALIAS = {
     'naam': ['kaart-titel', 'kruimel', 'hero-kop'],

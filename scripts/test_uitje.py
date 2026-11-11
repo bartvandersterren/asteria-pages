@@ -9,7 +9,7 @@ Gebruik:
 Het gegevensbestand volgt uit de URL: <slug>-v2.html -> translations/uitje-<slug>-nl.json (met translations/uitje-labels-nl.json
 eronder, zoals build_uitje); <slug>-v2-de.html / <slug>-v2-en.html -> uitje-<slug>-de/en.json met uitje-labels-de/en.json en
 content/uitje-kamers-de/en.json. Taal van de pagina = html lang, Mews-taal, kop/voet, kalenderlabels en hreflang worden per taal getoetst.
-Titel begint met "Hotel bij" (nl), "Hotel " (de) of "Hotel near" (en). Daaruit komen de verwachtingen: aantal kamers (0 = geen kamerslider-checks), kaartpunten (genummerd,
+Titel begint met "Hotel bij" (nl), "Hotel " (de) of "Hotel near" (en), of met `test-titel-begin` uit het uitje-JSON. Daaruit komen de verwachtingen: aantal kamers (0 = geen kamerslider-checks), kaartpunten (genummerd,
 met url = link, met pop = pop-up), meer-kaarten (met url = gewone link, zonder = pop-up), FAQ's, verhaalrijen, dagmomenten, en of er
 een arrangementkaart is (arr-bron: blok ut-arr i.p.v. ut-kamers, boekknop met actiecode die de prijskalender opent).
 
@@ -40,7 +40,7 @@ D.update(json.load(open(JSON_UITJE, encoding='utf-8')))
 MEWS_TAAL = D.get('mews-taal', 'nl-NL')
 
 # verwachtingen per taal: titelbegin, kop/voet-labels (al_kop_voet), prijskalender (AL_KAL_LABELS + arrangement-kalender.js)
-TITEL_BEGIN = {'nl': 'Hotel bij', 'de': 'Hotel ', 'en': 'Hotel near'}[TAAL]
+TITEL_BEGIN = D.get('test-titel-begin') or {'nl': 'Hotel bij', 'de': 'Hotel ', 'en': 'Hotel near'}[TAAL]   # test-titel-begin: bv. Thermaalbad Arcen
 KOPVOET = {'nl': ('Kamers & suites', 'Privacyverklaring'), 'de': ('Zimmer & Suiten', 'Datenschutz'),
            'en': ('Rooms & suites', 'Privacy statement')}[TAAL]
 KAL_TAAL = {

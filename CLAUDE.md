@@ -639,12 +639,12 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `omgeving.js` (deeplinks, Toon alle, golf-veegrij, fotoslider), `translations/omgeving-labels-nl.json` (vaste labels, categorienamen/-adressen/
   -foto's), `translations/omgeving-<pagina>-nl.json`, `content/omgeving-categorie.json` (terugval slug -> categorie). Dagblok = `ut-dag` (uitje.css/
   uitje.js), kamers/pop-ups/reviews/Mews = adslander.js. Build: TEMPLATES-entries `omgeving-*` (`'omgeving': '<pagina>'`) -> `build_omgeving`.
-- Kaarten zijn datagedreven: `om_register(taal)` leest bij elke build alle `translations/uitje-*`, `route-*` en `zoek-*-<taal>.json` (geen labels),
+- Kaarten zijn datagedreven: `om_register(taal)` leest bij elke build alle `translations/uitje-*` en `route-*-<taal>.json` (geen labels; zoekpagina's `zoek-*` sinds 11 nov 2026 NIET, `OM_BRONNEN`),
   taal ontbreekt = NL-bestand (dedup via `hreflang.nl`). Velden via `OM_ALIAS` bovenaan het blok (naam: kaart-titel > kruimel > hero-kop; foto:
   hero-foto-klein > hero-foto > hero-poster-bureaublad(-klein); minuten uit vk-auto/-fiets/-lopen; plaats: veld plaats > stad na de postcode in
   kaart-naam > t1-waarde voor de komma; adres: pad uit canonical > TEMPLATES > `OM_ADRES_TERUGVAL`). Categorie: veld `categorie` >
   content/omgeving-categorie.json > `OM_HEROCAT` > alleen overzicht + WAARSCHUWING. Sortering autominuten, onbekend achteraan, dan naam.
-  Routes = routes-strook op het overzicht + kaart op Natuur; zoekpagina's = kaart op hun categorie; golf = golf-uitjes, anders `_banen` uit
+  Routes = routes-strook op het overzicht + kaart op Natuur; zoekpagina's staan niet in het overzicht; golf = golf-uitjes, anders `_banen` uit
   golfarrangement-nl.json. Aantallen (tegels, Toon alle) worden geteld.
 - Pagina-JSON: `conversie` `arr` (met `arr-bron`, fotoslider uit `_inbegrepen_fotos`, knop met code + prijskalender) of `kamers` (+ `kamers`);
   golf: `_baan_chips` {naam: [chips]} en `_vergelijk` {kop, sub, rijen[{label, ico, waarden{naam: tekst}}]}: een rij zonder waarde voor elke baan
@@ -735,3 +735,14 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   onder de hero (alleen < 768 px). Bureaublad ongewijzigd.
 - Gescoopte CSS (adslanders blijven gelijk): kamerslider gap 16 px (`.ut`/`.rt`), `.ut .ut-arr__links a` zonder onderstreping,
   categorietegels `om-meer` met verloop en witte naam.
+- Zoekpagina's uit het register (11 nov 2026): `om_register` leest geen `zoek-*` meer en de zoek-slugs zijn uit `content/omgeving-categorie.json`.
+  De zoekpagina's zelf blijven bestaan en houden hun kop-/voetlink naar het overzicht. Overzicht nu 18 plekken (16 kaarten + 2 routes in de
+  strook): cultuur 5, dagje-uit 4, natuur 4 (2 uitjes + 2 routes), shoppen-steden 3, golf 2; DE/EN gelijk.
+- Uitjepagina Thermaalbad Arcen (11 nov 2026): build-entry `uitje-thermaalbad-arcen` -> `/thermaalbad-arcen-v2` (+ `-de`, `-en`), noindex,
+  categorie dagje-uit (tabel). Titel bewust op de bestemming ("Thermaalbad Arcen: wellness op 23 minuten van Hotel Asteria Venray", DE
+  "Thermalbad Arcen: ...", EN "Thermaalbad Arcen: wellness 23 minutes ..."), niet "Hotel bij": die titel heeft de zoekpagina. Daarom veld
+  `test-titel-begin` in het uitje-JSON; `scripts/test_uitje.py` gebruikt dat als verwacht titelbegin (anders Hotel bij/Hotel /Hotel near).
+  Arrangementkaart wellness (`arr-bron` wellness-arrangement, WELLNESS2026; paginalink /wellness-arrangement, -de, -en), g1-g6 icoonkaarten
+  zonder foto, verhaal alleen v1. FAQ f6 linkt naar de zoekpagina; de zoekpagina's Arcen linken in de kaartlijst bij punt 1 naar de uitjepagina.
+  Officiele bron = roompot.nl (thermaalbad-arcen.nl bestaat niet). Feiten `qa/uitje/FEITEN-thermaalbad-arcen.md`. Beeld zwak: enige vrije foto
+  van het bad = ingang uit 2008 (Commons, Rafkeeee, CC BY-SA 3.0); liever eigen/persbeeld.
