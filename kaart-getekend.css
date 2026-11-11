@@ -57,6 +57,8 @@
   background:var(--terracotta-text); color:var(--surface); font:600 10px/1 var(--font-body); border:1px solid var(--surface) }
 .gk-bord.de { background:var(--ink) }
 .gk-zoomt > .gk-regios,.gk-zoomt > .gk-plaatsen,.gk-zoomt > .gk-borden { visibility:hidden }
+/* naam die niet helemaal binnen het kaartvlak valt (kaart-getekend.js, knipLabels): weg i.p.v. half afgesneden */
+.gk-regio.gk-buiten,.gk-plaats.gk-buiten,.gk-bord.gk-buiten { visibility:hidden }
 
 /* het hotel: rond Asteria-vignet met kastanje rand, vast op zijn coordinaat */
 .gk-hotel { position:absolute; width:64px; height:64px; transform:translate(-50%,-50%); pointer-events:none; z-index:10;

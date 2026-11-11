@@ -602,3 +602,5 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Titel moet met "Hotel bij" beginnen (harde fout). De Mews-mock houdt per config de laatst gezette code bij (`log.code`): na arrangement
   boeken -> kamerlink en na de slotknop moet die leeg zijn. Platen `<slug>-<breedte>-<blok>.png`,
   `<slug>-<breedte>-volledig.png` en op arrangementpagina's `<slug>-<breedte>-kalender.png`.
+- Kaart: `knipLabels()` in `kaart-getekend.js` verbergt regio-, plaats- en bordnamen die niet helemaal binnen het kaartvlak vallen (`.gk-buiten`); draait als de kaart stilstaat en na `pasNamenIn` in `uitje.js`.
+- Actiecode wissen live bevestigd (11 nov 2026, echte Mews-widget op de preview): na de arrangementknop sturen kamerlink en slotknop `getPricing` met een lege `voucherCode` en toont de widget alleen gewone tarieven. Op de Duitse lander van PR #190 (oude `adslander.js`) blijft de code hangen tot deze tak daar ook in zit.

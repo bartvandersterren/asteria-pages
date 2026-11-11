@@ -234,6 +234,8 @@
       zet(origL);
       d.classList.add('ut-plaats-weg');
     });
+    /* plaatsnamen die nu (na het wisselen van kant) buiten het kaartvlak steken: weg (kaart-getekend.js) */
+    if (window.utKaart && window.utKaart.knipLabels) window.utKaart.knipLabels();
   };
   /* punten: data-punten = '#id' (JSON in de pagina) of een adres */
   var leesPunten = function (bron) {
@@ -267,8 +269,8 @@
       });
       api.zetPunten(data);
       api.overzicht(false);
-      pasNamenIn();
       window.utKaart = api;
+      pasNamenIn();
       if (window.ResizeObserver) {
         var raf = 0;
         new ResizeObserver(function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(function () { if (api.stand().overzicht) pasNamenIn(); }); }).observe(beeld);

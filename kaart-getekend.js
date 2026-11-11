@@ -349,8 +349,22 @@
       var k = s / gelegd, schaalt = Math.abs(k - 1) > 1e-6;
       overlay.style.transform = 'translate(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px)' + (schaalt ? ' scale(' + k.toFixed(5) + ')' : '');
       opMaat(schaalt ? k : 1);
+      if (!schaalt && !inGebaar() && !slepend) knipLabels();
       if (o.naTeken) o.naTeken();
     };
+    /** Regio-, plaats- en bordnamen die niet helemaal binnen het kaartvlak vallen verbergen (geen half afgesneden
+        "lmond" aan de rand). Bij stilstand: overzicht, na slepen, na zoomen; de pagina roept hem opnieuw aan nadat
+        ze plaatsnamen van kant heeft gewisseld (uitje.js, pasNamenIn). */
+    function knipLabels() {
+      var v = el.getBoundingClientRect();
+      if (!v.width || !v.height) return;
+      labels.forEach(function (l) {
+        var r = l[0].getBoundingClientRect();
+        var buiten = r.width > 0 && (r.left < v.left - 0.5 || r.right > v.right + 0.5 || r.top < v.top - 0.5 || r.bottom > v.bottom + 0.5);
+        l[0].classList.toggle('gk-buiten', buiten);
+      });
+    }
+    api.knipLabels = knipLabels;
     var rafId = 0;
     var plan = function () { if (!rafId) rafId = requestAnimationFrame(function () { rafId = 0; teken(); }); };
     var zetSchaal = function (n) { return Math.max(sMin, Math.min(sMax, n)); };
