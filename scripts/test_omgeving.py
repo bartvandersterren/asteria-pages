@@ -22,12 +22,16 @@ args = sys.argv[1:]
 BASIS = next((a for a in args if a.startswith('http')), 'http://localhost:8813').rstrip('/')
 SHOT = args[args.index('--schermafdruk') + 1] if '--schermafdruk' in args else None
 BREEDTES = [int(x) for x in (args[args.index('--breedtes') + 1] if '--breedtes' in args else '1440,390').split(',')]
+NL_PAGINAS = ['omgeving-v2', 'omgeving-cultuur-v2', 'omgeving-dagje-uit-v2', 'omgeving-natuur-v2', 'omgeving-shoppen-steden-v2', 'omgeving-golf-v2']
+TALEN = ['nl', 'de', 'en']
 PAGINAS = (args[args.index('--paginas') + 1].split(',') if '--paginas' in args else
-           ['omgeving-v2', 'omgeving-cultuur-v2', 'omgeving-dagje-uit-v2', 'omgeving-natuur-v2', 'omgeving-shoppen-steden-v2', 'omgeving-golf-v2'])
+           [p + ('' if t == 'nl' else '-' + t) for t in TALEN for p in NL_PAGINAS
+            if os.path.exists(os.path.join(BASE, p + ('' if t == 'nl' else '-' + t) + '.html'))])
 CATS = ['golf', 'natuur', 'cultuur', 'dagje-uit', 'shoppen-steden']
 MODES = ['auto', 'lopen', 'fiets']
 STD = '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
-L = json.load(open(os.path.join(BASE, 'translations', 'omgeving-labels-nl.json'), encoding='utf-8'))
+LABELS = {t: json.load(open(os.path.join(BASE, 'translations', f'omgeving-labels-{t}.json'), encoding='utf-8'))
+          for t in TALEN if os.path.exists(os.path.join(BASE, 'translations', f'omgeving-labels-{t}.json'))}
 KAL = json.load(open(os.path.join(BASE, 'content', 'arr-kalender.json'), encoding='utf-8'))
 
 MEWS_STUB = """window.Mews={Distributor:function(opt,cb){window.__mews=window.__mews||[];var log={cfg:opt.configurationIds[0],taal:opt.language,calls:[],code:''};
@@ -45,11 +49,17 @@ def check(naam, ok, extra=''):
         print('  FOUT', naam, extra)
 
 
+def taal_van(pagina):
+    return pagina[-2:] if pagina[-3:] in ('-de', '-en') else 'nl'
+
+
 def gegevens(pagina):
-    sleutel = 'overzicht' if pagina == 'omgeving-v2' else pagina[len('omgeving-'):-len('-v2')]
-    d = dict(L)
-    d.update(json.load(open(os.path.join(BASE, 'translations', f'omgeving-{sleutel}-nl.json'), encoding='utf-8')))
-    return sleutel, d
+    t = taal_van(pagina)
+    kaal = pagina[:-3] if t != 'nl' else pagina
+    sleutel = 'overzicht' if kaal == 'omgeving-v2' else kaal[len('omgeving-'):-len('-v2')]
+    d = dict(LABELS[t])
+    d.update(json.load(open(os.path.join(BASE, 'translations', f'omgeving-{sleutel}-{t}.json'), encoding='utf-8')))
+    return sleutel, d, t
 
 
 def kalender_api(route):
@@ -65,7 +75,9 @@ def zichtbaar_aantal(page, sel):
 
 
 def test_pagina(b, pagina, w, tegelverwachting):
-    sleutel, d = gegevens(pagina)
+    sleutel, d, taal = gegevens(pagina)
+    L = LABELS[taal]
+    tegelverwachting = tegelverwachting[taal]
     tag = f'[{pagina} {w}]'
     ctx = b.new_context(viewport={'width': w, 'height': 900}, is_mobile=w < 600, has_touch=w < 600)
     page = ctx.new_page()
@@ -85,6 +97,13 @@ def test_pagina(b, pagina, w, tegelverwachting):
     check(f'{tag} robots noindex, follow', page.get_attribute('meta[name=robots]', 'content') == 'noindex, follow')
     check(f'{tag} canonical', page.get_attribute('link[rel=canonical]', 'href') == d['canonical'], page.get_attribute('link[rel=canonical]', 'href'))
     check(f'{tag} titel', page.title() == d['titel'], page.title())
+    check(f'{tag} html lang {taal}', page.get_attribute('html', 'lang') == taal)
+    alt = page.eval_on_selector_all('link[rel=alternate]', 'els=>els.map(e=>[e.hreflang,e.getAttribute("href")])')
+    talen_er = [t for t in TALEN if os.path.exists(os.path.join(BASE, pagina[:-3] + ('' if t == 'nl' else '-' + t) + '.html'))] if taal != 'nl' else \
+        [t for t in TALEN if os.path.exists(os.path.join(BASE, pagina + ('' if t == 'nl' else '-' + t) + '.html'))]
+    if len(talen_er) > 1:
+        check(f'{tag} hreflang {"/".join(talen_er)} + x-default', sorted(h for h, _ in alt) == sorted(talen_er + ['x-default'])
+              and dict(alt).get(taal) == d['canonical'], alt)
 
     # blokvolgorde
     comp = page.eval_on_selector_all('main > [data-component]', 'els=>els.map(e=>e.getAttribute("data-component"))')
@@ -105,8 +124,10 @@ def test_pagina(b, pagina, w, tegelverwachting):
     html = page.content()
     check(f'{tag} geen bee2f902', 'bee2f902' not in html)
     hrefs = page.eval_on_selector_all('a[href*="mews.com/distributor"]', 'els=>els.map(e=>e.getAttribute("href"))')
-    check(f'{tag} Mews-links op 6dc9094c met nl-NL', bool(hrefs) and all(STD in h and 'language=nl-NL' in h for h in hrefs),
-          [h for h in hrefs if STD not in h or 'language=nl-NL' not in h][:3])
+    mt = 'language=' + d['mews-taal']
+    check(f'{tag} Mews-links op 6dc9094c met {d["mews-taal"]}', bool(hrefs) and all(STD in h and mt in h for h in hrefs),
+          [h for h in hrefs if STD not in h or mt not in h][:3])
+    check(f'{tag} geen em-dash', '\u2014' not in html)
     check(f'{tag} geen kamerprijs', page.locator('.kk-prijs, [data-kamer-vanaf]').count() == 0)
 
     # dag in vier momenten
@@ -193,11 +214,16 @@ def test_pagina(b, pagina, w, tegelverwachting):
         # routes-strook alleen met routes
         check(f'{tag} routes-strook {page.locator(".om-route").count()} kaarten', page.locator('.om-routes').count() == (1 if page.locator('.om-route').count() else 0))
         # deeplinks + hashchange
-        page.goto(f'{BASIS}/{pagina}.html#natuur', wait_until='networkidle')
-        check(f'{tag} deeplink #natuur', page.is_checked('#om-f-natuur'))
-        page.evaluate("location.hash='#op-de-fiets'")
+        h_nat, h_fiets, h_voet = {'nl': ('#natuur', '#op-de-fiets', '#te-voet'), 'de': ('#natur', '#mit-dem-rad', '#zu-fuss'),
+                                  'en': ('#nature', '#by-bike', '#on-foot')}[taal]
+        page.goto(f'{BASIS}/{pagina}.html{h_nat}', wait_until='networkidle')
+        check(f'{tag} deeplink {h_nat}', page.is_checked('#om-f-natuur'))
+        page.evaluate(f"location.hash='{h_fiets}'")
         page.wait_for_timeout(200)
-        check(f'{tag} hashchange #op-de-fiets', page.is_checked('#om-t-fiets'))
+        check(f'{tag} hashchange {h_fiets}', page.is_checked('#om-t-fiets'))
+        page.evaluate(f"location.hash='{h_voet}'")
+        page.wait_for_timeout(200)
+        check(f'{tag} hashchange {h_voet}', page.is_checked('#om-t-lopen'))
         page.evaluate("location.hash='#golf'")
         page.wait_for_timeout(200)
         check(f'{tag} hashchange #golf', page.is_checked('#om-f-golf'))
@@ -256,7 +282,7 @@ def test_pagina(b, pagina, w, tegelverwachting):
             knop = page.locator('.om-carr a.mews-open[data-voucher]')
             check(f'{tag} arrangementknop met code {code}', knop.count() == 1 and knop.get_attribute('data-voucher') == code
                   and f'mewsVoucherCode={code}' in knop.get_attribute('href'))
-            if code in KAL:
+            if code in KAL and taal in ('nl', 'de'):
                 knop.scroll_into_view_if_needed()
                 knop.click()
                 page.wait_for_timeout(1200)
@@ -280,16 +306,20 @@ def test_pagina(b, pagina, w, tegelverwachting):
 
 
 def tegels_tellen(b):
-    """Aantal kaarten per categoriepagina (golf: banen) = verwachte telling op de overzichtstegels."""
+    """Aantal kaarten per categoriepagina (golf: banen) = verwachte telling op de overzichtstegels, per taal."""
+    return {t: tegels_tellen_taal(b, '' if t == 'nl' else '-' + t) for t in TALEN}
+
+
+def tegels_tellen_taal(b, achter):
     uit = {}
     ctx = b.new_context(viewport={'width': 1440, 'height': 900})
     page = ctx.new_page()
     page.route('**/api/**', lambda r: r.fulfill(status=204, body=''))
     for c in CATS:
-        pad = os.path.join(BASE, f'omgeving-{c}-v2.html')
+        pad = os.path.join(BASE, f'omgeving-{c}-v2{achter}.html')
         if not os.path.exists(pad):
             continue
-        page.goto(f'{BASIS}/omgeving-{c}-v2.html', wait_until='domcontentloaded')
+        page.goto(f'{BASIS}/omgeving-{c}-v2{achter}.html', wait_until='domcontentloaded')
         uit[c] = page.locator('.om-baan').count() if c == 'golf' else page.locator('.om-raster__grid .om-kaart').count()
     ctx.close()
     return uit

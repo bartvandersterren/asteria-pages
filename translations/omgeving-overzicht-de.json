@@ -1,0 +1,116 @@
+{
+  "_uitleg": "Deutsche Fassung von translations/omgeving-overzicht-nl.json (Sie-Form, für Gäste aus NRW). Fotos, Icons und Zimmer wie NL; Karten kommen aus om_register('de') (fehlt die deutsche Ausflugsdatei, dann die NL-Datei).",
+  "_controleren": [
+    "Parken am Hotel (f2, m2): ohne Angabe 'kostenlos', siehe qa/omgeving/FEITEN-omgeving.md.",
+    "Wanderkarten und Fahrradplatz (f3): Quelle noch bestätigen.",
+    "Muttersprachliche Kontrolle der deutschen Texte."
+  ],
+  "titel": "Ausflüge rund um Venray: Natur, Kultur und Tagesausflüge | Hotel Asteria",
+  "omschrijving": "Ausflüge rund um Hotel Asteria in Venray: Nationalpark De Maasduinen, Kriegsmuseum Overloon, ZooParc, Golf und Venlo. Mit Fahrzeiten ab dem Hotel.",
+  "canonical": "https://visit.asteria.nl/omgeving-v2-de",
+  "hero-kop": "Rund um Venray reicht die <span class='al-g'>Zeit</span> kaum",
+  "hero-sub": "Wälder, Museen, ein Tierpark und zwei Golfplätze, die meisten eine Viertelstunde von Ihrem Zimmer entfernt.",
+  "hero-foto": "fotos/hf-hero.webp",
+  "hero-foto-klein": "fotos/hf-hero-800.webp",
+  "hero-alt": "Ein Paar spaziert auf einem Waldweg bei Venray",
+  "hero-focus": "50% 45%",
+  "hero-knop2": "Ausflüge ansehen",
+  "intro-kop": "Ihr Ausgangspunkt in <span class='al-g'>Nord-Limburg</span>",
+  "intro-tekst": "Hotel Asteria liegt am Rand von Venray, direkt an der A73. In wenigen Minuten sind Sie in den Wäldern der Maasduinen, in Overloon oder im Zentrum von Venray, und in einer halben Stunde in Arcen oder Venlo. Abends wartet der Wellnessbereich im obersten Stock, danach nehmen Sie in der Brasserie Platz.",
+  "intro-knop2": "Zimmer ansehen",
+  "intro-knop2-url": "#kamers",
+  "raster-kop": "Alle Ausflüge in der <span class='al-g'>Nähe</span>",
+  "raster-sub": "Sortiert nach Fahrzeit ab Hotel Asteria. Wählen Sie eine Kategorie oder wie Sie hinkommen möchten.",
+  "routes-kop": "Lieber selbst unterwegs?",
+  "routes-sub": "Wander- und Radrouten, die nah am Hotel beginnen.",
+  "dag-kop": "Ein Tag in vier <span class='al-g'>Momenten</span>",
+  "dag-sub": "So sieht ein Tag aus, wenn Sie bei uns wohnen und die Umgebung erkunden.",
+  "m1-deel": "Morgens",
+  "m1-naam": "Frühstück ohne Eile",
+  "m1-tekst": "Das Frühstücksbuffet steht werktags ab 7 Uhr bereit, am Wochenende ab 8 Uhr. Fragen Sie an der Rezeption, was an diesem Tag los ist.",
+  "m1-foto": "fotos/l26-najaar-ontbijt.webp",
+  "m1-alt": "Frühstücksteller mit Croissant, Käse und Aufschnitt",
+  "m2-deel": "Mittags",
+  "m2-naam": "Raus in die Umgebung",
+  "m2-tekst": "Radeln Sie durch die Wälder, besuchen Sie das Kriegsmuseum Overloon oder bummeln Sie durch Venray. Ihr Auto steht am Hotel, die A73 liegt gleich um die Ecke.",
+  "m2-foto": "fotos/l26-omg-fietsen-1.webp",
+  "m2-alt": "Zwei Radfahrer auf einem Waldweg",
+  "m3-deel": "Nachmittags",
+  "m3-naam": "Aufwärmen im Wellnessbereich",
+  "m3-tekst": "Auf der Top Floor finden Sie 300 m² Wellness mit vier Saunen, Dampfbad und Tauchbecken. Ideal vor dem Abendessen.",
+  "m3-foto": "fotos/l26-wellness-arrangement-relax.webp",
+  "m3-alt": "Ein Gast liest auf einer Liege im Wellnessbereich",
+  "m4-deel": "Abends",
+  "m4-naam": "Zu Tisch in der Brasserie",
+  "m4-tekst": "In der Brasserie kochen wir mit Produkten aus der Region und dem, was die Saison bringt. Danach sind es nur ein paar Schritte bis zu Ihrem Zimmer.",
+  "m4-foto": "fotos/l26-najaar-diner.webp",
+  "m4-alt": "Ein Gast beim Abendessen am Fenster",
+  "m4-positie": "40% 50%",
+  "kamers-kop": "Bleiben Sie eine Nacht <span class='al-g'>länger</span>",
+  "kamers-sub": "Vom Comfort-Zimmer bis zur Suite. Den Preis für Ihre Daten sehen Sie direkt bei der Buchung.",
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
+  "arr-kop": "Arrangements für Ihren <span class='al-g'>Ausflug</span>",
+  "arr-sub": "Übernachtung, Abendessen und ein Ausflug in einem Paket.",
+  "arrangementen": [
+    "golfarrangement",
+    "oorlogsmuseum-arrangement",
+    "wellness-arrangement"
+  ],
+  "faq-kop": "Häufige <span class='al-g'>Fragen</span>",
+  "f1-v": "Wie weit sind die Ausflugsziele vom Hotel entfernt?",
+  "f1-a": "Die meisten Ziele auf dieser Seite liegen innerhalb einer halben Stunde Fahrzeit. Das Zentrum von Venray erreichen Sie in sechs Minuten mit dem Auto, das Kriegsmuseum Overloon in neun und den ZooParc Overloon in elf. Bei jeder Karte steht die Fahrzeit ab dem Hotel.",
+  "f2-v": "Kann ich am Hotel parken?",
+  "f2-a": "Ja, Sie parken am Hotel und sind schnell auf der A73. Die Rezeption sagt Ihnen gern, wo Sie bei einem Ausflugsziel am besten parken.",
+  "f3-v": "Kann ich vom Hotel aus wandern oder Rad fahren?",
+  "f3-a": "Ja. Wander- und Radrouten beginnen nah am Hotel, und die Wälder der Maasduinen liegen eine Viertelstunde entfernt. Fragen Sie an der Rezeption nach Routen und einem Platz für Ihr Fahrrad.",
+  "f4-v": "Kann ich Tickets über das Hotel bekommen?",
+  "f4-a": "Für das Kriegsmuseum Overloon gibt es ein Arrangement mit Eintritt, Abendessen und Übernachtung. Bei anderen Ausflügen hilft Ihnen die Rezeption weiter; rufen Sie gern an unter +31 478 511 466.",
+  "f5-v": "Was kann ich bei schlechtem Wetter unternehmen?",
+  "f5-a": "Besuchen Sie das Kriegsmuseum Overloon, das Limburgs Museum in Venlo oder die Hertog Jan Brauerei in Arcen. Zurück im Hotel wartet der Wellnessbereich auf der Top Floor.",
+  "f6-v": "Wie früh sollte ich buchen?",
+  "f6-a": "Sie buchen Ihr Zimmer direkt über den Button auf dieser Seite und sehen sofort, welche Daten frei sind. Für Wochenenden und Ferien lohnt es sich, früh zu buchen.",
+  "slot-kop": "Planen Sie Ihre Tage in der <span class='al-g'>Region</span>",
+  "slot-tekst": "Buchen Sie ein Zimmer oder wählen Sie ein Arrangement, um den Rest kümmern wir uns.",
+  "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
+  "slot-alt": "Hotel Asteria bei Sonnenuntergang aus der Luft",
+  "slot-focus": "50%",
+  "slot-knop2": "Arrangements ansehen",
+  "slot-knop2-url": "spiegel:arrangementen",
+  "_arr_teksten": {
+    "golfarrangement": {
+      "naam": "Golfarrangement",
+      "regel": "Ein Tag Golf auf einem Platz Ihrer Wahl, mit Übernachtung, Abendessen und Frühstück.",
+      "vink": [
+        "Greenfee für 18 Löcher",
+        "Drei-Gänge-Menü",
+        "Royale Zimmer"
+      ]
+    },
+    "oorlogsmuseum-arrangement": {
+      "naam": "Kriegsmuseum-Arrangement",
+      "regel": "Gemeinsam mit dem Kriegsmuseum Overloon: Geschichte und Erleben des Zweiten Weltkriegs.",
+      "vink": [
+        "Eintritt Kriegsmuseum Overloon",
+        "Kaffee oder Tee im Museum",
+        "Drei-Gänge-Menü"
+      ]
+    },
+    "wellness-arrangement": {
+      "naam": "Wellnessarrangement",
+      "regel": "300 m² Wellness auf der Top Floor, mit Übernachtung, Abendessen und Frühstück.",
+      "vink": [
+        "Freier Zugang zum Wellnessbereich",
+        "Begrüßungsgetränk auf dem Zimmer",
+        "Drei-Gänge-Menü"
+      ]
+    }
+  }
+}

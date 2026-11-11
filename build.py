@@ -2745,7 +2745,7 @@ def om_kaart(x, L, golf_url=''):
     from html import escape
     cls = ['om-kaart'] + ([f'cat-{x["categorie"]}'] if x['categorie'] else []) + [f'mode-{m}' for m in OM_MODES if x.get(m)]
     vk = ''.join(f'<li class="om-vk"><span class="om-vk__ib">{om_svgcls(UT_VK[m], "om-vk__ico")}</span>'
-                 f'<span class="om-vk__t"><strong>{x[m]} min</strong><span>{L["l-" + m]}</span></span></li>'
+                 f'<span class="om-vk__t"><strong>{x[m]} {L.get("l-min", "min")}</strong><span>{L["l-" + m]}</span></span></li>'
                  for m in ('auto', 'fiets', 'lopen') if x.get(m))
     cat = L.get(f'cat-{x["categorie"]}-naam', '') if x['categorie'] else ''
     url = x['url'] or golf_url
@@ -3041,7 +3041,7 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
             bk = []
             for x in eigen:
                 ch = ''.join(f'<span class="om-chip">{OM_CHIP}{escape(c, quote=False)}</span>' for c in (chips.get(x['naam']) or [])[:4])
-                rij = x.get('rijtijd') or (f'{x["auto"]} min' if x.get('auto') else '')
+                rij = x.get('rijtijd') or (f'{x["auto"]} {L.get("l-min", "min")}' if x.get('auto') else '')
                 afstand = ' &middot; '.join(escape(v, quote=False) for v in (x['plaats'], rij) if v)
                 if x['url']:
                     knop = f'<a class="btn btn-primary om-baan__knop" href="{x["url"]}">{L["knop-meer-info"]}</a>'
