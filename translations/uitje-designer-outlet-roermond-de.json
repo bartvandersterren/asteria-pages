@@ -9,12 +9,10 @@
     "Parkeertarieven (eerste 30 min gratis, dag 7 €, Premium Parking 12,50 €) van mcarthurglen.com op 11 nov 2026. Jaarlijks nakijken.",
     "Receptietip (Duitse feestdagen neutraal geformuleerd voor een Duitse lezer) laten bevestigen door de receptie."
   ],
-
   "titel": "Designer Outlet Roermond: Tagesausflug vom Hotel Asteria Venray",
   "omschrijving": "Das Designer Outlet Roermond liegt 40 Minuten mit dem Auto vom Hotel Asteria in Venray. So meiden Sie den Andrang und genießen danach Sauna und Abendessen.",
   "canonical": "https://visit.asteria.nl/designer-outlet-roermond-v2-de",
   "og-image": "https://visit.asteria.nl/fotos/l26-uitje-roermond-hero.webp",
-
   "hero-cat": "Tagesausflug",
   "hero-kop": "Designer Outlet <span class='al-g'>Roermond</span>",
   "hero-sub": "Rund 170 Geschäfte am Rand der Roermonder Innenstadt, 40 Minuten mit dem Auto vom Hotel Asteria in Venray.",
@@ -22,7 +20,6 @@
   "hero-foto-klein": "fotos/l26-uitje-roermond-hero-klein.webp",
   "hero-alt": "Eingang des Designer Outlet Roermond in einem Backsteingebäude mit zwei Uhren",
   "hero-focus": "50%",
-
   "oog-kop": "Designer Outlet Roermond auf einen <span class='al-g'>Blick</span>",
   "vk-auto": "40 min",
   "vk-fiets": "",
@@ -39,7 +36,6 @@
   "t5-label": "Parken",
   "t5-waarde": "Erste 30 Min. frei, Tag 7 € (Nov. 2026)",
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&amp;destination=Designer+Outlet+Roermond%2C+Stadsweide+2%2C+6041+TD+Roermond",
-
   "v1-kop": "Ein Einkaufstag in <span class='al-g'>Roermond</span>",
   "v1-p1": "Das Designer Outlet Roermond ist ein Einkaufszentrum unter freiem Himmel mit rund 170 Geschäften von Designermarken, die dort ihre Kollektionen zu reduzierten Preisen verkaufen. Vom Hotel Asteria fahren Sie etwa 40 Minuten, knapp 50 Kilometer. Es ist also kein Ausflug um die Ecke, sondern ein ganzer Tag.",
   "v1-p2": "Sie schlendern durch Gassen an den Geschäften entlang, mit Plätzen für einen Kaffee oder einen schnellen Imbiss dazwischen, etwa Starbucks und Frankie's mit Churros. Das Zentrum ist größtenteils ebenerdig, mit Rampen und Aufzügen zu den höher gelegenen Teilen. Ihre Einkäufe stellen Sie zwischendurch in ein Schließfach, das Sie per Smartphone reservieren und bezahlen.",
@@ -50,7 +46,6 @@
   "v1-knop": "Geschäfte und Öffnungszeiten auf mcarthurglen.com",
   "v1-knop-url": "https://www.mcarthurglen.com/de/outlets/nl/designer-outlet-roermond/",
   "v1-knop-extern": "ja",
-
   "v2-kop": "Mit dem Andrang <span class='al-g'>rechnen</span>",
   "v2-p1": "Das Outlet zieht viele Besucher aus Deutschland an. An deutschen Feiertagen, wenn die Geschäfte jenseits der Grenze geschlossen sind, ist es besonders voll. Der Karfreitag ist in Roermond sogar als 'Deutscher Tag' bekannt, und die Gemeinde leitet den Verkehr dann um, damit sich am Outlet keine Staus bilden. Achten Sie bei der Planung also auf die Feiertage und auf Aktionstage wie die Black Friday Days Ende November.",
   "v2-p2": "Sie parken auf den Parkplätzen und in den Parkhäusern des Outlets. Die erste halbe Stunde ist frei, ein ganzer Tag kostet 7 €. Am Haupteingang liegt Premium Parking für 12,50 € pro Tag. Behindertenparkplätze finden Sie auf P1, Ladesäulen auf P1, P2 und bei Premium Parking.",
@@ -58,18 +53,15 @@
   "v2-alt": "Einkaufsstraße mit Fachwerkfassaden im Designer Outlet Roermond",
   "v2-b": "1200",
   "v2-h": "800",
-
   "v3-kop": "Dazu die <span class='al-g'>Innenstadt</span>",
   "v3-p1": "Die historische Innenstadt von Roermond liegt wenige Gehminuten vom Outlet entfernt. Am Markt steht die St.-Christophorus-Kathedrale, etwas weiter die Munsterkirche, eine romanische Kirche aus dem 13. Jahrhundert. Essen Sie lieber auf einer Terrasse in der Stadt zu Mittag als zwischen den Geschäften, dann lassen Sie das Auto einfach stehen.",
   "v3-foto": "fotos/l26-uitje-roermond-v3.webp",
   "v3-alt": "Der Markt in Roermond mit der St.-Christophorus-Kathedrale",
   "v3-b": "1200",
   "v3-h": "800",
-
   "tip-kop": "Tipp der <span class='al-g'>Rezeption</span>",
   "tip": "Fahren Sie lieber unter der Woche als am Samstag und gleich nach dem Frühstück los, dann sind Sie gegen Öffnung dort. An deutschen Feiertagen ist es im Outlet besonders voll. Und reservieren Sie vor der Abfahrt einen Tisch in unserer Brasserie, dann müssen Sie nach der Sauna an nichts mehr denken.",
   "tip-van": "Team Rezeption, Hotel Asteria",
-
   "g-kop": "Gut zu <span class='al-g'>wissen</span>",
   "g1-kop": "Täglich geöffnet",
   "g1-tekst": "Auch sonntags. Die aktuellen Zeiten, auch rund um die Feiertage, finden Sie auf mcarthurglen.com.",
@@ -91,7 +83,6 @@
   "g4-ico": "<circle cx='11' cy='4.5' r='1.6'/><path d='M11 7v6h5l2 5'/><path d='M11 10h4'/><path d='M8.5 11a5 5 0 1 0 6.8 6.3'/>",
   "g4-foto": "fotos/l26-uitje-roermond-g4.webp",
   "g4-alt": "Eingang des Designer Outlet Roermond mit dem Riesenrad zur Weihnachtszeit",
-
   "dag-kop": "So wird ein ganzer <span class='al-g'>Tag</span> daraus",
   "dag-sub": "Frühstück im Hotel, tagsüber Einkaufen in Roermond und am späten Nachmittag zurück für Sauna und Abendessen.",
   "dag-start": "1",
@@ -99,31 +90,37 @@
   "m1-naam": "Frühstück im Hotel",
   "m1-tekst": "Das Frühstücksbuffet steht werktags von 7.00 bis 10.00 Uhr bereit, am Wochenende von 8.00 bis 10.30 Uhr. Fahren Sie um halb zehn los, dann sind Sie werktags gegen Öffnung in Roermond.",
   "m1-foto": "fotos/l26-ontbijt.webp",
-  "m1-alt": "Frühstücksbuffet im Restaurant von Hotel Asteria",
+  "m1-alt": "Korb mit frischen Brötchen am Frühstücksbuffet des Hotel Asteria in Venray",
   "m1-positie": "50% 50%",
   "m2-deel": "Tagsüber",
   "m2-naam": "Designer Outlet Roermond",
   "m2-tekst": "Nehmen Sie sich Zeit für die Geschäfte und essen Sie im Outlet oder in der Innenstadt zu Mittag, ein paar Gehminuten entfernt. Ihre Einkäufe stellen Sie zwischendurch in ein Schließfach.",
   "m2-foto": "fotos/l26-uitje-roermond-dag.webp",
-  "m2-alt": "Schild des Designer Outlet neben dem Turm der St.-Christophorus-Kathedrale",
+  "m2-alt": "Schild des Designer Outlet neben dem Turm der St.-Christophorus-Kathedrale in Roermond",
   "m2-positie": "50% 50%",
   "m3-deel": "Nachmittags",
   "m3-naam": "Wellness auf der Top Floor",
   "m3-tekst": "Nach 40 Minuten Fahrt wärmen Sie sich in der Sauna auf. Der Wellnessbereich ist montags bis donnerstags von 16.00 bis 22.00 Uhr und freitags bis sonntags von 12.00 bis 22.00 Uhr geöffnet. Dienstag ist Badekleidungstag.",
   "m3-foto": "fotos/l26-wellness-staand.webp",
-  "m3-alt": "Fußbad im Wellnessbereich auf der Top Floor",
+  "m3-alt": "Fußbad mit grünem Mosaik unter einer Lichtkuppel im Wellnessbereich auf der Top Floor von Hotel Asteria",
   "m3-positie": "50% 50%",
   "m4-deel": "Abends",
   "m4-naam": "Abendessen in der Brasserie",
   "m4-tekst": "Den Tag beschließen Sie am Tisch in der Brasserie des Hotels. Die Küche ist bis 21.30 Uhr geöffnet, und Ihr Zimmer ist danach nur eine Fahrt mit dem Aufzug entfernt.",
   "m4-foto": "fotos/l26-brasserie.webp",
-  "m4-alt": "Bar in der Brasserie von Hotel Asteria",
+  "m4-alt": "Barkeeper zapft ein Bier an der Bar der Brasserie im Hotel Asteria, Venray",
   "m4-positie": "50% 50%",
-
   "kamers-kop": "Machen Sie ein <span class='al-g'>Wochenende</span> daraus",
   "kamers-sub": "Nach einem Einkaufstag und einem Abend in der Sauna möchten Sie nicht mehr nach Hause fahren. Wählen Sie Ihr Zimmer; den Preis für Ihre Daten sehen Sie direkt bei der Buchung.",
-  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
-
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
   "kaart-kop": "So kommen Sie <span class='al-g'>hin</span>",
   "kaart-regel": "Das Designer Outlet Roermond liegt südlich von Venray, am Rand der Innenstadt von Roermond. Auf der Karte sehen Sie auch drei Ausflugsziele näher am Hotel.",
   "kaart-naam": "Designer Outlet Roermond, Stadsweide 2, 6041 TD Roermond",
@@ -134,15 +131,47 @@
   "kaart-alt": "Karte von Nord- und Mittel-Limburg mit Hotel Asteria in Venray, dem Designer Outlet Roermond und drei weiteren Ausflugszielen",
   "kaart-vignet": "fotos/l26-uitje-vignet-asteria.webp",
   "kaart": {
-    "hotel": [51.54774, 5.99732],
+    "hotel": [
+      51.54774,
+      5.99732
+    ],
     "punten": [
-      {"naam": "Designer Outlet Roermond", "lat": 51.20089, "lng": 5.98897, "hoofd": true, "label": "rechts"},
-      {"naam": "Venray Zentrum", "lat": 51.52704, "lng": 5.97497, "hoofd": false, "nr": 1, "label": "links", "pop": "uitje:venray"},
-      {"naam": "De Maasduinen", "lat": 51.5885, "lng": 6.105, "hoofd": false, "nr": 2, "label": "rechts", "pop": "uitje:maasduinen"},
-      {"naam": "Kasteeltuinen Arcen", "lat": 51.47215, "lng": 6.18548, "hoofd": false, "nr": 3, "label": "rechts", "pop": "uitje:arcen"}
+      {
+        "naam": "Designer Outlet Roermond",
+        "lat": 51.20089,
+        "lng": 5.98897,
+        "hoofd": true,
+        "label": "rechts"
+      },
+      {
+        "naam": "Venray Zentrum",
+        "lat": 51.52704,
+        "lng": 5.97497,
+        "hoofd": false,
+        "nr": 1,
+        "label": "links",
+        "pop": "uitje:venray"
+      },
+      {
+        "naam": "De Maasduinen",
+        "lat": 51.5885,
+        "lng": 6.105,
+        "hoofd": false,
+        "nr": 2,
+        "label": "rechts",
+        "pop": "uitje:maasduinen"
+      },
+      {
+        "naam": "Kasteeltuinen Arcen",
+        "lat": 51.47215,
+        "lng": 6.18548,
+        "hoofd": false,
+        "nr": 3,
+        "label": "rechts",
+        "pop": "uitje:arcen"
+      }
     ]
   },
-
   "faq-kop": "Häufige <span class='al-g'>Fragen</span>",
   "f1-v": "Wie weit ist das Designer Outlet Roermond vom Hotel Asteria entfernt?",
   "f1-a": "Es sind 49,3 Kilometer, etwa 40 Minuten mit dem Auto. An deutschen Feiertagen und an Aktionstagen kann es auf den Straßen rund um Roermond voll werden, rechnen Sie dann mit mehr Zeit. Beim Hotel Asteria parken Sie kostenlos.",
@@ -156,19 +185,18 @@
   "f5-a": "Ja, an der Leine. Manche Geschäfte und Restaurants können Hunde abweisen. Bei Timberland steht ein Trinkbrunnen für Hunde, und Kotbeutel bekommen Sie kostenlos bei Guest Services.",
   "f6-v": "Kann ich nach dem Einkaufen noch in den Wellnessbereich und im Hotel essen?",
   "f6-a": "Ja. Der Wellnessbereich ist montags bis donnerstags von 16.00 bis 22.00 Uhr und freitags bis sonntags von 12.00 bis 22.00 Uhr geöffnet. Dienstag ist Badekleidungstag. In der Brasserie können Sie bis 21.30 Uhr zu Abend essen.",
-
   "meer-kop": "Mehr in der <span class='al-g'>Umgebung</span>",
   "meer1-naam": "Venray Zentrum",
   "meer1-cat": "Zentrum",
   "meer1-foto": "fotos/l26-omg-venray-1.webp",
-  "meer1-alt": "Terrassen am Grote Markt in Venray mit der St.-Petrus-Banden-Kirche",
+  "meer1-alt": "Terrassen am Grote Markt in Venray mit der Sint-Petrus' Bandenkerk",
   "meer1-auto": "7 min",
   "meer1-pop": "venray",
   "meer1-url": "",
   "meer2-naam": "Nationalpark De Maasduinen",
   "meer2-cat": "Natur",
   "meer2-foto": "fotos/l26-omg-maasduinen-1.webp",
-  "meer2-alt": "Sonnenaufgang über dem Eendenmeer in De Maasduinen",
+  "meer2-alt": "Waldkiefern und ein umgestürzter Baumstamm in der Heide am Eendenmeer in De Maasduinen",
   "meer2-auto": "15 min",
   "meer2-pop": "maasduinen",
   "meer2-url": "",
@@ -179,27 +207,29 @@
   "meer3-auto": "25 min",
   "meer3-pop": "arcen",
   "meer3-url": "",
-
   "slot-kop": "Nach dem Einkaufen: Sauna und ein gutes <span class='al-g'>Abendessen</span>",
   "slot-tekst": "40 Minuten von Roermond warten Ihr Zimmer, der Wellnessbereich auf der Top Floor und ein Tisch in der Brasserie.",
   "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
   "slot-foto-klein": "fotos/l26-hotel-zonsondergang.webp",
-  "slot-alt": "Hotel Asteria bei Sonnenuntergang",
+  "slot-alt": "Hotel Asteria in Venray von oben bei Sonnenuntergang, mit Teich und Springbrunnen vor dem Eingang",
   "slot-focus": "50%",
-
   "fotocredit": "Titelfoto: <a href='https://commons.wikimedia.org/wiki/File:Roermond_-_Kazerneplein_-_View_East_on_Designer_Outlet_Roermond_-_Former_Ernst-Casimirkazerne.jpg' target='_blank' rel='noopener'>Txllxt TxllxT</a> (CC BY-SA 4.0), zugeschnitten; über Wikimedia Commons.",
   "fotocredit-verhaal": "Fotos: <a href='https://commons.wikimedia.org/wiki/File:Designer_Outlet_Roermond_-_panoramio_(1).jpg' target='_blank' rel='noopener'>qwesy qwesy</a> (CC BY 3.0), <a href='https://commons.wikimedia.org/wiki/File:Designer_Outlet_Roermond_-_panoramio_(3).jpg' target='_blank' rel='noopener'>qwesy qwesy</a> (CC BY 3.0) und <a href='https://commons.wikimedia.org/wiki/File:Roermond,_de_Sint-Christoffelkathedraal_RM32552_vanaf_de_Markt_(met_RM520533_en_4_en_32566)_IMG_30652019-12-29_09.51.jpg' target='_blank' rel='noopener'>Michielverbeek</a> (CC BY-SA 4.0), zugeschnitten; über Wikimedia Commons.",
   "fotocredit-prak": "Fotos: <a href='https://commons.wikimedia.org/wiki/File:Designer_Outlet_Roermond_-_panoramio_(5).jpg' target='_blank' rel='noopener'>qwesy qwesy</a> (CC BY 3.0), <a href='https://commons.wikimedia.org/wiki/File:Overview_of_Roermond_Outlet_(Netherlands_2016)_(27176415204).jpg' target='_blank' rel='noopener'>Paul Arps</a> (CC BY 2.0), <a href='https://commons.wikimedia.org/wiki/File:Designer_Outlet_Roermond_-_panoramio.jpg' target='_blank' rel='noopener'>qwesy qwesy</a> (CC BY 3.0) und <a href='https://commons.wikimedia.org/wiki/File:Roermond_(NL),_Designer_Outlet_&amp;_Riesenrad_--_2024_--_0023.jpg' target='_blank' rel='noopener'>Anil Öztas</a> (CC BY 4.0), zugeschnitten; über Wikimedia Commons.",
   "fotocredit-dag": "Foto: <a href='https://commons.wikimedia.org/wiki/File:McArthur_Glen_Designer_Outlet,_Kathedraal_Roermond_(50152543421).jpg' target='_blank' rel='noopener'>Ted Potters</a> (gemeinfrei), zugeschnitten; über Wikimedia Commons.",
   "fotocredit-meer": "Fotos: <a href='https://commons.wikimedia.org/wiki/File:Petrus_Banden,_Venray_Exterior_van_Grote_Markt_4372.jpg' target='_blank' rel='noopener'>Dosseman</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(14),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), zugeschnitten; über Wikimedia Commons.",
-
   "_pop": {
     "uitje": {
       "venray": {
         "naam": "Venray Zentrum",
         "cat": "Zentrum",
         "desc": "Nach einem Tag in Roermond ist das Zentrum von Venray eine ruhige Abwechslung näher am Hotel, rund 4 Kilometer entfernt. Am Grote Markt steht die St.-Petrus-Banden-Kirche, auch Kathedrale der Peel genannt, mit einem fast 80 Meter hohen Turm. Rund um den Markt trinken Sie Kaffee oder essen auf einer Terrasse zu Mittag.",
-        "fotos": ["fotos/l26-omg-venray-1.webp", "fotos/l26-omg-venray-2.webp", "fotos/l26-omg-venray-3.webp", "fotos/l26-omg-venray-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-venray-1.webp",
+          "fotos/l26-omg-venray-2.webp",
+          "fotos/l26-omg-venray-3.webp",
+          "fotos/l26-omg-venray-4.webp"
+        ],
         "auto": "7 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Grote+Markt%2C+5801+BL+Venray",
         "credit": "Fotos: Dosseman, giggel, WoodenSpoon und Sindala über Wikimedia Commons (CC BY-SA und CC BY), zugeschnitten."
@@ -208,7 +238,12 @@
         "naam": "Nationalpark De Maasduinen",
         "cat": "Natur",
         "desc": "Suchen Sie nach einem Tag zwischen den Geschäften Ruhe, dann fahren Sie nach De Maasduinen: der längste Flussdünengürtel der Niederlande, mit gut 4.500 Hektar Wald, Heide, Flugsand und Moorseen zwischen der Maas und der deutschen Grenze. Im Besucherzentrum in Well finden Sie Wander- und Radrouten.",
-        "fotos": ["fotos/l26-omg-maasduinen-1.webp", "fotos/l26-omg-maasduinen-2.webp", "fotos/l26-omg-maasduinen-3.webp", "fotos/l26-omg-maasduinen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-maasduinen-1.webp",
+          "fotos/l26-omg-maasduinen-2.webp",
+          "fotos/l26-omg-maasduinen-3.webp",
+          "fotos/l26-omg-maasduinen-4.webp"
+        ],
         "auto": "15 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
         "credit": "Fotos: Lieblingsgouda, Steven Lek, Carelbullens und Jonathation über Wikimedia Commons (CC BY-SA), zugeschnitten."
@@ -217,14 +252,18 @@
         "naam": "Kasteeltuinen Arcen",
         "cat": "Gärten",
         "desc": "In Arcen liegen die Schlossgärten Arcen (Kasteeltuinen Arcen): mehr als fünfzehn Gärten rund um ein Schloss aus dem 17. Jahrhundert, vom Rosarium und einem Orientalischen Wassergarten bis zum Tropenhaus Casa Verde. Im selben Ort braut Hertog Jan sein Bier. Bitte beachten Sie: Im Winter sind die Gärten geschlossen.",
-        "fotos": ["fotos/l26-omg-arcen-1.webp", "fotos/l26-omg-arcen-2.webp", "fotos/l26-omg-arcen-3.webp", "fotos/l26-omg-arcen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-arcen-1.webp",
+          "fotos/l26-omg-arcen-2.webp",
+          "fotos/l26-omg-arcen-3.webp",
+          "fotos/l26-omg-arcen-4.webp"
+        ],
         "auto": "25 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Kasteeltuinen+Arcen%2C+Lingsforterweg+26%2C+5944+BE+Arcen",
         "credit": "Fotos: Vincent van Zeijst und Kasteeltuinen Arcen über Wikimedia Commons (CC BY-SA 4.0), zugeschnitten."
       }
     }
   },
-
   "_bronnen": {
     "feiten": "qa/uitje/FEITEN-designer-outlet-roermond.md: mcarthurglen.com (adres, openingstijden, diensten, parkeren, honden, toegankelijkheid, aantal winkels), Hart van Limburg (VVV), ANP/nieuws.nl (paasdrukte 2022), OSRM en Nominatim voor reistijden en coördinaten; peildatum 11 nov 2026.",
     "fotos": "Outlet- en Roermond-foto's van Wikimedia Commons, per bestand met auteur en licentie in qa/uitje/FEITEN-designer-outlet-roermond.md; credits zichtbaar op de pagina (fotocredit*).",

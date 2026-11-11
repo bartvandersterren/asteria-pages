@@ -20,7 +20,7 @@
   "hero-kop": "Golf rund um <span class='al-g'>Venray</span>",
   "hero-sub": "Ein Waldplatz auf einem historischen Landgut und ein hügeliger Platz an einer Schlossruine, beide nah am Hotel.",
   "hero-foto": "fotos/l26-golfarrangement-hero.webp",
-  "hero-alt": "Golfer beim Abschlag auf dem Fairway, im Vordergrund ein Golfbag",
+  "hero-alt": "Ein Golfer schlägt auf einem sonnigen Fairway ab, im Vordergrund ein Golfbag",
   "hero-focus": "50% 50%",
   "hero-knop2": "Plätze ansehen",
   "intro-kop": "Zwei Plätze, ein <span class='al-g'>Hotel</span>",
@@ -107,7 +107,7 @@
   "m1-naam": "Frühstück",
   "m1-tekst": "Ein kräftiges Frühstück und dann eine Viertelstunde Fahrt nach Geijsteren.",
   "m1-foto": "fotos/l26-golfarrangement-ontbijt.webp",
-  "m1-alt": "Ein Korb mit Brötchen am Frühstücksbuffet",
+  "m1-alt": "Ein Korb mit frischen Brötchen am Frühstücksbuffet von Hotel Asteria",
   "m2-deel": "Mittags",
   "m2-naam": "Ihre Runde",
   "m2-tekst": "Erst zwischen den Bäumen, dann die Wasserlöcher. Nehmen Sie sich Zeit für ein Getränk im Clubhaus.",
@@ -118,12 +118,12 @@
   "m3-naam": "Entspannen",
   "m3-tekst": "Zurück im Hotel: Sauna und Tauchbecken auf der Top Floor.",
   "m3-foto": "fotos/l26-wellness-arrangement-relax-stel.webp",
-  "m3-alt": "Ein Paar entspannt im Wellnessbereich",
+  "m3-alt": "Ein Paar im Bademantel liest Zeitung in den Loungesesseln im Wellnessbereich von Hotel Asteria",
   "m4-deel": "Abends",
   "m4-naam": "Drei Gänge",
   "m4-tekst": "Besprechen Sie Ihre Runde bei Tisch in der Brasserie.",
   "m4-foto": "fotos/l26-golfarrangement-diner-gast.webp",
-  "m4-alt": "Ein Gast beim Abendessen in der Brasserie",
+  "m4-alt": "Ein Gast beim Abendessen an einem Tisch am Fenster im Hotel Asteria",
   "m4-positie": "40% 50%",
   "faq-kop": "Fragen zum <span class='al-g'>Golf</span>",
   "f1-v": "Welche Plätze liegen in der Nähe des Hotels?",
@@ -143,17 +143,15 @@
   "slot-kop": "Nach der Runde zurück auf Ihr <span class='al-g'>Zimmer</span>",
   "slot-tekst": "Buchen Sie das Golfarrangement oder ein Zimmer und spielen Sie morgen den anderen Platz.",
   "slot-foto": "fotos/l26-golfarrangement-baan-bleijenbeek.webp",
-  "slot-alt": "Fairway der Golfbaan Landgoed Bleijenbeek",
+  "slot-alt": "Ein Fairway der Golfbaan Landgoed Bleijenbeek mit dem Clubhaus im Hintergrund",
   "_baan_teksten": {
     "Golfclub Geijsteren": {
       "tekst": "Ein stimmungsvoller, waldreicher Platz auf einem historischen Landgut. Die ersten 13 Löcher liegen versteckt zwischen den Bäumen, danach folgen 5 anspruchsvolle Wasserlöcher. Ein Platz mit Charakter.",
-      "rijtijd": "ca. 15 Minuten Fahrt",
-      "alt": "Grün mit Fahne und Bunker zwischen den Bäumen beim Golfclub Geijsteren"
+      "rijtijd": "ca. 15 Minuten Fahrt"
     },
     "Golfbaan Landgoed Bleijenbeek": {
       "tekst": "Mitten im naturreichen Gebiet der Maasduinen. Der hügelige Platz mit Wasserflächen, alten Baumalleen und einer Schlossruine verlangt dank cleverer Anlage und Höhenunterschieden ein taktisches Spiel.",
-      "rijtijd": "ca. 25 Minuten Fahrt",
-      "alt": "Fairway der Golfbaan Landgoed Bleijenbeek mit Clubhaus und Teich im Hintergrund"
+      "rijtijd": "ca. 25 Minuten Fahrt"
     }
   },
   "arr-vink1": "Greenfee für 18 Löcher",

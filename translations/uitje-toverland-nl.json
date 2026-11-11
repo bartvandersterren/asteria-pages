@@ -12,12 +12,10 @@
     "Foto's zijn van Wikimedia Commons (zie FEITEN-bestand); het park kan intussen veranderd zijn. Er is geen vrije winterfoto van Winter Feelings gevonden; actuele eigen beelden zijn beter.",
     "Meer in de omgeving: Venray centrum 7 min, Maasduinen 15 min en Kasteeltuinen Arcen 25 min, gelijk gehouden aan de andere uitjepagina's; pop-ups (geen eigen uitjepagina's gelinkt). Pop-upteksten zijn nieuw geschreven, feiten uit de andere uitje-JSON's."
   ],
-
   "titel": "Toverland: dagtocht vanuit Hotel Asteria Venray",
   "omschrijving": "Toverland in Sevenum ligt op 26 minuten rijden van Hotel Asteria in Venray. Lees wanneer het park open is en hoe je de dag afsluit met wellness en diner.",
   "canonical": "https://visit.asteria.nl/toverland-v2",
   "og-image": "https://visit.asteria.nl/fotos/l26-uitje-toverland-hero.webp",
-
   "hero-cat": "Dagje uit",
   "hero-kop": "Attractiepark <span class='al-g'>Toverland</span>",
   "hero-sub": "Zes werelden met achtbanen, waterattracties en twee overdekte hallen, op 26 minuten rijden van je hotelkamer in Venray.",
@@ -25,7 +23,6 @@
   "hero-foto-klein": "fotos/l26-uitje-toverland-hero-klein.webp",
   "hero-alt": "De blauwe achtbaan Fēnix boven het water in Avalon, Toverland",
   "hero-focus": "50%",
-
   "oog-kop": "Toverland in één <span class='al-g'>oogopslag</span>",
   "vk-auto": "26 min",
   "vk-fiets": "",
@@ -42,7 +39,6 @@
   "t5-label": "Parkeren",
   "t5-waarde": "€ 13,50 per auto aan de kassa (nov 2026)",
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&amp;destination=Toverland%2C+Toverlaan+2%2C+5975+MR+Sevenum",
-
   "v1-kop": "Zes werelden in <span class='al-g'>Sevenum</span>",
   "v1-p1": "Toverland ligt in Sevenum, op 26 minuten rijden van Hotel Asteria in Venray. Het attractiepark bestaat dit jaar 25 jaar en is verdeeld over zes werelden. Vier daarvan liggen buiten: Avalon, de Magische Vallei, Ithaka en Port Laguna. Wunderwald en het Land van Toos zijn overdekt.",
   "v1-p2": "Bekende namen zijn de houten achtbaan Troy in Ithaka en Fēnix in Avalon, een wing coaster waarbij je naast de baan hangt. Voor de meeste attracties geldt een minimale lengte. Die staat bij de ingang van elke attractie en in de Toverland-app.",
@@ -53,48 +49,43 @@
   "v1-knop": "Openingskalender op toverland.com",
   "v1-knop-url": "https://www.toverland.com/openingstijden",
   "v1-knop-extern": "ja",
-
   "v2-kop": "Winter Feelings in <span class='al-g'>Toverland</span>",
   "v2-p1": "Van 28 november 2026 tot en met 17 januari 2027 staat het park in winterstand. Bij de entree ligt Winter Laguna, met honderden kerstbomen, lichtjes en een buitenschaatsbaan van 600 m². Met een dagticket schaats je gratis; schaatsen huur je ter plekke.",
   "v2-p2": "In deze periode is Toverland open op woensdagen, in het weekend en elke dag in de kerstvakantie, vanaf 11.00 uur tot 18.00, 19.00 of 20.00 uur. Op de andere dagen is het park dicht, net als van 9 tot en met 27 november. Kijk voor vertrek even in de openingskalender.",
   "v2-foto": "fotos/l26-uitje-toverland-v2.webp",
-  "v2-alt": "Verlichte fonteinen in de Magische Vallei tijdens de winter in Toverland",
+  "v2-alt": "Bezoekers kijken 's avonds naar verlichte fonteinen in de Magische Vallei van Toverland",
   "v2-b": "1200",
   "v2-h": "800",
-
   "v3-kop": "Eten, schuilen en <span class='al-g'>parkeren</span>",
   "v3-p1": "Eten mag je zelf meenemen, en bij Waldstube en Katara Plaza warm je het gratis op in de magnetron. Liever aan tafel? The Flaming Feather in Avalon heeft bediening. Regent het, dan zijn Wunderwald en het Land van Toos een goede plek om binnen verder te gaan. Je parkeert op het eigen terrein van het park; om weer weg te rijden heb je een parkeerticket nodig.",
   "v3-foto": "fotos/l26-uitje-toverland-v3.webp",
   "v3-alt": "De overdekte wereld Wunderwald met eetkramen, tafels en een draaimolen",
   "v3-b": "1200",
   "v3-h": "900",
-
   "tip-kop": "Tip van de <span class='al-g'>receptie</span>",
   "tip": "Koop je tickets en het parkeerticket minstens een week vooraf online. Dan heb je de Early Bird-korting en sta je aan het eind van de dag niet in de rij bij de automaat. Wil je na het park nog dineren, kijk dan welke sluitingstijd bij jouw dag hoort: de keuken van onze brasserie is open tot 21.30 uur en je bent in 26 minuten terug.",
   "tip-van": "Team receptie, Hotel Asteria",
-
   "g-kop": "Goed om te <span class='al-g'>weten</span>",
   "g1-kop": "Open volgens kalender",
   "g1-tekst": "Dicht van 9 tot en met 27 november 2026. Winter Feelings loopt tot 17 januari 2027.",
   "g1-ico": "<circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 2'/>",
   "g1-foto": "fotos/l26-uitje-toverland-g1.webp",
-  "g1-alt": "De hoofdentree van Toverland met het entreeplein",
+  "g1-alt": "De hoofdentree van Toverland met sierlijke torentjes en het entreeplein ervoor",
   "g2-kop": "Tickets online",
   "g2-tekst": "Minstens 7 dagen vooraf scheelt tot € 7. Kinderen onder 90 cm gratis.",
   "g2-ico": "<path d='M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z'/><path d='M14 6v12' stroke-dasharray='2 2'/>",
   "g2-foto": "fotos/l26-uitje-toverland-g2.webp",
-  "g2-alt": "Het Trojaanse paard in de wereld Ithaka",
+  "g2-alt": "Groot houten Trojaans paard op wielen in de themawereld Ithaka van Toverland",
   "g3-kop": "Parkeren",
   "g3-tekst": "Eigen terrein, € 13,50 per auto aan de kassa. Er zijn 20 laadpunten.",
   "g3-ico": "<rect x='4' y='3' width='16' height='18' rx='2'/><path d='M10 17V8h3a2.5 2.5 0 0 1 0 5h-3'/>",
   "g3-foto": "fotos/l26-uitje-toverland-g3.webp",
-  "g3-alt": "Een trein van Fēnix boven het water in Avalon",
+  "g3-alt": "Trein vol bezoekers op de blauwe baan van Fēnix, hoog boven het water in Avalon",
   "g4-kop": "Geen honden",
   "g4-tekst": "Huisdieren mogen niet mee, ook niet wachten in de auto. Hulphonden wel.",
   "g4-ico": "<circle cx='12' cy='12' r='9'/><path d='M5.6 5.6l12.8 12.8'/>",
   "g4-foto": "fotos/l26-uitje-toverland-g4.webp",
   "g4-alt": "Rieten torentje in de Magische Vallei met een achtbaan op de achtergrond",
-
   "dag-kop": "Zo maak je er een <span class='al-g'>dag</span> van",
   "dag-sub": "Ontbijten in het hotel, de dag in Toverland en 's avonds terug in Venray voor de sauna en een diner.",
   "dag-start": "1",
@@ -102,31 +93,37 @@
   "m1-naam": "Ontbijt in het hotel",
   "m1-tekst": "Het ontbijtbuffet staat doordeweeks klaar van 07.00 tot 10.00 uur en in het weekend van 08.00 tot 10.30 uur. In de winter gaat Toverland om 11.00 uur open, dus je ontbijt rustig en rijdt daarna in 26 minuten naar Sevenum.",
   "m1-foto": "fotos/l26-ontbijt.webp",
-  "m1-alt": "Ontbijtbuffet in het restaurant van Hotel Asteria",
+  "m1-alt": "Mand met verse broodjes op het ontbijtbuffet van Hotel Asteria in Venray",
   "m1-positie": "50% 50%",
   "m2-deel": "Overdag",
   "m2-naam": "Toverland",
   "m2-tekst": "Begin bij de achtbanen in Avalon en Ithaka en bewaar de overdekte werelden voor als het gaat regenen. Lunch in een van de foodcourts of neem zelf iets mee, en houd de sluitingstijd van je dag in de gaten.",
   "m2-foto": "fotos/l26-uitje-toverland-dag.webp",
-  "m2-alt": "Toren en rotsen aan het water in Avalon",
+  "m2-alt": "Spits torentje op een rotspartij aan het water in Avalon, Toverland",
   "m2-positie": "50% 50%",
   "m3-deel": "Na het park",
   "m3-naam": "Wellness op de Top Floor",
   "m3-tekst": "Terug in Venray warm je op in de sauna. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag.",
   "m3-foto": "fotos/l26-wellness-staand.webp",
-  "m3-alt": "Voetenbad in de wellness op de Top Floor",
+  "m3-alt": "Voetenbad met groen mozaïek onder een lichtkoepel in de wellness op de Top Floor van Hotel Asteria",
   "m3-positie": "50% 50%",
   "m4-deel": "Avond",
   "m4-naam": "Diner in de brasserie",
   "m4-tekst": "Je sluit de dag af aan tafel in de brasserie van het hotel. De keuken is open tot 21.30 uur, en je kamer is daarna maar een lift verderop.",
   "m4-foto": "fotos/l26-brasserie.webp",
-  "m4-alt": "Bar in de brasserie van Hotel Asteria",
+  "m4-alt": "Barman tapt een biertje aan de bar van de brasserie in Hotel Asteria, Venray",
   "m4-positie": "50% 50%",
-
   "kamers-kop": "Blijf een nacht <span class='al-g'>slapen</span>",
   "kamers-sub": "Na een lange dag in het park hoef je niet meer naar huis. Kies je kamer; de prijs voor je datums zie je direct bij het boeken.",
-  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
-
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
   "kaart-kop": "Zo kom je <span class='al-g'>er</span>",
   "kaart-regel": "Toverland ligt in Sevenum, ten zuiden van Venray. Op de kaart zie je ook drie andere uitjes in de buurt van het hotel.",
   "kaart-naam": "Toverland, Toverlaan 2, 5975 MR Sevenum",
@@ -137,15 +134,47 @@
   "kaart-alt": "Kaart van Noord-Limburg met Hotel Asteria in Venray, Toverland in Sevenum en drie andere uitjes",
   "kaart-vignet": "fotos/l26-uitje-vignet-asteria.webp",
   "kaart": {
-    "hotel": [51.54774, 5.99732],
+    "hotel": [
+      51.54774,
+      5.99732
+    ],
     "punten": [
-      {"naam": "Toverland", "lat": 51.39821, "lng": 5.98383, "hoofd": true, "label": "rechts"},
-      {"naam": "Venray centrum", "lat": 51.52704, "lng": 5.97497, "hoofd": false, "nr": 1, "label": "links", "pop": "uitje:venray"},
-      {"naam": "De Maasduinen", "lat": 51.5885, "lng": 6.105, "hoofd": false, "nr": 2, "label": "rechts", "pop": "uitje:maasduinen"},
-      {"naam": "Kasteeltuinen Arcen", "lat": 51.47215, "lng": 6.18548, "hoofd": false, "nr": 3, "label": "rechts", "pop": "uitje:arcen"}
+      {
+        "naam": "Toverland",
+        "lat": 51.39821,
+        "lng": 5.98383,
+        "hoofd": true,
+        "label": "rechts"
+      },
+      {
+        "naam": "Venray centrum",
+        "lat": 51.52704,
+        "lng": 5.97497,
+        "hoofd": false,
+        "nr": 1,
+        "label": "links",
+        "pop": "uitje:venray"
+      },
+      {
+        "naam": "De Maasduinen",
+        "lat": 51.5885,
+        "lng": 6.105,
+        "hoofd": false,
+        "nr": 2,
+        "label": "rechts",
+        "pop": "uitje:maasduinen"
+      },
+      {
+        "naam": "Kasteeltuinen Arcen",
+        "lat": 51.47215,
+        "lng": 6.18548,
+        "hoofd": false,
+        "nr": 3,
+        "label": "rechts",
+        "pop": "uitje:arcen"
+      }
     ]
   },
-
   "faq-kop": "Veelgestelde <span class='al-g'>vragen</span>",
   "f1-v": "Hoe ver is Toverland van Hotel Asteria?",
   "f1-a": "Het is 24,2 kilometer, ongeveer 26 minuten met de auto. Fietsen kan ook, maar dan ben je ruim een uur en een kwartier onderweg. Bij Hotel Asteria parkeer je gratis.",
@@ -159,7 +188,6 @@
   "f5-a": "De ticketprijs verschilt per dag. Online koop je een ticket voor een vaste datum; wie minstens zeven dagen vooraf boekt, krijgt tot € 7 korting. In de winter betaal je online vanaf € 30 per volwassene, kinderen onder 90 cm zijn gratis. Het parkeerticket kost € 13,50 aan de kassa en koop je ook online. Dit zijn de prijzen van november 2026; kijk voor je datum op toverland.com.",
   "f6-v": "Kan ik na Toverland nog naar de wellness en dineren in het hotel?",
   "f6-a": "Ja. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag. In de brasserie kun je dineren tot 21.30 uur. Sluit het park om 20.00 uur, reserveer dan vooraf een tafel.",
-
   "meer-kop": "Meer in de <span class='al-g'>omgeving</span>",
   "meer1-naam": "Venray centrum",
   "meer1-cat": "Centrum",
@@ -171,7 +199,7 @@
   "meer2-naam": "Nationaal Park De Maasduinen",
   "meer2-cat": "Natuur",
   "meer2-foto": "fotos/l26-omg-maasduinen-1.webp",
-  "meer2-alt": "Zonsopkomst boven het Eendenmeer in De Maasduinen",
+  "meer2-alt": "Grove dennen en een omgevallen boomstam op de heide bij het Eendenmeer in De Maasduinen",
   "meer2-auto": "15 min",
   "meer2-pop": "maasduinen",
   "meer2-url": "",
@@ -182,27 +210,29 @@
   "meer3-auto": "25 min",
   "meer3-pop": "arcen",
   "meer3-url": "",
-
   "slot-kop": "Na de achtbanen: sauna en een goed <span class='al-g'>diner</span>",
   "slot-tekst": "Op 26 minuten van Sevenum wachten je kamer, de wellness op de Top Floor en een tafel in de brasserie.",
   "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
   "slot-foto-klein": "fotos/l26-hotel-zonsondergang.webp",
-  "slot-alt": "Hotel Asteria bij zonsondergang",
+  "slot-alt": "Hotel Asteria in Venray van bovenaf bij zonsondergang, met de vijver en fontein voor de ingang",
   "slot-focus": "50%",
-
   "fotocredit": "Herofoto: <a href='https://commons.wikimedia.org/wiki/File:Toverland_F%C4%93nix_01.jpg' target='_blank' rel='noopener'>Rémih</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-verhaal": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Troy_Toverland_02.jpg' target='_blank' rel='noopener'>Martin Lewison</a> (CC BY-SA 2.0), <a href='https://commons.wikimedia.org/wiki/File:Katara_Festive_Fountains_Toverland_(2024).jpg' target='_blank' rel='noopener'>S. Perquin</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Toverland_Wunderwald.jpg' target='_blank' rel='noopener'>Rémih</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-prak": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Entrance_Toverland.jpg' target='_blank' rel='noopener'>Rémih</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Toverland_Ithaka_Trojan_Horse.jpg' target='_blank' rel='noopener'>Rémih</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Toverland_Avalon_01.jpg' target='_blank' rel='noopener'>Mw007</a> (CC BY-SA 4.0) en <a href='https://commons.wikimedia.org/wiki/File:Toverland_Magische_Vallei_01.jpg' target='_blank' rel='noopener'>Mw007</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-dag": "Foto Avalon: <a href='https://commons.wikimedia.org/wiki/File:Toverland_Avalon_02.jpg' target='_blank' rel='noopener'>Mw007</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-meer": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Petrus_Banden,_Venray_Exterior_van_Grote_Markt_4372.jpg' target='_blank' rel='noopener'>Dosseman</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(14),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
-
   "_pop": {
     "uitje": {
       "venray": {
         "naam": "Venray centrum",
         "cat": "Centrum",
         "desc": "Het centrum van Venray ligt op een paar minuten van het hotel. Rond de Grote Markt vind je terrassen en winkels, en de Sint-Petrus' Bandenkerk, de kathedraal van de Peel, is met een toren van bijna 80 meter van ver te zien. Een rustige ochtend na een dag vol attracties.",
-        "fotos": ["fotos/l26-omg-venray-1.webp", "fotos/l26-omg-venray-2.webp", "fotos/l26-omg-venray-3.webp", "fotos/l26-omg-venray-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-venray-1.webp",
+          "fotos/l26-omg-venray-2.webp",
+          "fotos/l26-omg-venray-3.webp",
+          "fotos/l26-omg-venray-4.webp"
+        ],
         "auto": "7 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Grote+Markt%2C+5801+BL+Venray",
         "credit": "Foto's: Dosseman, giggel, WoodenSpoon en Sindala via Wikimedia Commons (CC BY-SA en CC BY), bijgesneden."
@@ -211,7 +241,12 @@
         "naam": "Nationaal Park De Maasduinen",
         "cat": "Natuur",
         "desc": "Na een dag achtbanen is De Maasduinen het tegenovergestelde: bos, heide, stuifzand en vennen in de langste rivierduingordel van Nederland, ruim 4.500 hectare tussen de Maas en de Duitse grens. Je wandel- of fietsroute begin je bij het bezoekerscentrum in Well.",
-        "fotos": ["fotos/l26-omg-maasduinen-1.webp", "fotos/l26-omg-maasduinen-2.webp", "fotos/l26-omg-maasduinen-3.webp", "fotos/l26-omg-maasduinen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-maasduinen-1.webp",
+          "fotos/l26-omg-maasduinen-2.webp",
+          "fotos/l26-omg-maasduinen-3.webp",
+          "fotos/l26-omg-maasduinen-4.webp"
+        ],
         "auto": "15 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
         "credit": "Foto's: Lieblingsgouda, Steven Lek, Carelbullens en Jonathation via Wikimedia Commons (CC BY-SA), bijgesneden."
@@ -220,14 +255,18 @@
         "naam": "Kasteeltuinen Arcen",
         "cat": "Tuinen",
         "desc": "In Arcen liggen ruim vijftien tuinen rond een kasteel uit de 17e eeuw, met onder meer een rosarium, een Oosterse watertuin en de tropische kas Casa Verde. De Hertog Jan Brouwerij staat in hetzelfde dorp. In de winter zijn de tuinen gesloten.",
-        "fotos": ["fotos/l26-omg-arcen-1.webp", "fotos/l26-omg-arcen-2.webp", "fotos/l26-omg-arcen-3.webp", "fotos/l26-omg-arcen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-arcen-1.webp",
+          "fotos/l26-omg-arcen-2.webp",
+          "fotos/l26-omg-arcen-3.webp",
+          "fotos/l26-omg-arcen-4.webp"
+        ],
         "auto": "25 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Kasteeltuinen+Arcen%2C+Lingsforterweg+26%2C+5944+BE+Arcen",
         "credit": "Foto's: Vincent van Zeijst en Kasteeltuinen Arcen via Wikimedia Commons (CC BY-SA 4.0), bijgesneden."
       }
     }
   },
-
   "_bronnen": {
     "feiten": "qa/uitje/FEITEN-toverland.md: toverland.com (openingstijden, kalenderdata /calendar, prijzen, adres en route, praktische informatie, veelgestelde vragen, Winter Feelings, werelden, attracties, restaurants), Nominatim en OSRM voor coördinaten en reistijden; peildatum 11 nov 2026.",
     "fotos": "Toverland-foto's van Wikimedia Commons, per bestand met auteur en licentie in qa/uitje/FEITEN-toverland.md; credits zichtbaar op de pagina (fotocredit*).",

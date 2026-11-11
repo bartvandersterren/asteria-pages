@@ -14,12 +14,10 @@
     "Kaartfoto (kaart-foto) is voorlopig een kopie van de ZooParc-kaartfoto; wordt centraal opnieuw gerenderd.",
     "Meer in de omgeving opent pop-ups; met een gevuld meerN-url wordt de kaart een link."
   ],
-
   "titel": "De Groote Peel: dagtocht vanuit Hotel Asteria Venray",
   "omschrijving": "Nationaal Park De Groote Peel ligt op 43 minuten rijden van Hotel Asteria in Venray. Lees welke routes open zijn en hoe je de dag afsluit met wellness en diner.",
   "canonical": "https://visit.asteria.nl/de-groote-peel-v2",
   "og-image": "https://visit.asteria.nl/fotos/l26-uitje-grootepeel-hero.webp",
-
   "hero-cat": "Natuur",
   "hero-kop": "De Groote <span class='al-g'>Peel</span>",
   "hero-sub": "Hoogveen, vennen en knuppelbruggen in een nationaal park op de grens van Limburg en Brabant, op 43 minuten rijden van je hotelkamer.",
@@ -27,7 +25,6 @@
   "hero-foto-klein": "fotos/l26-uitje-grootepeel-hero-klein.webp",
   "hero-alt": "De Meerbaansblaak met berken en riet in De Groote Peel",
   "hero-focus": "50%",
-
   "oog-kop": "De Groote Peel in één <span class='al-g'>oogopslag</span>",
   "vk-auto": "43 min",
   "vk-fiets": "",
@@ -44,7 +41,6 @@
   "t5-label": "Parkeren",
   "t5-waarde": "Gratis bij het buitencentrum",
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&amp;destination=Buitencentrum+De+Pelen%2C+Moostdijk+15%2C+6035+RB+Ospel",
-
   "v1-kop": "Geen bos, geen heide, geen <span class='al-g'>polder</span>",
   "v1-p1": "De Groote Peel bij Ospel ligt op 43 minuten rijden van Hotel Asteria. Peel betekent moerassige plek, en dat zie je meteen: tussen de berken en het pijpenstrootje liggen vennen en waterplassen, en op de natte stukken loop je over knuppelbruggen, verhoogde paden van boomstammen.",
   "v1-p2": "Ooit was dit een groot, bijna onbegaanbaar hoogveen. Het meeste veen verdween als turf, 'het goud van De Peel', in ovens en kachels. Wat overbleef is sinds 1993 een nationaal park en internationaal erkend als wetland. Bij lage waterstand zie je nog peelpuisten: fossiele boomstronken die uit het veen opduiken.",
@@ -55,7 +51,6 @@
   "v1-knop": "Over De Pelen op staatsbosbeheer.nl",
   "v1-knop-url": "https://www.staatsbosbeheer.nl/uit-in-de-natuur/locaties/de-pelen/over-de-pelen",
   "v1-knop-extern": "ja",
-
   "v2-kop": "Vogels in de <span class='al-g'>stilte</span>",
   "v2-p1": "De rust trekt meer dan honderd soorten broedvogels, zoals de blauwborst, de roodborsttapuit en de geelgors. In het voor- en najaar strijken er trekvogels neer, en met wat geluk hoor je het getrompetter van kraanvogels. Aan het gele familiepad staan een vogelkijkhut en een uitkijktoren.",
   "v2-p2": "In de herfst hangt de mist laag over het veen en kleurt het landschap rood, bruin en goud. In de winter is het hier vooral stil en weids, en voel je hoe groot het hoogveen is.",
@@ -63,18 +58,15 @@
   "v2-alt": "Stille waterplas met struiken en weerspiegelde wolken in De Groote Peel",
   "v2-b": "1200",
   "v2-h": "800",
-
   "v3-kop": "Waar je <span class='al-g'>begint</span>",
   "v3-p1": "Je start bij Buitencentrum De Pelen in Ospel, tegenover de ingang van het park. Je parkeert er gratis, haalt bij de balie een routekaartje en drinkt in de Peelkiosk koffie of luncht er. Van hier lopen de gemarkeerde routes van 2, 3 en 6 kilometer. Wil je over het gebied uitkijken, rijd dan naar het Belfort Vossenberg bij Meijel: een toren van 22 meter naast zes bunkers uit de Tweede Wereldoorlog, met een wandelroute die het hele jaar open is.",
   "v3-foto": "fotos/l26-uitje-grootepeel-v3.webp",
   "v3-alt": "Buitencentrum De Pelen in Ospel, het startpunt van de wandelroutes",
   "v3-b": "1200",
   "v3-h": "800",
-
   "tip-kop": "Tip van de <span class='al-g'>receptie</span>",
   "tip": "Kom in de ochtend, parkeer bij het buitencentrum en loop de blauwe route van 6 kilometer: die blijft ook open als delen van het park dicht zijn voor de vogels. Lunch daarna in de Peelkiosk. Trek waterdichte schoenen aan, want de paden kunnen nat zijn, en ga in de winter niet op maandag: dan zijn het buitencentrum en de Peelkiosk allebei dicht.",
   "tip-van": "Team receptie, Hotel Asteria",
-
   "g-kop": "Goed om te <span class='al-g'>weten</span>",
   "g1-kop": "Buitencentrum",
   "g1-tekst": "Van november tot en met maart woensdag tot en met zondag 10.00-17.00 uur, de Peelkiosk in de winter ook op dinsdag. Van april tot en met oktober elke dag.",
@@ -95,8 +87,7 @@
   "g4-tekst": "Welkom, wel aan de lijn. Neem een poepzakje mee: in het park staan geen prullenbakken.",
   "g4-ico": "<circle cx='7' cy='9' r='1.6'/><circle cx='12' cy='6.5' r='1.6'/><circle cx='17' cy='9' r='1.6'/><path d='M8 16c0-2.5 1.8-4.5 4-4.5s4 2 4 4.5c0 1.5-1.2 2.5-2.5 2.5h-3C9.2 18.5 8 17.5 8 16z'/>",
   "g4-foto": "fotos/l26-uitje-grootepeel-g4.webp",
-  "g4-alt": "Heide met vliegdennen in De Groote Peel",
-
+  "g4-alt": "Vliegdennen op de vergraste, gelige heide van De Groote Peel",
   "dag-kop": "Zo maak je er een <span class='al-g'>dag</span> van",
   "dag-sub": "Ontbijten in het hotel, overdag wandelen in De Groote Peel en aan het eind van de middag terug voor de sauna en een diner.",
   "dag-start": "1",
@@ -104,31 +95,37 @@
   "m1-naam": "Ontbijt in het hotel",
   "m1-tekst": "Het ontbijtbuffet staat doordeweeks klaar van 07.00 tot 10.00 uur en in het weekend van 08.00 tot 10.30 uur. Het buitencentrum gaat om 10.00 uur open en ligt op 43 minuten rijden, dus na het ontbijt ben je er op tijd voor een ochtendwandeling.",
   "m1-foto": "fotos/l26-ontbijt.webp",
-  "m1-alt": "Ontbijtbuffet in het restaurant van Hotel Asteria",
+  "m1-alt": "Mand met verse broodjes op het ontbijtbuffet van Hotel Asteria in Venray",
   "m1-positie": "50% 50%",
   "m2-deel": "Overdag",
   "m2-naam": "Wandelen in De Groote Peel",
   "m2-tekst": "Loop de blauwe route van 6 kilometer over knuppelbruggen en langs vennen, en lunch in de Peelkiosk bij het buitencentrum. Plan je wandeling op tijd: je mag in het park wandelen van zonsopgang tot zonsondergang.",
   "m2-foto": "fotos/l26-uitje-grootepeel-dag.webp",
-  "m2-alt": "Berk boven een zandpad onder een blauwe lucht in De Groote Peel",
+  "m2-alt": "Eenzame berk langs een zandpad door het veen van De Groote Peel, onder een blauwe lucht",
   "m2-positie": "50% 50%",
   "m3-deel": "Namiddag",
   "m3-naam": "Wellness op de Top Floor",
   "m3-tekst": "Terug in Venray warm je op in de sauna. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag.",
   "m3-foto": "fotos/l26-wellness-staand.webp",
-  "m3-alt": "Voetenbad in de wellness op de Top Floor",
+  "m3-alt": "Voetenbad met groen mozaïek onder een lichtkoepel in de wellness op de Top Floor van Hotel Asteria",
   "m3-positie": "50% 50%",
   "m4-deel": "Avond",
   "m4-naam": "Diner in de brasserie",
   "m4-tekst": "Je sluit de dag af aan tafel in de brasserie van het hotel. De keuken is open tot 21.30 uur, en je kamer is daarna maar een lift verderop.",
   "m4-foto": "fotos/l26-brasserie.webp",
-  "m4-alt": "Bar in de brasserie van Hotel Asteria",
+  "m4-alt": "Barman tapt een biertje aan de bar van de brasserie in Hotel Asteria, Venray",
   "m4-positie": "50% 50%",
-
   "kamers-kop": "Blijf een nacht <span class='al-g'>slapen</span>",
   "kamers-sub": "Na een dag buiten, de sauna en het diner hoef je niet meer naar huis. Kies je kamer; de prijs voor je datums zie je direct bij het boeken.",
-  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
-
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
   "kaart-kop": "Zo kom je <span class='al-g'>er</span>",
   "kaart-regel": "De Groote Peel ligt bij Ospel, ten zuidwesten van Venray op de grens met Brabant. Op de kaart zie je ook drie uitjes die je onderweg of in de buurt kunt combineren.",
   "kaart-naam": "Buitencentrum De Pelen, Moostdijk 15, 6035 RB Ospel",
@@ -139,15 +136,47 @@
   "kaart-alt": "Kaart van Noord-Limburg met Hotel Asteria in Venray, De Groote Peel bij Ospel en drie andere uitjes",
   "kaart-vignet": "fotos/l26-uitje-vignet-asteria.webp",
   "kaart": {
-    "hotel": [51.54774, 5.99732],
+    "hotel": [
+      51.54774,
+      5.99732
+    ],
     "punten": [
-      {"naam": "De Groote Peel", "lat": 51.3258142, "lng": 5.8015569, "hoofd": true, "label": "rechts"},
-      {"naam": "Mariapeel", "lat": 51.40454, "lng": 5.91898, "hoofd": false, "nr": 1, "label": "rechts", "pop": "uitje:mariapeel"},
-      {"naam": "De Maasduinen", "lat": 51.5885, "lng": 6.105, "hoofd": false, "nr": 2, "label": "rechts", "pop": "uitje:maasduinen"},
-      {"naam": "Venray centrum", "lat": 51.52696, "lng": 5.97532, "hoofd": false, "nr": 3, "label": "links", "pop": "uitje:venray"}
+      {
+        "naam": "De Groote Peel",
+        "lat": 51.3258142,
+        "lng": 5.8015569,
+        "hoofd": true,
+        "label": "rechts"
+      },
+      {
+        "naam": "Mariapeel",
+        "lat": 51.40454,
+        "lng": 5.91898,
+        "hoofd": false,
+        "nr": 1,
+        "label": "rechts",
+        "pop": "uitje:mariapeel"
+      },
+      {
+        "naam": "De Maasduinen",
+        "lat": 51.5885,
+        "lng": 6.105,
+        "hoofd": false,
+        "nr": 2,
+        "label": "rechts",
+        "pop": "uitje:maasduinen"
+      },
+      {
+        "naam": "Venray centrum",
+        "lat": 51.52696,
+        "lng": 5.97532,
+        "hoofd": false,
+        "nr": 3,
+        "label": "links",
+        "pop": "uitje:venray"
+      }
     ]
   },
-
   "faq-kop": "Veelgestelde <span class='al-g'>vragen</span>",
   "f1-v": "Hoe ver is De Groote Peel van Hotel Asteria?",
   "f1-a": "Naar Buitencentrum De Pelen in Ospel, het startpunt van de wandelroutes, is het 49 kilometer, ongeveer 43 minuten met de auto. Bij het buitencentrum parkeer je gratis, net als bij Hotel Asteria.",
@@ -161,7 +190,6 @@
   "f5-a": "Honden zijn welkom, maar alleen aan de lijn. Fietsen mag niet door het natuurgebied, behalve op het fietspad Mussenbaan aan de oostkant (knooppunt 94 tot 5) en aan de zuidkant (knooppunt 7 tot 8).",
   "f6-v": "Kan ik na de wandeling nog naar de wellness en dineren in het hotel?",
   "f6-a": "Ja. In drie kwartier ben je terug in Venray. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag. In de brasserie kun je dineren tot 21.30 uur.",
-
   "meer-kop": "Meer in de <span class='al-g'>omgeving</span>",
   "meer1-naam": "Mariapeel",
   "meer1-cat": "Natuur",
@@ -173,7 +201,7 @@
   "meer2-naam": "Nationaal Park De Maasduinen",
   "meer2-cat": "Natuur",
   "meer2-foto": "fotos/l26-omg-maasduinen-1.webp",
-  "meer2-alt": "Zonsopkomst boven het Eendenmeer in De Maasduinen",
+  "meer2-alt": "Grove dennen en een omgevallen boomstam op de heide bij het Eendenmeer in De Maasduinen",
   "meer2-auto": "15 min",
   "meer2-pop": "maasduinen",
   "meer2-url": "",
@@ -184,27 +212,28 @@
   "meer3-auto": "7 min",
   "meer3-pop": "venray",
   "meer3-url": "",
-
   "slot-kop": "Na het veen: sauna en een goed <span class='al-g'>diner</span>",
   "slot-tekst": "Op drie kwartier van De Groote Peel wachten je kamer, de wellness op de Top Floor en een tafel in de brasserie.",
   "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
   "slot-foto-klein": "fotos/l26-hotel-zonsondergang.webp",
-  "slot-alt": "Hotel Asteria bij zonsondergang",
+  "slot-alt": "Hotel Asteria in Venray van bovenaf bij zonsondergang, met de vijver en fontein voor de ingang",
   "slot-focus": "50%",
-
   "fotocredit": "Herofoto: <a href='https://commons.wikimedia.org/wiki/File:De-Groote-Pleen-Landschaft-Meerbaansblaak-2015.jpg' target='_blank' rel='noopener'>Tuxyso</a> (CC BY-SA 3.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-verhaal": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Nationaal_park_De_Groote_Peel_15.jpg' target='_blank' rel='noopener'>FrDr</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Nationaal_park_De_Groote_Peel_04.jpg' target='_blank' rel='noopener'>FrDr</a> (CC BY-SA 4.0) en <a href='https://commons.wikimedia.org/wiki/File:Besucherzentrum-Buitenzentrum-De-Pelen-2015.jpg' target='_blank' rel='noopener'>Tuxyso</a> (CC BY-SA 3.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-prak": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Nationaal_park_De_Groote_Peel_01.jpg' target='_blank' rel='noopener'>FrDr</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Nationaal_park_De_Groote_Peel_18.jpg' target='_blank' rel='noopener'>FrDr</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Nationaal_park_De_Groote_Peel_19.jpg' target='_blank' rel='noopener'>FrDr</a> (CC BY-SA 4.0) en <a href='https://commons.wikimedia.org/wiki/File:De-Groote-Pleen-Landschaft-2015-03.jpg' target='_blank' rel='noopener'>Tuxyso</a> (CC BY-SA 3.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-dag": "Foto berk: <a href='https://commons.wikimedia.org/wiki/File:Netherlands_Grote_Peel_birch.jpg' target='_blank' rel='noopener'>Dirk van der Made</a> (CC BY 1.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-meer": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:NL,_Limburg,_Horst,_Mariapeel_4,_Saxifraga-Jan_van_der_Straaten.jpg' target='_blank' rel='noopener'>Jan van der Straaten, Saxifraga</a> (CC BY-SA 3.0), <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Petrus_Banden,_Venray_Exterior_van_Grote_Markt_4372.jpg' target='_blank' rel='noopener'>Dosseman</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
-
   "_pop": {
     "uitje": {
       "mariapeel": {
         "naam": "Mariapeel",
         "cat": "Natuur",
         "desc": "Nog niet uitgewandeld? De Mariapeel bij Evertsoord hoort bij hetzelfde nationaal park en ligt op 29 minuten van het hotel. Het is ruig, open en moerassig hoogveen, met de littekens van het turfsteken en sporen van de Tweede Wereldoorlog, zoals de crashplek van een Brits gevechtsvliegtuig. Vanaf de parkeerplaats bij het Biologisch Station lopen routes met paaltjes. In de winter en het broedseizoen zijn delen dicht.",
-        "fotos": ["fotos/l26-omg-mariapeel-1.webp", "fotos/l26-omg-mariapeel-2.webp", "fotos/l26-omg-mariapeel-3.webp"],
+        "fotos": [
+          "fotos/l26-omg-mariapeel-1.webp",
+          "fotos/l26-omg-mariapeel-2.webp",
+          "fotos/l26-omg-mariapeel-3.webp"
+        ],
         "auto": "29 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Kamp+Mariaveen+1%2C+5977+NS+Evertsoord",
         "credit": "Foto's: Jan van der Straaten (Saxifraga, CC BY-SA 3.0) en Aat van den Heuvel (CC BY 3.0) via Wikimedia Commons, bijgesneden."
@@ -213,7 +242,12 @@
         "naam": "Nationaal Park De Maasduinen",
         "cat": "Natuur",
         "desc": "Liever bos en stuifzand dan veen? De Maasduinen ligt op een kwartier van het hotel, tussen de Maas en de Duitse grens: ruim 4.500 hectare bos, heide, stuifzand en vennen. Je wandel- of fietsroute kies je bij het bezoekerscentrum in Well.",
-        "fotos": ["fotos/l26-omg-maasduinen-1.webp", "fotos/l26-omg-maasduinen-2.webp", "fotos/l26-omg-maasduinen-3.webp", "fotos/l26-omg-maasduinen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-maasduinen-1.webp",
+          "fotos/l26-omg-maasduinen-2.webp",
+          "fotos/l26-omg-maasduinen-3.webp",
+          "fotos/l26-omg-maasduinen-4.webp"
+        ],
         "auto": "15 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
         "credit": "Foto's: Lieblingsgouda, Steven Lek, Carelbullens en Jonathation via Wikimedia Commons (CC BY-SA), bijgesneden."
@@ -222,14 +256,18 @@
         "naam": "Venray centrum",
         "cat": "Centrum",
         "desc": "Het centrum van Venray ligt op zo'n 4 kilometer van het hotel. Op de Grote Markt staat de Sint-Petrus' Bandenkerk, ook wel de kathedraal van de Peel, met een toren van bijna 80 meter. Rond de markt drink je koffie of lunch je op een terras.",
-        "fotos": ["fotos/l26-omg-venray-1.webp", "fotos/l26-omg-venray-2.webp", "fotos/l26-omg-venray-3.webp", "fotos/l26-omg-venray-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-venray-1.webp",
+          "fotos/l26-omg-venray-2.webp",
+          "fotos/l26-omg-venray-3.webp",
+          "fotos/l26-omg-venray-4.webp"
+        ],
         "auto": "7 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Grote+Markt%2C+5801+BL+Venray",
         "credit": "Foto's: Dosseman, giggel, WoodenSpoon en Sindala via Wikimedia Commons (CC BY-SA en CC BY), bijgesneden."
       }
     }
   },
-
   "_bronnen": {
     "feiten": "qa/uitje/FEITEN-de-groote-peel.md: staatsbosbeheer.nl (bezoekersinformatie buitencentrum, toegankelijkheid en over De Pelen), npdepeel.nl (veelgestelde vragen, bereikbaarheid en parkeren, natuurkernen, wandelen), OSRM en Nominatim voor reistijden en coördinaten; peildatum 11 nov 2026.",
     "fotos": "Foto's van Wikimedia Commons, per bestand met auteur en licentie in de fotocredit-velden; bronbestanden in qa/uitje/bron-fotos/grootepeel-*.",

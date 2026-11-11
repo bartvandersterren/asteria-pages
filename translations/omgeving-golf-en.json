@@ -20,7 +20,7 @@
   "hero-kop": "Golf around <span class='al-g'>Venray</span>",
   "hero-sub": "A woodland course on a historic estate and a rolling course by a castle ruin, both close to the hotel.",
   "hero-foto": "fotos/l26-golfarrangement-hero.webp",
-  "hero-alt": "Golfer teeing off on the fairway, with a golf bag in the foreground",
+  "hero-alt": "A golfer teeing off on a sunny fairway, with a golf bag in the foreground",
   "hero-focus": "50% 50%",
   "hero-knop2": "View the courses",
   "intro-kop": "Two courses, one <span class='al-g'>hotel</span>",
@@ -107,7 +107,7 @@
   "m1-naam": "Breakfast",
   "m1-tekst": "A hearty breakfast, then a quarter of an hour's drive to Geijsteren.",
   "m1-foto": "fotos/l26-golfarrangement-ontbijt.webp",
-  "m1-alt": "A basket of rolls at the breakfast buffet",
+  "m1-alt": "A basket of fresh bread rolls on the breakfast buffet at Hotel Asteria",
   "m2-deel": "Midday",
   "m2-naam": "Your round",
   "m2-tekst": "First among the trees, then the water holes. Take time for a drink in the clubhouse.",
@@ -118,12 +118,12 @@
   "m3-naam": "Unwind",
   "m3-tekst": "Back at the hotel: sauna and plunge pool on the Top Floor.",
   "m3-foto": "fotos/l26-wellness-arrangement-relax-stel.webp",
-  "m3-alt": "A couple relaxing in the wellness area",
+  "m3-alt": "A couple in bathrobes reading the paper in the lounge chairs of the wellness area at Hotel Asteria",
   "m4-deel": "Evening",
   "m4-naam": "Three courses",
   "m4-tekst": "Talk through your round over dinner in the brasserie.",
   "m4-foto": "fotos/l26-golfarrangement-diner-gast.webp",
-  "m4-alt": "A guest having dinner in the brasserie",
+  "m4-alt": "A guest having dinner at a table by the window at Hotel Asteria",
   "m4-positie": "40% 50%",
   "faq-kop": "Questions about <span class='al-g'>golf</span>",
   "f1-v": "Which courses are near the hotel?",
@@ -143,17 +143,15 @@
   "slot-kop": "After your round, back to your <span class='al-g'>room</span>",
   "slot-tekst": "Book the golf package or a room, and play the other course tomorrow.",
   "slot-foto": "fotos/l26-golfarrangement-baan-bleijenbeek.webp",
-  "slot-alt": "Fairway at Golfbaan Landgoed Bleijenbeek",
+  "slot-alt": "A fairway at Golfbaan Landgoed Bleijenbeek with the clubhouse in the background",
   "_baan_teksten": {
     "Golfclub Geijsteren": {
       "tekst": "An atmospheric, wooded course on a historic estate. The first 13 holes are tucked away among the trees, followed by 5 challenging water holes. A course with character.",
-      "rijtijd": "approx. 15 minutes' drive",
-      "alt": "Green with flag and a bunker among the trees at Golfclub Geijsteren"
+      "rijtijd": "approx. 15 minutes' drive"
     },
     "Golfbaan Landgoed Bleijenbeek": {
       "tekst": "Set in the unspoilt Maasduinen area of Limburg. This rolling course with water features, old avenues of trees and a castle ruin calls for tactical play thanks to its clever layout and changes in height.",
-      "rijtijd": "approx. 25 minutes' drive",
-      "alt": "Fairway at Golfbaan Landgoed Bleijenbeek with the clubhouse and a pond in the background"
+      "rijtijd": "approx. 25 minutes' drive"
     }
   },
   "arr-vink1": "Green fee for 18 holes",

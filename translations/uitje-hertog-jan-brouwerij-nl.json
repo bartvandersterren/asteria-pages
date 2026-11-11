@@ -13,12 +13,10 @@
     "Rijtijden: brouwerij 23 min / 20,5 km en fiets 70 min / 16,3 km (OSRM, 11 nov 2026). Kasteeltuinen 25 min, Maasduinen 15 min en Venray centrum 7 min gelijk gehouden aan hotel-venray-v2 en de ZooParc-pagina (OSRM 3 nov 2026); een nieuwe meting gaf op 11 nov een rate-limit.",
     "Fietsverhuur via de receptie (FAQ 1) komt uit de hotelfeiten in de repo; prijzen bewust niet genoemd."
   ],
-
   "titel": "Hotel bij Hertog Jan Brouwerij | Hotel Asteria Venray",
   "omschrijving": "De Hertog Jan Brouwerij in Arcen ligt op 23 minuten rijden van Hotel Asteria in Venray. Rondleiding met proeverij, daarna wellness en diner in het hotel.",
   "canonical": "https://visit.asteria.nl/hertog-jan-brouwerij-v2",
   "og-image": "https://visit.asteria.nl/fotos/l26-uitje-hertogjan-hero.webp",
-
   "hero-cat": "Dagje uit",
   "hero-kop": "Hertog Jan <span class='al-g'>Brouwerij</span>",
   "hero-sub": "Met een gids door de brouwerij in Arcen, van de hop tot het proefglas. Op 23 minuten rijden van je hotelkamer in Venray.",
@@ -26,7 +24,6 @@
   "hero-foto-klein": "fotos/l26-uitje-hertogjan-hero-klein.webp",
   "hero-alt": "De witte gebouwen van de Hertog Jan Brouwerij in Arcen met vlaggen en de receptie",
   "hero-focus": "50%",
-
   "oog-kop": "De brouwerij in één <span class='al-g'>oogopslag</span>",
   "vk-auto": "23 min",
   "vk-fiets": "70 min",
@@ -43,7 +40,6 @@
   "t5-label": "Duur",
   "t5-waarde": "Ongeveer een uur, vooraf boeken",
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&amp;destination=Hertog+Jan+Brouwerij%2C+Kruisweg+44%2C+5944+EN+Arcen",
-
   "v1-kop": "Van hop tot <span class='al-g'>proefglas</span>",
   "v1-p1": "In Arcen, vlak bij de Maas, brouwt Hertog Jan zijn bier. Vanuit Hotel Asteria rijd je er in 23 minuten heen. Tijdens de rondleiding loop je met een gids door het oude brouwerijgebouw en volg je het hele brouwproces: je ruikt de hop, proeft de mout en sluit af met het bier zelf.",
   "v1-p2": "Je komt langs de koperen brouwketels en eindigt in een kelder met flessen Grand Prestige van verschillende jaargangen. Een rondleiding duurt ongeveer een uur en is in het Nederlands. Liever in het Engels of Duits? Vraag dat vooraf aan de receptie van de brouwerij.",
@@ -54,7 +50,6 @@
   "v1-knop": "Rondleidingen op brouwerij.hertogjan.nl",
   "v1-knop-url": "https://brouwerij.hertogjan.nl/rondleidingen/",
   "v1-knop-extern": "ja",
-
   "v2-kop": "Voor de echte <span class='al-g'>liefhebber</span>",
   "v2-p1": "Wie meer wil zien, boekt de Liefhebbers Tour. In ongeveer tweeënhalf uur kom je op plekken waar de gewone rondleiding niet komt: de rijpingskelder van de Grand Prestige, het verhaal achter de Vatgerijpt-bieren en de proefbrouwerij. De tour is voor hoogstens zestien deelnemers en alleen vanaf 18 jaar.",
   "v2-p2": "Elk jaar staat er ook een dag in het teken van de Grand Prestige, met speciale rondleidingen en proeverijen. De data maakt de brouwerij bekend via haar nieuwsbrief en sociale media.",
@@ -62,18 +57,15 @@
   "v2-alt": "Twee stenen kruiken van de Arcense Stoombierbrouwerij naast flessen Hertog Jan Dubbel, Tripel en Grand Prestige",
   "v2-b": "1200",
   "v2-h": "800",
-
   "v3-kop": "Een hele dag in <span class='al-g'>Arcen</span>",
   "v3-p1": "Tegenover de brouwerij ligt Café de Hertog Jan Proeverij. Het pils komt daar via een bierleiding over de weg rechtstreeks uit de brouwerij, en je kiest uit zo'n 125 speciaalbieren. Je kunt er lunchen, borrelen of dineren en tot 90 dagen vooruit reserveren. In de zomer combineer je het bezoek met de Kasteeltuinen, op vier minuten rijden. Die zijn in de winter dicht en gaan eind maart weer open.",
   "v3-foto": "fotos/l26-omg-arcen-1.webp",
   "v3-alt": "Rode Japanse poort aan de vijver in de Kasteeltuinen Arcen",
   "v3-b": "1400",
   "v3-h": "1050",
-
   "tip-kop": "Tip van de <span class='al-g'>receptie</span>",
   "tip": "Boek de rondleiding rond het middaguur en reserveer aansluitend een tafel voor de lunch in de Proeverij aan de overkant. Spreek voor vertrek af wie terugrijdt naar Venray; die drinkt die dag geen bier. En let op: in de winter is de brouwerij op maandag en dinsdag dicht.",
   "tip-van": "Team receptie, Hotel Asteria",
-
   "g-kop": "Goed om te <span class='al-g'>weten</span>",
   "g1-kop": "Woensdag tot en met zondag",
   "g1-tekst": "Zo is het van november tot en met april. Donderdag en zondag alleen voor rondleidingen.",
@@ -95,7 +87,6 @@
   "g4-ico": "<path d='M4 20h4v-4h4v-4h4V8h4'/>",
   "g4-foto": "fotos/l26-uitje-hertogjan-g4.webp",
   "g4-alt": "Een rij flessen Hertog Jan Grand Prestige, Pilsener en Speciaal Bier op een plank",
-
   "dag-kop": "Zo maak je er een <span class='al-g'>dag</span> van",
   "dag-sub": "Ontbijten in het hotel, rond de middag naar de brouwerij in Arcen en aan het eind van de middag terug voor de sauna en een diner.",
   "dag-start": "1",
@@ -103,7 +94,7 @@
   "m1-naam": "Ontbijt in het hotel",
   "m1-tekst": "Het ontbijtbuffet staat doordeweeks klaar van 07.00 tot 10.00 uur en in het weekend van 08.00 tot 10.30 uur. Daarna rijd je in 23 minuten naar Arcen.",
   "m1-foto": "fotos/l26-ontbijt.webp",
-  "m1-alt": "Ontbijtbuffet in het restaurant van Hotel Asteria",
+  "m1-alt": "Mand met verse broodjes op het ontbijtbuffet van Hotel Asteria in Venray",
   "m1-positie": "50% 50%",
   "m2-deel": "Middag",
   "m2-naam": "Hertog Jan Brouwerij",
@@ -115,19 +106,25 @@
   "m3-naam": "Wellness op de Top Floor",
   "m3-tekst": "Terug in Venray kom je tot rust in de sauna. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag.",
   "m3-foto": "fotos/l26-wellness-staand.webp",
-  "m3-alt": "Voetenbad in de wellness op de Top Floor",
+  "m3-alt": "Voetenbad met groen mozaïek onder een lichtkoepel in de wellness op de Top Floor van Hotel Asteria",
   "m3-positie": "50% 50%",
   "m4-deel": "Avond",
   "m4-naam": "Diner in de brasserie",
   "m4-tekst": "De dag eindigt aan tafel in de brasserie van het hotel. De keuken is open tot 21.30 uur, en daarna is je kamer maar een lift verderop.",
   "m4-foto": "fotos/l26-brasserie.webp",
-  "m4-alt": "Bar in de brasserie van Hotel Asteria",
+  "m4-alt": "Barman tapt een biertje aan de bar van de brasserie in Hotel Asteria, Venray",
   "m4-positie": "50% 50%",
-
   "kamers-kop": "Blijf een nacht <span class='al-g'>slapen</span>",
   "kamers-sub": "Na een dag in Arcen hoef je dan nergens meer heen. Kies je kamer; de prijs voor je datums zie je direct bij het boeken.",
-  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
-
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
   "kaart-kop": "Zo kom je <span class='al-g'>er</span>",
   "kaart-regel": "De brouwerij ligt in Arcen bij de Maas, ten zuidoosten van Venray. Op de kaart zie je ook drie andere uitjes in de buurt van het hotel.",
   "kaart-naam": "Hertog Jan Brouwerij, Kruisweg 44, 5944 EN Arcen",
@@ -138,15 +135,47 @@
   "kaart-alt": "Kaart van Noord-Limburg met Hotel Asteria in Venray, de Hertog Jan Brouwerij in Arcen en drie andere uitjes",
   "kaart-vignet": "fotos/l26-uitje-vignet-asteria.webp",
   "kaart": {
-    "hotel": [51.54774, 5.99732],
+    "hotel": [
+      51.54774,
+      5.99732
+    ],
     "punten": [
-      {"naam": "Hertog Jan Brouwerij", "lat": 51.48607, "lng": 6.17337, "hoofd": true, "label": "links"},
-      {"naam": "Kasteeltuinen Arcen", "lat": 51.47215, "lng": 6.18548, "hoofd": false, "nr": 1, "label": "rechts", "pop": "uitje:arcen"},
-      {"naam": "De Maasduinen", "lat": 51.5885, "lng": 6.105, "hoofd": false, "nr": 2, "label": "rechts", "pop": "uitje:maasduinen"},
-      {"naam": "Venray centrum", "lat": 51.52696, "lng": 5.97532, "hoofd": false, "nr": 3, "label": "links", "pop": "uitje:venray"}
+      {
+        "naam": "Hertog Jan Brouwerij",
+        "lat": 51.48607,
+        "lng": 6.17337,
+        "hoofd": true,
+        "label": "links"
+      },
+      {
+        "naam": "Kasteeltuinen Arcen",
+        "lat": 51.47215,
+        "lng": 6.18548,
+        "hoofd": false,
+        "nr": 1,
+        "label": "rechts",
+        "pop": "uitje:arcen"
+      },
+      {
+        "naam": "De Maasduinen",
+        "lat": 51.5885,
+        "lng": 6.105,
+        "hoofd": false,
+        "nr": 2,
+        "label": "rechts",
+        "pop": "uitje:maasduinen"
+      },
+      {
+        "naam": "Venray centrum",
+        "lat": 51.52696,
+        "lng": 5.97532,
+        "hoofd": false,
+        "nr": 3,
+        "label": "links",
+        "pop": "uitje:venray"
+      }
     ]
   },
-
   "faq-kop": "Veelgestelde <span class='al-g'>vragen</span>",
   "f1-v": "Hoe ver is de Hertog Jan Brouwerij van Hotel Asteria?",
   "f1-a": "Het is 20,5 kilometer, ongeveer 23 minuten met de auto. Op de fiets is het 16,3 kilometer, zo'n 70 minuten; fietsen huur je bij onze receptie. Door werkzaamheden aan de Kruisweg en de Maasstraat geldt nu een omleiding: volg met de auto de borden B.",
@@ -160,19 +189,18 @@
   "f5-a": "Nee, alleen blindengeleidehonden mogen mee. Houd er ook rekening mee dat je door smalle, lage gangen loopt en 144 treden neemt; rollators, kinderwagens en rolstoelen kunnen niet mee.",
   "f6-v": "Kan ik na de brouwerij nog naar de wellness en dineren in het hotel?",
   "f6-a": "Ja. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag. In de brasserie dineer je tot 21.30 uur. Heb je bij de proeverij gedronken, laat dan iemand rijden die dat niet heeft gedaan. Bij Hotel Asteria parkeer je gratis.",
-
   "meer-kop": "Meer in de <span class='al-g'>omgeving</span>",
   "meer1-naam": "Kasteeltuinen Arcen",
   "meer1-cat": "Tuinen",
   "meer1-foto": "fotos/l26-omg-arcen-2.webp",
-  "meer1-alt": "Strakke tuin met hagen en bloembedden in de Kasteeltuinen Arcen",
+  "meer1-alt": "De geometrische tuinen met hagen en bloemperken van Kasteeltuinen Arcen",
   "meer1-auto": "25 min",
   "meer1-pop": "arcen",
   "meer1-url": "",
   "meer2-naam": "Nationaal Park De Maasduinen",
   "meer2-cat": "Natuur",
   "meer2-foto": "fotos/l26-omg-maasduinen-1.webp",
-  "meer2-alt": "Zonsopkomst boven het Eendenmeer in De Maasduinen",
+  "meer2-alt": "Grove dennen en een omgevallen boomstam op de heide bij het Eendenmeer in De Maasduinen",
   "meer2-auto": "15 min",
   "meer2-pop": "maasduinen",
   "meer2-url": "",
@@ -183,27 +211,29 @@
   "meer3-auto": "7 min",
   "meer3-pop": "venray",
   "meer3-url": "",
-
   "slot-kop": "Na het proeven: sauna en een goed <span class='al-g'>diner</span>",
   "slot-tekst": "Op 23 minuten van Arcen wachten je kamer, de wellness op de Top Floor en een tafel in de brasserie.",
   "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
   "slot-foto-klein": "fotos/l26-hotel-zonsondergang.webp",
-  "slot-alt": "Hotel Asteria bij zonsondergang",
+  "slot-alt": "Hotel Asteria in Venray van bovenaf bij zonsondergang, met de vijver en fontein voor de ingang",
   "slot-focus": "50%",
-
   "fotocredit": "Herofoto: <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brouwerij.JPG' target='_blank' rel='noopener'>B. Hulshoff</a> (CC BY-SA 4.0); via Wikimedia Commons.",
   "fotocredit-verhaal": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_Winterbier_flesje_met_glas.jpg' target='_blank' rel='noopener'>Jochem Pluim</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Diverse_flessen_en_kruiken_Hertog_Jan_Grand_Prestige.jpg' target='_blank' rel='noopener'>Michelexel</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(14),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-prak": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brewery_Arcen.jpg' target='_blank' rel='noopener'>Steven Lek</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_brouwerij_(5946020039).jpg' target='_blank' rel='noopener'>larsjuh</a> (CC BY 2.0), <a href='https://commons.wikimedia.org/wiki/File:Speciale_uitgave_2019_Grand_Prestige_Dag_Arcen.jpg' target='_blank' rel='noopener'>Michelexel</a> (CC BY-SA 4.0) en <a href='https://commons.wikimedia.org/wiki/File:Diverse_flessen_en_kruiken_Hertog_Jan_Grand_Prestige.jpg' target='_blank' rel='noopener'>Michelexel</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-dag": "Foto tanks: <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_brouwerij_(5946022249).jpg' target='_blank' rel='noopener'>larsjuh</a> (CC BY 2.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-meer": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(23),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Petrus_Banden,_Venray_Exterior_van_Grote_Markt_4372.jpg' target='_blank' rel='noopener'>Dosseman</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
-
   "_pop": {
     "uitje": {
       "arcen": {
         "naam": "Kasteeltuinen Arcen",
         "cat": "Tuinen",
         "desc": "Op vier minuten rijden van de brouwerij liggen meer dan vijftien tuinen rond een kasteel uit de 17e eeuw: een rosarium, een Oosterse watertuin en de tropische kas Casa Verde. In de winter zijn de tuinen dicht; eind maart gaan ze weer open.",
-        "fotos": ["fotos/l26-omg-arcen-1.webp", "fotos/l26-omg-arcen-2.webp", "fotos/l26-omg-arcen-3.webp", "fotos/l26-omg-arcen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-arcen-1.webp",
+          "fotos/l26-omg-arcen-2.webp",
+          "fotos/l26-omg-arcen-3.webp",
+          "fotos/l26-omg-arcen-4.webp"
+        ],
         "auto": "25 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Kasteeltuinen+Arcen%2C+Lingsforterweg+26%2C+5944+BE+Arcen",
         "credit": "Foto's: Vincent van Zeijst en Kasteeltuinen Arcen via Wikimedia Commons (CC BY-SA 4.0), bijgesneden."
@@ -212,7 +242,12 @@
         "naam": "Nationaal Park De Maasduinen",
         "cat": "Natuur",
         "desc": "Tussen Venray en Arcen ligt de langste rivierduingordel van Nederland, met ruim 4.500 hectare bos, heide, stuifzand en vennen. Bij het bezoekerscentrum in Well kies je een wandel- of fietsroute. Een goede ochtend buiten voordat je naar de brouwerij gaat.",
-        "fotos": ["fotos/l26-omg-maasduinen-1.webp", "fotos/l26-omg-maasduinen-2.webp", "fotos/l26-omg-maasduinen-3.webp", "fotos/l26-omg-maasduinen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-maasduinen-1.webp",
+          "fotos/l26-omg-maasduinen-2.webp",
+          "fotos/l26-omg-maasduinen-3.webp",
+          "fotos/l26-omg-maasduinen-4.webp"
+        ],
         "auto": "15 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
         "credit": "Foto's: Lieblingsgouda, Steven Lek, Carelbullens en Jonathation via Wikimedia Commons (CC BY-SA), bijgesneden."
@@ -221,14 +256,18 @@
         "naam": "Venray centrum",
         "cat": "Centrum",
         "desc": "Het centrum van Venray ligt zo'n vier kilometer van het hotel. Aan de Grote Markt staat de Sint-Petrus' Bandenkerk, die ze hier de kathedraal van de Peel noemen, met een toren van bijna 80 meter. Rond de markt vind je terrassen voor koffie of een lunch.",
-        "fotos": ["fotos/l26-omg-venray-1.webp", "fotos/l26-omg-venray-2.webp", "fotos/l26-omg-venray-3.webp", "fotos/l26-omg-venray-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-venray-1.webp",
+          "fotos/l26-omg-venray-2.webp",
+          "fotos/l26-omg-venray-3.webp",
+          "fotos/l26-omg-venray-4.webp"
+        ],
         "auto": "7 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Grote+Markt%2C+5801+BL+Venray",
         "credit": "Foto's: Dosseman, giggel, WoodenSpoon en Sindala via Wikimedia Commons (CC BY-SA en CC BY), bijgesneden."
       }
     }
   },
-
   "_bronnen": {
     "feiten": "qa/uitje/FEITEN-hertog-jan-brouwerij.md: brouwerij.hertogjan.nl (adres, bezoektijden, rondleidingen, prijzen), hertogjan.nl FAQ (duur, reserveren, betalen, toegankelijkheid, honden, kinderen), hertogjanproeverij.nl (Proeverij, bierleiding, 125 speciaalbieren, omleiding), OSRM en Nominatim voor reistijden en coördinaten; peildatum 11 nov 2026.",
     "fotos": "Brouwerijfoto's van Wikimedia Commons, per bestand met auteur en licentie in qa/uitje/FEITEN-hertog-jan-brouwerij.md; credits zichtbaar op de pagina (fotocredit*). Originelen in qa/uitje/bron-fotos/hertogjan-*.",

@@ -13,12 +13,10 @@
     "Fietsverhuur via de receptie (FAQ 1) komt uit de hotelfeiten in de repo; prijzen bewust niet genoemd.",
     "Meer in de omgeving opent pop-ups omdat Asteria nog geen andere uitjespagina's heeft; met een gevuld meerN-url wordt de kaart een link."
   ],
-
   "titel": "Hotel bij Mind Mystery | Hotel Asteria Venray",
   "omschrijving": "Mind Mystery in Horst ligt op 10 minuten rijden van Hotel Asteria in Venray. Lees wat je er beleeft en hoe je de dag afsluit met wellness en diner.",
   "canonical": "https://visit.asteria.nl/mind-mystery-v2",
   "og-image": "https://visit.asteria.nl/fotos/l26-waarom-hotel.webp",
-
   "hero-cat": "Dagje uit",
   "hero-kop": "Mind <span class='al-g'>Mystery</span>",
   "hero-sub": "Een belevingsmuseum vol optische illusies in Horst, op tien minuten rijden van je hotelkamer in Venray.",
@@ -26,7 +24,6 @@
   "hero-foto-klein": "fotos/l26-waarom-hotel.webp",
   "hero-alt": "Hotel Asteria in Venray met de vijver en fontein ervoor",
   "hero-focus": "0%",
-
   "oog-kop": "Mind Mystery in één <span class='al-g'>oogopslag</span>",
   "vk-auto": "10 min",
   "vk-fiets": "45 min",
@@ -43,7 +40,6 @@
   "t5-label": "Parkeren",
   "t5-waarde": "Gratis, recht voor de entree",
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&amp;destination=Mind+Mystery%2C+Tienrayseweg+10C%2C+5961+NL+Horst",
-
   "v1-kop": "Kijken met je <span class='al-g'>hersenen</span>",
   "v1-p1": "Mind Mystery in Horst ligt op tien minuten rijden van Hotel Asteria. Het is een belevingsmuseum, deels binnen en deels buiten, waar alles draait om optische illusies: wat je ogen zien en wat je hersenen daarvan maken. Het park opende in 2018 en is klein van opzet, met veel te zien op weinig meters.",
   "v1-p2": "Je loopt door het Huis op de Kop, waar de meubels aan het plafond vastzitten, en over de brug van de Vortex, een draaiende tunnel waarin rechtdoor lopen opeens lastig wordt. In de Ames Room word je groot of juist klein, en het Reflectiedoolhof staat vol spiegels en kleine dilemma's om samen over te praten.",
@@ -54,7 +50,6 @@
   "v1-knop": "Alle belevenissen op mindmystery.nl",
   "v1-knop-url": "https://www.mindmystery.nl/ontdek-mind-mystery/belevenissen/",
   "v1-knop-extern": "ja",
-
   "v2-kop": "Een museum vol <span class='al-g'>dubbele plaatjes</span>",
   "v2-p1": "In het museum, verdeeld over vijf ruimtes, hangen grafische illusies en hun uitleg. Veel zijn ambigue figuren, zoals de tekening van een konijn dat ook een eend is, voor het eerst gepubliceerd in 1892. In de 3D-ruimte zet je een bril op en komen de schilderijen naar voren.",
   "v2-p2": "Buiten wacht een terras met puzzels en breinbrekers. Er zijn vier automatische fotopunten en veel plekken waar je zelf een foto maakt. In het café eet je een belegd broodje of een stuk Limburgse vlaai.",
@@ -62,18 +57,15 @@
   "v2-alt": "Tekening uit 1892 van een dier dat je als konijn of als eend kunt zien, met het onderschrift Kaninchen und Ente",
   "v2-b": "1200",
   "v2-h": "800",
-
   "v3-kop": "Binnen puzzelen, daarna <span class='al-g'>opwarmen</span>",
   "v3-p1": "Het grootste deel van Mind Mystery is binnen; alleen de paden tussen de onderdelen en het puzzelterras liggen buiten. Daarmee is het een goede keuze voor een grijze dag. Wie nog tijd heeft, rijdt in een kwartier door naar Arcen voor een rondleiding bij de Hertog Jan Brouwerij. Daarna ben je binnen een half uur terug in Venray, waar de sauna op de Top Floor op je wacht.",
   "v3-foto": "fotos/l26-waarom-wellness.webp",
-  "v3-alt": "De wellness op de Top Floor van Hotel Asteria",
+  "v3-alt": "Wellness op de Top Floor van Hotel Asteria in Venray, met een rond voetenbad en grote planten",
   "v3-b": "1400",
   "v3-h": "934",
-
   "tip-kop": "Tip van de <span class='al-g'>receptie</span>",
   "tip": "Boek een tijdslot aan het begin van de dag. Dan sta je na twee tot drie uur weer buiten, ruim op tijd voor de sauna. Kun je kiezen, ga dan doordeweeks: buiten de schoolvakanties is het rustiger en krijg je € 2 korting per ticket. Je parkeert gratis voor de deur. En laad je telefoon op voor je gaat: in de Ames Room en het Huis op de Kop maak je meer foto's dan je denkt.",
   "tip-van": "Team receptie, Hotel Asteria",
-
   "g-kop": "Goed om te <span class='al-g'>weten</span>",
   "g1-kop": "Vier dagen per week open",
   "g1-tekst": "In november 2026 op woensdag en vrijdag van 11.00 tot 17.00 uur en in het weekend van 10.00 tot 17.00 uur. Op maandag, dinsdag en donderdag dicht. Je dag controleer je op mindmystery.nl.",
@@ -94,8 +86,7 @@
   "g4-tekst": "Honden mogen niet mee naar binnen. Hulp- en geleidehonden zijn wel welkom.",
   "g4-ico": "<circle cx='12' cy='12' r='9'/><path d='M5.6 5.6l12.8 12.8'/>",
   "g4-foto": "fotos/l26-uitje-mindmystery-g4.webp",
-  "g4-alt": "Silhouet van een vaas, waarin je ook twee gezichten ziet die elkaar aankijken",
-
+  "g4-alt": "Vaas-of-gezichten-illusie: een vaas of twee gezichten die elkaar aankijken, zoals in Mind Mystery in Horst",
   "dag-kop": "Zo maak je er een <span class='al-g'>dag</span> van",
   "dag-sub": "Ontbijten in het hotel, overdag je brein laten foppen in Horst en aan het eind van de middag terug voor de sauna en een diner.",
   "dag-start": "1",
@@ -103,7 +94,7 @@
   "m1-naam": "Ontbijt in het hotel",
   "m1-tekst": "Het ontbijtbuffet staat doordeweeks klaar van 07.00 tot 10.00 uur en in het weekend van 08.00 tot 10.30 uur. Daarna stap je in de auto: tien minuten later sta je in Horst.",
   "m1-foto": "fotos/l26-ontbijt.webp",
-  "m1-alt": "Ontbijtbuffet in het restaurant van Hotel Asteria",
+  "m1-alt": "Mand met verse broodjes op het ontbijtbuffet van Hotel Asteria in Venray",
   "m1-positie": "50% 50%",
   "m2-deel": "Overdag",
   "m2-naam": "Mind Mystery",
@@ -115,19 +106,25 @@
   "m3-naam": "Wellness op de Top Floor",
   "m3-tekst": "Terug in Venray laat je je hoofd tot rust komen in de sauna. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag.",
   "m3-foto": "fotos/l26-wellness-staand.webp",
-  "m3-alt": "Voetenbad in de wellness op de Top Floor",
+  "m3-alt": "Voetenbad met groen mozaïek onder een lichtkoepel in de wellness op de Top Floor van Hotel Asteria",
   "m3-positie": "50% 50%",
   "m4-deel": "Avond",
   "m4-naam": "Diner in de brasserie",
   "m4-tekst": "Je sluit de dag af aan tafel in de brasserie van het hotel. De keuken is open tot 21.30 uur, en je kamer is daarna maar een lift verderop.",
   "m4-foto": "fotos/l26-brasserie.webp",
-  "m4-alt": "Bar in de brasserie van Hotel Asteria",
+  "m4-alt": "Barman tapt een biertje aan de bar van de brasserie in Hotel Asteria, Venray",
   "m4-positie": "50% 50%",
-
   "kamers-kop": "Blijf een nacht <span class='al-g'>slapen</span>",
   "kamers-sub": "Na een dag vol illusies is een echt bed een prettige gedachte. Kies je kamer; de prijs voor je datums zie je direct bij het boeken.",
-  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
-
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
   "kaart-kop": "Zo kom je <span class='al-g'>er</span>",
   "kaart-regel": "Mind Mystery ligt ten zuiden van Venray, aan de rand van Horst en vlak bij de A73. Op de kaart zie je ook drie andere uitjes in de buurt van het hotel.",
   "kaart-naam": "Mind Mystery, Tienrayseweg 10C, 5961 NL Horst",
@@ -138,15 +135,47 @@
   "kaart-alt": "Kaart van Noord-Limburg met Hotel Asteria in Venray, Mind Mystery in Horst en drie andere uitjes",
   "kaart-vignet": "fotos/l26-uitje-vignet-asteria.webp",
   "kaart": {
-    "hotel": [51.54774, 5.99732],
+    "hotel": [
+      51.54774,
+      5.99732
+    ],
     "punten": [
-      {"naam": "Mind Mystery", "lat": 51.4717, "lng": 6.06227, "hoofd": true, "label": "links"},
-      {"naam": "Oorlogsmuseum Overloon", "lat": 51.57037, "lng": 5.9568, "hoofd": false, "nr": 1, "label": "links", "pop": "uitje:oorlogsmuseum"},
-      {"naam": "De Maasduinen", "lat": 51.5885, "lng": 6.105, "hoofd": false, "nr": 2, "label": "rechts", "pop": "uitje:maasduinen"},
-      {"naam": "Hertog Jan Brouwerij", "lat": 51.48607, "lng": 6.17337, "hoofd": false, "nr": 3, "label": "rechts", "pop": "uitje:hertogjan"}
+      {
+        "naam": "Mind Mystery",
+        "lat": 51.4717,
+        "lng": 6.06227,
+        "hoofd": true,
+        "label": "links"
+      },
+      {
+        "naam": "Oorlogsmuseum Overloon",
+        "lat": 51.57037,
+        "lng": 5.9568,
+        "hoofd": false,
+        "nr": 1,
+        "label": "links",
+        "pop": "uitje:oorlogsmuseum"
+      },
+      {
+        "naam": "De Maasduinen",
+        "lat": 51.5885,
+        "lng": 6.105,
+        "hoofd": false,
+        "nr": 2,
+        "label": "rechts",
+        "pop": "uitje:maasduinen"
+      },
+      {
+        "naam": "Hertog Jan Brouwerij",
+        "lat": 51.48607,
+        "lng": 6.17337,
+        "hoofd": false,
+        "nr": 3,
+        "label": "rechts",
+        "pop": "uitje:hertogjan"
+      }
     ]
   },
-
   "faq-kop": "Veelgestelde <span class='al-g'>vragen</span>",
   "f1-v": "Hoe ver is Mind Mystery van Hotel Asteria?",
   "f1-a": "Het is 11,2 kilometer, ongeveer 10 minuten met de auto. Op de fiets is het 10,7 kilometer, zo'n 45 minuten. Fietsen en e-bikes huur je bij onze receptie.",
@@ -160,50 +189,49 @@
   "f5-a": "Nee, honden zijn niet toegestaan. Hulp- en geleidehonden zijn wel welkom.",
   "f6-v": "Kan ik na Mind Mystery nog naar de wellness en dineren in het hotel?",
   "f6-a": "Ja. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag. In de brasserie kun je dineren tot 21.30 uur.",
-
   "meer-kop": "Meer in de <span class='al-g'>omgeving</span>",
   "meer1-naam": "Oorlogsmuseum Overloon",
   "meer1-cat": "Geschiedenis",
   "meer1-foto": "fotos/l26-oorlogsmuseum-arrangement-sherman.webp",
-  "meer1-alt": "Sherman-tank bij Oorlogsmuseum Overloon",
+  "meer1-alt": "Sherman-tank uit de Tweede Wereldoorlog tussen het groen bij het Oorlogsmuseum in Overloon",
   "meer1-auto": "10 min",
   "meer1-pop": "oorlogsmuseum",
   "meer1-url": "",
   "meer2-naam": "Nationaal Park De Maasduinen",
   "meer2-cat": "Natuur",
   "meer2-foto": "fotos/l26-omg-maasduinen-1.webp",
-  "meer2-alt": "Zonsopkomst boven het Eendenmeer in De Maasduinen",
+  "meer2-alt": "Grove dennen en een omgevallen boomstam op de heide bij het Eendenmeer in De Maasduinen",
   "meer2-auto": "15 min",
   "meer2-pop": "maasduinen",
   "meer2-url": "",
   "meer3-naam": "Hertog Jan Brouwerij",
   "meer3-cat": "Brouwerij",
   "meer3-foto": "fotos/l26-omg-hertogjan-1.webp",
-  "meer3-alt": "De Hertog Jan Brouwerij in Arcen met terras",
+  "meer3-alt": "De witte Hertog Jan Brouwerij in Arcen met vlaggen, fietsen en bierkratten bij de receptie",
   "meer3-auto": "25 min",
   "meer3-pop": "hertogjan",
   "meer3-url": "",
-
   "slot-kop": "Na de illusies: sauna en een goed <span class='al-g'>diner</span>",
   "slot-tekst": "Op tien minuten van Horst wachten je kamer, de wellness op de Top Floor en een tafel in de brasserie.",
   "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
   "slot-foto-klein": "fotos/l26-hotel-zonsondergang.webp",
-  "slot-alt": "Hotel Asteria bij zonsondergang",
+  "slot-alt": "Hotel Asteria in Venray van bovenaf bij zonsondergang, met de vijver en fontein voor de ingang",
   "slot-focus": "50%",
-
   "fotocredit": "",
   "fotocredit-verhaal": "Illustraties: <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> en <a href='https://commons.wikimedia.org/wiki/File:Kaninchen_und_Ente.png' target='_blank' rel='noopener'>Fliegende Bl&auml;tter, 1892</a> (publiek domein), via Wikimedia Commons. Het zijn voorbeelden van illusies uit het museum, niet de werken in Mind Mystery zelf.",
   "fotocredit-prak": "Illustraties: <a href='https://commons.wikimedia.org/wiki/File:Penrose-dreieck.svg' target='_blank' rel='noopener'>Tobias R.</a>, <a href='https://commons.wikimedia.org/wiki/File:Kaninchen_und_Ente.png' target='_blank' rel='noopener'>Fliegende Bl&auml;tter, 1892</a>, <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> en <a href='https://commons.wikimedia.org/wiki/File:Face_or_vase_wickedea.svg' target='_blank' rel='noopener'>F. B. von Wickede, 18e eeuw</a> (publiek domein), uitsneden; via Wikimedia Commons.",
   "fotocredit-dag": "Illustratie: <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> (publiek domein), via Wikimedia Commons.",
   "fotocredit-meer": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brouwerij.JPG' target='_blank' rel='noopener'>B. Hulshoff</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
-
   "_pop": {
     "uitje": {
       "oorlogsmuseum": {
         "naam": "Oorlogsmuseum Overloon",
         "cat": "Geschiedenis",
         "desc": "Na de illusies van Mind Mystery is dit een uitje met de voeten in de werkelijkheid. In Overloon vertelt een groot museum het verhaal van de Tweede Wereldoorlog, met legervoertuigen in nagebouwde scènes en een Sherman-tank buiten. Je rijdt er vanuit het hotel in tien minuten heen, en ook hier ben je grotendeels binnen.",
-        "fotos": ["fotos/l26-oorlogsmuseum-arrangement-hero.webp", "fotos/l26-oorlogsmuseum-arrangement-sherman.webp"],
+        "fotos": [
+          "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+          "fotos/l26-oorlogsmuseum-arrangement-sherman.webp"
+        ],
         "auto": "10 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Oorlogsmuseum+Overloon%2C+Museumpark+1%2C+5825+AM+Overloon"
       },
@@ -211,7 +239,12 @@
         "naam": "Nationaal Park De Maasduinen",
         "cat": "Natuur",
         "desc": "Wil je na een middag binnen juist naar buiten, dan ligt tussen de Maas en de Duitse grens ruim 4.500 hectare bos, heide, stuifzand en vennen: de langste rivierduingordel van Nederland. Bij het bezoekerscentrum in Well vind je wandel- en fietsroutes. Terug in het hotel wacht de sauna op de Top Floor.",
-        "fotos": ["fotos/l26-omg-maasduinen-1.webp", "fotos/l26-omg-maasduinen-2.webp", "fotos/l26-omg-maasduinen-3.webp", "fotos/l26-omg-maasduinen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-maasduinen-1.webp",
+          "fotos/l26-omg-maasduinen-2.webp",
+          "fotos/l26-omg-maasduinen-3.webp",
+          "fotos/l26-omg-maasduinen-4.webp"
+        ],
         "auto": "15 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
         "credit": "Foto's: Lieblingsgouda, Steven Lek, Carelbullens en Jonathation via Wikimedia Commons (CC BY-SA), bijgesneden."
@@ -220,14 +253,17 @@
         "naam": "Hertog Jan Brouwerij",
         "cat": "Brouwerij",
         "desc": "In Arcen, een kwartier rijden van Mind Mystery, brouwt Hertog Jan zijn bier. Tijdens een rondleiding met gids zie je hoe het brouwen gaat, ruik je de hop en proef je mout en bier. Boek de rondleiding vooraf en houd rekening met smalle gangen en 144 treden.",
-        "fotos": ["fotos/l26-omg-hertogjan-1.webp", "fotos/l26-omg-hertogjan-2.webp", "fotos/l26-omg-hertogjan-3.webp"],
+        "fotos": [
+          "fotos/l26-omg-hertogjan-1.webp",
+          "fotos/l26-omg-hertogjan-2.webp",
+          "fotos/l26-omg-hertogjan-3.webp"
+        ],
         "auto": "25 min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Hertog+Jan+Brouwerij%2C+Kruisweg+44%2C+5944+EN+Arcen",
         "credit": "Foto's: B. Hulshoff en Steven Lek via Wikimedia Commons (CC BY-SA 4.0), bijgesneden; tapfoto Hotel Asteria."
       }
     }
   },
-
   "_bronnen": {
     "feiten": "qa/uitje/FEITEN-mind-mystery.md: mindmystery.nl (home, plan je bezoek, openingstijden, toegankelijkheid, veelgestelde vragen, ontdek, belevenissen, museum, winters uitje, sitemap), OSRM en Nominatim voor reistijden en coördinaten; peildatum 11 nov 2026.",
     "fotos": "Illustraties van Wikimedia Commons (publiek domein), per bestand met maker en licentie in qa/uitje/FEITEN-mind-mystery.md; credits zichtbaar op de pagina (fotocredit*). Hero en v3 = eigen hotelbeeld.",

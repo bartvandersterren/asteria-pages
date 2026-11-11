@@ -6,12 +6,10 @@
     "v1-knop-url wijst naar de Duitse openingstijdenpagina van het park (https://www.kasteeltuinen.nl/de/planen-sie-ihren-besuch-2/oeffnungszeiten/, HTTP 200 op 11 nov 2026, hreflang-de van de NL-pagina). Die meldt ook: Gartensaison 2027 beginnt am 25. März 2027.",
     "Alle open punten uit _controleren van het NL-bestand gelden ook hier (seizoen, prijzen 2027, Christmas Fair na 29 nov 2026 weghalen, bezoekduur, receptietip, rijtijden)."
   ],
-
   "titel": "Hotel nahe den Schlossgärten Arcen | Hotel Asteria Venray",
   "omschrijving": "Die Schlossgärten Arcen liegen 25 Minuten mit dem Auto vom Hotel Asteria in Venray. Ab 25. März 2027 wieder geöffnet; was Sie dort erwartet.",
   "canonical": "https://visit.asteria.nl/kasteeltuinen-arcen-v2-de",
   "og-image": "https://visit.asteria.nl/fotos/l26-uitje-arcen-tuinen-hero.webp",
-
   "hero-cat": "Ausflug",
   "hero-kop": "Schlossgärten <span class='al-g'>Arcen</span>",
   "hero-sub": "Mehr als fünfzehn Gärten rund um ein Schloss aus dem 17. Jahrhundert, 25 Minuten mit dem Auto von Ihrem Hotelzimmer in Venray. Ab 25. März 2027 wieder geöffnet.",
@@ -19,7 +17,6 @@
   "hero-foto-klein": "fotos/l26-uitje-arcen-tuinen-hero-klein.webp",
   "hero-alt": "Schloss Arcen spiegelt sich im Schlossgraben mit Seerosen",
   "hero-focus": "30%",
-
   "oog-kop": "Die Schlossgärten Arcen auf einen <span class='al-g'>Blick</span>",
   "vk-auto": "25 Min.",
   "vk-fiets": "75 Min.",
@@ -36,7 +33,6 @@
   "t5-label": "Parken",
   "t5-waarde": "8 € pro Auto (2026)",
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&amp;destination=Kasteeltuinen+Arcen%2C+Lingsforterweg+26%2C+5944+BE+Arcen",
-
   "v1-kop": "Ein Schloss mit mehr als fünfzehn <span class='al-g'>Gärten</span>",
   "v1-p1": "Die Schlossgärten Arcen (Kasteeltuinen Arcen) liegen 25 Minuten mit dem Auto vom Hotel Asteria entfernt, im Dorf Arcen an der Maas. Rund um ein Schloss aus dem 17. Jahrhundert liegen mehr als fünfzehn Gärten, entworfen vom Landschaftsarchitekten Niek Roozen. Seit 1976 gehört das Anwesen der Stiftung Het Limburgs Landschap.",
   "v1-p2": "Achten Sie bitte auf das Datum: Die Gartensaison 2026 ist vorbei, die Gärten sind derzeit geschlossen. Die neue Saison beginnt am Donnerstag, 25. März 2027. Die Öffnungszeiten für 2027 stehen noch nicht online; schauen Sie vor der Abfahrt kurz auf kasteeltuinen.nl.",
@@ -47,7 +43,6 @@
   "v1-knop": "Öffnungszeiten auf kasteeltuinen.nl",
   "v1-knop-url": "https://www.kasteeltuinen.nl/de/planen-sie-ihren-besuch-2/oeffnungszeiten/",
   "v1-knop-extern": "ja",
-
   "v2-kop": "Rosen, Bambus und ein orientalischer <span class='al-g'>Wassergarten</span>",
   "v2-p1": "Das Prunkstück ist das Rosarium, ein barocker Rosengarten mit zehn Rosenräumen und mehr als 8.000 Rosensträuchern. Ein Stück weiter fühlen Sie sich wie in Asien: Der Bambuswald geht in den Orientalischen Wassergarten über, mit einem roten Tor am Wasser.",
   "v2-p2": "Außerdem gibt es unter anderem einen italienischen Garten, einen mediterranen Garten, einen Rhododendrongarten und ein Farntal. Für Kinder gibt es eine Minigolfbahn, eine Schnitzeljagd und einen Spielstrand. Für Kaffee mit Limburger Vlaai oder ein Mittagessen gehen Sie ins Koetshuys, in den Bergpaviljoen oder in die Plaza Verde Bar.",
@@ -55,24 +50,21 @@
   "v2-alt": "Rotes japanisches Tor und ein Steg mit rotem Geländer im orientalischen Garten",
   "v2-b": "1200",
   "v2-h": "800",
-
   "v3-kop": "Das Schloss und die <span class='al-g'>Christmas Fair</span>",
   "v3-p1": "Mit dem Ticket für die Gärten dürfen Sie auch ins Schloss. Die Räume in der Beletage sind eingerichtet, als würde dort noch jemand wohnen, mit Antiquitäten, Kunst und frischen Blumengestecken. Im Winter ist der Park geschlossen, mit einer Ausnahme: Vom 25. bis 29. November 2026 findet die Christmas Fair statt, mit Weihnachtsständen, Livemusik und einer Licht- und Fontänenshow auf dem großen Teich. Hunde sind dann nicht erlaubt. Danach bleiben die Tore bis zum 25. März 2027 geschlossen.",
   "v3-foto": "fotos/l26-uitje-arcen-tuinen-v3.webp",
-  "v3-alt": "Schloss Arcen im Schnee hinter einem kahlen Baum",
+  "v3-alt": "Schloss Arcen im Schnee hinter einem kahlen, verschneiten Baum",
   "v3-b": "1200",
   "v3-h": "900",
-
   "tip-kop": "Tipp der <span class='al-g'>Rezeption</span>",
   "tip": "Kaufen Sie Eintritts- und Parkticket zusammen online, dann scannen Sie bei der Ausfahrt einfach Ihr Handy. Beginnen Sie mit dem Rosarium gleich beim Schloss und gehen Sie danach weiter zum Orientalischen Wassergarten. Haben Sie noch Zeit, buchen Sie vorab eine Führung in der Hertog Jan Brauerei, ein paar Minuten weiter in Arcen.",
   "tip-van": "Team Rezeption, Hotel Asteria",
-
   "g-kop": "Gut zu <span class='al-g'>wissen</span>",
   "g1-kop": "Saisonpark",
   "g1-tekst": "Derzeit geschlossen. Die Gartensaison 2027 beginnt am 25. März 2027.",
   "g1-ico": "<circle cx='12' cy='12' r='9'/><path d='M12 7v5l3 2'/>",
   "g1-foto": "fotos/l26-uitje-arcen-tuinen-g1.webp",
-  "g1-alt": "Die Schlossgärten in Arcen unter einer Schneedecke",
+  "g1-alt": "Die Schlossgärten in Arcen unter einer Schneedecke, über die verschneiten Hecken gesehen",
   "g2-kop": "Tickets mit Datum",
   "g2-tekst": "Online wählen Sie ein Besuchsdatum. 2026: 21,50 € online, Kinder von 4 bis 17 Jahren 10,75 €.",
   "g2-ico": "<path d='M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z'/><path d='M14 6v12' stroke-dasharray='2 2'/>",
@@ -88,7 +80,6 @@
   "g4-ico": "<path d='M5 3v8a2 2 0 0 0 2 2v8M9 3v8M7 3v8M17 3c-2 0-3 2-3 5s1 5 3 5v8'/>",
   "g4-foto": "fotos/l26-uitje-arcen-tuinen-g4.webp",
   "g4-alt": "Terrasse mit Sonnenschirmen vor dem alten Kutschenhaus von Schloss Arcen",
-
   "dag-kop": "So wird ein ganzer <span class='al-g'>Tag</span> daraus",
   "dag-sub": "Frühstück im Hotel, tagsüber durch die Gärten in Arcen und am späten Nachmittag zurück zur Sauna und zum Abendessen.",
   "dag-start": "1",
@@ -96,31 +87,37 @@
   "m1-naam": "Frühstück im Hotel",
   "m1-tekst": "Das Frühstücksbuffet steht werktags von 07.00 bis 10.00 Uhr und am Wochenende von 08.00 bis 10.30 Uhr bereit. Danach fahren Sie in 25 Minuten nach Arcen.",
   "m1-foto": "fotos/l26-ontbijt.webp",
-  "m1-alt": "Frühstücksbuffet im Restaurant von Hotel Asteria",
+  "m1-alt": "Korb mit frischen Brötchen am Frühstücksbuffet des Hotel Asteria in Venray",
   "m1-positie": "50% 50%",
   "m2-deel": "Tagsüber",
   "m2-naam": "Schlossgärten Arcen",
   "m2-tekst": "Rechnen Sie mit einem halben Tag oder mehr für das Rosarium, den Bambuswald, den Orientalischen Wassergarten und das Schloss. Mittagessen im Koetshuys oder im Bergpaviljoen. Ab 25. März 2027 sind die Gärten wieder geöffnet.",
   "m2-foto": "fotos/l26-uitje-arcen-tuinen-dag.webp",
-  "m2-alt": "Sonniger Sandweg durch den Bambuswald",
+  "m2-alt": "Sonniger Sandweg durch den Bambuswald der Schlossgärten Arcen",
   "m2-positie": "50% 50%",
   "m3-deel": "Nachmittags",
   "m3-naam": "Wellness auf der Top Floor",
   "m3-tekst": "Zurück in Venray wärmen Sie sich in einer der vier Saunen auf. Der Wellnessbereich ist montags bis donnerstags von 16.00 bis 22.00 Uhr und freitags bis sonntags von 12.00 bis 22.00 Uhr geöffnet. Dienstag ist Badekleidungstag.",
   "m3-foto": "fotos/l26-wellness-staand.webp",
-  "m3-alt": "Fußbad im Wellnessbereich auf der Top Floor",
+  "m3-alt": "Fußbad mit grünem Mosaik unter einer Lichtkuppel im Wellnessbereich auf der Top Floor von Hotel Asteria",
   "m3-positie": "50% 50%",
   "m4-deel": "Abends",
   "m4-naam": "Abendessen in der Brasserie",
   "m4-tekst": "Den Tag beschließen Sie bei Tisch in der Brasserie des Hotels. Die Küche ist bis 21.30 Uhr geöffnet, und Ihr Zimmer ist danach nur eine Fahrt mit dem Aufzug entfernt.",
   "m4-foto": "fotos/l26-brasserie.webp",
-  "m4-alt": "Bar in der Brasserie von Hotel Asteria",
+  "m4-alt": "Barkeeper zapft ein Bier an der Bar der Brasserie im Hotel Asteria, Venray",
   "m4-positie": "50% 50%",
-
   "kamers-kop": "Bleiben Sie über <span class='al-g'>Nacht</span>",
   "kamers-sub": "Dann fahren Sie nach einem Tag zwischen den Rosen nicht nach Hause, sondern in die Sauna. Wählen Sie Ihr Zimmer; den Preis für Ihre Daten sehen Sie direkt bei der Buchung.",
-  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
-
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
   "kaart-kop": "So kommen Sie <span class='al-g'>hin</span>",
   "kaart-regel": "Die Schlossgärten Arcen liegen südöstlich von Venray an der Maas. Auf der Karte sehen Sie auch drei weitere Orte, die Sie am selben Tag oder am Tag danach besuchen können.",
   "kaart-naam": "Kasteeltuinen Arcen, Lingsforterweg 26, 5944 BE Arcen",
@@ -131,15 +128,47 @@
   "kaart-alt": "Karte von Nord-Limburg mit Hotel Asteria in Venray, den Schlossgärten Arcen und drei weiteren Ausflugszielen",
   "kaart-vignet": "fotos/l26-uitje-vignet-asteria.webp",
   "kaart": {
-    "hotel": [51.54774, 5.99732],
+    "hotel": [
+      51.54774,
+      5.99732
+    ],
     "punten": [
-      {"naam": "Schlossgärten Arcen", "lat": 51.47195, "lng": 6.18417, "hoofd": true, "label": "rechts"},
-      {"naam": "Hertog Jan Brauerei", "lat": 51.48607, "lng": 6.17337, "hoofd": false, "nr": 1, "label": "links", "pop": "uitje:hertogjan"},
-      {"naam": "De Maasduinen", "lat": 51.57797, "lng": 6.08622, "hoofd": false, "nr": 2, "label": "rechts", "pop": "uitje:maasduinen"},
-      {"naam": "Venray Zentrum", "lat": 51.52696, "lng": 5.97532, "hoofd": false, "nr": 3, "label": "links", "pop": "uitje:venray"}
+      {
+        "naam": "Schlossgärten Arcen",
+        "lat": 51.47195,
+        "lng": 6.18417,
+        "hoofd": true,
+        "label": "rechts"
+      },
+      {
+        "naam": "Hertog Jan Brauerei",
+        "lat": 51.48607,
+        "lng": 6.17337,
+        "hoofd": false,
+        "nr": 1,
+        "label": "links",
+        "pop": "uitje:hertogjan"
+      },
+      {
+        "naam": "De Maasduinen",
+        "lat": 51.57797,
+        "lng": 6.08622,
+        "hoofd": false,
+        "nr": 2,
+        "label": "rechts",
+        "pop": "uitje:maasduinen"
+      },
+      {
+        "naam": "Venray Zentrum",
+        "lat": 51.52696,
+        "lng": 5.97532,
+        "hoofd": false,
+        "nr": 3,
+        "label": "links",
+        "pop": "uitje:venray"
+      }
     ]
   },
-
   "faq-kop": "Häufig gestellte <span class='al-g'>Fragen</span>",
   "f1-v": "Wie weit sind die Schlossgärten Arcen vom Hotel Asteria entfernt?",
   "f1-a": "Es sind 23 Kilometer, etwa 25 Minuten mit dem Auto. Mit dem Rad sind es 18 Kilometer, rechnen Sie mit rund 75 Minuten. Fahrräder und E-Bikes leihen Sie an unserer Rezeption. Am Hotel Asteria parken Sie kostenlos.",
@@ -153,50 +182,49 @@
   "f5-a": "Ja, an kurzer Leine. Ein Hund kostete 2026 4 €. Im Schloss und während der Christmas Fair sind Hunde nicht erlaubt.",
   "f6-v": "Kann ich nach den Gärten noch in den Wellnessbereich und im Hotel zu Abend essen?",
   "f6-a": "Ja. Der Wellnessbereich auf der Top Floor ist montags bis donnerstags von 16.00 bis 22.00 Uhr und freitags bis sonntags von 12.00 bis 22.00 Uhr geöffnet. Dienstag ist Badekleidungstag. In der Brasserie können Sie bis 21.30 Uhr zu Abend essen.",
-
   "meer-kop": "Mehr in der <span class='al-g'>Umgebung</span>",
   "meer1-naam": "Hertog Jan Brauerei",
   "meer1-cat": "Bier",
   "meer1-foto": "fotos/l26-omg-hertogjan-1.webp",
-  "meer1-alt": "Die Hertog Jan Brauerei in Arcen mit Terrasse",
+  "meer1-alt": "Die weiße Hertog Jan Brauerei in Arcen mit Fahnen, Fahrrädern und Bierkästen am Empfang",
   "meer1-auto": "25 Min.",
   "meer1-pop": "hertogjan",
   "meer1-url": "",
   "meer2-naam": "Nationalpark De Maasduinen",
   "meer2-cat": "Natur",
   "meer2-foto": "fotos/l26-omg-maasduinen-1.webp",
-  "meer2-alt": "Sonnenaufgang über dem Eendenmeer in De Maasduinen",
+  "meer2-alt": "Waldkiefern und ein umgestürzter Baumstamm in der Heide am Eendenmeer in De Maasduinen",
   "meer2-auto": "15 Min.",
   "meer2-pop": "maasduinen",
   "meer2-url": "",
   "meer3-naam": "Venray Zentrum",
   "meer3-cat": "Zentrum",
   "meer3-foto": "fotos/l26-omg-venray-1.webp",
-  "meer3-alt": "Terrassen auf dem Grote Markt in Venray mit der Sint-Petrus' Bandenkerk",
+  "meer3-alt": "Terrassen am Grote Markt in Venray mit der Sint-Petrus' Bandenkerk",
   "meer3-auto": "7 Min.",
   "meer3-pop": "venray",
   "meer3-url": "",
-
   "slot-kop": "Nach den Gärten: Sauna und ein gutes <span class='al-g'>Abendessen</span>",
   "slot-tekst": "25 Minuten von Arcen warten Ihr Zimmer, der Wellnessbereich auf der Top Floor und ein Tisch in der Brasserie.",
   "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
   "slot-foto-klein": "fotos/l26-hotel-zonsondergang.webp",
-  "slot-alt": "Hotel Asteria bei Sonnenuntergang",
+  "slot-alt": "Hotel Asteria in Venray von oben bei Sonnenuntergang, mit Teich und Springbrunnen vor dem Eingang",
   "slot-focus": "50%",
-
   "fotocredit": "Titelfoto: <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(01),_northwest_side.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), zugeschnitten; über Wikimedia Commons.",
   "fotocredit-verhaal": "Fotos: <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(12),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(20),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), zugeschnitten, und <a href='https://commons.wikimedia.org/wiki/File:Castle_Arcen,_Arcen,_the_Netherlands.jpg' target='_blank' rel='noopener'>Bj.schoenmakers</a> (CC0 1.0); über Wikimedia Commons.",
   "fotocredit-prak": "Fotos: <a href='https://commons.wikimedia.org/wiki/File:Kasteeltuin_Arcen,_winter.jpg' target='_blank' rel='noopener'>Bj.schoenmakers</a> (CC BY-SA 3.0), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(23),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(19),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0) und <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(04),_carriage_house_with_terrace,_restaurant.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), zugeschnitten; über Wikimedia Commons.",
   "fotocredit-dag": "Foto Bambuswald: <a href='https://commons.wikimedia.org/wiki/File:Bamboebos.jpg' target='_blank' rel='noopener'>Kasteeltuinen Arcen</a> (CC BY-SA 4.0), zugeschnitten; über Wikimedia Commons.",
   "fotocredit-meer": "Fotos: <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brouwerij.JPG' target='_blank' rel='noopener'>B. Hulshoff</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Petrus_Banden,_Venray_Exterior_van_Grote_Markt_4372.jpg' target='_blank' rel='noopener'>Dosseman</a> (CC BY-SA 4.0), zugeschnitten; über Wikimedia Commons.",
-
   "_pop": {
     "uitje": {
       "hertogjan": {
         "naam": "Hertog Jan Brauerei",
         "cat": "Bier",
         "desc": "Ein paar Minuten von den Schlossgärten entfernt braut Hertog Jan sein Bier. Bei einer Führung sehen Sie, wie das Bier entsteht, riechen den Hopfen und probieren das Malz und das Bier selbst. Buchen Sie die Führung vorab und rechnen Sie mit engen Gängen und 144 Stufen.",
-        "fotos": ["fotos/l26-omg-hertogjan-1.webp", "fotos/l26-omg-hertogjan-2.webp"],
+        "fotos": [
+          "fotos/l26-omg-hertogjan-1.webp",
+          "fotos/l26-omg-hertogjan-2.webp"
+        ],
         "auto": "25 Min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Hertog+Jan+Brouwerij%2C+Kruisweg+44%2C+5944+EN+Arcen",
         "credit": "Fotos: B. Hulshoff und Steven Lek über Wikimedia Commons (CC BY-SA 4.0), zugeschnitten."
@@ -205,7 +233,12 @@
         "naam": "Nationalpark De Maasduinen",
         "cat": "Natur",
         "desc": "Arcen liegt am Rand von De Maasduinen, dem längsten Flussdünengürtel der Niederlande, mit gut 4.500 Hektar Wald, Heide, Flugsand und Heideweihern zwischen der Maas und der deutschen Grenze. Der Park ist das ganze Jahr über zugänglich; am Besucherzentrum in Well wählen Sie eine Wander- oder Radroute.",
-        "fotos": ["fotos/l26-omg-maasduinen-1.webp", "fotos/l26-omg-maasduinen-2.webp", "fotos/l26-omg-maasduinen-3.webp", "fotos/l26-omg-maasduinen-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-maasduinen-1.webp",
+          "fotos/l26-omg-maasduinen-2.webp",
+          "fotos/l26-omg-maasduinen-3.webp",
+          "fotos/l26-omg-maasduinen-4.webp"
+        ],
         "auto": "15 Min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Bezoekerscentrum+De+Maasduinen%2C+Bosserheide+3e%2C+5855+EA+Well",
         "credit": "Fotos: Lieblingsgouda, Steven Lek, Carelbullens und Jonathation über Wikimedia Commons (CC BY-SA), zugeschnitten."
@@ -214,14 +247,18 @@
         "naam": "Venray Zentrum",
         "cat": "Zentrum",
         "desc": "Auf dem Rückweg von Arcen liegt das Zentrum von Venray ein paar Minuten vom Hotel entfernt. Am Grote Markt steht die Sint-Petrus' Bandenkerk, die man hier die Kathedrale der Peel nennt, und rundherum sitzen Sie auf einer Terrasse bei Kaffee oder einem Getränk.",
-        "fotos": ["fotos/l26-omg-venray-1.webp", "fotos/l26-omg-venray-2.webp", "fotos/l26-omg-venray-3.webp", "fotos/l26-omg-venray-4.webp"],
+        "fotos": [
+          "fotos/l26-omg-venray-1.webp",
+          "fotos/l26-omg-venray-2.webp",
+          "fotos/l26-omg-venray-3.webp",
+          "fotos/l26-omg-venray-4.webp"
+        ],
         "auto": "7 Min.",
         "route": "https://www.google.com/maps/dir/?api=1&origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&destination=Grote+Markt%2C+5801+BL+Venray",
         "credit": "Fotos: Dosseman, giggel, WoodenSpoon und Sindala über Wikimedia Commons (CC BY-SA und CC BY), zugeschnitten."
       }
     }
   },
-
   "_bronnen": {
     "feiten": "Zie translations/uitje-kasteeltuinen-arcen-nl.json (_bronnen) en qa/uitje/FEITEN-kasteeltuinen-arcen.md; Duitse naam 'Schlossgärten Arcen' en DE-openingstijdenpagina van kasteeltuinen.nl/de/ (11 nov 2026).",
     "fotos": "Gelijk aan het NL-bestand.",

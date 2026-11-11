@@ -11,12 +11,10 @@
     "Laadpunten bij het hotel bewust niet genoemd (aantal nog af te stemmen).",
     "Meer in de omgeving linkt naar de -v2-adressen van Oorlogsmuseum en De Maasduinen (Arcen blijft een pop-up); bij promotie de adressen aanpassen."
   ],
-
   "titel": "Hotel bij ZooParc Overloon | Hotel Asteria Venray",
   "omschrijving": "Overnacht op 11 minuten rijden van ZooParc Overloon. Na een dag tussen de dieren wachten de wellness, de brasserie en je kamer in Hotel Asteria in Venray.",
   "canonical": "https://visit.asteria.nl/zooparc-overloon-v2",
   "og-image": "https://visit.asteria.nl/fotos/l26-uitje-zooparc-hero.webp",
-
   "hero-cat": "Dagje uit",
   "hero-kop": "ZooParc <span class='al-g'>Overloon</span>",
   "hero-sub": "Zeven themagebieden en meer dan 80 diersoorten, op elf minuten rijden van je hotelkamer in Venray.",
@@ -24,7 +22,6 @@
   "hero-foto-klein": "fotos/l26-uitje-zooparc-hero-klein.webp",
   "hero-alt": "Twee leeuwen liggen dicht tegen elkaar aan in ZooParc Overloon",
   "hero-focus": "50%",
-
   "oog-kop": "ZooParc Overloon in één <span class='al-g'>oogopslag</span>",
   "vk-auto": "11 min",
   "vk-fiets": "35 min",
@@ -41,18 +38,16 @@
   "t5-label": "Parkeren",
   "t5-waarde": "€ 7,50 per auto (nov 2026)",
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria%2C+Maasheseweg+80a%2C+5804+AD+Venray&amp;destination=ZooParc+Overloon%2C+Stevensbeekseweg+21%2C+5825+JB+Overloon",
-
   "v1-kop": "Een wereldreis in <span class='al-g'>Overloon</span>",
   "v1-p1": "Vanaf Hotel Asteria rijd je in 11 minuten naar ZooParc Overloon. Het park is ingedeeld als een expeditie, met zeven themagebieden en meer dan 80 diersoorten. Je loopt van de pinguïns op Boulders Beach naar de kangoeroes in Outback, langs de tijgers van Jangalee en de leeuwen van Ngorongoro, en verder naar de lemuren van Itampolo.",
   "v1-p2": "Het nieuwste gebied heet Ngyuwe. Daar vind je onder meer de okapi en de dwerghippo. Volgens het park duurt een bezoek gemiddeld drie tot vier uur, dus een vroege wekker is niet nodig.",
   "v1-foto": "fotos/l26-uitje-zooparc-v1.webp",
-  "v1-alt": "Een ringstaartmaki in ZooParc Overloon kijkt opzij",
+  "v1-alt": "Een ringstaartmaki steekt nieuwsgierig een pootje uit in ZooParc Overloon",
   "v1-b": "1200",
   "v1-h": "900",
   "v1-knop": "De expeditiegebieden op zooparc.nl",
   "v1-knop-url": "https://www.zooparc.nl/park",
   "v1-knop-extern": "ja",
-
   "v2-kop": "Voederen, kijken en <span class='al-g'>lunchen</span>",
   "v2-p1": "Elke dag zijn er voederpresentaties, onder meer bij de capibara's, de leeuwen en de giraffen. De tijden staan in het dagprogramma van het park. Kijk er bij aankomst even naar, dan plan je je route eromheen.",
   "v2-p2": "Eten en drinken kan op twee plekken. Headquarter, het gebouw waar je expeditie begint, is een zelfbedieningsrestaurant met broodjes, soep en snacks. Basecamp ligt halverwege de route en is handig voor een koffie tussendoor.",
@@ -60,18 +55,15 @@
   "v2-alt": "Een zwart-witte vari rust met zijn armen op een boomtak",
   "v2-b": "1200",
   "v2-h": "800",
-
   "v3-kop": "Twee uitjes in één <span class='al-g'>dorp</span>",
   "v3-p1": "Overloon heeft nog een bekende naam: het Oorlogsmuseum. Het ligt zo'n 2,7 kilometer van ZooParc en heeft een eigen parkeerterrein. Wie vroeg begint, bezoekt in de ochtend de dieren en in de middag het museum. Rustiger is het om er twee dagen van te maken. Het museum ligt op negen minuten rijden van het hotel, dus je plant het net zo makkelijk voor de ochtend erna.",
   "v3-foto": "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
   "v3-alt": "Legervoertuig in een nagebouwde strandscène in Oorlogsmuseum Overloon",
   "v3-b": "1400",
   "v3-h": "699",
-
   "tip-kop": "Tip van de <span class='al-g'>receptie</span>",
   "tip": "Bewaar de binnenverblijven niet voor het laatst, want die sluiten een half uur eerder dan de rest van het park. En reserveer voor je vertrekt alvast een tafel in onze brasserie. Dan hoef je na de sauna nergens meer aan te denken.",
   "tip-van": "Team receptie, Hotel Asteria",
-
   "g-kop": "Goed om te <span class='al-g'>weten</span>",
   "g1-kop": "Elke dag open",
   "g1-tekst": "Ook in de winter. De tijden per dag staan op zooparc.nl.",
@@ -93,7 +85,6 @@
   "g4-ico": "<circle cx='12' cy='12' r='9'/><path d='M5.6 5.6l12.8 12.8'/>",
   "g4-foto": "fotos/l26-uitje-zooparc-g4.webp",
   "g4-alt": "Een flamingo met zijn kop onder de oranjeroze veren",
-
   "dag-kop": "Zo maak je er een <span class='al-g'>dag</span> van",
   "dag-sub": "Ontbijten in het hotel, overdag naar de dieren in Overloon en aan het eind van de middag terug voor de sauna en een diner.",
   "dag-start": "1",
@@ -101,31 +92,37 @@
   "m1-naam": "Ontbijt in het hotel",
   "m1-tekst": "Het ontbijtbuffet staat doordeweeks klaar van 07.00 tot 10.00 uur en in het weekend van 08.00 tot 10.30 uur. Daarna stap je in de auto: elf minuten later sta je in Overloon.",
   "m1-foto": "fotos/l26-ontbijt.webp",
-  "m1-alt": "Ontbijtbuffet in het restaurant van Hotel Asteria",
+  "m1-alt": "Mand met verse broodjes op het ontbijtbuffet van Hotel Asteria in Venray",
   "m1-positie": "50% 50%",
   "m2-deel": "Overdag",
   "m2-naam": "ZooParc Overloon",
   "m2-tekst": "Reken op drie tot vier uur voor de zeven themagebieden. Plan je route rond de voederpresentaties en lunch bij Headquarter of Basecamp.",
   "m2-foto": "fotos/l26-uitje-zooparc-dag.webp",
-  "m2-alt": "De kop van een capibara van dichtbij",
+  "m2-alt": "Capibara van dichtbij in ZooParc Overloon, met gras op de achtergrond",
   "m2-positie": "50% 50%",
   "m3-deel": "Namiddag",
   "m3-naam": "Wellness op de Top Floor",
   "m3-tekst": "Terug in Venray warm je op in de sauna. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag.",
   "m3-foto": "fotos/l26-wellness-staand.webp",
-  "m3-alt": "Voetenbad in de wellness op de Top Floor",
+  "m3-alt": "Voetenbad met groen mozaïek onder een lichtkoepel in de wellness op de Top Floor van Hotel Asteria",
   "m3-positie": "50% 50%",
   "m4-deel": "Avond",
   "m4-naam": "Diner in de brasserie",
   "m4-tekst": "Je sluit de dag af aan tafel in de brasserie van het hotel. De keuken is open tot 21.30 uur, en je kamer is daarna maar een lift verderop.",
   "m4-foto": "fotos/l26-brasserie.webp",
-  "m4-alt": "Bar in de brasserie van Hotel Asteria",
+  "m4-alt": "Barman tapt een biertje aan de bar van de brasserie in Hotel Asteria, Venray",
   "m4-positie": "50% 50%",
-
   "kamers-kop": "Blijf een nacht <span class='al-g'>slapen</span>",
   "kamers-sub": "Dan hoef je na de sauna en het diner niet meer naar huis. Kies je kamer; de prijs voor je datums zie je direct bij het boeken.",
-  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
-
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
   "kaart-kop": "Zo kom je <span class='al-g'>er</span>",
   "kaart-regel": "ZooParc Overloon ligt ten noordwesten van Venray. Op de kaart zie je ook drie andere uitjes in de buurt van het hotel.",
   "kaart-naam": "ZooParc Overloon, Stevensbeekseweg 21, 5825 JB Overloon",
@@ -136,15 +133,47 @@
   "kaart-alt": "Kaart van Noord-Limburg met Hotel Asteria in Venray, ZooParc Overloon en drie andere uitjes",
   "kaart-vignet": "fotos/l26-uitje-vignet-asteria.webp",
   "kaart": {
-    "hotel": [51.54774, 5.99732],
+    "hotel": [
+      51.54774,
+      5.99732
+    ],
     "punten": [
-      {"naam": "ZooParc Overloon", "lat": 51.5787, "lng": 5.93599, "hoofd": true, "label": "boven"},
-      {"naam": "Oorlogsmuseum Overloon", "lat": 51.57037, "lng": 5.9568, "hoofd": false, "nr": 1, "label": "rechts", "url": "/oorlogsmuseum-overloon-v2"},
-      {"naam": "De Maasduinen", "lat": 51.57507, "lng": 6.08658, "hoofd": false, "nr": 2, "label": "rechts", "url": "/nationaal-park-de-maasduinen-v2"},
-      {"naam": "Kasteeltuinen Arcen", "lat": 51.46797, "lng": 6.18468, "hoofd": false, "nr": 3, "label": "links", "pop": "uitje:arcen"}
+      {
+        "naam": "ZooParc Overloon",
+        "lat": 51.5787,
+        "lng": 5.93599,
+        "hoofd": true,
+        "label": "boven"
+      },
+      {
+        "naam": "Oorlogsmuseum Overloon",
+        "lat": 51.57037,
+        "lng": 5.9568,
+        "hoofd": false,
+        "nr": 1,
+        "label": "rechts",
+        "url": "/oorlogsmuseum-overloon-v2"
+      },
+      {
+        "naam": "De Maasduinen",
+        "lat": 51.57507,
+        "lng": 6.08658,
+        "hoofd": false,
+        "nr": 2,
+        "label": "rechts",
+        "url": "/nationaal-park-de-maasduinen-v2"
+      },
+      {
+        "naam": "Kasteeltuinen Arcen",
+        "lat": 51.46797,
+        "lng": 6.18468,
+        "hoofd": false,
+        "nr": 3,
+        "label": "links",
+        "pop": "uitje:arcen"
+      }
     ]
   },
-
   "faq-kop": "Veelgestelde <span class='al-g'>vragen</span>",
   "f1-v": "Hoe ver is ZooParc Overloon van Hotel Asteria?",
   "f1-a": "Het is 10,4 kilometer, ongeveer 11 minuten met de auto. Op de fiets is het 7,4 kilometer, zo'n 35 minuten. Fietsen en e-bikes huur je bij onze receptie. Let op: in het weekend rijdt er geen openbaar vervoer naar het park.",
@@ -158,7 +187,6 @@
   "f5-a": "Nee. Voor de veiligheid van de dieren zijn huisdieren niet toegestaan in het park. Dat geldt ook voor hulphonden.",
   "f6-v": "Kan ik na ZooParc nog naar de wellness en dineren in het hotel?",
   "f6-a": "Ja. De wellness is open van maandag tot en met donderdag van 16.00 tot 22.00 uur en van vrijdag tot en met zondag van 12.00 tot 22.00 uur. Dinsdag is badkledingdag. In de brasserie kun je dineren tot 21.30 uur.",
-
   "meer-kop": "Meer in de <span class='al-g'>omgeving</span>",
   "meer1-naam": "Oorlogsmuseum Overloon",
   "meer1-cat": "Geschiedenis",
@@ -170,7 +198,7 @@
   "meer2-naam": "Nationaal Park De Maasduinen",
   "meer2-cat": "Natuur",
   "meer2-foto": "fotos/l26-uitje-maasduinen-hero-klein.webp",
-  "meer2-alt": "Zandpad over de heide in De Maasduinen",
+  "meer2-alt": "Zandpad door bruine heide en berken in Nationaal Park De Maasduinen",
   "meer2-auto": "18 min",
   "meer2-pop": "",
   "meer2-url": "/nationaal-park-de-maasduinen-v2",
@@ -181,20 +209,17 @@
   "meer3-auto": "24 min",
   "meer3-pop": "arcen",
   "meer3-url": "",
-
   "slot-kop": "Na de dieren: sauna en een goed <span class='al-g'>diner</span>",
   "slot-tekst": "Op elf minuten van Overloon wachten je kamer, de wellness op de Top Floor en een tafel in de brasserie.",
   "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
   "slot-foto-klein": "fotos/l26-hotel-zonsondergang.webp",
-  "slot-alt": "Hotel Asteria bij zonsondergang",
+  "slot-alt": "Hotel Asteria in Venray van bovenaf bij zonsondergang, met de vijver en fontein voor de ingang",
   "slot-focus": "50%",
-
   "fotocredit": "Herofoto: <a href='https://commons.wikimedia.org/wiki/File:Lion_friendship_(Unsplash).jpg' target='_blank' rel='noopener'>Gwen Weustink</a> (CC0 1.0), via Wikimedia Commons.",
   "fotocredit-verhaal": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Ringstaartmaki_(4497911518)_(3).jpg' target='_blank' rel='noopener'>Tim Strater</a> (CC BY-SA 2.0), <a href='https://commons.wikimedia.org/wiki/File:Vari_Zooparc_Overloon_02.JPG' target='_blank' rel='noopener'>Heinonlein</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-prak": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Vari_Zooparc_Overloon_04.JPG' target='_blank' rel='noopener'>Heinonlein</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:In_trance_-1_(7285054958).jpg' target='_blank' rel='noopener'>jinterwas</a> (CC BY 2.0), <a href='https://commons.wikimedia.org/wiki/File:Kroeskoppelikaan_(4497262693)_(3).jpg' target='_blank' rel='noopener'>Tim Strater</a> (CC BY-SA 2.0) en <a href='https://commons.wikimedia.org/wiki/File:Rode_Flamingo_(4497270047)_(3).jpg' target='_blank' rel='noopener'>Tim Strater</a> (CC BY-SA 2.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-dag": "Foto capibara: <a href='https://commons.wikimedia.org/wiki/File:Capibara_(4497901928)_(3).jpg' target='_blank' rel='noopener'>Tim Strater</a> (CC BY-SA 2.0), bijgesneden; via Wikimedia Commons.",
   "fotocredit-meer": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:North_American_B-25_Mitchell_(54745918296).jpg' target='_blank' rel='noopener'>Thomas Vogt</a> (CC BY 4.0), <a href='https://commons.wikimedia.org/wiki/File:De_Maasduinen_1.JPG' target='_blank' rel='noopener'>Campinia88</a> (CC BY-SA 4.0), <a href='https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(14),_gardens.jpg' target='_blank' rel='noopener'>Vincent van Zeijst</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
-
   "_pop": {
     "uitje": {
       "arcen": {
@@ -213,7 +238,6 @@
       }
     }
   },
-
   "_bronnen": {
     "feiten": "qa/uitje/FEITEN-zooparc-overloon.md: zooparc.nl (adres, prijzen, openingstijden, park, parkreglement), oorlogsmuseum.nl, OSRM en Nominatim voor reistijden en coördinaten; peildatum 10 nov 2026.",
     "fotos": "ZooParc-foto's van Wikimedia Commons, per bestand met auteur en licentie in qa/uitje/FEITEN-zooparc-overloon.md; credits zichtbaar op de pagina (fotocredit*).",
