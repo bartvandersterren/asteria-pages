@@ -1,4 +1,5 @@
 {
+  "test-titel-begin": "Designer Outlet Roermond",
   "_uitleg": "Uitjepagina Designer Outlet Roermond (sjabloon uitje.template.html, build-entry uitje-designer-outlet-roermond, uitvoer designer-outlet-roermond-v2.html). Opzet gelijk aan translations/uitje-zooparc-overloon-nl.json. Dit is HET gegevensbestand van deze pagina; vaste labels staan in translations/uitje-labels-nl.json (dit bestand wint), kamerkaarten in content/uitje-kamers-nl.json. Rijtijd is 40 minuten, dus geen 'hotel bij' maar een dagtocht vanuit het hotel. Genummerde slots lopen door tot het eerste ontbrekende nummer. Sleutels met _ gaan niet door de veldvervanging. Feiten: qa/uitje/FEITEN-designer-outlet-roermond.md; open punten in _controleren.",
   "_controleren": [
     "Feiten en bronnen: qa/uitje/FEITEN-designer-outlet-roermond.md (eigen onderzoek, peildatum 11 nov 2026). Alleen BEVESTIGDE feiten staan op de pagina.",

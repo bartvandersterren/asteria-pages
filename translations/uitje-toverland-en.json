@@ -1,4 +1,5 @@
 {
+  "test-titel-begin": "Toverland",
   "_uitleg": "Uitjepagina Toverland, Engels (sjabloon uitje.template.html, build-entry uitje-toverland, uitvoer toverland-v2-en.html). Vertaling van translations/uitje-toverland-nl.json; vaste labels in translations/uitje-labels-en.json (dit bestand wint), kamerkaarten in content/uitje-kamers-en.json. Genummerde slots lopen door tot het eerste ontbrekende nummer. Sleutels met _ gaan niet door de veldvervanging.",
   "_controleren": [
     "vertaling van uitje-toverland-nl.json, bij wijziging van NL meenemen",

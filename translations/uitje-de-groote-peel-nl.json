@@ -1,4 +1,5 @@
 {
+  "test-titel-begin": "De Groote Peel",
   "_uitleg": "Uitjepagina De Groote Peel (sjabloon uitje.template.html, build-entry uitje-de-groote-peel, uitvoer de-groote-peel-v2.html). Opzet gelijk aan translations/uitje-zooparc-overloon-nl.json; vaste labels in translations/uitje-labels-nl.json (dit bestand wint), kamerkaarten in content/uitje-kamers-nl.json. Genummerde slots lopen door tot het eerste ontbrekende nummer. Sleutels met _ gaan niet door de veldvervanging. Feiten: qa/uitje/FEITEN-de-groote-peel.md; open punten in _controleren.",
   "_controleren": [
     "Feiten en bronnen: qa/uitje/FEITEN-de-groote-peel.md (eigen onderzoek, peildatum 11 nov 2026). Alleen BEVESTIGDE feiten staan op de pagina.",

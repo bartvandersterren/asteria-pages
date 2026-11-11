@@ -1,4 +1,5 @@
 {
+  "test-titel-begin": "Designer Outlet Roermond",
   "_uitleg": "Uitjepagina Designer Outlet Roermond, Engels (sjabloon uitje.template.html, build-entry uitje-designer-outlet-roermond, uitvoer designer-outlet-roermond-v2-en.html). Vaste labels in translations/uitje-labels-en.json (dit bestand wint), kamerkaarten in content/uitje-kamers-en.json. Rijtijd 40 minuten: dagtocht, geen 'hotel near'. Sleutels met _ gaan niet door de veldvervanging.",
   "_controleren": [
     "vertaling van uitje-designer-outlet-roermond-nl.json, bij wijziging van NL meenemen",
