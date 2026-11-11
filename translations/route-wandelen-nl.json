@@ -1,0 +1,142 @@
+{
+  "_uitleg": "Paginainhoud van /wandelen-rond-venray-v2 (build.py build_route, sjabloon route.template.html). Vaste labels staan in translations/route-labels-nl.json. De routes zelf komen uit content/routes/wandel.json (scripts/routes_os.py: de vijf eigen gebieden uit content/routes/wandel-eigen.json + vier OS-routes); hier per route alleen de kaartfoto, alt, de pop-uptekst en extra pop-upfoto's. Velden met een pad, -url, -focus of -ico erven DE/EN van dit bestand; alle tekst moet in route-wandelen-de/-en.json staan. Feiten: qa/routes/FEITEN-wandelen.md. oog3-kop/-tekst: {min} = rijtijd naar het dichtstbijzijnde startpunt (uit de data).",
+
+  "conversie": "kamers",
+  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
+  "titel": "Wandelen rond Venray: routes vanaf Hotel Asteria",
+  "omschrijving": "Wandelen rond Venray: negen wandelroutes van 4 tot 24 km rond Hotel Asteria, van de jeneverbessen bij Smakt tot de Mariapeel. Wandelkaarten krijg je bij de receptie.",
+  "og-titel": "Wandelen rond Venray: routes vanaf Hotel Asteria",
+  "og-omschrijving": "Negen wandelroutes rond Hotel Asteria in Venray: de Boshuizerbergen, Landgoed Geijsteren, de Maasheggen, het Pieterpad, de Maasduinen en de Mariapeel.",
+  "og-image": "https://visit.asteria.nl/fotos/l26-route-hero-wandel.webp",
+  "kruimel": "Wandelen rond Venray",
+
+  "hero-kop": "Wandelen rond <span class='al-g'>Venray</span>",
+  "hero-sub": "Negen wandelroutes, van de jeneverbessen op een paar minuten van het hotel tot een dagetappe over het Pieterpad.",
+  "hero-foto": "fotos/l26-route-hero-wandel.webp",
+  "hero-foto-klein": "fotos/l26-route-hero-wandel-klein.webp",
+  "hero-alt": "Een stel wandelt over een bospad in de buurt van Venray",
+  "hero-focus": "45%",
+
+  "oog-kop": "Wandelen vanaf Hotel Asteria in één <span class='al-g'>oogopslag</span>",
+  "oog1-ico": "<path d='M13 4.5a1.5 1.5 0 1 0 0-.01'/><path d='M10 21l2-6 3 3v3'/><path d='M8 12l2-4 4 1 2 3h3'/><path d='M10 8l-1 6'/>",
+  "oog1-kop": "routes",
+  "oog1-tekst": "vijf gebieden in de buurt, vier in de Maasduinen en de Peel",
+  "oog2-ico": "<circle cx='12' cy='12' r='8.5'/><path d='M12 7.5V12l3 2'/>",
+  "oog2-tekst": "van een uur lopen tot een hele dag",
+  "oog3-ico": "<path d='M3.5 16.5v-4L6 7h12l2.5 5.5v4z'/><path d='M3.5 12.5h17'/><circle cx='7.5' cy='16.5' r='1.8'/><circle cx='16.5' cy='16.5' r='1.8'/>",
+  "oog3-kop": "{min} minuten",
+  "oog3-tekst": "rijden naar het dichtstbijzijnde startpunt",
+  "oog4-ico": "<path d='M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6z'/><path d='M9 4v14M15 6v14'/>",
+  "oog4-kop": "Routes bij de receptie",
+  "oog4-tekst": "gratis wandelkaarten op papier",
+  "tweede-knop": "Bekijk de kamers",
+
+  "routes-kop": "Kies je <span class='al-g'>route</span>",
+  "routes-intro": "Bovenaan vijf wandelgebieden in de buurt van het hotel, van de Boshuizerbergen op een paar minuten tot de Maasheggen bij Sambeek. Daaronder vier routes in de Maasduinen en de Mariapeel, op een kwartier tot een half uur rijden. Neem de route mee op je telefoon of haal een wandelkaart bij de receptie.",
+
+  "kaart-kop": "Alle routes op de <span class='al-g'>kaart</span>",
+  "kaart-regel": "Zo liggen de negen routes rond het hotel. Tik op een nummer en de kaart zoomt naar die route.",
+  "kaart-alt": "Overzichtskaart met de negen wandelroutes rond Hotel Asteria in Venray",
+
+  "prak-kop": "Goed om te <span class='al-g'>weten</span>",
+  "prak-tekst": "Alles voor een dag wandelen regel je bij de receptie.",
+  "prak1-foto": "fotos/l26-welkom-receptie.webp",
+  "prak1-alt": "Een gast aan de receptie van Hotel Asteria",
+  "prak1-ico": "<path d='M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6z'/><path d='M9 4v14M15 6v14'/>",
+  "prak1-kop": "Routes bij de receptie",
+  "prak1-tekst": "Wandel- en fietsroutes op papier, gratis",
+  "prak2-foto": "fotos/l26-ontbijt.webp",
+  "prak2-alt": "Een mand met verse broodjes",
+  "prak2-ico": "<path d='M5 8.5h14l-1.2 12H6.2z'/><path d='M9 8.5V7a3 3 0 016 0v1.5'/>",
+  "prak2-kop": "Lunchpakket",
+  "prak2-tekst": "Voor onderweg, vraag ernaar bij de receptie",
+  "prak3-foto": "fotos/l26-fac-restaurant-1.webp",
+  "prak3-alt": "Gasten aan tafel in het restaurant van Hotel Asteria",
+  "prak3-ico": "<path d='M7 3v8a2 2 0 0 0 4 0V3M9 11v10'/><path d='M17 3c-1.7 0-3 2.2-3 5s1.3 4 3 4v9'/>",
+  "prak3-kop": "Restaurant",
+  "prak3-tekst": "Na de wandeling aan tafel, de keuken is open tot 21.30 uur",
+  "prak4-foto": "fotos/l26-limburg-arrangement-fietsen.webp",
+  "prak4-alt": "Een stel op de fiets over een bospad bij Venray",
+  "prak4-ico": "<circle cx='5.5' cy='16.5' r='3.5'/><circle cx='18.5' cy='16.5' r='3.5'/><path d='M5.5 16.5l4-7h6.5l2.5 7'/><path d='M9.5 9.5l3 7h-7M12.5 16.5l3.5-7'/><path d='M8 6.5h3M15 6.5h2l-1 3'/>",
+  "prak4-kop": "Fiets huren",
+  "prak4-tekst": "Fiets of e-bike bij de receptie, handig naar een startpunt",
+  "prak-link": "Vraag de receptie om een wandelkaart",
+
+  "kamers-kop": "Blijf een nacht <span class='al-g'>slapen</span>",
+  "kamers-sub": "Dan begin je morgen uitgerust aan de volgende route. Kies je kamer; de prijs voor je datums zie je direct bij het boeken.",
+
+  "faq-kop": "Veelgestelde <span class='al-g'>vragen</span>",
+  "faq": [
+    {"v": "Welke wandelroute ligt het dichtst bij het hotel?", "a": "De Boshuizerbergen bij Smakt, op een paar minuten rijden. Daar loop je 5,5 kilometer langs duizenden jeneverbessen, naaldbos en open stuifzand."},
+    {"v": "Krijg ik bij de receptie wandelroutes mee?", "a": "Ja. Bij de receptie liggen gratis wandel- en fietsroutes op papier. Elke route op deze pagina opent ook op je telefoon, met de knop bij de route."},
+    {"v": "Kan ik een lunchpakket meenemen?", "a": "Ja. Bij de receptie bestel je een lunchpakket voor onderweg."},
+    {"v": "Kan ik na de wandeling in het hotel eten?", "a": "Ja. In ons restaurant schuif je aan voor het diner; de keuken is open tot 21.30 uur."},
+    {"v": "Moet ik met de auto naar het startpunt?", "a": "Niet altijd. De Boshuizerbergen en Landgoed Geijsteren liggen op fietsafstand, en een fiets of e-bike huur je bij de receptie. Voor de Maasduinen en de Mariapeel neem je de auto: een kwartier tot een half uur rijden."}
+  ],
+
+  "wissel-kop": "Liever op de <span class='al-g'>fiets?</span>",
+  "wissel-regel": "Tien fietsroutes rond Venray, zeven ervan op het knooppuntennetwerk vlak bij het hotel. Fietsen en e-bikes huur je bij de receptie.",
+  "wissel-hier-naam": "Wandelroutes",
+  "wissel-hier-foto": "fotos/hf-bos-hand.webp",
+  "wissel-hier-alt": "Een stel wandelt hand in hand door het bos",
+  "wissel-daar-naam": "Fietsroutes",
+  "wissel-daar-foto": "fotos/l26-omg-fietsen-1.webp",
+  "wissel-daar-alt": "Een stel fietst over een bospad bij Venray",
+  "wissel-knop": "Bekijk de {n} fietsroutes",
+
+  "slot-kop": "Na de wandeling: sauna, diner en je <span class='al-g'>kamer</span>",
+  "slot-tekst": "Boek je verblijf en begin morgen aan de volgende route.",
+  "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
+  "slot-alt": "Hotel Asteria bij zonsondergang",
+  "slot-focus": "50%",
+
+  "routes": {
+    "boshuizerbergen": {
+      "foto": "fotos/l26-route-wandelen-2.webp",
+      "alt": "Een stel wandelt over een bospad",
+      "tekst": "Bij Smakt volg je de witte route van Het Limburgs Landschap: 5,5 kilometer langs het grootste jeneverbesstruweel van Zuid-Nederland, aangeplant naaldbos en stukken open stuifzand. Schapen houden het zand en de heide open, dus je hond gaat aan de lijn. Dreigende ontginning van dit gebied was in 1931 de aanleiding om Het Limburgs Landschap op te richten."
+    },
+    "landgoed-geijsteren": {
+      "foto": "fotos/l26-route-landgoed-geijsteren-2.webp",
+      "alt": "Een bospad op Landgoed Geijsteren met de Willibrorduskapel tussen de bomen",
+      "tekst": "Landgoed Geijsteren is sinds 1806 van dezelfde familie. De lus van 7,7 kilometer volgt de wandelknooppunten langs de Oostrumse Beek, die hier nooit is rechtgetrokken, en komt langs watermolen De Rosmolen en de Willibrorduskapel. De paden zijn grotendeels onverhard, dus trek goede schoenen aan.",
+      "alts": {"fotos/l26-route-landgoed-geijsteren-1.webp": "Weiland en bos bij de Oostrumse Beek op Landgoed Geijsteren"}
+    },
+    "maasheggen": {
+      "foto": "fotos/l26-route-maasheggen-1.webp",
+      "alt": "Een zandpad tussen heggen en bomen in het heggenlandschap langs de Maas",
+      "tekst": "Iets meer dan een kwartier rijden ligt Sambeek, aan de rand van de Maasheggen: sinds 2018 het enige UNESCO-biosfeergebied van Nederland. Het Rondje Heg en Maas van 4,3 kilometer begint bij het stuw- en sluizencomplex en volgt de knooppunten over veldpaden en tussen de heggen door. Houd afstand tot het vee in de weides.",
+      "alts": {"fotos/l26-route-maasheggen-2.webp": "Weides met heggen en bomen, van bovenaf gezien"}
+    },
+    "ballonzuilbossen": {
+      "foto": "fotos/l26-route-ballonzuilbossen-1.webp",
+      "alt": "Het monument de Ballonzuil in de Ballonzuilbossen bij Merselo",
+      "tekst": "De Ballonzuilbossen bij Merselo zijn ruim 260 hectare gemengd bos op voormalig hoogveen; vanaf 1906 werd hier het eerste bos van Venray geplant. De natuurwandeling van 5 kilometer komt langs de Ballonzuil, het monument voor de ballon die in de winter van 1871 uit het belegerde Parijs bij Merselo landde."
+    },
+    "pieterpad-vierlingsbeek-swolgen": {
+      "foto": "fotos/l26-route-wandelen-3.webp",
+      "alt": "Een stel op een breed bospad",
+      "tekst": "Een dagtocht over het Pieterpad, rood-wit gemarkeerd: 24 kilometer van station Vierlingsbeek naar de kerk van Swolgen. Het pad loopt vlak langs Venray, door de Boshuizerbergen en over Landgoed Geijsteren, en gaat via Wanssum en Meerlo verder. Het is geen rondje, dus plan vooraf hoe je terugkomt."
+    },
+    "maasduinen-bij-bergen": {
+      "foto": "fotos/l26-route-os-85.webp",
+      "alt": "Een houten bank langs een pad door de heide",
+      "tekst": "Bijna 10 kilometer door bos en heide in het noorden van Nationaal Park De Maasduinen, bij Bergen. Hier wordt grondwater opgepompt voor het drinkwater van Bergen en delen van Gennep en Venlo, dus blijf op de paden en neem je afval weer mee."
+    },
+    "lekkerbekkenroute": {
+      "foto": "fotos/l26-route-os-83.webp",
+      "alt": "Vennen en heide in Nationaal Park De Maasduinen",
+      "tekst": "Een route voor lekkerbekken over de glooiende paden van Nationaal Park De Maasduinen: langs een pannenkoekenhuis, een stuk langs de Maas en naar de Hertog Jan Brouwerij in Arcen. De duinen zelf ontstonden in de laatste ijstijd uit opgestoven rivierzand."
+    },
+    "rondje-mariaveen": {
+      "foto": "fotos/l26-route-os-89.webp",
+      "alt": "Een houten brug over een vaart bij Helenaveen",
+      "tekst": "Je begint in Helenaveen, met Griendtsveen een van de twee veenkolonies van Zuid-Nederland en een beschermd dorpsgezicht. De route leidt door het Mariaveen, waar de turfwinning vaarten, veenputten en plassen achterliet. Op de open vlaktes groeien pijpenstrootje en heide."
+    },
+    "wandelen-door-de-mariapeel": {
+      "foto": "fotos/l26-route-os-91.webp",
+      "alt": "Berken en heide aan het water in de Mariapeel",
+      "tekst": "Vanuit Helenaveen loop je langs de Helenavaart, het kanaaltje waarover tot in de twintigste eeuw turf werd vervoerd, de Mariapeel in. Het hoogveen heeft hier zijn oude karakter bewaard en op de heide graast een kudde Nederlandse landgeiten. Trek waterdichte schoenen aan."
+    }
+  }
+}
