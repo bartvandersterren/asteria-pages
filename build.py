@@ -455,6 +455,28 @@ TEMPLATES = {
         },
         'zoek': True,
     },
+    # Boxmeer: zoekpagina voor wie 'hotel boxmeer' zoekt (centrum, Maasheggen, Overloon vlakbij; nl/de/en)
+    'zoek-hotel-boxmeer-nl': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'nl': ('hotel-boxmeer-v2.html', 'translations/zoek-hotel-boxmeer-nl.json'),
+        },
+        'zoek': True,
+    },
+    'zoek-hotel-boxmeer-de': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'de': ('hotel-boxmeer-de-v2.html', 'translations/zoek-hotel-boxmeer-de.json'),
+        },
+        'zoek': True,
+    },
+    'zoek-hotel-boxmeer-en': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'en': ('hotel-boxmeer-en-v2.html', 'translations/zoek-hotel-boxmeer-en.json'),
+        },
+        'zoek': True,
+    },
     # Routepagina's (nov 2026, proef): sjabloon route.template.html + route.css/.js + kaart-getekend.css/.js, nabouw van
     # parkhotelhorst.nl/gebied/fietsroutes/ en /wandelroutes/ (pagina-routes-v3) in de Asteria-stijl. Routes uit
     # content/routes/<soort>.json (scripts/routes_os.py), teksten in translations/route-labels-<taal>.json + route-<pagina>-<taal>.json;

@@ -673,7 +673,10 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Eerste: `/hotel-thermalbad-arcen-de-v2` (build-entry `zoek-hotel-thermalbad-arcen-de`), noindex, follow, canonical op zichzelf,
   niet in sitemap.xml, niets in `_redirects`. Ook: `/hotel-thermaalbad-arcen-v2` (nl), `/hotel-thermal-bath-arcen-en-v2` (en),
   `/hotel-overloon-v2`, `/hotel-overloon-de-v2`, `/hotel-overloon-en-v2` (Oorlogsmuseum, ZooParc, drie oorlogsbegraafplaatsen;
-  feiten `qa/zoek/FEITEN-overloon.md`). Plan `~/.claude/plans/lazy-twirling-russell.md`, blokkenkiezer
+  feiten `qa/zoek/FEITEN-overloon.md`). Boxmeer (11 nov 2026, besluit Stijn na Google-check: top 10 = twee lokale hotels + platforms):
+  `/hotel-boxmeer-v2`, `-de-v2`, `-en-v2` (entries `zoek-hotel-boxmeer-nl/-de/-en`; 4 kaartpunten centrum/Steenstraat, Maasheggen,
+  Oorlogsmuseum, ZooParc; arrangementkaarten als Overloon; rijtijd 15 min/15 km via OSRM; feiten `qa/zoek/FEITEN-boxmeer.md`).
+  Plan `~/.claude/plans/lazy-twirling-russell.md`, blokkenkiezer
   `~/Documents/Parkhotel /Website ontwerp/asteria-zoekpagina-blokkenkiezer/` (keuzecode 1a-2a-3b-4a-5a-6b-7b-8a-9a-10b).
 - Bestanden: `zoek.template.html` (blokken tussen `<!--[blok naam]-->` en `<!--[/blok]-->`), `zoek.css` (prefix `zk-`, alleen
   de nieuwe blokken 3b intro en 7b ligging + aansluitingen; laadt na lander-w1/adslander/uitje/kaart-getekend.css). Geen eigen
