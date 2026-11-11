@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, sjabloon OMGEVING-CATEGORIE: /omgeving-<categorie>-v2 (cultuur, dagje-uit, natuur, shoppen-steden, golf).
+  EXACTE NABOUW van parkhotelhorst.nl/gebieden/<cat>/ (parkhotel-site src/fragmenten/pagina-categorie-v2.html), in de
+  Asteria-stijl van de adslander en het uitje-sjabloon. Een sjabloon, schakelaars in de pagina-JSON.
+
+  BLOKVOLGORDE (data-component, prefix om-)
+    kop        spiegelkop (build.py om_kop_voet)
+    1  om-hero      volle foto, h1 met accentwoord, sub, twee knoppen
+    2  om-cintro    surface-paneel volle breedte over de hero: links h2, tekst, twee knoppen; rechts vier icoontegels 2x2
+    3  om-uitjes    #uitjes: reiswijzechips + kop + raster met dezelfde kaart als het overzicht (weg als er geen kaarten zijn)
+       om-banen     golf: veegrij met baankaarten (tekst links, foto rechts), teller 01 / 02 en pijlen, geen lus
+    4  om-vgl       alleen golf: vergelijkingstabel (labelkolom + kolom per baan), telefoon scrollt met sticky labels
+    5  om-carr      conversie 'arr': uitgelicht arrangement (fotoslider, h2, sub, vinkjes, boekknop met code + tekstlink),
+       #kamers      of conversie 'kamers': kamerslider van het uitje-sjabloon (zonder prijs)
+    6  ut-dag       de dag in vier momenten, spiegelbeeld (foto links), moment 2 open bij laden
+    7  om-cfaq      kop boven, twee kolommen van drie vragen, eerste open, FAQPage JSON-LD
+    8  om-meer      paneel: links h2, sub, link naar het overzicht; rechts 2x2 fotokaarten naar de vier andere categorieen
+    9  om-slot      volle foto, h2, tekst, twee knoppen (geen contactregel)
+    voet       spiegelvoet
+
+  Velden: translations/omgeving-labels-<taal>.json + translations/omgeving-<pagina>-<taal>.json; OM_-plekken vult build.py.
+-->
+<html lang="{{html-taal}}" data-mews-taal="{{mews-taal}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{titel}}</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{{omschrijving}}">
+  <meta name="robots" content="{{robots}}">
+  <link rel="canonical" href="{{canonical}}">
+  <!-- OM_HREFLANG -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{titel}}">
+  <meta property="og:description" content="{{omschrijving}}">
+  <meta property="og:image" content="{{og-image}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:locale" content="{{og-locale}}">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preconnect" href="https://app.mews.com">
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- de herofoto is het grootste beeld in het eerste scherm -->
+  <link rel="preload" as="image" fetchpriority="high" href="{{hero-foto-klein}}" imagesrcset="{{hero-foto-klein}} 960w, {{hero-foto}} 1400w" imagesizes="100vw">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="adslander.css">
+  <link rel="stylesheet" href="uitje.css">
+  <link rel="stylesheet" href="omgeving.css">
+  <!-- OM_KALENDER_KOP -->
+  <script src="adslander.js" defer></script>
+  <script src="uitje.js" defer></script>
+  <script src="omgeving.js" defer></script>
+  <script src="analytics-d1.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    gtag('set', 'linker', { accept_incoming: true });
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+  <!-- FAQPage: tekst gelijk aan de zichtbare vragen in blok 7 -->
+  <script type="application/ld+json"><!-- OM_FAQ_LD --></script>
+</head>
+<body class="al-pagina ut-pagina om-pagina">
+
+<!-- AL_KOP -->
+
+<main id="inhoud" class="lp al ut om-main om--categorie om--{{categorie}}">
+
+  <!-- 1. Hero: volle foto met bruin verloop; h1 (een accentwoord), sub en twee knoppen gecentreerd -->
+  <section data-component="om-hero" class="al-hero ut-hero om-hero" style="--ut-hero-focus:{{hero-focus}}">
+    <div class="al-hero__foto">
+      <img src="{{hero-foto-klein}}" srcset="{{hero-foto-klein}} 960w, {{hero-foto}} 1400w" sizes="100vw" alt="{{hero-alt}}" width="1400" height="933" fetchpriority="high" decoding="async">
+    </div>
+    <div class="al-wrap al-hero__wrap ut-hero__wrap">
+      <div class="al-hero__tekst ut-hero__tekst">
+        <h1>{{hero-kop}}</h1>
+        <p class="al-hero__sub">{{hero-sub}}</p>
+        <div class="om-knoppen">
+          <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+          <a class="btn al-btn om-btn--licht" href="{{hero-knop2-url}}">{{hero-knop2}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Intro: surface-paneel volle breedte over de hero; tekst + knoppen links, vier icoontegels 2x2 rechts -->
+  <section data-component="om-cintro" class="al-sec om-cintro">
+    <div class="ut-wrap--breed">
+      <div class="al-paneel om-cintro__paneel">
+        <div class="om-cintro__tekst">
+          <h2>{{intro-kop}}</h2>
+          <p>{{intro-tekst}}</p>
+          <div class="om-knoppen om-knoppen--links">
+            <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+            <a class="btn al-btn al-btn--ghost-donker" href="{{intro-knop2-url}}">{{intro-knop2}}</a>
+          </div>
+        </div>
+        <ul class="om-icotegels"><!-- OM_ICOTEGELS --></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Uitjes (raster met reiswijzefilter) of, bij golf, de baankaarten als veegrij -->
+  <!-- OM_UITJES -->
+
+  <!-- 4. Alleen golf: vergelijkingstabel -->
+  <!-- OM_VGL -->
+
+  <!-- 5. Conversie: uitgelicht arrangement of kamerslider -->
+  <!-- OM_CONVERSIE -->
+
+  <!-- 6. De dag in vier momenten (spiegelbeeld, moment 2 open) -->
+  <!-- OM_DAG -->
+
+  <!-- 7. Veelgestelde vragen: kop boven, twee kolommen van drie, eerste open -->
+  <section data-component="om-cfaq" class="al-sec om-cfaq">
+    <div class="ut-wrap--breed">
+      <h2 class="om-cfaq__kop">{{faq-kop}}</h2>
+      <div class="om-cfaq__raster"><!-- OM_FAQ --></div>
+    </div>
+  </section>
+
+  <!-- 8. Meer in de omgeving: de vier andere categorieen -->
+  <section data-component="om-meer" class="al-sec om-meer">
+    <div class="ut-wrap--breed">
+      <div class="al-paneel om-meer__paneel">
+        <div class="om-meer__links">
+          <h2>{{meer-kop}}</h2>
+          <p class="om-meer__sub">{{meer-sub}}</p>
+          <a class="al-intro__link om-meer__alle" href="{{overzicht-url}}">{{meer-alle}} <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+        <div class="om-meer__grid"><!-- OM_MEER --></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Slot: volle foto, kop, tekst en twee knoppen -->
+  <section data-component="om-slot" class="ut-slot om-slot" style="--ut-slot-focus:{{slot-focus}}">
+    <div class="al-slot__band ut-slot__band">
+      <img src="{{slot-foto-klein}}" srcset="{{slot-foto-klein}} 960w, {{slot-foto}} 1400w" sizes="100vw" alt="{{slot-alt}}" width="1400" height="933" loading="lazy" decoding="async">
+      <div class="al-slot__verloop"></div>
+      <div class="al-wrap al-slot__inhoud">
+        <h2>{{slot-kop}}</h2>
+        <p class="al-slot__regel">{{slot-tekst}}</p>
+        <div class="om-knoppen">
+          <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+          <a class="btn al-btn om-btn--licht" href="{{slot-knop2-url}}">{{slot-knop2}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pop-up (kamer op de telefoon): inhoud inline in #om-popdata -->
+  <div class="al-pop" data-pop-dialog hidden role="dialog" aria-modal="true" aria-labelledby="al-pop-naam"
+    data-bron="#om-popdata"
+    data-l-sluit="{{pop-sluit}}" data-l-vorige="{{pop-vorige}}" data-l-volgende="{{pop-volgende}}"
+    data-l-kamerboek="{{knop-kamer}}" data-l-kamerbadge="{{pop-kamer-badge}}" data-l-route="{{pop-route}}"
+    data-l-auto="{{l-met-auto}}" data-l-voet="{{l-lopen}}" data-l-rad="{{l-fiets}}" data-l-vanaf="{{pop-vanaf-hotel}}"
+    data-l-speel="{{pop-video-speel}}" data-l-pauze="{{pop-video-pauze}}">
+    <div class="al-pop__kaart" role="document"></div>
+  </div>
+  <!-- OM_POPDATA -->
+
+  <!-- Kamer-pop-up vanaf 768 px (alleen bij conversie 'kamers') en de prijskalender (alleen bij conversie 'arr') -->
+  <!-- OM_KAMERPOP -->
+  <!-- OM_KALENDERS -->
+
+</main>
+
+<!-- AL_VOET -->
+
+<div class="mob-cta-ruimte" aria-hidden="true"></div>
+<div class="mob-cta" aria-hidden="true">
+  <a class="mob-cta-bel" href="{{tel-url}}" aria-label="{{tel}}" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
+  <div><b>{{sticky-kop}}</b><span class="om">{{sticky-sub}}</span></div>
+  <a class="btn btn-primary mews-open" href="{{mews-basis}}" tabindex="-1">{{sticky-knop}}</a>
+</div>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookies">
+  <span>{{cookie-tekst}} <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">{{cookie-meer}}</a></span>
+  <button type="button" id="cookieAccept">{{cookie-knop}}</button>
+</div>
+
+<link rel="stylesheet" href="adslander-pop.css">
+</body>
+</html>

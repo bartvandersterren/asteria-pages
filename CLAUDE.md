@@ -604,3 +604,27 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `<slug>-<breedte>-volledig.png` en op arrangementpagina's `<slug>-<breedte>-kalender.png`.
 - Kaart: `knipLabels()` in `kaart-getekend.js` verbergt regio-, plaats- en bordnamen die niet helemaal binnen het kaartvlak vallen (`.gk-buiten`); draait als de kaart stilstaat en na `pasNamenIn` in `uitje.js`.
 - Actiecode wissen live bevestigd (11 nov 2026, echte Mews-widget op de preview): na de arrangementknop sturen kamerlink en slotknop `getPricing` met een lege `voucherCode` en toont de widget alleen gewone tarieven. Op de Duitse lander van PR #190 (oude `adslander.js`) blijft de code hangen tot deze tak daar ook in zit.
+
+## Omgevingspagina's: overzicht + vijf categorieen (nov 2026, -v2, tak feature/omgeving-overzicht)
+
+- Nabouw van parkhotelhorst.nl/gebied/ en /gebieden/<cat>/ (parkhotel-site `pagina-gebied-overzicht-v2` en `pagina-categorie-v2`), zelfde
+  blokken en volgorde, in de Asteria-stijl van adslander + uitje-sjabloon. Uitvoer `omgeving-v2.html` en `omgeving-<cat>-v2.html`
+  (cultuur, dagje-uit, natuur, shoppen-steden, golf); DE/EN = `-v2-de/-en.html` zodra `translations/omgeving-<pagina>-<taal>.json` bestaat
+  (volledige build slaat een taal zonder JSON over). Alles noindex, follow, niet in sitemap, geen doorverwijzingen.
+- Bestanden: `omgeving.template.html`, `omgeving-categorie.template.html`, `omgeving.css` (prefix `om-`, laadt na lander-w1/adslander/uitje.css),
+  `omgeving.js` (deeplinks, Toon alle, golf-veegrij, fotoslider), `translations/omgeving-labels-nl.json` (vaste labels, categorienamen/-adressen/
+  -foto's), `translations/omgeving-<pagina>-nl.json`, `content/omgeving-categorie.json` (terugval slug -> categorie). Dagblok = `ut-dag` (uitje.css/
+  uitje.js), kamers/pop-ups/reviews/Mews = adslander.js. Build: TEMPLATES-entries `omgeving-*` (`'omgeving': '<pagina>'`) -> `build_omgeving`.
+- Kaarten zijn datagedreven: `om_register(taal)` leest bij elke build alle `translations/uitje-*`, `route-*` en `zoek-*-<taal>.json` (geen labels),
+  taal ontbreekt = NL-bestand (dedup via `hreflang.nl`). Velden via `OM_ALIAS` bovenaan het blok (naam: kaart-titel > kruimel > hero-kop; foto:
+  hero-foto-klein > hero-foto > hero-poster-bureaublad(-klein); minuten uit vk-auto/-fiets/-lopen; plaats: veld plaats > stad na de postcode in
+  kaart-naam > t1-waarde voor de komma; adres: pad uit canonical > TEMPLATES > `OM_ADRES_TERUGVAL`). Categorie: veld `categorie` >
+  content/omgeving-categorie.json > `OM_HEROCAT` > alleen overzicht + WAARSCHUWING. Sortering autominuten, onbekend achteraan, dan naam.
+  Routes = routes-strook op het overzicht + kaart op Natuur; zoekpagina's = kaart op hun categorie; golf = golf-uitjes, anders `_banen` uit
+  golfarrangement-nl.json. Aantallen (tegels, Toon alle) worden geteld.
+- Pagina-JSON: `conversie` `arr` (met `arr-bron`, fotoslider uit `_inbegrepen_fotos`, knop met code + prijskalender) of `kamers` (+ `kamers`);
+  golf: `_baan_chips` {naam: [chips]} en `_vergelijk` {kop, sub, rijen[{label, ico, waarden{naam: tekst}}]}: een rij zonder waarde voor elke baan
+  valt weg (geen greenfee-rij, geen prijzen). Lege-melding-CSS per filtercombinatie zet de build in een `<style>` in de kop.
+- Test: `python3 -m http.server 8813 --directory .` + `python3 scripts/test_omgeving.py http://localhost:8813 [--schermafdruk qa/omgeving]`.
+  Feiten en "nog nakijken": `qa/omgeving/FEITEN-omgeving.md`. Gotcha: een volledige `python3 build.py` herschrijft `kamertypes-v2.html` met een
+  open `{{OVERZICHT_ARR_URL}}` (bestaand, niet van dit blok): `git checkout -- kamertypes-v2.html`.

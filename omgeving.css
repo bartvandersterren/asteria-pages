@@ -1,0 +1,378 @@
+/* ==========================================================================
+   OMGEVING: overzicht (/omgeving-v2) en categoriepagina's (/omgeving-<cat>-v2) van Hotel Asteria
+   --------------------------------------------------------------------------
+   Sjablonen: omgeving.template.html, omgeving-categorie.template.html (build.py build_omgeving)
+   Gedrag   : omgeving.js (deeplinks, Toon alle, golf-veegrij, fotoslider); uitje.js (dagblok); adslander.js
+              (Mews, kamerslider, pop-ups, reviews, onderbalk, cookie)
+   Bron     : nabouw van parkhotel-site src/stijl/pagina-gebied-overzicht-v2.css en pagina-categorie-v2*.css (blokken,
+              maten, gedrag), prefix gv-/ct- -> om-. Laadt na lander-w1.css, adslander.css en uitje.css; kleuren en letters
+              alleen uit de tokens van lander-w1.css (Parkhotel-creme = --surface, patroon = --paper, goud = --terracotta).
+   Geen eyebrows, geen ornamenten, iconen als SVG.
+   ========================================================================== */
+
+.om-knoppen { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:8px }
+.om-knoppen--links { justify-content:flex-start }
+.al .om-btn--licht { background:transparent; color:var(--surface); box-shadow:inset 0 0 0 1.5px var(--surface) }
+.al .om-btn--licht:hover { background:var(--surface); color:var(--ink); transform:none }
+.om-hero .al-hero__tekst .al-btn { margin-top:0 }
+
+/* ==========================================================================
+   1 hero (uitje-recept): geen categorieregel; knoppen onder de sub
+   ========================================================================== */
+.om-hero .ut-hero__wrap { padding-bottom:150px }
+
+/* ==========================================================================
+   2 intro (overzicht): smal paneel over de hero, daaronder vijf tegels
+   ========================================================================== */
+.om-intro { padding-top:0; margin-top:-120px; z-index:2 }
+.om-intro__kaart { max-width:860px; margin-inline:auto; padding:48px 56px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px }
+.al .om-intro__kaart h2 { font-size:40px; line-height:1.12 }
+.om-intro__tekst { font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:680px }
+.om-tegels { list-style:none; margin:28px auto 0; padding:0; max-width:1120px; display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:16px }
+.om-tegels li { display:flex; min-width:0 }
+.om-tegel { flex:1; display:flex; flex-direction:column; align-items:center; gap:12px; padding:22px 10px 18px; min-height:196px; text-align:center;
+  background:var(--surface); color:var(--ink); border:1px solid var(--hairline-strong); border-radius:var(--radius-card); box-shadow:var(--shadow-card);
+  transition:border-color .2s, box-shadow .2s, transform .2s }
+.om-tegel:hover,.om-tegel:focus-visible { border-color:var(--terracotta); box-shadow:var(--shadow-hover); transform:translateY(-3px) }
+.om-tegel:focus-visible { outline:2px solid var(--terracotta); outline-offset:3px }
+.om-tegel__ico { width:36px; height:36px; flex:none; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.om-tegel__tekst { display:flex; flex-direction:column; gap:3px; padding:0 4px }
+.om-tegel b { font-family:var(--font-display); font-size:20px; line-height:1.15 }
+.om-tegel i { font-style:normal; font-size:14px; font-weight:700; color:var(--terracotta-text) }
+.om-tegel em { font-style:normal; font-size:13.5px; line-height:1.4; color:var(--ink-soft) }
+.om-tegel__link { margin-top:auto; display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:700; color:var(--ink) }
+.om-tegel__link svg { color:var(--terracotta); transition:transform .2s }
+.om-tegel:hover .om-tegel__link { text-decoration:underline }
+.om-tegel:hover .om-tegel__link svg { transform:translateX(3px) }
+
+/* ==========================================================================
+   3 raster met filters (radio's als broertjes VOOR de balken en het raster; geen script)
+   ========================================================================== */
+.om-radio { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none }
+.om-filter { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:0 24px 14px }
+.om-filter--reis { margin-bottom:36px }
+.om-filter label { display:inline-flex; align-items:center; gap:9px; margin:0; padding:12px 24px; min-height:44px; cursor:pointer; font-weight:700; font-size:15px;
+  background:var(--surface); color:var(--ink); border:1px solid var(--hairline-strong); border-radius:var(--radius-pill); transition:background .2s, color .2s, border-color .2s }
+.om-filter label:hover { border-color:var(--terracotta); color:var(--terracotta-text) }
+.om-fico { width:20px; height:20px; flex:none; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round }
+#om-f-alle:checked ~ .om-filter label[for=om-f-alle],
+#om-f-golf:checked ~ .om-filter label[for=om-f-golf],
+#om-f-natuur:checked ~ .om-filter label[for=om-f-natuur],
+#om-f-cultuur:checked ~ .om-filter label[for=om-f-cultuur],
+#om-f-dagje-uit:checked ~ .om-filter label[for=om-f-dagje-uit],
+#om-f-shoppen-steden:checked ~ .om-filter label[for=om-f-shoppen-steden],
+#om-t-alle:checked ~ .om-filter--reis label[for=om-t-alle],
+#om-t-auto:checked ~ .om-filter--reis label[for=om-t-auto],
+#om-t-lopen:checked ~ .om-filter--reis label[for=om-t-lopen],
+#om-t-fiets:checked ~ .om-filter--reis label[for=om-t-fiets] { background:var(--terracotta); border-color:var(--terracotta); color:var(--surface) }
+#om-f-alle:focus-visible ~ .om-filter label[for=om-f-alle],
+#om-f-golf:focus-visible ~ .om-filter label[for=om-f-golf],
+#om-f-natuur:focus-visible ~ .om-filter label[for=om-f-natuur],
+#om-f-cultuur:focus-visible ~ .om-filter label[for=om-f-cultuur],
+#om-f-dagje-uit:focus-visible ~ .om-filter label[for=om-f-dagje-uit],
+#om-f-shoppen-steden:focus-visible ~ .om-filter label[for=om-f-shoppen-steden],
+#om-t-alle:focus-visible ~ .om-filter--reis label[for=om-t-alle],
+#om-t-auto:focus-visible ~ .om-filter--reis label[for=om-t-auto],
+#om-t-lopen:focus-visible ~ .om-filter--reis label[for=om-t-lopen],
+#om-t-fiets:focus-visible ~ .om-filter--reis label[for=om-t-fiets] { outline:3px solid var(--terracotta); outline-offset:2px }
+
+#om-f-golf:checked ~ .om-raster__grid .om-kaart:not(.cat-golf),
+#om-f-natuur:checked ~ .om-raster__grid .om-kaart:not(.cat-natuur),
+#om-f-cultuur:checked ~ .om-raster__grid .om-kaart:not(.cat-cultuur),
+#om-f-dagje-uit:checked ~ .om-raster__grid .om-kaart:not(.cat-dagje-uit),
+#om-f-shoppen-steden:checked ~ .om-raster__grid .om-kaart:not(.cat-shoppen-steden),
+#om-t-auto:checked ~ .om-raster__grid .om-kaart:not(.mode-auto),
+#om-t-lopen:checked ~ .om-raster__grid .om-kaart:not(.mode-lopen),
+#om-t-fiets:checked ~ .om-raster__grid .om-kaart:not(.mode-fiets) { display:none }
+/* lege melding: build.py zet per pagina alleen de combinaties zonder kaarten in een <style> in de kop */
+.om-leeg { display:none; grid-column:1 / -1; margin:0; padding:6px 0 0; text-align:center; font-size:16px; color:var(--ink-soft) }
+/* Toon alle: omgeving.js zet .is-kort; alleen zolang beide filters op Alle staan */
+#om-f-alle:checked ~ #om-t-alle:checked ~ .om-raster__grid.is-kort > .om-kaart:nth-child(n+13),
+#om-f-alle:checked ~ #om-t-alle:checked ~ .om-raster__grid.is-kort-telefoon > .om-kaart:nth-child(n+9) { display:none }
+.om-toonalle { display:none; justify-content:center; margin-top:36px }
+#om-f-alle:checked ~ #om-t-alle:checked ~ .om-toonalle.is-aan { display:flex }
+
+.om-raster__kop,.om-raster__grid,.om-routes,.om-toonalle { width:min(1400px, calc(100% - 60px)); margin-inline:auto }
+.om-raster__kop { text-align:center; margin-bottom:32px }
+.al .om-raster__kop h2 { font-size:44px; line-height:1.1 }
+.om-raster__sub { margin-top:10px; font-size:18px; color:var(--ink-soft) }
+.om-raster__grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:28px }
+
+/* kaart: foto 10:7, categorie, naam, plaats, reistijdvakjes, knop */
+.om-kaart { display:flex; flex-direction:column; background:var(--surface); color:var(--ink); border-radius:var(--radius-card); box-shadow:var(--shadow-card); overflow:hidden; min-width:0 }
+.om-kaart__media { display:block; overflow:hidden }
+.om-kaart__media img { display:block; width:100%; height:auto; aspect-ratio:10 / 7; object-fit:cover; transition:transform .4s }
+.om-kaart:hover .om-kaart__media img { transform:scale(1.03) }
+.om-kaart__body { flex:1; display:flex; flex-direction:column; padding:22px 24px 24px }
+.om-kaart__cat { font-family:var(--font-display); font-style:italic; font-weight:700; font-size:17px; color:var(--ink-soft); margin:0 0 4px }
+.al .om-kaart__naam { font-size:24px; line-height:1.15; margin:0 }
+.om-kaart__plaats { margin-top:4px; font-size:14px; color:var(--ink-soft) }
+.om-kaart__vakjes { list-style:none; padding:0; margin:16px 0 0; display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; font-variant-numeric:tabular-nums }
+.om-vk { display:flex; flex-direction:column; align-items:center; gap:7px; text-align:center; min-width:0 }
+.om-vk__ib { width:56px; height:56px; border-radius:var(--radius-chip); display:flex; align-items:center; justify-content:center; background:var(--paper-shade-2); border:1px solid var(--hairline-strong) }
+.om-vk__ico { width:34px; height:34px; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.om-vk__t { display:flex; flex-direction:column; line-height:1.2 }
+.om-vk__t strong { font-size:16px; white-space:nowrap }
+.om-vk__t span { font-size:13px; color:var(--ink-soft) }
+.al .om-kaart__knop { margin-top:auto; align-self:stretch; min-height:48px }
+.om-kaart__vakjes + .om-kaart__knop,.om-kaart__plaats + .om-kaart__knop,.om-kaart__naam + .om-kaart__knop { margin-top:20px }
+.om-kaart__body > .om-kaart__knop { margin-top:auto }
+.om-kaart__body > :nth-last-child(2) { margin-bottom:20px }
+
+/* routes-strook: twee brede kaarten, foto 45% links */
+.om-routes { margin-top:72px }
+.al .om-routes__kop { font-size:36px; margin:0 0 8px }
+.om-routes__sub { margin:0 0 28px; font-size:17px; color:var(--ink-soft) }
+.om-routes__rij { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:28px }
+.om-route { display:grid; grid-template-columns:45% minmax(0,1fr); min-height:280px; background:var(--surface); color:var(--ink); border-radius:var(--radius-card);
+  box-shadow:var(--shadow-card); overflow:hidden; border:1px solid transparent; transition:border-color .2s }
+.om-route:hover,.om-route:focus-visible { border-color:var(--terracotta) }
+.om-route img { display:block; width:100%; height:100%; min-height:280px; object-fit:cover }
+.om-route__tekst { padding:32px 34px; display:flex; flex-direction:column; justify-content:center; gap:12px }
+.om-route__tekst b { font-family:var(--font-display); font-size:30px; line-height:1.15 }
+.om-route__regel { font-size:16px; line-height:1.55; color:var(--ink-soft) }
+.om-route__link { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:15px }
+.om-route__link svg { color:var(--terracotta) }
+.om-route:hover .om-route__link { text-decoration:underline }
+
+/* ==========================================================================
+   4 dag in vier momenten (uitje.css), label op de foto; categorie: spiegelbeeld (foto links)
+   ========================================================================== */
+.om-dag__tag { position:absolute; left:16px; bottom:16px; z-index:2; padding:7px 14px; border-radius:var(--radius-pill); background:var(--surface); color:var(--ink);
+  font-family:var(--font-display); font-weight:700; font-size:17px; line-height:1 }
+.al .om-dag__knop { margin-top:18px }
+@media (min-width:1024px) {
+  .om-dag--spiegel .ut-dag__foto { right:auto; left:0 }
+  .om-dag--spiegel .ut-dag__bg { left:317px; right:calc(var(--over) * -1); border-radius:var(--radius-card) 0 0 var(--radius-card) }
+  .om-dag--spiegel .ut-dag__inner { margin-left:auto; padding-left:56px }
+}
+@media (min-width:1280px) { .om-dag--spiegel .ut-dag__foto { left:-80px; right:auto } }
+@media (min-width:1024px) and (max-width:1279px) {
+  .om-dag--spiegel .ut-dag__bg { left:237px; right:calc(var(--over) * -1) }
+  .om-dag--spiegel .ut-dag__inner { padding-left:40px }
+}
+
+/* ==========================================================================
+   6 arrangementen (overzicht): kop + sub links, link rechts, drie kaarten zonder prijs
+   ========================================================================== */
+.om-arr__kop { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:30px }
+.om-arr__sub { margin-top:8px; font-size:18px; color:var(--ink-soft) }
+.om-arr__rij { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:28px }
+.om-ak { display:flex; flex-direction:column; background:var(--surface); color:var(--ink); border-radius:var(--radius-card); box-shadow:var(--shadow-card); overflow:hidden }
+.om-ak__foto img { display:block; width:100%; aspect-ratio:3 / 2; height:auto; object-fit:cover }
+.om-ak__body { flex:1; display:flex; flex-direction:column; gap:10px; padding:22px 24px 24px }
+.al .om-ak__naam { font-size:26px; line-height:1.15 }
+.om-ak__regel { font-size:15px; line-height:1.5; color:var(--ink-soft) }
+.om-ak__incl { list-style:none; margin:4px 0 0; padding:0; display:flex; flex-direction:column; gap:8px }
+.om-ak__incl li { display:flex; gap:10px; align-items:flex-start; font-size:15px; line-height:1.4 }
+.om-ak__incl .al-vink { flex:none; margin-top:2px; color:var(--terracotta) }
+.al .om-ak__knop { margin-top:auto; align-self:flex-start }
+.om-ak__incl + .om-ak__knop { margin-top:18px }
+
+/* ==========================================================================
+   9 slot: twee knoppen + contactregel
+   ========================================================================== */
+.om-contact { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:8px 14px; margin-top:8px }
+.om-contact__punt { color:var(--on-ink-body) }
+.ut .om-contact a { display:inline-flex; align-items:center; gap:8px; font-size:15px; color:var(--on-ink-body) }
+
+/* ==========================================================================
+   categorie 2: intro-paneel volle breedte, tekst links, vier icoontegels 2x2 rechts
+   ========================================================================== */
+.om-cintro { padding-top:0; margin-top:-120px; z-index:2 }
+.om-cintro__paneel { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:56px; align-items:center; padding:52px 56px }
+.om-cintro__tekst { display:flex; flex-direction:column; gap:16px }
+.al .om-cintro__tekst h2 { font-size:42px; line-height:1.1 }
+.om-cintro__tekst p { font-size:17px; line-height:1.6; color:var(--ink-soft) }
+.om-icotegels { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px }
+.om-icotegel { display:flex; gap:14px; align-items:flex-start; padding:20px; background:var(--paper-shade-2); border:1px solid var(--hairline-strong); border-radius:var(--radius-chip) }
+.om-icotegel__ico { width:34px; height:34px; flex:none; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.om-icotegel span { display:flex; flex-direction:column; gap:4px }
+.om-icotegel b { font-family:var(--font-display); font-size:19px; line-height:1.15 }
+.om-icotegel em { font-style:normal; font-size:14px; line-height:1.45; color:var(--ink-soft) }
+
+/* categorie 3 golf: veegrij met baankaarten (tekst links, foto rechts), teller + pijlen, geen lus */
+.om-banen { overflow-x:clip }
+.om-banen__kop { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:28px }
+.om-banen__sub { margin-top:8px; font-size:18px; color:var(--ink-soft) }
+.om-banen__nav { display:flex; align-items:center; gap:12px; flex:none }
+.om-banen__nav[hidden] { display:none }
+.om-banen__teller { font-variant-numeric:tabular-nums; font-weight:700; letter-spacing:.04em; min-width:64px; text-align:right }
+.om-banen__pijl { width:44px; height:44px; padding:0; display:flex; align-items:center; justify-content:center; border-radius:50%; cursor:pointer;
+  background:transparent; color:var(--ink); border:1.5px solid var(--ink); transition:background .2s, color .2s }
+.om-banen__pijl:hover:not(:disabled) { background:var(--ink); color:var(--surface) }
+.om-banen__pijl:disabled { opacity:.35; cursor:default }
+.om-banen__pijl svg { width:20px; height:20px }
+.om-banen__spoor { display:flex; gap:40px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none; padding-bottom:6px;
+  margin-right:calc(min(0px, (1440px - 100vw) / 2) - 30px); padding-right:30px }
+.om-banen__spoor::-webkit-scrollbar { display:none }
+.om-baan { flex:0 0 min(835px, 86%); scroll-snap-align:start; display:grid; grid-template-columns:minmax(0,1fr) 337px; background:var(--surface); color:var(--ink);
+  border-radius:var(--radius-card); box-shadow:var(--shadow-card); overflow:hidden }
+.om-baan__inhoud { padding:34px 36px; display:flex; flex-direction:column; gap:14px }
+.al .om-baan h3 { font-size:30px; line-height:1.15 }
+.om-baan__tekst { font-size:16px; line-height:1.6; color:var(--ink-soft) }
+.om-baan__chips { display:flex; flex-wrap:wrap; gap:8px }
+.om-chip { display:inline-flex; align-items:center; gap:7px; padding:7px 12px; border-radius:var(--radius-pill); background:var(--paper-shade-2); border:1px solid var(--hairline-strong); font-size:14px; font-weight:600 }
+.om-chip svg { width:16px; height:16px; color:var(--terracotta) }
+.om-baan__afstand { display:flex; align-items:center; gap:8px; font-size:15px; color:var(--ink-soft) }
+.om-baan__ico { width:22px; height:22px; flex:none; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.om-baan__knoppen { margin-top:auto; display:flex; gap:12px; flex-wrap:wrap }
+.al .om-baan__knop { min-height:48px }
+.om-baan__foto img { display:block; width:100%; height:100%; min-height:300px; object-fit:cover }
+
+/* categorie 4 golf: vergelijkingstabel (labelkolom + kolom per baan); telefoon scrollt, labelkolom sticky */
+.om-vgl__kopblok { margin-bottom:28px }
+.om-vgl__sub { margin-top:8px; font-size:18px; color:var(--ink-soft) }
+.om-vgl__paneel { padding:0; overflow:hidden }
+.om-vgl__tabel { display:grid; grid-template-columns:minmax(200px, .8fr) repeat(var(--om-kol), minmax(0, 1fr)); overflow-x:auto }
+.om-vgl__kol { display:grid; grid-template-rows:auto repeat(var(--om-rij), auto); min-width:0 }
+@supports (grid-template-rows:subgrid) {
+  .om-vgl__tabel { grid-template-rows:auto repeat(var(--om-rij), auto) }
+  .om-vgl__kol { grid-row:1 / -1; grid-template-rows:subgrid }
+}
+.om-vgl__hoofd { padding:20px; display:flex; flex-direction:column; gap:12px; border-bottom:1px solid var(--hairline-strong) }
+.om-vgl__hoofd img { width:100%; aspect-ratio:3 / 2; height:auto; object-fit:cover; border-radius:var(--radius-image) }
+.om-vgl__hoofd b { font-family:var(--font-display); font-size:22px; line-height:1.15 }
+.om-vgl__cel { display:flex; align-items:center; gap:10px; padding:16px 20px; border-bottom:1px solid var(--hairline); font-size:15px; line-height:1.4 }
+.om-vgl__kol:not(.om-vgl__labels) { border-left:1px solid var(--hairline) }
+.om-vgl__labels { background:var(--paper-shade-2) }
+.om-vgl__labels .om-vgl__cel { font-weight:700 }
+.om-vgl__ico { width:22px; height:22px; flex:none; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+
+/* categorie 5a: uitgelicht arrangement; fotoslider links steekt uit, paneel tot de rechter schermrand */
+.om-carr__blok { position:relative; color:var(--ink) }
+.om-carr__bg { position:absolute; top:47px; bottom:0; left:317px; right:0; background:var(--surface); border-radius:var(--radius-card); box-shadow:var(--shadow-card) }
+.om-carr__foto { position:absolute; top:0; left:0; width:500px; height:640px }
+.om-carr__inner { position:relative; margin-left:auto; max-width:calc(100% - 560px); padding:103px 0 64px; display:flex; flex-direction:column; gap:14px; align-items:flex-start }
+.om-carr__sub { font-size:17px; line-height:1.6; color:var(--ink-soft) }
+.om-carr__vinkjes { list-style:none; margin:6px 0 0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px 22px; align-self:stretch }
+.om-carr__vinkjes li { display:flex; gap:10px; align-items:flex-start; font-size:15px; line-height:1.4 }
+.om-vinkje { flex:none; color:var(--terracotta) }
+.om-carr__acties { display:flex; flex-wrap:wrap; align-items:center; gap:14px 28px; margin-top:12px }
+@media (min-width:1024px) {
+  .om-carr { overflow-x:clip }
+  .om-carr__blok { min-height:687px }
+  .om-carr__inner { margin-top:47px; min-height:640px; padding:56px 0; justify-content:center }
+  .om-carr__bg { --over:max(30px, 50vw - 560px); right:calc(var(--over) * -1); border-radius:var(--radius-card) 0 0 var(--radius-card) }
+}
+@media (min-width:1280px) { .om-carr__foto { left:-80px } .om-carr__inner { max-width:calc(100% - 480px) } }
+.om-fs { overflow:hidden; border-radius:var(--radius-image); background:var(--ink); box-shadow:var(--shadow-deep) }
+.om-fs__spoor { display:flex; height:100%; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none }
+.om-fs__spoor::-webkit-scrollbar { display:none }
+.om-fs__dia { flex:0 0 100%; height:100%; margin:0; scroll-snap-align:start }
+.om-fs__dia img { width:100%; height:100%; object-fit:cover }
+.om-fs__bolletjes { position:absolute; left:0; right:0; bottom:18px; display:flex; justify-content:center; gap:8px }
+.om-fs__bol { width:10px; height:10px; padding:0; border:0; border-radius:50%; background:rgba(255,250,241,.55); cursor:pointer }
+.om-fs__bol.is-aan { background:var(--surface) }
+.om-fs__pijlen { position:absolute; right:14px; top:14px; display:flex; gap:8px }
+.om-fs__pijl { width:40px; height:40px; border:0; border-radius:50%; background:var(--surface); color:var(--ink); display:flex; align-items:center; justify-content:center; cursor:pointer }
+.om-fs__pijl svg { width:20px; height:20px }
+
+/* categorie 7: FAQ, kop boven, twee kolommen van drie */
+.al .om-cfaq__kop { font-size:44px; text-align:center; margin-bottom:28px }
+.om-cfaq__raster { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:0 40px; align-items:start }
+.om-cfaq .as-accordeon { margin-top:0 }
+
+/* categorie 8: meer in de omgeving (paneel, links kop, rechts 2x2 fotokaarten) */
+.om-meer__paneel { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr); gap:48px; align-items:center; padding:44px 48px }
+.om-meer__links { display:flex; flex-direction:column; gap:14px; align-items:flex-start }
+.om-meer__sub { font-size:17px; line-height:1.55; color:var(--ink-soft) }
+.om-meer__grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px }
+.om-meer__kaart { position:relative; display:block; border-radius:var(--radius-image); overflow:hidden; aspect-ratio:16 / 10; color:var(--surface) }
+.om-meer__kaart img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .4s }
+.om-meer__kaart::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(43,26,4,0) 35%, rgba(43,26,4,.82) 100%) }
+.om-meer__kaart:hover img { transform:scale(1.04) }
+.om-meer__tekst { position:absolute; left:18px; right:18px; bottom:16px; z-index:1; display:flex; flex-direction:column; gap:4px }
+.om-meer__naam { font-family:var(--font-display); font-weight:700; font-size:24px; line-height:1.1 }
+.om-meer__regel { font-size:14px; line-height:1.4; color:var(--on-ink-body) }
+
+/* ==========================================================================
+   <= 1279 / 1023 / 767 px
+   ========================================================================== */
+@media (max-width:1279px) {
+  .om-tegels { grid-template-columns:repeat(3, minmax(0,1fr)) }
+}
+@media (max-width:1023px) {
+  .om-raster__grid,.om-arr__rij { grid-template-columns:repeat(2, minmax(0,1fr)); gap:20px }
+  .om-routes__rij { grid-template-columns:minmax(0,1fr) }
+  .om-cintro__paneel { grid-template-columns:minmax(0,1fr); gap:32px; padding:40px 36px }
+  .om-meer__paneel { grid-template-columns:minmax(0,1fr); gap:28px; padding:36px }
+  .om-carr__blok { display:flex; flex-direction:column }
+  .om-carr__bg { display:none }
+  .om-carr__foto { position:relative; width:100%; height:380px; border-radius:var(--radius-image) var(--radius-image) 0 0; box-shadow:none }
+  .om-carr__inner { max-width:none; background:var(--surface); border-radius:0 0 var(--radius-card) var(--radius-card); box-shadow:var(--shadow-card); padding:36px }
+  .om-baan { grid-template-columns:minmax(0,1fr) 260px }
+}
+@media (max-width:767px) {
+  .om-hero .ut-hero__wrap { padding-bottom:112px }
+  .om-intro,.om-cintro { margin-top:-64px }
+  .om-intro__kaart { padding:30px 20px; gap:12px }
+  .al .om-intro__kaart h2,.al .om-cintro__tekst h2 { font-size:30px }
+  .om-intro__tekst,.om-cintro__tekst p { font-size:16px }
+  .om-intro__knoppen .al-btn,.om-cintro .om-knoppen .al-btn,.om-slot .om-knoppen .al-btn,.om-hero .om-knoppen .al-btn { flex:1 1 100%; white-space:normal }
+  .om-tegels { display:none }
+  .om-filter { margin:0 15px 10px; gap:6px }
+  .om-filter--reis { margin-bottom:26px }
+  .om-filter label { padding:9px 14px; font-size:14px; min-height:40px; gap:6px }
+  .om-fico { width:18px; height:18px }
+  .om-raster__kop,.om-raster__grid,.om-routes,.om-toonalle { width:calc(100% - 30px) }
+  .al .om-raster__kop h2 { font-size:30px }
+  .om-raster__sub { font-size:16px }
+  /* telefoon: twee kolommen, compacte kaart */
+  .om-raster__grid { gap:12px }
+  .om-kaart__body { padding:12px 12px 14px }
+  .om-kaart__cat { font-size:14px }
+  .al .om-kaart__naam { font-size:18px }
+  .om-kaart__plaats { font-size:12.5px }
+  .om-kaart__vakjes { gap:4px; margin-top:10px }
+  .om-vk { gap:4px }
+  .om-vk__ib { width:36px; height:36px }
+  .om-vk__ico { width:24px; height:24px }
+  .om-vk__t strong { font-size:13px }
+  .om-vk__t span { font-size:11px }
+  .om-kaart__body > :nth-last-child(2) { margin-bottom:12px }
+  .al .om-kaart__knop { min-height:40px; padding:10px 8px; font-size:13px; white-space:normal; text-align:center }
+  .om-routes { margin-top:48px }
+  .al .om-routes__kop { font-size:28px }
+  .om-route { grid-template-columns:minmax(0,1fr) }
+  .om-route img { min-height:0; aspect-ratio:16 / 9; height:auto }
+  .om-route__tekst { padding:22px 20px }
+  .om-route__tekst b { font-size:24px }
+  .om-dag__tag { left:12px; bottom:12px; font-size:15px }
+  .om-arr__kop { flex-direction:column; align-items:flex-start; gap:12px }
+  .om-arr__rij { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; margin:0 -15px; padding:0 15px 8px; gap:12px }
+  .om-arr__rij::-webkit-scrollbar { display:none }
+  .om-ak { flex:0 0 82%; scroll-snap-align:start }
+  .om-cintro__paneel { padding:28px 18px; gap:24px }
+  .om-icotegels { grid-template-columns:minmax(0,1fr); gap:10px }
+  .om-icotegel { padding:14px }
+  .om-banen__kop { flex-direction:column; align-items:flex-start; gap:12px }
+  .om-banen__nav { align-self:flex-end }
+  .om-banen__spoor { gap:14px; margin-right:-15px; padding-right:15px }
+  .om-baan { flex:0 0 88%; grid-template-columns:minmax(0,1fr) }
+  .om-baan__foto { order:-1 }
+  .om-baan__foto img { min-height:0; aspect-ratio:3 / 2; height:auto }
+  .om-baan__inhoud { padding:22px 20px }
+  .al .om-baan h3 { font-size:24px }
+  .om-vgl__tabel { grid-template-columns:132px repeat(var(--om-kol), 220px) }
+  .om-vgl__labels { position:sticky; left:0; z-index:2; box-shadow:4px 0 8px -6px rgba(68,42,6,.25) }
+  .om-vgl__hoofd { padding:14px }
+  .om-vgl__cel { padding:12px 14px; font-size:14px }
+  .om-vgl__ico { display:none }
+  .om-carr__foto { height:280px }
+  .om-carr__inner { padding:26px 20px 28px }
+  .om-carr__vinkjes { grid-template-columns:minmax(0,1fr) }
+  .om-carr__acties .al-btn { flex:1 1 100%; white-space:normal }
+  .al .om-cfaq__kop { font-size:30px; text-align:left }
+  .om-cfaq__raster { grid-template-columns:minmax(0,1fr) }
+  .om-meer__paneel { padding:26px 18px }
+  .om-meer__grid { gap:10px }
+  .om-meer__naam { font-size:18px }
+  .om-meer__regel { display:none }
+  .om-meer__tekst { left:12px; right:12px; bottom:10px }
+}
+@media (prefers-reduced-motion:reduce) {
+  .om-tegel,.om-tegel__link svg,.om-kaart__media img,.om-meer__kaart img { transition:none }
+  .om-tegel:hover,.om-tegel:focus-visible { transform:none }
+  .om-banen__spoor,.om-fs__spoor { scroll-behavior:auto }
+}
