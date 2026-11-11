@@ -683,3 +683,24 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   [--schermafdruk qa/zoek] [--naam de-arcen]` (1440 en 390; Mews en /api gemockt; noindex, hreflang, rijtijd in de eerste alinea
   = veld `test-rijtijd` uit de pagina-JSON (bv. "10 minuten"), geen kk-prijs
   of /api/kamer-vanaf, Mews-taal, kaart met punten, FAQ-tabs, overloop, console). Platen `qa/zoek/<naam>-<breedte>-<blok>.png`.
+
+## Routepagina's (nov 2026, proef)
+
+- Exacte nabouw van parkhotelhorst.nl/gebied/fietsroutes/ en /wandelroutes/ (parkhotel-site `pagina-routes-v3`) in de Asteria-stijl:
+  `/fietsen-rond-venray-v2` en `/wandelen-rond-venray-v2` (+ `-de`, `-en`), build-entries `fietsen-rond-venray` / `wandelen-rond-venray`
+  (`'route': True`, `build_route`), noindex, follow, niet in sitemap, nergens gelinkt, geen redirects. Fiets: titel/H1 met Fietshotel
+  (DE Fahrradhotel, EN Cycling hotel) voor "fietshotel limburg"; 7b = Limburg Arrangement (knop /limburg-arrangement + Mews met code
+  LIMBURG). Wandel: 7b = de kamerslider van het uitje-sjabloon (geen prijs).
+- Bestanden: `route.template.html`, `route.css` (prefix `rt-`, laadt na lander-w1.css, adslander.css, kaart-getekend.css), `route.js`
+  (lengtefilter chips + kaartbalk met `?lengte=kort|gemiddeld|lang`, kaart lazy via `window.AsteriaKaart` met de routes inline in
+  `#rt-kaart-routes`, lijst/strook, pop-up met `#route-<slug>`, fotoslider); `adslander.js` doet Mews (taal uit `data-mews-taal`),
+  kamerslider, kamer-pop-ups, onderbalk en cookie. Teksten: `translations/route-labels-<taal>.json` + `route-fietsen-<taal>.json` /
+  `route-wandelen-<taal>.json` (NL levert de taalvrije velden; DE/EN moeten alle tekst hebben, anders stopt de build); kamers DE/EN in
+  `content/route-kamers-<taal>.json`. Kop/voet: `al_kop_voet` (nl/de) en `rt_kop_voet` (EN-vervangtabel `RT_KOP_EN`).
+- Routes: `python3 scripts/routes_os.py` (Asteria OS, alleen lezen; `~/.asteria-os-live.env`) schrijft `content/routes/fiets.json` en
+  `wandel.json` (wandel = `content/routes/wandel-eigen.json` + vier OS-routes; tijden eigen gebieden via OSRM). De build leest alleen
+  die bestanden. Lengteklassen fiets 30/50 km (Parkhotel), wandel 6/12 km. Daarna `python3 scripts/route_kaartfoto.py` (vangnetkaart
+  `fotos/l26-route-kaart-<soort>.webp` en lus-kaartjes `fotos/l26-route-lus-<slug>.webp`) en `python3 build.py fietsen-rond-venray
+  wandelen-rond-venray`. Feiten en aannames: `qa/routes/FEITEN-fietsen.md`, `FEITEN-wandelen.md`.
+- Test: `python3 -m http.server 8793` + `python3 scripts/test_route.py [URL] [--schermafdruk qa/routes] [--parkhotel]` (alle zes
+  pagina's, 1440 en 390, Mews en /api gemockt; `--parkhotel` = ook de live Parkhotel-blokken en vergelijkingsbeelden in `<map>/vergelijk/`).

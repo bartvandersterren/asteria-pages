@@ -436,6 +436,28 @@ TEMPLATES = {
         },
         'zoek': True,
     },
+    # Routepagina's (nov 2026, proef): sjabloon route.template.html + route.css/.js + kaart-getekend.css/.js, nabouw van
+    # parkhotelhorst.nl/gebied/fietsroutes/ en /wandelroutes/ (pagina-routes-v3) in de Asteria-stijl. Routes uit
+    # content/routes/<soort>.json (scripts/routes_os.py), teksten in translations/route-labels-<taal>.json + route-<pagina>-<taal>.json;
+    # build_route() doet de rest. noindex, follow, niet in sitemap, nergens gelinkt.
+    'fietsen-rond-venray': {
+        'template': 'route.template.html',
+        'langs': {
+            'nl': ('fietsen-rond-venray-v2.html', 'translations/route-fietsen-nl.json'),
+            'de': ('fietsen-rond-venray-v2-de.html', 'translations/route-fietsen-de.json'),
+            'en': ('fietsen-rond-venray-v2-en.html', 'translations/route-fietsen-en.json'),
+        },
+        'route': True,
+    },
+    'wandelen-rond-venray': {
+        'template': 'route.template.html',
+        'langs': {
+            'nl': ('wandelen-rond-venray-v2.html', 'translations/route-wandelen-nl.json'),
+            'de': ('wandelen-rond-venray-v2-de.html', 'translations/route-wandelen-de.json'),
+            'en': ('wandelen-rond-venray-v2-en.html', 'translations/route-wandelen-en.json'),
+        },
+        'route': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -3025,6 +3047,8 @@ def build(template_name, lang):
     if config.get('omgeving'): return build_omgeving(config, output_file, json_file, template_name, lang)
     if config.get('zoek'):
         return build_zoek(config, output_file, json_file, template_name, lang)
+    if config.get('route'):
+        return build_route(template_name, lang)
 
     template_path = os.path.join(base, config['template'])
     json_path     = os.path.join(base, json_file)
@@ -3799,6 +3823,481 @@ def om_leeg_css(kaarten, metcat):
                 sel = (f'#om-f-{c}:checked ~ ' if metcat else '') + f'#om-t-{m_}:checked ~ .om-raster__grid .om-leeg'
                 regels.append(sel)
     return (',\n'.join(regels) + '{display:block}') if regels else ''
+
+
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+# ROUTEPAGINA'S (nov 2026, proef): /fietsen-rond-venray-v2 en /wandelen-rond-venray-v2 (+ -de, -en). Exacte nabouw van
+# parkhotelhorst.nl/gebied/fietsroutes/ en /wandelroutes/ (pagina-routes-v3) in de Asteria-stijl; zie route.template.html
+# en CLAUDE.md (Routepagina's). Gegevens: translations/route-labels-<taal>.json (vaste labels), translations/route-<pagina>-
+# <taal>.json (pagina-inhoud; de NL-versie levert ook de taalvrije velden zoals foto's), content/routes/<soort>.json (uit
+# het OS, scripts/routes_os.py; geen netwerk tijdens het bouwen), kamers (wandel) uit content/uitje-kamers-nl.json en
+# content/route-kamers-<taal>.json. Kop/voet: al_kop_voet (nl/de) + rt_kop_voet (Engelse labels). Stopt bij een open veld,
+# ontbrekende foto, ontbrekende vertaling, em-dash, en-dash als cesuur of een prijs.
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+
+RT_BASIS = 'https://visit.asteria.nl/'
+RT_MEWS_CFG = '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
+RT_PAGINA = {'fietsen-rond-venray': ('fiets', 'route-fietsen'), 'wandelen-rond-venray': ('wandel', 'route-wandelen')}
+RT_KAMERS = {'nl': 'content/uitje-kamers-nl.json', 'de': 'content/route-kamers-de.json', 'en': 'content/route-kamers-en.json'}
+RT_GEO = 'content/kaart/getekend.json'
+RT_VIGNET = 'fotos/l26-uitje-vignet-asteria.webp'
+RT_SVG = lambda paden, b=15: (f'<svg width="{b}" height="{b}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" '
+                              f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paden}</svg>')
+RT_IC = {
+    'km': '<circle cx="6" cy="18.5" r="2"/><circle cx="18" cy="5.5" r="2"/><path d="M8 18.5h8.5a3.5 3.5 0 0 0 0-7h-9a3.5 3.5 0 0 1 0-7H16"/>',
+    'duur': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+    'kcal': '<path d="M12 21.5a6.5 6.5 0 0 0 6.5-6.5c0-4.5-3.5-6.5-4.5-12-3 2.2-4.5 5.2-4.5 8-1.5-.7-2.2-2.2-2.2-3.7C5.8 9.5 5.5 12.2 5.5 15a6.5 6.5 0 0 0 6.5 6.5z"/>',
+    'hoogte': '<path d="M2 20l7-12 4.5 7.5 3-4.5L22 20z"/>',
+    'auto': '<path d="M3.5 16.5v-4L6 7h12l2.5 5.5v4z"/><path d="M3.5 12.5h17"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>',
+    'fiets': '<circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5l4-7h6.5l2.5 7"/><path d="M9.5 9.5l3 7h-7M12.5 16.5l3.5-7"/>',
+    'knoop': '<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="12" r="2.5"/><circle cx="7" cy="18.5" r="2.5"/><path d="M8.3 7.2l7.4 3.6M15.8 13.4l-6.6 4"/>',
+    'extern': '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+    'plan': '<path d="M3 11l18-8-8 18-2-8z"/>',
+    'vink': '<path d="M4.5 12.5l5 5 10-11"/>',
+    'kruis': '<path d="M6 6l12 12M18 6L6 18"/>',
+    'pijl': '<path d="M4 12h15M13 6l6 6-6 6"/>',
+    'cirkelvink': '<circle cx="12" cy="12" r="10"/><path d="M8 12.2l2.6 2.6L16 9.5"/>',
+}
+# Engelse labels van de spiegelkop/-voet (model: al_kop_voet_de), toegepast op de NL-kop van al_kop_voet(taal='nl')
+RT_KOP_EN = [
+    ('Hotel Asteria, naar het begin van de pagina', 'Hotel Asteria, back to the top of the page'),
+    ('aria-label="Hoofdnavigatie"', 'aria-label="Main navigation"'),
+    ('aria-label="Bel Hotel Asteria: 0478 511466"', 'aria-label="Call Hotel Asteria: +31 478 511 466"'),
+    ('aria-label="Bel ons"', 'aria-label="Call us"'),
+    ('aria-label="E-mail ons"', 'aria-label="Email us"'),
+    ('aria-label="Open menu"', 'aria-label="Open menu"'),
+    ('aria-label="Mobiel menu"', 'aria-label="Mobile menu"'),
+    ('aria-label="Sluit menu"', 'aria-label="Close menu"'),
+    ('aria-label="Volg ons"', 'aria-label="Follow us"'),
+    ('>0478 511466<', '>+31 478 511 466<'),
+    ('>0478 511 466<', '>+31 478 511 466<'),
+    ('>Kamers &amp; suites<', '>Rooms &amp; suites<'),
+    ('>Faciliteiten<', '>Facilities<'),
+    ('>Wellness &amp; fitness<', '>Wellness &amp; fitness<'),
+    ('>Arrangementen<', '>Packages<'),
+    ('>Omgeving<', '>Surroundings<'),
+    ('>Over ons <', '>About us <'),
+    ('>Ons verhaal<', '>Our story<'),
+    ('>Contact<', '>Contact<'),
+    ('>Boek nu<', '>Book now<'),
+    ('>Verblijf<', '>Stay<'),
+    ('>Bruidssuite<', '>Bridal suite<'),
+    ('>Junior suite<', '>Junior suite<'),
+    ('>Comfort kamer<', '>Comfort room<'),
+    ('>Deluxe kamer<', '>Deluxe room<'),
+    ('>Beschikbaarheid<', '>Availability<'),
+    ('>Bij ons<', '>With us<'),
+    ('>Route &amp; parkeren<', '>Directions &amp; parking<'),
+    ('Privacyverklaring', 'Privacy statement'),
+    ('Algemene voorwaarden', 'Terms and conditions'),
+    ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
+     'A73, exit 8 Venray-Noord &middot; Chamber of Commerce 12028838 &middot; VAT NL804668528B01'),
+]
+
+
+def rt_kop_voet(d, mews_basis, taal):
+    """Spiegelkop/-voet van /hotel-venray-v2 voor de routepagina's: nl en de via al_kop_voet, en = de NL-kop met RT_KOP_EN.
+    Kamerlinks in kop en voet krijgen de Mews-taal van de pagina (zoals build_uitje)."""
+    kop, voet = al_kop_voet(d, mews_basis, taal='de' if taal == 'de' else 'nl')
+    if taal == 'en':
+        for a_, b_ in RT_KOP_EN:
+            kop, voet = kop.replace(a_, b_), voet.replace(a_, b_)
+    m = d['mews-taal']
+    kop, voet = (x.replace('af1d00ffc556?mewsRoom=', f'af1d00ffc556?language={m}&amp;mewsRoom=') for x in (kop, voet))
+    return kop, voet
+
+
+def rt_samenvoegen(basis, extra):
+    """extra wint; dicts worden diep samengevoegd (routes per slug), lijsten vervangen."""
+    uit = dict(basis)
+    for k, v in extra.items():
+        uit[k] = rt_samenvoegen(uit[k], v) if isinstance(v, dict) and isinstance(uit.get(k), dict) else v
+    return uit
+
+
+def rt_taalvrij(k):
+    """Velden die DE/EN van de NL-pagina mogen erven: paden, brandpunten, adressen en sleutellijsten."""
+    return (k.startswith('_') or k.endswith(('foto', 'foto-klein', '-focus', '-url', 'kamers', 'bestand', 'ico'))
+            or k in ('soort', 'kamers', 'conversie', 'arr-voucher', 'og-image', 'foto', 'fotos'))
+
+
+def rt_ontbrekend(nl, taal_d, pad=''):
+    """Tekstvelden die in de NL-paginajson staan maar niet in die van de taal (geen stille Nederlandse tekst op DE/EN)."""
+    mist = []
+    for k, v in nl.items():
+        if rt_taalvrij(k):
+            continue
+        if isinstance(v, dict):
+            mist += rt_ontbrekend(v, taal_d.get(k) or {}, f'{pad}{k}.')
+        elif isinstance(v, str) and v and k not in taal_d:
+            mist.append(pad + k)
+        elif isinstance(v, list) and v and k not in taal_d and any(isinstance(x, (str, dict)) for x in v):
+            mist.append(pad + k)
+    return mist
+
+
+def rt_duur(minuten, fmt):
+    return fmt.format(u=minuten // 60, m=minuten % 60)
+
+
+def rt_km(waarde, punt):
+    return f'{waarde:g}'.replace('.', punt)
+
+
+def build_route(template_name, lang):
+    from html import escape
+    import urllib.parse
+    config = TEMPLATES[template_name]
+    output_file, json_file = config['langs'][lang]
+    soort, stam = RT_PAGINA[template_name]
+    ander_soort = 'wandel' if soort == 'fiets' else 'fiets'
+    ander_naam = [n for n, (s, _) in RT_PAGINA.items() if s == ander_soort][0]
+    with open(os.path.join(base, config['template']), encoding='utf-8') as f:
+        html = f.read()
+    with open(os.path.join(base, f'translations/route-labels-{lang}.json'), encoding='utf-8') as f:
+        d = json.load(f)
+    with open(os.path.join(base, f'translations/{stam}-nl.json'), encoding='utf-8') as f:
+        nl = json.load(f)
+    pagina = nl
+    if lang != 'nl':
+        with open(os.path.join(base, json_file), encoding='utf-8') as f:
+            eigen = json.load(f)
+        mist = rt_ontbrekend(nl, eigen)
+        if mist:
+            sys.exit(f'route: vertaling ontbreekt in {json_file}: {", ".join(mist[:12])}' + (' ...' if len(mist) > 12 else ''))
+        pagina = rt_samenvoegen(nl, eigen)
+    d.update({k: v for k, v in pagina.items()})
+    with open(os.path.join(base, f'content/routes/{soort}.json'), encoding='utf-8') as f:
+        data = json.load(f)
+    with open(os.path.join(base, f'content/routes/{ander_soort}.json'), encoding='utf-8') as f:
+        ander = json.load(f)
+    routes, rteksten = data['routes'], d.get('routes') or {}
+    fouten = []
+    t = lambda k: escape(d[k], quote=True)
+    plat = lambda s: re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', s)).replace('&amp;', '&').strip()
+
+    def bestaat(pad):
+        if pad and not pad.startswith('http') and not os.path.exists(os.path.join(base, pad)):
+            fouten.append('bestand ontbreekt: ' + pad)
+        return pad
+
+    # adressen, taal, Mews
+    achter = {'nl': '', 'de': '-de', 'en': '-en'}
+    adres = lambda naam, tl: f'{RT_BASIS}{naam}-v2{achter[tl]}'
+    d['soort'] = soort
+    d['canonical'] = adres(template_name, lang)
+    taal = d['mews-taal']
+    mews = lambda extra='': f'https://app.mews.com/distributor/{RT_MEWS_CFG}?language={taal}{extra}'
+    d['mews-basis'] = mews()
+    if d.get('robots') != 'noindex, follow':
+        sys.exit('route: robots moet "noindex, follow" zijn')
+    blok = {}
+    blok['RT_HREFLANG'] = '\n  '.join([f'<link rel="alternate" hreflang="{tl}" href="{adres(template_name, tl)}">' for tl in ('nl', 'de', 'en')]
+                                       + [f'<link rel="alternate" hreflang="x-default" href="{adres(template_name, "nl")}">'])
+    for k in ('hero-foto', 'hero-foto-klein', 'slot-foto', 'og-image'):
+        bestaat(d.get(k, '').replace(RT_BASIS, ''))
+    d['tweede-url'] = d['arr-url'] if soort == 'fiets' else '#kamers'
+
+    # opmaak per route
+    punt = d['punt']
+
+    def reis(r):
+        tijd = r.get('tijd') or {}
+        if soort == 'fiets' and tijd.get('fiets') is not None and tijd['fiets'] <= 15:
+            return 'fiets', d['reis-fiets'].format(n=tijd['fiets'])
+        if tijd.get('auto') is not None:
+            return 'auto', d['reis-auto'].format(n=tijd['auto'])
+        return 'auto', ''
+
+    def maps(r):
+        lat, lng = r['start']
+        return 'https://www.google.com/maps/dir/?api=1&amp;destination=' + urllib.parse.quote(f'{lat},{lng}')
+
+    langste = max(r['afstand_km'] for r in routes)
+    km = [r['afstand_km'] for r in routes]
+    bereik = lambda lijst: f'{int(min(lijst) + 0.5)} {d["tot"]} {int(max(lijst) + 0.5)} km'   # 24,5 -> 25 (niet bankiers-afronding)
+    grens = data['grens']
+    bereiken = {'kort': d['bereik-kort'].format(a=grens[0]), 'middel': d['bereik-middel'].format(a=grens[0], b=grens[1]),
+                'lang': d['bereik-lang'].format(b=grens[1])}
+    for k in ('kort', 'middel', 'lang'):
+        if not any(r['lengteklasse'] == k for r in routes):
+            fouten.append(f'lengteklasse {k} heeft geen route ({soort})')
+
+    # 2a tegels: 1 aantal, 2 bereik (uit de data), 3 en 4 uit de paginajson; bij wandel mag tegel 3 {min} (dichtstbijzijnde rijtijd) gebruiken
+    dichtst = min((r['tijd'] or {}).get('auto') or 999 for r in routes)
+    tegel = lambda ico, kop, tekst: (f'<li class="rt-icotegel">{RT_SVG(ico, 36).replace("<svg ", "<svg class=\"rt-ico\" ", 1)}'
+                                      f'<span><b>{kop}</b><small>{tekst}</small></span></li>')
+    blok['RT_TEGELS'] = (tegel(d['oog1-ico'], f'{len(routes)} {d["oog1-kop"]}', d['oog1-tekst'])
+                         + tegel(d['oog2-ico'], bereik(km), d['oog2-tekst'])
+                         + tegel(d['oog3-ico'], d['oog3-kop'].format(min=dichtst), d['oog3-tekst'].format(min=dichtst))
+                         + tegel(d['oog4-ico'], d['oog4-kop'], d['oog4-tekst']))
+
+    # 3b chips
+    blok['RT_CHIPS'] = (f'<button type="button" class="rt-chip is-aan" data-filter="alle" aria-pressed="true">{d["chip-alle"]}</button>'
+                        + ''.join(f'<button type="button" class="rt-chip" data-filter="{k}" aria-pressed="false">{d["chip-" + k]} · {bereiken[k]}</button>'
+                                  for k in ('kort', 'middel', 'lang')))
+
+    # 3b kaartjes + 4c lijstrijen + pop-up-inhoud
+    kaartjes, rijen, credits, kaartdata = [], [], [], []
+    vorm_rond = 'rond'
+    for i, r in enumerate(routes):
+        slug = r['slug']
+        p = rteksten.get(slug)
+        if not p:
+            fouten.append(f'geen pagina-inhoud (routes.{slug}) in {stam}-{lang}.json')
+            continue
+        naam = escape(r['naam'].get(lang) or r['naam']['nl'], quote=False)
+        foto = bestaat(p['foto'])
+        lus = f'fotos/l26-route-lus-{slug}.webp'
+        bestaat(lus)
+        # kaartfoto: eigen keuze; als het een OS-/Commons-foto is, staat de naamsvermelding in r['fotos']
+        os_per = {x['bestand']: x for x in r.get('fotos') or []}
+        os_per.update({k: v for k, v in (d.get('_credits') or {}).items() if k not in os_per})   # repo-foto's van Commons
+        kc = os_per.get(foto, {})
+        eigen_fotos = [{'bestand': x} for x in (p.get('fotos') or [])]   # extra repo-foto's voor de pop-up (paden; alt in 'alts')
+        extra = eigen_fotos + [x for x in r.get('fotos') or [] if x['bestand'] != foto and x['bestand'] not in (p.get('fotos') or [])]
+        alt_extra = p.get('alts') or {}
+        extra_html = ''
+        for x in extra[:4]:
+            b = bestaat(x['bestand'])
+            c = os_per.get(b, x)
+            alt = alt_extra.get(b) or x.get('alt') or naam
+            if isinstance(alt, dict):
+                alt = alt.get(lang) or alt.get('nl')
+            extra_html += (f'<span class="rt-extra" hidden data-foto="{b}" data-alt="{escape(alt, quote=True)}" data-credit="{escape(c.get("credit", ""), quote=True)}" '
+                           f'data-credit-url="{escape(c.get("bron_url", ""), quote=True)}" data-licentie="{escape(c.get("licentie", ""), quote=True)}" '
+                           f'data-licentie-url="{escape(c.get("licentie_url", ""), quote=True)}"></span>')
+            if c.get('credit'):
+                credits.append((naam, c))
+        if kc.get('credit'):
+            credits.insert(0, (naam, kc))
+        rs, rtekst = reis(r)
+        startregel = f'{d["start-woord"]} {escape(r["start_plaats"], quote=False)}' + (f' · {rtekst}' if rtekst else '')
+        km_s, duur_s = f'{rt_km(r["afstand_km"], punt)} km', rt_duur(r['duur_min'], d['duur'])
+        stat = (f'<span>{RT_SVG(RT_IC["km"])}{km_s}</span><span>{RT_SVG(RT_IC["duur"])}{duur_s}</span>'
+                + (f'<span>{RT_SVG(RT_IC["kcal"])}{r["kcal"]} kcal</span>' if r.get('kcal') else '')
+                + (f'<span>{RT_SVG(RT_IC["hoogte"])}{r["hoogte_m"]} m</span>' if r.get('hoogte_m') else ''))
+        feit = lambda getal, eenheid, label: (f'<div class="rt-feit" role="listitem"><span class="rt-feit__getal">{getal}'
+                                              + (f'<small>{eenheid}</small>' if eenheid else '') + f'</span><span class="rt-feit__label">{label}</span></div>')
+        feiten = (feit(rt_km(r['afstand_km'], punt), 'km', d['feit-afstand']) + feit(duur_s, '', d['feit-duur'])
+                  + (feit(r['kcal'], 'kcal', d['feit-kcal']) if r.get('kcal') else '')
+                  + (feit(r['hoogte_m'], 'm', d['feit-hoogte']) if r.get('hoogte_m') else ''))
+        knoop = ''
+        if r.get('knooppunten'):
+            knoop = (f'<p class="rt-knoop">{RT_SVG(RT_IC["knoop"], 16)}<span><b>{d["knooppunten-label"]}</b> '
+                     + ' · '.join(str(k) for k in r['knooppunten']) + '</span></p>')
+        label = r.get('url_label') or ''
+        cta = (d['knop-extern-eigen'] if r['bron'] == 'eigen' else d['knop-extern']).format(label=label)
+        vorm = d['pop-rond-' + soort] if r['rondje'] else d['pop-ab']
+        kaartjes.append(
+            f'<article class="rt-kaartje" id="rt-{slug}" data-lengte="{r["lengteklasse"]}" data-slug="{slug}" data-foto="{foto}" '
+            f'data-credit="{escape(kc.get("credit", ""), quote=True)}" data-credit-url="{escape(kc.get("bron_url", ""), quote=True)}" '
+            f'data-licentie="{escape(kc.get("licentie", ""), quote=True)}" data-licentie-url="{escape(kc.get("licentie_url", ""), quote=True)}" '
+            f'data-lus="{lus}" data-vorm="{escape(vorm, quote=True)}" data-tekst="{escape(p["tekst"], quote=True)}">'
+            f'<div class="rt-kaartje__beeld"><img src="{foto}" alt="{escape(p["alt"], quote=True)}" width="1000" height="667" loading="lazy" fetchpriority="low" decoding="async">'
+            f'<span class="rt-nr" aria-hidden="true">{r["nr"]}</span></div>'
+            f'<div class="rt-kaartje__body"><h3 class="rt-kaartje__naam"><a href="#route-{slug}" data-pop="{slug}">{naam}</a></h3>'
+            f'<p class="rt-stat">{stat}</p><div class="rt-feiten" role="list">{feiten}</div>'
+            f'<p class="rt-start">{RT_SVG(RT_IC[rs], 16)}<span>{startregel}</span></p>{knoop}'
+            f'<div class="rt-acties"><button type="button" class="btn btn-primary rt-knop--klein rt-meer" data-pop="{slug}">{d["pop-meer"]}</button>'
+            f'<p class="rt-sub"><a class="rt-sublink rt-extern" href="{r["url"]}" target="_blank" rel="noopener">{cta} {RT_SVG(RT_IC["extern"], 14)}'
+            f'<span class="al-vh"> {d["l-nieuw-tabblad"]}</span></a>'
+            f'<a class="rt-sublink rt-plan" href="{maps(r)}" target="_blank" rel="noopener">{RT_SVG(RT_IC["plan"], 14)}{d["link-plan"]}</a></p></div>'
+            f'</div>{extra_html}</article>')
+        rijen.append(
+            f'<li><a class="rt-rij" href="#rt-{slug}" data-slug="{slug}"><span class="rt-rij__mini"><img src="{foto}" alt="" width="64" height="48" loading="lazy" decoding="async">'
+            f'<span class="rt-stip" aria-hidden="true">{r["nr"]}</span></span><span class="rt-rij__tk"><b>{naam}</b><span class="rt-rij__balk">'
+            f'<span class="rt-rij__track" aria-hidden="true"><span class="rt-rij__vul" style="width:{r["balk"]}"></span></span><span class="rt-rij__km">{km_s}</span></span></span>'
+            f'<span class="rt-rij__tijd"><span>{duur_s}</span>' + (f'<span>{rtekst}</span>' if rtekst else '') + '</span></a></li>')
+        lijn = r.get('lijn')
+        kaartdata.append({'slug': slug, 'nr': r['nr'], 'naam': plat(naam), 'afstand_km': r['afstand_km'], 'rondje': r['rondje'],
+                          'lijn': lijn if lijn else [r['start'], [r['start'][0], r['start'][1] + 0.00002]], 'speld': not lijn})
+    blok['RT_KAARTJES'] = '\n        '.join(kaartjes)
+
+    # 4c kaart, strook, filterbalk, lijst
+    kaartfoto = bestaat(f'fotos/l26-route-kaart-{soort}.webp')
+    blok['RT_KAART'] = (
+        f'<div class="rt-kaart__beeld" data-kaart data-geo="{RT_GEO}" data-routes="#rt-kaart-routes" data-vignet="{RT_VIGNET}" '
+        f'data-hotel="{escape(d["hotel-naam"], quote=True)}" data-t-in="{t("kaart-knop-inzoomen")}" data-t-uit="{t("kaart-knop-uitzoomen")}" '
+        f'data-t-alles="{t("kaart-knop-alles")}" data-t-wiel="{t("kaart-hint-wiel")}" data-t-vingers="{t("kaart-hint-vingers")}" '
+        f'data-t-attributie="{t("kaart-attributie")}">'
+        f'<img class="rt-kaart__grond" src="{kaartfoto}" alt="{t("kaart-alt")}" width="1120" height="700" loading="lazy" decoding="async">'
+        '<div class="rt-voet" role="group" aria-labelledby="rtVoetNaam" aria-hidden="true"><span class="rt-voet__foto" aria-hidden="true"></span>'
+        '<div class="rt-voet__tk"><div class="rt-voet__kop"><span class="rt-stip" aria-hidden="true"></span><b class="rt-voet__naam" id="rtVoetNaam"></b></div>'
+        '<p class="rt-voet__meta"><span class="rt-voet__lang"></span><span class="rt-voet__kort"></span></p></div>'
+        f'<button type="button" class="btn btn-primary rt-knop--klein rt-voet__bekijk">{d["kaart-bekijk"]}</button>'
+        f'<button type="button" class="rt-voet__sluit" aria-label="{t("pop-sluiten")}">{RT_SVG(RT_IC["kruis"], 12).replace("stroke-width=\"1.5\"", "stroke-width=\"2\"")}</button></div></div>'
+        f'<a class="btn btn-primary rt-knop--klein mews-open rt-kaart__knop" href="{d["mews-basis"]}">{d["knop-boek"]}</a>'
+        f'<div class="rt-filt" role="group" aria-label="{t("filt-label")}" hidden><div class="rt-filt__knoppen">'
+        + ''.join(f'<button type="button" class="rt-filt__knop" data-filter="{k}" aria-pressed="false">'
+                  f'{RT_SVG(RT_IC["vink"], 13).replace("<svg ", "<svg class=\"rt-filt__vink\" ", 1)}<b>{d["chip-" + k]}</b> <span>{bereiken[k]}</span></button>'
+                  for k in ('kort', 'middel', 'lang'))
+        + f'</div><p class="rt-filt__stand"><span class="rt-filt__live" aria-live="polite" data-woord="{t("filt-telwoord")}" data-woord-1="{t("filt-telwoord-1")}" '
+        f'data-van="{t("filt-van")}" data-filter="{t("filt-filterwoord")}"></span><button type="button" class="rt-filt__wissen" aria-label="{t("filt-wis")}">'
+        f'{d["filt-wissen"]} {RT_SVG(RT_IC["kruis"], 11)}</button></p></div>'
+        f'<ol class="rt-kaart__lijst">{"".join(rijen)}</ol>'
+        '<script type="application/json" id="rt-kaart-routes">'
+        + json.dumps({'hotel': data['hotel'], 'routes': kaartdata}, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/') + '</script>')
+
+    # 6a goed om te weten
+    blok['RT_PRAK'] = ''.join(
+        f'<li class="rt-fotokaart"><img class="rt-fotokaart__foto" src="{bestaat(d[f"prak{i}-foto"])}" alt="{t(f"prak{i}-alt")}" width="440" height="330" loading="lazy" decoding="async">'
+        f'<span class="rt-fotokaart__body">{RT_SVG(d[f"prak{i}-ico"], 34).replace("<svg ", "<svg class=\"rt-ico\" ", 1)}'
+        f'<span><b>{d[f"prak{i}-kop"]}</b><small>{d[f"prak{i}-tekst"]}</small></span></span></li>' for i in range(1, 5))
+
+    # 7b conversie: fiets = arrangementblok, wandel = kamerslider
+    blok['RT_KAMERPOP'] = ''
+    if d['conversie'] == 'arrangement':
+        dias = ''.join(f'<figure class="rt-fs__dia"><img src="{bestaat(s["foto"])}" alt="{escape(s["alt"], quote=True)}" width="1000" height="667" loading="lazy" decoding="async"'
+                       + (f' style="object-position:{s["pos"]}"' if s.get('pos') else '') + '></figure>' for s in d['arr-dias'])
+        if len(d['arr-dias']) != 6:
+            fouten.append('arr-dias moet precies zes dia\'s hebben')
+        bollen = ''.join(f'<button type="button" class="rt-fs__bol{" is-aan" if j == 0 else ""}" data-fs-naar="{j}" aria-label="{t("foto-label")} {j + 1}"'
+                         + (' aria-current="true"' if j == 0 else '') + '></button>' for j in range(len(d['arr-dias'])))
+        pijl = lambda stap, pad, lab: (f'<button type="button" class="rt-fs__pijl" data-fs-stap="{stap}" aria-label="{t(lab)}"><svg fill="none" viewBox="0 0 20 20" aria-hidden="true">'
+                                       f'<path d="{pad}" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg></button>')
+        vinken = ''.join(f'<li><span class="rt-vak">{RT_SVG(RT_IC["cirkelvink"], 24).replace("stroke-width=\"1.5\"", "stroke-width=\"1.8\"")}</span><span>{v}</span></li>'
+                         for v in d['arr-vinkjes'])
+        code = d['arr-voucher']
+        blok['RT_CONVERSIE'] = (
+            '<section data-component="rt-arr" class="al-sec rt-sec rt-arr"><div class="al-wrap"><div class="rt-arr__blok">'
+            '<div class="rt-arr__bg" aria-hidden="true"></div>'
+            f'<div class="rt-arr__foto rt-fs" data-fotoslider><div class="rt-fs__spoor" data-fs-spoor>{dias}</div>'
+            f'<div class="rt-fs__bolletjes">{bollen}</div><div class="rt-fs__pijlen">{pijl(-1, "M12.5 4 6.5 10l6 6", "foto-vorige")}{pijl(1, "M7.5 4l6 6-6 6", "foto-volgende")}</div></div>'
+            f'<div class="rt-arr__inner"><h2 class="rt-h2">{d["arr-kop"]}</h2><p class="rt-arr__prijsregel">{d["arr-regel"]}</p>'
+            f'<ul class="rt-arr__checks">{vinken}</ul><div class="rt-arr__acties">'
+            f'<a class="btn btn-primary al-btn" href="{d["arr-url"]}">{d["arr-knop"]}</a>'
+            f'<a class="btn al-btn al-btn--ghost-donker mews-open" href="{mews("&amp;mewsVoucherCode=" + code)}" data-voucher="{code}">{d["arr-boek"]}</a>'
+            '</div></div></div></div></section>')
+    else:
+        with open(os.path.join(base, RT_KAMERS[lang]), encoding='utf-8') as f:
+            kamerbron = json.load(f)['kamer']
+        with open(os.path.join(base, RT_KAMERS['nl']), encoding='utf-8') as f:
+            kamer_nl = json.load(f)['kamer']
+        kk, kamerdata, popkamer = [], {}, {}
+        for k in d['kamers']:
+            if k not in KAMER_MEWS or k not in kamerbron:
+                sys.exit(f'route: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen kamerdata ({RT_KAMERS[lang]})')
+            r = dict(kamer_nl[k])
+            r.update(kamerbron[k])   # taalvelden uit de vertaling, foto's/video/id uit de NL-bron
+            room = KAMER_MEWS[k]
+            if r.get('kamer') != room:
+                sys.exit(f'route: Mews-id van {k} wijkt af van KAMER_MEWS')
+            for x in r['fotos'] + r.get('pop_fotos', []) + [r.get('video') or '', r['kaart_foto']]:
+                bestaat(x)
+            kenm = ''.join(f'<li>{icoon(AL_KAMER_IC[ic])}<span>{escape(tk, quote=False)}</span></li>' for ic, tk in r['kaart'])
+            naam = escape(r['naam'], quote=False)
+            kk.append(
+                f'<article class="kk-kaart" data-kamerkaart="{k}"><a class="kk-foto" href="#kamers" data-kamer="{k}" aria-haspopup="dialog" tabindex="-1" aria-hidden="true"><img src="{r["kaart_foto"]}" width="1400" height="934" alt="" loading="lazy" decoding="async"></a>'
+                f'<div class="kk-inhoud"><h3 class="kk-naam">{naam}</h3><p class="kk-tekst">{escape(r["kort"], quote=False)}</p>'
+                f'<ul class="kk-kenmerken">{kenm}</ul>'
+                f'<p class="kk-knoppen"><a class="btn btn-primary mews-open" href="{mews("&amp;mewsRoom=" + room + "&amp;mewsRoute=rooms")}" data-room="{room}">{d["knop-kamer"]}</a>'
+                f'<a class="btn btn-secondary" href="#kamers" data-kamer="{k}" aria-haspopup="dialog" aria-label="{d["knop-info"]}: {naam}">{d["knop-info"]}</a></p></div></article>')
+            kamerdata[k] = {x: r[x] for x in ('naam', 'video', 'fotos', 'tekst', 'kenmerken', 'kamer')}
+            popkamer[k] = {x: r[x] for x in ('naam', 'desc', 'pop_fotos', 'video', 'fotos', 'kenmerken', 'kamer') if x in r}
+        pijl = lambda stap, pad, lab: (f'<button type="button" class="kk-pijl" data-stap="{stap}" aria-label="{t(lab)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+                                       f'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{pad}"/></svg></button>')
+        blok['RT_CONVERSIE'] = (
+            '<section data-component="rt-kamers" class="al-kamers rt-kamers" id="kamers"><div class="al-kamers__wrap">'
+            f'<div class="rt-kamers__kop"><h2 class="al-kamers__kop">{d["kamers-kop"]}</h2><p class="rt-kamers__sub">{d["kamers-sub"]}</p></div>'
+            f'<div class="kk-rij" data-rij data-lus><div class="kk-spoor" data-spoor tabindex="0" role="group" aria-label="{t("kamer-rij-label")}">{"".join(kk)}</div>'
+            f'<div class="kk-nav"><span class="kk-teller" data-teller aria-live="polite"></span>{pijl(-1, "M15 18l-6-6 6-6", "kamer-vorige")}{pijl(1, "M9 6l6 6-6 6", "kamer-volgende")}</div>'
+            '</div></div></section>')
+        blok['RT_KAMERPOP'] = (
+            f'<div class="al-pop" data-pop-dialog hidden role="dialog" aria-modal="true" aria-labelledby="al-pop-naam" data-bron="#rt-popdata" '
+            f'data-l-sluit="{t("pop-sluiten")}" data-l-vorige="{t("foto-vorige")}" data-l-volgende="{t("foto-volgende")}" data-l-kamerboek="{t("knop-kamer")}" '
+            f'data-l-kamerbadge="{t("pop-kamer-badge")}" data-l-route="{t("link-plan")}" data-l-auto="{t("l-met-auto")}" data-l-voet="{t("l-lopen")}" '
+            f'data-l-rad="{t("l-fiets")}" data-l-vanaf="{t("pop-vanaf-hotel")}" data-l-speel="{t("pop-video-speel")}" data-l-pauze="{t("pop-video-pauze")}">'
+            '<div class="al-pop__kaart" role="document"></div></div>\n'
+            '  <script type="application/json" id="rt-popdata">' + json.dumps({'uitje': {}, 'kamer': popkamer}, ensure_ascii=False).replace('</', '<\\/') + '</script>\n'
+            f'  <dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam" data-l-foto="{t("foto-label")}" data-l-boek="{t("knop-kamer")}">'
+            f'<button type="button" class="lp-pop__sluit" aria-label="{t("pop-sluiten")}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>'
+            f'<div class="lp-pop__binnen"><div class="lp-pop__media"><video class="lp-pop__video" muted playsinline loop autoplay preload="none" aria-label="{t("kamer-pop-video")}"></video>'
+            '<img class="lp-pop__hero" alt="" hidden></div><div class="lp-pop__fotos"></div><div class="lp-pop__body"><h3 class="lp-pop__titel" id="lp-pop-kamer-naam"></h3>'
+            '<div class="lp-pop__tekst"></div><ul class="lp-pop__kenmerken"></ul><div class="lp-pop__acties">'
+            f'<a class="btn btn-primary mews-open lp-pop__boek" data-basis="{mews()}" href="{mews()}">{d["knop-kamer"]}</a></div></div></div></dialog>\n'
+            '  <div class="lp-pop-overlay" hidden></div>\n'
+            '  <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>\n'
+            '  <script type="application/json" id="al-kamerdata">' + json.dumps(kamerdata, ensure_ascii=False).replace('</', '<\\/') + '</script>')
+
+    # 8a FAQ (precies vijf, eerste open) + FAQPage
+    if len(d['faq']) != 5:
+        fouten.append(f'faq moet precies vijf vragen hebben ({len(d["faq"])})')
+    chev = '<span class="rt-faq__pijl" aria-hidden="true"></span>'
+    blok['RT_FAQ'] = ''.join(f'<details class="as-accordeon__item"{" open" if j == 0 else ""}><summary class="as-accordeon__kop"><h3>{q["v"]}</h3></summary>'
+                             f'<div class="as-accordeon__paneel"><p>{q["a"]}</p></div></details>' for j, q in enumerate(d['faq']))
+    blok['RT_FAQ_LD'] = json.dumps({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [
+        {'@type': 'Question', 'name': plat(q['v']), 'acceptedAnswer': {'@type': 'Answer', 'text': plat(q['a'])}} for q in d['faq']]},
+        ensure_ascii=False).replace('</', '<\\/')
+
+    # 9c kruislink
+    akm = [r['afstand_km'] for r in ander['routes']]
+    spec = lambda n, lijst: f'{n} {d["routes-woord"]} · {bereik(lijst)}'
+    blok['RT_WISSEL'] = (
+        '<div class="rt-wissel__tegels"><div class="rt-wtegel rt-wtegel--aan" aria-current="page">'
+        f'<img src="{bestaat(d["wissel-hier-foto"])}" alt="{t("wissel-hier-alt")}" width="800" height="533" loading="lazy" decoding="async">'
+        f'<div class="rt-wtegel__body"><h3>{d["wissel-hier-naam"]}</h3><span class="rt-wtegel__spec">{spec(len(routes), km)}</span></div></div>'
+        f'<a class="rt-wtegel rt-wtegel--ander" href="{adres(ander_naam, lang).replace(RT_BASIS, "/")}">'
+        f'<img src="{bestaat(d["wissel-daar-foto"])}" alt="{t("wissel-daar-alt")}" width="800" height="533" loading="lazy" decoding="async">'
+        f'<div class="rt-wtegel__body"><div class="rt-wtegel__rij"><h3>{d["wissel-daar-naam"]}</h3><span class="rt-wtegel__pijl" aria-hidden="true">{RT_SVG(RT_IC["pijl"])}</span></div>'
+        f'<span class="rt-wtegel__spec">{spec(len(ander["routes"]), akm)}</span>'
+        f'<span class="btn btn-primary rt-knop--klein">{d["wissel-knop"].format(n=len(ander["routes"]))}</span></div></a></div>')
+
+    # fotocredit (Commons-foto's op de kaartjes en in de pop-ups)
+    if credits:
+        gezien, delen = set(), []
+        for naam, c in credits:
+            sl = (c['credit'], c.get('licentie'))
+            if sl in gezien:
+                continue
+            gezien.add(sl)
+            lic = (f'<a href="{c["licentie_url"]}" target="_blank" rel="noopener">{escape(c["licentie"], quote=False)}</a>' if c.get('licentie_url')
+                   else escape(c.get('licentie', ''), quote=False))
+            wie = (f'<a href="{c["bron_url"]}" target="_blank" rel="noopener">{escape(c["credit"], quote=False)}</a>' if c.get('bron_url')
+                   else escape(c['credit'], quote=False))
+            delen.append(f'{wie} ({lic})')
+        blok['RT_FOTOCREDIT'] = f'<div class="al-wrap rt-fotocredit-rij"><p class="rt-fotocredit">{d["fotocredit-kop"]} {"; ".join(delen)}.</p></div>'
+    else:
+        blok['RT_FOTOCREDIT'] = ''
+
+    # JSON-LD WebPage + BreadcrumbList
+    blok['RT_LD'] = json.dumps({'@context': 'https://schema.org', '@graph': [
+        {'@type': 'WebPage', '@id': d['canonical'], 'url': d['canonical'], 'name': plat(d['titel']), 'description': plat(d['omschrijving']),
+         'inLanguage': d['html-taal'], 'image': d['og-image'], 'breadcrumb': {'@id': d['canonical'] + '#kruimelpad'},
+         'about': {'@type': 'Hotel', 'name': 'Hotel Asteria', 'address': {'@type': 'PostalAddress', 'streetAddress': 'Maasheseweg 80a',
+                   'postalCode': '5804 AD', 'addressLocality': 'Venray', 'addressCountry': 'NL'}, 'telephone': '+31478511466'}},
+        {'@type': 'BreadcrumbList', '@id': d['canonical'] + '#kruimelpad', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'Hotel Asteria', 'item': RT_BASIS + 'hotel-venray-v2'},
+            {'@type': 'ListItem', 'position': 2, 'name': d['kruimel-gebied'], 'item': RT_BASIS + 'omgeving'},
+            {'@type': 'ListItem', 'position': 3, 'name': plat(d['kruimel'])}]}]}, ensure_ascii=False).replace('</', '<\\/')
+
+    blok['AL_KOP'], blok['AL_VOET'] = rt_kop_voet(d, d['mews-basis'], lang)
+
+    for k, v in blok.items():
+        if f'<!-- {k} -->' not in html:
+            sys.exit(f'route: plek <!-- {k} --> niet in het sjabloon')
+        html = html.replace(f'<!-- {k} -->', v)
+    for k, v in d.items():
+        if isinstance(v, str) and not k.startswith('_'):
+            html = html.replace('{{' + k + '}}', v)
+    open_velden = sorted(set(re.findall(r'\{\{[^}]+\}\}', html)))
+    if open_velden:
+        sys.exit(f'route: open velden in {output_file}: {open_velden}')
+    if fouten:
+        sys.exit('route:\n  ' + '\n  '.join(fouten))
+    if '—' in html:
+        sys.exit(f'route: em-dash in {output_file}')
+    if re.search(r'\s–\s', html):
+        sys.exit(f'route: en-dash als cesuur in {output_file}')
+    if '€' in html or '&euro;' in html:
+        sys.exit(f'route: prijs (€) in {output_file}')
+    if 'noindex, follow' not in html or 'bee2f902' in html:
+        sys.exit(f'route: robots of Mews-config klopt niet in {output_file}')
+    with open(os.path.join(base, output_file), 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
+
+
 
 
 # Parse args: optional template name + optional lang codes

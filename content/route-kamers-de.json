@@ -1,0 +1,131 @@
+{
+ "_uitleg": "Deutsche Zimmertexte für die Zimmer-Slider der Routenseiten (build.py build_route). Nur Sprachfelder; Fotos, Video und Mews-ID kommen aus content/uitje-kamers-nl.json.",
+ "kamer": {
+  "comfort": {
+   "naam": "Comfort-Zimmer",
+   "kort": "Für alle, die unterwegs sind und vor allem gut schlafen möchten. Am Morgen ziehen Sie ausgeruht wieder los.",
+   "kaart": [["m2", "22 m²"], ["bed", "2 Einzelbetten"], ["douche", "Dusche"], ["personen", "Max. 2 Pers."]],
+   "desc": "Genießen Sie ein komfortables und modern eingerichtetes Zimmer, ideal für einen entspannten Aufenthalt in Nord-Limburg. Ob für einen Kurzurlaub oder einen Geschäftsbesuch: In unserem Comfort-Zimmer fühlen Sie sich sofort zu Hause.",
+   "tekst": [
+    "Genießen Sie ein komfortables und modern eingerichtetes Zimmer, ideal für einen entspannten Aufenthalt in Nord-Limburg. Ob für einen Kurzurlaub oder einen Geschäftsbesuch: In unserem Comfort-Zimmer fühlen Sie sich sofort zu Hause.",
+    "Das Zimmer hat zwei Einzelbetten, ein eigenes Bad mit Dusche und eine Sitzecke mit bequemen Sesseln: alles, was Sie brauchen, um zur Ruhe zu kommen."
+   ],
+   "kenmerken": [
+    "Ca. 22 m²",
+    "Twinbetten (2 Einzelbetten)",
+    "Für maximal 2 Personen",
+    "Sitzecke mit bequemen Sesseln",
+    "Eigenes Bad mit Dusche",
+    "Klimaanlage"
+   ]
+  },
+  "comfort-3": {
+   "naam": "Comfort-Zimmer für 3 Personen",
+   "kort": "Reisen Sie zu dritt, dann lassen Sie den Abend gemeinsam in einem Zimmer ausklingen.",
+   "kaart": [["m2", "22 m²"], ["bed", "3 Einzelbetten"], ["personen", "Bis 3 Personen"]],
+   "desc": "Unser Comfort-Zimmer für 3 Personen bietet zusätzlichen Platz für Familien oder Freunde, die gemeinsam unterwegs sind. Alles ist da für einen angenehmen und sorglosen Aufenthalt im grünen Nord-Limburg.",
+   "tekst": [
+    "Unser Comfort-Zimmer für 3 Personen bietet zusätzlichen Platz für Familien oder Freunde, die gemeinsam unterwegs sind. Alles ist da für einen angenehmen und sorglosen Aufenthalt im grünen Nord-Limburg.",
+    "Drei Einzelbetten, ein eigenes Bad und eine gemütliche Sitzecke machen dieses Zimmer ideal für alle, die zusammen reisen."
+   ],
+   "kenmerken": [
+    "Ca. 22 m²",
+    "3 Einzelbetten",
+    "Für maximal 3 Personen",
+    "Sitzecke mit bequemen Sesseln",
+    "Eigenes Bad mit Dusche und/oder Badewanne",
+    "Klimaanlage"
+   ]
+  },
+  "mindervalide": {
+   "naam": "Barrierefreies Zimmer",
+   "kort": "Eingerichtet für Gäste im Rollstuhl, mit extra breiten Türen und einem angepassten Bad.",
+   "kaart": [["m2", "37 m²"], ["bed", "2 getrennte Betten"], ["rolstoel", "Angepasstes Bad"], ["douche", "Dusche"]],
+   "desc": "Unser angepasstes Zimmer ist speziell für Gäste mit eingeschränkter Mobilität gestaltet. Auch unser Restaurant und unsere Terrasse sind rollstuhlgerecht, sodass Sie während Ihres Aufenthalts sorglos ein köstliches Abendessen und die Gastfreundschaft von Asteria genießen können.",
+   "tekst": [
+    "Unser angepasstes Zimmer ist speziell für Gäste mit eingeschränkter Mobilität gestaltet. Auch unser Restaurant und unsere Terrasse sind rollstuhlgerecht, sodass Sie während Ihres Aufenthalts sorglos ein köstliches Abendessen und die Gastfreundschaft von Asteria genießen können.",
+    "Eine großzügige Aufteilung, extra breite Türen und ein angepasstes Bad sorgen für Komfort und Selbstständigkeit."
+   ],
+   "kenmerken": [
+    "Ca. 37 m²",
+    "Twinbetten (2 Einzelbetten)",
+    "Schlafsofa als zusätzliche Schlafmöglichkeit",
+    "Extra breite Türen und großzügige Aufteilung für Rollstuhl oder Rollator",
+    "Großzügige Sitzecke mit bequemen Sesseln",
+    "Angepasstes, rollstuhlgerechtes Bad mit Dusche"
+   ]
+  },
+  "royale": {
+   "naam": "Royale-Zimmer",
+   "kort": "Ein Wochenende weg, mit Zeit, den Koffer auszupacken und ganz anzukommen.",
+   "kaart": [["m2", "25 m²"], ["bed", "Doppelbett oder Twinbetten"], ["bad", "Badewanne oder Dusche"], ["personen", "Max. 2 Pers."]],
+   "desc": "Unsere Royale-Zimmer sind größer als die Comfort-Zimmer und bieten das gewisse Extra. Das großzügige Raumgefühl und die bequeme Sitzecke machen dieses Zimmer ideal für alle, die sich während des Aufenthalts etwas mehr Luxus wünschen.",
+   "tekst": [
+    "Unsere Royale-Zimmer sind größer als die Comfort-Zimmer und bieten das gewisse Extra. Das großzügige Raumgefühl und die bequeme Sitzecke machen dieses Zimmer ideal für alle, die sich während des Aufenthalts etwas mehr Luxus wünschen.",
+    "Wählen Sie ein Doppelbett oder Twinbetten und genießen Sie den zusätzlichen Platz und ein eigenes Bad mit Dusche oder Badewanne."
+   ],
+   "kenmerken": [
+    "Ca. 25 m²",
+    "Doppelbett oder Twinbetten (2 Einzelbetten)",
+    "Für maximal 2 Personen",
+    "Großzügige Sitzecke mit bequemen Sesseln",
+    "Eigenes Bad mit Dusche und/oder Badewanne",
+    "Klimaanlage"
+   ]
+  },
+  "deluxe": {
+   "naam": "Deluxe-Zimmer",
+   "kort": "Nach einem Tag draußen steigen Sie in Ihre eigene Sauna und die Müdigkeit verfliegt langsam.",
+   "kaart": [["m2", "25 m²"], ["bed", "Doppelbett oder Twinbetten"], ["sauna", "Infrarotsauna"], ["personen", "Max. 2 Pers."]],
+   "desc": "Unsere Deluxe-Zimmer haben alles für einen luxuriösen Aufenthalt in Nord-Limburg. Die private Infrarotsauna im Bad macht dieses Zimmer ideal für alle, die wirklich entspannen möchten: ein kleines Wellness-Erlebnis im eigenen Zimmer.",
+   "tekst": [
+    "Unsere Deluxe-Zimmer haben alles für einen luxuriösen Aufenthalt in Nord-Limburg. Die private Infrarotsauna im Bad macht dieses Zimmer ideal für alle, die wirklich entspannen möchten: ein kleines Wellness-Erlebnis im eigenen Zimmer.",
+    "Neben der eigenen Sauna genießen Sie eine bequeme Sitzecke und allen Komfort in Reichweite."
+   ],
+   "kenmerken": [
+    "Ca. 25 m²",
+    "Doppelbett oder Twinbetten (2 Einzelbetten)",
+    "Für maximal 2 Personen",
+    "Sitzecke mit bequemen Sesseln",
+    "Luxuriöse private Infrarotsauna",
+    "Eigenes Bad mit Dusche"
+   ]
+  },
+  "suite": {
+   "naam": "Suite",
+   "kort": "Um ein Jubiläum oder einen Geburtstag zu feiern, mit einer Nacht, von der Sie noch lange erzählen.",
+   "kaart": [["m2", "40 m²"], ["bed", "Kingsize-Bett und Schlafsofa"], ["sauna", "Infrarotsauna"], ["personen", "Max. 4 Pers."]],
+   "desc": "Erleben Sie Asteria in unserem geräumigsten und luxuriösesten Zimmer. Mit eigener Infrarotsauna, großzügiger Sitzecke und allem Komfort in Reichweite ist die Suite der Ort, um ganz zur Ruhe zu kommen: mehr als ein Hotelzimmer, ein komplettes Erlebnis.",
+   "tekst": [
+    "Erleben Sie Asteria in unserem geräumigsten und luxuriösesten Zimmer. Mit eigener Infrarotsauna, großzügiger Sitzecke und allem Komfort in Reichweite ist die Suite der Ort, um ganz zur Ruhe zu kommen: mehr als ein Hotelzimmer, ein komplettes Erlebnis.",
+    "Ein Kingsize-Bett und ein Schlafsofa bieten Platz für bis zu vier Personen."
+   ],
+   "kenmerken": [
+    "Ca. 40 m²",
+    "Kingsize-Doppelbett",
+    "Schlafsofa als zusätzliche Schlafmöglichkeit",
+    "Für maximal 4 Personen",
+    "Großzügige Sitzecke mit bequemen Sesseln",
+    "Private Infrarotsauna"
+   ]
+  },
+  "bruidssuite": {
+   "naam": "Brautsuite",
+   "kort": "Nach dem großen Tag oder einfach für einen Abend zu zweit: Lassen Sie die Wanne volllaufen und kommen Sie zur Ruhe.",
+   "kaart": [["m2", "36 m²"], ["bed", "Kingsize-Bett"], ["bad", "Freistehende Badewanne"], ["stoel", "Sitzecke"]],
+   "desc": "Unsere Brautsuite ist für besondere Momente gestaltet. Ob Sie gerade geheiratet haben oder ein romantisches Wochenende feiern: Genießen Sie gemeinsam den Luxus, die Ruhe und die warme Atmosphäre, die Asteria auszeichnet.",
+   "tekst": [
+    "Unsere Brautsuite ist für besondere Momente gestaltet. Ob Sie gerade geheiratet haben oder ein romantisches Wochenende feiern: Genießen Sie gemeinsam den Luxus, die Ruhe und die warme Atmosphäre, die Asteria auszeichnet.",
+    "Eine freistehende Badewanne, eine geräumige begehbare Dusche sowie Bademäntel und Hausschuhe machen den Aufenthalt komplett."
+   ],
+   "kenmerken": [
+    "Ca. 36 m²",
+    "Kingsize-Doppelbett",
+    "Großzügige Sitzecke mit bequemen Sesseln",
+    "Bademäntel und Hausschuhe",
+    "Luxuriöses Bad mit begehbarer Dusche",
+    "Große freistehende Badewanne"
+   ]
+  }
+ }
+}
