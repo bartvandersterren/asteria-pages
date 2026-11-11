@@ -722,3 +722,16 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   wandelen-rond-venray`. Feiten en aannames: `qa/routes/FEITEN-fietsen.md`, `FEITEN-wandelen.md`.
 - Test: `python3 -m http.server 8793` + `python3 scripts/test_route.py [URL] [--schermafdruk qa/routes] [--parkhotel]` (alle zes
   pagina's, 1440 en 390, Mews en /api gemockt; `--parkhotel` = ook de live Parkhotel-blokken en vergelijkingsbeelden in `<map>/vergelijk/`).
+
+## Feedback omgevingsweb (11 nov 2026, tak feature/omgeving-integratie)
+
+- Tripadvisor-reviewblok op alle omgevingspagina's (uitje/golf + routes na de FAQ, zoekpagina's op de plek van blok `reviews`,
+  overzicht `omgeving-v2` na de FAQ; niet op de categoriepagina's): build.py `ta_reviewblok(lang, extra_cls)`, data
+  `content/reviews-tripadvisor.json` (score, deelscores, per taal labels + reviews; letterlijk, alleen eigen taal, 4-5 bollen),
+  `reviews-ta.css` (prefix `rta`) + `reviews-ta.js` (pijlknop bureaublad). Het Google-reviewblok (`al-rev`) staat alleen nog op de adslanders.
+  De Google-badge in de zoekhero en schema.org-aggregateRating blijven Google.
+- Zoekpagina's telefoon (opzet "g9" van de Parkhotel-lander): hero = 100svh min `--kophoogte`, inhoud onderin (h1, sub, Google-regel
+  `zk-hero__google` met `google-uit` uit de labels, knop), badge en zekerheden in de hero verborgen; zekerheden als `ul.zk-chips` direct
+  onder de hero (alleen < 768 px). Bureaublad ongewijzigd.
+- Gescoopte CSS (adslanders blijven gelijk): kamerslider gap 16 px (`.ut`/`.rt`), `.ut .ut-arr__links a` zonder onderstreping,
+  categorietegels `om-meer` met verloop en witte naam.

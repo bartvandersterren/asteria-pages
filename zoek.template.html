@@ -15,7 +15,7 @@
     5a zk-well      mozaiek van de adslander (een groot + vier klein), kop + tekst + vier feiten erboven
     6b zk-arr       drie arrangementkaarten van de adslander, midden uitgelicht; prijskalender per code
     7b zk-ligging   getekende kaart (uitje.js + kaart-getekend.js) op twee derde, genummerde lijst rechts (zoek.css)
-    8a zk-rev       Google-reviews van de adslander
+    8a zk-rev       Tripadvisor-reviewblok (ta_reviewblok, reviews-ta.css)
     9a zk-faq       vragen met tabs van de adslander, FAQPage JSON-LD
     10b zk-slot     fotoband + overlegstrook van de adslander
     voet         spiegelvoet van /hotel-venray-v2
@@ -56,7 +56,9 @@
   <link rel="stylesheet" href="kaart-getekend.css">
   <link rel="stylesheet" href="arrangement-kalender.css">
   <link rel="stylesheet" href="zoek.css">
+  <link rel="stylesheet" href="reviews-ta.css">
   <script src="adslander.js" defer></script>
+  <script src="reviews-ta.js" defer></script>
   <script src="arrangement-kalender.js" defer></script>
   <script src="kaart-getekend.js" defer></script>
   <script src="uitje.js" defer></script>
@@ -220,25 +222,8 @@
 <!--[/blok]-->
 
 <!--[blok reviews]-->
-  <!-- 8a. Reviews van de adslander: Google-scorepaneel + kaarten -->
-  <section data-component="zk-rev" class="al-rev zk-rev">
-    <div class="al-rev__omhulsel">
-      <div class="al-rev__kop">
-        <h2>{{rev-kop}}</h2>
-        <p class="al-rev__score"><b>{{google-score}}</b><span class="al-rev__sterren" role="img" aria-label="{{google-score}}/5"><!-- ZK_STERREN --></span><a class="al-rev__aantal" href="{{rev-profiel}}" target="_blank" rel="noopener">{{google-aantal}}</a></p>
-      </div>
-      <div class="al-rev__strook">
-        <div class="al-rev__paneel">
-          <p class="al-rev__merk"><!-- ZK_GOOGLE_G -->Google</p>
-          <div class="al-rev__pkop"><span class="al-rev__cijfer">{{google-score}}</span><div><p class="al-rev__woord">{{rev-woord}}</p><p class="al-rev__pregel"><span class="al-rev__sterren" aria-hidden="true"><!-- ZK_STERREN --></span>{{google-aantal}}</p></div></div>
-          <!-- ZK_REV_VERTAALD -->
-          <a class="al-rev__alle" href="{{rev-profiel}}" target="_blank" rel="noopener">{{rev-alle}}</a>
-        </div>
-        <div class="al-rev__spoor" data-spoor tabindex="0" role="group" aria-label="{{rev-rij-label}}"><!-- ZK_REVIEWS --></div>
-        <button type="button" class="al-rev__pijl" data-stap="1" aria-label="{{rev-volgende}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
-      </div>
-    </div>
-  </section>
+  <!-- 8a. Tripadvisor-reviewblok (gedeeld met alle omgevingspagina's: build.py ta_reviewblok, reviews-ta.css/.js) -->
+  <!-- ZK_TA -->
 <!--[/blok]-->
 
 <!--[blok faq]-->

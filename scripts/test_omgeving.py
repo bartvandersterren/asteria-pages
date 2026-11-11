@@ -108,7 +108,7 @@ def test_pagina(b, pagina, w, tegelverwachting):
     # blokvolgorde
     comp = page.eval_on_selector_all('main > [data-component]', 'els=>els.map(e=>e.getAttribute("data-component"))')
     if sleutel == 'overzicht':
-        verwacht = ['om-hero', 'om-intro', 'om-raster', 'om-dag', 'om-kamers'] + (['om-arr'] if 'om-arr' in comp else []) + ['om-faq', 'al-rev', 'om-slot']
+        verwacht = ['om-hero', 'om-intro', 'om-raster', 'om-dag', 'om-kamers'] + (['om-arr'] if 'om-arr' in comp else []) + ['om-faq', 'rta', 'om-slot']
         check(f'{tag} arrangementenblok aanwezig', 'om-arr' in comp)
     else:
         uit = 'om-banen' if sleutel == 'golf' else 'om-uitjes'

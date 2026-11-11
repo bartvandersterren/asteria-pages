@@ -125,7 +125,7 @@ async def test_pagina(p, url, w, fouten):
     # blokvolgorde = Parkhotel (1b 2a 3b 4c 6a 7b 8a 9c 10a)
     comps = await pg.eval_on_selector_all('main [data-component]', 'es => es.map(e => e.getAttribute("data-component"))')
     zevenb = 'rt-arr' if soort == 'fietsen' else 'rt-kamers'
-    verwacht = ['rt-hero', 'rt-oog', 'rt-routes', 'rt-kaart', 'rt-prak', zevenb, 'rt-faq', 'rt-wissel', 'rt-slot']
+    verwacht = ['rt-hero', 'rt-oog', 'rt-routes', 'rt-kaart', 'rt-prak', zevenb, 'rt-faq', 'rta', 'rt-wissel', 'rt-slot']
     ok(comps == verwacht, f'blokvolgorde {comps}')
     ok(await pg.locator('.rt-kaartje').count() == len(routes), f'{len(routes)} routekaartjes')
     ok(await pg.locator('.rt-kaart__lijst .rt-rij').count() == len(routes), f'{len(routes)} lijstrijen')

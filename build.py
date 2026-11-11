@@ -1790,6 +1790,69 @@ AL_GOOGLE_G = ('<svg width="26" height="26" viewBox="0 0 48 48" aria-hidden="tru
                '<path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/>'
                '<path d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/></svg>')
 AL_STER = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg>'
+
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+# Tripadvisor-reviewblok (alle omgevingspagina's: uitje/golf, route, zoek, omgeving-overzicht). Nabouw van het
+# Parkhotel-blok blok-reviews-tripadvisor in de Asteria-stijl: kop + scoreregel, links het paneel (uil, cijfer,
+# woord, bollen, positie, zes deelscores), rechts een veegrij reviewkaarten. Data: content/reviews-tripadvisor.json
+# (per taal labels + reviews), CSS reviews-ta.css, pijlknop reviews-ta.js. Een bouwfunctie voor alle sjablonen.
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+TA_BESTAND = 'content/reviews-tripadvisor.json'
+TA_DELEN = ('locatie', 'kamers', 'prijs', 'hygiene', 'service', 'slaap')
+TA_UIL = ('<svg class="rta__uil" viewBox="0 0 64 40" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">'
+          '<path d="M5 12.5C12 6 22 3.5 32 3.5S52 6 59 12.5"/><circle cx="18.5" cy="23" r="11.5"/><circle cx="45.5" cy="23" r="11.5"/>'
+          '<circle cx="18.5" cy="23" r="4.6" fill="currentColor" stroke="none"/><circle cx="45.5" cy="23" r="4.6" fill="currentColor" stroke="none"/>'
+          '<path d="M28.5 32.5L32 37.5l3.5-5" stroke-width="3"/></svg>')
+TA_PIJL = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" '
+           'aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>')
+
+
+def ta_reviewblok(lang, extra_cls=''):
+    """Het Tripadvisor-reviewblok voor taal nl/de/en als HTML-sectie (id="reviews"). Stopt bij een ontbrekende
+    taal of label. Getallen met komma in nl/de, punt in en; bollen = data-vol (CSS kleurt ze in)."""
+    from html import escape
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), TA_BESTAND), encoding='utf-8') as f:
+        ta = json.load(f)
+    t = ta['talen'].get(lang)
+    if not t:
+        sys.exit(f'reviews-ta: taal {lang!r} ontbreekt in {TA_BESTAND}')
+    for k in ('url', 'kop', 'woord', 'aantal-label', 'positie', 'bron-paneel', 'bron-kaart', 'rij-label', 'pijl-label', 'deel', 'reviews'):
+        if not t.get(k):
+            sys.exit(f'reviews-ta: veld {k!r} leeg voor {lang} in {TA_BESTAND}')
+    getal = (lambda x: f'{x:.1f}') if lang == 'en' else (lambda x: f'{x:.1f}'.replace('.', ','))
+    score, url = getal(ta['score']), escape(t['url'])
+
+    def bollen(n, label, klein=False):
+        mod = ' rta-bollen--klein' if klein else ''
+        aria = f' role="img" aria-label="{label}"' if label else ' aria-hidden="true"'
+        return f'<span class="rta-bollen{mod}" data-vol="{int(n)}"{aria}>' + '<i></i>' * 5 + '</span>'
+
+    aantal = f'{ta["aantal"]} {t["aantal-label"]}'
+    deel = ''.join(f'<div class="rta__rij"><span class="rta__dnaam">{t["deel"][k]}</span><span class="rta__meting"><span class="rta__baan">'
+                   f'<span class="rta__vul" style="--score:{ta["deel"][k]}"></span></span><span class="rta__dcijfer">{getal(ta["deel"][k])}</span></span></div>'
+                   for k in TA_DELEN)
+    kaarten = []
+    for r in t['reviews']:
+        n = int(r['bollen'])
+        if n < 4:
+            sys.exit(f'reviews-ta: review van {r["naam"]} ({lang}) heeft minder dan 4 bollen')
+        kaarten.append(f'<article class="rta__kaart">{bollen(n, f"{n}/5")}'
+                       f'<p class="rta__naam">{escape(r["naam"], quote=False)} <span class="rta__datum">&middot; {escape(r["datum"], quote=False)}</span></p>'
+                       f'<p class="rta__titel">{escape(r["titel"], quote=False)}</p>'
+                       f'<p class="rta__tekst">{escape(r["tekst"], quote=False)}</p>'
+                       f'<p class="rta__bron">{t["bron-kaart"]} <b>Tripadvisor</b></p></article>')
+    return (f'<section data-component="rta" class="al-sec rta{extra_cls}" id="reviews"><div class="rta__omhulsel">'
+            f'<div class="rta__kop"><h2>{t["kop"]}</h2><p class="rta__score"><b>{score}</b>{bollen(ta["bollen"], score + "/5")}'
+            f'<a class="rta__aantal" href="{url}" target="_blank" rel="noopener">{aantal}</a></p></div>'
+            f'<div class="rta__strook" data-rta-strook><div class="rta__paneel"><div class="rta__zij">'
+            f'<p class="rta__merk">{TA_UIL}<span>Tripadvisor</span></p>'
+            f'<div class="rta__pkop"><span class="rta__cijfer">{score}</span><div><p class="rta__woord">{t["woord"]}</p>'
+            f'<p class="rta__pregel">{bollen(ta["bollen"], score + "/5", True)}<a class="rta__aantal" href="{url}" target="_blank" rel="noopener">({aantal})</a></p></div></div>'
+            f'<p class="rta__rang">{t["positie"]}</p><p class="rta__bron">{t["bron-paneel"]} <b>Tripadvisor</b></p></div>'
+            f'<div class="rta__deel">{deel}</div></div>'
+            f'<div class="rta__spoor" tabindex="0" role="group" aria-label="{t["rij-label"]}">{"".join(kaarten)}</div>'
+            f'<button type="button" class="rta__pijl" data-rta-pijl aria-label="{t["pijl-label"]}">{TA_PIJL}</button></div></div></section>')
+
 AL_VINK = ('<svg class="al-vink" width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" '
            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>')
 AL_TRUST_IC = ('<svg class="al-trust__ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
@@ -2637,6 +2700,8 @@ def build_uitje(config, output_file, json_file, template_name, lang):
     blok['UT_POPDATA'] = ('<script type="application/json" id="ut-popdata">'
                           + json.dumps({'uitje': pop_uitje, 'kamer': popkamer}, ensure_ascii=False).replace('</', '<\\/') + '</script>')
 
+    blok['UT_TA'] = ta_reviewblok(lang, ' ut-rta')
+
     blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'], taal=lang)
     # kamerlinks in de spiegelvoet (zonder actiecode) krijgen ook de Mews-taal, net als de rest van de pagina
     blok['AL_KOP'], blok['AL_VOET'] = (x.replace('af1d00ffc556?mewsRoom=', f'af1d00ffc556?language={taal}&amp;mewsRoom=') for x in (blok['AL_KOP'], blok['AL_VOET']))
@@ -3008,29 +3073,9 @@ def build_zoek(config, output_file, json_file, template_name, lang):
         kaart = dict(kaart, punten=[{k: v for k, v in pt.items() if k not in ('url', 'url-label')} for pt in kaart['punten']])
         blok['ZK_KAART_PUNTEN'] = '<script type="application/json" id="ut-kaart-punten">' + json.dumps(kaart, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 
-    # 8a reviews (taal uit rev-bestand)
+    # 8a reviews: het gedeelde Tripadvisor-blok (content/reviews-tripadvisor.json); de Google-badge in de hero blijft
     if 'reviews' in aan:
-        with open(os.path.join(base, d['rev-bestand']), encoding='utf-8') as f:
-            rv = json.load(f)
-        d['rev-profiel'] = escape(rv.get('profiel_url', 'https://www.google.com/maps?cid=10392502528258527703'))
-        blok['ZK_STERREN'] = AL_STER * 4 + AL_STER.replace('<svg ', '<svg style="opacity:.35" ', 1)
-        rk = []
-        namen = d.get('rev-namen')   # optioneel: selectie en volgorde op naam (zelfde reviews in elke taal)
-        if namen:
-            per_naam = {r['naam']: r for r in rv['reviews']}
-            mis = [n for n in namen if n not in per_naam]
-            if mis:
-                sys.exit(f'zoek: rev-namen niet in {d["rev-bestand"]}: {mis}')
-            rv['reviews'] = [per_naam[n] for n in namen]
-        for r in rv['reviews']:
-            st = max(1, min(5, int(r.get('sterren') or 5)))
-            rk.append(f'<article class="al-rev__kaart"><span class="al-rev__sterren" role="img" aria-label="{st}/5">{AL_STER * st}</span>'
-                      f'<p class="al-rev__naam">{escape(r["naam"], quote=False)} <span class="al-rev__datum">&middot; {escape(r.get("datum", ""), quote=False)}</span></p>'
-                      f'<p class="al-rev__tekst">„{escape(r["tekst"], quote=False)}“</p>'
-                      f'<p class="al-rev__bron">{d["rev-bron"]} <b>Google</b></p></article>')
-        blok['ZK_REVIEWS'] = ''.join(rk)
-        blok['ZK_REV_VERTAALD'] = ('<p class="al-rev__vertaald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>'
-                                   f'{d["rev-vertaald"]}</p>') if d.get('rev-vertaald') else ''
+        blok['ZK_TA'] = ta_reviewblok(lang, ' zk-rev')
 
     # 9a vragen: tabs faq-tab-T met vragen faq-T-N-v/-a (een tab = geen tablist); FAQPage = zichtbare tekst zonder tags
     if 'faq' in aan:
@@ -3710,33 +3755,8 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
         blok['OM_ARR'] = (f'<section data-component="om-arr" class="al-sec om-arr"><div class="ut-wrap--breed"><div class="om-arr__kop"><div><h2>{d["arr-kop"]}</h2>'
                           f'<p class="om-arr__sub">{d["arr-sub"]}</p></div><a class="al-intro__link" href="spiegel:arrangementen">{L["arr-alle"]} {UT_PIJL}</a></div>'
                           f'<div class="om-arr__rij">{"".join(ak[:3])}</div></div></section>') if ak else ''
-        # Google-reviews (opbouw van de adslander, NL-bron met de originele reviewtekst)
-        rev_taal = f'content/reviews-google-asteria-{lang}.json'
-        rev_pad = d.get('rev-bestand') or (rev_taal if lang != 'nl' and os.path.exists(os.path.join(base, rev_taal)) else 'content/reviews-google-asteria.json')
-        with open(os.path.join(base, rev_pad), encoding='utf-8') as f:
-            rv = json.load(f)
-        noot = L.get('rev-vertaald', '') if rev_pad == rev_taal else (L.get('rev-origineel', '') if lang != 'nl' else '')
-        noot = f'<p class="al-rev__vertaald">{noot}</p>' if noot else ''
-        score = f'{rv["gemiddelde"]:.1f}'.replace('.', ',')
-        aantal = L['rev-aantal'].format(n=f'{rv["aantal"]:,}'.replace(',', '.'))
-        profiel = escape(rv.get('profiel_url', 'https://www.google.com/maps?cid=10392502528258527703'))
-        sterren = AL_STER * 4 + AL_STER.replace('<svg ', '<svg style="opacity:.35" ', 1)
-        rk = []
-        for r in rv['reviews'][:12]:
-            st = max(1, min(5, int(r.get('sterren') or 5)))
-            rk.append(f'<article class="al-rev__kaart"><span class="al-rev__sterren" role="img" aria-label="{st}/5">{AL_STER * st}</span>'
-                      f'<p class="al-rev__naam">{escape(r["naam"], quote=False)} <span class="al-rev__datum">&middot; {escape(r.get("datum", ""), quote=False)}</span></p>'
-                      f'<p class="al-rev__tekst">&bdquo;{escape(r["tekst"], quote=False)}&rdquo;</p>'
-                      f'<p class="al-rev__bron">{L["rev-bron"]} <b>Google</b></p></article>')
-        blok['OM_REVIEWS'] = (
-            f'<section data-component="al-rev" class="al-rev om-rev"><div class="al-rev__omhulsel"><div class="al-rev__kop"><h2>{d["rev-kop"]}</h2>'
-            f'<p class="al-rev__score"><b>{score}</b><span class="al-rev__sterren" role="img" aria-label="{score}/5">{sterren}</span>'
-            f'<a class="al-rev__aantal" href="{profiel}" target="_blank" rel="noopener">{aantal}</a></p></div>'
-            f'<div class="al-rev__strook"><div class="al-rev__paneel"><p class="al-rev__merk">{AL_GOOGLE_G}Google</p>'
-            f'<div class="al-rev__pkop"><span class="al-rev__cijfer">{score}</span><div><p class="al-rev__pregel"><span class="al-rev__sterren" aria-hidden="true">{sterren}</span>{aantal}</p></div></div>{noot}'
-            f'<a class="al-rev__alle" href="{profiel}" target="_blank" rel="noopener">{L["rev-alle"]}</a></div>'
-            f'<div class="al-rev__spoor" data-spoor tabindex="0" role="group" aria-label="{L["rev-rij-label"]}">{"".join(rk)}</div>'
-            f'<button type="button" class="al-rev__pijl" data-stap="1" aria-label="{L["rev-volgende"]}">{OM_PIJL_R}</button></div></div></section>')
+        # Tripadvisor-reviewblok (gedeeld met de andere omgevingspagina's)
+        blok['OM_REVIEWS'] = ta_reviewblok(lang, ' om-rev')
     else:
         # categoriepagina: vier icoontegels
         tegels = []
@@ -4339,6 +4359,7 @@ def build_route(template_name, lang):
             {'@type': 'ListItem', 'position': 2, 'name': d['kruimel-gebied'], 'item': RT_BASIS + 'omgeving'},
             {'@type': 'ListItem', 'position': 3, 'name': plat(d['kruimel'])}]}]}, ensure_ascii=False).replace('</', '<\\/')
 
+    blok['RT_TA'] = ta_reviewblok(lang, ' rt-rta')
     blok['AL_KOP'], blok['AL_VOET'] = rt_kop_voet(d, d['mews-basis'], lang)
 
     for k, v in blok.items():
