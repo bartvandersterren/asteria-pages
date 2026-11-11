@@ -2777,6 +2777,21 @@ def om_kop_voet(d, mews_basis, taal):
 OM_LABELS_PAD = 'translations/omgeving-labels-{taal}.json'
 
 
+def om_arr_url(slug, nl_url, taal):
+    """Adres van een arrangementpagina in de paginataal: een TEMPLATES-uitvoer <slug>-<taal>.html die bestaat en niet de oude
+    Mews-config bee2f902 gebruikt; anders de NL-pagina."""
+    if taal == 'nl':
+        return nl_url
+    naam = f'{slug}-{taal}.html'
+    for cfg in TEMPLATES.values():
+        uit = (cfg['langs'].get(taal) or ('',))[0]
+        if uit == naam and os.path.exists(os.path.join(base, naam)):
+            with open(os.path.join(base, naam), encoding='utf-8') as f:
+                if 'bee2f902' not in f.read():
+                    return '/' + naam[:-5]
+    return nl_url
+
+
 def build_omgeving(config, output_file, json_file, template_name, lang):
     from html import escape
     if not os.path.exists(os.path.join(base, json_file)):
@@ -2840,9 +2855,9 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
                        f'aria-expanded="{"true" if j == 0 else "false"}" aria-controls="om-moment-{i}-open"><span class="ut-moment__deel">{d[f"m{i}-deel"]}</span>'
                        f'<span class="ut-moment__naam">{d[f"m{i}-naam"]}</span></button></h3><div class="ut-moment__open" id="om-moment-{i}-open"><div>'
                        f'<p class="ut-moment__tekst">{d[f"m{i}-tekst"]}</p></div></div></li>' for j, i in enumerate(m))
-    spiegel = pagina != 'overzicht'
-    start = d.get('dag-start', '2' if spiegel else '1')
-    blok['OM_DAG'] = (f'<section data-component="om-dag" class="al-sec ut-dag om-dag{" om-dag--spiegel" if spiegel else ""}" data-start="{start}"><div class="al-wrap">'
+    # categorie: spiegelbeeld van het arrangementblok erboven (daar foto links), dus hier paneel links en foto rechts; moment 2 open
+    start = d.get('dag-start', '1' if pagina == 'overzicht' else '2')
+    blok['OM_DAG'] = (f'<section data-component="om-dag" class="al-sec ut-dag om-dag" data-start="{start}"><div class="al-wrap">'
                       f'<div class="ut-dag__blok"><div class="ut-dag__bg" aria-hidden="true"></div><div class="ut-dag__foto">{beelden}</div>'
                       f'<div class="ut-dag__inner"><h2>{d["dag-kop"]}</h2><p class="ut-dag__sub">{d["dag-sub"]}</p><ol class="ut-dag__lijst" aria-label="{L["dag-lijst-label"]}">{momenten}</ol>'
                       f'<a class="btn btn-primary al-btn mews-open om-dag__knop" href="{mews()}">{L["knop-boek"]}</a></div></div></div></section>')
@@ -2920,6 +2935,8 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
                 c = json.load(f).get('canonical')
             if c:
                 alt.append(f'<link rel="alternate" hreflang="{t}" href="{c}">')
+    if len(alt) > 1 and 'hreflang="nl"' in alt[0]:
+        alt.append(alt[0].replace('hreflang="nl"', 'hreflang="x-default"'))
     blok['OM_HREFLANG'] = '\n  '.join(alt) if len(alt) > 1 else ''
 
     if pagina == 'overzicht':
@@ -2969,18 +2986,25 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
                 continue
             with open(bron, encoding='utf-8') as f:
                 a = json.load(f)
-            regel = ao[slug].get('oms') or a['SUB'].split('. ')[0].rstrip('.') + '.'
-            vink = ''.join(f'<li>{AL_VINK}<span>{a["KAART_VINK_" + x]}</span></li>' for x in 'ABC' if a.get('KAART_VINK_' + x))
-            ak.append(f'<article class="om-ak"><a class="om-ak__foto" href="{ao[slug]["url"]}" tabindex="-1" aria-hidden="true">'
+            at = (d.get('_arr_teksten') or {}).get(slug) or {}
+            regel = at.get('regel') or ao[slug].get('oms') or a['SUB'].split('. ')[0].rstrip('.') + '.'
+            vinken = at.get('vink') or [a['KAART_VINK_' + x] for x in 'ABC' if a.get('KAART_VINK_' + x)]
+            vink = ''.join(f'<li>{AL_VINK}<span>{v}</span></li>' for v in vinken)
+            arr_url = om_arr_url(slug, ao[slug]['url'], lang)
+            ak.append(f'<article class="om-ak"><a class="om-ak__foto" href="{arr_url}" tabindex="-1" aria-hidden="true">'
                       f'<img src="{bestaat(a["HERO_IMG"])}" alt="" width="800" height="533" loading="lazy" decoding="async"></a>'
-                      f'<div class="om-ak__body"><h3 class="om-ak__naam">{a["KAART_KOP"]}</h3><p class="om-ak__regel">{regel}</p>'
-                      f'<ul class="om-ak__incl">{vink}</ul><a class="btn btn-primary om-ak__knop" href="{ao[slug]["url"]}">{L["knop-arr"]}</a></div></article>')
+                      f'<div class="om-ak__body"><h3 class="om-ak__naam">{at.get("naam") or a["KAART_KOP"]}</h3><p class="om-ak__regel">{regel}</p>'
+                      f'<ul class="om-ak__incl">{vink}</ul><a class="btn btn-primary om-ak__knop" href="{arr_url}">{L["knop-arr"]}</a></div></article>')
         blok['OM_ARR'] = (f'<section data-component="om-arr" class="al-sec om-arr"><div class="ut-wrap--breed"><div class="om-arr__kop"><div><h2>{d["arr-kop"]}</h2>'
                           f'<p class="om-arr__sub">{d["arr-sub"]}</p></div><a class="al-intro__link" href="spiegel:arrangementen">{L["arr-alle"]} {UT_PIJL}</a></div>'
                           f'<div class="om-arr__rij">{"".join(ak[:3])}</div></div></section>') if ak else ''
         # Google-reviews (opbouw van de adslander, NL-bron met de originele reviewtekst)
-        with open(os.path.join(base, d.get('rev-bestand', 'content/reviews-google-asteria.json')), encoding='utf-8') as f:
+        rev_taal = f'content/reviews-google-asteria-{lang}.json'
+        rev_pad = d.get('rev-bestand') or (rev_taal if lang != 'nl' and os.path.exists(os.path.join(base, rev_taal)) else 'content/reviews-google-asteria.json')
+        with open(os.path.join(base, rev_pad), encoding='utf-8') as f:
             rv = json.load(f)
+        noot = L.get('rev-vertaald', '') if rev_pad == rev_taal else (L.get('rev-origineel', '') if lang != 'nl' else '')
+        noot = f'<p class="al-rev__vertaald">{noot}</p>' if noot else ''
         score = f'{rv["gemiddelde"]:.1f}'.replace('.', ',')
         aantal = L['rev-aantal'].format(n=f'{rv["aantal"]:,}'.replace(',', '.'))
         profiel = escape(rv.get('profiel_url', 'https://www.google.com/maps?cid=10392502528258527703'))
@@ -2997,7 +3021,7 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
             f'<p class="al-rev__score"><b>{score}</b><span class="al-rev__sterren" role="img" aria-label="{score}/5">{sterren}</span>'
             f'<a class="al-rev__aantal" href="{profiel}" target="_blank" rel="noopener">{aantal}</a></p></div>'
             f'<div class="al-rev__strook"><div class="al-rev__paneel"><p class="al-rev__merk">{AL_GOOGLE_G}Google</p>'
-            f'<div class="al-rev__pkop"><span class="al-rev__cijfer">{score}</span><div><p class="al-rev__pregel"><span class="al-rev__sterren" aria-hidden="true">{sterren}</span>{aantal}</p></div></div>'
+            f'<div class="al-rev__pkop"><span class="al-rev__cijfer">{score}</span><div><p class="al-rev__pregel"><span class="al-rev__sterren" aria-hidden="true">{sterren}</span>{aantal}</p></div></div>{noot}'
             f'<a class="al-rev__alle" href="{profiel}" target="_blank" rel="noopener">{L["rev-alle"]}</a></div>'
             f'<div class="al-rev__spoor" data-spoor tabindex="0" role="group" aria-label="{L["rev-rij-label"]}">{"".join(rk)}</div>'
             f'<button type="button" class="al-rev__pijl" data-stap="1" aria-label="{L["rev-volgende"]}">{OM_PIJL_R}</button></div></div></section>')
@@ -3011,6 +3035,8 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
         blok['OM_ICOTEGELS'] = ''.join(tegels)
         eigen = per_cat[pagina]
         if pagina == 'golf':
+            bt = d.get('_baan_teksten') or {}
+            eigen = [dict(x, **{k: v for k, v in (bt.get(x['naam']) or {}).items() if k in ('tekst', 'rijtijd', 'alt', 'plaats')}) for x in eigen]
             chips = d.get('_baan_chips') or {}
             bk = []
             for x in eigen:
@@ -3075,11 +3101,13 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
             cfg = a.get('MEWS_CONFIG') or '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
             nachten = int(a.get('ARR_NACHTEN') or 1)
             fotos = (a.get('_inbegrepen_fotos') or [])[:6] or [{'img': a['HERO_IMG'], 'alt': a.get('HERO_ALT', '')}]
+            alts = d.get('_arr_alts') or []
+            fotos = [dict(x, alt=alts[j]) if j < len(alts) else x for j, x in enumerate(fotos)]
             dia = ''.join(f'<figure class="om-fs__dia"><img src="{bestaat(x["img"])}" alt="{escape(x.get("alt", ""))}" width="800" height="1000" loading="lazy" decoding="async" '
                           f'style="object-position:{x.get("pos", "50% 50%")}"></figure>' for x in fotos)
             bol = ''.join(f'<button type="button" class="om-fs__bol{" is-aan" if j == 0 else ""}" data-fs-naar="{j}" aria-label="{L["fs-foto"]} {j + 1}"></button>' for j in range(len(fotos)))
             vink = [d[f'arr-vink{i}'] for i in range(1, 7) if d.get(f'arr-vink{i}')] or [a[f'KAART_VINK_{x}'] for x in 'ABCD' if a.get(f'KAART_VINK_{x}')]
-            url = '/' + urllib.parse.urlparse(a.get('CANONICAL_URL', '')).path.lstrip('/')
+            url = om_arr_url(d['arr-bron'], '/' + urllib.parse.urlparse(a.get('CANONICAL_URL', '')).path.lstrip('/'), lang)
             blok['OM_CONVERSIE'] = (
                 f'<section data-component="om-carr" class="al-sec om-carr" id="arrangement"><div class="al-wrap"><div class="om-carr__blok">'
                 f'<div class="om-carr__bg" aria-hidden="true"></div>'

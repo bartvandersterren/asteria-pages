@@ -17,7 +17,10 @@
     '#days-out': 'om-f-dagje-uit', '#shoppen': 'om-f-shoppen-steden', '#shoppen-steden': 'om-f-shoppen-steden',
     '#shoppen-en-steden': 'om-f-shoppen-steden', '#einkaufen': 'om-f-shoppen-steden', '#shopping': 'om-f-shoppen-steden',
     '#te-voet': 'om-t-lopen', '#op-de-fiets': 'om-t-fiets', '#met-de-auto': 'om-t-auto', '#on-foot': 'om-t-lopen',
-    '#by-bike': 'om-t-fiets', '#by-car': 'om-t-auto', '#zu-fuss': 'om-t-lopen', '#mit-dem-rad': 'om-t-fiets', '#mit-dem-auto': 'om-t-auto'
+    '#by-bike': 'om-t-fiets', '#by-car': 'om-t-auto', '#zu-fuss': 'om-t-lopen', '#mit-dem-rad': 'om-t-fiets', '#mit-dem-auto': 'om-t-auto',
+    '#natur': 'om-f-natuur', '#tagesausfluege': 'om-f-dagje-uit', '#ausflug': 'om-f-dagje-uit', '#shoppen-und-staedte': 'om-f-shoppen-steden',
+    '#einkaufen-und-staedte': 'om-f-shoppen-steden', '#staedte': 'om-f-shoppen-steden', '#shopping-and-cities': 'om-f-shoppen-steden',
+    '#cities': 'om-f-shoppen-steden', '#mit-dem-fahrrad': 'om-t-fiets', '#zu-fuß': 'om-t-lopen', '#walking': 'om-t-lopen', '#cycling': 'om-t-fiets'
   };
   function deeplink() {
     var id = HASH[(location.hash || '').toLowerCase()];

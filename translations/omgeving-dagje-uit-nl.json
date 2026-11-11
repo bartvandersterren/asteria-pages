@@ -12,8 +12,8 @@
   "_controleren": [
     "Rijtijd Toverland: 26 min in uitje-toverland-nl.json, 25 min in beslisdocument; in de tekst 'ongeveer een half uur'.",
     "Thermaalbad Arcen: rijtijd 23 min uit beslisdocument (kolom A) en zoek-JSON.",
-    "Wellness voor hotelgasten (f3): wellness is volgens hotel-content.md ook extern te reserveren; tijden onbekend.",
-    "Late aankomst melden (f5): huisregel nakijken."
+    "Late aankomst melden (f5): huisregel nakijken.",
+    "Openingstijden wellness (f3): niet bekend, tekst verwijst naar de receptie."
   ],
   "titel": "Dagje uit rond Venray, dieren en attracties | Hotel Asteria",
   "omschrijving": "Een dagje uit vanuit Hotel Asteria in Venray: ZooParc Overloon, Mind Mystery, Toverland en Thermaalbad Arcen, met rijtijden vanaf het hotel.",
@@ -82,7 +82,7 @@
   "f2-v": "Hoe ver is Toverland?",
   "f2-a": "Toverland in Sevenum ligt op ongeveer een half uur rijden van het hotel.",
   "f3-v": "Kan ik na een dag in het thermaalbad nog naar de wellness?",
-  "f3-a": "Ja, de wellness op de Top Floor is voor hotelgasten. Vraag bij de receptie naar de tijden.",
+  "f3-a": "Ja. Terug in het hotel wacht de wellness op de Top Floor, met vier sauna's, een stoomcabine en een dompelbad. Vraag bij de receptie naar de openingstijden.",
   "f4-v": "Is ZooParc Overloon het hele jaar open?",
   "f4-a": "De openingstijden wisselen per seizoen. Kijk voor je bezoek op de site van het park.",
   "f5-v": "Kan ik laat inchecken na een dag uit?",

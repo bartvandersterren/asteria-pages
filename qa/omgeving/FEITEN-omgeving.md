@@ -31,7 +31,7 @@ Effecty-staging of de gespiegelde `omgeving.html`. Feiten alleen uit de bronnen 
 3. Tickets via de receptie: hotel-content.md noemt tickets voor Kasteeltuinen en Oorlogsmuseum; de tekst belooft alleen dat de receptie helpt.
 4. Kasteeltuinen Arcen staat volgens de afgesproken indeling bij Cultuur; het uitje-JSON heeft hero-cat "Dagje uit".
 5. Golf: aantal holes per baan (Bleijenbeek), par, niveau, oefenfaciliteiten, buggy's en starttijden: geen bron, dus niet op de pagina (geen tabelrij, geen chip). FAQ f4 (starttijd) verwijst naar de receptie.
-6. "De wellness op de Top Floor is voor hotelgasten" (dagje uit f3): wellness is volgens HC ook extern te reserveren; tijden niet bekend.
+6. Wellness (dagje uit f3): neutraal geformuleerd ("de wellness op de Top Floor"), zonder "voor hotelgasten"; openingstijden niet bekend, tekst verwijst naar de receptie.
 7. Late aankomst melden bij de receptie (dagje uit f5) en aankopen in het hotel laten (shoppen f6): huisregel nakijken.
 8. Natuur m1: "bezoekerscentrum van De Maasduinen in Well" (UJ kaart-naam), openingstijden niet genoemd.
 9. Heidebloei eind augustus (natuur f5): algemeen bekend, geen bron in de repo.

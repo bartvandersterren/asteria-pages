@@ -20,6 +20,12 @@
    1 hero (uitje-recept): geen categorieregel; knoppen onder de sub
    ========================================================================== */
 .om-hero .ut-hero__wrap { padding-bottom:150px }
+/* leesbaarheid op lichte foto's (golf): extra donker middenvlak achter de tekst, accentwoord in het lichte terracotta van het slot */
+.al-hero.om-hero .al-hero__foto::after { background:
+  radial-gradient(ellipse 62% 48% at 50% 42%, rgba(43,26,4,.55) 0%, rgba(43,26,4,.28) 70%, rgba(43,26,4,0) 100%),
+  linear-gradient(180deg, rgba(43,26,4,.5) 0%, rgba(43,26,4,.45) 55%, rgba(43,26,4,.85) 100%) }
+.om-hero h1,.om-hero .al-hero__sub { text-shadow:0 2px 18px rgba(0,0,0,.45) }
+.al .om-hero .al-g { color:#E9A68C }
 
 /* ==========================================================================
    2 intro (overzicht): smal paneel over de hero, daaronder vijf tegels
@@ -136,22 +142,11 @@
 .om-route:hover .om-route__link { text-decoration:underline }
 
 /* ==========================================================================
-   4 dag in vier momenten (uitje.css), label op de foto; categorie: spiegelbeeld (foto links)
+   4 dag in vier momenten (uitje.css), label op de foto; paneel links, foto rechts (spiegelbeeld van het arrangementblok)
    ========================================================================== */
 .om-dag__tag { position:absolute; left:16px; bottom:16px; z-index:2; padding:7px 14px; border-radius:var(--radius-pill); background:var(--surface); color:var(--ink);
   font-family:var(--font-display); font-weight:700; font-size:17px; line-height:1 }
 .al .om-dag__knop { margin-top:18px }
-@media (min-width:1024px) {
-  .om-dag--spiegel .ut-dag__foto { right:auto; left:0 }
-  .om-dag--spiegel .ut-dag__bg { left:317px; right:calc(var(--over) * -1); border-radius:var(--radius-card) 0 0 var(--radius-card) }
-  .om-dag--spiegel .ut-dag__inner { margin-left:auto; padding-left:56px }
-}
-@media (min-width:1280px) { .om-dag--spiegel .ut-dag__foto { left:-80px; right:auto } }
-@media (min-width:1024px) and (max-width:1279px) {
-  .om-dag--spiegel .ut-dag__bg { left:237px; right:calc(var(--over) * -1) }
-  .om-dag--spiegel .ut-dag__inner { padding-left:40px }
-}
-
 /* ==========================================================================
    6 arrangementen (overzicht): kop + sub links, link rechts, drie kaarten zonder prijs
    ========================================================================== */
@@ -305,6 +300,7 @@
 }
 @media (max-width:767px) {
   .om-hero .ut-hero__wrap { padding-bottom:112px }
+  .al-hero.om-hero .al-hero__foto::after { background:linear-gradient(180deg, rgba(43,26,4,.55) 0%, rgba(43,26,4,.55) 55%, rgba(43,26,4,.88) 100%) }
   .om-intro,.om-cintro { margin-top:-64px }
   .om-intro__kaart { padding:30px 20px; gap:12px }
   .al .om-intro__kaart h2,.al .om-cintro__tekst h2 { font-size:30px }
