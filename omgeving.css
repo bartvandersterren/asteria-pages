@@ -300,6 +300,7 @@
 }
 @media (max-width:767px) {
   .om-hero .ut-hero__wrap { padding-bottom:112px }
+  .om-hero .ut-hero__tekst { padding:0 16px; box-sizing:border-box }
   .al-hero.om-hero .al-hero__foto::after { background:linear-gradient(180deg, rgba(43,26,4,.55) 0%, rgba(43,26,4,.55) 55%, rgba(43,26,4,.88) 100%) }
   .om-intro,.om-cintro { margin-top:-64px }
   .om-intro__kaart { padding:30px 20px; gap:12px }

@@ -1,0 +1,170 @@
+{
+  "_uitleg": "English version of translations/omgeving-golf-nl.json (British English). Photos, icons and rooms as NL; cards come from om_register('en') (falls back to the NL day-out file while there is no English one).",
+  "canonical": "https://visit.asteria.nl/omgeving-golf-v2-en",
+  "hero-knop2-url": "#uitjes",
+  "intro-knop2": "All days out nearby",
+  "intro-knop2-url": "/omgeving-v2-en",
+  "dag-start": "2",
+  "meer-alle": "Back to the overview",
+  "slot-knop2": "View the packages",
+  "slot-knop2-url": "spiegel:arrangementen",
+  "slot-focus": "50%",
+  "_controleren": [
+    "Holes, par, level, practice facilities, buggies: no source, so not on the page.",
+    "Tee time (f4): refers to reception.",
+    "No English golf package page in the repo: link goes to the Dutch /golfarrangement; the price calendar has no English labels, so the button opens Mews directly with code GOLF.",
+    "Native-speaker check of the English copy."
+  ],
+  "titel": "Golf around Venray: two courses close by | Hotel Asteria",
+  "omschrijving": "Golf around Hotel Asteria in Venray: Golfclub Geijsteren a quarter of an hour away and Golfbaan Landgoed Bleijenbeek. With a golf package including an 18-hole green fee.",
+  "hero-kop": "Golf around <span class='al-g'>Venray</span>",
+  "hero-sub": "A woodland course on a historic estate and a rolling course by a castle ruin, both close to the hotel.",
+  "hero-foto": "fotos/l26-golfarrangement-hero.webp",
+  "hero-alt": "Golfer teeing off on the fairway, with a golf bag in the foreground",
+  "hero-focus": "50% 50%",
+  "hero-knop2": "View the courses",
+  "intro-kop": "Two courses, one <span class='al-g'>hotel</span>",
+  "intro-tekst": "Golfclub Geijsteren is a quarter of an hour away and Golfbaan Landgoed Bleijenbeek in Afferden about 25 minutes. Play your round, come back for the sauna and take a seat in the brasserie. The golf package includes the green fee for 18 holes.",
+  "p1-ico": "<path d='M9 19V3l8 3.5-8 3.5'/><ellipse cx='12' cy='19' rx='9' ry='2'/>",
+  "p1-kop": "Two courses",
+  "p1-regel": "Geijsteren and Bleijenbeek.",
+  "p2-ico": "<path d='M3.5 16.5v-4L6 7h12l2.5 5.5v4z'/><path d='M3.5 12.5h17'/><circle cx='7.5' cy='16.5' r='1.8'/><circle cx='16.5' cy='16.5' r='1.8'/>",
+  "p2-kop": "Close by",
+  "p2-regel": "A quarter of an hour to 25 minutes' drive.",
+  "p3-ico": "<path d='M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z'/><path d='M15 7v2M15 11.5v1M15 15v2'/>",
+  "p3-kop": "Green fee included",
+  "p3-regel": "18 holes in the golf package.",
+  "p4-ico": "<path d='M8 3c-1 1.5 1 2.5 0 4M12 3c-1 1.5 1 2.5 0 4M16 3c-1 1.5 1 2.5 0 4'/><path d='M3 11h18v4H3z'/><path d='M5 15v6M19 15v6'/>",
+  "p4-kop": "After your round",
+  "p4-regel": "Wellness and a three-course dinner.",
+  "uitjes-kop": "Choose your <span class='al-g'>course</span>",
+  "uitjes-sub": "Drive times from Hotel Asteria.",
+  "_baan_chips": {
+    "Golfclub Geijsteren": [
+      "Woodland course",
+      "Historic estate",
+      "5 water holes"
+    ],
+    "Golfbaan Landgoed Bleijenbeek": [
+      "Rolling",
+      "Water features",
+      "Castle ruin"
+    ]
+  },
+  "_vergelijk": {
+    "kop": "Which course suits <span class='al-g'>you</span>?",
+    "sub": "The two courses side by side.",
+    "rijen": [
+      {
+        "label": "Drive time",
+        "ico": "<path d='M3.5 16.5v-4L6 7h12l2.5 5.5v4z'/><path d='M3.5 12.5h17'/><circle cx='7.5' cy='16.5' r='1.8'/><circle cx='16.5' cy='16.5' r='1.8'/>",
+        "waarden": {
+          "Golfclub Geijsteren": "approx. 15 minutes",
+          "Golfbaan Landgoed Bleijenbeek": "approx. 25 minutes"
+        }
+      },
+      {
+        "label": "Location",
+        "ico": "<path d='M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6z'/><path d='M9 4v14M15 6v14'/>",
+        "waarden": {
+          "Golfclub Geijsteren": "Geijsteren",
+          "Golfbaan Landgoed Bleijenbeek": "Afferden"
+        }
+      },
+      {
+        "label": "Character",
+        "ico": "<path d='M5 19C5 10 10.5 5 20 4c0 9.5-5.5 15-14 15z'/><path d='M5 19l9-9'/>",
+        "waarden": {
+          "Golfclub Geijsteren": "Wooded, on a historic estate",
+          "Golfbaan Landgoed Bleijenbeek": "Rolling, in the Maasduinen area"
+        }
+      },
+      {
+        "label": "Highlights",
+        "ico": "<path d='M9 19V3l8 3.5-8 3.5'/><ellipse cx='12' cy='19' rx='9' ry='2'/>",
+        "waarden": {
+          "Golfclub Geijsteren": "13 holes among the trees, then 5 water holes",
+          "Golfbaan Landgoed Bleijenbeek": "Water features, avenues of trees and a castle ruin"
+        }
+      },
+      {
+        "label": "In the package",
+        "ico": "<path d='M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z'/><path d='M15 7v2M15 11.5v1M15 15v2'/>",
+        "waarden": {
+          "Golfclub Geijsteren": "Green fee 18 holes",
+          "Golfbaan Landgoed Bleijenbeek": "Green fee 18 holes"
+        }
+      }
+    ]
+  },
+  "conversie": "arr",
+  "arr-bron": "golfarrangement",
+  "arr-kop": "The <span class='al-g'>golf package</span>",
+  "arr-sub": "A green fee for 18 holes at Geijsteren or Bleijenbeek, a three-course dinner, a night in a Royale room and the breakfast buffet. You'll see the price for your dates when you book.",
+  "dag-kop": "A day of <span class='al-g'>golf</span>",
+  "dag-sub": "From the first tee to dinner.",
+  "m1-deel": "Morning",
+  "m1-naam": "Breakfast",
+  "m1-tekst": "A hearty breakfast, then a quarter of an hour's drive to Geijsteren.",
+  "m1-foto": "fotos/l26-golfarrangement-ontbijt.webp",
+  "m1-alt": "A basket of rolls at the breakfast buffet",
+  "m2-deel": "Midday",
+  "m2-naam": "Your round",
+  "m2-tekst": "First among the trees, then the water holes. Take time for a drink in the clubhouse.",
+  "m2-foto": "fotos/l26-golfarrangement-baan-geijsteren.webp",
+  "m2-alt": "Green with flag and a bunker among the trees at Golfclub Geijsteren",
+  "m2-positie": "50% 60%",
+  "m3-deel": "Afternoon",
+  "m3-naam": "Unwind",
+  "m3-tekst": "Back at the hotel: sauna and plunge pool on the Top Floor.",
+  "m3-foto": "fotos/l26-wellness-arrangement-relax-stel.webp",
+  "m3-alt": "A couple relaxing in the wellness area",
+  "m4-deel": "Evening",
+  "m4-naam": "Three courses",
+  "m4-tekst": "Talk through your round over dinner in the brasserie.",
+  "m4-foto": "fotos/l26-golfarrangement-diner-gast.webp",
+  "m4-alt": "A guest having dinner in the brasserie",
+  "m4-positie": "40% 50%",
+  "faq-kop": "Questions about <span class='al-g'>golf</span>",
+  "f1-v": "Which courses are near the hotel?",
+  "f1-a": "Golfclub Geijsteren, about a quarter of an hour's drive, and Golfbaan Landgoed Bleijenbeek in Afferden, about 25 minutes.",
+  "f2-v": "What's included in the golf package?",
+  "f2-a": "A green fee for 18 holes at Geijsteren or Bleijenbeek, a three-course dinner, a night in a Royale room and the breakfast buffet.",
+  "f3-v": "How do I book the golf package?",
+  "f3-a": "With the Book the package button on this page. The code GOLF is filled in automatically.",
+  "f4-v": "Do I need to book a tee time myself?",
+  "f4-a": "Ask when you book or at reception how tee times are arranged; it differs per course.",
+  "f5-v": "Which course should I choose?",
+  "f5-a": "If you like woodland with water at the end, choose Geijsteren. If you're after rolling terrain, water features and a castle ruin, Bleijenbeek is for you.",
+  "f6-v": "Can I book just a room?",
+  "f6-a": "Yes, the booking button at the top books a room without a package. You then arrange the green fee with the course yourself.",
+  "meer-kop": "More in the <span class='al-g'>area</span>",
+  "meer-sub": "A day without golf? There's plenty to do around Venray.",
+  "slot-kop": "After your round, back to your <span class='al-g'>room</span>",
+  "slot-tekst": "Book the golf package or a room, and play the other course tomorrow.",
+  "slot-foto": "fotos/l26-golfarrangement-baan-bleijenbeek.webp",
+  "slot-alt": "Fairway at Golfbaan Landgoed Bleijenbeek",
+  "_baan_teksten": {
+    "Golfclub Geijsteren": {
+      "tekst": "An atmospheric, wooded course on a historic estate. The first 13 holes are tucked away among the trees, followed by 5 challenging water holes. A course with character.",
+      "rijtijd": "approx. 15 minutes' drive",
+      "alt": "Green with flag and a bunker among the trees at Golfclub Geijsteren"
+    },
+    "Golfbaan Landgoed Bleijenbeek": {
+      "tekst": "Set in the unspoilt Maasduinen area of Limburg. This rolling course with water features, old avenues of trees and a castle ruin calls for tactical play thanks to its clever layout and changes in height.",
+      "rijtijd": "approx. 25 minutes' drive",
+      "alt": "Fairway at Golfbaan Landgoed Bleijenbeek with the clubhouse and a pond in the background"
+    }
+  },
+  "arr-vink1": "Green fee for 18 holes",
+  "arr-vink2": "Three-course dinner",
+  "arr-vink3": "Royale room",
+  "arr-vink4": "Breakfast buffet",
+  "_arr_alts": [
+    "Golf bag with clubs on the fairway, with a golfer in the background",
+    "Royale room with double bed, seating area and large window",
+    "Table laid with wine glasses and a menu in the restaurant",
+    "Guest at a table in the restaurant during dinner",
+    "Basket of fresh rolls at the breakfast buffet"
+  ]
+}

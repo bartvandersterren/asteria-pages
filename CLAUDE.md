@@ -625,6 +625,16 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Pagina-JSON: `conversie` `arr` (met `arr-bron`, fotoslider uit `_inbegrepen_fotos`, knop met code + prijskalender) of `kamers` (+ `kamers`);
   golf: `_baan_chips` {naam: [chips]} en `_vergelijk` {kop, sub, rijen[{label, ico, waarden{naam: tekst}}]}: een rij zonder waarde voor elke baan
   valt weg (geen greenfee-rij, geen prijzen). Lege-melding-CSS per filtercombinatie zet de build in een `<style>` in de kop.
-- Test: `python3 -m http.server 8813 --directory .` + `python3 scripts/test_omgeving.py http://localhost:8813 [--schermafdruk qa/omgeving]`.
+- Talen (fase 2, 11 nov 2026): DE (`-v2-de`, Sie-Form, mews-taal de-DE) en EN (`-v2-en`, Brits Engels, mews-taal en-US). Labels
+  `omgeving-labels-<taal>.json`; EN heeft `_kop_voet` ([nl, en]-paren, `om_kop_voet` past ze toe op de spiegelkop/-voet van `al_kop_voet`).
+  hreflang nl/de/en + x-default (nl), canonical naar zichzelf. NL-terugval zolang er geen taalbron is: kaarten (uitje-/route-/zoek-JSON
+  per taal, anders NL), kamers (`content/uitje-kamers-<taal>.json`, anders NL-kamerdata met de Mews-taal van de pagina), reviews
+  (`content/reviews-google-asteria-<taal>.json`, DE bestaat = vertaald + noot `rev-vertaald`; EN = NL-tekst + noot `rev-origineel`),
+  arrangementdata (teksten via `_arr_teksten`/`arr-vink*`/`_arr_alts` in de pagina-JSON) en arrangementlinks (`om_arr_url`: een
+  TEMPLATES-uitvoer `<slug>-<taal>.html` zonder bee2f902, nu alleen wellness-arrangement-de/-en; anders de NL-pagina). Golfbanen: teksten
+  via `_baan_teksten`. Prijskalender alleen nl/de (`AL_KAL_LABELS`); EN-knop opent Mews direct met de code. Deeplinks ook DE/EN
+  (#natur, #zu-fuss, #mit-dem-rad, #nature, #on-foot, #by-bike, ...).
+- Test: `python3 -m http.server 8813 --directory .` + `python3 scripts/test_omgeving.py http://localhost:8813 [--schermafdruk qa/omgeving]`
+  (alle bestaande taalversies; `--paginas omgeving-v2-de,...` voor een selectie).
   Feiten en "nog nakijken": `qa/omgeving/FEITEN-omgeving.md`. Gotcha: een volledige `python3 build.py` herschrijft `kamertypes-v2.html` met een
   open `{{OVERZICHT_ARR_URL}}` (bestaand, niet van dit blok): `git checkout -- kamertypes-v2.html`.

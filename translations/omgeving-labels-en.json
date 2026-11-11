@@ -1,0 +1,224 @@
+{
+  "_uitleg": "Fixed labels for the surroundings pages (omgeving.template.html + omgeving-categorie.template.html), British English. build.py (build_omgeving) loads this file first; translations/omgeving-<pagina>-en.json wins on the same key. _kop_voet = [nl, en] pairs applied by om_kop_voet to the mirrored header/footer (al_kop_voet has no English labels). Placeholder {n} = number.",
+  "html-taal": "en",
+  "og-locale": "en_GB",
+  "mews-taal": "en-US",
+  "robots": "noindex, follow",
+  "telefoon": "+31 478 511 466",
+  "kop-boek": "Book now",
+  "url-overzicht": "/omgeving-v2-en",
+  "url-golf": "/omgeving-golf-v2-en",
+  "url-natuur": "/omgeving-natuur-v2-en",
+  "url-cultuur": "/omgeving-cultuur-v2-en",
+  "url-dagje-uit": "/omgeving-dagje-uit-v2-en",
+  "url-shoppen-steden": "/omgeving-shoppen-steden-v2-en",
+  "cat-golf-naam": "Golf",
+  "cat-golf-regel": "Woodland courses and rolling fairways close by.",
+  "cat-golf-foto": "fotos/l26-golfarrangement-golf.webp",
+  "cat-natuur-naam": "Nature",
+  "cat-natuur-regel": "Dunes, heath and peat bog, on foot or by bike.",
+  "cat-natuur-foto": "fotos/l26-uitje-maasduinen-hero-klein.webp",
+  "cat-cultuur-naam": "Culture",
+  "cat-cultuur-regel": "Museums, castle gardens and a brewery nearby.",
+  "cat-cultuur-foto": "fotos/l26-uitje-oorlog-hero-klein.webp",
+  "cat-dagje-uit-naam": "Days out",
+  "cat-dagje-uit-regel": "Animals, attractions and a day at the thermal baths.",
+  "cat-dagje-uit-foto": "fotos/l26-uitje-zooparc-hero-klein.webp",
+  "cat-shoppen-steden-naam": "Shopping & Towns",
+  "cat-shoppen-steden-regel": "Venray, Venlo and the outlet in Roermond.",
+  "cat-shoppen-steden-foto": "fotos/l26-uitje-venray-hero-klein.webp",
+  "woord-uitje": "day out",
+  "woord-uitjes": "days out",
+  "woord-baan": "course",
+  "woord-banen": "courses",
+  "tegel-link": "View",
+  "filter-alle": "All",
+  "filter-auto": "By car",
+  "filter-lopen": "On foot",
+  "filter-fiets": "By bike",
+  "filter-cat-label": "Filter by category",
+  "filter-reis-label": "Filter by way of travel",
+  "leeg": "Nothing matches this combination yet. Choose another category or way of travel.",
+  "leeg-reis": "Nothing matches this way of travel yet. Choose another one.",
+  "toon-alle": "Show all {n} days out",
+  "route-link": "View the routes",
+  "meer-alle": "All days out nearby",
+  "l-auto": "car",
+  "l-fiets": "bike",
+  "l-lopen": "walk",
+  "l-met-auto": "by car from Hotel Asteria",
+  "l-nieuw-tabblad": "(opens in a new tab)",
+  "l-bel": "Any questions? Call reception: +31 478 511 466",
+  "dag-lijst-label": "Four moments of the day",
+  "knop-boek": "Book your stay",
+  "knop-kamer": "Choose this room",
+  "knop-info": "More info",
+  "knop-meer-info": "Find out more",
+  "knop-website": "Visit the website",
+  "knop-arr": "View package",
+  "arr-alle": "All packages",
+  "arr-knop": "Book the package",
+  "arr-paginalink": "All about the package",
+  "baan-vorige": "Previous course",
+  "baan-volgende": "Next course",
+  "banen-label": "Golf courses nearby",
+  "fs-foto": "Photo",
+  "fs-vorige": "Previous photo",
+  "fs-volgende": "Next photo",
+  "rev-kop": "What guests say on <span class='al-g'>Google</span>",
+  "rev-aantal": "{n} reviews",
+  "rev-bron": "Posted on",
+  "rev-alle": "All reviews on Google",
+  "rev-rij-label": "Guest reviews",
+  "rev-volgende": "Next review",
+  "tel": "+31 478 511 466",
+  "tel-url": "tel:+31478511466",
+  "mail": "info@asteria.nl",
+  "kamer-rij-label": "Our rooms and suites",
+  "kamer-vorige": "Previous room",
+  "kamer-volgende": "Next room",
+  "kamer-pop-video": "Video of the room",
+  "kamer-pop-foto": "Photo",
+  "pop-sluit": "Close",
+  "pop-vorige": "Previous photo",
+  "pop-volgende": "Next photo",
+  "pop-route": "Plan your route",
+  "pop-vanaf-hotel": "Travel times from the hotel",
+  "pop-kamer-badge": "Room",
+  "pop-video-speel": "Play video",
+  "pop-video-pauze": "Pause video",
+  "sticky-kop": "Hotel Asteria Venray",
+  "sticky-sub": "Book direct with the hotel",
+  "sticky-knop": "Book now",
+  "cookie-tekst": "This website uses cookies to give you the best experience.",
+  "cookie-meer": "More info",
+  "cookie-knop": "Accept",
+  "l-min": "min",
+  "rev-origineel": "Reviews shown in the original Dutch",
+  "_kop_voet": [
+    [
+      "Hotel Asteria, naar het begin van de pagina",
+      "Hotel Asteria, back to the top"
+    ],
+    [
+      "aria-label=\"Hoofdnavigatie\"",
+      "aria-label=\"Main navigation\""
+    ],
+    [
+      "aria-label=\"Bel Hotel Asteria: 0478 511466\"",
+      "aria-label=\"Call Hotel Asteria: +31 478 511 466\""
+    ],
+    [
+      "aria-label=\"Bel ons\"",
+      "aria-label=\"Call us\""
+    ],
+    [
+      "aria-label=\"E-mail ons\"",
+      "aria-label=\"Email us\""
+    ],
+    [
+      "aria-label=\"Open menu\"",
+      "aria-label=\"Open menu\""
+    ],
+    [
+      "aria-label=\"Mobiel menu\"",
+      "aria-label=\"Mobile menu\""
+    ],
+    [
+      "aria-label=\"Sluit menu\"",
+      "aria-label=\"Close menu\""
+    ],
+    [
+      "aria-label=\"Volg ons\"",
+      "aria-label=\"Follow us\""
+    ],
+    [
+      ">0478 511466<",
+      ">+31 478 511 466<"
+    ],
+    [
+      ">0478 511 466<",
+      ">+31 478 511 466<"
+    ],
+    [
+      ">Kamers &amp; suites<",
+      ">Rooms &amp; suites<"
+    ],
+    [
+      ">Faciliteiten<",
+      ">Facilities<"
+    ],
+    [
+      ">Wellness &amp; fitness<",
+      ">Wellness &amp; fitness<"
+    ],
+    [
+      ">Arrangementen<",
+      ">Packages<"
+    ],
+    [
+      ">Omgeving<",
+      ">Surroundings<"
+    ],
+    [
+      ">Over ons <",
+      ">About us <"
+    ],
+    [
+      ">Ons verhaal<",
+      ">Our story<"
+    ],
+    [
+      ">Contact<",
+      ">Contact<"
+    ],
+    [
+      ">Boek nu<",
+      ">Book now<"
+    ],
+    [
+      ">Verblijf<",
+      ">Stay<"
+    ],
+    [
+      ">Bruidssuite<",
+      ">Bridal suite<"
+    ],
+    [
+      ">Junior suite<",
+      ">Junior suite<"
+    ],
+    [
+      ">Comfort kamer<",
+      ">Comfort room<"
+    ],
+    [
+      ">Deluxe kamer<",
+      ">Deluxe room<"
+    ],
+    [
+      ">Beschikbaarheid<",
+      ">Availability<"
+    ],
+    [
+      ">Bij ons<",
+      ">With us<"
+    ],
+    [
+      ">Route &amp; parkeren<",
+      ">Directions &amp; parking<"
+    ],
+    [
+      "Privacyverklaring",
+      "Privacy statement"
+    ],
+    [
+      "Algemene voorwaarden",
+      "Terms and conditions"
+    ],
+    [
+      "A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01",
+      "A73, exit 8 Venray Noord &middot; CoC 12028838 &middot; VAT NL804668528B01"
+    ]
+  ]
+}

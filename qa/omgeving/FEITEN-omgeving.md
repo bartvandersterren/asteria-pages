@@ -37,3 +37,11 @@ Effecty-staging of de gespiegelde `omgeving.html`. Feiten alleen uit de bronnen 
 9. Heidebloei eind augustus (natuur f5): algemeen bekend, geen bron in de repo.
 10. Mind Mystery heeft in het uitje-JSON een hotelfoto als herofoto (`l26-waarom-hotel.webp`), zichtbaar op de kaart.
 11. Golfarrangement GOLF: boekbaar vastgesteld via de kalender-API (KAL); de kalender toont prijzen (dat is de boekstap, niet de pagina).
+
+## Talen (DE/EN, fase 2)
+
+- Zelfde feiten als NL; geen nieuwe feiten toegevoegd. Rijtijden afgerond zoals in NL ("etwa eine halbe Stunde", "about half an hour").
+- Terugval op NL-bronnen: kaartnamen en -plaatsen van uitjes (geen uitje-DE/EN op deze tak), kamernamen en -teksten in de kamerslider,
+  arrangementpagina's behalve wellness (golf en oorlogsmuseum linken naar de NL-pagina), Engelse reviews (originele NL-tekst met noot).
+- Moedertaalcontrole aanbevolen: alle DE/EN-teksten, vooral koppen met accentwoord, "Ausflüge" als categorienaam, "Shoppen & Städte",
+  "Days out", "Kriegsmuseum-Arrangement", "War Museum package", golftermen (Wasserlöcher, Greenfee, water holes).
