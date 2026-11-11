@@ -53,3 +53,12 @@ Pagina's: `/thermaalbad-arcen-v2`, `-v2-de`, `-v2-en` (build-entry `uitje-therma
 - Meer-kaarten: herofoto's van de uitjepagina's Kasteeltuinen (Vincent van Zeijst, CC BY-SA 4.0), Hertog Jan (B. Hulshoff, CC BY-SA 4.0),
   Maasduinen (Campinia88, CC BY-SA 4.0).
 - Kaartfoto `fotos/l26-uitje-kaart-thermaalbad-arcen(-klein).webp` = render via scripts/uitje_kaartfoto.py.
+
+## Foto's Goed om te weten (g1-g6, 11 nov 2026)
+Alle zes eigen hotelfoto's van Hotel Asteria (wellness/brasserie), geen credit nodig; 880x660, webp 82. Ze tonen NIET het Thermaalbad; alt-teksten beschrijven alleen wat je ziet.
+- g1 Vanaf 18 jaar: `fotos/wp-relaxruimte.webp` (twee volwassenen in badjas in de relaxruimte).
+- g2 Badkleding: `nieuw-assets/wellness-finse-sauna-stel-banken-p1068310-1200.webp` (stel op de handdoek in de Finse sauna).
+- g3 Badkledingdagen: `fotos/wp-sauna-bos.webp` (lege bossauna).
+- g4 Niet reserveren: `nieuw-assets/wellness-ontvangst-voetenbad-overzicht-o0a0032-hdr-1200.webp` (ontvangsthal wellness; geen receptie met Asteria-logo, om geen boeken-aan-de-balie-beeld bij het bad te suggereren).
+- g5 Huren: `fotos/l26-welkom-cadeau-badlaken.webp` (opgerolde handdoeken op de saunabank).
+- g6 Telefoon in de locker: `fotos/brasserie.webp` (stel aan tafel in de brasserie; tekst noemt de brasserie).

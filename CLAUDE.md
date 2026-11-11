@@ -623,8 +623,8 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   die taal; titel "Hotel bij" / "Hotel " / "Hotel near"; hreflang, html lang, kop/voet en kalender per taal); platen `<slug>-de-<breedte>-...png`.
 - Golfpagina's (11 nov 2026, noindex): `uitje-golfclub-geijsteren` -> `/golfclub-geijsteren-v2` en `uitje-golfbaan-landgoed-bleijenbeek` ->
   `/golfbaan-landgoed-bleijenbeek-v2`, beide met arrangementkaart GOLF (`arr-bron` golfarrangement, eigen `arr-vink1..4`, foto
-  `l26-golfarrangement-royale`). "Golfvariant" = alleen inhoud (oogopslag Adres/Baan/Greenfee/Gasten/Starttijd, g1-g4 icoonkaarten zonder
-  foto), sjabloon ongewijzigd. Er zijn GEEN vrije foto's van de banen: hero/verhaal tonen landgoed, beek, ruïne en heide (Commons), nooit
+  `l26-golfarrangement-royale`). "Golfvariant" = alleen inhoud (oogopslag Adres/Baan/Greenfee/Gasten/Starttijd, g1-g4 fotokaarten
+  `fotos/l26-uitje-<geijsteren|bleijenbeek>-gN.webp`, 11 nov: algemene golfbeelden van Commons + golferfoto asteria.nl, credit `fotocredit-prak`), sjabloon ongewijzigd. Er zijn GEEN vrije foto's van de banen: hero/verhaal tonen landgoed, beek, ruïne en heide (Commons), nooit
   "de golfbaan" in alt-teksten. Drie talen (11 nov 2026): `-v2`, `-v2-de`, `-v2-en` (JSON's `uitje-<slug>-de/en.json`, afgeleid uit NL,
   nog niet door moedertaalsprekers nagelezen); onderlinge links naar de eigen taalversie, Maasduinen en Venray-centrum linken naar de
   NL-adressen (`-v2`) tot daar een DE/EN-versie van is. Feiten: `qa/uitje/FEITEN-golfclub-geijsteren.md` en `-golfbaan-landgoed-bleijenbeek.md`.

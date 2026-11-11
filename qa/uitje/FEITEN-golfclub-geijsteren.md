@@ -241,3 +241,10 @@ Herkomst volgens `translations/golfarrangement-nl.json` (`_controleren`) en de b
 
 Voor de pagina's: dagverloop m1 `l26-ontbijt` of `l26-golfarrangement-ontbijt`, m3 `l26-wellness-staand` (of `l26-wellness-boscabine` als staand/liggend schikt), m4 `l26-brasserie` of `l26-golfarrangement-diner`; arrangementkaart `l26-golfarrangement-royale` (1400x934).
 
+
+## Foto's Goed om te weten (g1-g4, 11 nov 2026)
+880x660, webp 82; originelen in `qa/uitje/bron-fotos/geijsteren-g*.jpg` (niet in git). Credit in `fotocredit-prak`.
+- g1 Bos en water: https://commons.wikimedia.org/wiki/File:Oostrumse_Beek2.JPG, Romaine, CC0 (Oostrumse Beek bij Nieuwenhof, Landgoed Geijsteren).
+- g2 Greenfee: https://commons.wikimedia.org/wiki/File:Golf_ball_on_tee.jpg, Stefanschenkon, CC0 (golfbal op tee, algemeen).
+- g3 Gasten welkom: `fotos/l26-golfarrangement-golf.webp` (golfer met tas; stockfoto van asteria.nl, zie golfarrangement-nl.json `_controleren`; licentie via het hotel, niet vastgelegd).
+- g4 Oefenen: https://commons.wikimedia.org/wiki/File:Golfschool_De_Kurenpolder.jpg, Paul Korthuijs, CC BY-SA 4.0 (afslagplaatsen driving range, NIET Geijsteren; bord "Golfschool" klein in beeld).

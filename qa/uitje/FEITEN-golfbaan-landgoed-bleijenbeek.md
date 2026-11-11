@@ -268,3 +268,11 @@ Herkomst volgens `translations/golfarrangement-nl.json` (`_controleren`) en de b
 
 Voor de pagina's: dagverloop m1 `l26-ontbijt` of `l26-golfarrangement-ontbijt`, m3 `l26-wellness-staand` (of `l26-wellness-boscabine` als staand/liggend schikt), m4 `l26-brasserie` of `l26-golfarrangement-diner`; arrangementkaart `l26-golfarrangement-royale` (1400x934).
 
+
+## Foto's Goed om te weten (g1-g4, 11 nov 2026)
+Algemene golfbeelden van Wikimedia Commons, NIET van Bleijenbeek; 880x660, webp 82; originelen in `qa/uitje/bron-fotos/bleijenbeek-g*.jpg` (niet in git). Credit in `fotocredit-prak`.
+- g1 Drie banen: https://commons.wikimedia.org/wiki/File:Royal_Golf_club_du_Bercuit.jpg, GdML, CC BY-SA 4.0 (green tussen loofbomen, België).
+- g2 Greenfee: https://commons.wikimedia.org/wiki/File:Golf_ball_with_white_tee_in_grass.jpg, Santeri Viinamäki, CC BY-SA 4.0.
+- g3 Gasten met GVB: https://commons.wikimedia.org/wiki/File:Broekpolder_Hole_15.JPG, Pvt pauline, CC BY-SA 3.0 (green met vijver, Broekpolder Golfclub).
+- g4 Oefenen en museum: https://commons.wikimedia.org/wiki/File:Nieuwe_drivingrange.JPG, Pvt pauline, CC BY-SA 3.0 (driving range Rosendaelsche Golf Club).
+- Wel een Commons-foto van Bleijenbeek zelf: https://commons.wikimedia.org/wiki/File:Bleijenbeek.jpg ("This is Golf", CC BY-SA 3.0), maar slechts 460x292; te klein voor 880x660.
