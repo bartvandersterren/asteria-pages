@@ -171,7 +171,9 @@
         "lng": 6.1846839,
         "label": "rechts",
         "zin": "Gardens around a 17th-century castle.",
-        "rijtijd": "25 min"
+        "rijtijd": "25 min",
+        "url": "/kasteeltuinen-arcen-v2-en",
+        "url-label": "More about the gardens"
       },
       {
         "nr": 3,
@@ -180,7 +182,9 @@
         "lng": 6.1733718,
         "label": "links",
         "zin": "Hertog Jan brews its beer here in Arcen.",
-        "rijtijd": "23 min"
+        "rijtijd": "23 min",
+        "url": "/hertog-jan-brouwerij-v2-en",
+        "url-label": "More about the brewery"
       },
       {
         "nr": 4,
@@ -189,7 +193,9 @@
         "lng": 6.0848,
         "label": "rechts",
         "zin": "Forest, heath and drift sand between the Maas and the border.",
-        "rijtijd": "21 min"
+        "rijtijd": "21 min",
+        "url": "/nationaal-park-de-maasduinen-v2",
+        "url-label": "More about De Maasduinen"
       }
     ]
   },

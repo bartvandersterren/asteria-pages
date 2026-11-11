@@ -2298,6 +2298,14 @@ def ut_hreflang(config):
     return '</script>\n  ' + '\n  '.join(regels) + '\n  <script>'
 
 
+
+def om_overzicht_link(html, lang):
+    """Omgevingsweb (-v2): de kop-/voetlink "Omgeving" (/omgeving, spiegel) wijst naar het -v2-overzicht in de eigen taal,
+    zodat elke uitje-, zoek-, route- en omgevingspagina naar /omgeving-v2(-de/-en) linkt. Bij promotie naar de echte adressen
+    deze functie aanpassen of weghalen."""
+    doel = '/omgeving-v2' + ('' if lang == 'nl' else f'-{lang}')
+    return html.replace('href="/omgeving"', f'href="{doel}"')
+
 def build_uitje(config, output_file, json_file, template_name, lang):
     from html import escape
     with open(os.path.join(base, config['template']), encoding='utf-8') as f:
@@ -2647,6 +2655,7 @@ def build_uitje(config, output_file, json_file, template_name, lang):
         sys.exit('uitje:\n  ' + '\n  '.join(fouten))
     if '—' in html:
         sys.exit('uitje: em-dash in de uitvoer')
+    html = om_overzicht_link(html, lang)
     with open(os.path.join(base, output_file), 'w', encoding='utf-8') as f:
         f.write(html)
     print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
@@ -3073,6 +3082,7 @@ def build_zoek(config, output_file, json_file, template_name, lang):
         sys.exit('zoek:\n  ' + '\n  '.join(fouten))
     if '—' in html:
         sys.exit('zoek: em-dash in de uitvoer')
+    html = om_overzicht_link(html, lang)
     with open(os.path.join(base, output_file), 'w', encoding='utf-8') as f:
         f.write(html)
     print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
@@ -3844,6 +3854,7 @@ def build_omgeving(config, output_file, json_file, template_name, lang):
         sys.exit(f'omgeving: em-dash in {output_file}')
     if 'bee2f902' in html:
         sys.exit(f'omgeving: oude Mews-config bee2f902 in {output_file}')
+    html = om_overzicht_link(html, lang)
     with open(os.path.join(base, output_file), 'w', encoding='utf-8') as f:
         f.write(html)
     tel = ', '.join(f'{c} {len(per_cat[c])}' for c in OM_CATS)
@@ -4338,6 +4349,7 @@ def build_route(template_name, lang):
         sys.exit(f'route: prijs (€) in {output_file}')
     if 'noindex, follow' not in html or 'bee2f902' in html:
         sys.exit(f'route: robots of Mews-config klopt niet in {output_file}')
+    html = om_overzicht_link(html, lang)
     with open(os.path.join(base, output_file), 'w', encoding='utf-8') as f:
         f.write(html)
     print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')

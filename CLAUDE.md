@@ -662,6 +662,10 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   (alle bestaande taalversies; `--paginas omgeving-v2-de,...` voor een selectie).
   Feiten en "nog nakijken": `qa/omgeving/FEITEN-omgeving.md`. Gotcha: een volledige `python3 build.py` herschrijft `kamertypes-v2.html` met een
   open `{{OVERZICHT_ARR_URL}}` (bestaand, niet van dit blok): `git checkout -- kamertypes-v2.html`.
+- Integratie (11 nov 2026, tak feature/omgeving-integratie): alle -v2 omgevingspagina's (13 uitjes, 2 golf, 2 routes, 2 zoekpagina's,
+  overzicht + vijf categorieen) in een tak. `om_overzicht_link(html, lang)` zet in build_uitje/_zoek/_route/_omgeving de kop-/voetlink
+  `/omgeving` om naar `/omgeving-v2` (`-de`/`-en`), zodat elke pagina naar het -v2-overzicht linkt; bij promotie aanpassen. Zoekpagina
+  Arcen (nl/de/en) linkt in de kaartlijst naar Kasteeltuinen, Hertog Jan en Maasduinen; Overloon de/en naar de NL-pagina's museum/ZooParc.
 
 ## Zoekpagina's (Hotel bij …) (nov 2026, proef)
 

@@ -132,7 +132,9 @@
         "lng": 5.95794,
         "label": "links",
         "zin": "Museum über den Zweiten Weltkrieg, seit 1946 auf dem Schlachtfeld von 1944.",
-        "rijtijd": "9 Min."
+        "rijtijd": "9 Min.",
+        "url": "/oorlogsmuseum-overloon-v2",
+        "url-label": "Mehr über das Museum"
       },
       {
         "nr": 2,
@@ -141,7 +143,9 @@
         "lng": 5.93599,
         "label": "rechts",
         "zin": "Tierpark mit mehr als 80 Tierarten, täglich geöffnet.",
-        "rijtijd": "11 Min."
+        "rijtijd": "11 Min.",
+        "url": "/zooparc-overloon-v2",
+        "url-label": "Mehr über ZooParc"
       },
       {
         "nr": 3,
