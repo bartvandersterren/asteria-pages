@@ -258,6 +258,17 @@ TEMPLATES = {
         },
         'uitje': True,
     },
+    # Zoekpagina's "Hotel bij ..." (nov 2026): sjabloon zoek.template.html + zoek.css, verder adslander/uitje/kaart-getekend
+    # ongewijzigd. Alles per pagina en taal in translations/zoek-<slug>-<taal>.json (labels translations/zoek-labels-<taal>.json,
+    # kamers + pop-ups content/zoek-kamers-<taal>.json); build_zoek() doet de rest. Taal = de sleutel onder 'langs' (nl/de/en).
+    # Volgende pagina of taal = JSON + regel hieronder. noindex, follow; niet in sitemap.xml.
+    'zoek-hotel-thermalbad-arcen-de': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'de': ('hotel-thermalbad-arcen-de-v2.html', 'translations/zoek-hotel-thermalbad-arcen-de.json'),
+        },
+        'zoek': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -2229,6 +2240,369 @@ def build_uitje(config, output_file, json_file, template_name, lang):
     print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
 
 
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+# Zoekpagina's "Hotel bij ..." (sjabloon zoek.template.html, zoek.css). Hotel eerst, daarna rijtijd en ligging;
+# opbouw = adslander + oogopslag/kaart van het uitje-sjabloon (blokkenkiezer 1a-2a-3b-4a-5a-6b-7b-8a-9a-10b).
+# Gegevens: translations/zoek-labels-<taal>.json (eerst) + translations/zoek-<slug>-<taal>.json (wint);
+# kamers en pop-upinhoud uit content/zoek-kamers-<taal>.json + KAMER_MEWS; arrangementkaarten via arr-<slot>-bron
+# (zelfde velden als de adslander), kalenderinstellingen content/arr-kalender.json; kop/voet uit al_kop_voet.
+# Taal = de sleutel onder 'langs' (ZK_TALEN). Blokvolgorde = lijst 'blokken' in de pagina-JSON (hero staat altijd
+# bovenaan); een blok dat er niet in staat wordt niet gebouwd. Stopt bij een open veld, ontbrekend bestand of em-dash.
+# ═══════════════════════════════════════════════════════════════════════════════════════════════
+
+ZK_TALEN = {'nl': ('nl-NL', 'nl_NL'), 'de': ('de-DE', 'de_DE'), 'en': ('en-US', 'en_GB')}
+ZK_BLOKKEN = ('oog', 'intro', 'kamers', 'wellness', 'arr', 'ligging', 'reviews', 'faq', 'slot')
+ZK_STD_CFG = '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
+# iconen bij de wellnessfeiten (veld well-feit-N-ico; as-icoon = stroke currentColor)
+ZK_FEIT_IC = {
+    'vink': '<circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/>',
+    'sauna': AL_KAMER_IC['sauna'],
+    'klok': '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    'ticket': '<path d="M3 9V6h18v3a3 3 0 0 0 0 6v3H3v-3a3 3 0 0 0 0-6z"/><path d="M14 6v2M14 11v2M14 16v2"/>',
+    'shirt': '<path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>',
+}
+
+
+def build_zoek(config, output_file, json_file, template_name, lang):
+    from html import escape
+    if lang not in ZK_TALEN:
+        sys.exit(f'zoek: onbekende taal {lang!r} (ZK_TALEN: {", ".join(ZK_TALEN)})')
+    labels_file, kamers_file = f'translations/zoek-labels-{lang}.json', f'content/zoek-kamers-{lang}.json'
+    with open(os.path.join(base, config['template']), encoding='utf-8') as f:
+        html = f.read()
+    with open(os.path.join(base, labels_file), encoding='utf-8') as f:
+        d = json.load(f)
+    with open(os.path.join(base, json_file), encoding='utf-8') as f:
+        d.update(json.load(f))   # de pagina-JSON wint van de labels
+    with open(os.path.join(base, kamers_file), encoding='utf-8') as f:
+        bron = json.load(f)
+    with open(KALENDER_JSON, encoding='utf-8') as f:
+        kal_cfg = json.load(f)
+    taal, og_locale = ZK_TALEN[lang]
+    d['html-taal'], d['mews-taal'] = lang, taal
+    d.setdefault('og-locale', og_locale)
+    mews = lambda cfg=ZK_STD_CFG, extra='': f'https://app.mews.com/distributor/{cfg}?language={taal}{extra}'
+    d['mews-basis'] = mews()
+    fouten = []
+    plat = lambda t: re.sub(r'<[^>]+>', '', t).replace('&amp;', '&')
+    t = lambda k: escape(d[k], quote=True)
+
+    def bestaat(pad):
+        if pad and not pad.startswith('http') and not os.path.exists(os.path.join(base, pad)):
+            fouten.append('bestand ontbreekt: ' + pad)
+        return pad
+
+    def gevuld(voorvoegsel, achtervoegsel=''):
+        """Genummerde slots met een niet-leeg veld (leeg = weg)."""
+        return [i for i in al_lijst(d, voorvoegsel, achtervoegsel) if d[f'{voorvoegsel}{i}{achtervoegsel}']]
+
+    # blokvolgorde
+    blokken = d.get('blokken')
+    if not isinstance(blokken, list) or not blokken:
+        sys.exit('zoek: "blokken" moet een niet-lege lijst zijn')
+    onbekend = [b for b in blokken if b not in ZK_BLOKKEN]
+    if onbekend or len(set(blokken)) != len(blokken):
+        sys.exit(f'zoek: blokken onbekend of dubbel: {onbekend or blokken} (mogelijk: {", ".join(ZK_BLOKKEN)})')
+    bak = {}
+    for m in re.finditer(r'<!--\[blok (\w+)\]-->\n(.*?)<!--\[/blok\]-->\n', html, re.S):
+        bak[m.group(1)] = m.group(2)
+    if set(bak) != set(ZK_BLOKKEN):
+        sys.exit(f'zoek: blokken in het sjabloon wijken af van ZK_BLOKKEN ({sorted(bak)})')
+    html = re.sub(r'\n?<!--\[blok \w+\]-->\n.*?<!--\[/blok\]-->\n', '', html, flags=re.S)
+    html = html.replace('<!-- ZK_BLOKKEN -->', '\n'.join(bak[b].rstrip('\n') for b in blokken).strip(), 1)
+    aan = set(blokken)
+    d['zk-hero-mod'] = ' zk-hero--oog' if blokken[0] == 'oog' else ''
+    d['zk-oog-mod'] = '' if blokken[0] == 'oog' else ' zk-oog--los'
+
+    for k in ('hero-video-bureaublad', 'hero-video-mobiel', 'hero-poster-bureaublad', 'hero-poster-bureaublad-klein', 'hero-poster-mobiel'):
+        bestaat(d.get(k))
+
+    blok = {}
+    blok['ZK_GOOGLE_G'] = AL_GOOGLE_G
+    blok['ZK_HERO_TRUST'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"hero-trust-{i}"]}</span></li>' for i in gevuld('hero-trust-'))
+    pijl_extern = lambda: f'<span class="al-vh"> {d["l-nieuw-tabblad"]}</span>'
+    popdata = {'arr': {}, 'fac': {}, 'kamer': {}}
+
+    # 2a oogopslag: vakjes alleen als het veld gevuld is; tabel t1..t5; routelink
+    if 'oog' in aan:
+        vk_label = {'auto': d['l-auto'], 'km': d['l-afstand'], 'fiets': d['l-fiets']}
+        vk_ico = {s: v.replace('<svg ', '<svg class="ut-vk__ico" ', 1) for s, v in UT_VK.items()}
+        blok['ZK_VAKJES'] = ''.join(f'<div class="ut-vk"><span class="ut-vk__ib">{vk_ico[s]}</span>'
+                                    f'<span class="ut-vk__t"><strong>{d["vk-" + s]}</strong><span>{vk_label[s]}</span></span></div>'
+                                    for s in ('auto', 'km', 'fiets') if d.get('vk-' + s))
+        blok['ZK_TABEL'] = ''.join(f'<div class="ut-tabel__rij"><dt>{d[f"t{i}-label"]}</dt><dd>{d.get(f"t{i}-waarde", "")}</dd></div>'
+                                   for i in gevuld('t', '-label'))
+        blok['ZK_ROUTE'] = (f'<a class="al-intro__link ut-route" href="{d["route-url"]}" target="_blank" rel="noopener">{d["knop-route"]} {AL_PIJL}'
+                            f'{pijl_extern()}</a>') if d.get('route-url') else ''
+
+    # 3b intro: tweede alinea optioneel, vier feiten als vinkjes, rijtijdkaartje over de fotorand
+    if 'intro' in aan:
+        bestaat(d['intro-foto'])
+        blok['ZK_INTRO_P2'] = f'<p>{d["intro-p2"]}</p>' if d.get('intro-p2') else ''
+        blok['ZK_INTRO_FEITEN'] = ''.join(f'<li>{icoon(ZK_FEIT_IC["vink"])}<span>{d[f"intro-feit-{i}"]}</span></li>' for i in gevuld('intro-feit-'))
+        ic = AL_REIS['auto']
+        blok['ZK_INTRO_KAART'] = (f'<p class="zk-intro__kaart"><span class="zk-intro__ic" aria-hidden="true">{ic}</span>'
+                                  f'<span><b>{d["intro-kaart-tijd"]}</b><span class="zk-intro__regel">{d["intro-kaart-regel"]}</span></span></p>'
+                                  ) if d.get('intro-kaart-tijd') else ''
+
+    # 4a kamers: kaarten van de adslander ZONDER prijs; Mews met kamer-id (KAMER_MEWS); Meer info = tekstlink naar de pop-up
+    if 'kamers' in aan:
+        kk, kamerdata = [], {}
+        for k in d['kamers']:
+            if k not in KAMER_MEWS or k not in bron['kamer']:
+                sys.exit(f'zoek: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen kamerdata ({kamers_file})')
+            r, room = bron['kamer'][k], KAMER_MEWS[k]
+            if r.get('kamer') != room:
+                sys.exit(f'zoek: Mews-id van {k} in {kamers_file} wijkt af van KAMER_MEWS')
+            for x in r['fotos'] + r.get('pop_fotos', []) + [r.get('video') or '', r['kaart_foto']]:
+                bestaat(x)
+            kenm = ''.join(f'<li>{icoon(AL_KAMER_IC[ic])}<span>{escape(tk, quote=False)}</span></li>' for ic, tk in r['kaart'])
+            naam = escape(r['naam'], quote=False)
+            kk.append(
+                f'<article class="kk-kaart" data-kamerkaart="{k}"><a class="kk-foto" href="#kamers" data-kamer="{k}" aria-haspopup="dialog" tabindex="-1" aria-hidden="true"><img src="{r["kaart_foto"]}" width="1400" height="934" alt="" loading="lazy" decoding="async"></a>'
+                f'<div class="kk-inhoud"><h3 class="kk-naam">{naam}</h3><p class="kk-tekst">{escape(r["kort"], quote=False)}</p>'
+                f'<ul class="kk-kenmerken">{kenm}</ul>'
+                f'<p class="kk-knoppen"><a class="btn btn-primary mews-open" href="{mews(extra="&amp;mewsRoom=" + room + "&amp;mewsRoute=rooms")}" data-room="{room}">{d["kamer-boek"]}</a>'
+                f'<a class="btn-tertiary btn-tertiary--onderstreept zk-info" href="#kamers" data-kamer="{k}" aria-haspopup="dialog" aria-label="{d["kamer-info"]}: {naam}">{d["kamer-info"]}</a></p></div></article>')
+            kamerdata[k] = {x: r[x] for x in ('naam', 'video', 'fotos', 'tekst', 'kenmerken', 'kamer')}
+            popdata['kamer'][k] = {x: r[x] for x in ('naam', 'desc', 'pop_fotos', 'video', 'fotos', 'kenmerken', 'kamer') if x in r}
+        blok['ZK_KAMERS'] = ''.join(kk)
+        blok['ZK_KAMERPOP'] = (
+            f'<dialog class="lp-pop lp-pop--kamer" id="lp-pop-kamer" aria-modal="true" aria-labelledby="lp-pop-kamer-naam" data-l-foto="{d["kamer-pop-foto"]}" data-l-boek="{d["kamer-boek"]}">\n'
+            f'    <button type="button" class="lp-pop__sluit" aria-label="{d["pop-sluit"]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>\n'
+            '    <div class="lp-pop__binnen">\n'
+            '      <div class="lp-pop__media">\n'
+            f'        <video class="lp-pop__video" muted playsinline loop autoplay preload="none" aria-label="{d["kamer-pop-video"]}"></video>\n'
+            '        <img class="lp-pop__hero" alt="" hidden>\n'
+            '      </div>\n'
+            '      <div class="lp-pop__fotos"></div>\n'
+            '      <div class="lp-pop__body">\n'
+            '        <h3 class="lp-pop__titel" id="lp-pop-kamer-naam"></h3>\n'
+            '        <div class="lp-pop__tekst"></div>\n'
+            '        <ul class="lp-pop__kenmerken"></ul>\n'
+            '        <div class="lp-pop__acties">\n'
+            f'          <a class="btn btn-primary mews-open lp-pop__boek" data-basis="{mews()}" href="{mews()}">{d["kamer-boek"]}</a>\n'
+            '        </div>\n'
+            '      </div>\n'
+            '    </div>\n'
+            '  </dialog>\n'
+            '  <div class="lp-pop-overlay" hidden></div>\n'
+            '  <template id="lp-pop-vink"><svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5 5.5-6"/></svg></template>\n'
+            '  <script type="application/json" id="al-kamerdata">' + json.dumps(kamerdata, ensure_ascii=False).replace('</', '<\\/') + '</script>')
+    else:
+        blok['ZK_KAMERPOP'] = ''
+
+    # 5a wellness: kop + tekst + feiten met icoon; mozaiek precies 5 tegels (een groot + vier klein), tegel = pop-up fac:<well-N-pop>
+    if 'wellness' in aan:
+        feiten = []
+        for i in gevuld('well-feit-'):
+            ic = d.get(f'well-feit-{i}-ico') or 'vink'
+            if ic not in ZK_FEIT_IC:
+                fouten.append(f'well-feit-{i}-ico: onbekend icoon {ic!r} ({", ".join(ZK_FEIT_IC)})')
+                continue
+            feiten.append(f'<li>{icoon(ZK_FEIT_IC[ic])}<span>{d[f"well-feit-{i}"]}</span></li>')
+        blok['ZK_WELL_FEITEN'] = ''.join(feiten)
+        tegels_nr = gevuld('well-', '-naam')
+        if len(tegels_nr) != 5:
+            sys.exit('zoek: het wellnessmozaiek heeft precies 5 tegels nodig (well-1..5-naam)')
+        tegels = []
+        for j, i in enumerate(tegels_nr):
+            s = d.get(f'well-{i}-pop') or 'wellness'
+            if s not in bron.get('fac', {}):
+                fouten.append(f'pop-updata ontbreekt voor fac:{s} ({kamers_file})')
+            else:
+                popdata['fac'][s] = bron['fac'][s]
+                for x in bron['fac'][s].get('fotos', []) + [bron['fac'][s].get('video') or '']:
+                    bestaat(x)
+            regel = f'<span class="al-tegel__regel">{d[f"well-{i}-regel"]}</span>' if d.get(f'well-{i}-regel') else ''
+            tegels.append(f'<a class="al-tegel{" al-tegel--breed" if j == 0 else ""}" href="#wellness" data-pop="fac:{s}"><img src="{bestaat(d[f"well-{i}-foto"])}" alt="{d[f"well-{i}-alt"]}" width="1400" height="934" loading="lazy" decoding="async">'
+                          f'<span class="al-tegel__tekst"><span class="al-tegel__naam">{d[f"well-{i}-naam"]}</span>{regel}<span class="al-tegel__meer">{d["fac-meer"]} {AL_PIJL}</span></span></a>')
+        blok['ZK_WELL_TEGELS'] = ''.join(tegels)
+
+    # 6b arrangementen: slots links / uit (uitgelicht) / rechts zoals de adslander; lege bron = kaart weg
+    kalenders, live = [], False
+    if 'arr' in aan:
+        kamer_namen = {KAMER_MEWS[k]: v['naam'] for k, v in bron['kamer'].items() if k in KAMER_MEWS}
+        kaarten = []
+        for slot in ('links', 'uit', 'rechts'):
+            p = f'arr-{slot}-'
+            if not d.get(p + 'bron'):
+                continue
+            with open(os.path.join(base, 'translations', d[p + 'bron'] + '-nl.json'), encoding='utf-8') as f:
+                a = json.load(f)
+            code, cfg = a['VOUCHER'], a.get('MEWS_CONFIG') or ZK_STD_CFG
+            nachten = int(a.get('ARR_NACHTEN') or 1)
+            kalender = a.get('ARR_KALENDER', True) is not False and code in kal_cfg
+            vanaf_live = kalender and a.get('ARR_VANAF_LIVE', True) is not False
+            live = live or vanaf_live
+            eenheid = d['arr-eenheid-1'] if nachten == 1 else d['arr-eenheid-n'].replace('{n}', str(nachten))
+            bedrag = a['ARR_PRIJS'].replace('€ ', '€&nbsp;')
+            bedrag_html = f'<span data-arr-vanaf="{code}">{bedrag}</span>' if vanaf_live else f'<span>{bedrag}</span>'
+            sleutel = d[p + 'sleutel']
+            if sleutel not in bron.get('arr', {}):
+                fouten.append(f'pop-updata ontbreekt voor arr:{sleutel} ({kamers_file})')
+            else:
+                popdata['arr'][sleutel] = bron['arr'][sleutel]
+                for x in bron['arr'][sleutel].get('fotos', []):
+                    bestaat(x)
+            incl = ''.join(f'<li>{AL_VINK}<span>{d[f"{p}incl-{i}"]}</span></li>' for i in gevuld(p + 'incl-'))
+            past = f'<span class="al-ak__past">{d[p + "past"]}</span>' if d.get(p + 'past') else ''
+            cls = 'al-ak al-ak--uit' if slot == 'uit' else 'al-ak al-ak--buiten'
+            zondag_kaart = bool(kalender and kal_cfg[code].get('zondag'))
+            kaarten.append(
+                f'<article class="{cls}" data-code="{code}" data-zondag="{"ja" if zondag_kaart else "nee"}">'
+                f'<div class="al-ak__foto"><img src="{bestaat(d[p + "foto"])}" alt="{d[p + "alt"]}" width="800" height="533" loading="lazy" decoding="async">{past}</div>'
+                f'<div class="al-ak__kop"><p class="al-ak__tag">{d[p + "tag"]}</p><h3 class="al-ak__naam">{d[p + "naam"]}</h3></div>'
+                f'<div class="al-ak__prijsblok"><p class="al-ak__prijs"><span class="al-ak__vf">{d["arr-vanaf-label"]}</span> {bedrag_html} <small>{eenheid}</small></p></div>'
+                f'<ul class="al-ak__incl">{incl}</ul>'
+                f'<div class="al-ak__acties"><a class="btn btn-primary al-ak__knop mews-open" href="{mews(cfg, "&amp;mewsVoucherCode=" + code)}" data-voucher="{code}">{d["arr-knop"]}</a>'
+                f'<a class="al-ak__ontdek" href="#al-arr" data-pop="arr:{sleutel}">{d["arr-link"]}&nbsp;&rarr;</a></div></article>')
+            if kalender:
+                k = kal_cfg[code]
+                zondag = bool(k.get('zondag'))
+                sfx = '1' if nachten == 1 else 'n'
+                kt = {x: d[f'kal-{x}-{sfx}'].replace('{n}', str(nachten)) for x in ('kop', 'sub', 'noot', 'dicht')}
+                dagen = k.get('aankomstdagen') or []
+                leg_zondag = f'<span><i class="o"></i>{d["kal-zondag"]}</span>' if zondag else ''
+                kid = 'ar-kal-kop-' + code.lower()
+                kalenders.append(
+                    f'<dialog class="ark" aria-labelledby="{kid}" data-code="{code}" data-mews-config="{cfg}" data-nachten="{nachten}" '
+                    f'data-aankomstdagen="{",".join(str(x) for x in dagen)}" data-zondag="{"ja" if zondag else "nee"}" data-kamer-standaard="{k["standaardkamer"]}" '
+                    f'data-kamers="{escape(json.dumps(kamer_namen, ensure_ascii=False, separators=(",", ":")))}" '
+                    f'data-aankomst="{t("kal-aankomst")}" data-vertrek="{t("kal-vertrek")}" data-vertrek-vraag="{t("kal-vertrek-vraag")}" '
+                    f'data-nacht="{t("kal-nacht")}" data-nachten-woord="{t("kal-nachten")}" data-vorige="{t("kal-vorige")}" data-volgende="{t("kal-volgende")}">\n'
+                    '    <div class="ark-greep" aria-hidden="true"></div>\n'
+                    f'    <div class="ark-kopr"><div><p class="ark-kop" id="{kid}">{kt["kop"]}</p><p class="ark-sub">{kt["sub"]}</p></div><button type="button" class="ark-x" aria-label="{d["pop-sluit"]}"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>\n'
+                    '    <div class="ark-mid">\n'
+                    f'      <div class="ark-kal"><div class="ark-maanden"></div><p class="ark-noot">{kt["noot"]} <span class="ark-kamer"></span>, {d["kal-personen"]}</p></div>\n'
+                    f'      <div class="ark-leg">{leg_zondag}<span><i class="c"></i>{kt["dicht"]}</span><span><i class="s"></i>{d["kal-gevuld"]}</span></div>\n'
+                    '    </div>\n'
+                    '    <div class="ark-voet">\n'
+                    f'      <div class="ark-samen"><span class="ark-wat" aria-live="polite"></span><button type="button" class="ark-wis" hidden>{d["kal-wis"]}</button></div>\n'
+                    f'      <button type="button" class="btn btn-primary ark-btn" disabled>{d["kal-knop"]}</button>\n'
+                    f'      <p class="ark-code">{d["kal-code"].replace("{code}", code)}</p>\n'
+                    '    </div>\n'
+                    '    <span class="ark-tip" aria-hidden="true"></span>\n'
+                    '  </dialog>')
+        if not kaarten:
+            sys.exit('zoek: blok arr staat aan maar geen enkele arr-<slot>-bron is gevuld')
+        blok['ZK_ARR'] = ''.join(kaarten)
+        d['zk-arr-mod'] = '' if len(kaarten) == 3 else f' zk-arr__rij--{len(kaarten)}'
+        html = html.replace('data-teller>1/3</span>', f'data-teller>1/{len(kaarten)}</span>')
+    blok['ZK_KALENDERS'] = '\n  '.join(kalenders)
+    blok['ZK_VANAF_SCRIPT'] = '<script src="arr-vanaf.js" defer></script>' if live else ''
+
+    # 7b ligging: getekende kaart (uitje.js + kaart-getekend.js; vangnet = kaartfoto) + genummerde lijst; eerste punt uitgelicht
+    if 'ligging' in aan:
+        kaart = d.get('kaart') or {}
+        if not isinstance(kaart, dict) or len(kaart.get('hotel') or []) != 2 or not kaart.get('punten'):
+            sys.exit('zoek: kaart moet een object zijn met hotel [lat, lng] en punten')
+        rijen = []
+        for j, pt in enumerate(kaart['punten']):
+            for x in ('nr', 'naam', 'lat', 'lng', 'rijtijd'):
+                if pt.get(x) in (None, ''):
+                    fouten.append(f'kaartpunt {j + 1}: veld {x} ontbreekt')
+            if pt.get('hoofd') or pt.get('url') or pt.get('pop'):
+                fouten.append(f'kaartpunt {pt.get("naam")}: geen hoofd/url/pop op de zoekpagina (de lijst rechts is de uitleg)')
+            zin = f'<span class="zk-rij__zin">{pt["zin"]}</span>' if pt.get('zin') else ''
+            rijen.append(f'<li class="zk-rij{" zk-rij--uit" if j == 0 else ""}"><span class="zk-rij__teken" aria-hidden="true">{pt.get("nr", "")}</span>'
+                         f'<span class="zk-rij__tekst"><span class="zk-rij__naam">{pt.get("naam", "")}</span>{zin}</span>'
+                         f'<span class="zk-rij__tijd">{AL_REIS["auto"]}{pt.get("rijtijd", "")}<span class="al-vh"> {d["l-auto"]}</span></span></li>')
+        blok['ZK_LIJST'] = ''.join(rijen)
+        blok['ZK_LIGGING_KNOP'] = (f'<a class="btn btn-primary zk-ligging__knop" href="{d["route-url"]}" target="_blank" rel="noopener">{d["knop-route"]}'
+                                   f'{pijl_extern()}</a>') if d.get('route-url') else ''
+        grond = ''
+        if d.get('kaart-foto') and not os.environ.get('ZOEK_ZONDER_KAARTFOTO'):   # scripts/zoek_kaartfoto.py bouwt eerst zonder
+            klein = d.get('kaart-foto-klein') or d['kaart-foto']
+            grond = (f'<img class="ut-kaart__grond" src="{bestaat(klein)}" srcset="{klein} 720w, {bestaat(d["kaart-foto"])} 1200w" '
+                     f'sizes="(max-width:767px) 100vw, 740px" alt="{d["kaart-alt"]}" width="1200" height="800" loading="lazy" decoding="async">')
+        bestaat(d['kaart-vignet'])
+        blok['ZK_KAART'] = (
+            f'<div class="ut-kaart__beeld" data-kaart data-geo="content/kaart/getekend.json" data-punten="#ut-kaart-punten" data-vignet="{d["kaart-vignet"]}" '
+            f'data-t-in="{t("kaart-knop-inzoomen")}" data-t-uit="{t("kaart-knop-uitzoomen")}" data-t-alles="{t("kaart-knop-alles")}" '
+            f'data-t-wiel="{t("kaart-hint-wiel")}" data-t-vingers="{t("kaart-hint-vingers")}" data-t-attributie="{t("kaart-attributie")}" '
+            f'role="img" aria-label="{d["kaart-alt"]}">{grond}</div>')
+        blok['ZK_KAART_PUNTEN'] = '<script type="application/json" id="ut-kaart-punten">' + json.dumps(kaart, ensure_ascii=False).replace('</', '<\\/') + '</script>'
+
+    # 8a reviews (taal uit rev-bestand)
+    if 'reviews' in aan:
+        with open(os.path.join(base, d['rev-bestand']), encoding='utf-8') as f:
+            rv = json.load(f)
+        d['rev-profiel'] = escape(rv.get('profiel_url', 'https://www.google.com/maps?cid=10392502528258527703'))
+        blok['ZK_STERREN'] = AL_STER * 4 + AL_STER.replace('<svg ', '<svg style="opacity:.35" ', 1)
+        rk = []
+        for r in rv['reviews']:
+            st = max(1, min(5, int(r.get('sterren') or 5)))
+            rk.append(f'<article class="al-rev__kaart"><span class="al-rev__sterren" role="img" aria-label="{st}/5">{AL_STER * st}</span>'
+                      f'<p class="al-rev__naam">{escape(r["naam"], quote=False)} <span class="al-rev__datum">&middot; {escape(r.get("datum", ""), quote=False)}</span></p>'
+                      f'<p class="al-rev__tekst">„{escape(r["tekst"], quote=False)}“</p>'
+                      f'<p class="al-rev__bron">{d["rev-bron"]} <b>Google</b></p></article>')
+        blok['ZK_REVIEWS'] = ''.join(rk)
+
+    # 9a vragen: tabs faq-tab-T met vragen faq-T-N-v/-a (een tab = geen tablist); FAQPage = zichtbare tekst zonder tags
+    if 'faq' in aan:
+        tabs = gevuld('faq-tab-')
+        if not tabs:
+            sys.exit('zoek: minstens een FAQ-tab (faq-tab-1) met vragen nodig')
+        knoppen, panelen, ld = [], [], []
+        for n, tb in enumerate(tabs):
+            items = []
+            for j, i in enumerate(al_lijst(d, f'faq-{tb}-', '-v')):
+                v, a = d[f'faq-{tb}-{i}-v'], d.get(f'faq-{tb}-{i}-a', '')
+                if not v or not a:
+                    fouten.append(f'faq-{tb}-{i}: vraag of antwoord leeg')
+                    continue
+                items.append(f'<details class="as-accordeon__item"{" open" if n == 0 and j == 0 else ""}><summary class="as-accordeon__kop"><h3>{v}</h3></summary>'
+                             f'<div class="as-accordeon__paneel"><p>{a}</p></div></details>')
+                ld.append({'@type': 'Question', 'name': plat(v), 'acceptedAnswer': {'@type': 'Answer', 'text': plat(a)}})
+            if not items:
+                fouten.append(f'faq-tab-{tb}: geen vragen')
+            tabindex = '' if n == 0 else ' tabindex="-1"'
+            rol = f' role="tabpanel" aria-labelledby="zk-tab-{tb}"' if len(tabs) > 1 else ''
+            knoppen.append(f'<button type="button" class="al-chip{" al-chip--aan" if n == 0 else ""}" role="tab" id="zk-tab-{tb}" aria-controls="zk-faq-{tb}" '
+                           f'aria-selected="{"true" if n == 0 else "false"}"{tabindex}>{d[f"faq-tab-{tb}"]}</button>')
+            panelen.append(f'<div class="al-faq__paneel" id="zk-faq-{tb}"{rol}>'
+                           f'<h3 class="al-faq__tk">{d.get(f"faq-tk-{tb}") or d[f"faq-tab-{tb}"]}</h3><div class="as-accordeon">{"".join(items)}</div></div>')
+        lijst = (f'<div class="al-faq__tabs" role="tablist" aria-label="{d["faq-kop-kaal"]}" hidden>{"".join(knoppen)}</div>') if len(tabs) > 1 else ''
+        blok['ZK_FAQ'] = lijst + ''.join(panelen)
+        blok['ZK_FAQ_LD'] = ('<script type="application/ld+json">' + json.dumps({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': ld},
+                             ensure_ascii=False).replace('</', '<\\/') + '</script>')
+    else:
+        blok['ZK_FAQ_LD'] = ''
+
+    # 10b slot
+    if 'slot' in aan:
+        bestaat(d['slot-foto'])
+        bestaat(d['slot-portret'])
+        blok['ZK_SLOT_USPS'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"slot-usp-{i}"]}</span></li>' for i in gevuld('slot-usp-'))
+
+    # pop-upinhoud inline (alleen wat op de pagina gebruikt wordt)
+    blok['ZK_POPDATA'] = ('<script type="application/json" id="zk-popdata">'
+                          + json.dumps(popdata, ensure_ascii=False).replace('</', '<\\/') + '</script>')
+
+    # kop/voet: spiegelstand met de labels van de taal (de = Duits, anders de NL-labels van lander-w1); kamerlinks met Mews-taal
+    blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'], taal='de' if lang == 'de' else 'nl')
+    blok['AL_KOP'], blok['AL_VOET'] = (x.replace(f'{ZK_STD_CFG}?mewsRoom=', f'{ZK_STD_CFG}?language={taal}&amp;mewsRoom=') for x in (blok['AL_KOP'], blok['AL_VOET']))
+
+    for k, v in blok.items():
+        if f'<!-- {k} -->' not in html:
+            sys.exit(f'zoek: plek <!-- {k} --> niet in het sjabloon')
+        html = html.replace(f'<!-- {k} -->', v)
+    for k, v in d.items():
+        if isinstance(v, str) and not k.startswith('_'):
+            html = html.replace('{{' + k + '}}', v)
+    open_velden = sorted(set(re.findall(r'\{\{[^}]+\}\}|<!-- ZK_[A-Z_]+ -->', html)))
+    if open_velden:
+        sys.exit(f'zoek: open velden in {output_file}: {open_velden}')
+    if fouten:
+        sys.exit('zoek:\n  ' + '\n  '.join(fouten))
+    if '—' in html:
+        sys.exit('zoek: em-dash in de uitvoer')
+    with open(os.path.join(base, output_file), 'w', encoding='utf-8') as f:
+        f.write(html)
+    print(f'  [{template_name}/{lang}] → {output_file}  ({len(html)} chars)')
+
+
 def build(template_name, lang):
     config = TEMPLATES[template_name]
     output_file, json_file = config['langs'][lang]
@@ -2236,6 +2610,8 @@ def build(template_name, lang):
         return build_adslander(config, output_file, json_file, template_name, lang)
     if config.get('uitje'):
         return build_uitje(config, output_file, json_file, template_name, lang)
+    if config.get('zoek'):
+        return build_zoek(config, output_file, json_file, template_name, lang)
 
     template_path = os.path.join(base, config['template'])
     json_path     = os.path.join(base, json_file)

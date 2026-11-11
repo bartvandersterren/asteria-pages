@@ -1,0 +1,157 @@
+/* ==========================================================================
+   ZOEK: de zoekpagina "Hotel bij ..." van Hotel Asteria (eerste: /hotel-thermalbad-arcen-de-v2)
+   --------------------------------------------------------------------------
+   Sjabloon : zoek.template.html (build.py entry zoek-<slug>-<taal>, build_zoek)
+   Gedrag   : adslander.js (Mews, kamerslider, pop-ups, FAQ-tabs, onderbalk), uitje.js + kaart-getekend.js (kaart),
+              arrangement-kalender.js + arr-vanaf.js (arrangementen). Geen eigen script.
+   Bron     : blokkenkiezer asteria-zoekpagina (keuzecode 1a-2a-3b-4a-5a-6b-7b-8a-9a-10b). De 1:1-blokken komen uit
+              adslander.css / uitje.css (laden ervoor); hier alleen de nieuwe blokken 3b (intro) en 7b (ligging) en de
+              aansluitingen (oogopslag onder de adslander-hero, kamerkop, wellnesskop, arrangementkop).
+              Tokens uit lander-w1.css; breekpunten 1279 / 1023 / 767 zoals de adslander.
+   Geen eyebrows, geen ornamenten, iconen als SVG.
+   ========================================================================== */
+
+/* ==========================================================================
+   1a + 2a: het oogopslagpaneel hangt 120 px over de adslander-hero (alleen als het er direct onder staat)
+   ========================================================================== */
+@media (min-width:768px) {
+  .zk-hero--oog .al-hero__wrap { padding-bottom:160px }
+}
+@media (min-width:768px) and (max-width:1279px) {
+  .zk-hero--oog .al-hero__badge { bottom:144px }
+}
+.zk-oog--los { margin-top:0; padding-top:44px }
+
+/* ==========================================================================
+   3b intro: tekst + vier feiten links, hotelfoto rechts met een rijtijdkaartje over de fotorand
+   ========================================================================== */
+.zk-intro { position:relative; padding:72px 0 }
+.zk-intro__raster { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,520px); gap:64px; align-items:center }
+.al .zk-intro__tekst h2 { line-height:1.05 }
+.zk-intro__tekst p { margin-top:18px; font-size:17px; line-height:1.65; color:var(--ink-soft) }
+.lp .zk-intro__lijst { margin-top:26px; padding-top:22px; border-top:1px solid var(--hairline); gap:12px }
+.lp .zk-intro__lijst li { font-size:16px; color:var(--ink) }
+.zk-intro__media { position:relative; padding-bottom:28px }
+.zk-intro__foto { height:500px; border-radius:var(--radius-image); overflow:hidden; box-shadow:var(--shadow-card) }
+.zk-intro__foto img { width:100%; height:100%; object-fit:cover; object-position:45% 50% }
+.zk-intro__kaart { position:absolute; left:-36px; bottom:0; display:flex; align-items:center; gap:14px; margin:0;
+  background:var(--surface); border-radius:var(--radius-card); box-shadow:var(--shadow-deep); padding:16px 22px 16px 16px }
+.zk-intro__ic { flex:none; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:var(--paper-shade-2); color:var(--terracotta) }
+.zk-intro__ic svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.zk-intro__kaart b { display:block; font-family:var(--font-display); font-weight:700; font-size:26px; line-height:1; color:var(--ink) }
+.zk-intro__regel { display:block; margin-top:4px; font-size:14px; line-height:1.3; color:var(--ink-soft) }
+
+/* ==========================================================================
+   4a kamers: kamerrij van de adslander (adslander.css .al-kamers/.kk-*), zonder prijs; kop links, regel rechts;
+     Meer info als tekstlink (btn-tertiary uit lander-w1.css, lijn altijd zichtbaar)
+   ========================================================================== */
+.zk-kamers__kop { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,420px); align-items:end; gap:10px 40px; margin:0 0 24px }
+.zk-kamers__kop .al-kamers__kop { margin:0 }
+.zk-kamers__sub { font-size:16px; line-height:1.55; color:var(--ink-soft) }
+.zk-kamers .kk-kenmerken li { min-width:0 }
+.zk-kamers .kk-kenmerken span { overflow-wrap:anywhere; hyphens:auto }
+.zk-kamers .kk-knoppen { display:flex; align-items:center; gap:18px; margin:auto 0 0; padding-top:4px }
+.lp .zk-kamers .zk-info { font-size:15px; white-space:nowrap }
+.lp .btn-tertiary--onderstreept::before { transform:scaleX(1) }
+@media (min-width:1024px) { .zk-kamers { padding:44px 0 } }
+
+/* ==========================================================================
+   5a wellness: mozaiek van de adslander (.al-fac__grid/.al-tegel); kop over de hele breedte, tekst links, feiten rechts
+   ========================================================================== */
+.zk-well__kop { display:grid; grid-template-columns:minmax(0,620px) minmax(0,1fr); column-gap:44px; row-gap:14px; align-items:start; margin-bottom:28px }
+.zk-well__kop h2 { grid-column:1 / -1 }
+.zk-well__sub { grid-column:1; color:var(--ink-soft); font-size:18px; line-height:1.5 }
+.zk-well__feiten { grid-column:2; grid-row:2; list-style:none; margin:0; padding:4px 0 0; display:grid; grid-template-columns:1fr 1fr; gap:12px 20px }
+.zk-well__feiten li { display:flex; align-items:flex-start; gap:10px; font-size:14px; line-height:1.4; color:var(--ink) }
+.zk-well__feiten li b { font-weight:700 }
+.zk-well__feiten .as-icoon { flex:none; width:18px; height:18px; margin-top:1px; color:var(--terracotta) }
+
+/* ==========================================================================
+   6b arrangementen: de rij van de adslander; kop op de h2-maat van deze pagina; minder dan drie kaarten = gelijke kolommen
+   ========================================================================== */
+.al .zk-arr .al-arr__kop h2 { font-size:46px; line-height:1.05 }
+.zk-arr .al-arr__sub { max-width:720px; margin-inline:auto }
+.zk-arr__rij--2 { grid-template-columns:repeat(2, minmax(0,1fr)) }
+.zk-arr__rij--1 { grid-template-columns:minmax(0,480px); justify-content:center }
+
+/* ==========================================================================
+   7b ligging: kaart links op twee derde (getekende kaart, uitje.js), rechts het paneel met de genummerde lijst;
+     punt 1 (eerste punt in de JSON) uitgelicht: donker nummer, groter, naam op de kaart; de andere punten alleen het nummer
+   ========================================================================== */
+.zk-ligging__kop { display:flex; flex-direction:column; gap:12px; margin-bottom:28px }
+.zk-ligging__kop p { font-size:17px; color:var(--ink-soft) }
+.zk-ligging__raster { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:24px; align-items:stretch }
+.zk-ligging__veld { position:relative; min-height:420px }
+.zk-ligging .ut-kaart__beeld { height:100%; min-height:420px; box-shadow:var(--shadow-card) }
+.zk-ligging .ut-kaart__beeld .gk-attr { bottom:6px }
+/* punt 1 = het eerste punt na het hotelvignet in de pinlaag */
+.zk-ligging .gk-hotel + .gk-punt .gk-punt__nr { left:-17px; top:-17px; width:34px; height:34px; background:var(--ink); font-size:17px }
+.zk-ligging .gk-punt--nr:not(.gk-hotel + .gk-punt) .gk-punt__naam { display:none }
+.zk-ligging .gk-hotel + .gk-punt .gk-punt__naam { font-size:17px; padding:6px 11px 7px }
+.zk-ligging__paneel { display:flex; flex-direction:column; background:var(--surface); border-radius:var(--radius-card); box-shadow:var(--shadow-card); padding:12px 24px 24px }
+.zk-lijst { list-style:none; margin:0; padding:0; flex:1 }
+.zk-rij { display:grid; grid-template-columns:28px minmax(0,1fr); gap:3px 14px; padding:13px 0; border-bottom:1px solid var(--hairline) }
+.zk-rij__teken { grid-row:span 2; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:var(--terracotta); color:var(--surface); font:700 15px/1 var(--font-display) }
+.zk-rij--uit .zk-rij__teken { background:var(--ink) }
+.zk-rij__naam { display:block; font-family:var(--font-display); font-weight:700; font-size:20px; line-height:1.2; color:var(--ink) }
+.zk-rij--uit .zk-rij__naam { font-size:22px }
+.zk-rij__zin { display:block; margin-top:2px; font-size:14px; line-height:1.45; color:var(--ink-soft) }
+.zk-rij__tijd { grid-column:2; display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums }
+.zk-rij__tijd svg { flex:none; width:20px; height:20px; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.zk .zk-ligging__knop { margin-top:20px; width:100%; white-space:normal; line-height:1.25; text-align:center }
+
+/* ==========================================================================
+   <= 1023 px: intro, wellnesskop en ligging stapelen
+   ========================================================================== */
+@media (max-width:1023px) {
+  .zk-intro { padding:48px 0 }
+  .zk-intro__raster { grid-template-columns:minmax(0,1fr); gap:28px }
+  .zk-intro__media { order:-1; padding-bottom:0 }
+  .zk-intro__foto { height:auto; aspect-ratio:4 / 3 }
+  .zk-intro__kaart { position:relative; left:auto; bottom:auto; margin:-36px 16px 0 }
+  .zk-well__kop { grid-template-columns:minmax(0,1fr) }
+  .zk-well__feiten { grid-column:1; grid-row:auto }
+  .zk-ligging__raster { grid-template-columns:minmax(0,1fr); gap:16px }
+  .zk-ligging__veld { min-height:0 }
+  .zk-ligging .ut-kaart__beeld,.zk-ligging .ut-kaart__beeld.is-interactief { height:auto; min-height:0; aspect-ratio:4 / 3 }
+}
+
+/* ==========================================================================
+   <= 767 px: telefoon
+   ========================================================================== */
+@media (max-width:767px) {
+  /* 2a: onder de telefoonhero van de adslander (zekerheden op de papiergrond) hangt het paneel niet over de hero */
+  .zk-oog,.zk-oog--los { margin-top:0; padding-top:0 }
+
+  /* 3b */
+  .zk-intro__tekst p { margin-top:14px; font-size:16px }
+  .lp .zk-intro__lijst { margin-top:22px; padding-top:20px }
+  .zk-intro__kaart b { font-size:22px }
+
+  /* 4a */
+  .zk-kamers__kop { grid-template-columns:minmax(0,1fr); margin-bottom:18px }
+  .zk-kamers .kk-kenmerken { gap:8px; font-size:12px }
+  .lp .zk-kamers .zk-info { min-height:44px }
+
+  /* 5a */
+  .zk-well__sub { font-size:16px }
+  .zk-well__feiten { grid-template-columns:minmax(0,1fr); gap:10px; margin-top:10px; padding-top:0 }
+  .zk-well__feiten li { font-size:15px }
+
+  /* 6b */
+  .al .zk-arr .al-arr__kop h2 { font-size:32px }
+  .zk-arr .al-arr__sub { margin-inline:0 }
+
+  /* 7b */
+  .zk-ligging__kop { margin-bottom:20px }
+  .zk-ligging__kop p { font-size:16px }
+  .zk-ligging .ut-kaart__beeld,.zk-ligging .ut-kaart__beeld.is-interactief { border:1px solid var(--hairline-strong); border-radius:var(--radius-image) }
+  .zk-ligging .ut-kaart__beeld .gk-attr { font-size:8.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+  .zk-ligging .gk-punt__naam { font-size:12px; padding:3px 6px 4px }
+  .zk-ligging .gk-hotel + .gk-punt .gk-punt__nr { left:-15px; top:-15px; width:30px; height:30px; font-size:15px }
+  .zk-ligging .gk-hotel + .gk-punt .gk-punt__naam { font-size:14px; padding:4px 8px 5px }
+  .zk-ligging__paneel { padding:4px 18px 20px }
+  .zk-rij__naam,.zk-rij--uit .zk-rij__naam { font-size:19px }
+}

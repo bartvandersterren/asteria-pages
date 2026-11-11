@@ -573,3 +573,31 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   gerenderd met Playwright (element `.ut-kaart__beeld`, knoppen en voetstrook verborgen).
 - Test: `python3 -m http.server 8792` + `python3 scripts/test_uitje.py [URL] [--schermafdruk qa/uitje]` (Mews en /api gemockt; platen
   `asteria-<breedte>-<blok>.png` naast de Parkhotel-platen `parkhotel-<breedte>-<blok>.png`).
+
+## Zoekpagina's (Hotel bij …) (nov 2026, proef)
+
+- Voor wie "hotel <plaats>" of "hotel <uitje>" zoekt: hotel eerst (boekknop, kamers, eigen wellness), daarna rijtijd en ligging.
+  Eerste: `/hotel-thermalbad-arcen-de-v2` (build-entry `zoek-hotel-thermalbad-arcen-de`), noindex, follow, canonical op zichzelf,
+  niet in sitemap.xml, niets in `_redirects`. Plan `~/.claude/plans/lazy-twirling-russell.md`, blokkenkiezer
+  `~/Documents/Parkhotel /Website ontwerp/asteria-zoekpagina-blokkenkiezer/` (keuzecode 1a-2a-3b-4a-5a-6b-7b-8a-9a-10b).
+- Bestanden: `zoek.template.html` (blokken tussen `<!--[blok naam]-->` en `<!--[/blok]-->`), `zoek.css` (prefix `zk-`, alleen
+  de nieuwe blokken 3b intro en 7b ligging + aansluitingen; laadt na lander-w1/adslander/uitje/kaart-getekend.css). Geen eigen
+  script: `adslander.js` (Mews, kamerslider, pop-ups, FAQ-tabs), `uitje.js` + `kaart-getekend.js` (kaart), `arrangement-kalender.js`
+  + `arr-vanaf.js` (arrangementen) ongewijzigd. Gegevens: `translations/zoek-labels-<taal>.json` (vaste labels, eerst),
+  `translations/zoek-<slug>-<taal>.json` (een bestand per pagina en taal, wint), `content/zoek-kamers-<taal>.json` (kamerkaarten
+  zonder prijs + pop-upinhoud arr/fac, uit content/adslander-pop-de.json). Kaartfoto's `fotos/l26-zoek-kaart-<slug>(-klein).webp`.
+- build.py `build_zoek`: taal = sleutel onder `langs` (`ZK_TALEN`: nl/de/en -> Mews nl-NL/de-DE/en-US, `<html lang>`), `blokken` in
+  de JSON = volgorde onder de hero (oog, intro, kamers, wellness, arr, ligging, reviews, faq, slot; niet genoemd = niet gebouwd;
+  oog direct onder de hero = paneel 120 px over de hero). Arrangementkaarten via `arr-links/-uit/-rechts-bron` zoals de adslander
+  (lege bron = kaart weg), kalenderteksten uit de labels (`kal-*`). Kaart: `kaart.punten` met nr/naam/lat/lng/label/zin/rijtijd,
+  geen hoofd/url/pop; het eerste punt is uitgelicht (CSS `.gk-hotel + .gk-punt`), de andere punten tonen alleen hun nummer.
+  FAQ: `faq-tab-T` + `faq-T-N-v/-a` (een tab = geen tablist), FAQPage JSON-LD = zichtbare tekst. Wellnessmozaiek precies 5 tegels.
+  Stopt bij open veld, ontbrekend bestand, em-dash, onbekend blok. Kop/voet: `al_kop_voet` (de = Duitse labels, nl/en = NL-labels;
+  EN-labels voor de kop bestaan nog niet).
+- Nieuwe pagina of taal: JSON kopiëren naar `translations/zoek-<slug>-<taal>.json`, invullen (feiten met bron in
+  `qa/zoek/FEITEN-<slug>.md`, onzekere feiten in `_controleren`), regel in TEMPLATES (`'zoek': True`, sleutel onder `langs` = taal),
+  voor nl/en ook `translations/zoek-labels-<taal>.json` en `content/zoek-kamers-<taal>.json`. Dan
+  `python3 scripts/zoek_kaartfoto.py zoek-<slug>-<taal>` (bouwt zonder kaartfoto, rendert de kaart op 1200x800 en 720x540, bouwt opnieuw).
+- Test: `python3 -m http.server 8797 --directory .` + `python3 scripts/test_zoek.py [URL] [--json translations/zoek-<slug>-<taal>.json]
+  [--schermafdruk qa/zoek] [--naam de-arcen]` (1440 en 390; Mews en /api gemockt; noindex, rijtijd in de eerste alinea, geen kk-prijs
+  of /api/kamer-vanaf, Mews-taal, kaart met punten, FAQ-tabs, overloop, console). Platen `qa/zoek/<naam>-<breedte>-<blok>.png`.
