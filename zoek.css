@@ -22,6 +22,10 @@
 }
 .zk-oog--los { margin-top:0; padding-top:44px }
 
+/* 1a telefoon (feedback 11 nov 2026, opzet "g9" van de Parkhotel-lander /de/wellnesshotel-limburg/): Google-regel en chipstrook
+   bestaan alleen op de telefoon; op het bureaublad blijft de hero zoals hij was */
+.zk-hero__google,.zk-chips { display:none }
+
 /* ==========================================================================
    3b intro: tekst + vier feiten links, hotelfoto rechts met een rijtijdkaartje over de fotorand
    ========================================================================== */
@@ -125,6 +129,39 @@
    <= 767 px: telefoon
    ========================================================================== */
 @media (max-width:767px) {
+  /* 1a "g9": hero schermvullend onder de kop (100svh min de gemeten kophoogte), inhoud onderin links: h1, sub, Google-regel, knop
+     over de volle breedte; de Google-badge rechtsboven en de zekerheden in de hero vervallen, die staan als chips eronder */
+  .zk .zk-hero.al-hero--video { --al-hv:calc(100vh - var(--kophoogte)); height:var(--al-hv); min-height:0; display:block; color:var(--surface) }
+  @supports (height:100svh) { .zk .zk-hero.al-hero--video { --al-hv:calc(100svh - var(--kophoogte)) } }
+  .zk .zk-hero .al-hero__foto { height:100%; bottom:0 }
+  .zk .zk-hero .al-hero__foto::after { background:linear-gradient(180deg, rgba(43,26,4,.3) 0%, rgba(43,26,4,0) 20%, rgba(43,26,4,0) 34%,
+    rgba(43,26,4,.5) 54%, rgba(68,42,6,.88) 82%, rgba(68,42,6,.97) 100%) }
+  .zk .zk-hero .al-hero__wrap { box-sizing:border-box; height:100%; min-height:0; display:flex; flex-direction:column; justify-content:flex-end;
+    align-items:stretch; text-align:left; padding:0 0 20px }
+  .zk .zk-hero .al-hero__tekst { align-items:stretch; gap:18px }
+  .zk .zk-hero .al-hero__titel { min-height:0; align-items:flex-start; justify-content:flex-end; gap:10px; text-align:left }
+  .al.zk .zk-hero h1 { font-size:36px; line-height:1.08; max-width:none }
+  .zk .zk-hero .al-hero__sub { font-size:16px; line-height:1.45; max-width:none }
+  .zk .zk-hero .al-hero__tekst .al-btn { width:100%; margin:0 }
+  .zk .zk-hero .al-hero__trust,.zk .zk-hero .al-hero__badge { display:none }
+  .zk-hero__google { display:flex; align-items:center; flex-wrap:wrap; gap:4px 8px; margin-top:2px; font-size:14px; line-height:1.3; color:var(--surface);
+    text-shadow:0 1px 10px rgba(0,0,0,.35) }
+  .zk-hero__google > svg { width:18px; height:18px; flex:none }
+  .zk-hero__google b { font-family:var(--font-display); font-weight:700; font-size:20px; line-height:1 }
+  .zk-hero__sterren { display:inline-flex; align-items:center; gap:2px; color:var(--star) }
+  .zk-hero__sterren svg { width:15px; height:15px; fill:currentColor; display:block }
+  .zk-hero__sterren .zk-ster-leeg { opacity:.35 }
+  .zk-ster-deel { position:relative; display:inline-flex }
+  .zk-ster-deel svg:first-child { opacity:.35 }
+  .zk-ster-deel svg + svg { position:absolute; left:0; top:0; clip-path:inset(0 calc(100% - var(--deel)) 0 0) }
+  /* chipstrook in de inktkleur direct onder de hero: twee kolommen witte pillen met een terracotta vinkje */
+  .zk-chips { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px; margin:0; padding:14px 15px 18px; list-style:none; background:var(--ink) }
+  .zk-chips li { display:flex; align-items:center; gap:8px; min-height:40px; padding:6px 12px 6px 9px; background:var(--surface);
+    border-radius:var(--radius-pill); font-size:14px; line-height:1.2; color:var(--ink) }
+  .zk-chips__ic { flex:none; width:22px; height:22px; border-radius:50%; background:var(--terracotta); color:#fff; display:flex; align-items:center; justify-content:center }
+  .zk-chips__ic svg { width:12px; height:12px }
+  .zk-chips + .zk-oog { padding-top:20px }
+
   /* 2a: onder de telefoonhero van de adslander (zekerheden op de papiergrond) hangt het paneel niet over de hero */
   .zk-oog,.zk-oog--los { margin-top:0; padding-top:0 }
 

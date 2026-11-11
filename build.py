@@ -2787,6 +2787,18 @@ def build_zoek(config, output_file, json_file, template_name, lang):
             sys.exit(f'zoek: hreflang moet een object {{taal: url}} zijn (talen {", ".join(ZK_TALEN)}) met de eigen canonical onder {lang!r}')
     blok['ZK_HREFLANG'] = ''.join(f'\n  <link rel="alternate" hreflang="{k}" href="{hl[k]}">' for k in ZK_TALEN if k in hl)
     blok['ZK_HERO_TRUST'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"hero-trust-{i}"]}</span></li>' for i in gevuld('hero-trust-'))
+    # telefoon: dezelfde zekerheden als chipstrook onder de hero
+    blok['ZK_HERO_CHIPS'] = ''.join(f'<li><span class="zk-chips__ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" '
+                                    f'stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-6.5"/></svg></span><span>{d[f"hero-trust-{i}"]}</span></li>'
+                                    for i in gevuld('hero-trust-'))
+    # telefoon: Google-regel in de hero; sterren = google-score (4,2 -> vier vol, de vijfde voor 20 % gevuld)
+    try:
+        g_score = float(d['google-score'].replace(',', '.'))
+    except ValueError:
+        sys.exit(f'zoek: google-score {d["google-score"]!r} is geen getal')
+    g_vol, g_deel = int(g_score), round((g_score - int(g_score)) * 100)
+    blok['ZK_HERO_STERREN'] = (AL_STER * g_vol + (f'<span class="zk-ster-deel" style="--deel:{g_deel}%">{AL_STER}{AL_STER}</span>' if g_deel else '')
+                               + AL_STER.replace('<svg ', '<svg class="zk-ster-leeg" ', 1) * (5 - g_vol - (1 if g_deel else 0)))
     pijl_extern = lambda: f'<span class="al-vh"> {d["l-nieuw-tabblad"]}</span>'
     popdata = {'arr': {}, 'fac': {}, 'kamer': {}}
 
