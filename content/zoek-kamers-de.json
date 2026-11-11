@@ -400,6 +400,25 @@
         "fotos/l26-najaar-sauna.webp",
         "fotos/l26-najaar-diner.webp"
       ]
+    },
+    "oorlogsmuseum": {
+      "naam": "Kriegsmuseum-Arrangement",
+      "sub": "Eine Nacht im Comfort-Zimmer, für zwei Personen",
+      "desc": "Eine Übernachtung im Comfort-Zimmer mit Eintritt in das Oorlogsmuseum Overloon (Kriegsmuseum) und Kaffee oder Tee im Museumscafé. Am Abend ein 3-Gänge-Abendessen, am nächsten Morgen das Frühstücksbuffet. Sie nennen uns Ihren Museumstag, wir reservieren Ihre Tickets.",
+      "incl": [
+        "Übernachtung im Comfort-Zimmer",
+        "Eintritt in das Oorlogsmuseum Overloon",
+        "Kaffee oder Tee im Museumscafé",
+        "Begrüßungsbrief und ein kleines Geschenk des Museums auf dem Zimmer",
+        "3-Gänge-Abendessen",
+        "Frühstücksbuffet"
+      ],
+      "fotos": [
+        "fotos/l26-oorlogsmuseum-arrangement-comfort.webp",
+        "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+        "fotos/l26-oorlogsmuseum-arrangement-diner.webp",
+        "fotos/l26-oorlogsmuseum-arrangement-ontbijt.webp"
+      ]
     }
   },
   "fac": {

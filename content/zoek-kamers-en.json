@@ -1,0 +1,443 @@
+{
+  "_uitleg": "Room cards (no prices) and pop-up content for the 'Hotel near ...' search pages, English. Same shape as content/zoek-kamers-de.json; photos, videos and Mews room ids from content/uitje-kamers-nl.json; texts translated by Claude from the Dutch on 11 Nov 2026.",
+  "kamer": {
+    "comfort": {
+      "naam": "Comfort room",
+      "kort": "For guests on the move who mainly want a good night's sleep and set off rested in the morning.",
+      "kaart": [
+        [
+          "m2",
+          "22 m²"
+        ],
+        [
+          "bed",
+          "Twin beds"
+        ],
+        [
+          "personen",
+          "Max. 2 people"
+        ],
+        [
+          "airco",
+          "Air conditioning"
+        ]
+      ],
+      "kaart_foto": "fotos/l26-vk-comfort.webp",
+      "desc": "A comfortable, modern room for a relaxed stay in North Limburg. Whether you come for a short break or on business, the Comfort room is an easy place to feel at home.",
+      "pop_fotos": [
+        "fotos/l26-vk-comfort.webp",
+        "fotos/kamer-comfort-a.webp",
+        "fotos/kamer-comfort-b.webp",
+        "fotos/kamer-comfort-c.webp"
+      ],
+      "video": "videos/comfort.mp4",
+      "fotos": [
+        "fotos/kamer-comfort-a.webp",
+        "fotos/kamer-comfort-b.webp",
+        "fotos/kamer-comfort-c.webp"
+      ],
+      "tekst": [
+        "A comfortable, modern room for a relaxed stay in North Limburg. Whether you come for a short break or on business, the Comfort room is an easy place to feel at home.",
+        "The room has two single beds, a private bathroom with shower and a seating area with comfortable chairs."
+      ],
+      "kenmerken": [
+        "Approx. 22 m²",
+        "Twin beds (2 single beds)",
+        "For up to 2 people",
+        "Seating area with comfortable chairs",
+        "Private bathroom with shower",
+        "Air conditioning"
+      ],
+      "kamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
+    },
+    "comfort-3": {
+      "naam": "Comfort room for 3",
+      "kort": "Travelling as three? Then you end the evening together in one room.",
+      "kaart": [
+        [
+          "m2",
+          "22 m²"
+        ],
+        [
+          "bed",
+          "3 single beds"
+        ],
+        [
+          "personen",
+          "Max. 3 people"
+        ],
+        [
+          "airco",
+          "Air conditioning"
+        ]
+      ],
+      "kaart_foto": "fotos/l26-vk-comfort-3.webp",
+      "desc": "The Comfort room for three offers extra space for families or friends travelling together, with everything you need for an easy stay in green North Limburg.",
+      "pop_fotos": [
+        "fotos/l26-vk-comfort-3.webp",
+        "fotos/room-comfort-3-1.webp",
+        "fotos/room-comfort-3-2.webp",
+        "fotos/room-comfort-3-3.webp"
+      ],
+      "video": "videos/comfort-3.mp4",
+      "fotos": [
+        "fotos/room-comfort-3-1.webp",
+        "fotos/room-comfort-3-2.webp",
+        "fotos/room-comfort-3-3.webp"
+      ],
+      "tekst": [
+        "The Comfort room for three offers extra space for families or friends travelling together, with everything you need for an easy stay in green North Limburg.",
+        "Three single beds, a private bathroom and a pleasant seating area make this room a good fit for travelling together."
+      ],
+      "kenmerken": [
+        "Approx. 22 m²",
+        "3 single beds",
+        "For up to 3 people",
+        "Seating area with comfortable chairs",
+        "Private bathroom with shower and/or bath",
+        "Air conditioning"
+      ],
+      "kamer": "85ca19d7-eea5-41c8-8b93-af1d00ffc315"
+    },
+    "mindervalide": {
+      "naam": "Accessible room",
+      "kort": "Set up for wheelchair users, with extra-wide doors and an adapted bathroom.",
+      "kaart": [
+        [
+          "m2",
+          "37 m²"
+        ],
+        [
+          "bed",
+          "Twin beds"
+        ],
+        [
+          "rolstoel",
+          "Wheelchair accessible"
+        ],
+        [
+          "douche",
+          "Adapted shower"
+        ]
+      ],
+      "kaart_foto": "fotos/l26-vk-mindervalide.webp",
+      "desc": "This adapted room is designed for guests with limited mobility. The restaurant and terrace are wheelchair-friendly too, so you can enjoy dinner during your stay without worries.",
+      "pop_fotos": [
+        "fotos/l26-vk-mindervalide.webp",
+        "fotos/room-mindervalide-1.webp",
+        "fotos/room-mindervalide-2.webp",
+        "fotos/room-mindervalide-3.webp"
+      ],
+      "video": "videos/mindervalide.mp4",
+      "fotos": [
+        "fotos/room-mindervalide-1.webp",
+        "fotos/room-mindervalide-2.webp",
+        "fotos/room-mindervalide-3.webp"
+      ],
+      "tekst": [
+        "This adapted room is designed for guests with limited mobility. The restaurant and terrace are wheelchair-friendly too, so you can enjoy dinner during your stay without worries.",
+        "A spacious layout, extra-wide doors and an adapted bathroom give comfort and independence."
+      ],
+      "kenmerken": [
+        "Approx. 37 m²",
+        "Twin beds (2 single beds)",
+        "Sofa bed for extra sleeping space",
+        "Extra-wide doors and room for a wheelchair or walker",
+        "Spacious seating area with comfortable chairs",
+        "Adapted, wheelchair-accessible bathroom with shower"
+      ],
+      "kamer": "fa5b6540-7234-49ce-beb1-af1d00ffc315"
+    },
+    "royale": {
+      "naam": "Royale room",
+      "kort": "A weekend away, with time to unpack and simply be there.",
+      "kaart": [
+        [
+          "m2",
+          "25 m²"
+        ],
+        [
+          "bed",
+          "Double or twin"
+        ],
+        [
+          "personen",
+          "Max. 2 people"
+        ],
+        [
+          "bad",
+          "Shower or bath"
+        ]
+      ],
+      "kaart_foto": "fotos/l26-vk-royale.webp",
+      "desc": "The Royale rooms are larger than the Comfort rooms and give you that little bit extra: more space and a comfortable seating area.",
+      "pop_fotos": [
+        "fotos/l26-vk-royale.webp",
+        "fotos/room-royale-1.webp",
+        "fotos/room-royale-2.webp",
+        "fotos/room-royale-3.webp"
+      ],
+      "video": "videos/royale.mp4",
+      "fotos": [
+        "fotos/room-royale-1.webp",
+        "fotos/room-royale-2.webp",
+        "fotos/room-royale-3.webp"
+      ],
+      "tekst": [
+        "The Royale rooms are larger than the Comfort rooms and give you that little bit extra: more space and a comfortable seating area.",
+        "Choose a double bed or twin beds and enjoy the extra room and a private bathroom with shower or bath."
+      ],
+      "kenmerken": [
+        "Approx. 25 m²",
+        "Double bed or twin beds (2 single beds)",
+        "For up to 2 people",
+        "Spacious seating area with comfortable chairs",
+        "Private bathroom with shower and/or bath",
+        "Air conditioning"
+      ],
+      "kamer": "a8fd7310-0d61-422f-89e6-af1d00ffc315"
+    },
+    "deluxe": {
+      "naam": "Deluxe room",
+      "kort": "After a day out, step into your own sauna and let the day slip away.",
+      "kaart": [
+        [
+          "m2",
+          "25 m²"
+        ],
+        [
+          "sauna",
+          "Infrared sauna"
+        ],
+        [
+          "personen",
+          "Max. 2 people"
+        ],
+        [
+          "stoel",
+          "Seating area"
+        ]
+      ],
+      "kaart_foto": "fotos/l26-vk-deluxe.webp",
+      "desc": "The Deluxe rooms have a private infrared sauna in the bathroom, which makes them a good choice if you want to unwind properly: a small wellness experience in your own room.",
+      "pop_fotos": [
+        "fotos/l26-vk-deluxe.webp",
+        "fotos/room-deluxe-1.webp",
+        "fotos/room-deluxe-2.webp",
+        "fotos/room-deluxe-3.webp"
+      ],
+      "video": "videos/deluxe.mp4",
+      "fotos": [
+        "fotos/room-deluxe-1.webp",
+        "fotos/room-deluxe-2.webp",
+        "fotos/room-deluxe-3.webp"
+      ],
+      "tekst": [
+        "The Deluxe rooms have a private infrared sauna in the bathroom, which makes them a good choice if you want to unwind properly: a small wellness experience in your own room.",
+        "Next to your own sauna you have a comfortable seating area and everything within easy reach."
+      ],
+      "kenmerken": [
+        "Approx. 25 m²",
+        "Double bed or twin beds (2 single beds)",
+        "For up to 2 people",
+        "Seating area with comfortable chairs",
+        "Private infrared sauna",
+        "Private bathroom with shower"
+      ],
+      "kamer": "c737de50-e41e-4c8d-a818-af1d00ffc315"
+    },
+    "suite": {
+      "naam": "Suite",
+      "kort": "To celebrate an anniversary or birthday, with a night you will talk about later.",
+      "kaart": [
+        [
+          "m2",
+          "40 m²"
+        ],
+        [
+          "sauna",
+          "Infrared sauna"
+        ],
+        [
+          "personen",
+          "Max. 4 people"
+        ],
+        [
+          "bed",
+          "King-size bed"
+        ]
+      ],
+      "kaart_foto": "fotos/l26-vk-suite.webp",
+      "desc": "Our most spacious room, with a private infrared sauna, a large seating area and everything within easy reach: a place to fully unwind.",
+      "pop_fotos": [
+        "fotos/l26-vk-suite.webp",
+        "fotos/room-suite-1.webp",
+        "fotos/room-suite-2.webp",
+        "fotos/room-suite-3.webp"
+      ],
+      "video": "videos/suite.mp4",
+      "fotos": [
+        "fotos/room-suite-1.webp",
+        "fotos/room-suite-2.webp",
+        "fotos/room-suite-3.webp"
+      ],
+      "tekst": [
+        "Our most spacious room, with a private infrared sauna, a large seating area and everything within easy reach: a place to fully unwind.",
+        "A king-size bed and a sofa bed offer room for up to four people."
+      ],
+      "kenmerken": [
+        "Approx. 40 m²",
+        "King-size double bed",
+        "Sofa bed for extra sleeping space",
+        "For up to 4 people",
+        "Spacious seating area with comfortable chairs",
+        "Private infrared sauna"
+      ],
+      "kamer": "4a642b66-68e6-444c-beeb-af1d00ffc315"
+    },
+    "bruidssuite": {
+      "naam": "Bridal suite",
+      "kort": "After the big day, or simply an evening for the two of you: run the bath and slow down.",
+      "kaart": [
+        [
+          "m2",
+          "36 m²"
+        ],
+        [
+          "bad",
+          "Freestanding bath"
+        ],
+        [
+          "bed",
+          "King-size bed"
+        ],
+        [
+          "stoel",
+          "Seating area"
+        ]
+      ],
+      "kaart_foto": "fotos/l26-vk-bruidssuite.webp",
+      "desc": "The Bridal suite is made for special moments. Whether you have just got married or are celebrating a romantic weekend, enjoy the calm and the warm atmosphere together.",
+      "pop_fotos": [
+        "fotos/l26-vk-bruidssuite.webp",
+        "fotos/room-bruidssuite-1.webp",
+        "fotos/room-bruidssuite-2.webp",
+        "fotos/room-bruidssuite-3.webp"
+      ],
+      "video": "videos/bruidssuite.mp4",
+      "fotos": [
+        "fotos/room-bruidssuite-1.webp",
+        "fotos/room-bruidssuite-2.webp",
+        "fotos/room-bruidssuite-3.webp"
+      ],
+      "tekst": [
+        "The Bridal suite is made for special moments. Whether you have just got married or are celebrating a romantic weekend, enjoy the calm and the warm atmosphere together.",
+        "A freestanding bath, a large walk-in shower and bathrobes with slippers complete the stay."
+      ],
+      "kenmerken": [
+        "Approx. 36 m²",
+        "King-size double bed",
+        "Spacious seating area with comfortable chairs",
+        "Bathrobes and slippers",
+        "Bathroom with walk-in shower",
+        "Large freestanding bath"
+      ],
+      "kamer": "a9f18d18-561b-47a9-8ba7-b2a800cfd0e2"
+    }
+  },
+  "arr": {
+    "winter": {
+      "naam": "Winter package",
+      "sub": "Two nights, arrival from 1 December 2026 to 31 March 2027",
+      "desc": "Two nights in a Comfort room with breakfast on both mornings and a three-course dinner on the evening of arrival. The wellness area on the Top Floor is included during your stay.",
+      "incl": [
+        "Two nights with breakfast",
+        "Three-course dinner on the evening of arrival",
+        "Welcome drink: house wine or specialty beer",
+        "Bathrobe and slippers",
+        "Wellness during your stay",
+        "Early check-in and late check-out (subject to availability)"
+      ],
+      "fotos": [
+        "fotos/l26-winterarrangement-voetbad.webp",
+        "fotos/l26-weekend-aanbieding-comfort.webp",
+        "fotos/l26-wellness-arrangement-diner.webp",
+        "fotos/l26-wellness-arrangement-ontbijt.webp"
+      ]
+    },
+    "wellness": {
+      "naam": "Wellness package",
+      "sub": "One night in a Comfort room, for two people",
+      "desc": "One night in a Comfort room with free access to the wellness area on the Top Floor: four saunas, steam cabin, plunge and herbal bath and a relaxation room. In the evening a three-course dinner with regional produce, the next morning the breakfast buffet.",
+      "incl": [
+        "One night in a Comfort room",
+        "Welcome drink: a bottle of Botega",
+        "Bathrobe, slippers and towel set",
+        "Free access to the wellness area (300 m²)",
+        "Three-course dinner with regional produce",
+        "Extensive breakfast buffet"
+      ],
+      "fotos": [
+        "fotos/l26-wellness-arrangement-relax.webp",
+        "fotos/l26-wellness-arrangement-zoutsteen.webp",
+        "fotos/l26-wellness-arrangement-diner.webp",
+        "fotos/l26-wellness-arrangement-ontbijt.webp"
+      ]
+    },
+    "najaar": {
+      "naam": "Autumn package",
+      "sub": "Deluxe room for two people, bookable until 30 November",
+      "desc": "You are welcomed with coffee or tea and a slice of Limburg vlaai and stay in a Deluxe room with its own infrared sauna. In the evening a three-course seasonal dinner, the next morning the breakfast buffet.",
+      "incl": [
+        "Welcome with coffee or tea and Limburg vlaai",
+        "Deluxe room with private infrared sauna",
+        "Three-course seasonal dinner",
+        "Extensive breakfast buffet"
+      ],
+      "fotos": [
+        "fotos/l26-najaar-deluxe.webp",
+        "fotos/l26-najaar-vlaai.webp",
+        "fotos/l26-najaar-sauna.webp",
+        "fotos/l26-najaar-diner.webp"
+      ]
+    },
+    "oorlogsmuseum": {
+      "naam": "War Museum package",
+      "sub": "One night in a Comfort room, for two people",
+      "desc": "One night in a Comfort room with admission to Oorlogsmuseum Overloon (the Overloon War Museum) and coffee or tea in the museum café. In the evening a three-course dinner, the next morning the breakfast buffet. Let us know the day of your museum visit and we reserve your tickets.",
+      "incl": [
+        "One night in a Comfort room",
+        "Admission to Oorlogsmuseum Overloon",
+        "Coffee or tea in the museum café",
+        "Welcome letter and a small gift from the museum in your room",
+        "Three-course dinner",
+        "Breakfast buffet"
+      ],
+      "fotos": [
+        "fotos/l26-oorlogsmuseum-arrangement-comfort.webp",
+        "fotos/l26-oorlogsmuseum-arrangement-hero.webp",
+        "fotos/l26-oorlogsmuseum-arrangement-diner.webp",
+        "fotos/l26-oorlogsmuseum-arrangement-ontbijt.webp"
+      ]
+    }
+  },
+  "fac": {
+    "wellness": {
+      "desc": "The 300 m² wellness area is on the Top Floor of the hotel: four saunas (walnut, forest cabin, salt stone and infrared), steam cabin, experience showers, plunge and herbal bath, four foot baths and a relaxation room. Swimwear is not allowed, except on Tuesdays (swimwear day). Hotel guests pay € 12.50 per person; reserve your time in advance at reception.",
+      "kenmerken": [
+        "300 m² on the Top Floor",
+        "Four saunas and steam cabin",
+        "Mon-Thu 4 pm-10 pm",
+        "Fri-Sun 12 noon-10 pm"
+      ],
+      "video": "videos/wellness-walk-pop.mp4",
+      "fotos": [
+        "fotos/wellness-spa.webp",
+        "fotos/wp-sauna-fins.webp",
+        "fotos/wp-sauna-zoutsteen.webp",
+        "fotos/l26-wellness-dompelbad.webp"
+      ],
+      "hotelboek": true
+    }
+  }
+}

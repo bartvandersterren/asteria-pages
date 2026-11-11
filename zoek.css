@@ -100,6 +100,9 @@
 .zk-rij__zin { display:block; margin-top:2px; font-size:14px; line-height:1.45; color:var(--ink-soft) }
 .zk-rij__tijd { grid-column:2; display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums }
 .zk-rij__tijd svg { flex:none; width:20px; height:20px; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+/* optionele tekstlink per punt (kaartpunt url + url-label); zonder url niet in de uitvoer */
+.zk .zk-rij__link { display:inline-block; margin-top:4px; padding:4px 0; font-size:14px; font-weight:600; color:var(--terracotta-text, var(--terracotta)); text-decoration:underline; text-underline-offset:3px }
+.zk .zk-rij__link:hover { color:var(--ink) }
 .zk .zk-ligging__knop { margin-top:20px; width:100%; white-space:normal; line-height:1.25; text-align:center }
 
 /* ==========================================================================

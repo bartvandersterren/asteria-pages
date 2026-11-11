@@ -578,7 +578,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 
 - Voor wie "hotel <plaats>" of "hotel <uitje>" zoekt: hotel eerst (boekknop, kamers, eigen wellness), daarna rijtijd en ligging.
   Eerste: `/hotel-thermalbad-arcen-de-v2` (build-entry `zoek-hotel-thermalbad-arcen-de`), noindex, follow, canonical op zichzelf,
-  niet in sitemap.xml, niets in `_redirects`. Plan `~/.claude/plans/lazy-twirling-russell.md`, blokkenkiezer
+  niet in sitemap.xml, niets in `_redirects`. Ook: `/hotel-thermaalbad-arcen-v2` (nl), `/hotel-thermal-bath-arcen-en-v2` (en),
+  `/hotel-overloon-v2`, `/hotel-overloon-de-v2`, `/hotel-overloon-en-v2` (Oorlogsmuseum, ZooParc, drie oorlogsbegraafplaatsen;
+  feiten `qa/zoek/FEITEN-overloon.md`). Plan `~/.claude/plans/lazy-twirling-russell.md`, blokkenkiezer
   `~/Documents/Parkhotel /Website ontwerp/asteria-zoekpagina-blokkenkiezer/` (keuzecode 1a-2a-3b-4a-5a-6b-7b-8a-9a-10b).
 - Bestanden: `zoek.template.html` (blokken tussen `<!--[blok naam]-->` en `<!--[/blok]-->`), `zoek.css` (prefix `zk-`, alleen
   de nieuwe blokken 3b intro en 7b ligging + aansluitingen; laadt na lander-w1/adslander/uitje/kaart-getekend.css). Geen eigen
@@ -590,14 +592,19 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   de JSON = volgorde onder de hero (oog, intro, kamers, wellness, arr, ligging, reviews, faq, slot; niet genoemd = niet gebouwd;
   oog direct onder de hero = paneel 120 px over de hero). Arrangementkaarten via `arr-links/-uit/-rechts-bron` zoals de adslander
   (lege bron = kaart weg), kalenderteksten uit de labels (`kal-*`). Kaart: `kaart.punten` met nr/naam/lat/lng/label/zin/rijtijd,
-  geen hoofd/url/pop; het eerste punt is uitgelicht (CSS `.gk-hotel + .gk-punt`), de andere punten tonen alleen hun nummer.
+  geen hoofd/pop; optioneel `url` + `url-label` = tekstlink in de lijst (gaat niet mee naar de kaartdata; Overloon NL linkt naar
+  /oorlogsmuseum-overloon-v2 en /zooparc-overloon-v2); het eerste punt is uitgelicht (CSS `.gk-hotel + .gk-punt`), de andere
+  punten tonen alleen hun nummer. Optioneel `hreflang` {nl, de, en: url} = alternate-links in de kop (eigen taal = eigen canonical).
+  Reviews: `rev-bestand` uit de labels (nl = originelen, de/en = vertaling `content/reviews-google-asteria-<taal>.json` met
+  `rev-vertaald`; leeg = geen vertaalregel), optioneel `rev-namen` = selectie en volgorde. Hero zonder video: video-velden leeg.
   FAQ: `faq-tab-T` + `faq-T-N-v/-a` (een tab = geen tablist), FAQPage JSON-LD = zichtbare tekst. Wellnessmozaiek precies 5 tegels.
-  Stopt bij open veld, ontbrekend bestand, em-dash, onbekend blok. Kop/voet: `al_kop_voet` (de = Duitse labels, nl/en = NL-labels;
-  EN-labels voor de kop bestaan nog niet).
+  Stopt bij open veld, ontbrekend bestand, em-dash, onbekend blok. Kop/voet: `al_kop_voet` (de = Duitse labels, nl = NL-labels;
+  en = NL-uitvoer + `zk_kop_voet_en` in build_zoek, zodat de/nl byte-identiek blijven).
 - Nieuwe pagina of taal: JSON kopiëren naar `translations/zoek-<slug>-<taal>.json`, invullen (feiten met bron in
   `qa/zoek/FEITEN-<slug>.md`, onzekere feiten in `_controleren`), regel in TEMPLATES (`'zoek': True`, sleutel onder `langs` = taal),
   voor nl/en ook `translations/zoek-labels-<taal>.json` en `content/zoek-kamers-<taal>.json`. Dan
   `python3 scripts/zoek_kaartfoto.py zoek-<slug>-<taal>` (bouwt zonder kaartfoto, rendert de kaart op 1200x800 en 720x540, bouwt opnieuw).
 - Test: `python3 -m http.server 8797 --directory .` + `python3 scripts/test_zoek.py [URL] [--json translations/zoek-<slug>-<taal>.json]
-  [--schermafdruk qa/zoek] [--naam de-arcen]` (1440 en 390; Mews en /api gemockt; noindex, rijtijd in de eerste alinea, geen kk-prijs
+  [--schermafdruk qa/zoek] [--naam de-arcen]` (1440 en 390; Mews en /api gemockt; noindex, hreflang, rijtijd in de eerste alinea
+  = veld `test-rijtijd` uit de pagina-JSON (bv. "10 minuten"), geen kk-prijs
   of /api/kamer-vanaf, Mews-taal, kaart met punten, FAQ-tabs, overloop, console). Platen `qa/zoek/<naam>-<breedte>-<blok>.png`.

@@ -13,15 +13,27 @@
     "Erlebnisduschen-foto (nieuw-assets/wellness-belevenisdouches.jpg) is 400x300: op de kleine mozaiektegel net scherp genoeg, beter een groter origineel.",
     "Najaarskaart (NAJAAR2D) loopt tot 30 november: arr-rechts-* vervangen of arr-rechts-bron leeg maken (kaart weg)."
   ],
-
-  "blokken": ["oog", "intro", "kamers", "wellness", "arr", "ligging", "reviews", "faq", "slot"],
-
+  "blokken": [
+    "oog",
+    "intro",
+    "kamers",
+    "wellness",
+    "arr",
+    "ligging",
+    "reviews",
+    "faq",
+    "slot"
+  ],
   "titel": "Hotel beim Thermalbad Arcen | Hotel Asteria Venray",
   "omschrijving": "Hotel beim Thermalbad Arcen | Hotel Asteria Venray: 23 Minuten vom Thermalbad entfernt, mit eigenem Wellnessbereich (300 m², vier Saunen) und kostenlosen Parkplätzen an der A73.",
   "canonical": "https://visit.asteria.nl/hotel-thermalbad-arcen-de-v2",
+  "hreflang": {
+    "nl": "https://visit.asteria.nl/hotel-thermaalbad-arcen-v2",
+    "de": "https://visit.asteria.nl/hotel-thermalbad-arcen-de-v2",
+    "en": "https://visit.asteria.nl/hotel-thermal-bath-arcen-en-v2"
+  },
   "robots": "noindex, follow",
   "og-image": "https://visit.asteria.nl/fotos/l26-al-hero-16x9.webp",
-
   "hero-kop": "Hotel beim Thermalbad Arcen",
   "hero-sub": "Übernachten Sie in Venray, 23 Minuten vom Thermalbad Arcen entfernt, mit unserem eigenen Wellnessbereich und vier Saunen im Hotel.",
   "hero-alt": "Rundgang durch den Wellnessbereich auf der Top Floor von Hotel Asteria",
@@ -34,7 +46,6 @@
   "hero-trust-2": "Kostenlose Parkplätze vor der Tür",
   "hero-trust-3": "Vier-Sterne-Hotel an der A73",
   "hero-trust-4": "Eigener Wellnessbereich auf der Top Floor",
-
   "oog-kop": "Vom Hotel zum Thermalbad auf einen <span class='al-g'>Blick</span>",
   "vk-auto": "23 Min.",
   "vk-km": "24 km",
@@ -51,7 +62,6 @@
   "t5-waarde": "Ab 18 Jahren, Badekleidung in den Becken Pflicht",
   "route-url": "https://www.google.com/maps/dir/?api=1&amp;origin=Hotel+Asteria,+Maasheseweg+80a,+Venray&amp;destination=Thermaalbad+Arcen,+Klein+Vink+11,+Arcen",
   "knop-route": "Route vom Hotel zum Thermalbad",
-
   "intro-kop": "Ihr Hotel in Venray, nah bei <span class='al-g'>Arcen</span>",
   "intro-p1": "Hotel Asteria liegt an der Maasheseweg 80a in Venray, 23 Minuten mit dem Auto (ca. 24 km) vom Thermalbad Arcen entfernt. Sie übernachten in einem Vier-Sterne-Hotel direkt an der A73, parken kostenlos vor der Tür und haben ganz oben im Haus unseren eigenen Wellnessbereich mit vier Saunen.",
   "intro-p2": "Tagsüber ins Thermalbad nach Arcen, abends essen in unserer Brasserie und danach noch in die Sauna. Hotel Asteria ist ein eigenständiges Hotel in Venray und gehört nicht zum Thermalbad Arcen. Tickets für das Thermalbad erhalten Sie beim Thermalbad selbst.",
@@ -63,11 +73,17 @@
   "intro-alt": "Hotel Asteria in Venray mit dem Teich vor dem Eingang",
   "intro-kaart-tijd": "23 Min.",
   "intro-kaart-regel": "zum Thermalbad Arcen",
-
   "kamers-kop": "Wählen Sie Ihr <span class='al-g'>Zimmer</span>",
   "kamers-sub": "Alle Zimmer buchen Sie direkt beim Hotel. Den Preis sehen Sie, sobald Sie Ihre Daten wählen.",
-  "kamers": ["deluxe", "comfort", "royale", "suite", "bruidssuite", "comfort-3", "mindervalide"],
-
+  "kamers": [
+    "deluxe",
+    "comfort",
+    "royale",
+    "suite",
+    "bruidssuite",
+    "comfort-3",
+    "mindervalide"
+  ],
   "well-kop": "Unser eigener Wellnessbereich auf der <span class='al-g'>Top Floor</span>",
   "well-tekst": "Im Hotel Asteria liegt der Wellnessbereich ganz oben im Haus: 300 m² mit vier Saunen, Dampfkabine, Tauch- und Kräuterbad, Erlebnisduschen, Fußbädern und Ruheraum. Ihre Zeit reservieren Sie vorab an der Rezeption. Das Hotel liegt direkt an der A73 in Venray.",
   "well-feit-1": "Vier Saunen und Dampfkabine auf 300 m²",
@@ -103,7 +119,6 @@
   "well-5-foto": "nieuw-assets/wellness-belevenisdouches.jpg",
   "well-5-alt": "Zwei Regenduschen im Wellnessbereich",
   "well-5-pop": "wellness",
-
   "arr-kop": "Lieber alles auf einmal <span class='al-g'>geregelt</span>?",
   "arr-sub": "Übernachtung, Abendessen und Frühstück in einem Paket. Im Wellness- und im Winterarrangement ist der Wellnessbereich inklusive.",
   "arr-uit-bron": "wellness-arrangement",
@@ -138,22 +153,55 @@
   "arr-rechts-incl-3": "3-Gänge-Abendessen und Frühstücksbuffet",
   "arr-rechts-foto": "fotos/l26-najaar-deluxe.webp",
   "arr-rechts-alt": "Deluxe-Zimmer mit eigener Infrarotsauna",
-
   "ligging-kop": "So nah ist <span class='al-g'>Arcen</span>",
   "ligging-regel": "Das Thermalbad Arcen liegt südöstlich von Venray an der Maas. Auf der Karte sehen Sie auch, was Sie in der Nähe noch unternehmen können.",
   "kaart-alt": "Karte von Nord-Limburg mit Hotel Asteria in Venray und dem Thermalbad Arcen an der Maas",
   "kaart-foto": "fotos/l26-zoek-kaart-thermalbad-arcen.webp",
   "kaart-foto-klein": "fotos/l26-zoek-kaart-thermalbad-arcen-klein.webp",
   "kaart": {
-    "hotel": [51.5477448, 5.9973241],
+    "hotel": [
+      51.5477448,
+      5.9973241
+    ],
     "punten": [
-      {"nr": 1, "naam": "Thermalbad Arcen", "lat": 51.4972644, "lng": 6.1841957, "label": "boven", "zin": "Thermalwasser mit 35 bis 36 Grad, Bäder und Saunen.", "rijtijd": "23 Min."},
-      {"nr": 2, "naam": "Schlossgärten Arcen", "lat": 51.4679673, "lng": 6.1846839, "label": "rechts", "zin": "Gärten rund um ein Schloss aus dem 17. Jahrhundert.", "rijtijd": "25 Min."},
-      {"nr": 3, "naam": "Brauerei Hertog Jan", "lat": 51.4860658, "lng": 6.1733718, "label": "links", "zin": "Hier in Arcen braut Hertog Jan sein Bier.", "rijtijd": "23 Min."},
-      {"nr": 4, "naam": "Nationalpark De Maasduinen", "lat": 51.5742, "lng": 6.0848, "label": "rechts", "zin": "Wald, Heide und Flugsand zwischen Maas und Grenze.", "rijtijd": "21 Min."}
+      {
+        "nr": 1,
+        "naam": "Thermalbad Arcen",
+        "lat": 51.4972644,
+        "lng": 6.1841957,
+        "label": "boven",
+        "zin": "Thermalwasser mit 35 bis 36 Grad, Bäder und Saunen.",
+        "rijtijd": "23 Min."
+      },
+      {
+        "nr": 2,
+        "naam": "Schlossgärten Arcen",
+        "lat": 51.4679673,
+        "lng": 6.1846839,
+        "label": "rechts",
+        "zin": "Gärten rund um ein Schloss aus dem 17. Jahrhundert.",
+        "rijtijd": "25 Min."
+      },
+      {
+        "nr": 3,
+        "naam": "Brauerei Hertog Jan",
+        "lat": 51.4860658,
+        "lng": 6.1733718,
+        "label": "links",
+        "zin": "Hier in Arcen braut Hertog Jan sein Bier.",
+        "rijtijd": "23 Min."
+      },
+      {
+        "nr": 4,
+        "naam": "Nationalpark De Maasduinen",
+        "lat": 51.5742,
+        "lng": 6.0848,
+        "label": "rechts",
+        "zin": "Wald, Heide und Flugsand zwischen Maas und Grenze.",
+        "rijtijd": "21 Min."
+      }
     ]
   },
-
   "faq-kop": "Häufig gestellte <span class='al-g'>Fragen</span>",
   "faq-kop-kaal": "Häufig gestellte Fragen",
   "faq-tab-1": "Lage und Thermalbad",
@@ -170,7 +218,6 @@
   "faq-2-2-a": "Montag bis Donnerstag von 16.00 bis 22.00 Uhr, Freitag bis Sonntag von 12.00 bis 22.00 Uhr. Reservieren Sie Ihre Zeit vorab an der Rezeption. Auf Anfrage schalten wir die Saunen auch früher für Sie ein.",
   "faq-2-3-v": "Kann ich am Hotel parken und mein Auto laden?",
   "faq-2-3-a": "Ja. Sie parken kostenlos am Hotel, direkt an der A73 (Ausfahrt 8, Venray-Noord). Für Elektroautos gibt es vier Ladepunkte, für Ihr Fahrrad einen abgeschlossenen Fahrradschuppen.",
-
   "slot-kop": "Ihr Zimmer nah bei <span class='al-g'>Arcen</span>",
   "slot-tekst": "Wählen Sie Ihre Daten und buchen Sie direkt beim Hotel. Das Thermalbad Arcen ist 23 Minuten entfernt, unser eigener Wellnessbereich liegt ganz oben im Hotel.",
   "slot-foto": "nieuw-assets/wellness-voetenbad-avond-148a3966-edit-1200.webp",

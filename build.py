@@ -269,6 +269,42 @@ TEMPLATES = {
         },
         'zoek': True,
     },
+    'zoek-hotel-thermaalbad-arcen-nl': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'nl': ('hotel-thermaalbad-arcen-v2.html', 'translations/zoek-hotel-thermaalbad-arcen-nl.json'),
+        },
+        'zoek': True,
+    },
+    'zoek-hotel-thermal-bath-arcen-en': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'en': ('hotel-thermal-bath-arcen-en-v2.html', 'translations/zoek-hotel-thermal-bath-arcen-en.json'),
+        },
+        'zoek': True,
+    },
+    # Overloon: een zoekpagina voor Oorlogsmuseum, ZooParc en de oorlogsbegraafplaatsen (nl/de/en)
+    'zoek-hotel-overloon-nl': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'nl': ('hotel-overloon-v2.html', 'translations/zoek-hotel-overloon-nl.json'),
+        },
+        'zoek': True,
+    },
+    'zoek-hotel-overloon-de': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'de': ('hotel-overloon-de-v2.html', 'translations/zoek-hotel-overloon-de.json'),
+        },
+        'zoek': True,
+    },
+    'zoek-hotel-overloon-en': {
+        'template': 'zoek.template.html',
+        'langs': {
+            'en': ('hotel-overloon-en-v2.html', 'translations/zoek-hotel-overloon-en.json'),
+        },
+        'zoek': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -2263,6 +2299,46 @@ ZK_FEIT_IC = {
 }
 
 
+def zk_kop_voet_en(d):
+    """Engelse labels van de spiegelkop/-voet (zoekpagina, taal en): zelfde NL-bronteksten als al_kop_voet_de, toegepast
+    op de uitvoer van al_kop_voet(taal='nl'); de uitvoer voor de en nl blijft daardoor ongewijzigd."""
+    tel = d['telefoon']
+    return [
+        ('Hotel Asteria, naar het begin van de pagina', 'Hotel Asteria, back to the top of the page'),
+        ('aria-label="Hoofdnavigatie"', 'aria-label="Main navigation"'),
+        ('aria-label="Bel Hotel Asteria: 0478 511466"', f'aria-label="Call Hotel Asteria: {tel}"'),
+        ('aria-label="Bel ons"', 'aria-label="Call us"'),
+        ('aria-label="E-mail ons"', 'aria-label="Email us"'),
+        ('aria-label="Open menu"', 'aria-label="Open menu"'),
+        ('aria-label="Mobiel menu"', 'aria-label="Mobile menu"'),
+        ('aria-label="Sluit menu"', 'aria-label="Close menu"'),
+        ('aria-label="Volg ons"', 'aria-label="Follow us"'),
+        ('>0478 511466<', f'>{tel}<'),
+        ('>0478 511 466<', f'>{tel}<'),
+        ('>Kamers &amp; suites<', '>Rooms &amp; suites<'),
+        ('>Faciliteiten<', '>Facilities<'),
+        ('>Wellness &amp; fitness<', '>Wellness &amp; fitness<'),
+        ('>Arrangementen<', '>Packages<'),
+        ('>Omgeving<', '>Surroundings<'),
+        ('>Over ons <', '>About us <'),
+        ('>Ons verhaal<', '>Our story<'),
+        ('>Contact<', '>Contact<'),
+        ('>Boek nu<', '>' + d['kop-boek'] + '<'),
+        ('>Verblijf<', '>Stay<'),
+        ('>Bruidssuite<', '>Bridal suite<'),
+        ('>Junior suite<', '>Junior suite<'),
+        ('>Comfort kamer<', '>Comfort room<'),
+        ('>Deluxe kamer<', '>Deluxe room<'),
+        ('>Beschikbaarheid<', '>Availability<'),
+        ('>Bij ons<', '>At the hotel<'),
+        ('>Route &amp; parkeren<', '>Directions &amp; parking<'),
+        ('Privacyverklaring', 'Privacy statement'),
+        ('Algemene voorwaarden', 'Terms and conditions'),
+        ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
+         'A73, exit 8 Venray-Noord &middot; Chamber of Commerce 12028838 &middot; VAT NL804668528B01'),
+    ]
+
+
 def build_zoek(config, output_file, json_file, template_name, lang):
     from html import escape
     if lang not in ZK_TALEN:
@@ -2319,6 +2395,12 @@ def build_zoek(config, output_file, json_file, template_name, lang):
 
     blok = {}
     blok['ZK_GOOGLE_G'] = AL_GOOGLE_G
+    # hreflang (optioneel): {"nl": url, "de": url, "en": url}; de eigen taal moet naar de eigen canonical wijzen
+    hl = d.get('hreflang') or {}
+    if hl:
+        if not isinstance(hl, dict) or any(k not in ZK_TALEN for k in hl) or hl.get(lang) != d['canonical']:
+            sys.exit(f'zoek: hreflang moet een object {{taal: url}} zijn (talen {", ".join(ZK_TALEN)}) met de eigen canonical onder {lang!r}')
+    blok['ZK_HREFLANG'] = ''.join(f'\n  <link rel="alternate" hreflang="{k}" href="{hl[k]}">' for k in ZK_TALEN if k in hl)
     blok['ZK_HERO_TRUST'] = ''.join(f'<li>{AL_TRUST_IC}<span>{d[f"hero-trust-{i}"]}</span></li>' for i in gevuld('hero-trust-'))
     pijl_extern = lambda: f'<span class="al-vh"> {d["l-nieuw-tabblad"]}</span>'
     popdata = {'arr': {}, 'fac': {}, 'kamer': {}}
@@ -2502,11 +2584,15 @@ def build_zoek(config, output_file, json_file, template_name, lang):
             for x in ('nr', 'naam', 'lat', 'lng', 'rijtijd'):
                 if pt.get(x) in (None, ''):
                     fouten.append(f'kaartpunt {j + 1}: veld {x} ontbreekt')
-            if pt.get('hoofd') or pt.get('url') or pt.get('pop'):
-                fouten.append(f'kaartpunt {pt.get("naam")}: geen hoofd/url/pop op de zoekpagina (de lijst rechts is de uitleg)')
+            if pt.get('hoofd') or pt.get('pop'):
+                fouten.append(f'kaartpunt {pt.get("naam")}: geen hoofd/pop op de zoekpagina (de lijst rechts is de uitleg)')
+            if bool(pt.get('url')) != bool(pt.get('url-label')):
+                fouten.append(f'kaartpunt {pt.get("naam")}: url en url-label horen bij elkaar')
             zin = f'<span class="zk-rij__zin">{pt["zin"]}</span>' if pt.get('zin') else ''
+            # optioneel url + url-label: tekstlink in de lijst (niet op de kaart; de kaart krijgt deze velden niet mee)
+            link = f'<a class="zk-rij__link" href="{pt["url"]}">{pt["url-label"]}&nbsp;&rarr;</a>' if pt.get('url') else ''
             rijen.append(f'<li class="zk-rij{" zk-rij--uit" if j == 0 else ""}"><span class="zk-rij__teken" aria-hidden="true">{pt.get("nr", "")}</span>'
-                         f'<span class="zk-rij__tekst"><span class="zk-rij__naam">{pt.get("naam", "")}</span>{zin}</span>'
+                         f'<span class="zk-rij__tekst"><span class="zk-rij__naam">{pt.get("naam", "")}</span>{zin}{link}</span>'
                          f'<span class="zk-rij__tijd">{AL_REIS["auto"]}{pt.get("rijtijd", "")}<span class="al-vh"> {d["l-auto"]}</span></span></li>')
         blok['ZK_LIJST'] = ''.join(rijen)
         blok['ZK_LIGGING_KNOP'] = (f'<a class="btn btn-primary zk-ligging__knop" href="{d["route-url"]}" target="_blank" rel="noopener">{d["knop-route"]}'
@@ -2522,6 +2608,7 @@ def build_zoek(config, output_file, json_file, template_name, lang):
             f'data-t-in="{t("kaart-knop-inzoomen")}" data-t-uit="{t("kaart-knop-uitzoomen")}" data-t-alles="{t("kaart-knop-alles")}" '
             f'data-t-wiel="{t("kaart-hint-wiel")}" data-t-vingers="{t("kaart-hint-vingers")}" data-t-attributie="{t("kaart-attributie")}" '
             f'role="img" aria-label="{d["kaart-alt"]}">{grond}</div>')
+        kaart = dict(kaart, punten=[{k: v for k, v in pt.items() if k not in ('url', 'url-label')} for pt in kaart['punten']])
         blok['ZK_KAART_PUNTEN'] = '<script type="application/json" id="ut-kaart-punten">' + json.dumps(kaart, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 
     # 8a reviews (taal uit rev-bestand)
@@ -2531,6 +2618,13 @@ def build_zoek(config, output_file, json_file, template_name, lang):
         d['rev-profiel'] = escape(rv.get('profiel_url', 'https://www.google.com/maps?cid=10392502528258527703'))
         blok['ZK_STERREN'] = AL_STER * 4 + AL_STER.replace('<svg ', '<svg style="opacity:.35" ', 1)
         rk = []
+        namen = d.get('rev-namen')   # optioneel: selectie en volgorde op naam (zelfde reviews in elke taal)
+        if namen:
+            per_naam = {r['naam']: r for r in rv['reviews']}
+            mis = [n for n in namen if n not in per_naam]
+            if mis:
+                sys.exit(f'zoek: rev-namen niet in {d["rev-bestand"]}: {mis}')
+            rv['reviews'] = [per_naam[n] for n in namen]
         for r in rv['reviews']:
             st = max(1, min(5, int(r.get('sterren') or 5)))
             rk.append(f'<article class="al-rev__kaart"><span class="al-rev__sterren" role="img" aria-label="{st}/5">{AL_STER * st}</span>'
@@ -2538,6 +2632,8 @@ def build_zoek(config, output_file, json_file, template_name, lang):
                       f'<p class="al-rev__tekst">„{escape(r["tekst"], quote=False)}“</p>'
                       f'<p class="al-rev__bron">{d["rev-bron"]} <b>Google</b></p></article>')
         blok['ZK_REVIEWS'] = ''.join(rk)
+        blok['ZK_REV_VERTAALD'] = ('<p class="al-rev__vertaald"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>'
+                                   f'{d["rev-vertaald"]}</p>') if d.get('rev-vertaald') else ''
 
     # 9a vragen: tabs faq-tab-T met vragen faq-T-N-v/-a (een tab = geen tablist); FAQPage = zichtbare tekst zonder tags
     if 'faq' in aan:
@@ -2582,6 +2678,9 @@ def build_zoek(config, output_file, json_file, template_name, lang):
 
     # kop/voet: spiegelstand met de labels van de taal (de = Duits, anders de NL-labels van lander-w1); kamerlinks met Mews-taal
     blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'], taal='de' if lang == 'de' else 'nl')
+    if lang == 'en':   # Engelse labels na de NL-kop/-voet (al_kop_voet kent alleen de en nl)
+        for a_, b_ in zk_kop_voet_en(d):
+            blok['AL_KOP'], blok['AL_VOET'] = blok['AL_KOP'].replace(a_, b_), blok['AL_VOET'].replace(a_, b_)
     blok['AL_KOP'], blok['AL_VOET'] = (x.replace(f'{ZK_STD_CFG}?mewsRoom=', f'{ZK_STD_CFG}?language={taal}&amp;mewsRoom=') for x in (blok['AL_KOP'], blok['AL_VOET']))
 
     for k, v in blok.items():

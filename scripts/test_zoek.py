@@ -33,7 +33,8 @@ COMP = {'hero': 'zk-hero', 'oog': 'zk-oog', 'intro': 'zk-intro', 'kamers': 'zk-k
         'ligging': 'zk-ligging', 'reviews': 'zk-rev', 'faq': 'zk-faq', 'slot': 'zk-slot'}
 BLOKKEN = ['hero'] + D['blokken']
 VOLGORDE = [COMP[b] for b in BLOKKEN]
-RIJTIJD = {'de': '23 Minuten', 'nl': '23 minuten', 'en': '23 minutes'}[TAAL]
+# rijtijd zoals in de eerste alinea: veld test-rijtijd in de pagina-JSON (terugval: Arcen, 23 minuten)
+RIJTIJD = D.get('test-rijtijd') or {'de': '23 Minuten', 'nl': '23 minuten', 'en': '23 minutes'}[TAAL]
 CFG = '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
 
 MEWS_STUB = """window.Mews={Distributor:function(opt,cb){window.__mews=window.__mews||[];var log={cfg:opt.configurationIds[0],taal:opt.language,calls:[]};
@@ -61,7 +62,7 @@ async def mocks(ctx, log):
         if '/api/track' in u:
             body = {'ok': True}
         elif '/api/arr-vanaf' in u:
-            body = {'ok': True, 'prijzen': {'WELLNESS2026': {'euro': 119}, 'NAJAAR2D': {'euro': 121}, 'WINTER27': {'euro': 299}}}
+            body = {'ok': True, 'prijzen': {'WELLNESS2026': {'euro': 119}, 'NAJAAR2D': {'euro': 121}, 'WINTER27': {'euro': 299}, 'OORLOGSMUSEUM': {'euro': 131}}}
         elif '/api/arr-kalender' in u:
             body = kal_antwoord(u)
         else:
@@ -73,6 +74,19 @@ async def mocks(ctx, log):
     await ctx.route(re.compile(r'https://app\.mews\.com/distributor/distributor\.min\.js.*'),
                     lambda r: r.fulfill(status=200, content_type='application/javascript', body=MEWS_STUB))
     await ctx.route(re.compile(r'https://www\.googletagmanager\.com/.*'), lambda r: r.fulfill(status=200, body=''))
+
+
+async def klik(pg, loc):
+    """Pagina verticaal zo schuiven dat het element midden in beeld staat (geen horizontale rij verschuiven), laten uitrollen
+    en klikken; lukt de gewone klik niet binnen 3 s (rij beweegt nog of de onderbalk ligt erover), dan een muisklik op het
+    midden, zoals een bezoeker."""
+    await loc.evaluate("e => { var r = e.getBoundingClientRect(); window.scrollBy(0, r.top + r.height / 2 - innerHeight / 2) }")
+    await pg.wait_for_timeout(700)
+    try:
+        await loc.click(timeout=3000)
+    except Exception:
+        bb = await loc.bounding_box()
+        await pg.mouse.click(bb['x'] + bb['width'] / 2, bb['y'] + bb['height'] / 2)
 
 
 async def scroll_alles(pg):
@@ -113,6 +127,10 @@ async def test_breedte(p, w, fouten):
     ok(await pg.get_attribute('html', 'lang') == TAAL, f'html lang {TAAL}')
     ok(await pg.get_attribute('link[rel=canonical]', 'href') == D['canonical'], 'canonical = eigen adres')
     ok((await pg.title()) == D['titel'], f'title = {D["titel"]}')
+    hl = await pg.eval_on_selector_all('link[rel=alternate][hreflang]', 'els => Object.fromEntries(els.map(e => [e.hreflang, e.href]))')
+    ok(hl == (D.get('hreflang') or {}), f'hreflang = JSON ({", ".join(hl) or "geen"})')
+    if D.get('hero-kop'):
+        ok((await pg.inner_text('.zk-hero h1')).strip() == re.sub(r'<[^>]+>', '', D['hero-kop']), 'h1 = hero-kop')
     html = await pg.content()
     ok(not re.search(r'\{\{[A-Za-z_0-9-]+\}\}|<!-- ZK_', html), 'geen open {{velden}} of ZK-plekken')
     ok('—' not in html, 'geen em-dash')
@@ -150,7 +168,8 @@ async def test_breedte(p, w, fouten):
     teller = pg.locator('#kamers .kk-teller')
     await teller.scroll_into_view_if_needed(); await pg.wait_for_timeout(300)
     t0 = (await teller.inner_text()).strip()
-    await pg.locator('#kamers .kk-pijl[data-stap="1"]').click(); await pg.wait_for_timeout(900)
+    # klik() valt terug op een muisklik: Playwrights hit-check meldde op 390 px EN ten onrechte dat .kk-rij de klik onderschept
+    await klik(pg, pg.locator('#kamers .kk-pijl[data-stap="1"]')); await pg.wait_for_timeout(900)
     t1 = (await teller.inner_text()).strip()
     ok(t0 == f'1/{echt}' and t1 == f'2/{echt}', f'teller 1 -> 2 ({t0}, {t1})')
 
@@ -164,7 +183,7 @@ async def test_breedte(p, w, fouten):
 
     # kamer-pop-up via de tekstlink Meer info
     info = pg.locator('#kamers .kk-kaart:not([data-kloon]) a.zk-info[data-kamer]').first
-    await info.scroll_into_view_if_needed(); await info.click(); await pg.wait_for_timeout(600)
+    await klik(pg, info); await pg.wait_for_timeout(600)
     if mobiel:
         zicht = await pg.locator('[data-pop-dialog]:not([hidden]) .al-pop__naam').count() == 1
         ok(zicht, 'kamer-pop-up (telefoonsheet) opent via Meer info')
@@ -178,7 +197,7 @@ async def test_breedte(p, w, fouten):
     if 'wellness' in D['blokken']:
         ok(await pg.locator('.zk-well .al-tegel').count() == 5 and await pg.locator('.zk-well .zk-well__feiten li').count() == 4, 'wellness: 5 tegels en 4 feiten')
         tg = pg.locator('.zk-well .al-tegel').nth(1)
-        await tg.scroll_into_view_if_needed(); await tg.click(); await pg.wait_for_timeout(500)
+        await klik(pg, tg); await pg.wait_for_timeout(500)
         ok(await pg.locator('[data-pop-dialog]:not([hidden]) .al-pop__naam').count() == 1, 'wellnesstegel opent de pop-up')
         await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
 
@@ -189,7 +208,7 @@ async def test_breedte(p, w, fouten):
         await pg.wait_for_timeout(300)
         ok(await pg.locator('.zk-arr [data-arr-vanaf-live]').count() >= 1, 'arrangementprijzen live gevuld (arr-vanaf gemockt)')
         ak = pg.locator('.zk-arr .al-ak--uit .al-ak__ontdek')
-        await ak.scroll_into_view_if_needed(); await ak.click(); await pg.wait_for_timeout(500)
+        await klik(pg, ak); await pg.wait_for_timeout(500)
         ok(await pg.locator('[data-pop-dialog]:not([hidden]) .al-pc-naam').count() == 1, 'Mehr Info opent de arrangement-pop-up')
         await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
 
@@ -207,6 +226,11 @@ async def test_breedte(p, w, fouten):
         ok(st and st[0][0] == '1' and st[0][2] != 'none' and all(x[2] == 'none' for x in st[1:]) and st[0][1] != st[1][1],
            f'punt 1 uitgelicht met naam, andere punten alleen nummer ({[x[0] for x in st]})')
         ok(await pg.locator('.zk-ligging .ut-kaart__legenda').count() == 0, 'geen legenda nodig')
+        links = [[p['url'], p['url-label']] for p in D['kaart']['punten'] if p.get('url')]
+        gevonden = await pg.eval_on_selector_all('.zk-ligging .zk-rij__link', 'els => els.map(e => [e.getAttribute("href"), e.textContent.replace(/\\s*\u2192$/, "").trim()])')
+        ok(gevonden == links, f'tekstlinks in de lijst = kaartpunten met url ({len(links)})')
+        pt_json = await pg.evaluate("JSON.parse(document.getElementById('ut-kaart-punten').textContent).punten.some(p => 'url' in p)")
+        ok(not pt_json, 'kaartdata zonder url (alleen de lijst linkt)')
         ok(await pg.locator('.zk-ligging .zk-rij').count() == n and await pg.locator('.zk-ligging .zk-rij--uit').count() == 1, f'lijst: {n} regels, nummer 1 uitgelicht')
         s0 = await pg.evaluate('window.utKaart && window.utKaart.stand().s')
         await pg.locator('.zk-ligging .gk-knop').first.click(); await pg.wait_for_timeout(700)
@@ -221,7 +245,7 @@ async def test_breedte(p, w, fouten):
         tabs = pg.locator('.zk-faq [role="tab"]')
         nt = await tabs.count()
         ok(nt >= 2 and await pg.locator('.zk-faq [role="tablist"]:not([hidden])').count() == 1, f'FAQ-tabs zichtbaar ({nt})')
-        await tabs.nth(1).scroll_into_view_if_needed(); await tabs.nth(1).click(); await pg.wait_for_timeout(300)
+        await klik(pg, tabs.nth(1)); await pg.wait_for_timeout(300)
         p1z = await pg.locator('.zk-faq .al-faq__paneel').nth(0).is_visible()
         p2z = await pg.locator('.zk-faq .al-faq__paneel').nth(1).is_visible()
         sel = await tabs.nth(1).get_attribute('aria-selected')
@@ -235,7 +259,7 @@ async def test_breedte(p, w, fouten):
 
     # Mews klik (boekknop slot) opent de widget in de taal
     slot = pg.locator('.zk-slot .al-slot__band a.mews-open')
-    await slot.scroll_into_view_if_needed(); await slot.click(); await pg.wait_for_timeout(1200)
+    await klik(pg, slot); await pg.wait_for_timeout(1200)
     mews = await pg.evaluate('window.__mews || []')
     ok(any(m['taal'] == MEWS_TAAL and any(c[0] == 'open' for c in m['calls']) for m in mews), f'Mews-widget opent in {MEWS_TAAL}')
 
