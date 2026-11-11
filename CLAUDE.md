@@ -604,7 +604,6 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `<slug>-<breedte>-volledig.png` en op arrangementpagina's `<slug>-<breedte>-kalender.png`.
 - Kaart: `knipLabels()` in `kaart-getekend.js` verbergt regio-, plaats- en bordnamen die niet helemaal binnen het kaartvlak vallen (`.gk-buiten`); draait als de kaart stilstaat en na `pasNamenIn` in `uitje.js`.
 - Actiecode wissen live bevestigd (11 nov 2026, echte Mews-widget op de preview): na de arrangementknop sturen kamerlink en slotknop `getPricing` met een lege `voucherCode` en toont de widget alleen gewone tarieven. Op de Duitse lander van PR #190 (oude `adslander.js`) blijft de code hangen tot deze tak daar ook in zit.
-
 - Talen (11 nov 2026): een uitje-entry kan `langs` nl/de/en hebben; uitvoer `<slug>-v2.html`, `<slug>-v2-de.html`, `<slug>-v2-en.html`,
   gegevens `translations/uitje-<slug>-<taal>.json`. Labels en kamerbron per taal via build.py `ut_taalbron`:
   `translations/uitje-labels-<taal>.json` en `content/uitje-kamers-<taal>.json` (DE-kamerteksten = sectie kamer van content/adslander-pop-de.json,
@@ -614,6 +613,21 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - hreflang (nl/de/en + x-default = NL) komt via de plek `UT_FAQ_LD` in de head (`ut_hreflang`: sluit het ld+json-script, links, lege
   `<script>`), alleen voor talen waarvan de JSON bestaat en pas vanaf twee talen. Volledige build slaat een uitje-taal zonder JSON over
   (regel "overgeslagen"); `python3 build.py uitje-<slug>` stopt dan wel.
+
+- Arrangementkaart in DE/EN (11 nov 2026): `arr-bron` blijft `translations/<arr-bron>-nl.json` (alleen VOUCHER, MEWS_CONFIG, ARR_NACHTEN,
+  ARR_KALENDER worden gebruikt; geen <arr-bron>-de/en.json). Vinkjes MOETEN als `arr-vink1..6` in het DE/EN-uitje-JSON staan: de terugval
+  KAART_VINK_A..D is Nederlands, de build stopt dan. `arr-knop`, `arr-paginalink`, `arr-kamerlink` staan ook in uitje-labels-de/en.json;
+  `arr-pagina-url` in DE/EN leeg laten (geen DE/EN-arrangementpagina). Prijskalender: `al_kalender_dialoog(..., taal=lang)` met
+  `AL_KAL_LABELS`/`al_kalender_teksten` voor nl, de en en; `arrangement-kalender.js` kiest maand-/weekdagnamen op `<html lang>`
+  (de = de-DE, en = en-GB, anders nl-NL). Test: `scripts/test_uitje.py` herkent `-v2-de.html`/`-v2-en.html` (JSON, labels en kamers van
+  die taal; titel "Hotel bij" / "Hotel " / "Hotel near"; hreflang, html lang, kop/voet en kalender per taal); platen `<slug>-de-<breedte>-...png`.
+- Golfpagina's (11 nov 2026, noindex): `uitje-golfclub-geijsteren` -> `/golfclub-geijsteren-v2` en `uitje-golfbaan-landgoed-bleijenbeek` ->
+  `/golfbaan-landgoed-bleijenbeek-v2`, beide met arrangementkaart GOLF (`arr-bron` golfarrangement, eigen `arr-vink1..4`, foto
+  `l26-golfarrangement-royale`). "Golfvariant" = alleen inhoud (oogopslag Adres/Baan/Greenfee/Gasten/Starttijd, g1-g4 icoonkaarten zonder
+  foto), sjabloon ongewijzigd. Er zijn GEEN vrije foto's van de banen: hero/verhaal tonen landgoed, beek, ruïne en heide (Commons), nooit
+  "de golfbaan" in alt-teksten. Drie talen (11 nov 2026): `-v2`, `-v2-de`, `-v2-en` (JSON's `uitje-<slug>-de/en.json`, afgeleid uit NL,
+  nog niet door moedertaalsprekers nagelezen); onderlinge links naar de eigen taalversie, Maasduinen en Venray-centrum linken naar de
+  NL-adressen (`-v2`) tot daar een DE/EN-versie van is. Feiten: `qa/uitje/FEITEN-golfclub-geijsteren.md` en `-golfbaan-landgoed-bleijenbeek.md`.
 
 ## Omgevingspagina's: overzicht + vijf categorieen (nov 2026, -v2, tak feature/omgeving-overzicht)
 

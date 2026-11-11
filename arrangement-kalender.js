@@ -18,12 +18,13 @@
   'use strict';
   /* Meestal één dialoog #ar-kal per pagina. De Duitse ads-landers (adslander.template.html) hebben er een per arrangement
      (dialog.ark[data-code], eventueel met eigen data-mews-config); dan draagt alleen de geopende de id ar-kal waar de stijl
-     aan hangt. Labels in het Duits als <html lang="de">. */
+     aan hangt. Labels in het Duits als <html lang="de">, in het Engels als <html lang="en"> (uitje-sjabloon EN). */
   var alle = document.querySelectorAll('dialog.ark[data-code]');
   if (!alle.length) { var enkel = document.getElementById('ar-kal'); if (enkel) alle = [enkel]; }
   Array.prototype.forEach.call(alle, function (pop) { kalender(pop, alle); });
   function kalender(pop, alle) {
   var DUITS = /^de/i.test(document.documentElement.getAttribute('lang') || '');
+  var ENGELS = /^en/i.test(document.documentElement.getAttribute('lang') || '');
   var D = pop.dataset;
   var CODE = (D.code || '').toUpperCase();
   if (!CODE) return;
@@ -108,10 +109,10 @@
   }
 
   /* ── de kalender ── */
-  var LOC = DUITS ? 'de-DE' : 'nl-NL';
+  var LOC = DUITS ? 'de-DE' : ENGELS ? 'en-GB' : 'nl-NL';
   var fDag = new Intl.DateTimeFormat(LOC, { weekday: 'short', day: 'numeric', month: 'short' });
   var fMnd = new Intl.DateTimeFormat(LOC, { month: 'long', year: 'numeric' });
-  var WDN = DUITS ? ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] : ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
+  var WDN = DUITS ? ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] : ENGELS ? ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] : ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
   var PL = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var PR = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var maandenEl = pop.querySelector('.ark-maanden'), watEl = pop.querySelector('.ark-wat'), wisEl = pop.querySelector('.ark-wis');

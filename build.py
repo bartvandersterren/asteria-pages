@@ -458,6 +458,26 @@ TEMPLATES = {
         },
         'route': True,
     },
+    # Golfpagina's (nov 2026): arrangementkaart GOLF (arr-bron golfarrangement), golfvariant = alleen inhoud. DE/EN-JSON's
+    # bestaan nog niet: volledige build slaat die talen over; los bouwen met `python3 build.py uitje-<slug> nl`.
+    'uitje-golfclub-geijsteren': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('golfclub-geijsteren-v2.html', 'translations/uitje-golfclub-geijsteren-nl.json'),
+            'de': ('golfclub-geijsteren-v2-de.html', 'translations/uitje-golfclub-geijsteren-de.json'),
+            'en': ('golfclub-geijsteren-v2-en.html', 'translations/uitje-golfclub-geijsteren-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-golfbaan-landgoed-bleijenbeek': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('golfbaan-landgoed-bleijenbeek-v2.html', 'translations/uitje-golfbaan-landgoed-bleijenbeek-nl.json'),
+            'de': ('golfbaan-landgoed-bleijenbeek-v2-de.html', 'translations/uitje-golfbaan-landgoed-bleijenbeek-de.json'),
+            'en': ('golfbaan-landgoed-bleijenbeek-v2-en.html', 'translations/uitje-golfbaan-landgoed-bleijenbeek-en.json'),
+        },
+        'uitje': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -1808,8 +1828,8 @@ def al_lijst(d, voorvoegsel, achtervoegsel=''):
 
 
 def al_kalender_teksten(nachten, zondag, taal='de', dagen=None):
-    """Teksten van de prijskalender (dialog.ark). taal='de' (adslander, standaard) of 'nl' (uitje-sjabloon; zelfde
-    zinnen als apply_kalender op de NL-arrangementpagina's)."""
+    """Teksten van de prijskalender (dialog.ark). taal='de' (adslander, standaard; ook uitje DE), 'nl' (uitje-sjabloon; zelfde
+    zinnen als apply_kalender op de NL-arrangementpagina's) of 'en' (uitje-sjabloon EN)."""
     if taal == 'nl':
         if nachten > 1:
             if dagen:
@@ -1825,6 +1845,22 @@ def al_kalender_teksten(nachten, zondag, taal='de', dagen=None):
                 'sub': 'Klik op je aankomstdag en daarna op je vertrekdag. Vertrekken kan ook op een grijze dag.',
                 'noot': 'Prijs per persoon per nacht bij aankomst op die dag,',
                 'dicht': 'Grijs: niet beschikbaar, vertrekken kan wel'}
+    if taal == 'en':   # uitje-sjabloon EN (Brits, you-vorm)
+        if nachten > 1:
+            if dagen:
+                namen = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                lijst = [namen[x] for x in sorted(dagen, key=lambda x: (x + 6) % 7)]
+                wanneer = lijst[0] if len(lijst) == 1 else ', '.join(lijst[:-1]) + ' or ' + lijst[-1]
+                sub = f'You can arrive on {wanneer}. Your departure after {nachten} nights is added automatically.'
+            else:
+                sub = f'Click your arrival day. Your departure after {nachten} nights is added automatically.'
+            return {'kop': 'Choose your arrival day', 'sub': sub,
+                    'noot': f'Price per person for {nachten} nights when arriving on that day,',
+                    'dicht': 'Grey: no arrival possible'}
+        return {'kop': 'Choose your nights',
+                'sub': 'Click your arrival day and then your departure day. You can also depart on a grey day.',
+                'noot': 'Price per person per night when arriving on that day,',
+                'dicht': 'Grey: not available, departure is possible'}
     if nachten > 1:
         return {'kop': 'Wählen Sie Ihren Anreisetag',
                 'sub': f'Klicken Sie auf Ihren Anreisetag. Die Abreise nach {nachten} Nächten kommt automatisch dazu.',
@@ -1846,12 +1882,17 @@ AL_KAL_LABELS = {
            'vorige': 'Vorige maand', 'volgende': 'Volgende maand', 'personen': '2 personen',
            'zondag': 'Goud: aankomst op zondag, € 20 per kamer voordeliger', 'gevuld': 'Gevuld: je gekozen nachten',
            'wis': 'Wissen', 'knop': 'Bekijk kamers en prijzen', 'code': 'Actiecode <b>{code}</b> wordt automatisch ingevuld'},
+    # EN = uitje-sjabloon in het Engels (Brits, you-vorm)
+    'en': {'aankomst': 'arrival', 'vertrek': 'departure', 'vertrek-vraag': 'departure?', 'nacht': 'night', 'nachten-woord': 'nights',
+           'vorige': 'Previous month', 'volgende': 'Next month', 'personen': '2 people',
+           'zondag': 'Gold: arrive on a Sunday and save €20 per room', 'gevuld': 'Filled: your chosen nights',
+           'wis': 'Clear', 'knop': 'View rooms and prices', 'code': 'Promo code <b>{code}</b> is filled in automatically'},
 }
 
 
 def al_kalender_dialoog(code, cfg, nachten, k, kamer_namen, sluit_label, taal='de'):
     """Een prijskalender dialog.ark voor een arrangementcode (arrangement-kalender.js, /api/arr-kalender). k = de instellingen
-    van de code uit content/arr-kalender.json; kamer_namen = {Mews-kamer-id: naam}. taal 'de' (adslander) of 'nl' (uitje)."""
+    van de code uit content/arr-kalender.json; kamer_namen = {Mews-kamer-id: naam}. taal 'de' (adslander, uitje DE), 'nl' of 'en' (uitje)."""
     from html import escape
     L = AL_KAL_LABELS[taal]
     zondag = bool(k.get('zondag'))
@@ -2382,6 +2423,7 @@ def build_uitje(config, output_file, json_file, template_name, lang):
                  '(zet kamers op [] voor een arrangementpagina, of haal arr-bron weg)')
     blok_arr, kalenders = '', []
     if d.get('arr-bron'):
+        # ook voor DE/EN het -nl-bestand: alleen VOUCHER, MEWS_CONFIG, ARR_NACHTEN, ARR_KALENDER zijn taalloos; teksten komen uit het uitje-JSON
         bron = os.path.join('translations', d['arr-bron'] + '-nl.json')
         if not os.path.exists(os.path.join(base, bron)):
             sys.exit(f'uitje: arr-bron {d["arr-bron"]!r}: {bron} bestaat niet')
@@ -2402,6 +2444,9 @@ def build_uitje(config, output_file, json_file, template_name, lang):
                 break
             vink.append(d[f'arr-vink{i}'])
         if not vink:
+            if lang != 'nl':
+                sys.exit(f'uitje: {json_file} ({lang}) heeft geen arr-vink1; de terugval KAART_VINK_A..D uit {bron} is Nederlands. '
+                         'Zet de vinkjes als arr-vink1..6 in het uitje-JSON van deze taal.')
             vink = [a[f'KAART_VINK_{x}'] for x in 'ABCD' if a.get(f'KAART_VINK_{x}')]
         regel2 = f'<p class="ut-arr__regel2">{d["arr-regel2"]}</p>' if d.get('arr-regel2') else ''
         lijst = (f'<ul class="ut-arr__vinkjes">' + ''.join(f'<li>{AL_VINK}<span>{v}</span></li>' for v in vink) + '</ul>') if vink else ''
@@ -2429,7 +2474,7 @@ def build_uitje(config, output_file, json_file, template_name, lang):
             namen = {KAMER_MEWS[k]: v['naam'] for k, v in kamerbron.items() if k in KAMER_MEWS}
             # één dialoog op de pagina: meteen id ar-kal (daar hangt de stijl aan; arrangement-kalender.js zet de id alleen
             # zelf bij meerdere dialogen)
-            kalenders.append(al_kalender_dialoog(code, cfg, nachten, kal_cfg[code], namen, d['pop-sluit'], taal='nl')
+            kalenders.append(al_kalender_dialoog(code, cfg, nachten, kal_cfg[code], namen, d['pop-sluit'], taal=lang)
                              .replace('<dialog class="ark" ', '<dialog class="ark" id="ar-kal" ', 1))
 
     # 6k kamers: kaarten zoals de adslander, ZONDER prijs; Mews met kamer-id (KAMER_MEWS), Meer info = kamer-pop-up
