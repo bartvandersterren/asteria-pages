@@ -1,0 +1,68 @@
+{
+  "_uitleg": "Engelse vertaling (door Claude, 11 nov 2026) van dezelfde selectie als content/reviews-google-asteria-de.json, uit content/reviews-google-asteria.json (Google, opgehaald 13 okt 2026, origineel Nederlands). Getoond op de Engelse zoekpagina's met de regel 'Translated from Dutch'. Datum = relatieve datum op de ophaaldag; namen en sterren gelijk aan het origineel.",
+  "gemiddelde": 4.2,
+  "aantal": 2280,
+  "profiel_url": "https://www.google.com/maps?cid=10392502528258527703",
+  "reviews": [
+    {
+      "naam": "Karin Van Zonneveld",
+      "sterren": 4,
+      "datum": "3 months ago",
+      "tekst": "Nice hotel. Rooms are tidy, not too big. But there are two armchairs with a small table and a large walk-in shower. Pleasant air conditioning. No fridge, but coffee and tea in the room. Breakfast is fine. Dinner is delicious. Nothing missing."
+    },
+    {
+      "naam": "Nicole Scholte",
+      "sterren": 5,
+      "datum": "7 months ago",
+      "tekst": "Very good hotel. Clean, spacious rooms. Large free car park. Extensive breakfast. Friendly and helpful staff."
+    },
+    {
+      "naam": "Davy Tollenaere",
+      "sterren": 5,
+      "datum": "11 months ago",
+      "tekst": "Very pleasant hotel, super friendly. Well-kept rooms and a tasty breakfast. The e-bike is a good idea for nice trips in the area."
+    },
+    {
+      "naam": "Thea Sjoerdstra",
+      "sterren": 5,
+      "datum": "a year ago",
+      "tekst": "Lovely hotel, friendly and helpful staff, we ate very well. Clean hotel. Beautiful, spacious room. For me a solid 10!!"
+    },
+    {
+      "naam": "Fia Sardar",
+      "sterren": 5,
+      "datum": "2 months ago",
+      "tekst": "The staff were helpful and friendly. Our room and bathroom were top."
+    },
+    {
+      "naam": "arthur goulooze",
+      "sterren": 5,
+      "datum": "6 months ago",
+      "tekst": "Lovely hotel, wonderful breakfast and delicious dinner choices!"
+    },
+    {
+      "naam": "B Kruize",
+      "sterren": 5,
+      "datum": "6 months ago",
+      "tekst": "It is always a place to rest when we come from Belgium or Germany, and above all welcoming and friendly service"
+    },
+    {
+      "naam": "Chris Heemstra",
+      "sterren": 5,
+      "datum": "a year ago",
+      "tekst": "A splendid hotel, truly worthy of 4 stars, and a top breakfast too"
+    },
+    {
+      "naam": "Gabriëlle Ton",
+      "sterren": 5,
+      "datum": "2 years ago",
+      "tekst": "Nice rooms, friendly and knowledgeable staff. A beautiful restaurant. The restaurant has a lot of seats but still feels cosy."
+    },
+    {
+      "naam": "Bart Bouwers",
+      "sterren": 5,
+      "datum": "4 months ago",
+      "tekst": "A fine place to be. To eat and to stay the night. Welcoming, nice people work there. Makes it very pleasant when you are away from home for a few days."
+    }
+  ]
+}
