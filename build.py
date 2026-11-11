@@ -281,6 +281,26 @@ TEMPLATES = {
         },
         'uitje': True,
     },
+    # Golfpagina's (nov 2026): arrangementkaart GOLF (arr-bron golfarrangement), golfvariant = alleen inhoud. DE/EN-JSON's
+    # bestaan nog niet: volledige build slaat die talen over; los bouwen met `python3 build.py uitje-<slug> nl`.
+    'uitje-golfclub-geijsteren': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('golfclub-geijsteren-v2.html', 'translations/uitje-golfclub-geijsteren-nl.json'),
+            'de': ('golfclub-geijsteren-v2-de.html', 'translations/uitje-golfclub-geijsteren-de.json'),
+            'en': ('golfclub-geijsteren-v2-en.html', 'translations/uitje-golfclub-geijsteren-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-golfbaan-landgoed-bleijenbeek': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('golfbaan-landgoed-bleijenbeek-v2.html', 'translations/uitje-golfbaan-landgoed-bleijenbeek-nl.json'),
+            'de': ('golfbaan-landgoed-bleijenbeek-v2-de.html', 'translations/uitje-golfbaan-landgoed-bleijenbeek-de.json'),
+            'en': ('golfbaan-landgoed-bleijenbeek-v2-en.html', 'translations/uitje-golfbaan-landgoed-bleijenbeek-en.json'),
+        },
+        'uitje': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -1631,8 +1651,8 @@ def al_lijst(d, voorvoegsel, achtervoegsel=''):
 
 
 def al_kalender_teksten(nachten, zondag, taal='de', dagen=None):
-    """Teksten van de prijskalender (dialog.ark). taal='de' (adslander, standaard) of 'nl' (uitje-sjabloon; zelfde
-    zinnen als apply_kalender op de NL-arrangementpagina's)."""
+    """Teksten van de prijskalender (dialog.ark). taal='de' (adslander, standaard; ook uitje DE), 'nl' (uitje-sjabloon; zelfde
+    zinnen als apply_kalender op de NL-arrangementpagina's) of 'en' (uitje-sjabloon EN)."""
     if taal == 'nl':
         if nachten > 1:
             if dagen:
@@ -1648,6 +1668,22 @@ def al_kalender_teksten(nachten, zondag, taal='de', dagen=None):
                 'sub': 'Klik op je aankomstdag en daarna op je vertrekdag. Vertrekken kan ook op een grijze dag.',
                 'noot': 'Prijs per persoon per nacht bij aankomst op die dag,',
                 'dicht': 'Grijs: niet beschikbaar, vertrekken kan wel'}
+    if taal == 'en':   # uitje-sjabloon EN (Brits, you-vorm)
+        if nachten > 1:
+            if dagen:
+                namen = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+                lijst = [namen[x] for x in sorted(dagen, key=lambda x: (x + 6) % 7)]
+                wanneer = lijst[0] if len(lijst) == 1 else ', '.join(lijst[:-1]) + ' or ' + lijst[-1]
+                sub = f'You can arrive on {wanneer}. Your departure after {nachten} nights is added automatically.'
+            else:
+                sub = f'Click your arrival day. Your departure after {nachten} nights is added automatically.'
+            return {'kop': 'Choose your arrival day', 'sub': sub,
+                    'noot': f'Price per person for {nachten} nights when arriving on that day,',
+                    'dicht': 'Grey: no arrival possible'}
+        return {'kop': 'Choose your nights',
+                'sub': 'Click your arrival day and then your departure day. You can also depart on a grey day.',
+                'noot': 'Price per person per night when arriving on that day,',
+                'dicht': 'Grey: not available, departure is possible'}
     if nachten > 1:
         return {'kop': 'Wählen Sie Ihren Anreisetag',
                 'sub': f'Klicken Sie auf Ihren Anreisetag. Die Abreise nach {nachten} Nächten kommt automatisch dazu.',
@@ -1669,12 +1705,17 @@ AL_KAL_LABELS = {
            'vorige': 'Vorige maand', 'volgende': 'Volgende maand', 'personen': '2 personen',
            'zondag': 'Goud: aankomst op zondag, € 20 per kamer voordeliger', 'gevuld': 'Gevuld: je gekozen nachten',
            'wis': 'Wissen', 'knop': 'Bekijk kamers en prijzen', 'code': 'Actiecode <b>{code}</b> wordt automatisch ingevuld'},
+    # EN = uitje-sjabloon in het Engels (Brits, you-vorm)
+    'en': {'aankomst': 'arrival', 'vertrek': 'departure', 'vertrek-vraag': 'departure?', 'nacht': 'night', 'nachten-woord': 'nights',
+           'vorige': 'Previous month', 'volgende': 'Next month', 'personen': '2 people',
+           'zondag': 'Gold: arrive on a Sunday and save €20 per room', 'gevuld': 'Filled: your chosen nights',
+           'wis': 'Clear', 'knop': 'View rooms and prices', 'code': 'Promo code <b>{code}</b> is filled in automatically'},
 }
 
 
 def al_kalender_dialoog(code, cfg, nachten, k, kamer_namen, sluit_label, taal='de'):
     """Een prijskalender dialog.ark voor een arrangementcode (arrangement-kalender.js, /api/arr-kalender). k = de instellingen
-    van de code uit content/arr-kalender.json; kamer_namen = {Mews-kamer-id: naam}. taal 'de' (adslander) of 'nl' (uitje)."""
+    van de code uit content/arr-kalender.json; kamer_namen = {Mews-kamer-id: naam}. taal 'de' (adslander, uitje DE), 'nl' of 'en' (uitje)."""
     from html import escape
     L = AL_KAL_LABELS[taal]
     zondag = bool(k.get('zondag'))
@@ -1723,6 +1764,8 @@ def al_kop_voet(d, mews_basis, taal='de'):
     ]
     if taal == 'de':
         vervang += al_kop_voet_de(d)
+    elif taal == 'en':
+        vervang += al_kop_voet_en(d)
     delen = []
     for x in (kop, lade, voet):
         for a_, b_ in vervang:
@@ -1770,6 +1813,45 @@ def al_kop_voet_de(d):
         ('Algemene voorwaarden', 'AGB'),
         ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
          'A73, Ausfahrt 8 Venray-Noord &middot; KvK 12028838 &middot; USt-IdNr. NL804668528B01'),
+    ]
+
+
+def al_kop_voet_en(d):
+    """Engelse labels van de spiegelkop/-voet (uitje-sjabloon, taal en), zelfde volgorde en doelen als al_kop_voet_de."""
+    tel = d['telefoon']
+    return [
+        ('Hotel Asteria, naar het begin van de pagina', 'Hotel Asteria, back to the top of the page'),
+        ('aria-label="Hoofdnavigatie"', 'aria-label="Main navigation"'),
+        ('aria-label="Bel Hotel Asteria: 0478 511466"', f'aria-label="Call Hotel Asteria: {tel}"'),
+        ('aria-label="Bel ons"', 'aria-label="Call us"'),
+        ('aria-label="E-mail ons"', 'aria-label="Email us"'),
+        ('aria-label="Open menu"', 'aria-label="Open menu"'),
+        ('aria-label="Mobiel menu"', 'aria-label="Mobile menu"'),
+        ('aria-label="Sluit menu"', 'aria-label="Close menu"'),
+        ('aria-label="Volg ons"', 'aria-label="Follow us"'),
+        ('>0478 511466<', f'>{tel}<'),
+        ('>0478 511 466<', f'>{tel}<'),
+        ('>Kamers &amp; suites<', '>Rooms &amp; suites<'),
+        ('>Faciliteiten<', '>Facilities<'),
+        ('>Wellness &amp; fitness<', '>Wellness &amp; fitness<'),
+        ('>Arrangementen<', '>Packages<'),
+        ('>Omgeving<', '>Surroundings<'),
+        ('>Over ons <', '>About us <'),
+        ('>Ons verhaal<', '>Our story<'),
+        ('>Contact<', '>Contact<'),
+        ('>Boek nu<', '>' + d['kop-boek'] + '<'),
+        ('>Verblijf<', '>Stay<'),
+        ('>Bruidssuite<', '>Bridal suite<'),
+        ('>Junior suite<', '>Junior suite<'),
+        ('>Comfort kamer<', '>Comfort room<'),
+        ('>Deluxe kamer<', '>Deluxe room<'),
+        ('>Beschikbaarheid<', '>Availability<'),
+        ('>Bij ons<', '>At Asteria<'),
+        ('>Route &amp; parkeren<', '>Directions &amp; parking<'),
+        ('Privacyverklaring', 'Privacy statement'),
+        ('Algemene voorwaarden', 'Terms and conditions'),
+        ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
+         'A73, exit 8 Venray-Noord &middot; Chamber of Commerce 12028838 &middot; VAT NL804668528B01'),
     ]
 
 
@@ -2020,15 +2102,34 @@ UT_SPELD = ('<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke=
 UT_CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
 
 
+def ut_taalbron(pad, lang):
+    """Labels/kamerbron per taal: nl = het bestaande -nl-bestand, de/en = hetzelfde pad met -de/-en."""
+    return pad if lang == 'nl' else pad.replace('-nl.json', f'-{lang}.json')
+
+
+def ut_hreflang(config):
+    """hreflang-links voor de head (via de plek UT_FAQ_LD, die binnen een script-tag staat: eerst die tag sluiten,
+    na de links een lege script-tag openen die de </script> van het sjabloon sluit). Alleen talen waarvan de JSON
+    bestaat; bij minder dan twee talen niets. x-default = de NL-pagina."""
+    talen = {t: f for t, (f, j) in config.get('langs', {}).items() if os.path.exists(os.path.join(base, j))}
+    if len(talen) < 2:
+        return ''
+    url = lambda f: 'https://visit.asteria.nl/' + f[:-5]
+    regels = [f'<link rel="alternate" hreflang="{t}" href="{url(f)}">' for t, f in talen.items()]
+    if 'nl' in talen:
+        regels.append(f'<link rel="alternate" hreflang="x-default" href="{url(talen["nl"])}">')
+    return '</script>\n  ' + '\n  '.join(regels) + '\n  <script>'
+
+
 def build_uitje(config, output_file, json_file, template_name, lang):
     from html import escape
     with open(os.path.join(base, config['template']), encoding='utf-8') as f:
         html = f.read()
-    with open(os.path.join(base, UT_LABELS), encoding='utf-8') as f:
+    with open(os.path.join(base, ut_taalbron(UT_LABELS, lang)), encoding='utf-8') as f:
         d = json.load(f)
     with open(os.path.join(base, json_file), encoding='utf-8') as f:
         d.update(json.load(f))   # het uitje-JSON wint van de labels
-    with open(os.path.join(base, UT_KAMERS), encoding='utf-8') as f:
+    with open(os.path.join(base, ut_taalbron(UT_KAMERS, lang)), encoding='utf-8') as f:
         kamerbron = json.load(f)['kamer']
     taal = d.get('mews-taal', 'nl-NL')
     mews = lambda extra='': f'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?language={taal}{extra}'
@@ -2145,6 +2246,7 @@ def build_uitje(config, output_file, json_file, template_name, lang):
                  '(zet kamers op [] voor een arrangementpagina, of haal arr-bron weg)')
     blok_arr, kalenders = '', []
     if d.get('arr-bron'):
+        # ook voor DE/EN het -nl-bestand: alleen VOUCHER, MEWS_CONFIG, ARR_NACHTEN, ARR_KALENDER zijn taalloos; teksten komen uit het uitje-JSON
         bron = os.path.join('translations', d['arr-bron'] + '-nl.json')
         if not os.path.exists(os.path.join(base, bron)):
             sys.exit(f'uitje: arr-bron {d["arr-bron"]!r}: {bron} bestaat niet')
@@ -2165,6 +2267,9 @@ def build_uitje(config, output_file, json_file, template_name, lang):
                 break
             vink.append(d[f'arr-vink{i}'])
         if not vink:
+            if lang != 'nl':
+                sys.exit(f'uitje: {json_file} ({lang}) heeft geen arr-vink1; de terugval KAART_VINK_A..D uit {bron} is Nederlands. '
+                         'Zet de vinkjes als arr-vink1..6 in het uitje-JSON van deze taal.')
             vink = [a[f'KAART_VINK_{x}'] for x in 'ABCD' if a.get(f'KAART_VINK_{x}')]
         regel2 = f'<p class="ut-arr__regel2">{d["arr-regel2"]}</p>' if d.get('arr-regel2') else ''
         lijst = (f'<ul class="ut-arr__vinkjes">' + ''.join(f'<li>{AL_VINK}<span>{v}</span></li>' for v in vink) + '</ul>') if vink else ''
@@ -2192,17 +2297,17 @@ def build_uitje(config, output_file, json_file, template_name, lang):
             namen = {KAMER_MEWS[k]: v['naam'] for k, v in kamerbron.items() if k in KAMER_MEWS}
             # één dialoog op de pagina: meteen id ar-kal (daar hangt de stijl aan; arrangement-kalender.js zet de id alleen
             # zelf bij meerdere dialogen)
-            kalenders.append(al_kalender_dialoog(code, cfg, nachten, kal_cfg[code], namen, d['pop-sluit'], taal='nl')
+            kalenders.append(al_kalender_dialoog(code, cfg, nachten, kal_cfg[code], namen, d['pop-sluit'], taal=lang)
                              .replace('<dialog class="ark" ', '<dialog class="ark" id="ar-kal" ', 1))
 
     # 6k kamers: kaarten zoals de adslander, ZONDER prijs; Mews met kamer-id (KAMER_MEWS), Meer info = kamer-pop-up
     kk, kamerdata, popkamer = [], {}, {}
     for k in kamers:
         if k not in KAMER_MEWS or k not in kamerbron:
-            sys.exit(f'uitje: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen kamerdata ({UT_KAMERS})')
+            sys.exit(f'uitje: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen kamerdata ({ut_taalbron(UT_KAMERS, lang)})')
         r, room = kamerbron[k], KAMER_MEWS[k]
         if r.get('kamer') != room:
-            sys.exit(f'uitje: Mews-id van {k} in {UT_KAMERS} wijkt af van KAMER_MEWS')
+            sys.exit(f'uitje: Mews-id van {k} in {ut_taalbron(UT_KAMERS, lang)} wijkt af van KAMER_MEWS')
         for x in r['fotos'] + r.get('pop_fotos', []) + [r.get('video') or '', r['kaart_foto']]:
             bestaat(x)
         kenm = ''.join(f'<li>{icoon(AL_KAMER_IC[ic])}<span>{escape(t, quote=False)}</span></li>' for ic, t in r['kaart'])
@@ -2338,6 +2443,7 @@ def build_uitje(config, output_file, json_file, template_name, lang):
         sys.exit('uitje: minstens een FAQ-vraag (f1-v + f1-a) nodig')
     blok['UT_FAQ'] = ''.join(items)
     blok['UT_FAQ_LD'] = json.dumps({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': ld}, ensure_ascii=False).replace('</', '<\\/')
+    blok['UT_FAQ_LD'] += ut_hreflang(config)
 
     # fotocredit voor de hele pagina (voor het slot)
     blok['UT_FOTOCREDIT'] = f'<div class="al-wrap ut-fotocredit-rij"><p class="ut-fotocredit">{d["fotocredit"]}</p></div>' if d.get('fotocredit') else ''
@@ -2346,7 +2452,7 @@ def build_uitje(config, output_file, json_file, template_name, lang):
     blok['UT_POPDATA'] = ('<script type="application/json" id="ut-popdata">'
                           + json.dumps({'uitje': pop_uitje, 'kamer': popkamer}, ensure_ascii=False).replace('</', '<\\/') + '</script>')
 
-    blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'], taal='nl')
+    blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'], taal=lang)
     # kamerlinks in de spiegelvoet (zonder actiecode) krijgen ook de Mews-taal, net als de rest van de pagina
     blok['AL_KOP'], blok['AL_VOET'] = (x.replace('af1d00ffc556?mewsRoom=', f'af1d00ffc556?language={taal}&amp;mewsRoom=') for x in (blok['AL_KOP'], blok['AL_VOET']))
 
@@ -2375,6 +2481,10 @@ def build(template_name, lang):
     if config.get('adslander'):
         return build_adslander(config, output_file, json_file, template_name, lang)
     if config.get('uitje'):
+        # volledige build (geen template als argument): een uitje-taal zonder JSON overslaan i.p.v. stoppen
+        if not os.path.exists(os.path.join(base, json_file)) and not any(a in TEMPLATES for a in sys.argv[1:]):
+            print(f'  [{template_name}/{lang}] overgeslagen: {json_file} bestaat nog niet')
+            return
         return build_uitje(config, output_file, json_file, template_name, lang)
 
     template_path = os.path.join(base, config['template'])

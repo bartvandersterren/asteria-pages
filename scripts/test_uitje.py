@@ -7,14 +7,16 @@ Gebruik:
   standaard-URL: http://localhost:8792/zooparc-overloon-v2.html
 
 Het gegevensbestand volgt uit de URL: <slug>-v2.html -> translations/uitje-<slug>-nl.json (met translations/uitje-labels-nl.json
-eronder, zoals build_uitje). Daaruit komen de verwachtingen: aantal kamers (0 = geen kamerslider-checks), kaartpunten (genummerd,
+eronder, zoals build_uitje); <slug>-v2-de.html / <slug>-v2-en.html -> uitje-<slug>-de/en.json met uitje-labels-de/en.json en
+content/uitje-kamers-de/en.json. Taal van de pagina = html lang, Mews-taal, kop/voet, kalenderlabels en hreflang worden per taal getoetst.
+Titel begint met "Hotel bij" (nl), "Hotel " (de) of "Hotel near" (en). Daaruit komen de verwachtingen: aantal kamers (0 = geen kamerslider-checks), kaartpunten (genummerd,
 met url = link, met pop = pop-up), meer-kaarten (met url = gewone link, zonder = pop-up), FAQ's, verhaalrijen, dagmomenten, en of er
 een arrangementkaart is (arr-bron: blok ut-arr i.p.v. ut-kamers, boekknop met actiecode die de prijskalender opent).
 
 Mews en de /api/*-functies worden gemockt (Mews-script = stub die elke API-aanroep logt in window.__mews; /api/arr-kalender geeft
 een paar beschikbare dagen, elke andere /api geeft 404 en wordt geteld). Exit 0 = alles groen; 'let op' = waarschuwing, geen fout.
 Met --schermafdruk <map>: per breedte elk blok als <map>/<slug>-<breedte>-<blok>.png, de hele pagina als <slug>-<breedte>-volledig.png
-en op een arrangementpagina de geopende kalender als <slug>-<breedte>-kalender.png.
+en op een arrangementpagina de geopende kalender als <slug>-<breedte>-kalender.png. DE/EN: <slug>-de-<breedte>-... resp. <slug>-en-<breedte>-...
 """
 import asyncio, calendar, datetime, json, os, re, sys
 from playwright.async_api import async_playwright
@@ -25,18 +27,40 @@ URL = next((a for a in args if a.startswith('http')), 'http://localhost:8792/zoo
 SHOT = args[args.index('--schermafdruk') + 1] if '--schermafdruk' in args else None
 BREEDTES = [int(x) for x in (args[args.index('--breedtes') + 1] if '--breedtes' in args else '1440,390').split(',')]
 
-m = re.search(r'/([a-z0-9-]+)-v2\.html(?:[?#].*)?$', URL)
+m = re.search(r'/([a-z0-9-]+)-v2(?:-(de|en))?\.html(?:[?#].*)?$', URL)
 if not m:
-    sys.exit(f'URL moet eindigen op <slug>-v2.html: {URL}')
-SLUG = m.group(1)
-JSON_UITJE = os.path.join(BASE, 'translations', f'uitje-{SLUG}-nl.json')
+    sys.exit(f'URL moet eindigen op <slug>-v2.html, <slug>-v2-de.html of <slug>-v2-en.html: {URL}')
+SLUG, TAAL = m.group(1), m.group(2) or 'nl'
+NAAM = SLUG if TAAL == 'nl' else f'{SLUG}-{TAAL}'   # voorvoegsel van de schermafdrukken
+JSON_UITJE = os.path.join(BASE, 'translations', f'uitje-{SLUG}-{TAAL}.json')
 if not os.path.exists(JSON_UITJE):
     sys.exit(f'gegevensbestand ontbreekt: {os.path.relpath(JSON_UITJE, BASE)}')
-D = json.load(open(os.path.join(BASE, 'translations', 'uitje-labels-nl.json'), encoding='utf-8'))
+D = json.load(open(os.path.join(BASE, 'translations', f'uitje-labels-{TAAL}.json'), encoding='utf-8'))
 D.update(json.load(open(JSON_UITJE, encoding='utf-8')))
+MEWS_TAAL = D.get('mews-taal', 'nl-NL')
+
+# verwachtingen per taal: titelbegin, kop/voet-labels (al_kop_voet), prijskalender (AL_KAL_LABELS + arrangement-kalender.js)
+TITEL_BEGIN = {'nl': 'Hotel bij', 'de': 'Hotel ', 'en': 'Hotel near'}[TAAL]
+KOPVOET = {'nl': ('Kamers & suites', 'Privacyverklaring'), 'de': ('Zimmer & Suiten', 'Datenschutz'),
+           'en': ('Rooms & suites', 'Privacy statement')}[TAAL]
+KAL_TAAL = {
+    'nl': {'wd': 'MaDiWo', 'kop': 'Kies je', 'btn': 'Bekijk kamers en prijzen', 'code': 'Actiecode',
+           'maanden': ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december']},
+    'de': {'wd': 'MoDiMi', 'kop': 'Wählen Sie', 'btn': 'Zimmer und Preise ansehen', 'code': 'Aktionscode',
+           'maanden': ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']},
+    'en': {'wd': 'MoTuWe', 'kop': 'Choose your', 'btn': 'View rooms and prices', 'code': 'Promo code',
+           'maanden': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']},
+}[TAAL]
+# hreflang zoals build.py ut_hreflang: talen waarvan het uitje-JSON bestaat, pas vanaf twee; x-default = NL
+HREF_TALEN = [t for t in ('nl', 'de', 'en') if os.path.exists(os.path.join(BASE, 'translations', f'uitje-{SLUG}-{t}.json'))]
+HREFLANG = {}
+if len(HREF_TALEN) >= 2:
+    HREFLANG = {t: f'https://visit.asteria.nl/{SLUG}-v2' + ('' if t == 'nl' else f'-{t}') for t in HREF_TALEN}
+    if 'nl' in HREFLANG:
+        HREFLANG['x-default'] = HREFLANG['nl']
 
 STD_CFG = '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
-KAMERBRON = json.load(open(os.path.join(BASE, 'content', 'uitje-kamers-nl.json'), encoding='utf-8'))['kamer']
+KAMERBRON = json.load(open(os.path.join(BASE, 'content', f'uitje-kamers-{TAAL}.json'), encoding='utf-8'))['kamer']
 KAMER_IDS = [v['kamer'] for v in KAMERBRON.values()]
 
 
@@ -156,9 +180,14 @@ async def test_breedte(p, w, fouten, waarschuwingen):
 
     # kop en meta
     titel = await pg.title()
-    ok(titel.startswith('Hotel bij'), f'<title> begint met "Hotel bij" ({titel})')
+    ok(titel.startswith(TITEL_BEGIN), f'<title> begint met "{TITEL_BEGIN}" ({titel})')
     ok(await pg.get_attribute('meta[name=robots]', 'content') == 'noindex, follow', 'robots = noindex, follow')
-    ok(await pg.get_attribute('html', 'lang') == 'nl', 'html lang nl')
+    ok(await pg.get_attribute('html', 'lang') == D['html-taal'] == TAAL, f'html lang {TAAL}')
+    ok(await pg.get_attribute('html', 'data-mews-taal') == MEWS_TAAL, f'data-mews-taal {MEWS_TAAL}')
+    hl = await pg.eval_on_selector_all('head link[rel="alternate"][hreflang]', 'els => els.map(e => [e.getAttribute("hreflang"), e.getAttribute("href")])')
+    ok(dict(hl) == HREFLANG and len(hl) == len(HREFLANG), f'hreflang in de head: {sorted(HREFLANG) or "geen (een taal)"} ({hl})')
+    kv = await pg.evaluate("() => [document.querySelector('header.top-stack').textContent, document.querySelector('footer.footer').textContent]")
+    ok(KOPVOET[0] in kv[0] and KOPVOET[1] in kv[1], f'kop/voet in het {TAAL} ({KOPVOET[0]!r} in de kop, {KOPVOET[1]!r} in de voet)')
     html = await pg.content()
     ok(not re.search(r'\{\{[A-Za-z_0-9-]+\}\}', html), 'geen open {{velden}}')
     ok('—' not in html, 'geen em-dash')
@@ -220,9 +249,9 @@ async def test_breedte(p, w, fouten, waarschuwingen):
     else:
         ok(await pg.locator('#kamers, .kk-kaart, #lp-pop-kamer, #al-kamerdata').count() == 0, 'geen kamerslider, kamer-pop-up of kamerdata')
 
-    # Mews-links: config + nl-NL; actiecode alleen op de arrangementknop
+    # Mews-links: config + Mews-taal; actiecode alleen op de arrangementknop
     hrefs = await pg.eval_on_selector_all('a.mews-open', 'els => els.map(e => [e.getAttribute("href"), e.getAttribute("data-voucher") || "", e.className])')
-    ok(hrefs and all('language=nl-NL' in h for h, _, _ in hrefs), f'alle {len(hrefs)} boekknoppen in nl-NL')
+    ok(hrefs and all(f'language={MEWS_TAAL}' in h for h, _, _ in hrefs), f'alle {len(hrefs)} boekknoppen in {MEWS_TAAL}')
     ok(all((ARR_CFG if (ARR and v) else STD_CFG) in h for h, v, _ in hrefs), 'boekknoppen met de juiste Mews-config')
     met_code = await pg.eval_on_selector_all('[href*="mewsVoucherCode"], [data-voucher]', 'els => els.map(e => e.className)')
     if ARR:
@@ -249,7 +278,7 @@ async def test_breedte(p, w, fouten, waarschuwingen):
             open_ = await pg.evaluate("document.getElementById('lp-pop-kamer').open")
             naam = (await pg.locator('#lp-pop-kamer-naam').inner_text()).strip()
             boek = await pg.get_attribute('#lp-pop-kamer .lp-pop__boek', 'href')
-            ok(open_ and naam and 'mewsRoom=' in boek and 'language=nl-NL' in boek, f'kamer-pop-up open: {naam}, boekknop met kamer')
+            ok(open_ and naam and 'mewsRoom=' in boek and f'language={MEWS_TAAL}' in boek, f'kamer-pop-up open: {naam}, boekknop met kamer')
         await pg.keyboard.press('Escape'); await pg.wait_for_timeout(300)
 
     # kaart: hotel + punten; genummerde punten = link (url) of pop-up (pop)
@@ -305,9 +334,12 @@ async def test_breedte(p, w, fouten, waarschuwingen):
     ok(await pg.locator('.ut-faq details[open]').count() == 1, 'eerste vraag open')
     ok(await pg.locator('.ut-faq [role="tablist"]').count() == 0, 'geen tabs')
 
-    # arrangementkaart: knop opent de prijskalender (NL), tekstlink = Mews zonder code
+    # arrangementkaart: knop opent de prijskalender (taal van de pagina), tekstlink = Mews zonder code
     if ARR:
         ok(not log['api'], f'geen /api-aanroepen voor de klik ({log["api"][:3]})')
+        ok((await pg.locator('.ut-arr__knop').inner_text()).strip() == D['arr-knop'], f'arrangementknop: {D["arr-knop"]!r}')
+        if D.get('arr-kamerlink'):
+            ok((await pg.locator('.ut-arr__link.mews-open').inner_text()).strip() == D['arr-kamerlink'], f'kamerlink: {D["arr-kamerlink"]!r}')
         ok(await pg.locator('.ut-arr .ut-arr__vinkjes li').count() >= 1, 'arrangementkaart heeft vinkjes')
         ok('€' not in await pg.locator('.ut-arr').inner_text(), 'geen prijs op de arrangementkaart')
         ak = pg.locator('.ut-arr__knop')
@@ -315,18 +347,20 @@ async def test_breedte(p, w, fouten, waarschuwingen):
         if ARR_KALENDER:
             kal = await pg.evaluate("""()=>{const k=document.getElementById('ar-kal');return k&&k.open?{code:k.dataset.code,
               prijzen:k.querySelectorAll('.ark-d .t.p').length,kop:k.querySelector('.ark-kop').textContent,wd:k.querySelector('.ark-wdag')?k.querySelector('.ark-wdag').textContent:'',
-              btn:k.querySelector('.ark-btn').textContent,code_regel:k.querySelector('.ark-code').textContent}:null}""")
+              btn:k.querySelector('.ark-btn').textContent,code_regel:k.querySelector('.ark-code').textContent,
+              maand:k.querySelector('.ark-naam')?k.querySelector('.ark-naam').textContent:''}:null}""")
             ok(kal and kal['code'] == VOUCHER and kal['prijzen'] > 5, f'prijskalender {VOUCHER} open met prijzen ' + json.dumps(kal, ensure_ascii=False))
-            ok(kal and kal['wd'].startswith('MaDiWo') and kal['kop'].startswith('Kies je') and kal['btn'] == 'Bekijk kamers en prijzen'
-               and kal['code_regel'].startswith('Actiecode'), 'kalender in het Nederlands (weekdagen, kop, knop, code)')
+            ok(kal and kal['wd'].startswith(KAL_TAAL['wd']) and kal['kop'].startswith(KAL_TAAL['kop']) and kal['btn'] == KAL_TAAL['btn']
+               and kal['code_regel'].startswith(KAL_TAAL['code']) and kal['maand'].split(' ')[0] in KAL_TAAL['maanden'],
+               f'kalender in het {TAAL} (weekdagen, maand, kop, knop, code)')
             ok(log['api'] and all('/api/arr-kalender' in u and f'code={VOUCHER}' in u for u in log['api']), f'na de klik alleen /api/arr-kalender ({len(log["api"])} aanroepen)')
             cellen = pg.locator('#ar-kal .ark-d.kan')
             await cellen.nth(3).click(); await pg.wait_for_timeout(100)
             await pg.locator('#ar-kal .ark-d.kan').nth(4).click(); await pg.wait_for_timeout(100)
             await pg.click('#ar-kal .ark-btn'); await pg.wait_for_timeout(800)
             calls = await mews_calls(pg)
-            ok(['setVoucherCode', VOUCHER] in calls and ['setLanguageCode', 'nl-NL'] in calls and any(c[0] == 'setStartDate' for c in calls)
-               and ['open'] in calls, 'kalender -> Mews met code, datums en nl-NL')
+            ok(['setVoucherCode', VOUCHER] in calls and ['setLanguageCode', MEWS_TAAL] in calls and any(c[0] == 'setStartDate' for c in calls)
+               and ['open'] in calls, f'kalender -> Mews met code, datums en {MEWS_TAAL}')
         else:
             calls = await mews_calls(pg)
             ok(not await kal_open(pg) and ['setVoucherCode', VOUCHER] in calls and ['open'] in calls, 'zonder kalender: knop opent Mews direct met de code')
@@ -334,7 +368,7 @@ async def test_breedte(p, w, fouten, waarschuwingen):
         voor = len(await mews_calls(pg))
         kl = pg.locator('.ut-arr__link.mews-open')
         if D.get('arr-kamerlink'):
-            ok(await kl.count() == 1 and (await kl.get_attribute('href')).endswith('?language=nl-NL') and await kl.get_attribute('data-voucher') is None,
+            ok(await kl.count() == 1 and (await kl.get_attribute('href')).endswith(f'?language={MEWS_TAAL}') and await kl.get_attribute('data-voucher') is None,
                'tekstlink "liever alleen een kamer": Mews zonder code')
             await kl.scroll_into_view_if_needed(); await kl.click(); await pg.wait_for_timeout(800)
             nieuw = (await mews_calls(pg))[voor:]
@@ -346,13 +380,13 @@ async def test_breedte(p, w, fouten, waarschuwingen):
         if D.get('arr-pagina-url') and D.get('arr-paginalink'):
             ok(await pg.locator(f'.ut-arr__link[href="{D["arr-pagina-url"]}"]').count() == 1, f'tekstlink naar {D["arr-pagina-url"]}')
 
-    # Mews klik (boekknop slot) opent de widget in nl-NL, zonder kalender
+    # Mews klik (boekknop slot) opent de widget in de Mews-taal, zonder kalender
     slot = pg.locator('.ut-slot a.mews-open')
     ok(await slot.count() == 1 and await pg.locator('.ut-slot .btn').count() == 1, 'slot: precies een boekknop')
     voor = len(await mews_calls(pg))
     await slot.scroll_into_view_if_needed(); await slot.click(); await pg.wait_for_timeout(1200)
     mews = await pg.evaluate('window.__mews || []')
-    ok(any(m['taal'] == 'nl-NL' and any(c[0] == 'open' for c in m['calls']) for m in mews), 'Mews-widget opent in nl-NL')
+    ok(any(m['taal'] == MEWS_TAAL and any(c[0] == 'open' for c in m['calls']) for m in mews), f'Mews-widget opent in {MEWS_TAAL}')
     nieuw = (await mews_calls(pg))[voor:]
     ok(not await kal_open(pg) and not any(c[0] == 'setVoucherCode' and c[1:] != [''] for c in nieuw), 'slotknop: geen kalender en geen code')
     ok(await mews_code(pg, STD_CFG) in ('', None), f'slotknop: code in de widget leeg ({await mews_code(pg, STD_CFG)!r})')
@@ -382,18 +416,18 @@ async def schermafdrukken(p, w, map_):
     for comp in VOLGORDE:
         el = pg.locator(f'[data-component="{comp}"]')
         if await el.count():
-            await el.screenshot(path=os.path.join(map_, f'{SLUG}-{w}-{comp[3:]}.png'))
-    await pg.screenshot(path=os.path.join(map_, f'{SLUG}-{w}-volledig.png'), full_page=True)
+            await el.screenshot(path=os.path.join(map_, f'{NAAM}-{w}-{comp[3:]}.png'))
+    await pg.screenshot(path=os.path.join(map_, f'{NAAM}-{w}-volledig.png'), full_page=True)
     if ARR and ARR_KALENDER:
         ak = pg.locator('.ut-arr__knop')
         await ak.scroll_into_view_if_needed(); await ak.click(); await pg.wait_for_timeout(1500)
-        await pg.screenshot(path=os.path.join(map_, f'{SLUG}-{w}-kalender.png'))
+        await pg.screenshot(path=os.path.join(map_, f'{NAAM}-{w}-kalender.png'))
     await b.close()
 
 
 async def main():
     fouten, waarschuwingen = [], []
-    print(f'{SLUG}: {os.path.relpath(JSON_UITJE, BASE)} | kamers {len(KAMERS)} | arrangement {"ja (" + VOUCHER + ")" if ARR else "nee"} | '
+    print(f'{SLUG} [{TAAL}]: {os.path.relpath(JSON_UITJE, BASE)} | kamers {len(KAMERS)} | arrangement {"ja (" + VOUCHER + ")" if ARR else "nee"} | '
           f'verhaal {len(V_RIJEN)} | momenten {len(MOMENTEN)} | kaartpunten {len(PUNTEN)} ({len(NR_PUNTEN)} genummerd) | meer {len(MEER)} | faq {len(FAQ)}')
     async with async_playwright() as p:
         for w in BREEDTES:
