@@ -255,6 +255,8 @@ TEMPLATES = {
         'template': 'uitje.template.html',
         'langs': {
             'nl': ('zooparc-overloon-v2.html', 'translations/uitje-zooparc-overloon-nl.json'),
+            'de': ('zooparc-overloon-v2-de.html', 'translations/uitje-zooparc-overloon-de.json'),
+            'en': ('zooparc-overloon-v2-en.html', 'translations/uitje-zooparc-overloon-en.json'),
         },
         'uitje': True,
     },
@@ -264,6 +266,8 @@ TEMPLATES = {
         'template': 'uitje.template.html',
         'langs': {
             'nl': ('oorlogsmuseum-overloon-v2.html', 'translations/uitje-oorlogsmuseum-overloon-nl.json'),
+            'de': ('oorlogsmuseum-overloon-v2-de.html', 'translations/uitje-oorlogsmuseum-overloon-de.json'),
+            'en': ('oorlogsmuseum-overloon-v2-en.html', 'translations/uitje-oorlogsmuseum-overloon-en.json'),
         },
         'uitje': True,
     },
@@ -271,6 +275,8 @@ TEMPLATES = {
         'template': 'uitje.template.html',
         'langs': {
             'nl': ('venray-centrum-v2.html', 'translations/uitje-venray-centrum-nl.json'),
+            'de': ('venray-centrum-v2-de.html', 'translations/uitje-venray-centrum-de.json'),
+            'en': ('venray-centrum-v2-en.html', 'translations/uitje-venray-centrum-en.json'),
         },
         'uitje': True,
     },
@@ -278,6 +284,8 @@ TEMPLATES = {
         'template': 'uitje.template.html',
         'langs': {
             'nl': ('nationaal-park-de-maasduinen-v2.html', 'translations/uitje-nationaal-park-de-maasduinen-nl.json'),
+            'de': ('nationaal-park-de-maasduinen-v2-de.html', 'translations/uitje-nationaal-park-de-maasduinen-de.json'),
+            'en': ('nationaal-park-de-maasduinen-v2-en.html', 'translations/uitje-nationaal-park-de-maasduinen-en.json'),
         },
         'uitje': True,
     },
