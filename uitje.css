@@ -400,3 +400,10 @@
 @media (prefers-reduced-motion:reduce) {
   .ut-meerbalk__chev,.ut-moment,.ut-dag__beeld,.ut-dag--js .ut-moment__open { transition:none }
 }
+
+/* ==========================================================================
+   Feedback 11 nov 2026 (omgevingspagina's; .ut = uitje/golf, zoek en omgeving-overzicht/-categorie; routes in route.css).
+   Gescoopt op .ut zodat de adslanders (/hotel-venray-v2, /wellnesshotel-limburg-de) niet veranderen.
+   ========================================================================== */
+/* kamerslider: 16 px tussen de kaarten (adslander 30 / 60 px); kaartbreedte ongewijzigd; adslander.js meet de gap zelf */
+.ut .al-kamers .kk-spoor { gap:16px }
