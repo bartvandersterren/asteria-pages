@@ -15,7 +15,7 @@
     5a zk-well      mozaiek van de adslander (een groot + vier klein), kop + tekst + vier feiten erboven
     6b zk-arr       drie arrangementkaarten van de adslander, midden uitgelicht; prijskalender per code
     7b zk-ligging   getekende kaart (uitje.js + kaart-getekend.js) op twee derde, genummerde lijst rechts (zoek.css)
-    8a zk-rev       Tripadvisor-reviewblok (ta_reviewblok, reviews-ta.css)
+    8a zk-rev       Google-reviewblok (google_reviewblok, reviews-google.css)
     9a zk-faq       vragen met tabs van de adslander, FAQPage JSON-LD
     10b zk-slot     fotoband + overlegstrook van de adslander
     voet         spiegelvoet van /hotel-venray-v2
@@ -56,9 +56,9 @@
   <link rel="stylesheet" href="kaart-getekend.css">
   <link rel="stylesheet" href="arrangement-kalender.css">
   <link rel="stylesheet" href="zoek.css">
-  <link rel="stylesheet" href="reviews-ta.css">
+  <link rel="stylesheet" href="reviews-google.css">
   <script src="adslander.js" defer></script>
-  <script src="reviews-ta.js" defer></script>
+  <script src="reviews-google.js" defer></script>
   <script src="arrangement-kalender.js" defer></script>
   <script src="kaart-getekend.js" defer></script>
   <script src="uitje.js" defer></script>
@@ -78,7 +78,7 @@
   </script>
 
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Hotel","name":"Hotel Asteria","url":"{{canonical}}","inLanguage":"{{html-taal}}","address":{"@type":"PostalAddress","streetAddress":"Maasheseweg 80a","postalCode":"5804 AD","addressLocality":"Venray","addressCountry":"NL"},"telephone":"+31478511466","email":"info@asteria.nl","image":"{{og-image}}","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.2","reviewCount":"2280","bestRating":"5"}}
+  {"@context":"https://schema.org","@type":"Hotel","name":"Hotel Asteria","url":"{{canonical}}","inLanguage":"{{html-taal}}","address":{"@type":"PostalAddress","streetAddress":"Maasheseweg 80a","postalCode":"5804 AD","addressLocality":"Venray","addressCountry":"NL"},"telephone":"+31478511466","email":"info@asteria.nl","image":"{{og-image}}","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.2","reviewCount":"2290","bestRating":"5"}}
   </script>
   <!-- ZK_FAQ_LD -->
 </head>
@@ -222,8 +222,8 @@
 <!--[/blok]-->
 
 <!--[blok reviews]-->
-  <!-- 8a. Tripadvisor-reviewblok (gedeeld met alle omgevingspagina's: build.py ta_reviewblok, reviews-ta.css/.js) -->
-  <!-- ZK_TA -->
+  <!-- 8a. Google-reviewblok (gedeeld met alle omgevingspagina's: build.py google_reviewblok, reviews-google.css/.js) -->
+  <!-- ZK_REVIEWS -->
 <!--[/blok]-->
 
 <!--[blok faq]-->

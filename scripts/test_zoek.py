@@ -30,7 +30,7 @@ TAAL = re.search(r'-(nl|de|en)\.json$', JSON).group(1)
 MEWS_TAAL = {'nl': 'nl-NL', 'de': 'de-DE', 'en': 'en-US'}[TAAL]
 KAMERS = json.load(open(os.path.join(BASE, 'content', f'zoek-kamers-{TAAL}.json'), encoding='utf-8'))['kamer']
 COMP = {'hero': 'zk-hero', 'oog': 'zk-oog', 'intro': 'zk-intro', 'kamers': 'zk-kamers', 'wellness': 'zk-well', 'arr': 'zk-arr',
-        'ligging': 'zk-ligging', 'reviews': 'zk-rev', 'faq': 'zk-faq', 'slot': 'zk-slot'}
+        'ligging': 'zk-ligging', 'reviews': 'grv', 'faq': 'zk-faq', 'slot': 'zk-slot'}
 BLOKKEN = ['hero'] + D['blokken']
 VOLGORDE = [COMP[b] for b in BLOKKEN]
 # rijtijd zoals in de eerste alinea: veld test-rijtijd in de pagina-JSON (terugval: Arcen, 23 minuten)

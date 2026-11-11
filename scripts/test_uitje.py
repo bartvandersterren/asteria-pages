@@ -93,7 +93,7 @@ NR_PUNTEN = [p for p in PUNTEN if not p.get('hoofd')]
 
 VOLGORDE = (['ut-hero', 'ut-oog', 'ut-verhaal'] + (['ut-tip'] if D.get('tip') else []) + (['ut-prak'] if G_KAARTEN else [])
             + (['ut-dag'] if MOMENTEN else []) + (['ut-arr'] if ARR else []) + (['ut-kamers'] if KAMERS else [])
-            + (['ut-kaart'] if PUNTEN else []) + ['ut-faq', 'rta'] + (['ut-meer'] if MEER else []) + ['ut-slot'])
+            + (['ut-kaart'] if PUNTEN else []) + ['ut-faq', 'grv'] + (['ut-meer'] if MEER else []) + ['ut-slot'])
 
 MEWS_STUB = """window.Mews={Distributor:function(opt,cb){window.__mews=window.__mews||[];var log={cfg:opt.configurationIds[0],taal:opt.language,calls:[],code:''};
 window.__mews.push(log);var api={};['setVoucherCode','setStartDate','setEndDate','setAdultCount','showRates','showRooms','setLanguageCode','open']

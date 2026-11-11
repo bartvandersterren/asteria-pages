@@ -725,11 +725,20 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 
 ## Feedback omgevingsweb (11 nov 2026, tak feature/omgeving-integratie)
 
-- Tripadvisor-reviewblok op alle omgevingspagina's (uitje/golf + routes na de FAQ, zoekpagina's op de plek van blok `reviews`,
-  overzicht `omgeving-v2` na de FAQ; niet op de categoriepagina's): build.py `ta_reviewblok(lang, extra_cls)`, data
-  `content/reviews-tripadvisor.json` (score, deelscores, per taal labels + reviews; letterlijk, alleen eigen taal, 4-5 bollen),
-  `reviews-ta.css` (prefix `rta`) + `reviews-ta.js` (pijlknop bureaublad). Het Google-reviewblok (`al-rev`) staat alleen nog op de adslanders.
-  De Google-badge in de zoekhero en schema.org-aggregateRating blijven Google.
+- Google-reviewblok op alle omgevingspagina's (uitje/golf + routes na de FAQ, zoekpagina's op de plek van blok `reviews`,
+  overzicht `omgeving-v2` na de FAQ; niet op de categoriepagina's), sinds 11 nov 2026 i.p.v. het Tripadvisor-blok: build.py
+  `google_reviewblok(lang, extra_cls)` (data-component `grv`), `reviews-google.css` (prefix `grv`) + `reviews-google.js` (pijlknop
+  bureaublad). Paneel: Google-G, 4,2, sterren, aantal (link profiel_url), sterrenverdeling (5 balkjes #FBBC04), Vaak genoemd (chips);
+  kaarten = `selectie` (max 8) uit `content/reviews-google-asteria(-de/-en).json`, ingekort met `rev_inkorten` (= inject_reviews),
+  maand/jaar afgeleid van de relatieve Google-datum op de ophaaldag (13 okt 2026). DE/EN = vertaling + regel `vertaald` in het paneel.
+  Cijfers en labels: `content/reviews-google-overzicht.json` (score, aantal, verdeling in %, onderwerpen per taal, alle Google-chips met
+  sentiment, bron_url, datum). Bron: google.com/travel/search?q=Hotel+Asteria+Venray&hl=nl -> resultaat Hotel Asteria Venray -> tab
+  Reviews -> "Review-overzicht van Google"; verdeling exact uit `aria-label` "NN procent geeft N sterren.", chips uit `data-label`/
+  `data-positive`/`data-negative`/`data-sentiment` (1 = duim omhoog, 2 = omlaag, 0 = geen duim; alleen 1 gebruiken). Verversen: Playwright
+  (headless, locale nl-NL, "Alles afwijzen"), tab Reviews, die attributen uitlezen, JSON bijwerken (+ `google-aantal`/`google-aria` in
+  `translations/zoek-labels-*.json` en `reviewCount` in zoek.template.html), `python3 build.py`. `content/reviews-google-asteria*.json`
+  (`aantal` 2280) en `content/reviews-tripadvisor.json` NIET aanpassen voor dit blok: die voeden de live landers (hotel-venray-v2,
+  wellnesshotel-limburg-de) resp. staan alleen nog als archief. Het al-rev-blok staat alleen nog op de adslanders.
 - Zoekpagina's telefoon (opzet "g9" van de Parkhotel-lander): hero = 100svh min `--kophoogte`, inhoud onderin (h1, sub, Google-regel
   `zk-hero__google` met `google-uit` uit de labels, knop), badge en zekerheden in de hero verborgen; zekerheden als `ul.zk-chips` direct
   onder de hero (alleen < 768 px). Bureaublad ongewijzigd.
