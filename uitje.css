@@ -407,3 +407,5 @@
    ========================================================================== */
 /* kamerslider: 16 px tussen de kaarten (adslander 30 / 60 px); kaartbreedte ongewijzigd; adslander.js meet de gap zelf */
 .ut .al-kamers .kk-spoor { gap:16px }
+/* arrangementkaart: alleen de randlijn van .al-intro__link, niet ook de tekstonderstreping van .lp p a (lander-w1.css) */
+.ut .ut-arr__links a { text-decoration:none }
