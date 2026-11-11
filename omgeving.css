@@ -275,10 +275,12 @@
 .om-meer__grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px }
 .om-meer__kaart { position:relative; display:block; border-radius:var(--radius-image); overflow:hidden; aspect-ratio:16 / 10; color:var(--surface) }
 .om-meer__kaart img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .4s }
-.om-meer__kaart::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(43,26,4,0) 35%, rgba(43,26,4,.82) 100%) }
+/* verloop onderin in de inktkleur (feedback 11 nov 2026: witte namen waren op de telefoon onleesbaar; .lp a zette de kleur op inkt) */
+.om-meer__kaart::after { content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(43,26,4,.78) 0%, rgba(43,26,4,.4) 45%, rgba(43,26,4,0) 100%) }
 .om-meer__kaart:hover img { transform:scale(1.04) }
 .om-meer__tekst { position:absolute; left:18px; right:18px; bottom:16px; z-index:1; display:flex; flex-direction:column; gap:4px }
-.om-meer__naam { font-family:var(--font-display); font-weight:700; font-size:24px; line-height:1.1 }
+.lp a.om-meer__kaart,.om-meer__naam { color:#fff }
+.om-meer__naam { font-family:var(--font-display); font-weight:700; font-size:24px; line-height:1.1; text-wrap:balance; overflow-wrap:normal; hyphens:none }
 .om-meer__regel { font-size:14px; line-height:1.4; color:var(--on-ink-body) }
 
 /* ==========================================================================
@@ -364,9 +366,9 @@
   .om-cfaq__raster { grid-template-columns:minmax(0,1fr) }
   .om-meer__paneel { padding:26px 18px }
   .om-meer__grid { gap:10px }
-  .om-meer__naam { font-size:18px }
+  .om-meer__naam { font-size:19px; line-height:1.15 }
   .om-meer__regel { display:none }
-  .om-meer__tekst { left:12px; right:12px; bottom:10px }
+  .om-meer__tekst { left:12px; right:10px; bottom:11px }
 }
 @media (prefers-reduced-motion:reduce) {
   .om-tegel,.om-tegel__link svg,.om-kaart__media img,.om-meer__kaart img { transition:none }
