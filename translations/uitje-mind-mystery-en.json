@@ -86,6 +86,8 @@
   "g4-kop": "No dogs",
   "g4-tekst": "Dogs are not allowed inside. Assistance and guide dogs are welcome.",
   "g4-ico": "<circle cx='12' cy='12' r='9'/><path d='M5.6 5.6l12.8 12.8'/>",
+  "g4-foto": "fotos/l26-uitje-mindmystery-g4.webp",
+  "g4-alt": "Silhouette of a vase in which you can also see two faces looking at each other",
   "dag-kop": "How to make a <span class='al-g'>day</span> of it",
   "dag-sub": "Breakfast at the hotel, a day of having your brain fooled in Horst, and back in the late afternoon for the sauna and dinner.",
   "dag-start": "1",
@@ -218,7 +220,7 @@
   "slot-focus": "50%",
   "fotocredit": "",
   "fotocredit-verhaal": "Illustrations: <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> and <a href='https://commons.wikimedia.org/wiki/File:Kaninchen_und_Ente.png' target='_blank' rel='noopener'>Fliegende Bl&auml;tter, 1892</a> (public domain), via Wikimedia Commons. They are examples of the kind of illusions shown in the museum, not the works at Mind Mystery itself.",
-  "fotocredit-prak": "Illustrations: <a href='https://commons.wikimedia.org/wiki/File:Penrose-dreieck.svg' target='_blank' rel='noopener'>Tobias R.</a>, <a href='https://commons.wikimedia.org/wiki/File:Kaninchen_und_Ente.png' target='_blank' rel='noopener'>Fliegende Bl&auml;tter, 1892</a> and <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> (public domain), cropped details; via Wikimedia Commons.",
+  "fotocredit-prak": "Illustrations: <a href='https://commons.wikimedia.org/wiki/File:Penrose-dreieck.svg' target='_blank' rel='noopener'>Tobias R.</a>, <a href='https://commons.wikimedia.org/wiki/File:Kaninchen_und_Ente.png' target='_blank' rel='noopener'>Fliegende Bl&auml;tter, 1892</a>, <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> and <a href='https://commons.wikimedia.org/wiki/File:Face_or_vase_wickedea.svg' target='_blank' rel='noopener'>F. B. von Wickede, 18th century</a> (public domain), cropped details; via Wikimedia Commons.",
   "fotocredit-dag": "Illustration: <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> (public domain), via Wikimedia Commons.",
   "fotocredit-meer": "Photos: <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brouwerij.JPG' target='_blank' rel='noopener'>B. Hulshoff</a> (CC BY-SA 4.0), cropped; via Wikimedia Commons.",
   "_pop": {

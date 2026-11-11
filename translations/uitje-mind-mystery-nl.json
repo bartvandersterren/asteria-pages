@@ -93,6 +93,8 @@
   "g4-kop": "Geen honden",
   "g4-tekst": "Honden mogen niet mee naar binnen. Hulp- en geleidehonden zijn wel welkom.",
   "g4-ico": "<circle cx='12' cy='12' r='9'/><path d='M5.6 5.6l12.8 12.8'/>",
+  "g4-foto": "fotos/l26-uitje-mindmystery-g4.webp",
+  "g4-alt": "Silhouet van een vaas, waarin je ook twee gezichten ziet die elkaar aankijken",
 
   "dag-kop": "Zo maak je er een <span class='al-g'>dag</span> van",
   "dag-sub": "Ontbijten in het hotel, overdag je brein laten foppen in Horst en aan het eind van de middag terug voor de sauna en een diner.",
@@ -191,7 +193,7 @@
 
   "fotocredit": "",
   "fotocredit-verhaal": "Illustraties: <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> en <a href='https://commons.wikimedia.org/wiki/File:Kaninchen_und_Ente.png' target='_blank' rel='noopener'>Fliegende Bl&auml;tter, 1892</a> (publiek domein), via Wikimedia Commons. Het zijn voorbeelden van illusies uit het museum, niet de werken in Mind Mystery zelf.",
-  "fotocredit-prak": "Illustraties: <a href='https://commons.wikimedia.org/wiki/File:Penrose-dreieck.svg' target='_blank' rel='noopener'>Tobias R.</a>, <a href='https://commons.wikimedia.org/wiki/File:Kaninchen_und_Ente.png' target='_blank' rel='noopener'>Fliegende Bl&auml;tter, 1892</a> en <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> (publiek domein), uitsneden; via Wikimedia Commons.",
+  "fotocredit-prak": "Illustraties: <a href='https://commons.wikimedia.org/wiki/File:Penrose-dreieck.svg' target='_blank' rel='noopener'>Tobias R.</a>, <a href='https://commons.wikimedia.org/wiki/File:Kaninchen_und_Ente.png' target='_blank' rel='noopener'>Fliegende Bl&auml;tter, 1892</a>, <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> en <a href='https://commons.wikimedia.org/wiki/File:Face_or_vase_wickedea.svg' target='_blank' rel='noopener'>F. B. von Wickede, 18e eeuw</a> (publiek domein), uitsneden; via Wikimedia Commons.",
   "fotocredit-dag": "Illustratie: <a href='https://commons.wikimedia.org/wiki/File:My_Wife_and_My_Mother-in-Law.jpg' target='_blank' rel='noopener'>W. E. Hill, 1915</a> (publiek domein), via Wikimedia Commons.",
   "fotocredit-meer": "Foto's: <a href='https://commons.wikimedia.org/wiki/File:Eendenmeer_Bergen_LB.jpg' target='_blank' rel='noopener'>Lieblingsgouda</a> (CC BY-SA 3.0 NL), <a href='https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brouwerij.JPG' target='_blank' rel='noopener'>B. Hulshoff</a> (CC BY-SA 4.0), bijgesneden; via Wikimedia Commons.",
 

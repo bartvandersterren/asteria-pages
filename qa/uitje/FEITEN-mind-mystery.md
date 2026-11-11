@@ -111,10 +111,18 @@ Wikimedia Commons doorzocht op 11 nov 2026: zoeken op "Mind Mystery", "Mind Myst
 - Hero en og-image: fotos/l26-waarom-hotel.webp (Hotel Asteria met vijver en fontein), alt: Hotel Asteria in Venray met de vijver en fontein ervoor
 - v3: fotos/l26-waarom-wellness.webp (wellness Top Floor)
 - Dagverloop m1/m3/m4 en slot: fotos/l26-ontbijt.webp, l26-wellness-staand.webp, l26-brasserie.webp, l26-hotel-zonsondergang.webp (zoals ZooParc)
-- g4 zonder foto (kaart met groot icoon)
+- g4: zie hieronder (sinds 11 nov 2026 een illustratie)
 
 ### Meer in de omgeving (hergebruikt)
 - Oorlogsmuseum: fotos/l26-oorlogsmuseum-arrangement-*.webp (zie oorlogsmuseum-arrangement-nl.json)
 - Maasduinen: fotos/l26-omg-maasduinen-1..4.webp (Lieblingsgouda, Steven Lek, Carelbullens, Jonathation; CC BY-SA)
 - Hertog Jan: fotos/l26-omg-hertogjan-1..3.webp (B. Hulshoff, Steven Lek; CC BY-SA 4.0; tapfoto Hotel Asteria)
 - Kaartfoto: voorlopig kopie van l26-uitje-kaart-zooparc(-klein).webp, wordt centraal opnieuw gerenderd.
+
+### fotos/l26-uitje-mindmystery-g4.webp (11 nov 2026)
+- Commons: https://commons.wikimedia.org/wiki/File:Face_or_vase_wickedea.svg
+- Wat: vaas van het Rubin-type (vaas of twee gezichten), naar een silhouet van Augusta von Wickede (1751-1786) door Friedrich Bernhard von Wickede; SVG-bewerking Nevit Dilmen (2011)
+- Licentie: publiek domein
+- Origineel: qa/uitje/bron-fotos/mindmystery-face-or-vase-wickedea.svg (1280 px-render van Commons, grijstinten, 4:3 uit het midden, 880x660; vaas lichtgrijs op zwart)
+- Alt: Silhouet van een vaas, waarin je ook twee gezichten ziet die elkaar aankijken
+- Credit: F. B. von Wickede, 18e eeuw (publiek domein), via Wikimedia Commons
