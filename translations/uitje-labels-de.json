@@ -1,0 +1,59 @@
+{
+  "_uitleg": "Vaste labels van het uitje-sjabloon (uitje.template.html), Duits, Sie-vorm, woordkeus zoals de Duitse adslander (translations/adslander-wellnesshotel-de.json). build.py laadt dit bestand eerst voor de DE-pagina; een veld in translations/uitje-<slug>-de.json met dezelfde sleutel wint. Zelfde sleutels als uitje-labels-nl.json, plus telefoon en kop-boek voor de Duitse spiegelkop/-voet (al_kop_voet_de).",
+
+  "html-taal": "de",
+  "og-locale": "de_DE",
+  "mews-taal": "de-DE",
+  "robots": "noindex, follow",
+
+  "knop-boek": "Jetzt buchen",
+  "knop-route": "Route in Google Maps",
+  "knop-kamer": "Zimmer buchen",
+  "knop-info": "Mehr Info",
+  "knop-meer": "Mehr erfahren",
+
+  "l-auto": "mit dem Auto",
+  "l-fiets": "mit dem Rad",
+  "l-lopen": "zu Fuß",
+  "l-afstand": "Entfernung",
+  "l-met-auto": "mit dem Auto ab Hotel Asteria",
+  "l-leesmeer": "Weiterlesen",
+  "l-leesminder": "Weniger anzeigen",
+  "l-nieuw-tabblad": "(öffnet in neuem Tab)",
+  "l-bel": "Fragen? Rufen Sie die Rezeption an, +31 478 511 466",
+
+  "tel": "+31 478 511 466",
+  "tel-url": "tel:+31478511466",
+  "telefoon": "+31 478 511 466",
+  "kop-boek": "Jetzt buchen",
+
+  "kamer-rij-label": "Unsere Zimmer und Suiten",
+  "kamer-vorige": "Vorheriges Zimmer",
+  "kamer-volgende": "Nächstes Zimmer",
+  "kamer-pop-video": "Video des Zimmers",
+  "kamer-pop-foto": "Foto",
+
+  "kaart-knop-inzoomen": "Vergrößern",
+  "kaart-knop-uitzoomen": "Verkleinern",
+  "kaart-knop-alles": "Ganze Karte zeigen",
+  "kaart-hint-wiel": "Strg + Scrollen zum Zoomen",
+  "kaart-hint-vingers": "Verschieben Sie die Karte mit zwei Fingern",
+  "kaart-attributie": "Grenzen CBS/Kadaster &middot; Wasser und Straßen &copy; OpenStreetMap-Mitwirkende",
+
+  "pop-sluit": "Schließen",
+  "pop-vorige": "Vorheriges Foto",
+  "pop-volgende": "Nächstes Foto",
+  "pop-route": "Route planen",
+  "pop-vanaf-hotel": "Fahrzeiten ab dem Hotel",
+  "pop-kamer-badge": "Zimmer",
+  "pop-video-speel": "Video abspielen",
+  "pop-video-pauze": "Video anhalten",
+
+  "sticky-kop": "Hotel Asteria Venray",
+  "sticky-sub": "Direkt beim Hotel buchen",
+  "sticky-knop": "Jetzt buchen",
+
+  "cookie-tekst": "Diese Website verwendet Cookies für ein optimales Erlebnis.",
+  "cookie-meer": "Mehr Infos",
+  "cookie-knop": "Einverstanden"
+}

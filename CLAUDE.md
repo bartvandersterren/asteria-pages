@@ -605,6 +605,16 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - Kaart: `knipLabels()` in `kaart-getekend.js` verbergt regio-, plaats- en bordnamen die niet helemaal binnen het kaartvlak vallen (`.gk-buiten`); draait als de kaart stilstaat en na `pasNamenIn` in `uitje.js`.
 - Actiecode wissen live bevestigd (11 nov 2026, echte Mews-widget op de preview): na de arrangementknop sturen kamerlink en slotknop `getPricing` met een lege `voucherCode` en toont de widget alleen gewone tarieven. Op de Duitse lander van PR #190 (oude `adslander.js`) blijft de code hangen tot deze tak daar ook in zit.
 
+- Talen (11 nov 2026): een uitje-entry kan `langs` nl/de/en hebben; uitvoer `<slug>-v2.html`, `<slug>-v2-de.html`, `<slug>-v2-en.html`,
+  gegevens `translations/uitje-<slug>-<taal>.json`. Labels en kamerbron per taal via build.py `ut_taalbron`:
+  `translations/uitje-labels-<taal>.json` en `content/uitje-kamers-<taal>.json` (DE-kamerteksten = sectie kamer van content/adslander-pop-de.json,
+  EN vertaald uit NL). DE/EN-labels hebben ook `telefoon` (+31 478 511 466) en `kop-boek` voor de kop/voet.
+- Kop/voet: `al_kop_voet(..., taal=lang)`; `de` = `al_kop_voet_de`, `en` = `al_kop_voet_en` (zelfde doelen, alleen labels). Mews-taal uit
+  `mews-taal` in de labels (nl-NL, de-DE, en-US), ook op de kamerlinks in de spiegelvoet.
+- hreflang (nl/de/en + x-default = NL) komt via de plek `UT_FAQ_LD` in de head (`ut_hreflang`: sluit het ld+json-script, links, lege
+  `<script>`), alleen voor talen waarvan de JSON bestaat en pas vanaf twee talen. Volledige build slaat een uitje-taal zonder JSON over
+  (regel "overgeslagen"); `python3 build.py uitje-<slug>` stopt dan wel.
+
 ## Omgevingspagina's: overzicht + vijf categorieen (nov 2026, -v2, tak feature/omgeving-overzicht)
 
 - Nabouw van parkhotelhorst.nl/gebied/ en /gebieden/<cat>/ (parkhotel-site `pagina-gebied-overzicht-v2` en `pagina-categorie-v2`), zelfde

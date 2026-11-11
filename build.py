@@ -308,6 +308,87 @@ TEMPLATES = {
         'nl': ('omgeving-golf-v2.html', 'translations/omgeving-golf-nl.json'),
         'de': ('omgeving-golf-v2-de.html', 'translations/omgeving-golf-de.json'),
         'en': ('omgeving-golf-v2-en.html', 'translations/omgeving-golf-en.json')}},
+    'uitje-kasteeltuinen-arcen': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('kasteeltuinen-arcen-v2.html', 'translations/uitje-kasteeltuinen-arcen-nl.json'),
+            'de': ('kasteeltuinen-arcen-v2-de.html', 'translations/uitje-kasteeltuinen-arcen-de.json'),
+            'en': ('kasteeltuinen-arcen-v2-en.html', 'translations/uitje-kasteeltuinen-arcen-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-hertog-jan-brouwerij': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('hertog-jan-brouwerij-v2.html', 'translations/uitje-hertog-jan-brouwerij-nl.json'),
+            'de': ('hertog-jan-brouwerij-v2-de.html', 'translations/uitje-hertog-jan-brouwerij-de.json'),
+            'en': ('hertog-jan-brouwerij-v2-en.html', 'translations/uitje-hertog-jan-brouwerij-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-mind-mystery': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('mind-mystery-v2.html', 'translations/uitje-mind-mystery-nl.json'),
+            'de': ('mind-mystery-v2-de.html', 'translations/uitje-mind-mystery-de.json'),
+            'en': ('mind-mystery-v2-en.html', 'translations/uitje-mind-mystery-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-designer-outlet-roermond': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('designer-outlet-roermond-v2.html', 'translations/uitje-designer-outlet-roermond-nl.json'),
+            'de': ('designer-outlet-roermond-v2-de.html', 'translations/uitje-designer-outlet-roermond-de.json'),
+            'en': ('designer-outlet-roermond-v2-en.html', 'translations/uitje-designer-outlet-roermond-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-venlo-centrum': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('venlo-centrum-v2.html', 'translations/uitje-venlo-centrum-nl.json'),
+            'de': ('venlo-centrum-v2-de.html', 'translations/uitje-venlo-centrum-de.json'),
+            'en': ('venlo-centrum-v2-en.html', 'translations/uitje-venlo-centrum-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-de-groote-peel': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('de-groote-peel-v2.html', 'translations/uitje-de-groote-peel-nl.json'),
+            'de': ('de-groote-peel-v2-de.html', 'translations/uitje-de-groote-peel-de.json'),
+            'en': ('de-groote-peel-v2-en.html', 'translations/uitje-de-groote-peel-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-openluchtmuseum-de-locht': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('openluchtmuseum-de-locht-v2.html', 'translations/uitje-openluchtmuseum-de-locht-nl.json'),
+            'de': ('openluchtmuseum-de-locht-v2-de.html', 'translations/uitje-openluchtmuseum-de-locht-de.json'),
+            'en': ('openluchtmuseum-de-locht-v2-en.html', 'translations/uitje-openluchtmuseum-de-locht-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-limburgs-museum': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('limburgs-museum-v2.html', 'translations/uitje-limburgs-museum-nl.json'),
+            'de': ('limburgs-museum-v2-de.html', 'translations/uitje-limburgs-museum-de.json'),
+            'en': ('limburgs-museum-v2-en.html', 'translations/uitje-limburgs-museum-en.json'),
+        },
+        'uitje': True,
+    },
+    'uitje-toverland': {
+        'template': 'uitje.template.html',
+        'langs': {
+            'nl': ('toverland-v2.html', 'translations/uitje-toverland-nl.json'),
+            'de': ('toverland-v2-de.html', 'translations/uitje-toverland-de.json'),
+            'en': ('toverland-v2-en.html', 'translations/uitje-toverland-en.json'),
+        },
+        'uitje': True,
+    },
 }
 
 def add_mews_language(html, lang):
@@ -1750,6 +1831,8 @@ def al_kop_voet(d, mews_basis, taal='de'):
     ]
     if taal == 'de':
         vervang += al_kop_voet_de(d)
+    elif taal == 'en':
+        vervang += al_kop_voet_en(d)
     delen = []
     for x in (kop, lade, voet):
         for a_, b_ in vervang:
@@ -1797,6 +1880,45 @@ def al_kop_voet_de(d):
         ('Algemene voorwaarden', 'AGB'),
         ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
          'A73, Ausfahrt 8 Venray-Noord &middot; KvK 12028838 &middot; USt-IdNr. NL804668528B01'),
+    ]
+
+
+def al_kop_voet_en(d):
+    """Engelse labels van de spiegelkop/-voet (uitje-sjabloon, taal en), zelfde volgorde en doelen als al_kop_voet_de."""
+    tel = d['telefoon']
+    return [
+        ('Hotel Asteria, naar het begin van de pagina', 'Hotel Asteria, back to the top of the page'),
+        ('aria-label="Hoofdnavigatie"', 'aria-label="Main navigation"'),
+        ('aria-label="Bel Hotel Asteria: 0478 511466"', f'aria-label="Call Hotel Asteria: {tel}"'),
+        ('aria-label="Bel ons"', 'aria-label="Call us"'),
+        ('aria-label="E-mail ons"', 'aria-label="Email us"'),
+        ('aria-label="Open menu"', 'aria-label="Open menu"'),
+        ('aria-label="Mobiel menu"', 'aria-label="Mobile menu"'),
+        ('aria-label="Sluit menu"', 'aria-label="Close menu"'),
+        ('aria-label="Volg ons"', 'aria-label="Follow us"'),
+        ('>0478 511466<', f'>{tel}<'),
+        ('>0478 511 466<', f'>{tel}<'),
+        ('>Kamers &amp; suites<', '>Rooms &amp; suites<'),
+        ('>Faciliteiten<', '>Facilities<'),
+        ('>Wellness &amp; fitness<', '>Wellness &amp; fitness<'),
+        ('>Arrangementen<', '>Packages<'),
+        ('>Omgeving<', '>Surroundings<'),
+        ('>Over ons <', '>About us <'),
+        ('>Ons verhaal<', '>Our story<'),
+        ('>Contact<', '>Contact<'),
+        ('>Boek nu<', '>' + d['kop-boek'] + '<'),
+        ('>Verblijf<', '>Stay<'),
+        ('>Bruidssuite<', '>Bridal suite<'),
+        ('>Junior suite<', '>Junior suite<'),
+        ('>Comfort kamer<', '>Comfort room<'),
+        ('>Deluxe kamer<', '>Deluxe room<'),
+        ('>Beschikbaarheid<', '>Availability<'),
+        ('>Bij ons<', '>At Asteria<'),
+        ('>Route &amp; parkeren<', '>Directions &amp; parking<'),
+        ('Privacyverklaring', 'Privacy statement'),
+        ('Algemene voorwaarden', 'Terms and conditions'),
+        ('A73, afrit 8 Venray Noord&middot; KvK 12028838 &middot; btw NL804668528B01',
+         'A73, exit 8 Venray-Noord &middot; Chamber of Commerce 12028838 &middot; VAT NL804668528B01'),
     ]
 
 
@@ -2047,15 +2169,34 @@ UT_SPELD = ('<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke=
 UT_CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
 
 
+def ut_taalbron(pad, lang):
+    """Labels/kamerbron per taal: nl = het bestaande -nl-bestand, de/en = hetzelfde pad met -de/-en."""
+    return pad if lang == 'nl' else pad.replace('-nl.json', f'-{lang}.json')
+
+
+def ut_hreflang(config):
+    """hreflang-links voor de head (via de plek UT_FAQ_LD, die binnen een script-tag staat: eerst die tag sluiten,
+    na de links een lege script-tag openen die de </script> van het sjabloon sluit). Alleen talen waarvan de JSON
+    bestaat; bij minder dan twee talen niets. x-default = de NL-pagina."""
+    talen = {t: f for t, (f, j) in config.get('langs', {}).items() if os.path.exists(os.path.join(base, j))}
+    if len(talen) < 2:
+        return ''
+    url = lambda f: 'https://visit.asteria.nl/' + f[:-5]
+    regels = [f'<link rel="alternate" hreflang="{t}" href="{url(f)}">' for t, f in talen.items()]
+    if 'nl' in talen:
+        regels.append(f'<link rel="alternate" hreflang="x-default" href="{url(talen["nl"])}">')
+    return '</script>\n  ' + '\n  '.join(regels) + '\n  <script>'
+
+
 def build_uitje(config, output_file, json_file, template_name, lang):
     from html import escape
     with open(os.path.join(base, config['template']), encoding='utf-8') as f:
         html = f.read()
-    with open(os.path.join(base, UT_LABELS), encoding='utf-8') as f:
+    with open(os.path.join(base, ut_taalbron(UT_LABELS, lang)), encoding='utf-8') as f:
         d = json.load(f)
     with open(os.path.join(base, json_file), encoding='utf-8') as f:
         d.update(json.load(f))   # het uitje-JSON wint van de labels
-    with open(os.path.join(base, UT_KAMERS), encoding='utf-8') as f:
+    with open(os.path.join(base, ut_taalbron(UT_KAMERS, lang)), encoding='utf-8') as f:
         kamerbron = json.load(f)['kamer']
     taal = d.get('mews-taal', 'nl-NL')
     mews = lambda extra='': f'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?language={taal}{extra}'
@@ -2226,10 +2367,10 @@ def build_uitje(config, output_file, json_file, template_name, lang):
     kk, kamerdata, popkamer = [], {}, {}
     for k in kamers:
         if k not in KAMER_MEWS or k not in kamerbron:
-            sys.exit(f'uitje: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen kamerdata ({UT_KAMERS})')
+            sys.exit(f'uitje: kamer {k!r} heeft geen Mews-id (KAMER_MEWS) of geen kamerdata ({ut_taalbron(UT_KAMERS, lang)})')
         r, room = kamerbron[k], KAMER_MEWS[k]
         if r.get('kamer') != room:
-            sys.exit(f'uitje: Mews-id van {k} in {UT_KAMERS} wijkt af van KAMER_MEWS')
+            sys.exit(f'uitje: Mews-id van {k} in {ut_taalbron(UT_KAMERS, lang)} wijkt af van KAMER_MEWS')
         for x in r['fotos'] + r.get('pop_fotos', []) + [r.get('video') or '', r['kaart_foto']]:
             bestaat(x)
         kenm = ''.join(f'<li>{icoon(AL_KAMER_IC[ic])}<span>{escape(t, quote=False)}</span></li>' for ic, t in r['kaart'])
@@ -2365,6 +2506,7 @@ def build_uitje(config, output_file, json_file, template_name, lang):
         sys.exit('uitje: minstens een FAQ-vraag (f1-v + f1-a) nodig')
     blok['UT_FAQ'] = ''.join(items)
     blok['UT_FAQ_LD'] = json.dumps({'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': ld}, ensure_ascii=False).replace('</', '<\\/')
+    blok['UT_FAQ_LD'] += ut_hreflang(config)
 
     # fotocredit voor de hele pagina (voor het slot)
     blok['UT_FOTOCREDIT'] = f'<div class="al-wrap ut-fotocredit-rij"><p class="ut-fotocredit">{d["fotocredit"]}</p></div>' if d.get('fotocredit') else ''
@@ -2373,7 +2515,7 @@ def build_uitje(config, output_file, json_file, template_name, lang):
     blok['UT_POPDATA'] = ('<script type="application/json" id="ut-popdata">'
                           + json.dumps({'uitje': pop_uitje, 'kamer': popkamer}, ensure_ascii=False).replace('</', '<\\/') + '</script>')
 
-    blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'], taal='nl')
+    blok['AL_KOP'], blok['AL_VOET'] = al_kop_voet(d, d['mews-basis'], taal=lang)
     # kamerlinks in de spiegelvoet (zonder actiecode) krijgen ook de Mews-taal, net als de rest van de pagina
     blok['AL_KOP'], blok['AL_VOET'] = (x.replace('af1d00ffc556?mewsRoom=', f'af1d00ffc556?language={taal}&amp;mewsRoom=') for x in (blok['AL_KOP'], blok['AL_VOET']))
 
@@ -2402,6 +2544,10 @@ def build(template_name, lang):
     if config.get('adslander'):
         return build_adslander(config, output_file, json_file, template_name, lang)
     if config.get('uitje'):
+        # volledige build (geen template als argument): een uitje-taal zonder JSON overslaan i.p.v. stoppen
+        if not os.path.exists(os.path.join(base, json_file)) and not any(a in TEMPLATES for a in sys.argv[1:]):
+            print(f'  [{template_name}/{lang}] overgeslagen: {json_file} bestaat nog niet')
+            return
         return build_uitje(config, output_file, json_file, template_name, lang)
     if config.get('omgeving'): return build_omgeving(config, output_file, json_file, template_name, lang)
 
