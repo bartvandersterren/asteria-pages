@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, sjabloon UITJE: de omgevings-detailpagina (een uitje in de buurt). Eerste: /zooparc-overloon-v2.
+  EXACTE NABOUW van parkhotelhorst.nl/gebied/zooparc-overloon/ (parkhotel-site src/fragmenten/pagina-gebied-v2.html):
+  zelfde blokken, zelfde volgorde, zelfde gedrag, in de Asteria-stijl van de adslander (kop/voet, kleuren, letters,
+  knoppen, kaartstijl). Zelfde opzet als adslander.template.html.
+
+  BLOKVOLGORDE (data-component, zoals Parkhotel gd-*)
+    kop        spiegelkop van /hotel-venray-v2 (build.py al_kop_voet, taal nl), dekkend en sticky
+    1  ut-hero     volle foto met bruin verloop, categorie cursief, h1 met accentwoord, ondertitel
+    2  ut-oog      paneel dat 120 px (telefoon 64) over de hero hangt: kop + reistijdvakjes links, tabel + routelink rechts
+    3  ut-verhaal  tot drie tekst-plus-fotorijen (foto rechts, links, rechts); rij 2-3 achter Lees meer
+    4  ut-tip      strook zonder foto: kop, citaat, afzender (alleen als tip gevuld is)
+    5  ut-prak     kop + tot zes fotokaarten; telefoon veegrij
+    6  ut-dag      paneel met wisselende staande foto, vier momenten als accordeon (een open)
+    6k #kamers     kamerslider van de adslander (lus, teller, Kies deze kamer = Mews, Meer info = pop-up), zonder prijs
+    7  ut-kaart    getekende kaart (kaart-getekend.js), uitje = speld, meer-uitjes = knoppen 1-3, voet met route
+    8  ut-faq      kop + belregel links, tot zes vragen rechts (eerste open), FAQPage JSON-LD = zichtbare tekst
+    9  ut-meer     drie kaarten; zonder url opent elke kaart de uitje-pop-up (data-pop), met url een gewone link
+    10 ut-slot     fotoband, h2, tekst, een boekknop (Mews nl-NL) en het telefoonnummer
+    voet       spiegelvoet van /hotel-venray-v2
+    + pop-up .al-pop (uitjes, kamer op de telefoon; inhoud inline #ut-popdata), kamer-pop-up #lp-pop-kamer,
+      onderbalk .mob-cta, cookiemelding
+
+  Velden (dubbele accolades + veldnaam) komen uit translations/uitje-labels-nl.json + translations/uitje-<slug>-nl.json;
+  de UT-plekken (HTML-commentaar met UT_ en een naam) en AL_KOP/AL_VOET vult build.py (build_uitje).
+  Bouwen: python3 build.py uitje-zooparc-overloon
+-->
+<html lang="{{html-taal}}" data-mews-taal="{{mews-taal}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{titel}}</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{{omschrijving}}">
+  <meta name="robots" content="{{robots}}">
+  <link rel="canonical" href="{{canonical}}">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{{titel}}">
+  <meta property="og:description" content="{{omschrijving}}">
+  <meta property="og:image" content="{{og-image}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:locale" content="{{og-locale}}">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preconnect" href="https://app.mews.com">
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- de herofoto is het grootste beeld in het eerste scherm -->
+  <link rel="preload" as="image" fetchpriority="high" href="{{hero-foto-klein}}" imagesrcset="{{hero-foto-klein}} 960w, {{hero-foto}} 1400w" imagesizes="100vw">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="adslander.css">
+  <link rel="stylesheet" href="uitje.css">
+  <link rel="stylesheet" href="kaart-getekend.css">
+  <link rel="stylesheet" href="reviews-google.css">
+  <!-- UT_KALENDER_KOP -->
+  <script src="adslander.js" defer></script>
+  <script src="reviews-google.js" defer></script>
+  <script src="kaart-getekend.js" defer></script>
+  <script src="uitje.js" defer></script>
+  <script src="analytics-d1.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    gtag('set', 'linker', { accept_incoming: true });
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+  <!-- FAQPage: tekst gelijk aan de zichtbare vragen in blok 8 (build.py haalt de HTML-tags eruit) -->
+  <script type="application/ld+json"><!-- UT_FAQ_LD --></script>
+</head>
+<body class="al-pagina ut-pagina">
+
+<!-- AL_KOP -->
+
+<main id="inhoud" class="lp al ut">
+
+  <!-- 1. Hero: volle foto met bruin verloop; categorie cursief, h1 en ondertitel gecentreerd tussen kop en oogopslagpaneel -->
+  <section data-component="ut-hero" class="al-hero ut-hero" style="--ut-hero-focus:{{hero-focus}}">
+    <div class="al-hero__foto">
+      <img src="{{hero-foto-klein}}" srcset="{{hero-foto-klein}} 960w, {{hero-foto}} 1400w" sizes="100vw" alt="{{hero-alt}}" width="1400" height="873" fetchpriority="high" decoding="async">
+    </div>
+    <div class="al-wrap al-hero__wrap ut-hero__wrap">
+      <div class="al-hero__tekst ut-hero__tekst">
+        <p class="ut-hero__cat">{{hero-cat}}</p>
+        <h1>{{hero-kop}}</h1>
+        <p class="al-hero__sub">{{hero-sub}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. In één oogopslag: paneel over de onderrand van de hero; vakjes alleen als het veld gevuld is -->
+  <section data-component="ut-oog" class="al-sec ut-oog">
+    <div class="ut-wrap--breed">
+      <div class="al-paneel ut-oog__paneel">
+        <div class="ut-oog__links">
+          <h2 class="ut-oog__kop">{{oog-kop}}</h2>
+          <div class="ut-vakjes"><!-- UT_VAKJES --></div>
+        </div>
+        <div class="ut-oog__rechts">
+          <dl class="ut-tabel"><!-- UT_TABEL --></dl>
+          <!-- UT_ROUTE -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Het verhaal (rij 2 en 3 achter Lees meer, uitje.js) -->
+  <!-- UT_VERHAAL -->
+
+  <!-- 4. Tip van de receptie -->
+  <!-- UT_TIP -->
+
+  <!-- 5. Goed om te weten -->
+  <!-- UT_PRAK -->
+
+  <!-- 6. De dag in vier momenten -->
+  <!-- UT_DAG -->
+
+  <!-- UT_ARR -->
+  <!-- UT_KAMERSECTIE -->
+  <!-- 6k. Kamers: de kamerslider van de adslander met lus, zonder prijs (kaartdata content/uitje-kamers-nl.json) -->
+  <section data-component="ut-kamers" class="al-kamers ut-kamers" id="kamers">
+    <div class="al-kamers__wrap">
+      <div class="ut-kamers__kop">
+        <h2 class="al-kamers__kop">{{kamers-kop}}</h2>
+        <p class="ut-kamers__sub">{{kamers-sub}}</p>
+      </div>
+      <div class="kk-rij" data-rij data-lus>
+        <div class="kk-spoor" data-spoor tabindex="0" role="group" aria-label="{{kamer-rij-label}}"><!-- UT_KAMERS --></div>
+        <div class="kk-nav">
+          <span class="kk-teller" data-teller aria-live="polite"></span>
+          <button type="button" class="kk-pijl" data-stap="-1" aria-label="{{kamer-vorige}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button type="button" class="kk-pijl" data-stap="1" aria-label="{{kamer-volgende}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /UT_KAMERSECTIE -->
+
+  <!-- 7. Ligging: getekende kaart (vangnet zonder script: de stilstaande kaartfoto) -->
+  <!-- UT_KAART -->
+
+  <!-- 8. Veelgestelde vragen: kop + belregel links, accordeon rechts, eerste open; geen tabs -->
+  <section data-component="ut-faq" class="al-sec al-faq ut-faq">
+    <div class="al-wrap al-faq__raster">
+      <div class="al-faq__kop">
+        <h2>{{faq-kop}}</h2>
+        <a class="al-faq__tel" href="{{tel-url}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg><span>{{l-bel}}</span></a>
+      </div>
+      <div class="as-accordeon"><!-- UT_FAQ --></div>
+    </div>
+  </section>
+
+  <!-- 8b. Google-reviewblok (gedeeld: build.py google_reviewblok, reviews-google.css/.js) -->
+  <!-- UT_REVIEWS -->
+
+  <!-- 9. Meer in de omgeving -->
+  <!-- UT_MEER -->
+
+  <!-- fotocredit voor de hele pagina (alleen als gevuld) -->
+  <!-- UT_FOTOCREDIT -->
+
+  <!-- 10. Slot: fotoband, kop, tekst, één boekknop en het telefoonnummer -->
+  <section data-component="ut-slot" class="ut-slot" style="--ut-slot-focus:{{slot-focus}}">
+    <div class="al-slot__band ut-slot__band">
+      <img src="{{slot-foto-klein}}" srcset="{{slot-foto-klein}} 960w, {{slot-foto}} 1400w" sizes="100vw" alt="{{slot-alt}}" width="1400" height="818" loading="lazy" decoding="async">
+      <div class="al-slot__verloop"></div>
+      <div class="al-wrap al-slot__inhoud">
+        <h2>{{slot-kop}}</h2>
+        <p class="al-slot__regel">{{slot-tekst}}</p>
+        <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+        <p class="ut-slot__tel"><a href="{{tel-url}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg>{{tel}}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pop-up achter de meer-kaarten en de kaartknoppen (en de kamer op de telefoon): inhoud inline in #ut-popdata -->
+  <div class="al-pop" data-pop-dialog hidden role="dialog" aria-modal="true" aria-labelledby="al-pop-naam"
+    data-bron="#ut-popdata"
+    data-l-sluit="{{pop-sluit}}" data-l-vorige="{{pop-vorige}}" data-l-volgende="{{pop-volgende}}"
+    data-l-kamerboek="{{knop-kamer}}" data-l-kamerbadge="{{pop-kamer-badge}}" data-l-route="{{pop-route}}"
+    data-l-auto="{{l-met-auto}}" data-l-voet="{{l-lopen}}" data-l-rad="{{l-fiets}}" data-l-vanaf="{{pop-vanaf-hotel}}"
+    data-l-speel="{{pop-video-speel}}" data-l-pauze="{{pop-video-pauze}}">
+    <div class="al-pop__kaart" role="document"></div>
+  </div>
+  <!-- UT_POPDATA -->
+
+  <!-- Kamer-pop-up vanaf 768 px: de dialoog #lp-pop-kamer van lander-w1 (gedrag in adslander.js, data #al-kamerdata) -->
+  <!-- UT_KAMERPOP -->
+  <!-- UT_KALENDERS -->
+
+</main>
+
+<!-- AL_VOET -->
+
+<div class="mob-cta-ruimte" aria-hidden="true"></div>
+<div class="mob-cta" aria-hidden="true">
+  <a class="mob-cta-bel" href="{{tel-url}}" aria-label="{{tel}}" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
+  <div><b>{{sticky-kop}}</b><span class="om">{{sticky-sub}}</span></div>
+  <a class="btn btn-primary mews-open" href="{{mews-basis}}" tabindex="-1">{{sticky-knop}}</a>
+</div>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookies">
+  <span>{{cookie-tekst}} <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">{{cookie-meer}}</a></span>
+  <button type="button" id="cookieAccept">{{cookie-knop}}</button>
+</div>
+
+<link rel="stylesheet" href="adslander-pop.css">
+</body>
+</html>

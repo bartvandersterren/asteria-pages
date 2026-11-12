@@ -1,0 +1,163 @@
+{
+  "_uitleg": "Deutsche Texte für /fietsen-rond-venray-v2-de. Pfade, Fotos und Codes erben von route-fietsen-nl.json.",
+  "titel": "Fahrradhotel in Limburg: Radfahren rund um Venray | Hotel Asteria",
+  "omschrijving": "Fahrradhotel in Limburg: zehn Radrouten von 25 bis 59 km rund um Hotel Asteria in Venray. Mit abschließbarem Fahrradraum und Fahrradverleih.",
+  "og-titel": "Fahrradhotel in Limburg: Radfahren rund um Venray",
+  "og-omschrijving": "Zehn Radrouten rund um Hotel Asteria in Venray, sieben davon auf dem Knotenpunktnetz direkt beim Hotel. Mit abschließbarem Fahrradraum und Fahrradverleih.",
+  "kruimel": "Radfahren rund um Venray",
+  "hero-kop": "<span class='al-g'>Fahrradhotel</span> in Limburg",
+  "hero-sub": "Zehn Radrouten rund um Venray. Sieben davon beginnen nur wenige Fahrradminuten von Ihrem Hotelzimmer entfernt.",
+  "hero-alt": "Ein Paar mit Fahrrädern an der Tafel des Radroutennetzes vor Hotel Asteria",
+  "oog-kop": "Radfahren ab Hotel Asteria auf einen <span class='al-g'>Blick</span>",
+  "oog1-kop": "Routen",
+  "oog1-tekst": "sieben davon beginnen direkt beim Hotel",
+  "oog2-tekst": "vom Nachmittag bis zum ganzen Tag im Sattel",
+  "oog3-kop": "Knotenpunkte ab der Haustür",
+  "oog3-tekst": "das Radnetz von Nord-Limburg beginnt gleich um die Ecke",
+  "oog4-kop": "Fahrrad und E-Bike mieten",
+  "oog4-tekst": "an der Rezeption, fragen Sie bei der Ankunft danach",
+  "tweede-knop": "Zum Fahrradarrangement",
+  "routes-kop": "Wählen Sie Ihre <span class='al-g'>Route</span>",
+  "routes-intro": "Sieben Routen folgen dem Knotenpunktnetz, das direkt beim Hotel beginnt: Sie steigen auf und folgen den Schildern. Drei längere Routen starten etwas weiter entfernt, in Overloon und Meterik. Nehmen Sie die Route auf dem Handy mit oder holen Sie sie sich auf Papier an der Rezeption.",
+  "kaart-kop": "Alle Routen auf der <span class='al-g'>Karte</span>",
+  "kaart-regel": "So verlaufen die zehn Routen rund um das Hotel. Tippen Sie auf eine Nummer, dann zoomt die Karte auf diese Route.",
+  "kaart-alt": "Übersichtskarte mit den zehn Radrouten rund um Hotel Asteria in Venray",
+  "prak-kop": "Gut zu <span class='al-g'>wissen</span>",
+  "prak-tekst": "Alles für einen Tag auf dem Rad regeln Sie an der Rezeption.",
+  "prak1-alt": "Ein lachendes Paar radelt auf einem sonnigen Radweg durch den Wald bei Venray",
+  "prak1-kop": "Fahrrad oder E-Bike mieten",
+  "prak1-tekst": "Normale Fahrräder und E-Bikes mieten Sie an der Rezeption",
+  "prak2-alt": "Ein Paar stellt die Fahrräder in den hölzernen Fahrradraum von Hotel Asteria",
+  "prak2-kop": "Fahrradraum",
+  "prak2-tekst": "Abschließbar und überdacht, auch für Ihr E-Bike",
+  "prak3-alt": "Ein Paar schiebt die Fahrräder am Fahrradraum von Hotel Asteria entlang",
+  "prak3-kop": "E-Bike laden",
+  "prak3-tekst": "Ihren Akku laden Sie bei uns wieder auf",
+  "prak4-alt": "Ein Korb mit frischen Brötchen am Frühstücksbuffet von Hotel Asteria",
+  "prak4-kop": "Lunchpaket",
+  "prak4-tekst": "Für unterwegs, fragen Sie an der Rezeption danach",
+  "prak-link": "Fahrrad an der Rezeption mieten",
+  "arr-kop": "Das Limburg-<span class='al-g'>Arrangement</span>",
+  "arr-regel": "Drei Nächte in Venray mit drei Tagen E-Bike. Den Preis für Ihre Daten sehen Sie direkt bei der Buchung.",
+  "arr-vinkjes": [
+    "3 Nächte mit Frühstück",
+    "Jeden Abend ein 3-Gänge-Menü",
+    "3 Tage ein E-Bike"
+  ],
+  "arr-knop": "Zum Arrangement",
+  "arr-boek": "Arrangement buchen",
+  "arr-dias": [
+    {
+      "foto": "fotos/l26-limburg-arrangement-fietsroute.webp",
+      "alt": "Ein Paar lacht an der Startpunkttafel des Radroutennetzes vor Hotel Asteria"
+    },
+    {
+      "foto": "fotos/l26-omg-fietsen-3.webp",
+      "alt": "Ein Paar zeigt im Wald bei Venray zwischen den Bäumen auf etwas",
+      "pos": "60% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-vlaai.webp",
+      "alt": "Ein Stück Limburger Vlaai wird zur Ankunft im Hotel Asteria serviert",
+      "pos": "60% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-diner.webp",
+      "alt": "Ein Fleischgericht mit Rosenkohl, der Hauptgang des 3-Gänge-Menüs im Hotel Asteria"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-hotel-fietsen.webp",
+      "alt": "Ein Paar radelt über die Auffahrt von Hotel Asteria in Venray",
+      "pos": "40% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-ontbijt.webp",
+      "alt": "Ein Frühstücksteller mit Croissant, Käse, Aufschnitt und Trauben im Hotel Asteria"
+    }
+  ],
+  "faq-kop": "Häufige <span class='al-g'>Fragen</span>",
+  "faq": [
+    {
+      "v": "Kann ich bei Ihnen ein Fahrrad oder E-Bike mieten?",
+      "a": "Ja. An der Rezeption mieten Sie ein normales Fahrrad oder ein E-Bike. Sagen Sie uns bei der Buchung oder bei der Ankunft Bescheid, dann stellen wir es für Sie bereit."
+    },
+    {
+      "v": "Wo kann ich mein eigenes Fahrrad abstellen?",
+      "a": "In unserem abschließbaren, überdachten Fahrradraum neben dem Hotel. Hatten Sie unterwegs einen Platten, leihen wir Ihnen eine Luftpumpe und ein Flickzeug."
+    },
+    {
+      "v": "Kann ich mein E-Bike bei Ihnen aufladen?",
+      "a": "Ja. Ihren Akku laden Sie bei uns auf, sodass Sie am nächsten Morgen wieder voll geladen losfahren. Die Rezeption zeigt Ihnen, wo."
+    },
+    {
+      "v": "Wie nehme ich die Routen mit?",
+      "a": "Jede Route öffnen Sie mit dem Button bei der Route auf Fietsknoop oder routiq, auch auf dem Handy. An der Rezeption liegen kostenlose Rad- und Wanderrouten auf Papier bereit."
+    },
+    {
+      "v": "Mit welcher Route fange ich am besten an?",
+      "a": "Mit der Runde um Venray: 24,5 Kilometer auf dem Knotenpunktnetz direkt beim Hotel, am Annapark vorbei und über den Weverslose Berg, den höchsten Punkt von Nord-Limburg."
+    }
+  ],
+  "wissel-kop": "Lieber zu <span class='al-g'>Fuß?</span>",
+  "wissel-regel": "Wanderrouten von einem kurzen Vormittag bis zu einem ganzen Tag, von den Wacholdern bei Smakt bis zur Mariapeel. Wanderkarten bekommen Sie an der Rezeption.",
+  "wissel-hier-naam": "Radrouten",
+  "wissel-hier-alt": "Ein Paar radelt nebeneinander auf einem Waldweg zwischen hohen Bäumen bei Venray",
+  "wissel-daar-naam": "Wanderrouten",
+  "wissel-daar-alt": "Ein Paar wandert auf einem Waldweg in der Nähe von Venray",
+  "wissel-knop": "Die {n} Wanderrouten ansehen",
+  "slot-kop": "Nach der Radtour: Sauna, Abendessen und Ihr <span class='al-g'>Zimmer</span>",
+  "slot-tekst": "Buchen Sie Ihren Aufenthalt und steigen Sie morgen direkt vor der Tür aufs Rad.",
+  "slot-alt": "Hotel Asteria in Venray mit Teich und Springbrunnen bei Sonnenuntergang, von oben gesehen",
+  "routes": {
+    "rondje-venray": {
+      "alt": "Terrassen am Grote Markt in Venray mit der Sint-Petrus' Bandenkerk",
+      "tekst": "Eine Runde um Venray, die auf dem Knotenpunktnetz neben dem Hotel beginnt. Sie radeln am Annapark vorbei, dem denkmalgeschützten Park des früheren Sint Anna, und durch den Weiler Weverslo zum Weverslose Berg: mit 38,6 Metern der höchste Punkt von Nord-Limburg, oben mit einem Aussichtspunkt. Bei Knotenpunkt 23 fahren Sie direkt weiter ins Zentrum.",
+      "alts": {
+        "fotos/l26-omg-venray-2.webp": "Die Sint-Petrus' Bandenkerk über den Häusern und Geschäften im Zentrum von Venray"
+      }
+    },
+    "rondje-over-het-pontje": {
+      "alt": "Ein Paar sucht eine Route auf der Startpunkttafel des Radroutennetzes Nord- und Mittellimburg",
+      "tekst": "Eine kurze Tour mit der Maas in der Mitte. In Maashees sitzen Sie bei De Watervogel direkt am Wasser, danach radeln Sie zum Reindersmeer im Nationalpark De Maasduinen und blicken bei Well über die Gärten auf die Wasserburg Kasteel Well. Mit der kleinen Fähre setzen Sie über die Maas und fahren über Geijsteren zurück; prüfen Sie vorher kurz, ob die Fähre fährt.",
+      "alts": {
+        "fotos/l26-omg-maasduinen-2.webp": "Ein See mit Waldrand und Sträuchern im Nationalpark De Maasduinen"
+      }
+    },
+    "langs-de-maas": {
+      "alt": "Ein Paar radelt nebeneinander auf einem Waldweg zwischen hohen Bäumen bei Venray",
+      "tekst": "Über Oostrum und den Parc de Witte Vennen radeln Sie nach Meerlo, mit der Sint-Goarkapel von 1662 und der Slothoeve 't Kasteelke. Bei Tante Jet aan de Maas, einem der ältesten Cafés am Fluss, legt die Fuß- und Radfähre an; sie fährt vom 1. April bis einschließlich 14. Oktober. Zurück geht es durch Geijsteren."
+    },
+    "van-venray-naar-de-peel": {
+      "alt": "Ein Paar zeigt im Wald bei Venray zwischen den Bäumen auf etwas",
+      "tekst": "Von Venray in die Peel, am Weverslose Berg und am Naturgebiet Rouwvennen vorbei. Bei Knotenpunkt 25 liegt der deutsche Soldatenfriedhof Ysselsteyn mit einem Besucherzentrum. Danach radeln Sie an der Heere Peel entlang und durch die Schadijkse bossen ins Zentrum von Venray, 3 Kilometer vom Hotel entfernt."
+    },
+    "rondje-horst-aan-de-maas": {
+      "alt": "Ein Paar radelt über die Auffahrt von Hotel Asteria in Venray",
+      "tekst": "Eine Runde durch Horst aan de Maas mit einem Halt in Tienray, auch Klein Lourdes genannt: Kirche, kleine Kapellen und die Eisdiele Clevers. Danach schlängelt sich die Route durch das Naturgebiet Schuitwater mit Wald, Heide und Wasser und an den Kasteelse Bossen entlang. Sie enden zwischen den Terrassen im Zentrum von Venray."
+    },
+    "maasduinen-en-arcen": {
+      "alt": "Die geometrischen Gärten mit Hecken und Blumenbeeten der Kasteeltuinen Arcen",
+      "tekst": "Ein Tagesausflug nach Arcen. Über Geijsteren radeln Sie zur Maas und durch den Nationalpark De Maasduinen, am Aussichtsturm von Wellerlooi vorbei. In Arcen warten die Kasteeltuinen, das alte Festungsstädtchen und die Hertog Jan Brouwerij mit Probierstube. Die Radfähre unterwegs fährt vom 10. April bis einschließlich 14. Oktober.",
+      "alts": {
+        "fotos/l26-omg-arcen-1.webp": "Ein rotes japanisches Tor am Teich in den Kasteeltuinen Arcen",
+        "fotos/l26-omg-hertogjan-1.webp": "Das weiße Gebäude der Hertog Jan Brouwerij in Arcen, davor Fahrräder"
+      }
+    },
+    "ballonzuilbossen-en-overloon": {
+      "alt": "Das Denkmal Ballonzuil in den Ballonzuilbossen bei Merselo",
+      "tekst": "Eine lange Runde, die an der Grote Kerk in Venray beginnt, 3 Kilometer vom Hotel entfernt. Am Annapark vorbei radeln Sie nach Smakt mit der Sint-Jozefkapel von 1699 und an den Overloonse Duinen entlang nach Overloon mit dem britischen Soldatenfriedhof, dem Liberty Park und dem ZooParc. Zurück geht es durch die Ballonzuilbossen."
+    },
+    "rondje-venray-via-vierlingsbeek": {
+      "alt": "Eine Kapelle zwischen Kiefern an einem Waldweg",
+      "tekst": "Diese Route beginnt in Overloon, dem Ort des Liberty Park. Sie radeln durch die Overloonse Duinen nach Maashees an der Maas, an Baumschulen vorbei und zur Willibrorduskapel in den Wäldern von Landgoed Geijsteren. Durch das Zentrum von Venray und das Peeldorf Merselo kommen Sie zurück nach Overloon."
+    },
+    "meterik-venray-horst": {
+      "alt": "Eine Eiche neben einem schmalen Weg durch die Wiesen im Morgennebel",
+      "tekst": "Eine lange Tour durch die Wälder und die Flussauen der Maas zwischen Meterik, Venray und Horst. Unterwegs radeln Sie über Landgoed Geijsteren, seit mehr als zwei Jahrhunderten im Besitz derselben Familie, wo sich die Oostrumse Beek durch die Nadelwälder schlängelt."
+    },
+    "door-de-peel-bij-horst": {
+      "alt": "Eine Zugbrücke über einen Kanal in der Peel",
+      "tekst": "Über ruhige Straßen durch Castenray und Veulen in die Peel. Bei De Paardekop liegt der deutsche Soldatenfriedhof, im Toon Kortoomspark lesen Sie über den Schriftsteller. Über Griendtsveen und Helenaveen, die beiden alten Moorkolonien der südlichen Niederlande, fahren Sie am Hochmoor der Deurnsche Peel und der Mariapeel entlang."
+    }
+  }
+}

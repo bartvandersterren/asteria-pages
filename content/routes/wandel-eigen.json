@@ -1,0 +1,1572 @@
+[
+ {
+  "slug": "boshuizerbergen",
+  "naam": {
+   "nl": "Boshuizerbergen: witte route",
+   "de": "Boshuizerbergen: weiße Route",
+   "en": "Boshuizerbergen: white route"
+  },
+  "gebied": "Boshuizerbergen",
+  "beheerder": "Limburgs Landschap",
+  "afstand_km": 5.5,
+  "duur_min": 83,
+  "rondje": true,
+  "start_naam": "Hoek Sint Jozeflaan en Maasheseweg",
+  "start_plaats": "Smakt",
+  "start": [
+   51.55713,
+   6.00721
+  ],
+  "tijd": {
+   "auto": 4,
+   "fiets": 6
+  },
+  "url": "https://www.limburgs-landschap.nl/wandelroute/boshuizerbergen/",
+  "url_label": "Limburgs Landschap",
+  "lijn": null,
+  "tekst": {
+   "nl": "Vlak bij Smakt loop je 5,5 kilometer langs duizenden jeneverbessen, aangeplant naaldbos en stukken open stuifzand. Schapen grazen er om het zand open te houden, dus je hond gaat aan de lijn. Na de natuurbrand vraagt de beheerder om op de witte route te blijven.",
+   "de": "Bei Smakt führt ein 5,5 Kilometer langer Weg an Tausenden Wacholdersträuchern, angepflanztem Nadelwald und offenen Flugsandflächen vorbei. Schafe halten den Sand offen, Hunde gehören daher an die Leine. Nach dem Naturbrand bittet der Naturschutzverband darum, auf der weißen Route zu bleiben.",
+   "en": "Close to Smakt you walk 5.5 kilometres past thousands of juniper bushes, planted conifer forest and patches of open drift sand. Sheep graze here to keep the sand open, so dogs must be on a lead. After the wildfire the nature organisation asks visitors to stay on the white route."
+  },
+  "fotos": [],
+  "bronnen": [
+   "https://www.limburgs-landschap.nl/wandelroute/boshuizerbergen/",
+   "https://www.limburgs-landschap.nl/natuurgebied/boshuizerbergen/",
+   "https://www.envenray.nl/zien-en-doen/wandelen-en-routes/wandelroutes/landgoed-geijsteren"
+  ]
+ },
+ {
+  "slug": "landgoed-geijsteren",
+  "naam": {
+   "nl": "Landgoed Geijsteren: knooppuntenroute",
+   "de": "Landgut Geijsteren: Knotenpunkt-Route",
+   "en": "Landgoed Geijsteren: junction route"
+  },
+  "gebied": "Landgoed Geijsteren",
+  "beheerder": "Familie de Weichs de Wenne (landgoed); route: Gemeente Venray",
+  "afstand_km": 7.7,
+  "duur_min": 116,
+  "rondje": true,
+  "start_naam": "Parkeerplaats bij het oude voetbalveld, Oostrumseweg",
+  "start_plaats": "Geijsteren",
+  "start": [
+   51.54577,
+   6.03998
+  ],
+  "tijd": {
+   "auto": 6,
+   "fiets": 15
+  },
+  "url": "https://www.envenray.nl/zien-en-doen/wandelen-en-routes/wandelroutes/landgoed-geijsteren",
+  "url_label": "En Venray",
+  "lijn": [
+   [
+    51.54577,
+    6.03998
+   ],
+   [
+    51.54623,
+    6.03998
+   ],
+   [
+    51.5473,
+    6.03916
+   ],
+   [
+    51.54806,
+    6.03833
+   ],
+   [
+    51.54863,
+    6.03825
+   ],
+   [
+    51.548,
+    6.03601
+   ],
+   [
+    51.54718,
+    6.03627
+   ],
+   [
+    51.54679,
+    6.03653
+   ],
+   [
+    51.54667,
+    6.03642
+   ],
+   [
+    51.54642,
+    6.0356
+   ],
+   [
+    51.54625,
+    6.03539
+   ],
+   [
+    51.54632,
+    6.03504
+   ],
+   [
+    51.54618,
+    6.03424
+   ],
+   [
+    51.54611,
+    6.03325
+   ],
+   [
+    51.54574,
+    6.03223
+   ],
+   [
+    51.54574,
+    6.03185
+   ],
+   [
+    51.54565,
+    6.03156
+   ],
+   [
+    51.54562,
+    6.03036
+   ],
+   [
+    51.54554,
+    6.02993
+   ],
+   [
+    51.5454,
+    6.02958
+   ],
+   [
+    51.54503,
+    6.02913
+   ],
+   [
+    51.54327,
+    6.02852
+   ],
+   [
+    51.54311,
+    6.02769
+   ],
+   [
+    51.54311,
+    6.02721
+   ],
+   [
+    51.54276,
+    6.02412
+   ],
+   [
+    51.54199,
+    6.02025
+   ],
+   [
+    51.5469,
+    6.01735
+   ],
+   [
+    51.54679,
+    6.01707
+   ],
+   [
+    51.54673,
+    6.01642
+   ],
+   [
+    51.54639,
+    6.01604
+   ],
+   [
+    51.54616,
+    6.01524
+   ],
+   [
+    51.54598,
+    6.0149
+   ],
+   [
+    51.54565,
+    6.01384
+   ],
+   [
+    51.54539,
+    6.01325
+   ],
+   [
+    51.54536,
+    6.01259
+   ],
+   [
+    51.54524,
+    6.0122
+   ],
+   [
+    51.54511,
+    6.01185
+   ],
+   [
+    51.54481,
+    6.01157
+   ],
+   [
+    51.54461,
+    6.01106
+   ],
+   [
+    51.5446,
+    6.01086
+   ],
+   [
+    51.54476,
+    6.01071
+   ],
+   [
+    51.54515,
+    6.01
+   ],
+   [
+    51.54548,
+    6.00978
+   ],
+   [
+    51.54591,
+    6.00972
+   ],
+   [
+    51.54647,
+    6.01008
+   ],
+   [
+    51.54693,
+    6.00939
+   ],
+   [
+    51.54702,
+    6.00936
+   ],
+   [
+    51.54757,
+    6.00948
+   ],
+   [
+    51.5477,
+    6.00924
+   ],
+   [
+    51.54793,
+    6.00935
+   ],
+   [
+    51.54819,
+    6.00933
+   ],
+   [
+    51.54918,
+    6.0089
+   ],
+   [
+    51.54944,
+    6.009
+   ],
+   [
+    51.54988,
+    6.009
+   ],
+   [
+    51.55013,
+    6.00912
+   ],
+   [
+    51.54996,
+    6.01052
+   ],
+   [
+    51.54972,
+    6.01072
+   ],
+   [
+    51.54937,
+    6.01051
+   ],
+   [
+    51.54924,
+    6.01062
+   ],
+   [
+    51.54884,
+    6.01158
+   ],
+   [
+    51.54877,
+    6.01212
+   ],
+   [
+    51.54883,
+    6.01243
+   ],
+   [
+    51.5493,
+    6.01328
+   ],
+   [
+    51.54936,
+    6.01357
+   ],
+   [
+    51.54933,
+    6.01404
+   ],
+   [
+    51.54942,
+    6.01436
+   ],
+   [
+    51.54976,
+    6.0147
+   ],
+   [
+    51.54984,
+    6.01502
+   ],
+   [
+    51.55004,
+    6.01534
+   ],
+   [
+    51.55027,
+    6.01525
+   ],
+   [
+    51.55034,
+    6.01598
+   ],
+   [
+    51.55081,
+    6.01577
+   ],
+   [
+    51.55094,
+    6.01562
+   ],
+   [
+    51.55151,
+    6.01463
+   ],
+   [
+    51.55154,
+    6.01443
+   ],
+   [
+    51.55174,
+    6.0144
+   ],
+   [
+    51.55365,
+    6.01316
+   ],
+   [
+    51.55494,
+    6.0118
+   ],
+   [
+    51.55457,
+    6.01218
+   ],
+   [
+    51.55494,
+    6.0118
+   ],
+   [
+    51.55532,
+    6.01443
+   ],
+   [
+    51.55414,
+    6.01599
+   ],
+   [
+    51.55467,
+    6.02037
+   ],
+   [
+    51.55456,
+    6.02095
+   ],
+   [
+    51.55416,
+    6.02082
+   ],
+   [
+    51.55336,
+    6.02107
+   ],
+   [
+    51.55485,
+    6.02613
+   ],
+   [
+    51.55417,
+    6.02791
+   ],
+   [
+    51.55478,
+    6.02859
+   ],
+   [
+    51.55528,
+    6.02882
+   ],
+   [
+    51.55482,
+    6.02995
+   ],
+   [
+    51.55396,
+    6.0296
+   ],
+   [
+    51.55238,
+    6.03157
+   ],
+   [
+    51.55237,
+    6.03178
+   ],
+   [
+    51.55226,
+    6.03184
+   ],
+   [
+    51.55191,
+    6.03769
+   ],
+   [
+    51.5481,
+    6.03831
+   ],
+   [
+    51.5473,
+    6.03916
+   ],
+   [
+    51.54623,
+    6.03998
+   ],
+   [
+    51.54577,
+    6.03998
+   ]
+  ],
+  "tekst": {
+   "nl": "Landgoed Geijsteren ligt al sinds 1806 bij dezelfde adellijke familie. Op deze rondwandeling van 7,7 kilometer volg je wandelknooppunten langs de Oostrumse Beek, de Rosmolen en de Willibrorduskapel, en loop je een stuk door de Boshuizerbergen. Het pad is grotendeels onverhard, dus stevige schoenen zijn handig.",
+   "de": "Das Landgut Geijsteren gehört seit 1806 derselben Adelsfamilie. Der Rundweg von 7,7 Kilometern folgt Wanderknotenpunkten entlang des Oostrumse Beek, an der Rosmolen und der Willibrorduskapel vorbei und führt ein Stück durch die Boshuizerbergen. Der Weg ist überwiegend unbefestigt, festes Schuhwerk empfiehlt sich.",
+   "en": "Landgoed Geijsteren has belonged to the same noble family since 1806. This 7.7 kilometre circular walk follows walking junctions along the Oostrumse Beek, past the Rosmolen watermill and the Willibrord chapel, and takes you through part of the Boshuizerbergen. The paths are mostly unpaved, so sturdy shoes help."
+  },
+  "fotos": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Landgoed_Geijsteren_in_de_buurt_Oostrumse_Beek.JPG",
+    "credit": "Romaine",
+    "licentie": "CC0 1.0",
+    "licentie_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "bron_url": "https://commons.wikimedia.org/wiki/File:Landgoed_Geijsteren_in_de_buurt_Oostrumse_Beek.JPG",
+    "alt": {
+     "nl": "De Oostrumse Beek op Landgoed Geijsteren",
+     "de": "Der Oostrumse Beek auf dem Landgut Geijsteren",
+     "en": "The Oostrumse Beek on Landgoed Geijsteren"
+    }
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Venray_Geijsteren%2C_Rijksmonument_28441_kasteelru%C3%AFne_toren_en_tweede_grachtbrug.jpg",
+    "credit": "Havang(nl)",
+    "licentie": "CC0 1.0",
+    "licentie_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "bron_url": "https://commons.wikimedia.org/wiki/File:Venray_Geijsteren%2C_Rijksmonument_28441_kasteelru%C3%AFne_toren_en_tweede_grachtbrug.jpg",
+    "alt": {
+     "nl": "De kasteelruine van Geijsteren met toren en gracht",
+     "de": "Die Burgruine von Geijsteren mit Turm und Graben",
+     "en": "The castle ruin of Geijsteren with tower and moat"
+    }
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Geijsteren_Willibrorduskapel1.JPG",
+    "credit": "Romaine",
+    "licentie": "CC0 1.0",
+    "licentie_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "bron_url": "https://commons.wikimedia.org/wiki/File:Geijsteren_Willibrorduskapel1.JPG",
+    "alt": {
+     "nl": "De Willibrorduskapel bij Geijsteren",
+     "de": "Die Willibrorduskapelle bei Geijsteren",
+     "en": "The Willibrord chapel near Geijsteren"
+    }
+   }
+  ],
+  "bronnen": [
+   "https://www.envenray.nl/zien-en-doen/wandelen-en-routes/wandelroutes/landgoed-geijsteren",
+   "https://www.ivn.nl/app/uploads/sites/162/2024/02/Landgoed-Geijsteren-1.pdf",
+   "https://www.openstreetmap.org/copyright"
+  ]
+ },
+ {
+  "slug": "maasheggen",
+  "naam": {
+   "nl": "Maasheggen: Rondje Heg en Maas (lang)",
+   "de": "Maasheggen: Rundweg Heg en Maas (lang)",
+   "en": "Maasheggen: Heg en Maas loop (long)"
+  },
+  "gebied": "Maasheggen",
+  "beheerder": "Maasheggen UNESCO (Land van Cuijk)",
+  "afstand_km": 4.3,
+  "duur_min": 65,
+  "rondje": true,
+  "start_naam": "Stuw- en sluizencomplex, Maasstraat",
+  "start_plaats": "Sambeek",
+  "start": [
+   51.63928,
+   5.98099
+  ],
+  "tijd": {
+   "auto": 17,
+   "fiets": 53
+  },
+  "url": "https://wandelroutes.maasheggenunesco.com/de-wandelroutes/rondje-heg-en-maas-lang/",
+  "url_label": "Maasheggen UNESCO",
+  "lijn": [
+   [
+    51.63928,
+    5.98099
+   ],
+   [
+    51.63927,
+    5.9793
+   ],
+   [
+    51.63935,
+    5.97863
+   ],
+   [
+    51.64027,
+    5.97647
+   ],
+   [
+    51.64033,
+    5.97613
+   ],
+   [
+    51.64029,
+    5.97578
+   ],
+   [
+    51.64019,
+    5.97543
+   ],
+   [
+    51.63959,
+    5.97407
+   ],
+   [
+    51.63948,
+    5.9739
+   ],
+   [
+    51.63938,
+    5.97384
+   ],
+   [
+    51.6388,
+    5.97368
+   ],
+   [
+    51.63864,
+    5.97359
+   ],
+   [
+    51.63854,
+    5.97347
+   ],
+   [
+    51.63825,
+    5.97268
+   ],
+   [
+    51.63892,
+    5.97226
+   ],
+   [
+    51.63956,
+    5.97192
+   ],
+   [
+    51.6399,
+    5.97167
+   ],
+   [
+    51.64041,
+    5.97142
+   ],
+   [
+    51.64091,
+    5.97125
+   ],
+   [
+    51.6417,
+    5.97107
+   ],
+   [
+    51.64165,
+    5.97068
+   ],
+   [
+    51.64141,
+    5.96988
+   ],
+   [
+    51.64139,
+    5.96974
+   ],
+   [
+    51.64171,
+    5.96903
+   ],
+   [
+    51.64182,
+    5.96867
+   ],
+   [
+    51.64196,
+    5.96787
+   ],
+   [
+    51.64192,
+    5.96684
+   ],
+   [
+    51.64172,
+    5.96665
+   ],
+   [
+    51.64204,
+    5.96638
+   ],
+   [
+    51.64312,
+    5.96571
+   ],
+   [
+    51.64358,
+    5.96495
+   ],
+   [
+    51.64379,
+    5.96474
+   ],
+   [
+    51.64385,
+    5.96459
+   ],
+   [
+    51.64328,
+    5.9624
+   ],
+   [
+    51.64422,
+    5.96184
+   ],
+   [
+    51.64482,
+    5.96408
+   ],
+   [
+    51.64491,
+    5.96415
+   ],
+   [
+    51.64515,
+    5.96413
+   ],
+   [
+    51.64548,
+    5.96418
+   ],
+   [
+    51.64658,
+    5.96408
+   ],
+   [
+    51.64725,
+    5.96368
+   ],
+   [
+    51.64767,
+    5.96351
+   ],
+   [
+    51.64771,
+    5.96476
+   ],
+   [
+    51.64784,
+    5.96571
+   ],
+   [
+    51.64787,
+    5.9663
+   ],
+   [
+    51.64785,
+    5.96675
+   ],
+   [
+    51.64707,
+    5.9676
+   ],
+   [
+    51.64678,
+    5.9681
+   ],
+   [
+    51.6462,
+    5.9693
+   ],
+   [
+    51.64495,
+    5.97066
+   ],
+   [
+    51.64494,
+    5.97079
+   ],
+   [
+    51.64498,
+    5.97118
+   ],
+   [
+    51.64494,
+    5.97128
+   ],
+   [
+    51.64423,
+    5.97201
+   ],
+   [
+    51.6432,
+    5.97295
+   ],
+   [
+    51.64288,
+    5.97333
+   ],
+   [
+    51.64259,
+    5.97376
+   ],
+   [
+    51.64204,
+    5.9748
+   ],
+   [
+    51.6412,
+    5.97712
+   ],
+   [
+    51.64107,
+    5.97762
+   ],
+   [
+    51.64036,
+    5.97964
+   ],
+   [
+    51.64022,
+    5.98016
+   ],
+   [
+    51.64045,
+    5.98041
+   ],
+   [
+    51.64034,
+    5.98074
+   ],
+   [
+    51.63983,
+    5.98144
+   ],
+   [
+    51.63928,
+    5.98099
+   ]
+  ],
+  "tekst": {
+   "nl": "Iets meer dan een kwartier rijden van Venray ligt Sambeek, aan de rand van de Maasheggen, sinds 2018 een UNESCO-biosfeergebied. Je loopt 4,3 kilometer langs de Maas, het stuw- en sluizencomplex en de eeuwenoude heggen, over weg en onverhard veldpad. Vee aaien of voeren mag niet en honden gaan aan de lijn.",
+   "de": "Etwas mehr als eine Viertelstunde von Venray entfernt liegt Sambeek am Rand der Maasheggen, seit 2018 ein UNESCO-Biosphärengebiet. Der Weg von 4,3 Kilometern führt an der Maas, am Wehr mit Schleuse und an jahrhundertealten Hecken entlang, über Straße und unbefestigte Feldwege. Vieh darf weder gestreichelt noch gefüttert werden, Hunde gehören an die Leine.",
+   "en": "Just over a quarter of an hour by car from Venray, Sambeek sits on the edge of the Maasheggen, a UNESCO biosphere reserve since 2018. The 4.3 kilometre walk follows the Maas, the weir and lock complex and centuries-old hedges, on road and unpaved field paths. Please do not pet or feed the cattle, and keep dogs on a lead."
+  },
+  "fotos": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Maasheggen_bij_oeffelt_2.jpg",
+    "credit": "Chris Peel",
+    "licentie": "CC BY-SA 3.0",
+    "licentie_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "bron_url": "https://commons.wikimedia.org/wiki/File:Maasheggen_bij_oeffelt_2.jpg",
+    "alt": {
+     "nl": "Heggenlandschap in de Oeffelter Meent, onderdeel van de Maasheggen",
+     "de": "Heckenlandschaft in der Oeffelter Meent, Teil der Maasheggen",
+     "en": "Hedgerow landscape in the Oeffelter Meent, part of the Maasheggen"
+    }
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Maasheggen.jpg",
+    "credit": "Daan0416",
+    "licentie": "CC BY-SA 4.0",
+    "licentie_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bron_url": "https://commons.wikimedia.org/wiki/File:Maasheggen.jpg",
+    "alt": {
+     "nl": "De Maasheggen",
+     "de": "Die Maasheggen",
+     "en": "The Maasheggen"
+    }
+   }
+  ],
+  "bronnen": [
+   "https://wandelroutes.maasheggenunesco.com/de-wandelroutes/rondje-heg-en-maas-lang/",
+   "https://wandelroutes.maasheggenunesco.com/files/media/heg-en-maas-lang.gpx",
+   "https://www.maasheggenunesco.com/bezoek/wandelroutes-in-de-maasheggen/",
+   "https://nos.nl/artikel/2243174-natuurgebied-de-maasheggen-benoemd-tot-unesco-biosfeergebied.html"
+  ]
+ },
+ {
+  "slug": "ballonzuilbossen",
+  "naam": {
+   "nl": "Ballonzuilbossen: natuurwandeling 5 km",
+   "de": "Ballonzuilbossen: Naturwanderung 5 km",
+   "en": "Ballonzuilbossen: 5 km nature walk"
+  },
+  "gebied": "Ballonzuilbossen",
+  "beheerder": "Gemeente Venray",
+  "afstand_km": 5.0,
+  "duur_min": 75,
+  "rondje": true,
+  "start_naam": "Rozendaal 8",
+  "start_plaats": "Merselo",
+  "start": [
+   51.54891,
+   5.91973
+  ],
+  "tijd": {
+   "auto": 10,
+   "fiets": 28
+  },
+  "url": "https://www.envenray.nl/zien-en-doen/wandelen-en-routes/wandelroutes/natuurwandeling-ballonzuilbossen",
+  "url_label": "En Venray",
+  "lijn": [
+   [
+    51.54625,
+    5.9188
+   ],
+   [
+    51.54624,
+    5.91853
+   ],
+   [
+    51.5456,
+    5.91498
+   ],
+   [
+    51.54008,
+    5.91428
+   ],
+   [
+    51.54044,
+    5.90684
+   ],
+   [
+    51.54128,
+    5.90682
+   ],
+   [
+    51.54228,
+    5.90687
+   ],
+   [
+    51.54229,
+    5.90507
+   ],
+   [
+    51.54232,
+    5.90453
+   ],
+   [
+    51.54234,
+    5.90452
+   ],
+   [
+    51.54237,
+    5.90373
+   ],
+   [
+    51.5423,
+    5.90306
+   ],
+   [
+    51.54231,
+    5.90253
+   ],
+   [
+    51.54221,
+    5.90204
+   ],
+   [
+    51.54218,
+    5.90167
+   ],
+   [
+    51.54205,
+    5.9012
+   ],
+   [
+    51.54305,
+    5.9012
+   ],
+   [
+    51.54304,
+    5.90112
+   ],
+   [
+    51.54323,
+    5.90106
+   ],
+   [
+    51.54424,
+    5.90109
+   ],
+   [
+    51.5443,
+    5.90091
+   ],
+   [
+    51.54434,
+    5.90037
+   ],
+   [
+    51.5448,
+    5.90042
+   ],
+   [
+    51.54494,
+    5.90091
+   ],
+   [
+    51.5451,
+    5.90093
+   ],
+   [
+    51.54522,
+    5.90087
+   ],
+   [
+    51.54699,
+    5.90081
+   ],
+   [
+    51.54695,
+    5.90247
+   ],
+   [
+    51.54793,
+    5.90188
+   ],
+   [
+    51.54831,
+    5.90325
+   ],
+   [
+    51.55168,
+    5.90151
+   ],
+   [
+    51.55187,
+    5.90497
+   ],
+   [
+    51.55194,
+    5.90578
+   ],
+   [
+    51.55192,
+    5.90589
+   ],
+   [
+    51.55168,
+    5.90638
+   ],
+   [
+    51.55122,
+    5.90711
+   ],
+   [
+    51.54958,
+    5.90815
+   ],
+   [
+    51.54971,
+    5.90978
+   ],
+   [
+    51.54965,
+    5.90996
+   ],
+   [
+    51.54856,
+    5.91067
+   ],
+   [
+    51.54713,
+    5.91133
+   ],
+   [
+    51.54745,
+    5.91326
+   ],
+   [
+    51.54652,
+    5.91364
+   ],
+   [
+    51.54643,
+    5.91372
+   ],
+   [
+    51.54642,
+    5.91378
+   ],
+   [
+    51.54657,
+    5.91465
+   ],
+   [
+    51.54651,
+    5.91471
+   ],
+   [
+    51.54652,
+    5.91487
+   ],
+   [
+    51.54716,
+    5.91815
+   ],
+   [
+    51.54719,
+    5.91842
+   ],
+   [
+    51.54723,
+    5.91843
+   ],
+   [
+    51.54728,
+    5.91874
+   ],
+   [
+    51.54728,
+    5.91917
+   ],
+   [
+    51.54725,
+    5.91932
+   ],
+   [
+    51.54647,
+    5.91887
+   ],
+   [
+    51.54625,
+    5.9188
+   ]
+  ],
+  "tekst": {
+   "nl": "De Ballonzuilbossen bij Merselo zijn ruim 260 hectare gemengd bos op voormalig veen, in eigendom van de gemeente Venray. De rondwandeling van 5 kilometer volgt wandelknooppunten over bospaden en komt langs de Ballonzuil, het monument voor een Franse ballon die in 1871 hier landde. Met een kinderwagen of rolstoel zijn de paden minder geschikt.",
+   "de": "Die Ballonzuilbossen bei Merselo sind gut 260 Hektar Mischwald auf ehemaligem Moorboden und gehören der Gemeinde Venray. Der Rundweg von 5 Kilometern folgt Wanderknotenpunkten über Waldwege und führt an der Ballonzuil vorbei, dem Denkmal für einen französischen Ballon, der hier 1871 landete. Für Kinderwagen und Rollstuhl sind die Wege weniger geeignet.",
+   "en": "The Ballonzuilbossen near Merselo are over 260 hectares of mixed forest on former peat bog, owned by the municipality of Venray. The 5 kilometre circular walk follows walking junctions along forest paths and passes the Ballonzuil, the monument to a French balloon that landed here in 1871. The paths are less suitable for prams and wheelchairs."
+  },
+  "fotos": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Monument_Ballonzuilbossen.jpg",
+    "credit": "Busspotter",
+    "licentie": "CC BY-SA 4.0",
+    "licentie_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "bron_url": "https://commons.wikimedia.org/wiki/File:Monument_Ballonzuilbossen.jpg",
+    "alt": {
+     "nl": "De Ballonzuil in de Ballonzuilbossen bij Merselo",
+     "de": "Die Ballonzuil in den Ballonzuilbossen bei Merselo",
+     "en": "The Ballonzuil monument in the Ballonzuilbossen near Merselo"
+    }
+   }
+  ],
+  "bronnen": [
+   "https://www.envenray.nl/zien-en-doen/wandelen-en-routes/wandelroutes/natuurwandeling-ballonzuilbossen",
+   "https://www.visitnoordlimburg.nl/nl/wandelen-in-de-ballonzuilbossen-3-km?language_content_entity=nl",
+   "https://nl.wikipedia.org/wiki/Ballonzuilbossen",
+   "https://www.openstreetmap.org/copyright"
+  ]
+ },
+ {
+  "slug": "pieterpad-vierlingsbeek-swolgen",
+  "naam": {
+   "nl": "Pieterpad: etappe Vierlingsbeek naar Swolgen",
+   "de": "Pieterpad: Etappe Vierlingsbeek nach Swolgen",
+   "en": "Pieterpad: stage Vierlingsbeek to Swolgen"
+  },
+  "gebied": "Pieterpad",
+  "beheerder": "Stichting Wandelnet / Nivon (Pieterpad)",
+  "afstand_km": 24.0,
+  "duur_min": 360,
+  "rondje": false,
+  "start_naam": "Spoorstraat, bij het station",
+  "start_plaats": "Vierlingsbeek",
+  "start": [
+   51.59658,
+   6.01117
+  ],
+  "tijd": {
+   "auto": 10,
+   "fiets": 29
+  },
+  "url": "https://www.pieterpad.nl/etappes/vierlingsbeek-swolgen",
+  "url_label": "Pieterpad",
+  "lijn": [
+   [
+    51.59658,
+    6.01117
+   ],
+   [
+    51.59647,
+    6.00897
+   ],
+   [
+    51.5929,
+    6.00707
+   ],
+   [
+    51.58962,
+    6.00388
+   ],
+   [
+    51.58827,
+    6.00615
+   ],
+   [
+    51.58559,
+    6.00361
+   ],
+   [
+    51.58343,
+    6.00257
+   ],
+   [
+    51.58313,
+    6.00344
+   ],
+   [
+    51.58259,
+    6.00375
+   ],
+   [
+    51.57927,
+    6.00297
+   ],
+   [
+    51.57468,
+    6.0054
+   ],
+   [
+    51.57401,
+    6.00502
+   ],
+   [
+    51.57402,
+    6.00324
+   ],
+   [
+    51.57305,
+    6.00233
+   ],
+   [
+    51.57029,
+    6.00366
+   ],
+   [
+    51.56831,
+    6.00357
+   ],
+   [
+    51.55654,
+    6.00655
+   ],
+   [
+    51.55634,
+    6.0067
+   ],
+   [
+    51.55737,
+    6.01015
+   ],
+   [
+    51.55356,
+    6.01322
+   ],
+   [
+    51.55009,
+    6.01538
+   ],
+   [
+    51.54942,
+    6.01436
+   ],
+   [
+    51.54877,
+    6.01212
+   ],
+   [
+    51.54924,
+    6.01062
+   ],
+   [
+    51.54996,
+    6.01052
+   ],
+   [
+    51.55013,
+    6.00912
+   ],
+   [
+    51.54918,
+    6.0089
+   ],
+   [
+    51.54693,
+    6.00939
+   ],
+   [
+    51.54647,
+    6.01008
+   ],
+   [
+    51.54525,
+    6.0099
+   ],
+   [
+    51.5446,
+    6.01086
+   ],
+   [
+    51.54467,
+    6.0118
+   ],
+   [
+    51.54275,
+    6.01348
+   ],
+   [
+    51.5405,
+    6.01454
+   ],
+   [
+    51.54254,
+    6.023
+   ],
+   [
+    51.54327,
+    6.02852
+   ],
+   [
+    51.5454,
+    6.02958
+   ],
+   [
+    51.54625,
+    6.03539
+   ],
+   [
+    51.54679,
+    6.03653
+   ],
+   [
+    51.548,
+    6.03601
+   ],
+   [
+    51.54863,
+    6.03825
+   ],
+   [
+    51.54593,
+    6.04024
+   ],
+   [
+    51.54643,
+    6.04111
+   ],
+   [
+    51.54535,
+    6.04304
+   ],
+   [
+    51.54446,
+    6.04701
+   ],
+   [
+    51.54486,
+    6.05073
+   ],
+   [
+    51.54688,
+    6.05479
+   ],
+   [
+    51.54299,
+    6.05874
+   ],
+   [
+    51.54163,
+    6.0641
+   ],
+   [
+    51.54179,
+    6.06544
+   ],
+   [
+    51.53923,
+    6.06662
+   ],
+   [
+    51.53857,
+    6.06499
+   ],
+   [
+    51.53824,
+    6.06284
+   ],
+   [
+    51.5371,
+    6.06449
+   ],
+   [
+    51.53761,
+    6.06761
+   ],
+   [
+    51.5385,
+    6.06777
+   ],
+   [
+    51.53862,
+    6.07314
+   ],
+   [
+    51.53898,
+    6.07552
+   ],
+   [
+    51.53752,
+    6.07535
+   ],
+   [
+    51.53735,
+    6.07688
+   ],
+   [
+    51.5378,
+    6.07723
+   ],
+   [
+    51.53538,
+    6.07837
+   ],
+   [
+    51.53491,
+    6.07753
+   ],
+   [
+    51.53437,
+    6.07738
+   ],
+   [
+    51.5298,
+    6.07711
+   ],
+   [
+    51.52411,
+    6.07772
+   ],
+   [
+    51.52356,
+    6.07797
+   ],
+   [
+    51.52284,
+    6.07946
+   ],
+   [
+    51.52164,
+    6.08001
+   ],
+   [
+    51.52144,
+    6.07884
+   ],
+   [
+    51.51937,
+    6.07798
+   ],
+   [
+    51.51855,
+    6.07878
+   ],
+   [
+    51.51865,
+    6.08027
+   ],
+   [
+    51.51623,
+    6.0821
+   ],
+   [
+    51.51726,
+    6.08349
+   ],
+   [
+    51.51576,
+    6.08505
+   ],
+   [
+    51.516,
+    6.08665
+   ],
+   [
+    51.5157,
+    6.08801
+   ],
+   [
+    51.51529,
+    6.08831
+   ],
+   [
+    51.5144,
+    6.08719
+   ],
+   [
+    51.51394,
+    6.08753
+   ],
+   [
+    51.51323,
+    6.08727
+   ],
+   [
+    51.51284,
+    6.08937
+   ],
+   [
+    51.51108,
+    6.08927
+   ],
+   [
+    51.50923,
+    6.09001
+   ],
+   [
+    51.50813,
+    6.08927
+   ],
+   [
+    51.50697,
+    6.09068
+   ],
+   [
+    51.50519,
+    6.09115
+   ],
+   [
+    51.50503,
+    6.0882
+   ],
+   [
+    51.50532,
+    6.08747
+   ],
+   [
+    51.50225,
+    6.08906
+   ],
+   [
+    51.499,
+    6.08904
+   ],
+   [
+    51.49803,
+    6.09031
+   ],
+   [
+    51.49597,
+    6.08846
+   ],
+   [
+    51.4951,
+    6.08854
+   ],
+   [
+    51.49534,
+    6.09318
+   ],
+   [
+    51.49173,
+    6.09663
+   ],
+   [
+    51.49185,
+    6.09775
+   ],
+   [
+    51.49151,
+    6.09878
+   ],
+   [
+    51.48937,
+    6.10094
+   ],
+   [
+    51.48978,
+    6.10965
+   ],
+   [
+    51.49085,
+    6.11538
+   ],
+   [
+    51.4923,
+    6.11623
+   ],
+   [
+    51.49213,
+    6.11723
+   ]
+  ],
+  "tekst": {
+   "nl": "Deze etappe van het Pieterpad, rood-wit gemarkeerd, is 24 kilometer lang en loopt van Vierlingsbeek naar Swolgen. De route passeert Venray op minder dan een kilometer van het hotel en gaat door de Boshuizerbergen en het landschap bij Geijsteren, daarna via Wanssum en Meerlo. Loop een stuk als dagwandeling, de hele etappe kost ongeveer zes uur.",
+   "de": "Diese Etappe des Pieterpad, rot-weiß markiert, ist 24 Kilometer lang und führt von Vierlingsbeek nach Swolgen. Die Route passiert Venray in weniger als einem Kilometer Abstand vom Hotel, führt durch die Boshuizerbergen und die Landschaft bei Geijsteren und danach über Wanssum und Meerlo. Als Tageswanderung bietet sich ein Teilstück an, die ganze Etappe dauert etwa sechs Stunden.",
+   "en": "This stage of the Pieterpad, marked red and white, is 24 kilometres long and runs from Vierlingsbeek to Swolgen. The route passes Venray less than a kilometre from the hotel and crosses the Boshuizerbergen and the countryside near Geijsteren, then continues via Wanssum and Meerlo. Walk a section as a day trip, the full stage takes about six hours."
+  },
+  "fotos": [],
+  "bronnen": [
+   "https://www.pieterpad.nl/etappes/vierlingsbeek-swolgen",
+   "https://www.envenray.nl/zien-en-doen/wandelen-en-routes/wandelroutes/landgoed-geijsteren",
+   "https://www.openstreetmap.org/relation/8835655"
+  ]
+ }
+]

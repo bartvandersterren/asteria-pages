@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, sjabloon ZOEK: de zoekpagina "Hotel bij ..." (eerste: /hotel-thermalbad-arcen-de-v2).
+  Voor wie een hotel bij een plaats of uitje zoekt: hotel eerst (boekknop, kamers, eigen wellness), daarna rijtijd en ligging.
+  Opbouw = de Duitse adslander plus de oogopslag en de kaart van het uitje-sjabloon; gekozen in de blokkenkiezer
+  (~/Documents/Parkhotel /Website ontwerp/asteria-zoekpagina-blokkenkiezer/, keuzecode 1a-2a-3b-4a-5a-6b-7b-8a-9a-10b).
+  Plan: ~/.claude/plans/lazy-twirling-russell.md.
+
+  BLOKKEN (data-component; de hero staat altijd bovenaan, de rest in de volgorde van "blokken" in de pagina-JSON)
+    kop          spiegelkop van /hotel-venray-v2 (build.py al_kop_voet), dekkend en sticky
+    1a zk-hero      hero van de adslander (video, h1, sub, boekknop, vier zekerheden, Google-badge)
+    2a zk-oog       oogopslagpaneel van het uitje-sjabloon (ut-oog), 120 px over de hero als het direct eronder staat
+    3b zk-intro     tekst + vier feiten links, hotelfoto rechts met rijtijdkaartje over de fotorand (zoek.css)
+    4a zk-kamers    kamerrij van de adslander met lus, zonder prijs; Meer info = tekstlink
+    5a zk-well      mozaiek van de adslander (een groot + vier klein), kop + tekst + vier feiten erboven
+    6b zk-arr       drie arrangementkaarten van de adslander, midden uitgelicht; prijskalender per code
+    7b zk-ligging   getekende kaart (uitje.js + kaart-getekend.js) op twee derde, genummerde lijst rechts (zoek.css)
+    8a zk-rev       Google-reviewblok (google_reviewblok, reviews-google.css)
+    9a zk-faq       vragen met tabs van de adslander, FAQPage JSON-LD
+    10b zk-slot     fotoband + overlegstrook van de adslander
+    voet         spiegelvoet van /hotel-venray-v2
+    + pop-up .al-pop (arrangement, wellness, kamer op de telefoon; inhoud inline #zk-popdata), kamer-pop-up #lp-pop-kamer,
+      prijskalenders, onderbalk .mob-cta, cookiemelding
+
+  Velden (dubbele accolades + veldnaam) komen uit translations/zoek-labels-<taal>.json + translations/zoek-<slug>-<taal>.json;
+  de ZK-plekken (HTML-commentaar met ZK_ en een naam) en AL_KOP/AL_VOET vult build.py (build_zoek). De blokken staan
+  hieronder tussen blokmarkeringen; build.py haalt ze eruit en zet ze in de gevraagde volgorde op de plek ZK_BLOKKEN.
+  Bouwen: python3 build.py zoek-<slug>-<taal>
+-->
+<html lang="{{html-taal}}" data-mews-taal="{{mews-taal}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{titel}}</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{{omschrijving}}">
+  <meta name="robots" content="{{robots}}">
+  <link rel="canonical" href="{{canonical}}"><!-- ZK_HREFLANG -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{titel}}">
+  <meta property="og:description" content="{{omschrijving}}">
+  <meta property="og:image" content="{{og-image}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:locale" content="{{og-locale}}">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preconnect" href="https://app.mews.com">
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- het eerste videobeeld (poster) is het grootste beeld in het eerste scherm: telefoon en bureaublad elk hun eigen -->
+  <link rel="preload" as="image" fetchpriority="high" media="(max-width:767px)" href="{{hero-poster-mobiel}}">
+  <link rel="preload" as="image" fetchpriority="high" media="(min-width:768px)" href="{{hero-poster-bureaublad}}" imagesrcset="{{hero-poster-bureaublad-klein}} 960w, {{hero-poster-bureaublad}} 1280w" imagesizes="100vw">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="adslander.css">
+  <link rel="stylesheet" href="uitje.css">
+  <link rel="stylesheet" href="kaart-getekend.css">
+  <link rel="stylesheet" href="arrangement-kalender.css">
+  <link rel="stylesheet" href="zoek.css">
+  <link rel="stylesheet" href="reviews-google.css">
+  <script src="adslander.js" defer></script>
+  <script src="reviews-google.js" defer></script>
+  <script src="arrangement-kalender.js" defer></script>
+  <script src="kaart-getekend.js" defer></script>
+  <script src="uitje.js" defer></script>
+  <!-- ZK_VANAF_SCRIPT -->
+  <script src="analytics-d1.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    gtag('set', 'linker', { accept_incoming: true });
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Hotel","name":"Hotel Asteria","url":"{{canonical}}","inLanguage":"{{html-taal}}","address":{"@type":"PostalAddress","streetAddress":"Maasheseweg 80a","postalCode":"5804 AD","addressLocality":"Venray","addressCountry":"NL"},"telephone":"+31478511466","email":"info@asteria.nl","image":"{{og-image}}","aggregateRating":{"@type":"AggregateRating","ratingValue":"4.2","reviewCount":"2290","bestRating":"5"}}
+  </script>
+  <!-- ZK_FAQ_LD -->
+</head>
+<body class="al-pagina ut-pagina zk-pagina">
+
+<!-- AL_KOP -->
+
+<main id="inhoud" class="lp al ut zk">
+
+  <!-- 1a. Hero van de adslander: video (poster = eerste frame), tekst gecentreerd, Google-badge rechtsboven -->
+  <section data-component="zk-hero" class="al-hero al-hero--video zk-hero{{zk-hero-mod}}">
+    <div class="al-hero__foto">
+      <picture><source media="(min-width:768px)" srcset="{{hero-poster-bureaublad-klein}} 960w, {{hero-poster-bureaublad}} 1280w" sizes="100vw" width="1280" height="720"><img src="{{hero-poster-mobiel}}" alt="{{hero-alt}}" width="480" height="854" fetchpriority="high" decoding="async"></picture>
+      <video class="al-hero__video" muted loop playsinline preload="none" aria-hidden="true" data-bron-bureaublad="{{hero-video-bureaublad}}" data-bron-mobiel="{{hero-video-mobiel}}"></video>
+    </div>
+    <div class="al-hero__badge" role="img" aria-label="{{google-aria}}"><span class="al-hero__score"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="al-hero__cijfer">{{google-score}}</span></span><span class="al-hero__lijn"></span><span class="al-hero__bron"><!-- ZK_GOOGLE_G --><span class="al-hero__regels"><b>{{google-aantal}}</b><span>{{google-label}}</span></span></span></div>
+    <div class="al-wrap al-hero__wrap">
+      <div class="al-hero__tekst">
+        <div class="al-hero__titel">
+          <h1>{{hero-kop}}</h1>
+          <p class="al-hero__sub">{{hero-sub}}</p>
+          <p class="zk-hero__google" role="img" aria-label="{{google-aria}}"><!-- ZK_GOOGLE_G --><b>{{google-score}}</b><span class="zk-hero__sterren"><!-- ZK_HERO_STERREN --></span><span>{{google-uit}} {{google-aantal}}</span></p>
+        </div>
+        <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+        <ul class="al-trust al-hero__trust"><!-- ZK_HERO_TRUST --></ul>
+      </div>
+    </div>
+  </section>
+  <!-- 1a telefoon: de vier zekerheden als chipstrook direct onder de hero (bureaublad verborgen, daar staan ze in de hero) -->
+  <ul class="zk-chips"><!-- ZK_HERO_CHIPS --></ul>
+
+  <!-- ZK_BLOKKEN -->
+
+<!--[blok oog]-->
+  <!-- 2a. In één oogopslag (uitje-sjabloon): paneel over de onderrand van de hero; vakjes alleen als het veld gevuld is -->
+  <section data-component="zk-oog" class="al-sec ut-oog zk-oog{{zk-oog-mod}}">
+    <div class="ut-wrap--breed">
+      <div class="al-paneel ut-oog__paneel">
+        <div class="ut-oog__links">
+          <h2 class="ut-oog__kop">{{oog-kop}}</h2>
+          <div class="ut-vakjes"><!-- ZK_VAKJES --></div>
+        </div>
+        <div class="ut-oog__rechts">
+          <dl class="ut-tabel"><!-- ZK_TABEL --></dl>
+          <!-- ZK_ROUTE -->
+        </div>
+      </div>
+    </div>
+  </section>
+<!--[/blok]-->
+
+<!--[blok intro]-->
+  <!-- 3b. Intro: kop, twee alinea's (de eerste noemt de rijtijd) en vier feiten; hotelfoto met rijtijdkaartje over de fotorand -->
+  <section data-component="zk-intro" class="zk-intro">
+    <div class="al-wrap">
+      <div class="zk-intro__raster">
+        <div class="zk-intro__tekst">
+          <h2>{{intro-kop}}</h2>
+          <p>{{intro-p1}}</p>
+          <!-- ZK_INTRO_P2 -->
+          <ul class="vinkjes zk-intro__lijst"><!-- ZK_INTRO_FEITEN --></ul>
+        </div>
+        <div class="zk-intro__media">
+          <div class="zk-intro__foto"><img src="{{intro-foto}}" alt="{{intro-alt}}" width="1400" height="933" loading="lazy" decoding="async"></div>
+          <!-- ZK_INTRO_KAART -->
+        </div>
+      </div>
+    </div>
+  </section>
+<!--[/blok]-->
+
+<!--[blok kamers]-->
+  <!-- 4a. Kamers: de kamerrij van de adslander met lus, zonder prijs; Meer info = tekstlink naar de kamer-pop-up -->
+  <section data-component="zk-kamers" class="al-kamers zk-kamers" id="kamers">
+    <div class="al-kamers__wrap">
+      <div class="zk-kamers__kop">
+        <h2 class="al-kamers__kop">{{kamers-kop}}</h2>
+        <p class="zk-kamers__sub">{{kamers-sub}}</p>
+      </div>
+      <div class="kk-rij" data-rij data-lus>
+        <div class="kk-spoor" data-spoor tabindex="0" role="group" aria-label="{{kamer-rij-label}}"><!-- ZK_KAMERS --></div>
+        <div class="kk-nav">
+          <span class="kk-teller" data-teller aria-live="polite"></span>
+          <button type="button" class="kk-pijl" data-stap="-1" aria-label="{{kamer-vorige}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button type="button" class="kk-pijl" data-stap="1" aria-label="{{kamer-volgende}}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--[/blok]-->
+
+<!--[blok wellness]-->
+  <!-- 5a. Eigen wellness: mozaiek van de adslander (een groot + vier klein, tegels openen de pop-up), kop + tekst + vier feiten erboven -->
+  <section data-component="zk-well" class="al-sec al-fac zk-well" id="wellness">
+    <div class="al-fac__wrap">
+      <div class="zk-well__kop">
+        <h2>{{well-kop}}</h2>
+        <p class="zk-well__sub">{{well-tekst}}</p>
+        <ul class="zk-well__feiten"><!-- ZK_WELL_FEITEN --></ul>
+      </div>
+      <div class="al-fac__grid"><!-- ZK_WELL_TEGELS --></div>
+    </div>
+  </section>
+<!--[/blok]-->
+
+<!--[blok arr]-->
+  <!-- 6b. Arrangementen van de adslander: drie kaarten, de middelste uitgelicht; telefoon = veegrij (uitgelicht eerst) -->
+  <section data-component="zk-arr" class="al-sec al-arr zk-arr" id="al-arr">
+    <div class="al-wrap" data-rij>
+      <div class="al-arr__kop">
+        <h2>{{arr-kop}}</h2>
+        <p class="al-arr__sub">{{arr-sub}}</p>
+      </div>
+      <div class="al-arr__rij{{zk-arr-mod}}" data-spoor><!-- ZK_ARR --></div>
+      <div class="al-arr__voet">
+        <div class="al-nav"><span class="al-nav__teller" data-teller>1/3</span><button type="button" class="al-nav__pijl" data-stap="-1" aria-label="{{rij-vorige}}"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6"/></svg></button><button type="button" class="al-nav__pijl" data-stap="1" aria-label="{{rij-volgende}}"><svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg></button></div>
+      </div>
+    </div>
+  </section>
+<!--[/blok]-->
+
+<!--[blok ligging]-->
+  <!-- 7b. Ligging: getekende kaart links op twee derde (uitje.js bouwt hem, vangnet = de stilstaande kaartfoto),
+       rechts de genummerde lijst met rijtijden; punt 1 uitgelicht; routeknop onderaan -->
+  <section data-component="zk-ligging" class="al-sec ut-kaart zk-ligging">
+    <div class="al-wrap">
+      <div class="zk-ligging__kop">
+        <h2>{{ligging-kop}}</h2>
+        <p>{{ligging-regel}}</p>
+      </div>
+      <div class="zk-ligging__raster">
+        <div class="ut-kaart__veld zk-ligging__veld"><!-- ZK_KAART --></div>
+        <div class="zk-ligging__paneel">
+          <ol class="zk-lijst"><!-- ZK_LIJST --></ol>
+          <!-- ZK_LIGGING_KNOP -->
+        </div>
+      </div>
+    </div>
+    <!-- ZK_KAART_PUNTEN -->
+  </section>
+<!--[/blok]-->
+
+<!--[blok reviews]-->
+  <!-- 8a. Google-reviewblok (gedeeld met alle omgevingspagina's: build.py google_reviewblok, reviews-google.css/.js) -->
+  <!-- ZK_REVIEWS -->
+<!--[/blok]-->
+
+<!--[blok faq]-->
+  <!-- 9a. Vragen van de adslander: kop + belregel links, tabs rechts; zonder script alle lijsten onder elkaar met tussenkop -->
+  <section data-component="zk-faq" class="al-sec al-faq zk-faq">
+    <div class="al-wrap al-faq__raster">
+      <div class="al-faq__kop">
+        <h2>{{faq-kop}}</h2>
+        <a class="al-faq__tel" href="{{tel-url}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg><span>{{faq-tel}}</span></a>
+      </div>
+      <div class="al-faq__rechts" data-faq><!-- ZK_FAQ --></div>
+    </div>
+  </section>
+<!--[/blok]-->
+
+<!--[blok slot]-->
+  <!-- 10b. Slot van de adslander: fotoband met kop, tekst, boekknop en zekerheden; daaronder de overlegstrook met portret -->
+  <section data-component="zk-slot" class="al-slot zk-slot">
+    <div class="al-slot__band">
+      <img src="{{slot-foto}}" alt="{{slot-alt}}" width="1200" height="800" loading="lazy" decoding="async">
+      <div class="al-slot__verloop"></div>
+      <div class="al-wrap al-slot__inhoud">
+        <h2>{{slot-kop}}</h2>
+        <p class="al-slot__regel">{{slot-tekst}}</p>
+        <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+        <ul class="al-trust al-slot__usps"><!-- ZK_SLOT_USPS --></ul>
+      </div>
+    </div>
+    <div class="al-wrap">
+      <div class="al-paneel al-slot__strook">
+        <div class="al-slot__portret"><img src="{{slot-portret}}" alt="{{slot-portret-alt}}" width="96" height="96" loading="lazy" decoding="async"></div>
+        <div class="al-slot__tekst">
+          <h2>{{slot-paneel-kop}}</h2>
+          <p>{{slot-paneel-tekst}}</p>
+        </div>
+        <div class="al-slot__knoppen">
+          <a class="btn al-btn al-btn--ghost-donker" href="{{tel-url}}"><svg class="al-vink" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg>{{telefoon}}</a>
+          <a class="btn al-btn al-btn--ghost-donker" href="mailto:{{mail}}"><svg class="al-vink" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1"/><path d="M2 4.5l6 4.5 6-4.5"/></svg>{{mail}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--[/blok]-->
+
+  <!-- Pop-up achter Mehr Info (arrangementen), de wellnesstegels en de kamer op de telefoon: inhoud inline in #zk-popdata -->
+  <div class="al-pop" data-pop-dialog hidden role="dialog" aria-modal="true" aria-labelledby="al-pop-naam"
+    data-bron="#zk-popdata"
+    data-l-sluit="{{pop-sluit}}" data-l-vorige="{{pop-vorige}}" data-l-volgende="{{pop-volgende}}"
+    data-l-incl="{{pop-incl-kop}}" data-l-arrboek="{{arr-knop}}" data-l-kamerboek="{{kamer-boek}}" data-l-kamerbadge="{{pop-kamer-badge}}"
+    data-l-hotelboek="{{knop-boek}}" data-l-facbadge="{{pop-fac-badge}}" data-l-route="{{pop-route}}"
+    data-l-auto="{{l-auto}}" data-l-voet="" data-l-rad="{{l-fiets}}" data-l-vanaf="{{pop-vanaf-hotel}}"
+    data-l-speel="{{pop-video-speel}}" data-l-pauze="{{pop-video-pauze}}"
+    data-l-zondag="{{pop-zondag}}" data-l-zeker="{{pop-zeker-1}}|{{pop-zeker-2}}|{{pop-zeker-3}}">
+    <div class="al-pop__kaart" role="document"></div>
+  </div>
+  <!-- ZK_POPDATA -->
+
+  <!-- Kamer-pop-up vanaf 768 px: de dialoog #lp-pop-kamer van lander-w1 (gedrag in adslander.js, data #al-kamerdata) -->
+  <!-- ZK_KAMERPOP -->
+
+  <!-- Prijskalenders achter "Arrangement buchen": een dialog.ark per code (arrangement-kalender.js; de open kalender draagt id ar-kal) -->
+  <!-- ZK_KALENDERS -->
+
+</main>
+
+<!-- AL_VOET -->
+
+<div class="mob-cta-ruimte" aria-hidden="true"></div>
+<div class="mob-cta" aria-hidden="true">
+  <a class="mob-cta-bel" href="{{tel-url}}" aria-label="{{telefoon}}" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
+  <div><b>{{sticky-kop}}</b><span class="om">{{sticky-sub}}</span></div>
+  <a class="btn btn-primary mews-open" href="{{mews-basis}}" tabindex="-1">{{sticky-knop}}</a>
+</div>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookies">
+  <span>{{cookie-tekst}} <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">{{cookie-meer}}</a></span>
+  <button type="button" id="cookieAccept">{{cookie-knop}}</button>
+</div>
+
+<link rel="stylesheet" href="adslander-pop.css">
+</body>
+</html>

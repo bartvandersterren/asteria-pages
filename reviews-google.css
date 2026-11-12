@@ -1,0 +1,91 @@
+/* ==========================================================================
+   REVIEWS-GOOGLE: het Google-reviewblok van alle omgevingspagina's (uitje/golf, route, zoek, omgeving-overzicht)
+   --------------------------------------------------------------------------
+   Opbouw   : build.py google_reviewblok(lang) -> <section class="al-sec grv ...">; cijfers content/reviews-google-overzicht.json,
+              kaarten content/reviews-google-asteria(-de/-en).json
+   Gedrag   : reviews-google.js (alleen de pijlknop op het bureaublad; telefoon = veegspoor met scroll-snap, geen script)
+   Stijl    : opzet van het eerdere Tripadvisor-blok, Asteria-tokens uit lander-w1.css (fonts, --ink, --surface, --paper-shade,
+              radius, schaduw), kop = .al h2 met accentwoord .al-g. Google-kleuren alleen in de G, de sterren en de balkjes.
+   Telefoon : paneel is de eerste kaart van het veegspoor (.grv__strook), kaarten 80 % breed; .grv__spoor = display:contents.
+   Bureaublad (>=1024): een rij, paneel 1fr links, kaartenstrook 2fr rechts met 2,5 kaarten in beeld en de ronde pijl.
+   ========================================================================== */
+.grv { --grv-geel:#FBBC04; --grv-gap:16px; color:var(--ink) }
+.grv__omhulsel { width:min(1440px, calc(100% - 60px)); margin-inline:auto }
+
+/* sterren: AL_STER-svg's, de deelster = twee svg's met clip-path (zoals de zoekhero) */
+.grv-sterren { display:inline-flex; align-items:center; gap:2px; color:var(--grv-geel); vertical-align:middle }
+.grv-sterren svg { width:16px; height:16px; fill:currentColor; display:block }
+.grv-sterren .grv-ster-leeg { opacity:.3 }
+.grv-ster-deel { position:relative; display:inline-flex }
+.grv-ster-deel svg:first-child { opacity:.3 }
+.grv-ster-deel svg + svg { position:absolute; left:0; top:0; clip-path:inset(0 calc(100% - var(--deel)) 0 0) }
+.grv-sterren--paneel { margin-top:8px }
+.grv-sterren--paneel svg { width:20px; height:20px }
+.grv-sterren--kaart svg { width:15px; height:15px }
+
+/* kop */
+.grv__kop { display:flex; flex-direction:column; gap:12px; margin-bottom:24px }
+.grv__score { display:flex; align-items:center; gap:9px; flex-wrap:wrap; font-size:15px; color:var(--ink-soft) }
+.grv__score b { font-weight:700; font-size:17px; color:var(--ink) }
+.lp .grv a.grv__aantal { color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px; text-decoration-color:currentColor }
+.lp .grv a.grv__aantal:hover { color:var(--terracotta-text) }
+
+/* paneel + kaarten: Asteria-paneel (surface, papierrand, kaartradius, kaartschaduw) */
+.grv__strook { position:relative; display:flex; gap:var(--grv-gap); overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+  padding:4px 15px 14px 0; margin-right:-15px }
+.grv__strook::-webkit-scrollbar { display:none }
+.grv__spoor { display:contents }
+.grv__paneel,.grv__kaart { flex:0 0 80%; scroll-snap-align:start; background:var(--surface); border:1px solid var(--paper-shade);
+  border-radius:var(--radius-card); box-shadow:var(--shadow-card); padding:20px; display:flex; flex-direction:column }
+.grv__merk { display:flex; align-items:center; gap:10px; margin-bottom:14px; font-weight:700; font-size:17px; letter-spacing:-.01em; color:var(--ink) }
+.grv__merk svg { width:28px; height:28px; flex:none }
+.grv__cijfer { font-family:var(--font-display); font-weight:700; font-size:52px; line-height:1; color:var(--ink) }
+.grv__aantal--paneel { margin-top:6px; font-size:14px; align-self:flex-start }
+
+/* sterrenverdeling: label, balk (breedte = percentage), percentage */
+.grv__verdeling { margin-top:16px; padding-top:16px; border-top:1px solid var(--hairline-strong); display:grid; gap:8px }
+.grv__pkopje { font-size:13px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); margin-bottom:2px }
+.grv__rij { display:grid; grid-template-columns:72px minmax(0,1fr) 40px; align-items:center; gap:10px }
+.grv__snaam { font-size:13px; line-height:1.25; color:var(--ink); white-space:nowrap }
+.grv__baan { height:8px; border-radius:4px; background:var(--paper-shade); overflow:hidden }
+.grv__vul { display:block; height:100%; border-radius:4px; background:var(--grv-geel) }
+.grv__pct { text-align:right; font-size:13px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; white-space:nowrap }
+
+/* vaak genoemd: chips in de huisstijl */
+.grv__vaak { margin-top:16px }
+.grv__chips { list-style:none; margin:8px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:6px }
+.grv__chips li { font-size:13px; line-height:1; padding:7px 11px; border-radius:999px; background:var(--paper-shade); color:var(--ink); white-space:nowrap }
+.grv__vertaald { margin-top:auto; padding-top:14px; font-size:12.5px; line-height:1.45; color:var(--ink-soft) }
+.grv__vertaald svg { width:15px; height:15px; vertical-align:-3px; margin-right:6px; color:var(--terracotta) }
+
+.grv__kaart { gap:10px }
+.grv__naam { font-weight:700; font-size:16px; color:var(--ink) }
+.grv__datum { font-weight:500; color:var(--ink-soft) }
+.grv__tekst { font-size:16px; line-height:1.6; color:var(--ink); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:7; overflow:hidden }
+.grv__bron { margin-top:auto; padding-top:12px; font-size:13px; color:var(--ink-soft) }
+.grv__bron b { color:var(--ink) }
+.grv__pijl { display:none }
+
+@media (min-width:1024px) {
+  .grv__kop { flex-direction:row; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:22px }
+  .grv__score { font-size:16px; padding-bottom:8px; flex:none }
+  .grv__strook { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); align-items:stretch; overflow:visible; scroll-snap-type:none;
+    margin-right:0; padding:0 }
+  .grv__paneel { padding:26px 28px 24px }
+  .grv__cijfer { font-size:56px }
+  .grv__rij { grid-template-columns:84px minmax(0,1fr) 44px; gap:12px }
+  .grv__snaam,.grv__pct { font-size:14px }
+  .grv__spoor { display:flex; gap:var(--grv-gap); overflow:hidden; scroll-behavior:smooth; padding:4px; margin:-4px }
+  .grv__kaart { flex:0 0 calc((100% - 2 * var(--grv-gap)) / 2.5); padding:24px; gap:12px }
+  .grv__tekst { min-height:calc(5 * 1.6em) }
+  .grv__pijl { display:flex; align-items:center; justify-content:center; position:absolute; right:-12px; top:50%; z-index:2; transform:translateY(-50%);
+    width:48px; height:48px; padding:0; border-radius:50%; background:var(--surface); border:1.5px solid var(--ink); color:var(--ink);
+    cursor:pointer; box-shadow:var(--shadow-card); transition:background .25s, color .25s }
+  .grv__pijl:hover { background:var(--ink); color:var(--surface) }
+  .grv__pijl svg { width:20px; height:20px }
+}
+@media (max-width:767px) {
+  .grv__omhulsel { width:calc(100% - 30px) }
+  .grv__cijfer { font-size:46px }
+}
+@media (prefers-reduced-motion:reduce) { .grv__spoor { scroll-behavior:auto } }

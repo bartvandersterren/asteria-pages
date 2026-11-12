@@ -16,8 +16,15 @@
      modaal (showModal). Bereik: vandaag t/m 18 maanden vooruit. */
 (function () {
   'use strict';
-  var pop = document.getElementById('ar-kal');
-  if (!pop) return;
+  /* Meestal één dialoog #ar-kal per pagina. De Duitse ads-landers (adslander.template.html) hebben er een per arrangement
+     (dialog.ark[data-code], eventueel met eigen data-mews-config); dan draagt alleen de geopende de id ar-kal waar de stijl
+     aan hangt. Labels in het Duits als <html lang="de">, in het Engels als <html lang="en"> (uitje-sjabloon EN). */
+  var alle = document.querySelectorAll('dialog.ark[data-code]');
+  if (!alle.length) { var enkel = document.getElementById('ar-kal'); if (enkel) alle = [enkel]; }
+  Array.prototype.forEach.call(alle, function (pop) { kalender(pop, alle); });
+  function kalender(pop, alle) {
+  var DUITS = /^de/i.test(document.documentElement.getAttribute('lang') || '');
+  var ENGELS = /^en/i.test(document.documentElement.getAttribute('lang') || '');
   var D = pop.dataset;
   var CODE = (D.code || '').toUpperCase();
   if (!CODE) return;
@@ -27,7 +34,7 @@
   var KAMERS = {};
   try { KAMERS = JSON.parse(D.kamers || '{}'); } catch (e) { KAMERS = {}; }
   var MEWS_URL = 'https://app.mews.com/distributor/'
-    + (document.documentElement.getAttribute('data-mews-config') || '6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
+    + (pop.getAttribute('data-mews-config') || document.documentElement.getAttribute('data-mews-config') || '6dc9094c-76e3-4fd8-83a7-af1d00ffc556');
   var kanModal = typeof pop.showModal === 'function';
 
   function pd(s) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec((s || '').trim()); return m ? new Date(+m[1], m[2] - 1, +m[3]) : null; }
@@ -102,9 +109,10 @@
   }
 
   /* ── de kalender ── */
-  var fDag = new Intl.DateTimeFormat('nl-NL', { weekday: 'short', day: 'numeric', month: 'short' });
-  var fMnd = new Intl.DateTimeFormat('nl-NL', { month: 'long', year: 'numeric' });
-  var WDN = ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
+  var LOC = DUITS ? 'de-DE' : ENGELS ? 'en-GB' : 'nl-NL';
+  var fDag = new Intl.DateTimeFormat(LOC, { weekday: 'short', day: 'numeric', month: 'short' });
+  var fMnd = new Intl.DateTimeFormat(LOC, { month: 'long', year: 'numeric' });
+  var WDN = DUITS ? ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] : ENGELS ? ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'] : ['Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za', 'Zo'];
   var PL = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3 5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var PR = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var maandenEl = pop.querySelector('.ark-maanden'), watEl = pop.querySelector('.ark-wat'), wisEl = pop.querySelector('.ark-wis');
@@ -244,6 +252,10 @@
   function open(el, kamer) {
     if (sluitTimer) { clearTimeout(sluitTimer); sluitTimer = null; }
     trigger = el; isOpen = true;
+    if (alle.length > 1) {
+      Array.prototype.forEach.call(alle, function (o) { if (o !== pop && o.id === 'ar-kal') { o.removeAttribute('id'); if (o.open) o.close(); } });
+      pop.id = 'ar-kal';
+    }
     var desk = mq.matches; aantal = desk ? 2 : 1;
     var k = (kamer || STD).toLowerCase();
     if (k !== KAMER) { KAMER = k; A = B = H = null; }
@@ -383,4 +395,5 @@
   document.addEventListener('keydown', function (e) { if (isOpen && (e.key === 'Escape' || e.key === 'Esc') && !isModal()) { e.preventDefault(); sluit(true); } });
   window.addEventListener('scroll', herplaats, { passive: true });
   window.addEventListener('resize', function () { if (!isOpen) return; if ((aantal === 2) !== mq.matches) { sluit(false); return; } herplaats(); });
+  }
 })();

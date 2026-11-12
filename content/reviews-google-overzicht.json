@@ -1,0 +1,71 @@
+{
+  "_uitleg": "Google-reviewblok (build.py google_reviewblok, reviews-google.css/.js) op alle omgevingspagina's (zoek, uitje/golf, routes, omgeving-v2). Cijfers uitgelezen op 2026-11-11 met Playwright (headless Chromium, locale nl-NL, consent 'Alles afwijzen') van bron_url -> resultaat Hotel Asteria Venray (Maasheseweg 80a) -> tab Reviews -> 'Review-overzicht van Google'. Exact uit het DOM: score/aantal uit aria-label '4,2 van 5 sterren op basis van 2.290 reviews', verdeling uit aria-label 'NN procent geeft N sterren.' (gelijk aan style width van de balk). Onderwerpen uit de chips (data-label, data-positive, data-negative, data-sentiment; 1 = duim omhoog, 2 = duim omlaag, 0 = geen duim). Alleen onderwerpen met duim omhoog gebruikt. Reviewkaarten: content/reviews-google-asteria(-de/-en).json, selectie = 'selectie' (max 8), maand/jaar afgeleid van de relatieve Google-datum op de ophaaldag van die reviews (13 okt 2026). Verversen: zie CLAUDE.md, sectie Feedback omgevingsweb.",
+  "bron_url": "https://www.google.com/travel/search?q=Hotel+Asteria+Venray&hl=nl",
+  "profiel_url": "https://www.google.com/maps?cid=10392502528258527703",
+  "opgehaald": "2026-11-11",
+  "methode": "exact (aria-label)",
+  "score": 4.2,
+  "aantal": 2290,
+  "verdeling": {"5": 46, "4": 39, "3": 10, "2": 3, "1": 2},
+  "onderwerpen_google": [
+    {"label": "Service", "aantal": 42, "positief": 40, "negatief": 2, "sentiment": 1},
+    {"label": "Eigenschap", "aantal": 63, "positief": 50, "negatief": 10, "sentiment": 1},
+    {"label": "Ontbijt", "aantal": 30, "positief": 22, "negatief": 3, "sentiment": 1},
+    {"label": "Slapen", "aantal": 17, "positief": 4, "negatief": 9, "sentiment": 2},
+    {"label": "Horeca", "aantal": 23, "positief": 17, "negatief": 2, "sentiment": 1},
+    {"label": "Hygiëne En Netheid", "aantal": 17, "positief": 10, "negatief": 7, "sentiment": 0},
+    {"label": "Restaurant", "aantal": 14, "positief": 10, "negatief": 2, "sentiment": 1},
+    {"label": "Zakelijk", "aantal": 13, "positief": 8, "negatief": 1, "sentiment": 1},
+    {"label": "Locatie", "aantal": 12, "positief": 7, "negatief": 1, "sentiment": 1},
+    {"label": "Kamer", "aantal": 11, "positief": 4, "negatief": 7, "sentiment": 2},
+    {"label": "Sfeer", "aantal": 15, "positief": 14, "negatief": 1, "sentiment": 1},
+    {"label": "Badkamer", "aantal": 11, "positief": 4, "negatief": 5, "sentiment": 0},
+    {"label": "Bar", "aantal": 8, "positief": 7, "negatief": 1, "sentiment": 0},
+    {"label": "Airconditioning", "aantal": 5, "positief": 0, "negatief": 5, "sentiment": 0}
+  ],
+  "selectie": ["Karin Van Zonneveld", "Nicole Scholte", "Davy Tollenaere", "Thea Sjoerdstra", "Fia Sardar", "arthur goulooze", "B Kruize", "Bart Bouwers"],
+  "talen": {
+    "nl": {
+      "reviews": "content/reviews-google-asteria.json",
+      "kop": "Wat gasten op Google <span class='al-g'>zeggen</span>",
+      "aantal-label": "reviews",
+      "verdeling-kop": "Sterrenverdeling",
+      "ster": "ster", "sterren": "sterren",
+      "vaak-kop": "Vaak genoemd",
+      "onderwerpen": ["Service", "Ontbijt", "Horeca", "Sfeer", "Locatie"],
+      "bron-kaart": "Beoordeeld op",
+      "vertaald": "",
+      "rij-label": "Reviews van gasten op Google",
+      "pijl-label": "Volgende reviews",
+      "maanden": ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"]
+    },
+    "de": {
+      "reviews": "content/reviews-google-asteria-de.json",
+      "kop": "Was Gäste bei Google <span class='al-g'>sagen</span>",
+      "aantal-label": "Bewertungen",
+      "verdeling-kop": "Sterneverteilung",
+      "ster": "Stern", "sterren": "Sterne",
+      "vaak-kop": "Oft genannt",
+      "onderwerpen": ["Service", "Frühstück", "Gastronomie", "Atmosphäre", "Lage"],
+      "bron-kaart": "Bewertet bei",
+      "vertaald": "Aus dem Niederländischen übersetzt",
+      "rij-label": "Bewertungen von Gästen bei Google",
+      "pijl-label": "Nächste Bewertungen",
+      "maanden": ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+    },
+    "en": {
+      "reviews": "content/reviews-google-asteria-en.json",
+      "kop": "What guests say on <span class='al-g'>Google</span>",
+      "aantal-label": "reviews",
+      "verdeling-kop": "Rating breakdown",
+      "ster": "star", "sterren": "stars",
+      "vaak-kop": "Often mentioned",
+      "onderwerpen": ["Service", "Breakfast", "Food & drink", "Atmosphere", "Location"],
+      "bron-kaart": "Reviewed on",
+      "vertaald": "Translated from Dutch",
+      "rij-label": "Guest reviews on Google",
+      "pijl-label": "Next reviews",
+      "maanden": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    }
+  }
+}

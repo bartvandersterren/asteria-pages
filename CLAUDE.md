@@ -526,3 +526,235 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `python3 -m http.server 8796 --directory <map met seizoen/asteria/actief.json + jpg's>` en `wrangler pages dev … --binding SEIZOEN_BASIS=http://127.0.0.1:8796`.
 - Testen: `?datum=YYYY-MM-DD` op elke URL, bv. `curl -sI "https://visit.asteria.nl/seizoen/hero.jpg?datum=2026-12-15"` (X-Seizoen: winter).
   Lokaal: `~/projects/parkhotel-site/node_modules/.bin/wrangler pages dev . --compatibility-date=2026-06-01` (zonder datum weigert workerd 4.103 de datum van vandaag).
+
+## Duitse Google Ads-landers (adslander, nov 2026, preview)
+
+- Nabouw van parkhotelhorst.nl/de/wellnesshotel-limburg-nieuw/ in de Asteria-stijl. Eerste: `/wellnesshotel-limburg-de`
+  (build-entry `adslander-wellnesshotel`, `translations/adslander-wellnesshotel-de.json`), noindex, nofollow, niet in sitemap, nergens gelinkt.
+- Bestanden: `adslander.template.html`, `adslander.css` (prefix `al-`, laadt na lander-w1.css voor tokens/.btn/.as-accordeon),
+  `adslander-pop.css`, `adslander.js` (eigen Mews-poort de-DE met config per link, kaartenrij/lus, coverflow + lightbox, pop-up,
+  FAQ-tabs, kamerprijzen, nieuwsbrief inline, onderbalk, cookie, scratchcard-wachter). lander-w1.js wordt hier NIET geladen.
+- Kop, mobiele lade en voet = de spiegelstand van /hotel-venray-v2 (build.py `al_kop_voet`: blokken gesloten + spiegel uit
+  lander-w1.template.html, links via spiegel-links.json/`vul_spiegel_links`, Duitse labels, logo naar de lander zelf); dekkend en
+  sticky, de hero begint eronder. Lade en submenu's: port van lander-w1.js in adslander.js.
+- Kamer-pop-up: vanaf 768 px de lander-w1-dialoog `#lp-pop-kamer` (opmaak lander-w1.css, data `#al-kamerdata`, Duits, knop Zimmer
+  buchen = Mews met de kamer, geen pil/code/kamerpagina); onder 768 px de al-pop-sheet (velden desc/pop_fotos). Bij wisselen over
+  768 px gaat de open variant dicht.
+- Nieuwsbrief (blok 11) op kastanje (--ink #442A06) met nieuw-assets/svg/ster.svg op 5 % zoals de voet.
+- build.py `build_adslander`: genummerde slots uit de JSON
+  (veldnamen zoals Parkhotel), arrangementkaarten via `arr-<slot>-bron` = slug van een arrangement-JSON (code, MEWS_CONFIG,
+  ARR_PRIJS als terugval, ARR_NACHTEN, ARR_KALENDER/ARR_VANAF_LIVE), een `dialog.ark` per code (instellingen uit content/arr-kalender.json),
+  kamers uit `kamers` + KAMER_MEWS, pop-upinhoud en kamerkaarten uit `content/adslander-pop-de.json`, reviews uit
+  `content/reviews-google-asteria-de.json` (Duitse vertaling). Stopt bij open velden, ontbrekende bestanden of een em-dash.
+- `arrangement-kalender.js` kent sinds deze lander meerdere dialogen (`dialog.ark[data-code]`, de open draagt id `ar-kal`),
+  `data-mews-config` per dialoog en Duitse labels bij `<html lang="de">`; pagina's met één #ar-kal werken als voorheen.
+- Volgende lander = JSON kopiëren + entry in TEMPLATES (`'adslander': True`). Test: `python3 -m http.server 8791` +
+  `python3 scripts/test_adslander.py [URL] [--schermafdruk qa/adslander]` (API's en Mews gemockt).
+
+## Uitje-sjabloon (omgevings-detailpagina, nov 2026, proef)
+
+- Exacte nabouw van de Parkhotel-omgevingspagina (parkhotelhorst.nl/gebied/<slug>/, parkhotel-site `src/fragmenten/pagina-gebied-v2.html`)
+  in de Asteria-stijl van de adslander. Eerste: `/zooparc-overloon-v2` (build-entry `uitje-zooparc-overloon`), noindex, follow.
+- Bestanden: `uitje.template.html`, `uitje.css` (prefix `ut-`, laadt na lander-w1.css + adslander.css), `uitje.js` (Lees meer, dagverloop,
+  kaartpunten + namen inpassen), `kaart-getekend.js` + `kaart-getekend.css` (port van de Parkhotel-bouwsteen, `window.AsteriaKaart`,
+  ondergrond `content/kaart/getekend.json`), `adslander.js` (Mews, kamerslider, pop-ups, onderbalk, cookie; taal via
+  `<html data-mews-taal>`, pop-updata inline via `data-bron="#id"`), `translations/uitje-labels-nl.json` (vaste labels, eerst geladen),
+  `translations/uitje-<slug>-nl.json` (het ene gegevensbestand per uitje, wint), `content/uitje-kamers-nl.json` (NL-kamerkaarten +
+  kamer-pop-up, uit lp-kamerdata en kamertypes-v2-nl), hotelvignet `fotos/l26-uitje-vignet-asteria.webp` (uit parkhotel-os
+  hotels/asteria/public/omgevingsscherm/vignetten/hotel.webp).
+- Blokken (volgorde = Parkhotel): hero, oogopslag (paneel 120/64 px over de hero), verhaal (v1-v3, rij 2-3 achter Lees meer), tip,
+  goed om te weten (g1-g6), dagverloop (m1-m4, een open, foto wisselt), kamers (adslander-slider zonder prijs), ligging (getekende kaart),
+  FAQ (f1-f6, FAQPage JSON-LD), meer in de omgeving (meer1-3: zonder `url` opent de kaart de uitje-pop-up `_pop.uitje.<pop>`), slot.
+- Velden: zie `_uitleg` en de sleutels in `translations/uitje-zooparc-overloon-nl.json`; `kaart` = {hotel [lat,lng], punten [{naam, lat, lng,
+  hoofd, nr, label, pop|url}]}. Build `build_uitje` stopt bij een open veld, ontbrekend fotobestand, em-dash, of een half gevuld FAQ-/meer-slot.
+  `al_kop_voet(d, mews, taal='nl')` = spiegelkop/-voet met de NL-labels (standaard `de` voor de adslander, uitvoer daar ongewijzigd).
+- Volgend uitje = `translations/uitje-zooparc-overloon-nl.json` kopiëren naar `translations/uitje-<slug>-nl.json`, invullen, en een regel in
+  TEMPLATES (`'uitje': True`) + `python3 build.py uitje-<slug>`. Vier pagina's (uitvoer `<slug>-v2.html`, alle noindex): `uitje-zooparc-overloon`
+  (kamerslider), `uitje-oorlogsmuseum-overloon` (arrangementkaart OORLOGSMUSEUM, `kamers: []`, meer = twee begraafplaats-pop-ups + ZooParc),
+  `uitje-venray-centrum` en `uitje-nationaal-park-de-maasduinen` (kamerslider). Meer-kaarten naar een ander uitje linken onderling naar de
+  -v2-adressen (`url: "/<slug>-v2"`); bij promotie naar het echte adres die `url`-velden in alle vier JSON's omzetten.
+  `hero-focus` = object-position van de herofoto (`"50%"` of `"x y"`, bv. Venray `"74% 50%"` zodat de toren op de telefoon in beeld blijft);
+  `m<n>-positie` = object-position van de dagfoto. Tijdvakken (`09.30-18.00`) en dagbereiken (`ma-vr`) in de oogopslag-tabel breken niet af
+  (build zet ze in `span.ut-nw`). Ontbreekt het JSON, dan slaat `python3 build.py` (zonder argument) het uitje over met een regel
+  "overgeslagen"; `python3 build.py uitje-<slug>` stopt dan met een fout.
+- Arrangementkaart i.p.v. kamerslider (blok `ut-arr`, plek `<!-- UT_ARR -->` direct onder het dagverloop; nabouw Parkhotel `.gd-boek`):
+  aan zodra het uitje-JSON `arr-bron` heeft (= slug van een arrangement-JSON, `translations/<arr-bron>-nl.json`: VOUCHER, MEWS_CONFIG,
+  ARR_NACHTEN, ARR_KALENDER, KAART_VINK_A..D). Velden: `arr-naam` (h3, mag `<span class='al-g'>`), `arr-regel`, `arr-regel2` (optioneel),
+  `arr-vink1..6` (doorlopend tot het eerste lege; geen = KAART_VINK_A..D), `arr-foto`, `arr-alt`, `arr-knop`, `arr-paginalink` +
+  `arr-pagina-url` (tekstlink, alleen met url), `arr-kamerlink` (tekstlink naar Mews zonder code). Standaardteksten `arr-knop`,
+  `arr-paginalink`, `arr-kamerlink` in `uitje-labels-nl.json`; leeg zetten in het uitje-JSON = link weg. GEEN prijs op de kaart
+  (geen `data-arr-vanaf`, geen arr-vanaf.js). Boekknop = `a.mews-open[data-voucher]` met `mewsVoucherCode`; klik opent de prijskalender
+  (een `dialog.ark#ar-kal`, instellingen uit `content/arr-kalender.json`, NL-labels via `al_kalender_dialoog(..., taal='nl')` /
+  `AL_KAL_LABELS`, de adslander gebruikt dezelfde functie met `taal='de'`). `arrangement-kalender.css/.js` laden alleen dan. Staat de code
+  niet in arr-kalender.json of is `ARR_KALENDER` false, dan opent de knop Mews direct met de code. Kop-, slot- en onderbalkknop blijven
+  Mews zonder code: `adslander.js` roept bij elke Mews-knop zonder `data-voucher`/`mewsVoucherCode` `setVoucherCode('')` aan, zodat de widget
+  een eerder gezette actiecode (arrangementknop -> "Liever alleen een kamer?") wist. `arr-bron` + niet-lege `kamers` = build stopt; zonder kamers verdwijnen kamersectie, kamer-pop-up en kamerdata
+  (sjabloonregels `UT_KAMERSECTIE` ... `/UT_KAMERSECTIE`, de build haalt de markeringen weg; ZooParc-uitvoer is byte-gelijk gebleven).
+- Vangnet-kaartfoto (`kaart-foto` 1200x675, `kaart-foto-klein` 720x540) = de kaart zelf: `python3 scripts/uitje_kaartfoto.py <slug>
+  [--poort N] [--naar MAP]` (Playwright, element `.ut-kaart__beeld` op maat, Hele kaart tonen, knoppen/hint/voetstrook verborgen,
+  attributie onderaan; bestandsnamen uit het JSON; zonder `--poort` een eigen tijdelijke server; `--naar` = proef in een andere map).
+  Kip-ei bij een nieuw uitje: eerst tijdelijk de ZooParc-kaartfoto's onder de nieuwe namen kopiëren, bouwen, renderen, opnieuw bouwen.
+  Na een wijziging in `kaart` (coördinaten, `label`) de kaartfoto opnieuw renderen. Kaartpadding in `uitje.js` = [x, y]; telefoon onderrand 60.
+- Test (generiek): `python3 -m http.server 8792` + `python3 scripts/test_uitje.py http://localhost:8792/<slug>-v2.html [--schermafdruk qa/uitje]
+  [--breedtes 1440,390]`. Gegevens uit `translations/uitje-<slug>-nl.json` (+ labels): kamers (0 = geen sliderchecks), verhaalrijen, dagmomenten,
+  kaartpunten (url = link, pop = pop-up), meer-kaarten (url = link, anders pop-up), FAQ's, arrangementkaart (blokvolgorde met `ut-arr`,
+  data-voucher + config, kalender opent met NL-labels via gemockte `/api/arr-kalender`, kamerlink zonder code, `/api` pas na de klik).
+  Titel moet met "Hotel bij" beginnen (harde fout). De Mews-mock houdt per config de laatst gezette code bij (`log.code`): na arrangement
+  boeken -> kamerlink en na de slotknop moet die leeg zijn. Platen `<slug>-<breedte>-<blok>.png`,
+  `<slug>-<breedte>-volledig.png` en op arrangementpagina's `<slug>-<breedte>-kalender.png`.
+- Kaart: `knipLabels()` in `kaart-getekend.js` verbergt regio-, plaats- en bordnamen die niet helemaal binnen het kaartvlak vallen (`.gk-buiten`); draait als de kaart stilstaat en na `pasNamenIn` in `uitje.js`.
+- Actiecode wissen live bevestigd (11 nov 2026, echte Mews-widget op de preview): na de arrangementknop sturen kamerlink en slotknop `getPricing` met een lege `voucherCode` en toont de widget alleen gewone tarieven. Op de Duitse lander van PR #190 (oude `adslander.js`) blijft de code hangen tot deze tak daar ook in zit.
+- Talen (11 nov 2026): een uitje-entry kan `langs` nl/de/en hebben; uitvoer `<slug>-v2.html`, `<slug>-v2-de.html`, `<slug>-v2-en.html`,
+  gegevens `translations/uitje-<slug>-<taal>.json`. Labels en kamerbron per taal via build.py `ut_taalbron`:
+  `translations/uitje-labels-<taal>.json` en `content/uitje-kamers-<taal>.json` (DE-kamerteksten = sectie kamer van content/adslander-pop-de.json,
+  EN vertaald uit NL). DE/EN-labels hebben ook `telefoon` (+31 478 511 466) en `kop-boek` voor de kop/voet.
+- Kop/voet: `al_kop_voet(..., taal=lang)`; `de` = `al_kop_voet_de`, `en` = `al_kop_voet_en` (zelfde doelen, alleen labels). Mews-taal uit
+  `mews-taal` in de labels (nl-NL, de-DE, en-US), ook op de kamerlinks in de spiegelvoet.
+- hreflang (nl/de/en + x-default = NL) komt via de plek `UT_FAQ_LD` in de head (`ut_hreflang`: sluit het ld+json-script, links, lege
+  `<script>`), alleen voor talen waarvan de JSON bestaat en pas vanaf twee talen. Volledige build slaat een uitje-taal zonder JSON over
+  (regel "overgeslagen"); `python3 build.py uitje-<slug>` stopt dan wel.
+
+- Arrangementkaart in DE/EN (11 nov 2026): `arr-bron` blijft `translations/<arr-bron>-nl.json` (alleen VOUCHER, MEWS_CONFIG, ARR_NACHTEN,
+  ARR_KALENDER worden gebruikt; geen <arr-bron>-de/en.json). Vinkjes MOETEN als `arr-vink1..6` in het DE/EN-uitje-JSON staan: de terugval
+  KAART_VINK_A..D is Nederlands, de build stopt dan. `arr-knop`, `arr-paginalink`, `arr-kamerlink` staan ook in uitje-labels-de/en.json;
+  `arr-pagina-url` in DE/EN leeg laten (geen DE/EN-arrangementpagina). Prijskalender: `al_kalender_dialoog(..., taal=lang)` met
+  `AL_KAL_LABELS`/`al_kalender_teksten` voor nl, de en en; `arrangement-kalender.js` kiest maand-/weekdagnamen op `<html lang>`
+  (de = de-DE, en = en-GB, anders nl-NL). Test: `scripts/test_uitje.py` herkent `-v2-de.html`/`-v2-en.html` (JSON, labels en kamers van
+  die taal; titel "Hotel bij" / "Hotel " / "Hotel near"; hreflang, html lang, kop/voet en kalender per taal); platen `<slug>-de-<breedte>-...png`.
+- Golfpagina's (11 nov 2026, noindex): `uitje-golfclub-geijsteren` -> `/golfclub-geijsteren-v2` en `uitje-golfbaan-landgoed-bleijenbeek` ->
+  `/golfbaan-landgoed-bleijenbeek-v2`, beide met arrangementkaart GOLF (`arr-bron` golfarrangement, eigen `arr-vink1..4`, foto
+  `l26-golfarrangement-royale`). "Golfvariant" = alleen inhoud (oogopslag Adres/Baan/Greenfee/Gasten/Starttijd, g1-g4 fotokaarten
+  `fotos/l26-uitje-<geijsteren|bleijenbeek>-gN.webp`, 11 nov: algemene golfbeelden van Commons + golferfoto asteria.nl, credit `fotocredit-prak`), sjabloon ongewijzigd. Er zijn GEEN vrije foto's van de banen: hero/verhaal tonen landgoed, beek, ruïne en heide (Commons), nooit
+  "de golfbaan" in alt-teksten. Drie talen (11 nov 2026): `-v2`, `-v2-de`, `-v2-en` (JSON's `uitje-<slug>-de/en.json`, afgeleid uit NL,
+  nog niet door moedertaalsprekers nagelezen); onderlinge links naar de eigen taalversie, Maasduinen en Venray-centrum linken naar de
+  NL-adressen (`-v2`) tot daar een DE/EN-versie van is. Feiten: `qa/uitje/FEITEN-golfclub-geijsteren.md` en `-golfbaan-landgoed-bleijenbeek.md`.
+
+## Omgevingspagina's: overzicht + vijf categorieen (nov 2026, -v2, tak feature/omgeving-overzicht)
+
+- Nabouw van parkhotelhorst.nl/gebied/ en /gebieden/<cat>/ (parkhotel-site `pagina-gebied-overzicht-v2` en `pagina-categorie-v2`), zelfde
+  blokken en volgorde, in de Asteria-stijl van adslander + uitje-sjabloon. Uitvoer `omgeving-v2.html` en `omgeving-<cat>-v2.html`
+  (cultuur, dagje-uit, natuur, shoppen-steden, golf); DE/EN = `-v2-de/-en.html` zodra `translations/omgeving-<pagina>-<taal>.json` bestaat
+  (volledige build slaat een taal zonder JSON over). Alles noindex, follow, niet in sitemap, geen doorverwijzingen.
+- Bestanden: `omgeving.template.html`, `omgeving-categorie.template.html`, `omgeving.css` (prefix `om-`, laadt na lander-w1/adslander/uitje.css),
+  `omgeving.js` (deeplinks, Toon alle, golf-veegrij, fotoslider), `translations/omgeving-labels-nl.json` (vaste labels, categorienamen/-adressen/
+  -foto's), `translations/omgeving-<pagina>-nl.json`, `content/omgeving-categorie.json` (terugval slug -> categorie). Dagblok = `ut-dag` (uitje.css/
+  uitje.js), kamers/pop-ups/reviews/Mews = adslander.js. Build: TEMPLATES-entries `omgeving-*` (`'omgeving': '<pagina>'`) -> `build_omgeving`.
+- Kaarten zijn datagedreven: `om_register(taal)` leest bij elke build alle `translations/uitje-*` en `route-*-<taal>.json` (geen labels; zoekpagina's `zoek-*` sinds 11 nov 2026 NIET, `OM_BRONNEN`),
+  taal ontbreekt = NL-bestand (dedup via `hreflang.nl`). Velden via `OM_ALIAS` bovenaan het blok (naam: kaart-titel > kruimel > hero-kop; foto:
+  hero-foto-klein > hero-foto > hero-poster-bureaublad(-klein); minuten uit vk-auto/-fiets/-lopen; plaats: veld plaats > stad na de postcode in
+  kaart-naam > t1-waarde voor de komma; adres: pad uit canonical > TEMPLATES > `OM_ADRES_TERUGVAL`). Categorie: veld `categorie` >
+  content/omgeving-categorie.json > `OM_HEROCAT` > alleen overzicht + WAARSCHUWING. Sortering autominuten, onbekend achteraan, dan naam.
+  Routes = routes-strook op het overzicht + kaart op Natuur; zoekpagina's staan niet in het overzicht; golf = golf-uitjes, anders `_banen` uit
+  golfarrangement-nl.json. Aantallen (tegels, Toon alle) worden geteld.
+- Pagina-JSON: `conversie` `arr` (met `arr-bron`, fotoslider uit `_inbegrepen_fotos`, knop met code + prijskalender) of `kamers` (+ `kamers`);
+  golf: `_baan_chips` {naam: [chips]} en `_vergelijk` {kop, sub, rijen[{label, ico, waarden{naam: tekst}}]}: een rij zonder waarde voor elke baan
+  valt weg (geen greenfee-rij, geen prijzen). Lege-melding-CSS per filtercombinatie zet de build in een `<style>` in de kop.
+- Talen (fase 2, 11 nov 2026): DE (`-v2-de`, Sie-Form, mews-taal de-DE) en EN (`-v2-en`, Brits Engels, mews-taal en-US). Labels
+  `omgeving-labels-<taal>.json`; EN heeft `_kop_voet` ([nl, en]-paren, `om_kop_voet` past ze toe op de spiegelkop/-voet van `al_kop_voet`).
+  hreflang nl/de/en + x-default (nl), canonical naar zichzelf. NL-terugval zolang er geen taalbron is: kaarten (uitje-/route-/zoek-JSON
+  per taal, anders NL), kamers (`content/uitje-kamers-<taal>.json`, anders NL-kamerdata met de Mews-taal van de pagina), reviews
+  (`content/reviews-google-asteria-<taal>.json`, DE bestaat = vertaald + noot `rev-vertaald`; EN = NL-tekst + noot `rev-origineel`),
+  arrangementdata (teksten via `_arr_teksten`/`arr-vink*`/`_arr_alts` in de pagina-JSON) en arrangementlinks (`om_arr_url`: een
+  TEMPLATES-uitvoer `<slug>-<taal>.html` zonder bee2f902, nu alleen wellness-arrangement-de/-en; anders de NL-pagina). Golfbanen: teksten
+  via `_baan_teksten`. Prijskalender alleen nl/de (`AL_KAL_LABELS`); EN-knop opent Mews direct met de code. Deeplinks ook DE/EN
+  (#natur, #zu-fuss, #mit-dem-rad, #nature, #on-foot, #by-bike, ...).
+- Test: `python3 -m http.server 8813 --directory .` + `python3 scripts/test_omgeving.py http://localhost:8813 [--schermafdruk qa/omgeving]`
+  (alle bestaande taalversies; `--paginas omgeving-v2-de,...` voor een selectie).
+  Feiten en "nog nakijken": `qa/omgeving/FEITEN-omgeving.md`. Gotcha: een volledige `python3 build.py` herschrijft `kamertypes-v2.html` met een
+  open `{{OVERZICHT_ARR_URL}}` (bestaand, niet van dit blok): `git checkout -- kamertypes-v2.html`.
+- Integratie (11 nov 2026, tak feature/omgeving-integratie): alle -v2 omgevingspagina's (13 uitjes, 2 golf, 2 routes, 2 zoekpagina's,
+  overzicht + vijf categorieen) in een tak. `om_overzicht_link(html, lang)` zet in build_uitje/_zoek/_route/_omgeving de kop-/voetlink
+  `/omgeving` om naar `/omgeving-v2` (`-de`/`-en`), zodat elke pagina naar het -v2-overzicht linkt; bij promotie aanpassen. Zoekpagina
+  Arcen (nl/de/en) linkt in de kaartlijst naar Kasteeltuinen, Hertog Jan en Maasduinen; Overloon de/en naar de NL-pagina's museum/ZooParc.
+
+## Zoekpagina's (Hotel bij …) (nov 2026, proef)
+
+- Voor wie "hotel <plaats>" of "hotel <uitje>" zoekt: hotel eerst (boekknop, kamers, eigen wellness), daarna rijtijd en ligging.
+  Eerste: `/hotel-thermalbad-arcen-de-v2` (build-entry `zoek-hotel-thermalbad-arcen-de`), noindex, follow, canonical op zichzelf,
+  niet in sitemap.xml, niets in `_redirects`. Ook: `/hotel-thermaalbad-arcen-v2` (nl), `/hotel-thermal-bath-arcen-en-v2` (en),
+  `/hotel-overloon-v2`, `/hotel-overloon-de-v2`, `/hotel-overloon-en-v2` (Oorlogsmuseum, ZooParc, drie oorlogsbegraafplaatsen;
+  feiten `qa/zoek/FEITEN-overloon.md`). Boxmeer (11 nov 2026, besluit Stijn na Google-check: top 10 = twee lokale hotels + platforms):
+  `/hotel-boxmeer-v2`, `-de-v2`, `-en-v2` (entries `zoek-hotel-boxmeer-nl/-de/-en`; 4 kaartpunten centrum/Steenstraat, Maasheggen,
+  Oorlogsmuseum, ZooParc; arrangementkaarten als Overloon; rijtijd 15 min/15 km via OSRM; feiten `qa/zoek/FEITEN-boxmeer.md`).
+  Plan `~/.claude/plans/lazy-twirling-russell.md`, blokkenkiezer
+  `~/Documents/Parkhotel /Website ontwerp/asteria-zoekpagina-blokkenkiezer/` (keuzecode 1a-2a-3b-4a-5a-6b-7b-8a-9a-10b).
+- Bestanden: `zoek.template.html` (blokken tussen `<!--[blok naam]-->` en `<!--[/blok]-->`), `zoek.css` (prefix `zk-`, alleen
+  de nieuwe blokken 3b intro en 7b ligging + aansluitingen; laadt na lander-w1/adslander/uitje/kaart-getekend.css). Geen eigen
+  script: `adslander.js` (Mews, kamerslider, pop-ups, FAQ-tabs), `uitje.js` + `kaart-getekend.js` (kaart), `arrangement-kalender.js`
+  + `arr-vanaf.js` (arrangementen) ongewijzigd. Gegevens: `translations/zoek-labels-<taal>.json` (vaste labels, eerst),
+  `translations/zoek-<slug>-<taal>.json` (een bestand per pagina en taal, wint), `content/zoek-kamers-<taal>.json` (kamerkaarten
+  zonder prijs + pop-upinhoud arr/fac, uit content/adslander-pop-de.json). Kaartfoto's `fotos/l26-zoek-kaart-<slug>(-klein).webp`.
+- build.py `build_zoek`: taal = sleutel onder `langs` (`ZK_TALEN`: nl/de/en -> Mews nl-NL/de-DE/en-US, `<html lang>`), `blokken` in
+  de JSON = volgorde onder de hero (oog, intro, kamers, wellness, arr, ligging, reviews, faq, slot; niet genoemd = niet gebouwd;
+  oog direct onder de hero = paneel 120 px over de hero). Arrangementkaarten via `arr-links/-uit/-rechts-bron` zoals de adslander
+  (lege bron = kaart weg), kalenderteksten uit de labels (`kal-*`). Kaart: `kaart.punten` met nr/naam/lat/lng/label/zin/rijtijd,
+  geen hoofd/pop; optioneel `url` + `url-label` = tekstlink in de lijst (gaat niet mee naar de kaartdata; Overloon NL linkt naar
+  /oorlogsmuseum-overloon-v2 en /zooparc-overloon-v2); het eerste punt is uitgelicht (CSS `.gk-hotel + .gk-punt`), de andere
+  punten tonen alleen hun nummer. Optioneel `hreflang` {nl, de, en: url} = alternate-links in de kop (eigen taal = eigen canonical).
+  Reviews: `rev-bestand` uit de labels (nl = originelen, de/en = vertaling `content/reviews-google-asteria-<taal>.json` met
+  `rev-vertaald`; leeg = geen vertaalregel), optioneel `rev-namen` = selectie en volgorde. Hero zonder video: video-velden leeg.
+  FAQ: `faq-tab-T` + `faq-T-N-v/-a` (een tab = geen tablist), FAQPage JSON-LD = zichtbare tekst. Wellnessmozaiek precies 5 tegels.
+  Stopt bij open veld, ontbrekend bestand, em-dash, onbekend blok. Kop/voet: `al_kop_voet` (de = Duitse labels, nl = NL-labels;
+  en = NL-uitvoer + `zk_kop_voet_en` in build_zoek, zodat de/nl byte-identiek blijven).
+- Nieuwe pagina of taal: JSON kopiëren naar `translations/zoek-<slug>-<taal>.json`, invullen (feiten met bron in
+  `qa/zoek/FEITEN-<slug>.md`, onzekere feiten in `_controleren`), regel in TEMPLATES (`'zoek': True`, sleutel onder `langs` = taal),
+  voor nl/en ook `translations/zoek-labels-<taal>.json` en `content/zoek-kamers-<taal>.json`. Dan
+  `python3 scripts/zoek_kaartfoto.py zoek-<slug>-<taal>` (bouwt zonder kaartfoto, rendert de kaart op 1200x800 en 720x540, bouwt opnieuw).
+- Test: `python3 -m http.server 8797 --directory .` + `python3 scripts/test_zoek.py [URL] [--json translations/zoek-<slug>-<taal>.json]
+  [--schermafdruk qa/zoek] [--naam de-arcen]` (1440 en 390; Mews en /api gemockt; noindex, hreflang, rijtijd in de eerste alinea
+  = veld `test-rijtijd` uit de pagina-JSON (bv. "10 minuten"), geen kk-prijs
+  of /api/kamer-vanaf, Mews-taal, kaart met punten, FAQ-tabs, overloop, console). Platen `qa/zoek/<naam>-<breedte>-<blok>.png`.
+
+## Routepagina's (nov 2026, proef)
+
+- Exacte nabouw van parkhotelhorst.nl/gebied/fietsroutes/ en /wandelroutes/ (parkhotel-site `pagina-routes-v3`) in de Asteria-stijl:
+  `/fietsen-rond-venray-v2` en `/wandelen-rond-venray-v2` (+ `-de`, `-en`), build-entries `fietsen-rond-venray` / `wandelen-rond-venray`
+  (`'route': True`, `build_route`), noindex, follow, niet in sitemap, nergens gelinkt, geen redirects. Fiets: titel/H1 met Fietshotel
+  (DE Fahrradhotel, EN Cycling hotel) voor "fietshotel limburg"; 7b = Limburg Arrangement (knop /limburg-arrangement + Mews met code
+  LIMBURG). Wandel: 7b = de kamerslider van het uitje-sjabloon (geen prijs).
+- Bestanden: `route.template.html`, `route.css` (prefix `rt-`, laadt na lander-w1.css, adslander.css, kaart-getekend.css), `route.js`
+  (lengtefilter chips + kaartbalk met `?lengte=kort|gemiddeld|lang`, kaart lazy via `window.AsteriaKaart` met de routes inline in
+  `#rt-kaart-routes`, lijst/strook, pop-up met `#route-<slug>`, fotoslider); `adslander.js` doet Mews (taal uit `data-mews-taal`),
+  kamerslider, kamer-pop-ups, onderbalk en cookie. Teksten: `translations/route-labels-<taal>.json` + `route-fietsen-<taal>.json` /
+  `route-wandelen-<taal>.json` (NL levert de taalvrije velden; DE/EN moeten alle tekst hebben, anders stopt de build); kamers DE/EN in
+  `content/route-kamers-<taal>.json`. Kop/voet: `al_kop_voet` (nl/de) en `rt_kop_voet` (EN-vervangtabel `RT_KOP_EN`).
+- Routes: `python3 scripts/routes_os.py` (Asteria OS, alleen lezen; `~/.asteria-os-live.env`) schrijft `content/routes/fiets.json` en
+  `wandel.json` (wandel = `content/routes/wandel-eigen.json` + vier OS-routes; tijden eigen gebieden via OSRM). De build leest alleen
+  die bestanden. Lengteklassen fiets 30/50 km (Parkhotel), wandel 6/12 km. Daarna `python3 scripts/route_kaartfoto.py` (vangnetkaart
+  `fotos/l26-route-kaart-<soort>.webp` en lus-kaartjes `fotos/l26-route-lus-<slug>.webp`) en `python3 build.py fietsen-rond-venray
+  wandelen-rond-venray`. Feiten en aannames: `qa/routes/FEITEN-fietsen.md`, `FEITEN-wandelen.md`.
+- Test: `python3 -m http.server 8793` + `python3 scripts/test_route.py [URL] [--schermafdruk qa/routes] [--parkhotel]` (alle zes
+  pagina's, 1440 en 390, Mews en /api gemockt; `--parkhotel` = ook de live Parkhotel-blokken en vergelijkingsbeelden in `<map>/vergelijk/`).
+
+## Feedback omgevingsweb (11 nov 2026, tak feature/omgeving-integratie)
+
+- Google-reviewblok op alle omgevingspagina's (uitje/golf + routes na de FAQ, zoekpagina's op de plek van blok `reviews`,
+  overzicht `omgeving-v2` na de FAQ; niet op de categoriepagina's), sinds 11 nov 2026 i.p.v. het Tripadvisor-blok: build.py
+  `google_reviewblok(lang, extra_cls)` (data-component `grv`), `reviews-google.css` (prefix `grv`) + `reviews-google.js` (pijlknop
+  bureaublad). Paneel: Google-G, 4,2, sterren, aantal (link profiel_url), sterrenverdeling (5 balkjes #FBBC04), Vaak genoemd (chips);
+  kaarten = `selectie` (max 8) uit `content/reviews-google-asteria(-de/-en).json`, ingekort met `rev_inkorten` (= inject_reviews),
+  maand/jaar afgeleid van de relatieve Google-datum op de ophaaldag (13 okt 2026). DE/EN = vertaling + regel `vertaald` in het paneel.
+  Cijfers en labels: `content/reviews-google-overzicht.json` (score, aantal, verdeling in %, onderwerpen per taal, alle Google-chips met
+  sentiment, bron_url, datum). Bron: google.com/travel/search?q=Hotel+Asteria+Venray&hl=nl -> resultaat Hotel Asteria Venray -> tab
+  Reviews -> "Review-overzicht van Google"; verdeling exact uit `aria-label` "NN procent geeft N sterren.", chips uit `data-label`/
+  `data-positive`/`data-negative`/`data-sentiment` (1 = duim omhoog, 2 = omlaag, 0 = geen duim; alleen 1 gebruiken). Verversen: Playwright
+  (headless, locale nl-NL, "Alles afwijzen"), tab Reviews, die attributen uitlezen, JSON bijwerken (+ `google-aantal`/`google-aria` in
+  `translations/zoek-labels-*.json` en `reviewCount` in zoek.template.html), `python3 build.py`. `content/reviews-google-asteria*.json`
+  (`aantal` 2280) en `content/reviews-tripadvisor.json` NIET aanpassen voor dit blok: die voeden de live landers (hotel-venray-v2,
+  wellnesshotel-limburg-de) resp. staan alleen nog als archief. Het al-rev-blok staat alleen nog op de adslanders.
+- Zoekpagina's telefoon (opzet "g9" van de Parkhotel-lander): hero = 100svh min `--kophoogte`, inhoud onderin (h1, sub, Google-regel
+  `zk-hero__google` met `google-uit` uit de labels, knop), badge en zekerheden in de hero verborgen; zekerheden als `ul.zk-chips` direct
+  onder de hero (alleen < 768 px). Bureaublad ongewijzigd.
+- Gescoopte CSS (adslanders blijven gelijk): kamerslider gap 16 px (`.ut`/`.rt`), `.ut .ut-arr__links a` zonder onderstreping,
+  categorietegels `om-meer` met verloop en witte naam.
+- Zoekpagina's uit het register (11 nov 2026): `om_register` leest geen `zoek-*` meer en de zoek-slugs zijn uit `content/omgeving-categorie.json`.
+  De zoekpagina's zelf blijven bestaan en houden hun kop-/voetlink naar het overzicht. Overzicht nu 18 plekken (16 kaarten + 2 routes in de
+  strook): cultuur 5, dagje-uit 4, natuur 4 (2 uitjes + 2 routes), shoppen-steden 3, golf 2; DE/EN gelijk.
+- Uitjepagina Thermaalbad Arcen (11 nov 2026): build-entry `uitje-thermaalbad-arcen` -> `/thermaalbad-arcen-v2` (+ `-de`, `-en`), noindex,
+  categorie dagje-uit (tabel). Titel bewust op de bestemming ("Thermaalbad Arcen: wellness op 23 minuten van Hotel Asteria Venray", DE
+  "Thermalbad Arcen: ...", EN "Thermaalbad Arcen: wellness 23 minutes ..."), niet "Hotel bij": die titel heeft de zoekpagina. Daarom veld
+  `test-titel-begin` in het uitje-JSON; `scripts/test_uitje.py` gebruikt dat als verwacht titelbegin (anders Hotel bij/Hotel /Hotel near).
+  Arrangementkaart wellness (`arr-bron` wellness-arrangement, WELLNESS2026; paginalink /wellness-arrangement, -de, -en), g1-g6 icoonkaarten
+  zonder foto, verhaal alleen v1. FAQ f6 linkt naar de zoekpagina; de zoekpagina's Arcen linken in de kaartlijst bij punt 1 naar de uitjepagina.
+  Officiele bron = roompot.nl (thermaalbad-arcen.nl bestaat niet). Feiten `qa/uitje/FEITEN-thermaalbad-arcen.md`. Beeld zwak: enige vrije foto
+  van het bad = ingang uit 2008 (Commons, Rafkeeee, CC BY-SA 3.0); liever eigen/persbeeld.

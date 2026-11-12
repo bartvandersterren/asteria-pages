@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, sjabloon ROUTE: de routepagina's /fietsen-rond-venray-v2 en /wandelen-rond-venray-v2 (+ -de, -en).
+  EXACTE NABOUW van parkhotelhorst.nl/gebied/fietsroutes/ en /gebied/wandelroutes/ (parkhotel-site
+  src/fragmenten/pagina-routes-v3.html + pagina-routes-v3.css + blok-kaart-getekend + pagina-routes-v3.js): zelfde blokken,
+  zelfde volgorde, zelfde gedrag, in de Asteria-stijl van de adslander en het uitje-sjabloon (kop/voet, kleuren, letters,
+  knoppen, panelen). Klassenprefix rt- (Parkhotel ro-).
+
+  BLOKVOLGORDE (data-component, zoals Parkhotel ro-*)
+    kop       spiegelkop van /hotel-venray-v2 (build.py al_kop_voet; EN via rt_kop_voet), dekkend en sticky
+    1b  rt-hero    volle foto, h1 + onderregel gecentreerd, rust onderin voor het paneel
+    2a  rt-oog     paneel dat 120 px (telefoon 64) over de hero hangt: kop, vier icoontegels, twee knoppen
+    3b  rt-routes  raster van drie kolommen: kopvak (h2, intro, vier lengtechips) + een kaartje per route
+    4c  rt-kaart   paneel: getekende kaart (kaart-getekend.js, lazy) links, filterbalk + routelijst rechts, strook onderin de kaart
+    6a  rt-prak    Goed om te weten: vier fotokaarten, boekknop + bellink
+    7b  rt-arr     fiets: arrangementblok (fotoslider zes dia's + paneel met vinkjes); wandel: de kamerslider (#kamers)
+    8a  rt-faq     kop + belregel links, vijf vragen rechts (eerste open), FAQPage JSON-LD = zichtbare tekst
+    9c  rt-wissel  kruislink: deze pagina actief, de andere als link
+    10a rt-slot    brede foto met waas, kop, regel, twee knoppen
+    voet      spiegelvoet van /hotel-venray-v2
+    + route-pop-up #rtPop (gevuld uit het routekaartje), kamer-pop-ups (wandel), onderbalk .mob-cta, cookiemelding
+
+  Velden (dubbele accolades + veldnaam) komen uit translations/route-labels-<taal>.json + translations/route-<pagina>-<taal>.json;
+  de RT-plekken (HTML-commentaar met RT_ en een naam) en AL_KOP/AL_VOET vult build.py (build_route).
+  Bouwen: python3 build.py fietsen-rond-venray   /   python3 build.py wandelen-rond-venray
+-->
+<html lang="{{html-taal}}" data-mews-taal="{{mews-taal}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{titel}}</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{{omschrijving}}">
+  <meta name="robots" content="{{robots}}">
+  <link rel="canonical" href="{{canonical}}">
+  <!-- RT_HREFLANG -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{{og-titel}}">
+  <meta property="og:description" content="{{og-omschrijving}}">
+  <meta property="og:image" content="{{og-image}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:locale" content="{{og-locale}}">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://app.mews.com">
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- de herofoto is het grootste beeld in het eerste scherm -->
+  <link rel="preload" as="image" fetchpriority="high" href="{{hero-foto-klein}}" imagesrcset="{{hero-foto-klein}} 960w, {{hero-foto}} 1600w" imagesizes="100vw">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="adslander.css">
+  <link rel="stylesheet" href="kaart-getekend.css">
+  <link rel="stylesheet" href="route.css">
+  <link rel="stylesheet" href="reviews-google.css">
+  <script src="adslander.js" defer></script>
+  <script src="reviews-google.js" defer></script>
+  <script src="kaart-getekend.js" defer></script>
+  <script src="route.js" defer></script>
+  <script src="analytics-d1.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    gtag('set', 'linker', { accept_incoming: true });
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+  <!-- WebPage + BreadcrumbList en FAQPage (tekst = zichtbare tekst, build.py haalt de HTML-tags eruit) -->
+  <script type="application/ld+json"><!-- RT_LD --></script>
+  <script type="application/ld+json"><!-- RT_FAQ_LD --></script>
+</head>
+<body class="al-pagina rt-pagina">
+
+<!-- AL_KOP -->
+
+<main id="inhoud" class="lp al rt" data-soort="{{soort}}">
+
+  <!-- 1b. Hero: volle foto met bruin verloop, h1 en onderregel gecentreerd; rust onderin voor het oogopslagpaneel -->
+  <section data-component="rt-hero" class="al-hero rt-hero" style="--rt-hero-focus:{{hero-focus}}">
+    <div class="al-hero__foto">
+      <img src="{{hero-foto-klein}}" srcset="{{hero-foto-klein}} 960w, {{hero-foto}} 1600w" sizes="100vw" alt="{{hero-alt}}" width="1600" height="1066" fetchpriority="high" decoding="async">
+    </div>
+    <div class="al-wrap al-hero__wrap rt-hero__wrap">
+      <div class="al-hero__tekst rt-hero__tekst">
+        <h1 class="rt-hero__kop">{{hero-kop}}</h1>
+        <p class="al-hero__sub rt-hero__sub">{{hero-sub}}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2a. In een oogopslag: paneel over de onderrand van de hero, vier icoontegels (tegel 1 en 2 uit de routedata), twee knoppen -->
+  <section data-component="rt-oog" class="rt-oog">
+    <div class="al-wrap">
+      <div class="al-paneel rt-oog__paneel">
+        <h2 class="rt-h2 rt-oog__kop">{{oog-kop}}</h2>
+        <ul class="rt-tegels"><!-- RT_TEGELS --></ul>
+        <div class="rt-knoppen rt-oog__knoppen">
+          <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+          <a class="btn al-btn al-btn--ghost-donker" href="{{tweede-url}}">{{tweede-knop}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3b. Routekaarten: raster van drie kolommen; eerste vak = kop, intro en lengtechips (filter, rt.js); elk kaartje opent de pop-up -->
+  <section data-component="rt-routes" class="al-sec rt-sec rt-routes">
+    <div class="rt-wrap--breed">
+      <div class="rt-raster">
+        <div class="rt-routes__kop">
+          <h2 class="rt-h2">{{routes-kop}}</h2>
+          <p class="rt-routes__intro">{{routes-intro}}</p>
+          <div class="rt-chips" role="group" aria-label="{{chips-label}}"><!-- RT_CHIPS --></div>
+        </div>
+        <!-- RT_KAARTJES -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 4c. Alle routes op de kaart: paneel, kaart links (lazy, kaart-getekend.js; vangnet = de stilstaande kaartfoto), rechts
+       filterbalk + routelijst met afstandsbalk; onderin de kaart schuift de strook met de gekozen route in -->
+  <section data-component="rt-kaart" class="al-sec rt-sec rt-kaart">
+    <div class="al-wrap">
+      <div class="al-paneel rt-kaart__paneel">
+        <div class="rt-kaart__kop">
+          <h2 class="rt-h2">{{kaart-kop}}</h2>
+          <p>{{kaart-regel}}</p>
+        </div>
+        <!-- RT_KAART -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 6a. Goed om te weten: kop en regel gecentreerd, vier fotokaarten, boekknop + bellink -->
+  <section data-component="rt-prak" class="al-sec rt-sec rt-prak">
+    <div class="al-wrap">
+      <div class="rt-prak__kop">
+        <h2 class="rt-h2">{{prak-kop}}</h2>
+        <p class="rt-prak__tekst">{{prak-tekst}}</p>
+      </div>
+      <ul class="rt-prak__tegels"><!-- RT_PRAK --></ul>
+      <div class="rt-prak__acties">
+        <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+        <a class="rt-prak__link" href="{{tel-url}}">{{prak-link}} <svg class="rt-prak__pijltje" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7b. Conversieblok: fiets = het Limburg-arrangement (fotoslider + paneel), wandel = de kamerslider zonder prijs -->
+  <!-- RT_CONVERSIE -->
+
+  <!-- 8a. Veelgestelde vragen: kop + belregel links, vijf vragen rechts, eerste open; geen script -->
+  <section data-component="rt-faq" class="al-sec rt-sec al-faq rt-faq">
+    <div class="al-wrap al-faq__raster">
+      <div class="al-faq__kop">
+        <h2>{{faq-kop}}</h2>
+        <a class="al-faq__tel" href="{{tel-url}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg><span>{{l-bel}}</span></a>
+      </div>
+      <div class="as-accordeon"><!-- RT_FAQ --></div>
+    </div>
+  </section>
+
+  <!-- 8b. Google-reviewblok (gedeeld: build.py google_reviewblok, reviews-google.css/.js) -->
+  <!-- RT_REVIEWS -->
+
+  <!-- 9c. Kruislink als schakelaar: deze pagina actief (rand, geen link), de andere routepagina als link met knop -->
+  <section data-component="rt-wissel" class="al-sec rt-sec rt-wissel">
+    <div class="al-wrap">
+      <div class="rt-wissel__kop">
+        <h2 class="rt-h2">{{wissel-kop}}</h2>
+        <p>{{wissel-regel}}</p>
+      </div>
+      <!-- RT_WISSEL -->
+    </div>
+  </section>
+
+  <!-- fotocredit voor de hele pagina (Wikimedia Commons; alleen als er foto's met naamsvermelding op de pagina staan) -->
+  <!-- RT_FOTOCREDIT -->
+
+  <!-- 10a. Slot: brede foto met waas, kop, regel en twee knoppen -->
+  <section data-component="rt-slot" class="rt-slot" style="--rt-slot-focus:{{slot-focus}}">
+    <img class="rt-slot__foto" src="{{slot-foto}}" alt="{{slot-alt}}" width="1400" height="818" loading="lazy" decoding="async">
+    <span class="rt-slot__waas" aria-hidden="true"></span>
+    <div class="al-wrap rt-slot__in">
+      <h2 class="rt-h2">{{slot-kop}}</h2>
+      <p class="rt-slot__tekst">{{slot-tekst}}</p>
+      <div class="rt-knoppen">
+        <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+        <a class="btn al-btn rt-knop--ghost" href="{{tweede-url}}">{{tweede-knop}}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RT_KAMERPOP -->
+
+</main>
+
+<!-- AL_VOET -->
+
+<!-- POP-UP PER ROUTE: leeg in de HTML; route.js vult hem uit het routekaartje (data-foto, data-lus, data-vorm, data-tekst,
+     naam, feiten, startregel, knooppunten, externe link en Maps-link). Openen: foto, naam of Meer over deze route op een kaartje,
+     Bekijk in de strook onderin de kaart, of #route-<slug> in de URL. Onder 1024 px een blad van onderen. -->
+<div class="rt-pop-overlay" id="rtPop" data-lus-alt="{{pop-lus-alt}}" data-beeld="{{foto-label}}">
+  <div class="rt-pop" role="dialog" aria-modal="true" aria-labelledby="rtPopNaam">
+    <span class="rt-pop__greep" aria-hidden="true"></span>
+    <button type="button" class="rt-pop__sluit" aria-label="{{pop-sluiten}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="rt-pop__strook">
+      <div class="rt-pop__track"></div>
+      <div class="rt-pop__dots"></div>
+      <button type="button" class="rt-pop__pijl rt-pop__pijl--vorige" data-stap="-1" aria-label="{{foto-vorige}}"><svg width="20" height="20" fill="none" viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg></button>
+      <button type="button" class="rt-pop__pijl rt-pop__pijl--volgende" data-stap="1" aria-label="{{foto-volgende}}"><svg width="20" height="20" fill="none" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4l6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg></button>
+    </div>
+    <div class="rt-pop__body">
+      <p class="rt-pop__credit" hidden>{{credit-woord}}: <a class="rt-pop__credit-naam" href="#" rel="noopener" target="_blank"></a>, <span class="rt-pop__credit-lic"></span></p>
+      <span class="rt-pop__vorm"></span>
+      <h2 class="rt-pop__naam" id="rtPopNaam" tabindex="-1"><span class="rt-stip" aria-hidden="true"></span><span class="rt-pop__titel"></span></h2>
+      <div class="rt-pop__feiten"></div>
+      <p class="rt-pop__tekst"></p>
+      <div class="rt-pop__voet">
+        <a class="btn btn-primary rt-pop__cta" href="#" target="_blank" rel="noopener"></a>
+        <div class="rt-pop__links">
+          <a class="rt-link rt-pop__maps" href="#" target="_blank" rel="noopener">{{link-plan}} <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+          <button type="button" class="rt-link rt-pop__toon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6z"/><path d="M9 4v14M15 6v14"/></svg> {{pop-toon}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mob-cta-ruimte" aria-hidden="true"></div>
+<div class="mob-cta" aria-hidden="true">
+  <a class="mob-cta-bel" href="{{tel-url}}" aria-label="{{tel}}" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
+  <div><b>{{sticky-kop}}</b><span class="om">{{sticky-sub}}</span></div>
+  <a class="btn btn-primary mews-open" href="{{mews-basis}}" tabindex="-1">{{sticky-knop}}</a>
+</div>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookies">
+  <span>{{cookie-tekst}} <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">{{cookie-meer}}</a></span>
+  <button type="button" id="cookieAccept">{{cookie-knop}}</button>
+</div>
+
+<link rel="stylesheet" href="adslander-pop.css">
+</body>
+</html>

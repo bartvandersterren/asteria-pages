@@ -1,0 +1,234 @@
+{
+  "_uitleg": "Tripadvisor-reviewblok (reviews-ta.css/.js, build.py ta_reviewblok) op alle omgevingspagina's. Opgehaald 2026-11-11 met Playwright van tripadvisor.nl/.de/.com (sortering Meest recent): alleen reviews in de eigen taal (EN: originele Engelse reviews, geen machinevertalingen van Tripadvisor), 4 of 5 bollen, tekst letterlijk (spelfouten niet verbeterd), alleen ingekort aan het eind op een zinseinde. Naam = weergavenaam op Tripadvisor, datum = maand van de review. Score en deelscores van de hotelpagina (11 nov 2026).",
+  "opgehaald": "2026-11-11",
+  "score": 3.9,
+  "bollen": 4,
+  "aantal": 351,
+  "deel": {
+    "locatie": 4.1,
+    "kamers": 4.0,
+    "prijs": 3.8,
+    "hygiene": 4.1,
+    "service": 4.1,
+    "slaap": 4.0
+  },
+  "talen": {
+    "nl": {
+      "url": "https://www.tripadvisor.nl/Hotel_Review-g652276-d1726559-Reviews-Hotel_Asteria_Venray-Venray_Limburg_Province.html",
+      "kop": "Wat gasten op Tripadvisor <span class='al-g'>zeggen</span>",
+      "woord": "Goed",
+      "aantal-label": "beoordelingen",
+      "positie": "Nr. 1 van de 4 hotels in Venray",
+      "bron-paneel": "Beoordelingen op",
+      "bron-kaart": "Beoordeeld op",
+      "rij-label": "Reviews van gasten op Tripadvisor",
+      "pijl-label": "Volgende reviews",
+      "deel": {
+        "locatie": "Locatie",
+        "kamers": "Kamers",
+        "prijs": "Prijs/kwaliteit",
+        "hygiene": "Hygiëne",
+        "service": "Service",
+        "slaap": "Slaapkwaliteit"
+      },
+      "reviews": [
+        {
+          "naam": "Annies",
+          "datum": "nov 2026",
+          "bollen": 4,
+          "titel": "Prima hotel",
+          "tekst": "Fijn hotel, lekker ontbijt. Ook een goed restaurant erbij. We zijn er nu verschillende keren verbleven en weinig op of aan te merken."
+        },
+        {
+          "naam": "John W",
+          "datum": "nov 2026",
+          "bollen": 4,
+          "titel": "Genieten",
+          "tekst": "Ná een familiefeest in Venray een slaapplaats nodig voor 1 nacht. Wat een geluk dat ik de laatste kamer kon boeken. Goede locatie, prima service en waanzinnig mooie kamer met een super bed."
+        },
+        {
+          "naam": "Ferry d",
+          "datum": "nov 2026",
+          "bollen": 5,
+          "titel": "Weer een heerlijk verblijf in Hotel Asteria",
+          "tekst": "Uitstekend ontvangst en prima kamer. Tip top verzorgt. Het was deze keer maar een nachtje maar dat maakte het niet minder plezierig. Zeer vriendelijke medewerkers."
+        },
+        {
+          "naam": "Wessel B",
+          "datum": "okt 2026",
+          "bollen": 4,
+          "titel": "zakelijke overnachting",
+          "tekst": "fijne rustige kamer met sauna, heerlijk ontspannen na een harde dag werken."
+        },
+        {
+          "naam": "Max B",
+          "datum": "okt 2026",
+          "bollen": 4,
+          "titel": "Goed gastvrij en verzorgd hotel",
+          "tekst": "Een goed hotel, die ondanks dat het best groot is, gastvrijheid en verzorgdheid uitstraalt. Vriendelijk personeel met een persoonlijke touch, zoals je dat in Limburg vaak kan verwachten. Goede prijs-kwaliteitverhouding. Heerlijke en goed verzorgde wellness."
+        },
+        {
+          "naam": "Michel U",
+          "datum": "okt 2026",
+          "bollen": 5,
+          "titel": "Prima hotel",
+          "tekst": "Heel vriendelijk personeel. Snel geholpen bij de receptie. En ook de bediening in het restaurant was snel en vriendelijk. En prima porties."
+        },
+        {
+          "naam": "Pieter K",
+          "datum": "okt 2026",
+          "bollen": 5,
+          "titel": "de gast wordt gewaardeerd",
+          "tekst": "Met een zeer vriendelijke en behulpzame ontvangst, hebben wij als gezin (3) een heel prettig en gezellig verblijf gehad."
+        },
+        {
+          "naam": "Zwarte A",
+          "datum": "okt 2026",
+          "bollen": 5,
+          "titel": "Super gewoon.",
+          "tekst": "Prima combinatie van snelladen, heerlijk dineren, prima overnachten en dan nog eens lekker ontbijten. Wat wil je nog meer?."
+        }
+      ]
+    },
+    "de": {
+      "url": "https://www.tripadvisor.de/Hotel_Review-g652276-d1726559-Reviews-Hotel_Asteria_Venray-Venray_Limburg_Province.html",
+      "kop": "Was Gäste auf Tripadvisor <span class='al-g'>sagen</span>",
+      "woord": "Gut",
+      "aantal-label": "Bewertungen",
+      "positie": "Nr. 1 von 4 Hotels in Venray",
+      "bron-paneel": "Bewertungen auf",
+      "bron-kaart": "Bewertet auf",
+      "rij-label": "Bewertungen von Gästen auf Tripadvisor",
+      "pijl-label": "Nächste Bewertungen",
+      "deel": {
+        "locatie": "Lage",
+        "kamers": "Zimmer",
+        "prijs": "Preis-Leistung",
+        "hygiene": "Sauberkeit",
+        "service": "Service",
+        "slaap": "Schlafqualität"
+      },
+      "reviews": [
+        {
+          "naam": "Udo S",
+          "datum": "Nov. 2026",
+          "bollen": 5,
+          "titel": "Gute Erfahrung. Wir kommen wieder!",
+          "tekst": "Guter Service, Sauber, ansprechendes Zimmer. Drei Gänge Menü war ausgezeichnet. Aufmersame und netter Service."
+        },
+        {
+          "naam": "Stephan B",
+          "datum": "Okt. 2026",
+          "bollen": 5,
+          "titel": "Rundum zufrieden",
+          "tekst": "War alles bestens. Schönes Zimmer. Hatte auch Abends einen schönen Platz im Restaurant. Top Bedienung."
+        },
+        {
+          "naam": "Klaus M",
+          "datum": "Aug. 2026",
+          "bollen": 5,
+          "titel": "Super Kurzurlaub mit hervorragender Küche.",
+          "tekst": "Wir waren wieder einmal sehr zufrieden. Die Renovierung hat das Zimmer (306) nochmals aufgewertet."
+        },
+        {
+          "naam": "Cheryl G",
+          "datum": "Juli 2026",
+          "bollen": 5,
+          "titel": "Wir kommen gerne wieder!",
+          "tekst": "Wir brauchten unbedingt mal eine Auszeit vom Alltag und wollten es uns einfach mal gut gehen lassen und das kann man hier auf jeden Fall. Das Hotel ist stilvoll eingerichtet, sauber, hat sehr nettes Personal und es hat uns an nichts gefehlt."
+        },
+        {
+          "naam": "Manfred O.",
+          "datum": "Juli 2026",
+          "bollen": 5,
+          "titel": "Wir kommen gern wieder. Reservierung für nächstes Jahr ist erfolgt",
+          "tekst": "Preis-Leistung stimmen. Zimmer sehr sauber und ruhig. Frühstücksbüffet ausreichend und lecker, für jeden etwas dabei"
+        },
+        {
+          "naam": "Kai L",
+          "datum": "Juli 2026",
+          "bollen": 5,
+          "titel": "Sehr schöne Junior Suite",
+          "tekst": "Sauberes Zimmer, sehr netter Service"
+        },
+        {
+          "naam": "Silvia B",
+          "datum": "Juni 2026",
+          "bollen": 5,
+          "titel": "Sehr gutes Hotel, ist zu empfehlen",
+          "tekst": "Geräumiges Zimmer, sehr sauber. Super Frühstück, alles sehr gut. Wer hier am Buffet nichts findet ,das gibt nicht. Sehr nettes Personal und hilfsbereit."
+        },
+        {
+          "naam": "Markus E",
+          "datum": "Juni 2026",
+          "bollen": 5,
+          "titel": "Eine sehr angenehme Übernachtung",
+          "tekst": "Sehr nettes Personal, super Service, gemütliche und saubere Zimmer, tolle Betten und ein super Restaurant/Bar"
+        }
+      ]
+    },
+    "en": {
+      "url": "https://www.tripadvisor.com/Hotel_Review-g652276-d1726559-Reviews-Hotel_Asteria_Venray-Venray_Limburg_Province.html",
+      "kop": "What guests say on <span class='al-g'>Tripadvisor</span>",
+      "woord": "Good",
+      "aantal-label": "reviews",
+      "positie": "No. 1 of 4 hotels in Venray",
+      "bron-paneel": "Reviews on",
+      "bron-kaart": "Reviewed on",
+      "rij-label": "Guest reviews on Tripadvisor",
+      "pijl-label": "Next reviews",
+      "deel": {
+        "locatie": "Location",
+        "kamers": "Rooms",
+        "prijs": "Value",
+        "hygiene": "Cleanliness",
+        "service": "Service",
+        "slaap": "Sleep quality"
+      },
+      "reviews": [
+        {
+          "naam": "peter y",
+          "datum": "Nov 2026",
+          "bollen": 5,
+          "titel": "Always fine to be back",
+          "tekst": "Nice location, even close to the motorway but quiet! Rooms are tidy and have all what we need. Restaurant has choics and freindly personnel."
+        },
+        {
+          "naam": "sachin p",
+          "datum": "Sep 2026",
+          "bollen": 5,
+          "titel": "Amazing!!!",
+          "tekst": "Amazing stay and wonderful experience overall."
+        },
+        {
+          "naam": "Brian D",
+          "datum": "Sep 2026",
+          "bollen": 5,
+          "titel": "Relaxed",
+          "tekst": "Very good , all round experience , good foox"
+        },
+        {
+          "naam": "Christopher E",
+          "datum": "Aug 2026",
+          "bollen": 4,
+          "titel": "Really nice experience",
+          "tekst": "Was a nice experience. Really nice hotel with. Lovely friendly staff. Really nice restaurant and bar"
+        },
+        {
+          "naam": "Eddie C",
+          "datum": "Aug 2026",
+          "bollen": 5,
+          "titel": "Very good friendly hotel for staying at.",
+          "tekst": "Always well received . Very friendly and helpful staff able to deal languages very well. Dining choice etc . Excellent. Have recommended hotel to others"
+        },
+        {
+          "naam": "Caine F",
+          "datum": "Aug 2026",
+          "bollen": 5,
+          "titel": "Great gym",
+          "tekst": "Love the new gym. Good food and very quiet."
+        }
+      ]
+    }
+  }
+}

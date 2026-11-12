@@ -1,0 +1,131 @@
+{
+ "_uitleg": "English room texts for the room sliders of the route pages (build.py build_route). Language fields only; photos, video and Mews ID come from content/uitje-kamers-nl.json.",
+ "kamer": {
+  "comfort": {
+   "naam": "Comfort room",
+   "kort": "For travellers who above all want a good night's sleep. In the morning you set off again well rested.",
+   "kaart": [["m2", "22 m²"], ["bed", "2 single beds"], ["douche", "Shower"], ["personen", "Max. 2 guests"]],
+   "desc": "Enjoy a comfortable, modern room, ideal for a relaxing stay in North Limburg. Whether you are here for a short break or a business visit, you will feel at home straight away in our Comfort room.",
+   "tekst": [
+    "Enjoy a comfortable, modern room, ideal for a relaxing stay in North Limburg. Whether you are here for a short break or a business visit, you will feel at home straight away in our Comfort room.",
+    "The room has two single beds, a private bathroom with shower and a seating area with comfortable chairs: everything you need to unwind."
+   ],
+   "kenmerken": [
+    "Approx. 22 m²",
+    "Twin beds (2 single beds)",
+    "Suitable for up to 2 guests",
+    "Seating area with comfortable chairs",
+    "Private bathroom with shower",
+    "Air conditioning"
+   ]
+  },
+  "comfort-3": {
+   "naam": "Comfort room for 3",
+   "kort": "Travelling as a three? Then you can end the evening together in one room.",
+   "kaart": [["m2", "22 m²"], ["bed", "3 single beds"], ["personen", "Up to 3 guests"]],
+   "desc": "Our Comfort room for 3 offers extra space for families or friends travelling together. Everything is there for a pleasant, carefree stay in green North Limburg.",
+   "tekst": [
+    "Our Comfort room for 3 offers extra space for families or friends travelling together. Everything is there for a pleasant, carefree stay in green North Limburg.",
+    "Three single beds, a private bathroom and a cosy seating area make this room ideal for travelling together."
+   ],
+   "kenmerken": [
+    "Approx. 22 m²",
+    "3 single beds",
+    "Suitable for up to 3 guests",
+    "Seating area with comfortable chairs",
+    "Private bathroom with shower and/or bath",
+    "Air conditioning"
+   ]
+  },
+  "mindervalide": {
+   "naam": "Accessible room",
+   "kort": "Designed for guests in a wheelchair, with extra-wide doors and an adapted bathroom.",
+   "kaart": [["m2", "37 m²"], ["bed", "2 separate beds"], ["rolstoel", "Adapted bathroom"], ["douche", "Shower"]],
+   "desc": "Our adapted room is specially designed for guests with limited mobility. Our restaurant and terrace are wheelchair-friendly too, so during your stay you can enjoy a lovely dinner and the hospitality of Asteria without a care.",
+   "tekst": [
+    "Our adapted room is specially designed for guests with limited mobility. Our restaurant and terrace are wheelchair-friendly too, so during your stay you can enjoy a lovely dinner and the hospitality of Asteria without a care.",
+    "A spacious layout, extra-wide doors and an adapted bathroom provide comfort and independence."
+   ],
+   "kenmerken": [
+    "Approx. 37 m²",
+    "Twin beds (2 single beds)",
+    "Sofa bed for extra sleeping space",
+    "Extra-wide doors and a spacious layout for a wheelchair or rollator",
+    "Spacious seating area with comfortable chairs",
+    "Adapted, wheelchair-accessible bathroom with shower"
+   ]
+  },
+  "royale": {
+   "naam": "Royale room",
+   "kort": "A weekend away, with time to unpack your suitcase and simply be there for a while.",
+   "kaart": [["m2", "25 m²"], ["bed", "Double bed or twin beds"], ["bad", "Bath or shower"], ["personen", "Max. 2 guests"]],
+   "desc": "Our Royale rooms are larger than the Comfort rooms and offer that little bit extra. The sense of space and the comfortable seating area make this room ideal if you want a touch more luxury during your stay.",
+   "tekst": [
+    "Our Royale rooms are larger than the Comfort rooms and offer that little bit extra. The sense of space and the comfortable seating area make this room ideal if you want a touch more luxury during your stay.",
+    "Choose a double bed or twin beds and enjoy the extra space and a private bathroom with shower or bath."
+   ],
+   "kenmerken": [
+    "Approx. 25 m²",
+    "Double bed or twin beds (2 single beds)",
+    "Suitable for up to 2 guests",
+    "Spacious seating area with comfortable chairs",
+    "Private bathroom with shower and/or bath",
+    "Air conditioning"
+   ]
+  },
+  "deluxe": {
+   "naam": "Deluxe room",
+   "kort": "After a day outdoors you slip into your own sauna and the tiredness slowly melts away.",
+   "kaart": [["m2", "25 m²"], ["bed", "Double bed or twin beds"], ["sauna", "Infrared sauna"], ["personen", "Max. 2 guests"]],
+   "desc": "Our Deluxe rooms have everything for a luxurious stay in North Limburg. The private infrared sauna in the bathroom makes this room ideal if you really want to relax: a small wellness experience in your own room.",
+   "tekst": [
+    "Our Deluxe rooms have everything for a luxurious stay in North Limburg. The private infrared sauna in the bathroom makes this room ideal if you really want to relax: a small wellness experience in your own room.",
+    "Besides your own sauna, you enjoy a comfortable seating area with every convenience within reach."
+   ],
+   "kenmerken": [
+    "Approx. 25 m²",
+    "Double bed or twin beds (2 single beds)",
+    "Suitable for up to 2 guests",
+    "Seating area with comfortable chairs",
+    "Luxurious private infrared sauna",
+    "Private bathroom with shower"
+   ]
+  },
+  "suite": {
+   "naam": "Suite",
+   "kort": "To celebrate an anniversary or birthday, with a night you will still be talking about later.",
+   "kaart": [["m2", "40 m²"], ["bed", "King-size bed and sofa bed"], ["sauna", "Infrared sauna"], ["personen", "Max. 4 guests"]],
+   "desc": "Experience Asteria in our most spacious and luxurious room. With a private infrared sauna, a spacious seating area and every convenience within reach, the Suite is the place to unwind completely: more than a hotel room, a complete experience.",
+   "tekst": [
+    "Experience Asteria in our most spacious and luxurious room. With a private infrared sauna, a spacious seating area and every convenience within reach, the Suite is the place to unwind completely: more than a hotel room, a complete experience.",
+    "A king-size bed and a sofa bed sleep up to four people."
+   ],
+   "kenmerken": [
+    "Approx. 40 m²",
+    "King-size double bed",
+    "Sofa bed for extra sleeping space",
+    "Suitable for up to 4 guests",
+    "Spacious seating area with comfortable chairs",
+    "Private infrared sauna"
+   ]
+  },
+  "bruidssuite": {
+   "naam": "Bridal suite",
+   "kort": "After the big day, or simply an evening for the two of you: run the bath and unwind.",
+   "kaart": [["m2", "36 m²"], ["bed", "King-size bed"], ["bad", "Freestanding bath"], ["stoel", "Seating area"]],
+   "desc": "Our Bridal suite is designed for special moments. Whether you have just got married or are celebrating a romantic weekend, enjoy the luxury, the peace and the warm atmosphere that make Asteria what it is.",
+   "tekst": [
+    "Our Bridal suite is designed for special moments. Whether you have just got married or are celebrating a romantic weekend, enjoy the luxury, the peace and the warm atmosphere that make Asteria what it is.",
+    "A freestanding bath, a spacious walk-in shower and bathrobes with slippers complete your stay."
+   ],
+   "kenmerken": [
+    "Approx. 36 m²",
+    "King-size double bed",
+    "Spacious seating area with comfortable chairs",
+    "Bathrobes and slippers",
+    "Luxurious bathroom with walk-in shower",
+    "Spacious freestanding bath"
+   ]
+  }
+ }
+}

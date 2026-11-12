@@ -1,0 +1,250 @@
+{
+  "_uitleg": "Paginainhoud van /fietsen-rond-venray-v2 (build.py build_route, sjabloon route.template.html). Vaste labels staan in translations/route-labels-nl.json. De routes zelf (afstand, duur, start, lijn, lengteklasse) komen uit content/routes/fiets.json (scripts/routes_os.py); hier per route alleen de kaartfoto, alt, de pop-uptekst en extra pop-upfoto's. Velden met een pad, -url, -focus of -ico erven DE/EN van dit bestand; alle tekst moet in route-fietsen-de/-en.json staan. Feiten: qa/routes/FEITEN-fietsen.md.",
+  "_credits": {
+    "fotos/l26-omg-venray-1.webp": {
+      "credit": "Dosseman",
+      "licentie": "CC BY-SA 4.0",
+      "licentie_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "bron_url": "https://commons.wikimedia.org/wiki/File:Petrus_Banden,_Venray_Exterior_van_Grote_Markt_4372.jpg"
+    },
+    "fotos/l26-omg-venray-2.webp": {
+      "credit": "giggel",
+      "licentie": "CC BY 3.0",
+      "licentie_url": "https://creativecommons.org/licenses/by/3.0/",
+      "bron_url": "https://commons.wikimedia.org/wiki/File:Venray_%E2%80%93_St_Petrus%E2%80%99_Banden_Kerk_-_panoramio_(2).jpg"
+    },
+    "fotos/l26-omg-arcen-1.webp": {
+      "credit": "Vincent van Zeijst",
+      "licentie": "CC BY-SA 4.0",
+      "licentie_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "bron_url": "https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(14),_gardens.jpg"
+    },
+    "fotos/l26-omg-arcen-2.webp": {
+      "credit": "Vincent van Zeijst",
+      "licentie": "CC BY-SA 4.0",
+      "licentie_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "bron_url": "https://commons.wikimedia.org/wiki/File:Netherlands,_Arcen,_castle_(23),_gardens.jpg"
+    },
+    "fotos/l26-omg-hertogjan-1.webp": {
+      "credit": "B. Hulshoff",
+      "licentie": "CC BY-SA 4.0",
+      "licentie_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "bron_url": "https://commons.wikimedia.org/wiki/File:Hertog_Jan_Brouwerij.JPG"
+    },
+    "fotos/l26-omg-maasduinen-2.webp": {
+      "credit": "Steven Lek",
+      "licentie": "CC BY-SA 4.0",
+      "licentie_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "bron_url": "https://commons.wikimedia.org/wiki/File:Nationaal_Park_De_Maasduinen_3.jpg"
+    },
+    "fotos/l26-route-ballonzuilbossen-1.webp": {
+      "credit": "Busspotter",
+      "licentie": "CC BY-SA 4.0",
+      "licentie_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "bron_url": "https://commons.wikimedia.org/wiki/File:Monument_Ballonzuilbossen.jpg"
+    }
+  },
+  "conversie": "arrangement",
+  "titel": "Fietshotel in Limburg: fietsen rond Venray | Hotel Asteria",
+  "omschrijving": "Fietshotel in Limburg: tien fietsroutes van 25 tot 59 km rond Hotel Asteria in Venray, zeven vlak bij het hotel. Met afgesloten fietsenstalling en fietsverhuur.",
+  "og-titel": "Fietshotel in Limburg: fietsen rond Venray",
+  "og-omschrijving": "Tien fietsroutes rond Hotel Asteria in Venray, zeven ervan op het knooppuntennetwerk vlak bij het hotel. Met afgesloten fietsenstalling en fietsverhuur.",
+  "og-image": "https://visit.asteria.nl/fotos/hero-actie-fietsen.webp",
+  "kruimel": "Fietsen rond Venray",
+  "hero-kop": "<span class='al-g'>Fietshotel</span> in Limburg",
+  "hero-sub": "Tien fietsroutes rond Venray. Zeven ervan beginnen op een paar minuten fietsen van je hotelkamer.",
+  "hero-foto": "fotos/hero-actie-fietsen.webp",
+  "hero-foto-klein": "fotos/l26-route-hero-fiets-klein.webp",
+  "hero-alt": "Een stel met fietsen bij het bord van het fietsroutenetwerk voor Hotel Asteria",
+  "hero-focus": "45%",
+  "oog-kop": "Fietsen vanaf Hotel Asteria in één <span class='al-g'>oogopslag</span>",
+  "oog1-ico": "<circle cx='5.5' cy='18.5' r='2'/><circle cx='18.5' cy='5.5' r='2'/><path d='M7.5 18.5h8a3 3 0 0 0 0-6h-7a3 3 0 0 1 0-6h8'/>",
+  "oog1-kop": "routes",
+  "oog1-tekst": "zeven ervan beginnen vlak bij het hotel",
+  "oog2-ico": "<circle cx='12' cy='12' r='8.5'/><path d='M12 7.5V12l3 2'/>",
+  "oog2-tekst": "van een middag tot een hele dag op de fiets",
+  "oog3-ico": "<circle cx='6' cy='6' r='2.5'/><circle cx='18' cy='12' r='2.5'/><circle cx='7' cy='18.5' r='2.5'/><path d='M8.3 7.2l7.4 3.6M15.8 13.4l-6.6 4'/>",
+  "oog3-kop": "Knooppunten vanaf de deur",
+  "oog3-tekst": "het fietsnetwerk van Noord-Limburg begint om de hoek",
+  "oog4-ico": "<circle cx='5.5' cy='16.5' r='3.5'/><circle cx='18.5' cy='16.5' r='3.5'/><path d='M5.5 16.5l4-7h6.5l2.5 7'/><path d='M9.5 9.5l3 7h-7M12.5 16.5l3.5-7'/><path d='M8 6.5h3M15 6.5h2l-1 3'/>",
+  "oog4-kop": "Fiets en e-bike huren",
+  "oog4-tekst": "bij de receptie, vraag ernaar bij aankomst",
+  "tweede-knop": "Bekijk het fietsarrangement",
+  "arr-url": "/limburg-arrangement",
+  "routes-kop": "Kies je <span class='al-g'>route</span>",
+  "routes-intro": "Zeven routes volgen het knooppuntennetwerk dat vlak bij het hotel begint: je stapt op en volgt de bordjes. Drie langere routes starten een stukje verder, in Overloon en Meterik. Neem de route mee op je telefoon of vraag hem op papier bij de receptie.",
+  "kaart-kop": "Alle routes op de <span class='al-g'>kaart</span>",
+  "kaart-regel": "Zo liggen de tien routes rond het hotel. Tik op een nummer en de kaart zoomt naar die route.",
+  "kaart-alt": "Overzichtskaart met de tien fietsroutes rond Hotel Asteria in Venray",
+  "prak-kop": "Goed om te <span class='al-g'>weten</span>",
+  "prak-tekst": "Alles voor een dag fietsen regel je bij de receptie.",
+  "prak1-foto": "fotos/l26-limburg-arrangement-fietsen.webp",
+  "prak1-alt": "Een lachend stel fietst over een zonnig fietspad door het bos bij Venray",
+  "prak1-ico": "<circle cx='5.5' cy='16.5' r='3.5'/><circle cx='18.5' cy='16.5' r='3.5'/><path d='M5.5 16.5l4-7h6.5l2.5 7'/><path d='M9.5 9.5l3 7h-7M12.5 16.5l3.5-7'/><path d='M8 6.5h3M15 6.5h2l-1 3'/>",
+  "prak1-kop": "Fiets of e-bike huren",
+  "prak1-tekst": "Gewone fietsen en e-bikes huur je bij de receptie",
+  "prak2-foto": "fotos/l26-fac-fiets-2.webp",
+  "prak2-alt": "Een stel zet de fietsen in de houten fietsenstalling van Hotel Asteria",
+  "prak2-ico": "<path d='M2.5 10L12 4.5l9.5 5.5'/><path d='M4.5 9v11.5M19.5 9v11.5'/><circle cx='9' cy='17' r='2.5'/><circle cx='15' cy='17' r='2.5'/><path d='M9 17l2-3.5h2.5L15 17'/>",
+  "prak2-kop": "Fietsenstalling",
+  "prak2-tekst": "Afgesloten en overdekt, ook voor je e-bike",
+  "prak3-foto": "fotos/l26-route-stalling.webp",
+  "prak3-alt": "Een stel loopt met de fiets aan de hand bij de fietsenstalling van Hotel Asteria",
+  "prak3-ico": "<rect x='6.5' y='4.5' width='11' height='16' rx='1.5'/><path d='M10 2.5h4'/><path d='M12.5 8.5L10 13h4l-2.5 4.5'/>",
+  "prak3-kop": "E-bike opladen",
+  "prak3-tekst": "Je accu laad je bij ons weer op",
+  "prak4-foto": "fotos/l26-ontbijt.webp",
+  "prak4-alt": "Mand met verse broodjes op het ontbijtbuffet van Hotel Asteria in Venray",
+  "prak4-ico": "<path d='M5 8.5h14l-1.2 12H6.2z'/><path d='M9 8.5V7a3 3 0 016 0v1.5'/>",
+  "prak4-kop": "Lunchpakket",
+  "prak4-tekst": "Voor onderweg, vraag ernaar bij de receptie",
+  "prak-link": "Huur een fiets bij de receptie",
+  "arr-kop": "Het Limburg <span class='al-g'>Arrangement</span>",
+  "arr-regel": "Drie nachten in Venray met drie dagen een elektrische fiets. De prijs voor jouw datums zie je direct bij het boeken.",
+  "arr-vinkjes": [
+    "3 nachten met ontbijt",
+    "Elke avond een 3-gangenmenu",
+    "3 dagen een elektrische fiets"
+  ],
+  "arr-knop": "Bekijk het arrangement",
+  "arr-boek": "Boek het arrangement",
+  "arr-voucher": "LIMBURG",
+  "arr-dias": [
+    {
+      "foto": "fotos/l26-limburg-arrangement-fietsroute.webp",
+      "alt": "Een stel lacht bij het startpuntbord van het fietsroutenetwerk voor Hotel Asteria"
+    },
+    {
+      "foto": "fotos/l26-omg-fietsen-3.webp",
+      "alt": "Een stel wijst iets aan tussen de bomen in het bos bij Venray",
+      "pos": "60% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-vlaai.webp",
+      "alt": "Een stuk Limburgse vlaai wordt geserveerd bij aankomst in Hotel Asteria",
+      "pos": "60% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-diner.webp",
+      "alt": "Een vleesgerecht met spruitjes, het hoofdgerecht van het driegangendiner in Hotel Asteria"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-hotel-fietsen.webp",
+      "alt": "Een stel fietst over de oprit van Hotel Asteria in Venray",
+      "pos": "40% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-ontbijt.webp",
+      "alt": "Een ontbijtbord met croissant, kaas, vleeswaren en druiven in Hotel Asteria"
+    }
+  ],
+  "faq-kop": "Veelgestelde <span class='al-g'>vragen</span>",
+  "faq": [
+    {
+      "v": "Kan ik bij jullie een fiets of e-bike huren?",
+      "a": "Ja. Bij de receptie huur je een gewone fiets of een e-bike. Laat het bij het boeken of bij aankomst weten, dan zetten we hem voor je klaar."
+    },
+    {
+      "v": "Waar laat ik mijn eigen fiets?",
+      "a": "In onze afgesloten, overdekte fietsenstalling naast het hotel. Heb je onderweg een lekke band gehad, dan lenen we je een fietspomp en een reparatieset."
+    },
+    {
+      "v": "Kan ik mijn e-bike bij jullie opladen?",
+      "a": "Ja. Je accu laad je bij ons op, zodat je de volgende ochtend weer vol op pad gaat. De receptie wijst je waar."
+    },
+    {
+      "v": "Hoe krijg ik de routes mee?",
+      "a": "Elke route opent met de knop bij de route op Fietsknoop of routiq, ook op je telefoon. Bij de receptie liggen gratis fiets- en wandelroutes op papier."
+    },
+    {
+      "v": "Met welke route kan ik het best beginnen?",
+      "a": "Met Rondje Venray: 24,5 kilometer op het knooppuntennetwerk vlak bij het hotel, langs het Annapark en over de Weverslose Berg, het hoogste punt van Noord-Limburg."
+    }
+  ],
+  "wissel-kop": "Liever te <span class='al-g'>voet?</span>",
+  "wissel-regel": "Wandelroutes van een korte ochtend tot een hele dag, van de jeneverbessen bij Smakt tot de Mariapeel. Wandelkaarten haal je bij de receptie.",
+  "wissel-hier-naam": "Fietsroutes",
+  "wissel-hier-foto": "fotos/l26-omg-fietsen-1.webp",
+  "wissel-hier-alt": "Een stel fietst naast elkaar over een bospad tussen hoge bomen bij Venray",
+  "wissel-daar-naam": "Wandelroutes",
+  "wissel-daar-foto": "fotos/l26-route-hero-wandel-klein.webp",
+  "wissel-daar-alt": "Een stel wandelt over een bospad in de buurt van Venray",
+  "wissel-knop": "Bekijk de {n} wandelroutes",
+  "slot-kop": "Na de fietstocht: sauna, diner en je <span class='al-g'>kamer</span>",
+  "slot-tekst": "Boek je verblijf en stap morgen bij de deur op de fiets.",
+  "slot-foto": "fotos/l26-hotel-zonsondergang.webp",
+  "slot-alt": "Hotel Asteria in Venray van bovenaf bij zonsondergang, met de vijver en fontein voor de ingang",
+  "slot-focus": "50%",
+  "routes": {
+    "rondje-venray": {
+      "foto": "fotos/l26-omg-venray-1.webp",
+      "alt": "Terrassen op de Grote Markt van Venray met de Sint-Petrus' Bandenkerk",
+      "tekst": "Een rondje om Venray dat op het knooppuntennetwerk naast het hotel begint. Je fietst langs het Annapark, het monumentale park van het vroegere Sint Anna, en door buurtschap Weverslo naar de Weverslose Berg: met 38,6 meter het hoogste punt van Noord-Limburg, met een uitzichtpunt bovenop. Bij knooppunt 23 steek je zo door naar het centrum.",
+      "fotos": [
+        "fotos/l26-omg-venray-2.webp"
+      ],
+      "alts": {
+        "fotos/l26-omg-venray-2.webp": "De Sint-Petrus' Bandenkerk boven de huizen en winkels in het centrum van Venray"
+      }
+    },
+    "rondje-over-het-pontje": {
+      "foto": "fotos/l26-route-knooppunt.webp",
+      "alt": "Een stel zoekt een route op het startpuntbord van het fietsroutenetwerk Noord- en Midden-Limburg",
+      "tekst": "Een korte tocht met de Maas in het midden. In Maashees zit je bij De Watervogel aan het water, daarna fiets je naar het Reindersmeer in Nationaal Park De Maasduinen en kijk je bij Well over de tuinen naar de waterburcht Kasteel Well. Met het pontje steek je de Maas over en via Geijsteren rijd je terug; kijk vooraf even of het pontje vaart.",
+      "fotos": [
+        "fotos/l26-omg-maasduinen-2.webp"
+      ],
+      "alts": {
+        "fotos/l26-omg-maasduinen-2.webp": "Een meer met een bosrand en struiken in Nationaal Park De Maasduinen"
+      }
+    },
+    "langs-de-maas": {
+      "foto": "fotos/l26-omg-fietsen-1.webp",
+      "alt": "Een stel fietst naast elkaar over een bospad tussen hoge bomen bij Venray",
+      "tekst": "Via Oostrum en Parc de Witte Vennen fiets je naar Meerlo, met de Sint-Goarkapel uit 1662 en Slothoeve 't Kasteelke. Bij Tante Jet aan de Maas, een van de oudste cafés aan de rivier, legt het voet- en fietsveer aan; dat vaart van 1 april tot en met 14 oktober. Terug kom je door Geijsteren."
+    },
+    "van-venray-naar-de-peel": {
+      "foto": "fotos/l26-omg-fietsen-3.webp",
+      "alt": "Een stel wijst iets aan tussen de bomen in het bos bij Venray",
+      "tekst": "Van Venray de Peel in, langs de Weverslose Berg en natuurgebied Rouwvennen. Bij knooppunt 25 ligt de Duitse oorlogsbegraafplaats Ysselsteyn, met een bezoekerscentrum. Daarna fiets je langs de Heere Peel en door de Schadijkse bossen naar het centrum van Venray, op 3 kilometer van het hotel."
+    },
+    "rondje-horst-aan-de-maas": {
+      "foto": "fotos/l26-limburg-arrangement-hotel-fietsen.webp",
+      "alt": "Een stel fietst over de oprit van Hotel Asteria in Venray",
+      "tekst": "Een ronde door Horst aan de Maas met een stop in Tienray, ook wel Klein Lourdes genoemd: kerk, kapelletjes en ijssalon Clevers. Daarna slingert de route door natuurgebied Schuitwater met bos, heide en water, en langs de Kasteelse Bossen. Je eindigt tussen de terrassen in het centrum van Venray."
+    },
+    "maasduinen-en-arcen": {
+      "foto": "fotos/l26-omg-arcen-2.webp",
+      "alt": "De geometrische tuinen met hagen en bloemperken van de Kasteeltuinen Arcen",
+      "tekst": "Een dagtocht naar Arcen. Via Geijsteren fiets je naar de Maas en door Nationaal Park De Maasduinen, langs de uitkijktoren van Wellerlooi. In Arcen wachten de Kasteeltuinen, het oude vestingstadje en de Hertog Jan Brouwerij met proeflokaal. Het fietsveer onderweg vaart van 10 april tot en met 14 oktober.",
+      "fotos": [
+        "fotos/l26-omg-arcen-1.webp",
+        "fotos/l26-omg-hertogjan-1.webp"
+      ],
+      "alts": {
+        "fotos/l26-omg-arcen-1.webp": "Een rode Japanse poort aan de vijver in de Kasteeltuinen Arcen",
+        "fotos/l26-omg-hertogjan-1.webp": "Het witte gebouw van de Hertog Jan Brouwerij in Arcen, met fietsen ervoor"
+      }
+    },
+    "ballonzuilbossen-en-overloon": {
+      "foto": "fotos/l26-route-ballonzuilbossen-1.webp",
+      "alt": "Het monument de Ballonzuil in de Ballonzuilbossen bij Merselo",
+      "tekst": "Een lange ronde die bij de Grote Kerk in Venray begint, op 3 kilometer van het hotel. Langs het Annapark fiets je naar Smakt met de Sint-Jozefkapel uit 1699, en langs de Overloonse Duinen naar Overloon met het Britse oorlogskerkhof, het Liberty Park en ZooParc. Terug gaat het door de Ballonzuilbossen."
+    },
+    "rondje-venray-via-vierlingsbeek": {
+      "foto": "fotos/l26-route-os-115.webp",
+      "alt": "Een kapel tussen de dennen op een bospad",
+      "tekst": "Deze route begint in Overloon, de plaats van het Liberty Park. Je fietst door de Overloonse Duinen naar Maashees aan de Maas, langs boomkwekerijen en de Willibrorduskapel in de bossen van Landgoed Geijsteren. Door het centrum van Venray en het Peeldorp Merselo kom je terug in Overloon."
+    },
+    "meterik-venray-horst": {
+      "foto": "fotos/l26-route-os-99.webp",
+      "alt": "Een eik naast een smalle weg door de weilanden in de ochtendnevel",
+      "tekst": "Een lange tocht door de bossen en de uiterwaarden van de Maas tussen Meterik, Venray en Horst. Onderweg fiets je over Landgoed Geijsteren, al meer dan twee eeuwen van dezelfde familie, waar de Oostrumse Beek door de naaldbossen slingert."
+    },
+    "door-de-peel-bij-horst": {
+      "foto": "fotos/l26-route-os-101.webp",
+      "alt": "Een ophaalbrug over een vaart in de Peel",
+      "tekst": "Over rustige wegen door Castenray en Veulen de Peel in. Bij De Paardekop ligt de Duitse militaire begraafplaats, in het Toon Kortoomspark lees je over de schrijver. Via Griendtsveen en Helenaveen, de twee oude veenkolonies van Zuid-Nederland, rijd je langs het hoogveen van de Deurnsche Peel en de Mariapeel."
+    }
+  }
+}

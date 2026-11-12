@@ -1,0 +1,344 @@
+{
+ "_uitleg": "Kamerkaarten en kamer-pop-up van het uitje-sjabloon (uitje.template.html), Nederlands. Zelfde vorm als de sectie kamer van content/adslander-pop-de.json: kaart = naam/kort/kaart/kaart_foto; pop-up vanaf 768 px (lander-w1-dialoog) = naam/video/fotos/tekst/kenmerken/kamer; onder 768 px de al-pop-sheet = desc/pop_fotos/video/kenmerken. Bronnen: naam, video, fotos, tekst, kenmerken en kamer uit #lp-kamerdata in lander-w1.template.html; kort en de eerste drie kaartkenmerken uit _kamers in translations/kamertypes-v2-nl.json; de personen-regel uit de kenmerken van lp-kamerdata; kaart_foto en pop_fotos = dezelfde bestanden als de Duitse versie. Gemaakt 10 nov 2026, niet vertaald uit het Duits.",
+ "kamer": {
+  "comfort": {
+   "naam": "Comfort kamer",
+   "kort": "Voor wie onderweg is en vooral goed wil slapen. 's Ochtends ga je uitgerust weer op pad.",
+   "kaart": [
+    [
+     "m2",
+     "22 m²"
+    ],
+    [
+     "bed",
+     "2 eenpersoonsbedden"
+    ],
+    [
+     "douche",
+     "Douche"
+    ],
+    [
+     "personen",
+     "Max. 2 pers."
+    ]
+   ],
+   "kaart_foto": "fotos/l26-vk-comfort.webp",
+   "desc": "Geniet van een comfortabele en modern ingerichte kamer, ideaal voor een ontspannen verblijf in Noord-Limburg. Of je nu komt voor een korte break of een zakelijk bezoek, in onze Comfort kamer voel je je direct thuis.",
+   "pop_fotos": [
+    "fotos/l26-vk-comfort.webp",
+    "fotos/kamer-comfort-a.webp",
+    "fotos/kamer-comfort-b.webp",
+    "fotos/kamer-comfort-c.webp"
+   ],
+   "video": "videos/comfort.mp4",
+   "fotos": [
+    "fotos/kamer-comfort-a.webp",
+    "fotos/kamer-comfort-b.webp",
+    "fotos/kamer-comfort-c.webp"
+   ],
+   "tekst": [
+    "Geniet van een comfortabele en modern ingerichte kamer, ideaal voor een ontspannen verblijf in Noord-Limburg. Of je nu komt voor een korte break of een zakelijk bezoek, in onze Comfort kamer voel je je direct thuis.",
+    "De kamer beschikt over twee eenpersoonsbedden, een eigen badkamer met douche en een zithoek met comfortabele stoelen: alles wat je nodig hebt om tot rust te komen."
+   ],
+   "kenmerken": [
+    "Circa 22 m²",
+    "Twinbeds (2 eenpersoonsbedden)",
+    "Geschikt voor maximaal 2 personen",
+    "Zithoek met comfortabele stoelen",
+    "Eigen badkamer met douche",
+    "Airconditioning"
+   ],
+   "kamer": "98900f3b-e5e2-49c9-9776-af1d00ffc315"
+  },
+  "comfort-3": {
+   "naam": "Comfort kamer 3 personen",
+   "kort": "Reis je met z'n drieën, dan sluiten jullie de avond samen af op één kamer.",
+   "kaart": [
+    [
+     "m2",
+     "22 m²"
+    ],
+    [
+     "bed",
+     "3 eenpersoonsbedden"
+    ],
+    [
+     "personen",
+     "Tot 3 personen"
+    ]
+   ],
+   "kaart_foto": "fotos/l26-vk-comfort-3.webp",
+   "desc": "Onze 3-persoons Comfort kamer biedt extra ruimte voor families of vrienden die samen op pad gaan. Alles is aanwezig voor een aangenaam en zorgeloos verblijf in het groene Noord-Limburg.",
+   "pop_fotos": [
+    "fotos/l26-vk-comfort-3.webp",
+    "fotos/room-comfort-3-1.webp",
+    "fotos/room-comfort-3-2.webp",
+    "fotos/room-comfort-3-3.webp"
+   ],
+   "video": "videos/comfort-3.mp4",
+   "fotos": [
+    "fotos/room-comfort-3-1.webp",
+    "fotos/room-comfort-3-2.webp",
+    "fotos/room-comfort-3-3.webp"
+   ],
+   "tekst": [
+    "Onze 3-persoons Comfort kamer biedt extra ruimte voor families of vrienden die samen op pad gaan. Alles is aanwezig voor een aangenaam en zorgeloos verblijf in het groene Noord-Limburg.",
+    "Drie eenpersoonsbedden, een eigen badkamer en een fijne zithoek maken deze kamer ideaal voor wie samen reist."
+   ],
+   "kenmerken": [
+    "Circa 22 m²",
+    "3 eenpersoonsbedden",
+    "Geschikt voor maximaal 3 personen",
+    "Zithoek met comfortabele stoelen",
+    "Eigen badkamer met douche en/of bad",
+    "Airconditioning"
+   ],
+   "kamer": "85ca19d7-eea5-41c8-8b93-af1d00ffc315"
+  },
+  "mindervalide": {
+   "naam": "Mindervalide kamer",
+   "kort": "Ingericht voor gasten in een rolstoel, met extra brede deuren en een aangepaste badkamer.",
+   "kaart": [
+    [
+     "m2",
+     "37 m²"
+    ],
+    [
+     "bed",
+     "2 aparte bedden"
+    ],
+    [
+     "rolstoel",
+     "Aangepaste badkamer"
+    ],
+    [
+     "douche",
+     "Douche"
+    ]
+   ],
+   "kaart_foto": "fotos/l26-vk-mindervalide.webp",
+   "desc": "Onze aangepaste kamer is speciaal ontworpen voor gasten met beperkte mobiliteit. Ook ons restaurant en terras zijn rolstoelvriendelijk, zodat je tijdens je verblijf zorgeloos kunt genieten van een heerlijk diner en de gastvrijheid van Asteria.",
+   "pop_fotos": [
+    "fotos/l26-vk-mindervalide.webp",
+    "fotos/room-mindervalide-1.webp",
+    "fotos/room-mindervalide-2.webp",
+    "fotos/room-mindervalide-3.webp"
+   ],
+   "video": "videos/mindervalide.mp4",
+   "fotos": [
+    "fotos/room-mindervalide-1.webp",
+    "fotos/room-mindervalide-2.webp",
+    "fotos/room-mindervalide-3.webp"
+   ],
+   "tekst": [
+    "Onze aangepaste kamer is speciaal ontworpen voor gasten met beperkte mobiliteit. Ook ons restaurant en terras zijn rolstoelvriendelijk, zodat je tijdens je verblijf zorgeloos kunt genieten van een heerlijk diner en de gastvrijheid van Asteria.",
+    "Een ruime indeling, extra brede deuren en een aangepaste badkamer zorgen voor comfort en zelfstandigheid."
+   ],
+   "kenmerken": [
+    "Circa 37 m²",
+    "Twinbeds (2 eenpersoonsbedden)",
+    "Bedbank voor extra slaapgelegenheid",
+    "Extra brede deuren en ruime indeling voor rolstoel of rollator",
+    "Ruime zithoek met comfortabele stoelen",
+    "Aangepaste, rolstoeltoegankelijke badkamer met douche"
+   ],
+   "kamer": "fa5b6540-7234-49ce-beb1-af1d00ffc315"
+  },
+  "royale": {
+   "naam": "Royale kamer",
+   "kort": "Een weekend weg, met tijd om je koffer uit te pakken en er even helemaal te zijn.",
+   "kaart": [
+    [
+     "m2",
+     "25 m²"
+    ],
+    [
+     "bed",
+     "Tweepersoonsbed of twinbeds"
+    ],
+    [
+     "bad",
+     "Bad of douche"
+    ],
+    [
+     "personen",
+     "Max. 2 pers."
+    ]
+   ],
+   "kaart_foto": "fotos/l26-vk-royale.webp",
+   "desc": "Onze Royale kamers zijn groter dan de Comfort kamers en bieden net dat beetje extra. Het ruime gevoel en de comfortabele zithoek maken deze kamer ideaal voor wie iets meer luxe wil tijdens het verblijf.",
+   "pop_fotos": [
+    "fotos/l26-vk-royale.webp",
+    "fotos/room-royale-1.webp",
+    "fotos/room-royale-2.webp",
+    "fotos/room-royale-3.webp"
+   ],
+   "video": "videos/royale.mp4",
+   "fotos": [
+    "fotos/room-royale-1.webp",
+    "fotos/room-royale-2.webp",
+    "fotos/room-royale-3.webp"
+   ],
+   "tekst": [
+    "Onze Royale kamers zijn groter dan de Comfort kamers en bieden net dat beetje extra. Het ruime gevoel en de comfortabele zithoek maken deze kamer ideaal voor wie iets meer luxe wil tijdens het verblijf.",
+    "Kies voor een tweepersoonsbed of twinbeds en geniet van de extra ruimte en een eigen badkamer met douche of bad."
+   ],
+   "kenmerken": [
+    "Circa 25 m²",
+    "Tweepersoonsbed of twinbeds (2 eenpersoonsbedden)",
+    "Geschikt voor maximaal 2 personen",
+    "Ruime zithoek met comfortabele stoelen",
+    "Eigen badkamer met douche en/of bad",
+    "Airconditioning"
+   ],
+   "kamer": "a8fd7310-0d61-422f-89e6-af1d00ffc315"
+  },
+  "deluxe": {
+   "naam": "Deluxe kamer",
+   "kort": "Na een dag buiten kruip je in je eigen sauna en zakt de vermoeidheid langzaam weg.",
+   "kaart": [
+    [
+     "m2",
+     "25 m²"
+    ],
+    [
+     "bed",
+     "Tweepersoonsbed of twinbeds"
+    ],
+    [
+     "sauna",
+     "Infraroodsauna"
+    ],
+    [
+     "personen",
+     "Max. 2 pers."
+    ]
+   ],
+   "kaart_foto": "fotos/l26-vk-deluxe.webp",
+   "desc": "Onze Deluxe kamers hebben alles voor een luxe verblijf in Noord-Limburg. De private infraroodsauna in de badkamer maakt deze kamer ideaal voor wie écht wil ontspannen: een kleine wellness-ervaring op je eigen kamer.",
+   "pop_fotos": [
+    "fotos/l26-vk-deluxe.webp",
+    "fotos/room-deluxe-1.webp",
+    "fotos/room-deluxe-2.webp",
+    "fotos/room-deluxe-3.webp"
+   ],
+   "video": "videos/deluxe.mp4",
+   "fotos": [
+    "fotos/room-deluxe-1.webp",
+    "fotos/room-deluxe-2.webp",
+    "fotos/room-deluxe-3.webp"
+   ],
+   "tekst": [
+    "Onze Deluxe kamers hebben alles voor een luxe verblijf in Noord-Limburg. De private infraroodsauna in de badkamer maakt deze kamer ideaal voor wie écht wil ontspannen: een kleine wellness-ervaring op je eigen kamer.",
+    "Naast de eigen sauna geniet je van een comfortabele zithoek en alle gemakken binnen handbereik."
+   ],
+   "kenmerken": [
+    "Circa 25 m²",
+    "Tweepersoonsbed of twinbeds (2 eenpersoonsbedden)",
+    "Geschikt voor maximaal 2 personen",
+    "Zithoek met comfortabele stoelen",
+    "Luxe private infraroodsauna",
+    "Eigen badkamer met douche"
+   ],
+   "kamer": "c737de50-e41e-4c8d-a818-af1d00ffc315"
+  },
+  "suite": {
+   "naam": "Suite",
+   "kort": "Om een jubileum of verjaardag te vieren, met een nacht waar je later nog over vertelt.",
+   "kaart": [
+    [
+     "m2",
+     "40 m²"
+    ],
+    [
+     "bed",
+     "Kingsize bed en bedbank"
+    ],
+    [
+     "sauna",
+     "Infraroodsauna"
+    ],
+    [
+     "personen",
+     "Max. 4 pers."
+    ]
+   ],
+   "kaart_foto": "fotos/l26-vk-suite.webp",
+   "desc": "Beleef Asteria in onze meest ruime en luxe kamer. Met een eigen infraroodsauna, een ruime zithoek en alle gemakken binnen handbereik is de Suite dé plek om volledig tot rust te komen: meer dan een hotelkamer, een complete ervaring.",
+   "pop_fotos": [
+    "fotos/l26-vk-suite.webp",
+    "fotos/room-suite-1.webp",
+    "fotos/room-suite-2.webp",
+    "fotos/room-suite-3.webp"
+   ],
+   "video": "videos/suite.mp4",
+   "fotos": [
+    "fotos/room-suite-1.webp",
+    "fotos/room-suite-2.webp",
+    "fotos/room-suite-3.webp"
+   ],
+   "tekst": [
+    "Beleef Asteria in onze meest ruime en luxe kamer. Met een eigen infraroodsauna, een ruime zithoek en alle gemakken binnen handbereik is de Suite dé plek om volledig tot rust te komen: meer dan een hotelkamer, een complete ervaring.",
+    "Een kingsize bed en bedbank bieden ruimte voor maximaal vier personen."
+   ],
+   "kenmerken": [
+    "Circa 40 m²",
+    "Tweepersoons kingsize bed",
+    "Bedbank voor extra slaapgelegenheid",
+    "Geschikt voor maximaal 4 personen",
+    "Ruime zithoek met comfortabele stoelen",
+    "Private infraroodsauna"
+   ],
+   "kamer": "4a642b66-68e6-444c-beeb-af1d00ffc315"
+  },
+  "bruidssuite": {
+   "naam": "Bruidssuite",
+   "kort": "Na de grote dag, of zomaar een avond voor jullie tweeën: laat het bad vollopen en kom tot rust.",
+   "kaart": [
+    [
+     "m2",
+     "36 m²"
+    ],
+    [
+     "bed",
+     "Kingsize bed"
+    ],
+    [
+     "bad",
+     "Vrijstaand bad"
+    ],
+    [
+     "stoel",
+     "Zithoek"
+    ]
+   ],
+   "kaart_foto": "fotos/l26-vk-bruidssuite.webp",
+   "desc": "Onze Bruidssuite is ontworpen voor bijzondere momenten. Of je nu net getrouwd bent of een romantisch weekend viert, geniet samen van de luxe, de rust en de warme sfeer die Asteria zo kenmerkt.",
+   "pop_fotos": [
+    "fotos/l26-vk-bruidssuite.webp",
+    "fotos/room-bruidssuite-1.webp",
+    "fotos/room-bruidssuite-2.webp",
+    "fotos/room-bruidssuite-3.webp"
+   ],
+   "video": "videos/bruidssuite.mp4",
+   "fotos": [
+    "fotos/room-bruidssuite-1.webp",
+    "fotos/room-bruidssuite-2.webp",
+    "fotos/room-bruidssuite-3.webp"
+   ],
+   "tekst": [
+    "Onze Bruidssuite is ontworpen voor bijzondere momenten. Of je nu net getrouwd bent of een romantisch weekend viert, geniet samen van de luxe, de rust en de warme sfeer die Asteria zo kenmerkt.",
+    "Een vrijstaand ligbad, een ruime inloopdouche en badjassen met slippers maken het verblijf compleet."
+   ],
+   "kenmerken": [
+    "Circa 36 m²",
+    "Tweepersoons kingsize bed",
+    "Ruime zithoek met comfortabele stoelen",
+    "Badjassen en slippers",
+    "Luxe badkamer met inloopdouche",
+    "Ruim vrijstaand ligbad"
+   ],
+   "kamer": "a9f18d18-561b-47a9-8ba7-b2a800cfd0e2"
+  }
+ }
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--
+  Hotel Asteria, sjabloon OMGEVING (overzicht): /omgeving-v2 (+ -de/-en zodra de taal-JSON bestaat).
+  EXACTE NABOUW van parkhotelhorst.nl/gebied/ (parkhotel-site src/fragmenten/pagina-gebied-overzicht-v2.html):
+  zelfde blokken, zelfde volgorde, zelfde gedrag, in de Asteria-stijl van de adslander en het uitje-sjabloon
+  (tokens/.btn uit lander-w1.css, panelen/kaarten/hero/slot/FAQ/reviews uit adslander.css, dagblok uit uitje.css).
+
+  BLOKVOLGORDE (data-component, prefix om-)
+    kop        spiegelkop van /hotel-venray-v2 (build.py om_kop_voet), dekkend en sticky
+    1  om-hero      volle foto met bruin verloop, h1 + sub + twee knoppen (Mews, #activiteiten), geen eyebrow
+    2  om-intro     smal paneel (860) dat 120 px (telefoon 64) over de hero hangt + vijf categorietegels (niet op telefoon)
+    3  om-raster    #activiteiten: radio's als broertjes, filterbalken categorie + reiswijze (CSS), kop, kaartenraster,
+                    lege melding, "Toon alle N uitjes" (omgeving.js), routes-strook (alleen met routepagina's)
+    4  ut-dag       de dag in vier momenten (uitje.css/uitje.js), foto met label wisselt mee
+    5  #kamers      kamerslider van het uitje-sjabloon, zonder prijs
+    6  om-arr       drie arrangementkaarten (zonder prijs) + link naar alle arrangementen
+    7  om-faq       1/3 kop + belregel, 2/3 zes vragen (eerste open), FAQPage JSON-LD
+    8  grv          Google-reviewblok (google_reviewblok, reviews-google.css; cijfers content/reviews-google-overzicht.json)
+    9  om-slot      volle foto, h2, tekst, twee knoppen, telefoon + mail
+    voet       spiegelvoet
+
+  Velden (dubbele accolades) komen uit translations/omgeving-labels-<taal>.json + translations/omgeving-overzicht-<taal>.json;
+  de OM_-plekken (HTML-commentaar) en AL_KOP/AL_VOET vult build.py (build_omgeving). Kaarten komen uit om_register().
+-->
+<html lang="{{html-taal}}" data-mews-taal="{{mews-taal}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>{{titel}}</title>
+  <link rel="icon" href="/favicon.ico">
+  <meta name="description" content="{{omschrijving}}">
+  <meta name="robots" content="{{robots}}">
+  <link rel="canonical" href="{{canonical}}">
+  <!-- OM_HREFLANG -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{titel}}">
+  <meta property="og:description" content="{{omschrijving}}">
+  <meta property="og:image" content="{{og-image}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:locale" content="{{og-locale}}">
+  <meta property="og:site_name" content="Hotel Asteria Venray">
+
+  <link rel="preconnect" href="https://app.mews.com">
+  <link rel="preload" href="fonts/abhaya-libre-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- de herofoto is het grootste beeld in het eerste scherm -->
+  <link rel="preload" as="image" fetchpriority="high" href="{{hero-foto-klein}}" imagesrcset="{{hero-foto-klein}} 960w, {{hero-foto}} 1400w" imagesizes="100vw">
+  <link rel="stylesheet" href="lander-w1.css">
+  <link rel="stylesheet" href="adslander.css">
+  <link rel="stylesheet" href="uitje.css">
+  <link rel="stylesheet" href="omgeving.css">
+  <link rel="stylesheet" href="reviews-google.css">
+  <script src="adslander.js" defer></script>
+  <script src="reviews-google.js" defer></script>
+  <script src="uitje.js" defer></script>
+  <script src="omgeving.js" defer></script>
+  <script src="analytics-d1.js" defer></script>
+
+  <!-- GA4 + Google Ads -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPCP945DCG"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DPCP945DCG', { linker: { domains: ['asteria.nl', 'visit.asteria.nl'] } });
+    gtag('config', 'AW-998609513');
+    gtag('set', 'linker', { accept_incoming: true });
+    window.GA_ADS_LABEL = 'AW-998609513/t8vbCLm6i7IcEOmkltwD';
+  </script>
+
+  <!-- FAQPage: tekst gelijk aan de zichtbare vragen in blok 7 -->
+  <script type="application/ld+json"><!-- OM_FAQ_LD --></script>
+</head>
+<body class="al-pagina ut-pagina om-pagina">
+
+<!-- AL_KOP -->
+
+<main id="inhoud" class="lp al ut om-main om--overzicht">
+
+  <!-- 1. Hero: volle foto met bruin verloop; h1, sub en twee knoppen gecentreerd; het intropaneel hangt over de onderrand -->
+  <section data-component="om-hero" class="al-hero ut-hero om-hero" style="--ut-hero-focus:{{hero-focus}}">
+    <div class="al-hero__foto">
+      <img src="{{hero-foto-klein}}" srcset="{{hero-foto-klein}} 960w, {{hero-foto}} 1400w" sizes="100vw" alt="{{hero-alt}}" width="1400" height="933" fetchpriority="high" decoding="async">
+    </div>
+    <div class="al-wrap al-hero__wrap ut-hero__wrap">
+      <div class="al-hero__tekst ut-hero__tekst">
+        <h1>{{hero-kop}}</h1>
+        <p class="al-hero__sub">{{hero-sub}}</p>
+        <div class="om-knoppen">
+          <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+          <a class="btn al-btn om-btn--licht" href="#activiteiten">{{hero-knop2}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Intro: smal paneel over de hero + vijf categorietegels naar de categoriepagina's (niet op de telefoon) -->
+  <section data-component="om-intro" class="al-sec om-intro">
+    <div class="al-wrap">
+      <div class="al-paneel om-intro__kaart">
+        <h2>{{intro-kop}}</h2>
+        <p class="om-intro__tekst">{{intro-tekst}}</p>
+        <div class="om-knoppen om-intro__knoppen">
+          <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+          <a class="btn al-btn al-btn--ghost-donker" href="{{intro-knop2-url}}">{{intro-knop2}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="ut-wrap--breed">
+      <ul class="om-tegels"><!-- OM_TEGELS --></ul>
+    </div>
+  </section>
+
+  <!-- 3. Alle uitjes: radio's als broertjes VOOR de balken en het raster (CSS-filter, geen script) -->
+  <section data-component="om-raster" class="al-sec om-raster" id="activiteiten">
+    <!-- OM_FILTERS -->
+    <div class="om-raster__kop">
+      <h2>{{raster-kop}}</h2>
+      <p class="om-raster__sub">{{raster-sub}}</p>
+    </div>
+    <!-- OM_RASTER -->
+    <!-- OM_ROUTES -->
+  </section>
+
+  <!-- 4. De dag in vier momenten (uitje.css/uitje.js) -->
+  <!-- OM_DAG -->
+
+  <!-- 5. Kamers: de kamerslider van het uitje-sjabloon, zonder prijs -->
+  <!-- OM_KAMERS -->
+
+  <!-- 6. Arrangementen in de omgeving: drie kaarten, geen prijzen -->
+  <!-- OM_ARR -->
+
+  <!-- 7. Veelgestelde vragen: kop + belregel links (1/3), zes vragen rechts (2/3), eerste open -->
+  <section data-component="om-faq" class="al-sec al-faq ut-faq om-faq">
+    <div class="al-wrap al-faq__raster">
+      <div class="al-faq__kop">
+        <h2>{{faq-kop}}</h2>
+        <a class="al-faq__tel" href="{{tel-url}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg><span>{{l-bel}}</span></a>
+      </div>
+      <div class="as-accordeon"><!-- OM_FAQ --></div>
+    </div>
+  </section>
+
+  <!-- 8. Google-reviewblok (gedeeld: build.py google_reviewblok, reviews-google.css/.js) -->
+  <!-- OM_REVIEWS -->
+
+  <!-- 9. Slot: volle foto, kop, tekst, twee knoppen en de contactregel -->
+  <section data-component="om-slot" class="ut-slot om-slot" style="--ut-slot-focus:{{slot-focus}}">
+    <div class="al-slot__band ut-slot__band">
+      <img src="{{slot-foto-klein}}" srcset="{{slot-foto-klein}} 960w, {{slot-foto}} 1400w" sizes="100vw" alt="{{slot-alt}}" width="1400" height="933" loading="lazy" decoding="async">
+      <div class="al-slot__verloop"></div>
+      <div class="al-wrap al-slot__inhoud">
+        <h2>{{slot-kop}}</h2>
+        <p class="al-slot__regel">{{slot-tekst}}</p>
+        <div class="om-knoppen">
+          <a class="btn btn-primary al-btn mews-open" href="{{mews-basis}}">{{knop-boek}}</a>
+          <a class="btn al-btn om-btn--licht" href="{{slot-knop2-url}}">{{slot-knop2}}</a>
+        </div>
+        <p class="ut-slot__tel om-contact"><a href="{{tel-url}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 1.5h3l1.5 3.5-2 1.2a8 8 0 0 0 4.3 4.3l1.2-2 3.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5A12 12 0 0 1 1.5 3 1.5 1.5 0 0 1 3 1.5z"/></svg>{{tel}}</a><span class="om-contact__punt" aria-hidden="true">&middot;</span><a href="mailto:{{mail}}"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3.5" width="13" height="9" rx="1"/><path d="M2 4.5l6 4.5 6-4.5"/></svg>{{mail}}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pop-up (kamer op de telefoon): inhoud inline in #om-popdata -->
+  <div class="al-pop" data-pop-dialog hidden role="dialog" aria-modal="true" aria-labelledby="al-pop-naam"
+    data-bron="#om-popdata"
+    data-l-sluit="{{pop-sluit}}" data-l-vorige="{{pop-vorige}}" data-l-volgende="{{pop-volgende}}"
+    data-l-kamerboek="{{knop-kamer}}" data-l-kamerbadge="{{pop-kamer-badge}}" data-l-route="{{pop-route}}"
+    data-l-auto="{{l-met-auto}}" data-l-voet="{{l-lopen}}" data-l-rad="{{l-fiets}}" data-l-vanaf="{{pop-vanaf-hotel}}"
+    data-l-speel="{{pop-video-speel}}" data-l-pauze="{{pop-video-pauze}}">
+    <div class="al-pop__kaart" role="document"></div>
+  </div>
+  <!-- OM_POPDATA -->
+
+  <!-- Kamer-pop-up vanaf 768 px: de dialoog #lp-pop-kamer van lander-w1 (gedrag in adslander.js, data #al-kamerdata) -->
+  <!-- OM_KAMERPOP -->
+
+</main>
+
+<!-- AL_VOET -->
+
+<div class="mob-cta-ruimte" aria-hidden="true"></div>
+<div class="mob-cta" aria-hidden="true">
+  <a class="mob-cta-bel" href="{{tel-url}}" aria-label="{{tel}}" tabindex="-1"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg></a>
+  <div><b>{{sticky-kop}}</b><span class="om">{{sticky-sub}}</span></div>
+  <a class="btn btn-primary mews-open" href="{{mews-basis}}" tabindex="-1">{{sticky-knop}}</a>
+</div>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookies">
+  <span>{{cookie-tekst}} <a href="https://www.asteria.nl/privacy" target="_blank" rel="noopener">{{cookie-meer}}</a></span>
+  <button type="button" id="cookieAccept">{{cookie-knop}}</button>
+</div>
+
+<link rel="stylesheet" href="adslander-pop.css">
+</body>
+</html>

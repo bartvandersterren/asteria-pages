@@ -1,0 +1,61 @@
+{
+  "_uitleg": "Vaste labels van het uitje-sjabloon (uitje.template.html), Nederlands, je-vorm. build.py laadt dit bestand eerst; een veld in translations/uitje-<slug>-nl.json met dezelfde sleutel wint. Hier staat alleen wat op elke uitjepagina gelijk is: knoppen, labels van de reistijdvakjes, Lees meer, belregel, Mews-taal, kaartknoppen, cookie en onderbalk.",
+
+  "html-taal": "nl",
+  "og-locale": "nl_NL",
+  "mews-taal": "nl-NL",
+  "robots": "noindex, follow",
+
+  "knop-boek": "Boek je verblijf",
+  "knop-route": "Route in Google Maps",
+  "knop-kamer": "Kies deze kamer",
+  "knop-info": "Meer info",
+  "knop-meer": "Meer info",
+
+  "arr-knop": "Boek het arrangement",
+  "arr-paginalink": "Alles over het arrangement",
+  "arr-kamerlink": "Liever alleen een kamer?",
+
+  "l-auto": "auto",
+  "l-fiets": "fiets",
+  "l-lopen": "lopen",
+  "l-afstand": "afstand",
+  "l-met-auto": "met de auto vanaf Hotel Asteria",
+  "l-leesmeer": "Lees meer",
+  "l-leesminder": "Lees minder",
+  "l-nieuw-tabblad": "(opent in nieuw tabblad)",
+  "l-bel": "Nog een vraag? Bel de receptie: 0478 511 466",
+
+  "tel": "0478 511 466",
+  "tel-url": "tel:+31478511466",
+
+  "kamer-rij-label": "Onze kamers en suites",
+  "kamer-vorige": "Vorige kamer",
+  "kamer-volgende": "Volgende kamer",
+  "kamer-pop-video": "Video van de kamer",
+  "kamer-pop-foto": "Foto",
+
+  "kaart-knop-inzoomen": "Inzoomen",
+  "kaart-knop-uitzoomen": "Uitzoomen",
+  "kaart-knop-alles": "Hele kaart tonen",
+  "kaart-hint-wiel": "Ctrl + scrollen om te zoomen",
+  "kaart-hint-vingers": "Gebruik twee vingers om de kaart te bewegen",
+  "kaart-attributie": "Grenzen CBS/Kadaster &middot; water en wegen &copy; OpenStreetMap-bijdragers",
+
+  "pop-sluit": "Sluiten",
+  "pop-vorige": "Vorige foto",
+  "pop-volgende": "Volgende foto",
+  "pop-route": "Route plannen",
+  "pop-vanaf-hotel": "Reistijden vanaf het hotel",
+  "pop-kamer-badge": "Kamer",
+  "pop-video-speel": "Video afspelen",
+  "pop-video-pauze": "Video pauzeren",
+
+  "sticky-kop": "Hotel Asteria Venray",
+  "sticky-sub": "Direct bij het hotel boeken",
+  "sticky-knop": "Boek je verblijf",
+
+  "cookie-tekst": "Deze website gebruikt cookies voor een goede ervaring.",
+  "cookie-meer": "Meer info",
+  "cookie-knop": "Akkoord"
+}

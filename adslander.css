@@ -1,0 +1,675 @@
+/* ==========================================================================
+   ADSLANDER — Duitse Google Ads-landers van Hotel Asteria (eerste: /wellnesshotel-limburg-de)
+   --------------------------------------------------------------------------
+   Sjabloon : adslander.template.html (build.py entry adslander-wellnesshotel, build_adslander)
+   Gedrag   : adslander.js        Pop-up: adslander-pop.css (onderaan de body)
+   Teksten  : translations/adslander-<naam>-de.json + content/adslander-pop-de.json
+   Bron     : nabouw van parkhotel-site src/stijl/pagina-adslander.css (+ lander-kamerrij, lander-fotorij,
+              blok-reviews-tripadvisor, lander-slot): zelfde blokvolgorde, rasters, clamp-waarden, breekpunten
+              (1279 / 1023 / 767 / 599) en gedrag. Uiterlijk = Asteria-tokens uit lander-w1.css (laadt ervoor):
+              Abhaya Libre 700 + Montserrat, --paper als paginagrond, --surface voor de panelen (Parkhotel-creme),
+              --ink voor tekst, --terracotta voor wat bij Parkhotel goud is, accentwoord .al-g = --terracotta-text,
+              radius card 14 / image 12 / knop 4, .btn .btn-primary. Parkhotel heeft een donkere paginagrond met
+              witte tekst; hier is de grond licht, dus die blokken staan in --ink.
+   Geen eyebrows, geen ornamenten, iconen als SVG.
+   ========================================================================== */
+
+/* -- gedeeld --------------------------------------------------------------- */
+:root { --kophoogte:64px }
+.al { color:var(--ink); font-size:16px; line-height:1.55 }
+:where(.al) *,:where(.al) *::before,:where(.al) *::after { box-sizing:border-box }
+:where(.al) a { text-decoration:none; color:inherit }
+:where(.al) img { display:block; max-width:100% }
+:where(.al) p { margin:0 }
+.al :where(h1,h2,h3) { font-family:var(--font-display); font-weight:700; margin:0; line-height:1.1; letter-spacing:-.01em; color:var(--ink) }
+.al h1 { font-size:62px; line-height:1.02 }
+.al h2 { font-size:46px }
+.al h3 { font-size:24px }
+.al .al-g { color:var(--terracotta-text) }
+.al-wrap { width:min(1120px, calc(100% - 60px)); margin-inline:auto; position:relative }
+.al-sec { position:relative; padding:44px 0 }
+.al-vink { flex:none; color:var(--terracotta) }
+
+/* paneel (Parkhotel-creme) = surface op de paper-grond */
+.al-paneel { background:var(--surface); border-radius:var(--radius-card); box-shadow:var(--shadow-card); color:var(--ink) }
+
+/* knoppen: .btn .btn-primary uit lander-w1.css, op de Parkhotel-maat */
+.al .al-btn { font-size:16px; padding:17px 33px; min-height:52px; white-space:nowrap }
+.al .al-btn--ghost-donker { background:transparent; color:var(--ink); box-shadow:inset 0 0 0 1.5px var(--ink) }
+.al .al-btn--ghost-donker:hover { background:var(--ink); color:var(--surface); transform:none }
+.al .al-btn--ghost-donker .al-vink { color:currentColor }
+
+/* keuze-chip (tabs vragen) */
+.al-chip { display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border:1.5px solid var(--hairline-strong);
+  background:transparent; color:var(--ink); font-family:var(--font-body); font-size:14px; font-weight:600; letter-spacing:.01em;
+  white-space:nowrap; cursor:pointer; border-radius:var(--radius-chip); transition:background .18s, border-color .18s, color .18s }
+.al-chip:hover { border-color:var(--ink) }
+.al-chip--aan,.al-chip--aan:hover { background:var(--terracotta); border-color:var(--terracotta); color:var(--surface) }
+.al-chip:focus-visible { outline:3px solid var(--terracotta); outline-offset:2px }
+
+/* telefoonslider: teller + pijlen (arrangementen) */
+.al-nav { display:none; align-items:center; justify-content:flex-end; gap:10px; color:var(--ink) }
+.al-nav__teller { font-family:var(--font-display); font-weight:700; font-size:18px; margin-right:4px }
+.al-nav__pijl { width:36px; height:36px; padding:0; border:1.5px solid currentColor; border-radius:50%; background:transparent; color:inherit;
+  display:flex; align-items:center; justify-content:center; cursor:pointer }
+.al-nav__pijl:disabled { opacity:.38; cursor:default }
+
+/* -- kop en voet: de spiegelstand van /hotel-venray-v2 (lander-w1.css), dekkend; de hero begint eronder -- */
+
+/* ==========================================================================
+   1 hero: volle video/foto, tekst gecentreerd, Google-badge rechtsboven (Parkhotel 1k)
+   ========================================================================== */
+.al-hero { position:relative; height:clamp(700px, 46vw, 940px); overflow:hidden; color:var(--surface) }
+.al-hero__foto { position:absolute; inset:0; background:var(--ink) }
+.al-hero__foto img { width:100%; height:100%; object-fit:cover; object-position:50% 50% }
+.al-hero__foto picture { display:contents }
+.al-hero__video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; opacity:0; transition:opacity .15s linear }
+.al-hero__video.is-speelt { opacity:1 }
+@media (prefers-reduced-motion:reduce) { .al-hero__video { display:none } }
+.al-hero__foto::after { content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(43,26,4,.45) 0%, rgba(43,26,4,.42) 55%, rgba(43,26,4,.82) 100%) }
+.al-hero__wrap { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  padding:70px 0 40px }
+.al-hero__tekst { display:flex; flex-direction:column; align-items:center; gap:18px; width:100% }
+.al-hero__titel { display:flex; flex-direction:column; align-items:inherit; gap:inherit; width:100% }
+.al .al-hero__tekst h1 { color:var(--surface); max-width:860px; text-wrap:balance }
+.al-hero__sub { font-size:20px; line-height:1.5; color:rgba(255,250,241,.92); max-width:620px }
+.al-hero__tekst .al-btn { margin-top:8px }
+.al-trust { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; justify-content:center; gap:8px 22px; color:rgba(255,250,241,.92);
+  font-size:14px; line-height:1.4 }
+.al-trust li { display:inline-flex; align-items:center; gap:8px; white-space:nowrap }
+.al-trust__ic { flex:none; width:16px; height:16px; color:var(--terracotta) }
+.al-hero__trust { margin-top:4px; gap:10px 24px; font-size:15px; color:var(--surface); font-weight:600 }
+.al-hero__trust li { gap:9px }
+.al-hero__trust .al-trust__ic { width:20px; height:20px; color:#E9A68C }
+@media (max-width:1279px) { .al-hero__trust { display:grid; grid-template-columns:auto auto; justify-content:center; gap:10px 26px; text-align:left } }
+.al-hero__badge { position:absolute; top:40px; right:0; z-index:3; display:flex; align-items:center; gap:14px;
+  min-height:68px; padding:12px 36px 12px 22px; background:var(--surface); color:var(--ink);
+  border-radius:var(--radius-card) 0 0 var(--radius-card); box-shadow:0 6px 24px rgba(43,26,4,.22) }
+.al-hero__score { display:flex; align-items:center; gap:8px; color:var(--star) }
+.al-hero__badge svg { flex:none }
+.al-hero__cijfer { font-family:var(--font-display); font-weight:700; font-size:32px; line-height:1; color:var(--ink) }
+.al-hero__lijn { width:1px; height:40px; background:var(--hairline-strong); flex:none }
+.al-hero__bron { display:flex; align-items:center; gap:10px }
+.al-hero__regels { display:flex; flex-direction:column; line-height:1.25; white-space:nowrap; text-align:left }
+.al-hero__regels b { font-size:14px; font-weight:700; color:var(--ink) }
+.al-hero__regels span { font-size:12px; color:var(--ink-soft) }
+@media (max-width:1279px) { .al-hero__badge { top:auto; bottom:24px } }
+
+/* ==========================================================================
+   2 intro: paneel, links kop + tekst + link, rechts vier feiten met vinkjes
+   ========================================================================== */
+.al-intro { padding:64px 0 }
+.al-intro__paneel { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:64px; align-items:center; padding:56px 60px }
+.al-intro__links { display:flex; flex-direction:column; gap:20px; align-items:flex-start }
+.al .al-intro__links h2 { font-size:42px }
+.al-intro__tekst { font-size:17px; line-height:1.65; color:var(--ink-soft) }
+.al a.al-intro__link { display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:15px; color:var(--ink);
+  border-bottom:1.5px solid var(--terracotta); padding-bottom:3px }
+.al-intro__link svg { color:var(--terracotta) }
+.al-intro__lijst { list-style:none; margin:0; padding:0; border-top:1px solid var(--hairline-strong) }
+.al-intro__lijst li { display:flex; align-items:flex-start; gap:14px; padding:18px 0; border-bottom:1px solid var(--hairline-strong);
+  font-size:17px; line-height:23px; color:var(--ink-soft) }
+.al-intro__lijst li .al-vink { margin-top:2px }
+.al-intro__lijst li b { color:var(--ink) }
+
+/* ==========================================================================
+   3 fotoslider (coverflow zoals asteria.nl): band onderin, 700 ms cubic-bezier(.32,.72,0,1)
+   ========================================================================== */
+.al-rond { position:relative; padding:44px 0 90px;
+  background:linear-gradient(to top, var(--surface) 0, var(--surface) 264px, transparent 264px) }
+.al-rond__sub { margin-top:10px; font-size:18px; line-height:1.6; color:var(--ink-soft) }
+.al-rond__rij { list-style:none; margin:47px 0 0; padding:0; position:relative; height:calc(var(--mw) * 4 / 3); overflow:hidden }
+.al-rond { --mw:264px; --s1:.7197; --s2:.5227; --g1:24px; --g2:29px;
+  --d1:calc(var(--mw) * (.5 + var(--s1) / 2) + var(--g1));
+  --d2:calc(var(--d1) + var(--mw) * (var(--s1) + var(--s2)) / 2 + var(--g2));
+  --d3:calc(var(--d2) + var(--mw) * (var(--s2) / 2 + .3)) }
+.al-rond__item { position:absolute; left:50%; top:50%; width:var(--mw); margin:0; z-index:0; opacity:0; pointer-events:none;
+  transform:translate(-50%, -50%) scale(.4); will-change:transform, opacity; cursor:pointer;
+  transition:transform .7s cubic-bezier(.32, .72, 0, 1), opacity .7s cubic-bezier(.32, .72, 0, 1) }
+.al-rond__item--0 { transform:translate(-50%, -50%); opacity:1; z-index:3; pointer-events:auto; cursor:auto }
+.al-rond__item--m1 { transform:translate(calc(-50% - var(--d1)), -50%) scale(var(--s1)); opacity:1; z-index:2; pointer-events:auto }
+.al-rond__item--p1 { transform:translate(calc(-50% + var(--d1)), -50%) scale(var(--s1)); opacity:1; z-index:2; pointer-events:auto }
+.al-rond__item--m2 { transform:translate(calc(-50% - var(--d2)), -50%) scale(var(--s2)); opacity:1; z-index:1; pointer-events:auto }
+.al-rond__item--p2 { transform:translate(calc(-50% + var(--d2)), -50%) scale(var(--s2)); opacity:1; z-index:1; pointer-events:auto }
+.al-rond__item--m3 { transform:translate(calc(-50% - var(--d3)), -50%) scale(.4) }
+.al-rond__item--p3 { transform:translate(calc(-50% + var(--d3)), -50%) scale(.4) }
+.al-rond__beeld { position:relative; aspect-ratio:3/4; border-radius:var(--radius-image); overflow:hidden; box-shadow:0 8px 22px rgba(68,42,6,.22); background:var(--paper-shade) }
+.al-rond__beeld img { width:100%; height:100%; object-fit:cover; -webkit-user-drag:none }
+.al-rond__rij { touch-action:pan-y; cursor:grab; -webkit-user-select:none; user-select:none }
+.al-rond__rij.is-sleept,.al-rond__rij.is-sleept .al-rond__item { cursor:grabbing }
+.al-rond__beeld::after { content:''; position:absolute; inset:0; background:rgba(247,231,209,.55); opacity:0; pointer-events:none;
+  transition:opacity .7s cubic-bezier(.32, .72, 0, 1) }
+.al-rond__item--m2 .al-rond__beeld::after,.al-rond__item--p2 .al-rond__beeld::after { opacity:1 }
+.al-rond__vergroot { position:absolute; z-index:2; top:16px; right:16px; width:40px; height:40px; padding:0; border:0; border-radius:50%;
+  background:rgba(255,250,241,.94); box-shadow:0 6px 16px rgba(68,42,6,.18); display:grid; place-items:center; color:var(--terracotta); cursor:zoom-in }
+.al-rond__vergroot svg { width:18px; height:18px }
+.al-rond__pijlen { display:flex; justify-content:center; gap:8px; margin-top:25px }
+.al-rond__pijl { width:44px; height:44px; padding:0; border:1.5px solid var(--ink); border-radius:50%; background:transparent;
+  display:grid; place-items:center; color:var(--ink); cursor:pointer; transition:background .18s, color .18s }
+.al-rond__pijl:hover { background:var(--ink); color:var(--surface) }
+.al-rond__status { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+@media (min-width:1024px) {
+  .al-rond { --rb:clamp(1000px, calc(100vw - 60px), 1440px); --mw:calc(var(--rb) * .259); --rg:calc(var(--rb) * .0207);
+    background:linear-gradient(to top, var(--surface) 0, var(--surface) calc(90px + 28px + 44px + var(--mw) * 2 / 3), transparent calc(90px + 28px + 44px + var(--mw) * 2 / 3)) }
+  .al-rond__kop { width:min(1440px, calc(100% - 60px)) }
+  .al-rond { --s1:.7259; --s2:.5251; --g1:var(--rg); --g2:var(--rg) }
+  .al-rond__pijlen { margin-top:28px }
+}
+
+/* lightbox */
+.al-lb { position:fixed; inset:0; z-index:1000; display:grid; grid-template-rows:1fr auto; justify-items:center; align-items:center;
+  padding:64px 96px 20px; background:rgba(30,18,3,.95); color:var(--surface); font-family:var(--font-body) }
+.al-lb[hidden] { display:none }
+.al-lb__kader { margin:0; width:min(1400px, 100%); height:100%; min-height:0; display:flex; align-items:center; justify-content:center }
+.al-lb__beeld { width:100%; height:100%; object-fit:contain; -webkit-user-drag:none }
+.al-lb { touch-action:pan-y; cursor:grab; -webkit-user-select:none; user-select:none }
+.al-lb.is-sleept { cursor:grabbing }
+.al-lb button { cursor:pointer }
+.al-lb__onder { margin:14px 0 0; display:flex; gap:14px; align-items:baseline; justify-content:center; max-width:70ch; text-align:center;
+  font-size:15px; line-height:1.45; color:rgba(255,250,241,.86) }
+.al-lb__teller { flex:none; font-family:var(--font-display); font-weight:700; font-size:18px; color:var(--surface) }
+.al-lb__sluit,.al-lb__nav { position:absolute; width:44px; height:44px; padding:0; border:1.5px solid rgba(255,250,241,.5); border-radius:50%;
+  background:transparent; color:var(--surface); display:grid; place-items:center; cursor:pointer; transition:border-color .18s, color .18s }
+.al-lb__sluit { top:12px; right:12px }
+.al-lb__nav { top:50%; transform:translateY(-50%) }
+.al-lb__nav--vorige { left:24px }
+.al-lb__nav--volgende { right:24px }
+.al-lb__sluit:hover,.al-lb__nav:hover { border-color:var(--terracotta); color:#E9A68C }
+@media (max-width:599px) {
+  .al-lb { padding:64px 12px 84px }
+  .al-lb__nav { top:auto; bottom:20px; transform:none }
+  .al-lb__nav--vorige { left:calc(50% - 54px) }
+  .al-lb__nav--volgende { right:calc(50% - 54px) }
+  .al-lb__onder { flex-direction:column; gap:4px; align-items:center; font-size:14px }
+}
+html.al-lb-open { overflow:hidden }
+
+/* ==========================================================================
+   4 arrangementen: drie kaarten, middelste uitgelicht (terracotta rand, breder, hoger, vijf punten)
+   ========================================================================== */
+.al-arr { padding:60px 0 }
+.al-arr__kop { text-align:center; margin-bottom:29px }
+.al .al-arr__kop h2 { font-size:72px; line-height:1.1 }
+.al-arr__sub { margin-top:8px; font-size:18px; color:var(--ink-soft) }
+.al-arr__rij { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr) minmax(0,1fr); gap:24px; align-items:stretch; padding:20px 0 }
+.al-arr__voet { display:flex; justify-content:flex-end; align-items:center; gap:20px; margin-top:26px }
+.al-ak { display:flex; flex-direction:column; padding-bottom:24px; background:var(--surface); border:1px solid var(--paper-shade);
+  border-radius:var(--radius-card); overflow:hidden; color:var(--ink); min-width:0; box-shadow:var(--shadow-card) }
+.al-ak > *:not(.al-ak__foto) { margin-left:24px; margin-right:24px }
+.al-ak--buiten { margin:20px 0 }
+.al-ak--uit { border:2px solid var(--terracotta); box-shadow:var(--shadow-deep) }
+.al-ak__foto { position:relative }
+.al-ak__foto img { width:100%; height:200px; object-fit:cover }
+.al-ak--uit .al-ak__foto img { height:240px }
+.al-ak__past { position:absolute; left:16px; top:16px; background:var(--terracotta); color:var(--surface); font-size:11px; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; padding:6px 10px; line-height:1.2; border-radius:var(--radius-btn) }
+.al-ak__kop { padding-top:20px }
+.al-ak__tag { font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px }
+.al .al-ak__naam { font-size:28px; line-height:1.1 }
+.al .al-ak--uit .al-ak__naam { font-size:32px }
+.al-ak__naam em { font-style:normal; color:var(--terracotta-text) }
+.al-ak__prijsblok { padding:14px 0 16px; border-bottom:1px solid var(--hairline-strong); margin-bottom:16px }
+.al-ak__prijs { font-family:var(--font-display); font-weight:700; font-size:32px; line-height:1.1; color:var(--terracotta-text) }
+.al-ak--uit .al-ak__prijs { font-size:36px }
+.al-ak__prijs small,.al-ak__vf { font-family:var(--font-body); font-weight:500; font-size:15px; color:var(--ink-soft) }
+.al-ak__incl { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px }
+.al-ak__incl li { display:flex; align-items:flex-start; gap:10px; font-size:15px; line-height:1.4; color:var(--ink-soft) }
+.al-ak__incl .al-vink { margin-top:2px }
+.al-ak__acties { display:flex; flex-direction:column; align-items:flex-start; gap:14px; padding-top:22px; margin-top:auto }
+.al .al-ak__knop { width:100%; font-size:16px; padding:16px 20px; min-height:52px; white-space:normal; line-height:1.25; text-align:center }
+.al a.al-ak__ontdek { color:var(--terracotta-text); font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase; line-height:1.4 }
+.al a.al-ak__ontdek:hover { text-decoration:underline }
+
+/* ==========================================================================
+   5 kamerrij (Parkhotel lander-kamerrij: lus, buurkaarten in de zijmarge)
+   ========================================================================== */
+.al-kamers { --zij:15px; padding:36px 18px; overflow:hidden }
+.al-kamers__wrap { max-width:1440px; margin:0 auto; padding:0 var(--zij) }
+.al-kamers__kop { margin:0 0 24px }
+.al-kamers .kk-rij { position:relative; padding-bottom:72px }
+.al-kamers .kk-spoor { display:flex; gap:30px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  padding:0 33px 0 15px; margin:0 -33px 0 0; scroll-padding-left:15px; scrollbar-width:none }
+.al-kamers .kk-spoor::-webkit-scrollbar { display:none }
+.al-kamers .kk-kaart { flex:0 0 min(309px, calc(100vw - 81px)); scroll-snap-align:start; display:flex; flex-direction:column;
+  background:var(--surface); color:var(--ink); border-radius:var(--radius-card); overflow:hidden; box-shadow:var(--shadow-card) }
+.al-kamers .kk-foto { display:block; aspect-ratio:3/2; overflow:hidden }
+.al-kamers .kk-foto img { width:100%; height:100%; object-fit:cover }
+.al-kamers .kk-inhoud { display:flex; flex-direction:column; padding:30px; flex:1 }
+.al .al-kamers .kk-naam { font-size:26px; line-height:1.1; margin:0 0 9px }
+.al-kamers .kk-tekst { font-size:16px; line-height:1.45; color:var(--ink-soft); margin:0 0 18px;
+  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden }
+.al-kamers .kk-kenmerken { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; margin:10px 0 18px; font-size:13px; line-height:1.2;
+  list-style:none; padding:0; color:var(--ink) }
+.al-kamers .kk-kenmerken li { display:flex; flex-flow:column; align-items:center; text-align:center; gap:8px }
+.al-kamers .kk-kenmerken .as-icoon { width:28px; height:28px; color:var(--terracotta); stroke-width:1.6 }
+.al-kamers .kk-prijs { font-size:14px; line-height:1.2; color:var(--ink-soft); margin:auto 0 9px; min-height:52px; visibility:hidden }
+.al-kamers .kk-prijs.is-gevuld { visibility:visible }
+.al-kamers .kk-bedrag { display:block; margin-bottom:6px; font-family:var(--font-display); font-size:34px; font-weight:700; color:var(--ink) }
+.al-kamers .kk-knoppen { display:flex; gap:10px; margin:14px 0 0 }
+.al .al-kamers .kk-knoppen .btn { flex:1; min-height:52px; padding:14px 12px; font-size:15px; white-space:normal; text-align:center; line-height:1.2 }
+.al-kamers .kk-nav { position:absolute; right:0; bottom:0; display:flex; align-items:center; height:46px }
+.al-kamers .kk-teller { margin-right:15px; font-family:var(--font-display); font-weight:700; font-size:20px; line-height:1; color:var(--ink); opacity:.75 }
+.al-kamers .kk-pijl { display:flex; align-items:center; justify-content:center; width:46px; height:46px; padding:0; color:var(--ink);
+  border:1.5px solid var(--ink); border-radius:50%; background:none; cursor:pointer; transition:background .25s, color .25s }
+.al-kamers .kk-pijl + .kk-pijl { margin-left:10px }
+.al-kamers .kk-pijl svg { width:18px; height:18px }
+.al-kamers .kk-pijl:hover { background:var(--ink); color:var(--surface) }
+@media (min-width:1024px) {
+  .al-kamers { padding:0 }
+  .al-kamers .kk-spoor { --over:calc(max(0px, 50vw - 720px) + var(--zij)); gap:60px;
+    margin:0 calc(var(--over) * -1); padding:0 var(--over); scroll-padding-left:var(--over) }
+  .al-kamers .kk-kaart { flex:0 0 calc((100% - 120px) / 3) }
+  .al-kamers .kk-inhoud { padding:40px 45px }
+  .al .al-kamers .kk-naam { font-size:40px }
+  .al-kamers .kk-tekst { line-height:1.6 }
+  .al-kamers .kk-kenmerken { margin:0 0 30px; font-size:13px }
+  .al-kamers .kk-prijs { font-size:15px }
+  .al-kamers .kk-knoppen { gap:16px }
+  .al-kamers .kk-teller { margin-right:22px; font-size:24px }
+}
+@media (min-width:1024px) and (max-height:900px) {
+  .al-kamers .kk-rij { padding-bottom:58px }
+  .al-kamers .kk-foto { aspect-ratio:16/9 }
+  .al-kamers .kk-inhoud { padding:26px 30px 28px }
+  .al .al-kamers .kk-naam { font-size:32px; margin-bottom:6px }
+  .al-kamers .kk-tekst { margin-bottom:14px }
+  .al-kamers .kk-kenmerken { margin-bottom:16px }
+  .al-kamers .kk-prijs { display:flex; flex-wrap:wrap; align-items:baseline; gap:0 8px; margin-bottom:0; min-height:36px }
+  .al-kamers .kk-bedrag { display:inline; margin:0; font-size:30px }
+  .al-kamers .kk-knoppen { margin-top:12px; gap:12px }
+  .al .al-kamers .kk-knoppen .btn { min-height:48px; padding:12px 10px }
+}
+
+/* ==========================================================================
+   6 faciliteiten: mozaiek, een groot + vier klein, alle tegels openen de pop-up
+   ========================================================================== */
+.al-fac { padding:60px 0; overflow-x:clip }
+.al-fac__wrap { width:min(1440px, calc(100% - 60px)); margin-inline:auto; position:relative }
+.al-fac__kop { display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:32px; row-gap:10px; align-items:end; margin-bottom:28px }
+.al-fac__kop h2 { grid-column:1 }
+.al-fac__sub { grid-column:1; max-width:660px; color:var(--ink-soft); font-size:18px; line-height:1.5 }
+.al-fac__grid { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr); grid-template-rows:260px 260px; gap:16px }
+.al-tegel { position:relative; display:block; width:100%; height:100%; overflow:hidden; border-radius:var(--radius-image);
+  background:var(--ink); color:var(--surface); box-shadow:var(--shadow-card); transition:transform .3s, box-shadow .3s }
+.al-tegel--breed { grid-row:span 2 }
+.al-tegel img { width:100%; height:100%; object-fit:cover; transition:transform .3s }
+.al-tegel:hover img { transform:scale(1.03) }
+.al-tegel:hover { transform:translateY(-4px); box-shadow:var(--shadow-deep) }
+.al-tegel:focus-visible { outline:3px solid var(--terracotta); outline-offset:3px }
+.al-tegel::after { content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(43,26,4,.08) 0%, rgba(43,26,4,0) 28%, rgba(43,26,4,.28) 58%, rgba(43,26,4,.84) 100%) }
+.al-tegel__tekst { position:absolute; left:18px; right:18px; bottom:16px; z-index:2; display:flex; flex-direction:column; align-items:flex-start; gap:6px }
+.al-tegel__naam { color:var(--surface); font-family:var(--font-display); font-weight:700; font-size:24px; line-height:1.1 }
+.al-tegel__regel { color:rgba(255,250,241,.9); font-size:15px; line-height:1.4 }
+.al-tegel--breed .al-tegel__tekst { left:26px; right:26px; bottom:24px }
+.al-tegel--breed .al-tegel__naam { font-size:34px }
+.al-tegel__meer { display:inline-flex; align-items:center; gap:8px; margin-top:6px; border:1.5px solid var(--surface); color:var(--surface); background:transparent;
+  font-weight:700; font-size:13px; line-height:1; padding:9px 14px; border-radius:var(--radius-btn); transition:background .18s, border-color .18s }
+.al-tegel__meer svg { flex:none }
+.al-tegel:hover .al-tegel__meer { background:var(--terracotta); border-color:var(--terracotta) }
+
+/* ==========================================================================
+   7 omgeving: compacte kaarten, randslider zonder lus (rij rechts door de schermrand)
+   ========================================================================== */
+.al-omg { padding:44px 0; margin-bottom:56px; overflow-x:clip }
+.al-omg__wrap { --links:max(15px, 50vw - 780px); margin:0 var(--links);
+  display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"kop kop" "sub nav" "rij rij";
+  align-items:center; column-gap:16px }
+.al .al-omg__kop { grid-area:kop; font-size:46px; line-height:1.1 }
+.al-omg__sub { grid-area:sub; margin-top:4px; font-size:16px; color:var(--ink-soft) }
+.al-omg__nav { grid-area:nav; display:flex; align-items:center; gap:8px }
+.al-omg__teller { margin-right:8px; font-size:14px; color:var(--ink-soft); font-variant-numeric:tabular-nums }
+.al-omg__pijl { width:44px; height:44px; padding:0; border:1.5px solid var(--hairline-strong); border-radius:50%; background:transparent;
+  color:var(--ink); display:grid; place-items:center; cursor:pointer; transition:border-color .18s, color .18s, background .18s }
+.al-omg__pijl:hover { border-color:var(--ink); background:var(--ink); color:var(--surface) }
+.al-omg__pijl:disabled { opacity:.38; cursor:default }
+.al-omg__pijl:disabled:hover { border-color:var(--hairline-strong); background:transparent; color:var(--ink) }
+.al-omg__grid { grid-area:rij; margin:22px calc(var(--links) * -1) 0 0; padding:0 var(--links) 12px 0; display:flex; gap:20px; align-items:stretch;
+  overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scroll-behavior:smooth; scrollbar-width:none }
+.al-omg__grid::-webkit-scrollbar { display:none }
+.al-uk { flex:0 0 calc((min(100vw, 1590px) - 30px) * .298); scroll-snap-align:start; background:var(--surface); color:var(--ink);
+  border-radius:var(--radius-card); overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--shadow-card); text-align:left }
+.al-uk img { width:100%; height:210px; object-fit:cover }
+.al-uk__body { padding:18px 22px 20px; display:flex; flex-direction:column; flex:1 }
+.al-uk__cat { font-size:12px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; line-height:1.3; color:var(--ink-soft) }
+.al-uk__naam { font-family:var(--font-display); font-weight:700; font-size:24px; line-height:1.1; color:var(--ink); margin-top:6px }
+.al-uk__tekst { font-size:15px; line-height:1.5; color:var(--ink-soft); margin:8px 0 14px }
+.al-uk__reis { margin-top:auto; padding-top:12px; border-top:1px solid var(--hairline-strong); display:flex; flex-wrap:wrap; gap:4px 16px; min-height:33px;
+  font-size:14px; line-height:20px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums }
+.al-uk__reis > span { display:inline-flex; align-items:center; gap:6px; white-space:nowrap }
+.al-uk__reis svg { width:20px; height:20px; flex:none; fill:none; stroke:var(--terracotta); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round }
+.al-uk__meer { display:inline-flex; align-items:center; gap:7px; align-self:flex-start; margin-top:14px; color:var(--ink); font-weight:700;
+  font-size:15px; line-height:1.2; padding-bottom:2px; border-bottom:1.5px solid var(--terracotta) }
+.al-uk__meer svg { color:var(--terracotta) }
+.al-uk:hover .al-uk__meer { color:var(--terracotta-text) }
+.al-vh { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap }
+
+/* ==========================================================================
+   8 fotorij (Parkhotel lander-fotorij: 460 x 402, 60 ertussen, lus, rest gedimd)
+   ========================================================================== */
+.al-fotorij { padding:36px 0 }
+.al-fotorij__spoor { display:flex; align-items:flex-start; gap:30px; overflow-x:auto; scroll-snap-type:x mandatory; padding-left:30px; scroll-padding-left:30px;
+  scrollbar-width:none; scroll-behavior:smooth }
+.al-fotorij__spoor::-webkit-scrollbar { display:none }
+.al-fotorij__spoor::after { content:""; flex:0 0 30px }
+.al-fotorij__spoor > * { flex:0 0 290px; width:290px; display:block; scroll-snap-align:start }
+.al-fotorij__foto { display:block; height:auto; aspect-ratio:460/402; object-fit:cover; border-radius:var(--radius-image) }
+.al-fotorij__spoor > * { opacity:.6 }
+.al-fotorij__spoor > :first-child { opacity:1 }
+.al-fotorij__spoor.js > * { opacity:.6; transition:opacity .3s ease }
+.al-fotorij__spoor.js > .is-vol { opacity:1 }
+@media (min-width:1024px) {
+  .al-fotorij { padding:0 }
+  .al-fotorij__spoor { gap:60px; padding-left:max(15px, calc(50% - 705px)); scroll-padding-left:max(15px, calc(50% - 705px)) }
+  .al-fotorij__spoor::after { flex:0 0 15px }
+  .al-fotorij__spoor > * { flex:0 0 460px; width:460px }
+  .al-fotorij__spoor > :nth-child(-n+3) { opacity:1 }
+}
+
+/* ==========================================================================
+   9 reviews: Google-scorepaneel + kaartenstrook (Parkhotel blok-reviews-tripadvisor in Google-vorm)
+   ========================================================================== */
+.al-rev { --rv-gap:16px; padding:60px 0; overflow-x:clip }
+.al-rev__omhulsel { width:min(1440px, calc(100% - 30px)); margin-inline:auto }
+.al-rev__kop { display:flex; flex-direction:column; gap:10px; margin-bottom:20px }
+.al .al-rev__kop h2 { font-size:72px; line-height:1.1 }
+.al-rev__score { display:flex; align-items:center; gap:9px; flex-wrap:wrap; font-size:15px; color:var(--ink-soft) }
+.al-rev__score b { font-weight:700; font-size:17px; color:var(--ink) }
+.al-rev__sterren { display:inline-flex; gap:2px; color:var(--star) }
+.al-rev__sterren svg { width:16px; height:16px; fill:currentColor }
+.al-rev a.al-rev__aantal { color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px }
+.al-rev a.al-rev__aantal:hover { color:var(--terracotta-text) }
+.al-rev__strook { position:relative; display:flex; gap:var(--rv-gap); overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none;
+  padding-bottom:12px; margin-right:-15px; padding-right:15px }
+.al-rev__strook::-webkit-scrollbar { display:none }
+.al-rev__spoor { display:contents }
+.al-rev__paneel,.al-rev__kaart { flex:0 0 80%; scroll-snap-align:start; background:var(--surface); border:1px solid var(--paper-shade);
+  border-radius:var(--radius-card); padding:20px; display:flex; flex-direction:column; box-shadow:var(--shadow-card) }
+.al-rev__merk { display:flex; align-items:center; gap:10px; font-weight:700; font-size:15px; color:var(--ink); margin-bottom:14px }
+.al-rev__merk svg { width:34px; height:34px }
+.al-rev__pkop { display:flex; align-items:center; gap:14px }
+.al-rev__cijfer { font-family:var(--font-display); font-weight:700; font-size:56px; line-height:1; color:var(--ink) }
+.al-rev__woord { font-weight:700; font-size:18px; color:var(--ink) }
+.al-rev__pregel { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:4px; font-size:14px; color:var(--ink-soft) }
+.al-rev__vertaald { margin-top:auto; padding-top:16px; border-top:1px solid var(--hairline-strong); font-size:13px; line-height:1.45; color:var(--ink-soft) }
+.al-rev__vertaald svg { width:16px; height:16px; vertical-align:-3px; margin-right:6px; color:var(--terracotta) }
+.al-rev__alle { margin-top:12px; font-size:14px; font-weight:700 }
+.al-rev a.al-rev__alle { color:var(--terracotta-text); text-decoration:underline; text-underline-offset:3px }
+.al-rev__kaart { gap:10px }
+.al-rev__naam { font-weight:700; font-size:16px; color:var(--ink) }
+.al-rev__datum { color:var(--ink-soft); font-weight:500 }
+.al-rev__tekst { font-size:16px; line-height:1.6; color:var(--ink); display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:5; overflow:hidden }
+.al-rev__bron { margin-top:auto; padding-top:12px; font-size:13px; color:var(--ink-soft) }
+.al-rev__bron b { color:var(--ink) }
+.al-rev__pijl { display:none }
+@media (min-width:1024px) {
+  .al-rev__omhulsel { padding-left:60px; width:auto; margin-left:max(15px, 50vw - 840px); margin-right:0 }
+  .al-rev__kop { flex-direction:row; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:8px; padding-right:max(15px, 50vw - 750px) }
+  .al-rev__score { font-size:16px; padding-bottom:8px }
+  .al-rev__strook { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); align-items:stretch; overflow:visible; scroll-snap-type:none;
+    margin-right:0; padding:12px 0 18px }
+  .al-rev__paneel { padding:26px 28px 24px }
+  .al-rev__spoor { --over:max(15px, 50vw - 675px); display:flex; gap:var(--rv-gap); overflow-x:auto; scrollbar-width:none; scroll-behavior:smooth;
+    margin-right:calc(var(--over) * -1); padding-right:var(--over); margin-left:0; padding-left:0; scroll-snap-type:x mandatory }
+  .al-rev__spoor::-webkit-scrollbar { display:none }
+  .al-rev__kaart { flex:0 0 calc((min(100vw, 1590px) - 120px) * .66 / 2.5 - 10px); padding:24px; gap:12px }
+  .al-rev__tekst { min-height:calc(5 * 1.6em) }
+  .al-rev__pijl { display:flex; align-items:center; justify-content:center; position:absolute; right:calc(24px - max(15px, 50vw - 675px)); top:50%; z-index:2;
+    transform:translateY(-50%); width:48px; height:48px; border-radius:50%; background:var(--surface); border:1.5px solid var(--ink);
+    color:var(--ink); cursor:pointer; box-shadow:var(--shadow-card); right:max(24px, 50vw - 650px) }
+  .al-rev__pijl:hover { background:var(--ink); color:var(--surface) }
+  .al-rev__pijl svg { width:20px; height:20px }
+}
+
+/* ==========================================================================
+   10 vragen: kop links, rechts tabs Wellness / Allgemein en de accordeon (.as-accordeon)
+   ========================================================================== */
+.al-faq { padding:60px 0 }
+.al-faq__raster { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); gap:64px; align-items:start }
+.al-faq__kop { display:flex; flex-direction:column; gap:12px; padding-top:6px }
+.al a.al-faq__tel { display:inline-flex; align-items:flex-start; gap:10px; margin-top:14px; font-size:15px; color:var(--ink-soft); line-height:1.45 }
+.al-faq__tel svg { flex:none; margin-top:2px; color:var(--terracotta) }
+.al-faq__tel:hover span { text-decoration:underline }
+.al-faq__tabs { display:flex; gap:8px; margin-bottom:22px }
+.al-faq__tabs[hidden] { display:none }
+.al-faq__paneel + .al-faq__paneel { margin-top:36px }
+.al-faq--tabs .al-faq__paneel + .al-faq__paneel { margin-top:0 }
+.al-faq__paneel[hidden] { display:none }
+.al .al-faq__tk { font-size:24px; line-height:1.2; margin:0 0 14px }
+.al-faq--tabs .al-faq__tk { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; margin:0 }
+.al .al-faq .as-accordeon__kop { font-family:var(--font-display); font-weight:700; font-size:22px; line-height:1.25; padding:20px 4px }
+.al .al-faq .as-accordeon__kop h3 { font:inherit; color:inherit; margin:0 }
+.al .al-faq .as-accordeon__item[open] .as-accordeon__kop,.al .al-faq .as-accordeon__kop:hover { color:var(--terracotta-text) }
+.al .al-faq .as-accordeon__paneel { font-size:17px; color:var(--ink-soft) }
+
+/* ==========================================================================
+   11 nieuwsbrief (Parkhotel lander-nieuwsbrief): paneel, tekst links en formulier rechts
+   ========================================================================== */
+.al-nb { padding:36px 0 }
+.al-nb__wrap { width:min(1440px, calc(100% - 30px)); margin-inline:auto }
+.al-nb__vlak { background:var(--surface); color:var(--ink); padding:45px 30px; text-align:center; border-radius:var(--radius-card); box-shadow:var(--shadow-card) }
+.al-nb__tekst { max-width:500px; margin:0 auto }
+.al .al-nb__tekst h2 { font-size:30px; line-height:1.15; margin:0 0 14px }
+.al-nb__tekst p { font-size:17px; line-height:1.6; color:var(--ink-soft); margin:0 0 18px }
+.al-nb__form { position:relative; display:flex; flex-direction:column; flex-wrap:wrap; align-items:center; gap:14px; width:100%; max-width:500px; margin:0 auto }
+.al-nb__veld { width:100%; height:55px; padding:15px 22px; border:1.5px solid var(--hairline-strong); border-radius:var(--radius-btn);
+  background:#fff; color:var(--ink); font-family:var(--font-body); font-size:16px; font-weight:500 }
+.al-nb__veld::placeholder { color:var(--ink-soft); opacity:1 }
+.al-nb__veld:focus { outline:3px solid rgba(199,110,78,.45); outline-offset:1px; border-color:var(--terracotta) }
+.al .al-nb__knop { min-height:55px; width:100% }
+.al-nb__melding { width:100%; margin:0; font-size:15px; line-height:1.5; color:var(--ink) }
+.al-nb__melding:empty { display:none }
+.al-nb__melding.is-fout { color:var(--red) }
+.al-nb__verborgen { position:absolute; width:1px; height:1px; margin:-1px; padding:0; border:0; clip:rect(0,0,0,0); overflow:hidden }
+.al-nb__pot { position:absolute; width:0; height:0; padding:0; border:0; opacity:0; pointer-events:none }
+@media (min-width:1024px) {
+  .al-nb { padding:36px 0 72px }
+  .al-nb__vlak { display:grid; grid-template-columns:2fr 3fr; gap:0 60px; align-items:center; padding:45px; text-align:left }
+  .al-nb__tekst { max-width:none; margin:0 }
+  .al-nb__tekst p { margin:0 }
+  .al-nb__form { flex-direction:row; align-items:center; max-width:none; margin:0 }
+  .al-nb__veld { flex:1 1 auto; width:auto }
+  .al .al-nb__knop { flex:0 0 245px; width:245px }
+}
+
+/* ==========================================================================
+   12 slot: brede fotoband met kop, regel, boekknop en USP's; daaronder het overlegblok
+   ========================================================================== */
+.al-slot { position:relative; padding:44px 0 72px }
+.al-slot__band { position:relative; height:520px; overflow:hidden }
+.al-slot__band img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover }
+.al-slot__verloop { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(43,26,4,.35) 0, rgba(43,26,4,.6) 50%, rgba(43,26,4,.85) 100%) }
+.al-slot__inhoud { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; text-align:center }
+.al .al-slot__inhoud h2 { color:var(--surface); font-size:52px }
+.al .al-slot__inhoud .al-g { color:#E9A68C }
+.al-slot__regel { max-width:620px; color:rgba(255,250,241,.92); font-size:18px }
+.al-slot__inhoud .al-btn { margin-top:8px }
+.al-slot__usps { margin-top:14px }
+.al-slot__usps .al-trust__ic { color:#E9A68C }
+.al-slot__strook { display:flex; align-items:center; gap:28px; min-height:150px; margin-top:60px; padding:24px 36px }
+.al-slot__portret { flex:none; width:96px; height:96px; border:2px solid var(--terracotta); border-radius:50%; overflow:hidden }
+.al-slot__portret img { width:100%; height:100%; object-fit:cover }
+.al-slot__tekst { flex:1; min-width:0 }
+.al .al-slot__tekst h2 { font-size:30px }
+.al-slot__tekst p { margin-top:6px; font-size:16px; line-height:1.45; color:var(--ink-soft) }
+.al-slot__knoppen { flex:none; display:flex; gap:12px }
+.al .al-slot__knoppen .al-btn { font-size:15px; padding:14px 20px }
+
+/* ==========================================================================
+   <= 1023 px: arrangementen als veegrij, omgeving met smallere kaarten (peek), reviewpaneel in de rij
+   ========================================================================== */
+@media (max-width:1023px) {
+  .al-nav { display:flex }
+  .al-uk { flex-basis:calc((100vw - 30px) * .44) }
+  .al-arr__rij { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    overscroll-behavior-x:contain; scrollbar-width:none; padding:4px 2px 18px; margin:0 -2px }
+  .al-arr__rij::-webkit-scrollbar { display:none }
+  .al-arr__rij > .al-ak { flex:0 0 46%; margin:0; scroll-snap-align:start }
+  .al-ak--uit { order:-1; box-shadow:var(--shadow-card) }
+  .al-ak--uit .al-ak__foto img { height:200px }
+  .al .al-ak--uit .al-ak__naam { font-size:28px }
+  .al-ak--uit .al-ak__prijs { font-size:32px }
+  .al-arr__voet { margin-top:10px }
+}
+
+/* ==========================================================================
+   <= 767 px: telefoon
+   ========================================================================== */
+@media (max-width:767px) {
+  .al-wrap { width:calc(100% - 30px) }
+  .al h1 { font-size:38px }
+  .al h2 { font-size:32px }
+  .al h3 { font-size:22px }
+  .al-sec { padding:28px 0 }
+  .al .al-btn { font-size:15px; padding:15px 24px }
+
+  /* 1 hero, telefoon met video (9:16): videovak tot 75svh, knop op de onderrand, zekerheden eronder */
+  .al-hero { height:auto; min-height:min(170vw, 900px); display:flex }
+  .al-hero__foto { bottom:auto; height:min(170vw, 900px) }
+  .al-hero__foto::after { background:linear-gradient(180deg, rgba(43,26,4,.35) 0%, rgba(43,26,4,.35) 30%, rgba(43,26,4,.8) 62%, rgba(43,26,4,.95) 100%) }
+  .al-hero__wrap { height:auto; padding:max(110px, calc(52vw + 8px)) 0 112px }
+  .al-hero__tekst { gap:14px }
+  /* videovak eindigt op 75svh van het venster (de kop staat erboven), nooit lager dan 312 px, nooit hoger dan 9:16 */
+  .al-hero--video { --al-hv:clamp(312px, calc(75vh - var(--kophoogte)), 177.78vw); min-height:0; color:var(--ink) }
+  @supports (height:100svh) { .al-hero--video { --al-hv:clamp(312px, calc(75svh - var(--kophoogte)), 177.78vw) } }
+  .al-hero--video .al-hero__foto { height:var(--al-hv) }
+  .al-hero--video .al-hero__foto::after { background:radial-gradient(ellipse 100% 30% at 50% 60%, rgba(43,26,4,.6) 0%, rgba(43,26,4,.32) 55%, rgba(43,26,4,0) 100%),
+    linear-gradient(180deg, rgba(43,26,4,.4) 0%, rgba(43,26,4,0) 18%, rgba(43,26,4,0) 78%, rgba(43,26,4,.5) 100%) }
+  .al-hero--video .al-hero__wrap { box-sizing:border-box; min-height:0; padding:84px 0 34px; display:block }
+  .al-hero--video .al-hero__titel { min-height:calc(var(--al-hv) - 121.5px); justify-content:center; gap:14px }
+  .al-hero--video .al-hero__tekst .al-btn { margin-top:0; min-height:47px; box-shadow:0 8px 22px rgba(43,26,4,.38), 0 2px 6px rgba(43,26,4,.2) }
+  .al-hero--video h1,.al-hero--video .al-hero__sub { text-shadow:0 2px 18px rgba(0,0,0,.45) }
+  .al-hero--video .al-hero__trust { margin-top:4px; color:var(--ink) }
+  .al-hero--video .al-hero__trust .al-trust__ic { color:var(--terracotta) }
+  .al-hero--video .al-hero__badge { top:14px; bottom:auto; left:auto; right:0; transform:none; width:auto; max-width:none;
+    min-height:56px; border-radius:var(--radius-image) 0 0 var(--radius-image) }
+  .al-hero__sub { font-size:17px }
+  .al-hero__tekst .al-btn { width:100%; white-space:normal; text-align:center }
+  .al-hero__trust { display:grid; grid-template-columns:auto auto; justify-content:center; gap:6px 12px; font-size:14px; line-height:1.25; text-align:left; margin-top:0 }
+  .al-hero__trust li { gap:7px; white-space:normal }
+  .al-hero__trust .al-trust__ic { width:18px; height:18px }
+  .al-hero__badge { bottom:20px; right:auto; left:50%; transform:translateX(-50%); width:max-content; max-width:calc(100% - 30px); min-height:56px; gap:10px; padding:8px 16px 8px 14px; border-radius:var(--radius-image) }
+  .al-hero__badge svg { width:20px; height:20px }
+  .al-hero__cijfer { font-size:26px }
+  .al-hero__lijn { height:30px }
+  .al-hero__regels b { font-size:13px }
+  .al-hero__regels span { font-size:11px }
+
+  /* 2 */
+  .al-intro { padding:28px 0 }
+  .al-intro__paneel { grid-template-columns:1fr; gap:24px; padding:28px 20px }
+  .al-intro__links { gap:16px }
+  .al .al-intro__links h2 { font-size:32px }
+  .al-intro__tekst { font-size:16px }
+  .al-intro__lijst li { font-size:16px; padding:14px 0 }
+
+  /* 3 */
+  .al-rond { padding:28px 0 64px; background:linear-gradient(to top, var(--surface) 0, var(--surface) 278px, transparent 278px) }
+  .al-rond__sub { font-size:17px }
+  .al-rond__rij { margin-top:32px }
+  .al-rond { --mw:289px; --s1:.7232; --g1:24px }
+  .al-rond__item--m2,.al-rond__item--p2 { opacity:0; pointer-events:none }
+  .al-rond__pijlen { margin-top:24px }
+
+  /* 4 */
+  .al-arr { padding:32px 0 }
+  .al-arr__kop { text-align:left; margin-bottom:20px }
+  .al .al-arr__kop h2 { font-size:40px }
+  .al-arr__sub { font-size:16px }
+  .al-ak__incl li,.al-uk__tekst { font-size:14px }
+  .al-arr__rij > .al-ak { flex-basis:84% }
+  .al-ak { padding-bottom:22px }
+  .al-ak > *:not(.al-ak__foto) { margin-left:20px; margin-right:20px }
+  .al .al-ak__knop { font-size:15px; padding:15px 24px }
+
+  /* 5 */
+  .al-kamers__kop { margin-bottom:18px }
+
+  /* 6 */
+  .al-fac { padding:32px 0 }
+  .al-fac__wrap { width:calc(100% - 30px) }
+  .al-fac__kop { grid-template-columns:minmax(0,1fr); margin-bottom:20px }
+  .al-fac__sub { font-size:16px }
+  .al-fac__grid { grid-template-columns:repeat(2, minmax(0,1fr)); grid-template-rows:240px 170px 170px; gap:10px }
+  .al-tegel--breed { grid-column:span 2; grid-row:span 1 }
+  .al-tegel__tekst { left:12px; right:12px; bottom:12px; gap:4px }
+  .al-tegel__naam { font-size:19px }
+  .al-tegel--breed .al-tegel__tekst { left:16px; right:16px; bottom:16px }
+  .al-tegel--breed .al-tegel__naam { font-size:26px }
+  .al-tegel__regel { font-size:14px }
+  .al-tegel__meer { font-size:12px; padding:7px 10px; gap:6px; margin-top:4px }
+
+  /* 7 */
+  .al-omg { padding:32px 0; margin-bottom:32px }
+  .al-omg__wrap { --links:15px; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"kop kop" "sub sub" "rij rij" ". nav" }
+  .al .al-omg__kop { font-size:32px }
+  .al-omg__sub { margin-top:6px }
+  .al-omg__nav { margin-top:16px; gap:10px }
+  .al-omg__grid { margin-top:18px; gap:12px }
+  .al-uk { flex-basis:82% }
+  .al-uk img { height:180px }
+  .al-uk__body { padding:16px 18px 18px }
+  .al-uk__naam { font-size:22px }
+
+  /* 9 */
+  .al-rev { padding:32px 0 }
+  .al .al-rev__kop h2 { font-size:40px }
+
+  /* 10 */
+  .al-faq { padding:32px 0 }
+  .al-faq__raster { grid-template-columns:minmax(0,1fr); gap:24px }
+  .al a.al-faq__tel { margin-top:6px }
+  .al .al-faq__tk { font-size:22px }
+  .al .al-faq .as-accordeon__kop { font-size:19px; padding:18px 4px }
+  .al .al-faq .as-accordeon__paneel { font-size:16px }
+  .al-faq__tabs .al-chip { flex:1; justify-content:center }
+
+  /* 11 */
+  .al .al-nb__tekst h2 { font-size:26px }
+
+  /* 12 */
+  .al-slot { padding:28px 0 44px }
+  .al-slot__band { height:auto }
+  .al-slot__inhoud { position:relative; inset:auto; padding:64px 0 44px; gap:14px }
+  .al .al-slot__inhoud h2 { font-size:34px }
+  .al-slot__regel { font-size:16px }
+  .al-slot__inhoud .al-btn { width:100% }
+  .al-slot__usps { flex-direction:column; align-items:flex-start; gap:10px; margin-top:10px; align-self:stretch; padding-left:4px }
+  .al-slot__strook { flex-direction:column; gap:16px; margin-top:40px; padding:28px 20px 26px; text-align:center }
+  .al .al-slot__tekst h2 { font-size:28px }
+  .al-slot__knoppen { flex-direction:column; align-self:stretch; gap:12px; margin-top:6px }
+  .al .al-slot__knoppen .al-btn { width:100%; font-size:15px; padding:15px 24px }
+}
+
+/* reviews onder 1024 px: het scorepaneel als eerste kaart in de veegrij */
+@media (max-width:1023px) {
+  .al-rev__paneel { flex:0 0 80%; padding:18px }
+  .al-rev__cijfer { font-size:46px }
+  .al-rev [data-kloon] { display:none }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .al-rond__item,.al-rond__beeld::after,.al-tegel,.al-tegel img,.al-btn,.al-rond__pijl { transition:none }
+  .al-arr__rij,.al-omg__grid,.al-kamers .kk-spoor,.al-fotorij__spoor,.al-rev__spoor { scroll-behavior:auto }
+  .al-tegel:hover,.al-tegel:hover img { transform:none }
+}
+
+/* onderbalk op de telefoon: verborgen zolang een eigen pop-up, de lightbox of de prijskalender open is */
+html.al-pop-open .mob-cta,html.al-lb-open .mob-cta { visibility:hidden }
+.al-rev__woord:empty { display:none }
+
+/* 11 nieuwsbrief op kastanje (--ink #442A06, "kastanje" in functions/seizoen/[[path]].js) met het beeldmerk als achtergrond,
+   precies zoals de voet van de nieuwe huisstijl: nieuw-assets/svg/ster.svg (licht beeldmerk voor donkere grond), 5 % dekking
+   (base.css .footer__star-bg). Tekst ivoor, veld ivoor met donkere tekst, knop terracotta; meldingen en focus leesbaar op donker. */
+.al-nb__vlak { position:relative; overflow:hidden; background:var(--ink); color:var(--on-ink); box-shadow:var(--shadow-deep) }
+.al-nb__ster { position:absolute; top:50%; right:3%; transform:translateY(-50%); width:min(45vw, 520px); height:auto; opacity:.05; pointer-events:none; z-index:0 }
+.al-nb__vlak > :not(.al-nb__ster) { position:relative; z-index:1 }
+.al .al-nb__tekst h2 { color:var(--on-ink) }
+.al-nb__tekst p { color:var(--on-ink-body) }
+.al-nb__veld { background:var(--surface); color:var(--ink); border-color:transparent }
+.al-nb__veld:focus { outline:3px solid var(--surface); outline-offset:2px; border-color:var(--terracotta) }
+.al .al-nb__knop:focus-visible { outline:3px solid var(--surface); outline-offset:2px }
+.al-nb__melding { color:var(--on-ink) }
+.al-nb__melding.is-fout { color:var(--error-line) }
+@media (max-width:767px) { .al-nb__ster { width:min(90vw, 420px); right:-18%; } }

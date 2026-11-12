@@ -1,0 +1,163 @@
+{
+  "_uitleg": "English texts for /fietsen-rond-venray-v2-en. Paths, photos and codes inherit from route-fietsen-nl.json.",
+  "titel": "Cycling hotel in Limburg: cycling around Venray | Hotel Asteria",
+  "omschrijving": "Cycling hotel in Limburg: ten cycle routes of 25 to 59 km around Hotel Asteria in Venray, seven close to the hotel. With locked bike storage and bike hire.",
+  "og-titel": "Cycling hotel in Limburg: cycling around Venray",
+  "og-omschrijving": "Ten cycle routes around Hotel Asteria in Venray, seven of them on the junction network right by the hotel. With locked bike storage and bike hire.",
+  "kruimel": "Cycling around Venray",
+  "hero-kop": "<span class='al-g'>Cycling hotel</span> in Limburg",
+  "hero-sub": "Ten cycle routes around Venray. Seven of them start just a few minutes by bike from your hotel room.",
+  "hero-alt": "A couple with bikes at the cycle network sign in front of Hotel Asteria",
+  "oog-kop": "Cycling from Hotel Asteria at a <span class='al-g'>glance</span>",
+  "oog1-kop": "routes",
+  "oog1-tekst": "seven of them start right by the hotel",
+  "oog2-tekst": "from an afternoon to a full day in the saddle",
+  "oog3-kop": "Junctions from the door",
+  "oog3-tekst": "the North Limburg cycle network starts around the corner",
+  "oog4-kop": "Bike and e-bike hire",
+  "oog4-tekst": "at reception, just ask when you arrive",
+  "tweede-knop": "View the cycling package",
+  "routes-kop": "Choose your <span class='al-g'>route</span>",
+  "routes-intro": "Seven routes follow the junction network that starts right by the hotel: you get on your bike and follow the signs. Three longer routes start a little further away, in Overloon and Meterik. Take the route with you on your phone or ask for a paper copy at reception.",
+  "kaart-kop": "All routes on the <span class='al-g'>map</span>",
+  "kaart-regel": "This is how the ten routes lie around the hotel. Tap a number and the map zooms in on that route.",
+  "kaart-alt": "Overview map of the ten cycle routes around Hotel Asteria in Venray",
+  "prak-kop": "Good to <span class='al-g'>know</span>",
+  "prak-tekst": "Everything for a day on the bike is arranged at reception.",
+  "prak1-alt": "A smiling couple cycling along a sunny cycle path through the woods near Venray",
+  "prak1-kop": "Hire a bike or e-bike",
+  "prak1-tekst": "Regular bikes and e-bikes are available at reception",
+  "prak2-alt": "A couple putting their bikes in the wooden bike shed at Hotel Asteria",
+  "prak2-kop": "Bike storage",
+  "prak2-tekst": "Locked and covered, also for your e-bike",
+  "prak3-alt": "A couple walking their bikes past the bike shed at Hotel Asteria",
+  "prak3-kop": "E-bike charging",
+  "prak3-tekst": "You can recharge your battery with us",
+  "prak4-alt": "A basket of fresh bread rolls on the breakfast buffet at Hotel Asteria",
+  "prak4-kop": "Packed lunch",
+  "prak4-tekst": "For the road, just ask at reception",
+  "prak-link": "Hire a bike at reception",
+  "arr-kop": "The Limburg <span class='al-g'>package</span>",
+  "arr-regel": "Three nights in Venray with an e-bike for three days. You see the price for your dates straight away when you book.",
+  "arr-vinkjes": [
+    "3 nights with breakfast",
+    "A 3-course dinner every evening",
+    "An e-bike for 3 days"
+  ],
+  "arr-knop": "View the package",
+  "arr-boek": "Book the package",
+  "arr-dias": [
+    {
+      "foto": "fotos/l26-limburg-arrangement-fietsroute.webp",
+      "alt": "A couple laughing at the starting-point sign of the cycle network outside Hotel Asteria"
+    },
+    {
+      "foto": "fotos/l26-omg-fietsen-3.webp",
+      "alt": "A couple pointing at something between the trees in the woods near Venray",
+      "pos": "60% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-vlaai.webp",
+      "alt": "A slice of Limburg vlaai being served on arrival at Hotel Asteria",
+      "pos": "60% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-diner.webp",
+      "alt": "A meat dish with Brussels sprouts, the main course of the three-course dinner at Hotel Asteria"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-hotel-fietsen.webp",
+      "alt": "A couple cycling along the drive of Hotel Asteria in Venray",
+      "pos": "40% 50%"
+    },
+    {
+      "foto": "fotos/l26-limburg-arrangement-ontbijt.webp",
+      "alt": "A breakfast plate with a croissant, cheese, cold cuts and grapes at Hotel Asteria"
+    }
+  ],
+  "faq-kop": "Frequently asked <span class='al-g'>questions</span>",
+  "faq": [
+    {
+      "v": "Can I hire a bike or e-bike from you?",
+      "a": "Yes. At reception you can hire a regular bike or an e-bike. Let us know when you book or when you arrive, and we will have it ready for you."
+    },
+    {
+      "v": "Where can I leave my own bike?",
+      "a": "In our locked, covered bike storage next to the hotel. If you had a flat tyre on the way, we will lend you a pump and a repair kit."
+    },
+    {
+      "v": "Can I charge my e-bike at the hotel?",
+      "a": "Yes. You can charge your battery with us, so you set off fully charged again the next morning. Reception will show you where."
+    },
+    {
+      "v": "How do I take the routes with me?",
+      "a": "Each route opens with the button next to it on Fietsknoop or routiq, on your phone too. Free cycling and walking routes on paper are available at reception."
+    },
+    {
+      "v": "Which route is best to start with?",
+      "a": "The Venray loop: 24.5 kilometres on the junction network right by the hotel, past the Annapark and over the Weverslose Berg, the highest point in North Limburg."
+    }
+  ],
+  "wissel-kop": "Rather go on <span class='al-g'>foot?</span>",
+  "wissel-regel": "Walking routes from a short morning to a full day, from the junipers near Smakt to the Mariapeel. You can pick up walking maps at reception.",
+  "wissel-hier-naam": "Cycle routes",
+  "wissel-hier-alt": "A couple cycling side by side along a forest path between tall trees near Venray",
+  "wissel-daar-naam": "Walking routes",
+  "wissel-daar-alt": "A couple walking together along a forest path near Venray",
+  "wissel-knop": "View the {n} walking routes",
+  "slot-kop": "After the ride: sauna, dinner and your <span class='al-g'>room</span>",
+  "slot-tekst": "Book your stay and get on your bike at the door tomorrow.",
+  "slot-alt": "Hotel Asteria in Venray with its pond and fountain at sunset, seen from above",
+  "routes": {
+    "rondje-venray": {
+      "alt": "Terraces on the Grote Markt in Venray with the Sint-Petrus' Bandenkerk",
+      "tekst": "A loop around Venray that starts on the junction network next to the hotel. You cycle past the Annapark, the listed park of the former Sint Anna, and through the hamlet of Weverslo to the Weverslose Berg: at 38.6 metres the highest point in North Limburg, with a viewpoint at the top. At junction 23 you can cut straight through to the town centre.",
+      "alts": {
+        "fotos/l26-omg-venray-2.webp": "The Sint-Petrus' Bandenkerk rising above the houses and shops in the centre of Venray"
+      }
+    },
+    "rondje-over-het-pontje": {
+      "alt": "A couple looking for a route on the starting-point sign of the North and Central Limburg cycle network",
+      "tekst": "A short ride with the Maas at its heart. In Maashees you sit by the water at De Watervogel, then cycle to the Reindersmeer in De Maasduinen National Park and look across the gardens at the moated castle Kasteel Well. The little ferry takes you across the Maas and you ride back via Geijsteren; check beforehand whether the ferry is running.",
+      "alts": {
+        "fotos/l26-omg-maasduinen-2.webp": "A lake with a wooded shore and shrubs in De Maasduinen National Park"
+      }
+    },
+    "langs-de-maas": {
+      "alt": "A couple cycling side by side along a forest path between tall trees near Venray",
+      "tekst": "Via Oostrum and Parc de Witte Vennen you cycle to Meerlo, with the Sint-Goarkapel from 1662 and Slothoeve 't Kasteelke. At Tante Jet aan de Maas, one of the oldest cafés on the river, the foot and bike ferry docks; it runs from 1 April to 14 October inclusive. You return through Geijsteren."
+    },
+    "van-venray-naar-de-peel": {
+      "alt": "A couple pointing at something between the trees in the woods near Venray",
+      "tekst": "From Venray into the Peel, past the Weverslose Berg and the Rouwvennen nature area. At junction 25 lies the German war cemetery at Ysselsteyn, with a visitor centre. You then cycle along the Heere Peel and through the Schadijkse bossen to the centre of Venray, 3 kilometres from the hotel."
+    },
+    "rondje-horst-aan-de-maas": {
+      "alt": "A couple cycling along the drive of Hotel Asteria in Venray",
+      "tekst": "A loop through Horst aan de Maas with a stop in Tienray, also known as Little Lourdes: church, small chapels and the Clevers ice cream parlour. The route then winds through the Schuitwater nature area with woods, heath and water, and along the Kasteelse Bossen. You finish among the terraces in the centre of Venray."
+    },
+    "maasduinen-en-arcen": {
+      "alt": "The geometric gardens with hedges and flower beds of the Kasteeltuinen Arcen",
+      "tekst": "A day trip to Arcen. Via Geijsteren you cycle to the Maas and through De Maasduinen National Park, past the lookout tower at Wellerlooi. In Arcen the Kasteeltuinen, the old fortified town and the Hertog Jan Brouwerij with its tasting room await. The bike ferry along the way runs from 10 April to 14 October inclusive.",
+      "alts": {
+        "fotos/l26-omg-arcen-1.webp": "A red Japanese gate by the pond in the Kasteeltuinen Arcen",
+        "fotos/l26-omg-hertogjan-1.webp": "The white building of the Hertog Jan Brouwerij in Arcen, with bikes parked outside"
+      }
+    },
+    "ballonzuilbossen-en-overloon": {
+      "alt": "The Ballonzuil monument in the Ballonzuilbossen near Merselo",
+      "tekst": "A long loop that starts at the Grote Kerk in Venray, 3 kilometres from the hotel. Past the Annapark you cycle to Smakt with the Sint-Jozefkapel from 1699, and along the Overloonse Duinen to Overloon with the British war cemetery, the Liberty Park and ZooParc. The way back takes you through the Ballonzuilbossen."
+    },
+    "rondje-venray-via-vierlingsbeek": {
+      "alt": "A chapel among the pines on a forest path",
+      "tekst": "This route starts in Overloon, home of the Liberty Park. You cycle through the Overloonse Duinen to Maashees on the Maas, past tree nurseries and the Willibrorduskapel in the woods of Landgoed Geijsteren. Through the centre of Venray and the Peel village of Merselo you return to Overloon."
+    },
+    "meterik-venray-horst": {
+      "alt": "An oak beside a narrow road through the meadows in the morning mist",
+      "tekst": "A long ride through the woods and floodplains of the Maas between Meterik, Venray and Horst. On the way you cycle across Landgoed Geijsteren, owned by the same family for more than two centuries, where the Oostrumse Beek winds through the pine forests."
+    },
+    "door-de-peel-bij-horst": {
+      "alt": "A drawbridge over a canal in the Peel",
+      "tekst": "Along quiet roads through Castenray and Veulen into the Peel. At De Paardekop lies the German military cemetery, and in the Toon Kortoomspark you can read about the writer. Via Griendtsveen and Helenaveen, the two old peat colonies of the southern Netherlands, you ride past the raised bog of the Deurnsche Peel and the Mariapeel."
+    }
+  }
+}

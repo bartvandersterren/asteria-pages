@@ -1,0 +1,119 @@
+{
+  "_uitleg": "English texts for /wandelen-rond-venray-v2-en. Paths, photos and the room list inherit from route-wandelen-nl.json. oog3-kop/-tekst: {min} = drive time to the nearest starting point.",
+  "titel": "Walking around Venray: routes from Hotel Asteria",
+  "omschrijving": "Walking around Venray: nine walking routes of 4 to 24 km around Hotel Asteria, from the junipers near Smakt to the Mariapeel. Walking maps are available at reception.",
+  "og-titel": "Walking around Venray: routes from Hotel Asteria",
+  "og-omschrijving": "Nine walking routes around Hotel Asteria in Venray: the Boshuizerbergen, Landgoed Geijsteren, the Maasheggen, the Pieterpad, the Maasduinen and the Mariapeel.",
+  "kruimel": "Walking around Venray",
+  "hero-kop": "Walking around <span class='al-g'>Venray</span>",
+  "hero-sub": "Nine walking routes, from the junipers a few minutes from the hotel to a full-day stage of the Pieterpad.",
+  "hero-alt": "A couple walking together along a forest path near Venray",
+  "oog-kop": "Walking from Hotel Asteria at a <span class='al-g'>glance</span>",
+  "oog1-kop": "routes",
+  "oog1-tekst": "five areas nearby, four in the Maasduinen and the Peel",
+  "oog2-tekst": "from an hour's walk to a full day",
+  "oog3-kop": "{min} minutes",
+  "oog3-tekst": "drive to the nearest starting point",
+  "oog4-kop": "Routes at reception",
+  "oog4-tekst": "free walking maps on paper",
+  "tweede-knop": "View the rooms",
+  "routes-kop": "Choose your <span class='al-g'>route</span>",
+  "routes-intro": "At the top, five walking areas near the hotel, from the Boshuizerbergen a few minutes away to the Maasheggen near Sambeek. Below them, four routes in the Maasduinen and the Mariapeel, a fifteen to thirty minute drive away. Take the route with you on your phone or pick up a walking map at reception.",
+  "kaart-kop": "All routes on the <span class='al-g'>map</span>",
+  "kaart-regel": "This is how the nine routes lie around the hotel. Tap a number and the map zooms in on that route.",
+  "kaart-alt": "Overview map of the nine walking routes around Hotel Asteria in Venray",
+  "prak-kop": "Good to <span class='al-g'>know</span>",
+  "prak-tekst": "Everything for a day of walking is arranged at reception.",
+  "prak1-alt": "A smiling receptionist welcomes a guest at the reception of Hotel Asteria",
+  "prak1-kop": "Routes at reception",
+  "prak1-tekst": "Walking and cycling routes on paper, free of charge",
+  "prak2-alt": "A basket of fresh bread rolls on the breakfast buffet at Hotel Asteria",
+  "prak2-kop": "Packed lunch",
+  "prak2-tekst": "For the road, just ask at reception",
+  "prak3-alt": "Guests at a table in the restaurant of Hotel Asteria",
+  "prak3-kop": "Restaurant",
+  "prak3-tekst": "Sit down to eat after your walk, the kitchen is open until 9.30 pm",
+  "prak4-alt": "A smiling couple cycling along a sunny cycle path through the woods near Venray",
+  "prak4-kop": "Bike hire",
+  "prak4-tekst": "Bike or e-bike from reception, handy for reaching a starting point",
+  "prak-link": "Ask reception for a walking map",
+  "kamers-kop": "Stay the <span class='al-g'>night</span>",
+  "kamers-sub": "Then you start the next route well rested tomorrow. Choose your room; you see the price for your dates straight away when you book.",
+  "faq-kop": "Frequently asked <span class='al-g'>questions</span>",
+  "faq": [
+    {
+      "v": "Which walking route is closest to the hotel?",
+      "a": "The Boshuizerbergen near Smakt, a few minutes' drive away. There you walk 5.5 kilometres past thousands of junipers, pine forest and open drift sand."
+    },
+    {
+      "v": "Can I get walking routes at reception?",
+      "a": "Yes. Free walking and cycling routes on paper are available at reception. Every route on this page also opens on your phone, with the button next to the route."
+    },
+    {
+      "v": "Can I take a packed lunch with me?",
+      "a": "Yes. You can order a packed lunch for the road at reception."
+    },
+    {
+      "v": "Can I eat at the hotel after my walk?",
+      "a": "Yes. You are welcome to join us for dinner in our restaurant; the kitchen is open until 9.30 pm."
+    },
+    {
+      "v": "Do I need a car to get to the starting point?",
+      "a": "Not always. The Boshuizerbergen and Landgoed Geijsteren are within cycling distance, and you can hire a bike or e-bike at reception. For the Maasduinen and the Mariapeel you take the car: a fifteen to thirty minute drive."
+    }
+  ],
+  "wissel-kop": "Rather go by <span class='al-g'>bike?</span>",
+  "wissel-regel": "Ten cycle routes around Venray, seven of them on the junction network right by the hotel. You can hire bikes and e-bikes at reception.",
+  "wissel-hier-naam": "Walking routes",
+  "wissel-hier-alt": "A couple walking hand in hand along a sandy path between the trees",
+  "wissel-daar-naam": "Cycle routes",
+  "wissel-daar-alt": "A couple cycling side by side along a forest path between tall trees near Venray",
+  "wissel-knop": "View the {n} cycle routes",
+  "slot-kop": "After the walk: sauna, dinner and your <span class='al-g'>room</span>",
+  "slot-tekst": "Book your stay and start the next route tomorrow.",
+  "slot-alt": "Hotel Asteria in Venray with its pond and fountain at sunset, seen from above",
+  "routes": {
+    "boshuizerbergen": {
+      "alt": "A couple taking a selfie on a wide forest path in the woods near Venray",
+      "tekst": "Near Smakt you follow the white route of Het Limburgs Landschap: 5.5 kilometres past the largest juniper scrub in the southern Netherlands, planted pine forest and stretches of open drift sand. Sheep keep the sand and heath open, so your dog stays on the lead. The threat of this area being cultivated led to the founding of Het Limburgs Landschap in 1931."
+    },
+    "landgoed-geijsteren": {
+      "alt": "A forest path on Landgoed Geijsteren with the Willibrorduskapel among the trees",
+      "tekst": "Landgoed Geijsteren has belonged to the same family since 1806. The 7.7 kilometre loop follows the walking junctions along the Oostrumse Beek, a stream that was never straightened here, and passes the De Rosmolen watermill and the Willibrorduskapel. The paths are mostly unpaved, so wear good shoes.",
+      "alts": {
+        "fotos/l26-route-landgoed-geijsteren-1.webp": "Meadow and woodland by the Oostrumse Beek on Landgoed Geijsteren"
+      }
+    },
+    "maasheggen": {
+      "alt": "A sandy path between hedges and trees in the hedge landscape along the Maas",
+      "tekst": "Just over a fifteen minute drive away lies Sambeek, on the edge of the Maasheggen: since 2018 the only UNESCO biosphere reserve in the Netherlands. The 4.3 kilometre Rondje Heg en Maas starts at the weir and lock complex and follows the junctions along field paths and between the hedges. Keep your distance from the livestock in the meadows.",
+      "alts": {
+        "fotos/l26-route-maasheggen-2.webp": "Meadows bordered by hedges and trees in the Maasheggen, seen from above"
+      }
+    },
+    "ballonzuilbossen": {
+      "alt": "The Ballonzuil monument in the Ballonzuilbossen near Merselo",
+      "tekst": "The Ballonzuilbossen near Merselo cover more than 260 hectares of mixed woodland on former raised bog; from 1906 the first forest of Venray was planted here. The 5 kilometre nature walk passes the Ballonzuil, the monument to the balloon from besieged Paris that landed near Merselo in the winter of 1871."
+    },
+    "pieterpad-vierlingsbeek-swolgen": {
+      "alt": "A couple standing close together taking a photo on a sandy path through the autumn woods",
+      "tekst": "A day's walk on the Pieterpad, marked in red and white: 24 kilometres from Vierlingsbeek station to the church in Swolgen. The trail passes close to Venray, through the Boshuizerbergen and across Landgoed Geijsteren, and continues via Wanssum and Meerlo. It is not a loop, so plan in advance how you will get back."
+    },
+    "maasduinen-bij-bergen": {
+      "alt": "A wooden bench beside a path through the heath in the late sunlight",
+      "tekst": "Almost 10 kilometres through woods and heath in the north of De Maasduinen National Park, near Bergen. Groundwater is pumped up here for the drinking water of Bergen and parts of Gennep and Venlo, so stay on the paths and take your litter home with you."
+    },
+    "lekkerbekkenroute": {
+      "alt": "Pools and heath in De Maasduinen National Park",
+      "tekst": "A route for food lovers over the rolling paths of De Maasduinen National Park: past a pancake house, a stretch along the Maas and on to the Hertog Jan Brouwerij in Arcen. The dunes themselves formed in the last ice age from wind-blown river sand."
+    },
+    "rondje-mariaveen": {
+      "alt": "A wooden bridge over a canal near Helenaveen",
+      "tekst": "You start in Helenaveen, which with Griendtsveen is one of the two peat colonies of the southern Netherlands and a protected village. The route leads through the Mariaveen, where peat cutting left behind canals, peat pits and pools. Purple moor grass and heather grow on the open plains."
+    },
+    "wandelen-door-de-mariapeel": {
+      "alt": "Birches and heath by the water in the Mariapeel",
+      "tekst": "From Helenaveen you walk along the Helenavaart, the small canal used to carry peat into the twentieth century, into the Mariapeel. The raised bog here has kept its original character, and a herd of Dutch landrace goats grazes on the heath. Wear waterproof shoes."
+    }
+  }
+}
