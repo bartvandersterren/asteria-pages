@@ -1,11 +1,10 @@
 {
   "_controleren": [
-    "Mews-combinaties (gemeten 16 nov 2026, config 4483536c 'Feestdagen arrangementen', 2 volw., Comfort p.p.): 25-26 € 130,00, 24-25 € 172,00, 24-26 € 302,00, 23-25 € 311,50, 23-26 € 441,50, 23-27 € 551,50. De oude pagina op asteria.nl belooft aankomst 23, 24, 25 of 26 december met vertrek naar keuze (standaard 27 dec); aankomst 26 dec, vertrek 27 dec vanaf 24/25/26 dec en aankomst 22 dec geven in Mews geen kersttarief. Deze pagina toont alleen de zes boekbare combinaties. Vraag aan Stijn: Mews aanvullen of zo laten.",
-    "Inhoud per verblijf uit de Mews-tariefomschrijvingen. Controleren: bij aankomst 24 december zit er volgens de tarieven geen kerstavonddiner bij (alleen bij aankomst 23 december); het plan noemde 'bij aankomst 23 of 24 dec'. De pagina volgt de tarieven.",
-    "Diners op de vertrekdag: 24-25 (Kerstdiner Dansant op eerste kerstdag) en 25-26 / 24-26 (kerstproeverijmenu op tweede kerstdag) vallen op de dag van vertrek. Tijdstip (lunch of diner) en of je na het uitchecken nog blijft eten controleren.",
+    "Mews-combinaties (gemeten 16 nov 2026 met CET-middernacht als StartUtc/EndUtc, zoals utc() in functions/api/arr-kalender.js; script _bron-kerst/mews_kerst2.py; config 4483536c 'Feestdagen arrangementen', 2 volw., Comfort p.p.): 24-26 € 311,50, 24-27 € 441,50, 24-28 € 551,50, 25-26 € 172,00, 25-27 € 302,00, 26-27 € 130,00. Aankomst 23 december staat op de oude asteria.nl-pagina maar heeft in Mews geen kersttarief (in geen enkele lengte); 24-28 bestaat wel maar staat niet op de oude pagina. De oude knoppen 24/25/26 naar 27 december kloppen dus wel, alleen 23 naar 27 niet. Geen kersttarief ook bij aankomst 27, 25-28, 26-28 en 24-29.",
+    "Inhoud per verblijf uit de Mews-tariefomschrijvingen: kerstavonddiner bij aankomst 24 december (24-26, 24-27, 24-28), Kerstdiner Dansant op 25 december, kerstproeverijmenu op 26 december; geen diner op een vertrekdag.",
     "Kerstdiner Dansant: viergangen met live muziek, drank inbegrepen. Mews noemt Hollands gedistilleerd; de pagina zegt 'bier, wijn, fris en Hollands gedistilleerd'. Controleren welke drank precies.",
-    "Driegangendiner bij 23-27: Mews zegt 'op 23 of 27 december' (één diner). Controleren of de gast kiest.",
-    "Pil 'Meest gekozen' op 24 t/m 26 december is een voorstel, geen gemeten cijfer. Bevestigen of weghalen.",
+    "Driegangendiner bij 24-28 (5-daags Kerstarrangement): op 27 december.",
+    "Pil 'Meest gekozen' op 25 t/m 27 december (Beide kerstdagen) is een voorstel, geen gemeten cijfer. Bevestigen of weghalen.",
     "Wellness Top Floor: niet inbegrepen, bijboeken via de receptie; openingstijden rond de feestdagen niet bekend, daarom niet genoemd.",
     "Annuleren: niet bekend voor de kersttarieven; FAQ zegt 'zie je bij het boeken'.",
     "Kinderen / derde persoon: Comfort kamer voor 3 personen bestaat in Mews, staat niet op de pagina. FAQ verwijst naar de receptie.",
@@ -13,10 +12,10 @@
     "Toeslag per kamertype (Royale + € 5, Deluxe + € 10 p.p. per nacht) gemeten in Mews; Junior suite, Suite en Bruidssuite staan niet op de kersttarieven.",
     "Herofoto l26-kerstarrangement-hero.webp = kerstbal met Asteria-ster (kerst-head.png van asteria.nl). Controleren of dit een AI- of stockbeeld is. Inbegrepen-foto's tafel/proost/diner = contentshoot P1102959/P1102976/P1103079 (restaurant overdag, geen kerstdecoratie); kaartfoto bubbels = P1057653.",
     "Oud & Nieuw arrangement vanaf € 347,00 p.p. uit de memory-peiling; prijs op asteria.nl controleren.",
-    "Boekbalk-standaarddatums (24-26 dec) zijn niet ingesteld: het sjabloon heeft geen standaardwaarde voor de boekbalk. De kaarten zetten de datums."
+    "Boekbalk-standaarddatums zijn niet ingesteld: het sjabloon heeft geen standaardwaarde voor de boekbalk. De kaarten zetten de datums."
   ],
   "PAGE_TITLE": "Kerstarrangement: kerst vieren in Venray | Hotel Asteria",
-  "META_DESC": "Kerst vieren bij Hotel Asteria in Venray: overnachten met kerstontbijt, feestelijke diners en het Kerstdiner Dansant met live muziek. Aankomst 23, 24 of 25 december, vanaf € 130,00 p.p.",
+  "META_DESC": "Kerst vieren bij Hotel Asteria in Venray: overnachten met kerstontbijt, feestelijke diners en het Kerstdiner Dansant met live muziek. Aankomst 24, 25 of 26 december, vanaf € 130,00 p.p.",
   "CANONICAL_URL": "https://visit.asteria.nl/kerstarrangement",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-kerstarrangement-hero.webp",
   "H_EEN_A": "Kerst vieren",
@@ -45,7 +44,7 @@
   "KAART_KNOP": "Boek het arrangement",
   "KAART_TRUST": "Boek direct bij het hotel · geen boekingskosten",
   "BOEKBALK_KNOP": "Bekijk beschikbaarheid",
-  "BOEKBALK_NOOT": "Aankomst 23, 24 of 25 december · kies hieronder je kerstdagen",
+  "BOEKBALK_NOOT": "Aankomst 24, 25 of 26 december · kies hieronder je kerstdagen",
   "KAMER_KOP_A": "In welke",
   "KAMER_KOP_EM": "kamer",
   "KAMER_KOP_B": "slaap je?",
@@ -84,8 +83,8 @@
   "SLOT_FOTO_A_POS": "55% 50%",
   "SLOT_FOTO_B": "fotos/l26-kerstarrangement-tafel.webp",
   "SLOT_FOTO_B_POS": "center center",
-  "ARR_PRIJS_KAART_EENHEID": "p.p., 1 nacht met aankomst 25 december",
-  "ARR_VOORWAARDEN": "Comfort kamer, 2 personen · aankomst 23, 24 of 25 december",
+  "ARR_PRIJS_KAART_EENHEID": "p.p., 1 nacht met aankomst 26 december",
+  "ARR_VOORWAARDEN": "Comfort kamer, 2 personen · aankomst 24, 25 of 26 december",
   "ARR_MOB_NOOT": "Kies je kerstdagen hieronder",
   "INB_KOP_A": "Dit is",
   "INB_KOP_EM": "inbegrepen",
@@ -105,7 +104,7 @@
   "_chips": [
     "Kerstontbijt elke ochtend",
     "Kerstdiner Dansant met live muziek",
-    "Aankomst 23, 24 of 25 december"
+    "Aankomst 24, 25 of 26 december"
   ],
   "_inbegrepen": [
     {
@@ -120,7 +119,7 @@
     },
     {
       "titel": "Viergangen kerstdiner",
-      "regel": "op kerstavond, bij aankomst op 23 december",
+      "regel": "op kerstavond, bij aankomst op 24 december",
       "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
     },
     {
@@ -135,7 +134,7 @@
     },
     {
       "titel": "Driegangendiner",
-      "regel": "op 23 of 27 december, bij vier nachten",
+      "regel": "op 27 december, bij vier nachten",
       "icoon": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/>"
     }
   ],
@@ -182,10 +181,10 @@
   "_verblijven": [
     {
       "label": "Kerstavond en eerste kerstdag",
-      "datums": "23 t/m 25 december",
+      "datums": "24 t/m 26 december",
       "nachten": 2,
-      "start": "2026-12-23",
-      "eind": "2026-12-25",
+      "start": "2026-12-24",
+      "eind": "2026-12-26",
       "punten": [
         "2 overnachtingen in een Comfort kamer",
         "2× uitgebreid kerstontbijt",
@@ -197,10 +196,10 @@
     },
     {
       "label": "Kerstavond tot tweede kerstdag",
-      "datums": "23 t/m 26 december",
+      "datums": "24 t/m 27 december",
       "nachten": 3,
-      "start": "2026-12-23",
-      "eind": "2026-12-26",
+      "start": "2026-12-24",
+      "eind": "2026-12-27",
       "punten": [
         "3 overnachtingen in een Comfort kamer",
         "3× uitgebreid kerstontbijt",
@@ -213,26 +212,26 @@
     },
     {
       "label": "De hele kerst",
-      "datums": "23 t/m 27 december",
+      "datums": "24 t/m 28 december",
       "nachten": 4,
-      "start": "2026-12-23",
-      "eind": "2026-12-27",
+      "start": "2026-12-24",
+      "eind": "2026-12-28",
       "punten": [
         "4× uitgebreid kerstontbijt",
         "Viergangen kerstdiner op kerstavond",
         "Kerstdiner Dansant met live muziek en drank op eerste kerstdag",
         "Kerstproeverijmenu op tweede kerstdag",
-        "Driegangendiner op 23 of 27 december"
+        "Driegangendiner op 27 december"
       ],
       "prijs": "€ 551,50 p.p.",
       "prijs_noot": "Comfort kamer, 2 personen"
     },
     {
       "label": "Eerste kerstdag",
-      "datums": "24 t/m 25 december",
+      "datums": "25 t/m 26 december",
       "nachten": 1,
-      "start": "2026-12-24",
-      "eind": "2026-12-25",
+      "start": "2026-12-25",
+      "eind": "2026-12-26",
       "punten": [
         "1 overnachting in een Comfort kamer",
         "Uitgebreid kerstontbijt",
@@ -243,10 +242,10 @@
     },
     {
       "label": "Beide kerstdagen",
-      "datums": "24 t/m 26 december",
+      "datums": "25 t/m 27 december",
       "nachten": 2,
-      "start": "2026-12-24",
-      "eind": "2026-12-26",
+      "start": "2026-12-25",
+      "eind": "2026-12-27",
       "pil": "Meest gekozen",
       "punten": [
         "2 overnachtingen in een Comfort kamer",
@@ -259,10 +258,10 @@
     },
     {
       "label": "Tweede kerstdag",
-      "datums": "25 t/m 26 december",
+      "datums": "26 t/m 27 december",
       "nachten": 1,
-      "start": "2026-12-25",
-      "eind": "2026-12-26",
+      "start": "2026-12-26",
+      "eind": "2026-12-27",
       "punten": [
         "1 overnachting in een Comfort kamer",
         "Uitgebreid kerstontbijt",
@@ -275,11 +274,11 @@
   "_faq": [
     {
       "q": "Wat zit er in het kerstarrangement?",
-      "a": "Je overnacht in een Comfort kamer en begint elke ochtend met een uitgebreid kerstontbijt. Welke diners erbij zitten, hangt af van je dagen: een viergangen kerstdiner op kerstavond (bij aankomst op 23 december), het Kerstdiner Dansant met live muziek en drank op eerste kerstdag en een driegangen kerstproeverijmenu op tweede kerstdag. Bij vier nachten komt er een driegangendiner op 23 of 27 december bij. Parkeren is gratis."
+      "a": "Je overnacht in een Comfort kamer en begint elke ochtend met een uitgebreid kerstontbijt. Welke diners erbij zitten, hangt af van je dagen: een viergangen kerstdiner op kerstavond (bij aankomst op 24 december), het Kerstdiner Dansant met live muziek en drank op eerste kerstdag en een driegangen kerstproeverijmenu op tweede kerstdag. Bij vier nachten komt er een driegangendiner op 27 december bij. Parkeren is gratis."
     },
     {
       "q": "Welke dagen kan ik komen, en tot wanneer blijf ik?",
-      "a": "Je kiest uit zes verblijven: 23 t/m 25, 23 t/m 26 of 23 t/m 27 december, 24 t/m 25 of 24 t/m 26 december, of 25 t/m 26 december. Blijven tot 27 december kan bij aankomst op 23 december. Heb je een andere wens? Bel de receptie, dan kijken we wat er kan."
+      "a": "Je kiest uit zes verblijven: 24 t/m 26, 24 t/m 27 of 24 t/m 28 december, 25 t/m 26 of 25 t/m 27 december, of 26 t/m 27 december. Blijven tot 28 december kan bij aankomst op 24 december. Heb je een andere wens? Bel de receptie, dan kijken we wat er kan."
     },
     {
       "q": "Wat is het Kerstdiner Dansant?",

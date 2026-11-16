@@ -37,8 +37,8 @@ vertrek = aankomst + data-nachten (ARR_NACHTEN, standaard 1), widget krijgt N na
 Voucherloos arrangement (kerst, VOUCHER "" + MEWS_CONFIG + ARR_KALENDER false):
   ... http://localhost:8777/kerstarrangement.html --v3 --voucher "" --arrangement "€ 130,00" [--schermafdruk qa/kerstarrangement]
 Dan: geen mewsVoucherCode, data-voucher, actiecodeveld, 6dc9094c of bee2f902 in de bron, alle Mews-links op de config uit
-data-mews-config, geen prijskalender (geen kalendercheck), en met blok 'verblijven' (Kies je dagen): de kaart 23 t/m 25 december
-zet de hero-boekbalk op 2026-12-23/2026-12-25 en Mews (gestubde widget en deeplink) krijgt mewsStart/mewsEnd op die config.
+data-mews-config, geen prijskalender (geen kalendercheck), en met blok 'verblijven' (Kies je dagen): de kaart 24 t/m 26 december
+zet de hero-boekbalk op 2026-12-24/2026-12-26 en Mews (gestubde widget en deeplink) krijgt mewsStart/mewsEnd op die config.
 De prijskalender (arrangement-kalender.js) staat in deze test uit (eigen test: scripts/test_arr_kalender.py).
 Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
 
@@ -1057,18 +1057,18 @@ with sync_playwright() as p:
                   v['n'] == 6 and v['knoppen'] == 6 and v['pil'] == 1 and v['vink'] and v['prijs'] and vorm and v['over'] <= 0 and v['sw'] <= w, str(v))
             if w in (1024, 800):
                 ctx.close(); continue
-            # widget (gestubde API): klik op 23 t/m 25 december
+            # widget (gestubde API): klik op 24 t/m 26 december
             pg.evaluate("window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},setStartDate:d=>window._mews.push('s:'+d.toISOString().slice(0,10)),"
                         "setEndDate:d=>window._mews.push('e:'+d.toISOString().slice(0,10)),setAdultCount:n=>window._mews.push('n:'+n),open:()=>window._mews.push('open')}")
-            knop = pg.locator('button[data-verblijf][data-start="2026-12-23"][data-eind="2026-12-25"]')
+            knop = pg.locator('button[data-verblijf][data-start="2026-12-24"][data-eind="2026-12-26"]')
             knop.scroll_into_view_if_needed(); knop.click(); pg.wait_for_timeout(400)
             st = pg.evaluate("""(()=>{const f=document.querySelector('.b1a-balk');return {a:f.querySelector('[data-rol=aankomst]').value,v:f.querySelector('[data-rol=vertrek]').value,
                 zicht:[...f.querySelectorAll('.value')].slice(0,2).map(x=>x.textContent),log:window.lpBoekbalk||{},mews:window._mews,html:document.documentElement.getAttribute('data-mews-config')}})()""")
             u = st['log'].get('url', '')
             # setStartDate krijgt een lokale datum; toISOString kan een dag terugvallen, dus alleen de volgorde en de log-datums vergelijken
-            check(f'{tag} kaart 23 t/m 25 december: boekbalk 2026-12-23/2026-12-25, widget opent met die datums op {CFG[:8]}, zonder voucher',
-                  st['a'] == '2026-12-23' and st['v'] == '2026-12-25' and 'Kies datum' not in st['zicht'] and st['log'].get('start') == '2026-12-23'
-                  and st['log'].get('eind') == '2026-12-25' and st['log'].get('route') == 'widget' and 'mewsStart=2026-12-23&mewsEnd=2026-12-25' in u
+            check(f'{tag} kaart 24 t/m 26 december: boekbalk 2026-12-24/2026-12-26, widget opent met die datums op {CFG[:8]}, zonder voucher',
+                  st['a'] == '2026-12-24' and st['v'] == '2026-12-26' and 'Kies datum' not in st['zicht'] and st['log'].get('start') == '2026-12-24'
+                  and st['log'].get('eind') == '2026-12-26' and st['log'].get('route') == 'widget' and 'mewsStart=2026-12-24&mewsEnd=2026-12-26' in u
                   and ('/' + CFG + '?') in u and st['html'] == CFG and not any(m.startswith('v:') for m in st['mews']) and st['mews'][-1] == 'open'
                   and len([m for m in st['mews'] if m[:2] in ('s:', 'e:')]) == 2, str(st)[:400])
             pg.evaluate("delete window.mewsApi")
@@ -1079,13 +1079,13 @@ with sync_playwright() as p:
             ctx.route('**/distributor/' + CFG + '?**', lambda r: r.fulfill(status=200, content_type='text/html', body='<p>mews</p>'))
             popups = []
             ctx.on('page', lambda np: popups.append(np))
-            knop = pg.locator('button[data-verblijf][data-start="2026-12-23"][data-eind="2026-12-25"]')
+            knop = pg.locator('button[data-verblijf][data-start="2026-12-24"][data-eind="2026-12-26"]')
             knop.scroll_into_view_if_needed(); knop.click(); pg.wait_for_timeout(5000)
             pu = popups[0].url if popups else ''
             if not pu and popups:
                 popups[0].wait_for_load_state('commit'); pu = popups[0].url
-            check(f'{tag} deeplink-terugval: distributor/{CFG[:8]} met mewsStart=2026-12-23&mewsEnd=2026-12-25',
-                  ('distributor/' + CFG) in pu and 'mewsStart=2026-12-23&mewsEnd=2026-12-25' in pu, pu[:200])
+            check(f'{tag} deeplink-terugval: distributor/{CFG[:8]} met mewsStart=2026-12-24&mewsEnd=2026-12-26',
+                  ('distributor/' + CFG) in pu and 'mewsStart=2026-12-24&mewsEnd=2026-12-26' in pu, pu[:200])
             eigen = [f for f in pg._fouten if 'mews' not in f.lower()]
             check(f'{tag} Kies je dagen: geen consolefouten (eigen code)', not eigen, '; '.join(eigen)[:300])
             ctx.close()

@@ -346,7 +346,8 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   **Kerstarrangement (nov 2026, PR feature/kerstarrangement, noindex, niet in sitemap)** op `/kerstarrangement`: voucherloos
   (`VOUCHER ""`, Mews-config Feestdagen arrangementen 4483536c via `MEWS_CONFIG`, publieke tarieven), prijskalender uit
   (`ARR_KALENDER false`; /api/arr-kalender kent alleen privétarieven met code), blok `verblijven` (Kies je kerstdagen) met de zes
-  datumcombinaties die in Mews een kersttarief hebben (23-25/26/27, 24-25/26, 25-26; andere combinaties = alleen kamerprijs).
+  datumcombinaties die in Mews een kersttarief hebben (24-26/27/28, 25-26/27, 26-27; andere combinaties, ook aankomst 23 dec,
+  = alleen kamerprijs). Mews peilen met CET-middernacht (StartUtc = dag ervoor T23:00:00Z), anders schuift alles een dag.
 - **Opbouw (wireframe-ideaal 14 okt 2026, bron `~/Documents/Parkhotel /Website ontwerp/asteria-arrangement-blokkenkiezer/bron/wireframe-ideaal.html`):**
   1 hero + boekbalk met prijs-pil en chips, zijkaart (sticky, zonder foto) naast 2-5 die stopt na de kamers, 2 dit is inbegrepen
   (ronde 2, 14 okt: gespiegeld Parkhotel-blok 'Het wellnessarrangement' van /wellness/: ivoren paneel vanaf de linker schermrand,
@@ -392,7 +393,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   - Voucherloos arrangement: `VOUCHER ""` + `MEWS_CONFIG` + `ARR_KALENDER false`. build.py `zonder_voucher` haalt dan ook het
     actiecodeveld (`#bb-code`), de verborgen code in blok 7a en (alleen blok arrangement) de lege code in data-basis van de
     kamer-pop-up weg. Test: `... /kerstarrangement.html --v3 --voucher "" --arrangement "€ 130,00"` (voucherloze broncheck, alle
-    Mews-links op de config uit data-mews-config, geen kalender, Kies je dagen: kaart 23-25 -> boekbalk + widget + deeplink).
+    Mews-links op de config uit data-mews-config, geen kalender, Kies je dagen: kaart 24-26 -> boekbalk + widget + deeplink).
   - Zondagvoordeel: `ZV_TOON` (true/false; uit bij kerst en oud en nieuw), `ZV_KOP_A/EM/B`, `ZV_PIL`, `ZV_ZONDAG_KOP`,
     `ZV_ZONDAG_PRIJS`, `ZV_GEWOON_PRIJS`, `ZV_ZONDAG_REGEL`, `ZV_ANDERS_KOP`, `ZV_ANDERS_REGEL`, `ZV_VOETNOOT`,
     `ZV_KAART_REGEL` (zondagregel in de zijkaart), gekozen vorm (14 okt): a9, zoals het Parkhotel-blok zondagvoordeel: ivoren paneel met kop, twee kaarten erin (zondag met terracotta rand en pil op de titelregel, gewone kaart kleiner/grijs), voetnoot in het paneel. Geen `?zv`-opties meer. Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en
