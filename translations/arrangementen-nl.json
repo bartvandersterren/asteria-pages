@@ -410,19 +410,19 @@
   "_extra": [
     {
       "slug": "kerstarrangement",
-      "url": "https://www.asteria.nl/arrangementen/kerstarrangement-hotel",
+      "url": "https://visit.asteria.nl/kerstarrangement",
       "naam": "Kerstarrangement",
       "oms": "Laat je culinair verwennen tijdens de feestdagen: een zorgeloze en sfeervolle kerst in Noord-Limburg.",
       "prijs": "€ 130",
       "eenheid": "p.p.",
-      "tag": "Feestdagen · aankomst 23-26 dec",
+      "tag": "Feestdagen · aankomst 23, 24 of 25 dec",
       "foto": "fotos/l26-arr-kerst-breed.webp",
       "alt": "Kerstbal met de Asteria-ster tussen dennentakken",
       "pos": "55% 50%",
       "vinken": [
-        "Elke ochtend een uitgebreid kerstontbijt",
-        "4-gangen kerstdiner met live muziek op eerste kerstdag",
-        "3-gangen kerstproeverijmenu op tweede kerstdag"
+        "Kerstontbijt elke ochtend",
+        "Kerstdiner Dansant met live muziek op eerste kerstdag",
+        "Kerstproeverijmenu op tweede kerstdag"
       ],
       "cat": [
         "feest"
@@ -438,7 +438,7 @@
         "zondag": -2
       },
       "redenen": {
-        "feest": "Kerst bij Asteria, met aankomst tussen 23 en 26 december.",
+        "feest": "Kerst bij Asteria, met aankomst op 23, 24 of 25 december.",
         "eten": "Op eerste kerstdag een 4-gangen kerstdiner met live muziek en drank, op tweede kerstdag een kerstproeverijmenu.",
         "samen": "Een sfeervolle kerst samen, zonder zelf te koken.",
         "default": "Elke ochtend een uitgebreid kerstontbijt."

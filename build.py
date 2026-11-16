@@ -155,7 +155,8 @@ TEMPLATES = {
     # Nieuw arrangement = translations/<slug>-nl.json (kopie van najaarsarrangement-nl.json) + slug in deze lijst.
     # Opbouw en velden: zie CLAUDE.md (Arrangementen op lander-w1) en apply_arrangement(). Schakelaars in de JSON:
     # ZV_TOON (zondagvoordeel), WAAROM_TOON (Waarom Asteria, standaard aan), ANDERE_TOON (+ lijst '_andere'),
-    # lijst '_banen' (golfbanen na Dit is inbegrepen; alleen golf).
+    # lijst '_banen' (golfbanen na Dit is inbegrepen; alleen golf), lijst '_verblijven' (vaste datumcombinaties, Kies je
+    # kerstdagen; alleen kerst, voucherloos via VOUCHER "" + MEWS_CONFIG + ARR_KALENDER false).
     # Keys met een '_' vooraan en niet-tekstwaarden gaan niet de {{KEY}}-pass in.
     **{s: {
         'template': 'lander-w1.template.html',
@@ -164,7 +165,7 @@ TEMPLATES = {
         },
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
-    } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement')},
+    } for s in ('najaarsarrangement', 'wellness-arrangement', 'oorlogsmuseum-arrangement', 'limburg-arrangement', 'weekend-aanbieding', 'golfarrangement', 'kerstarrangement')},
     # Winterarrangement 2027: sinds 5 nov 2026 LIVE op /winterarrangement (index, follow via 'index'; /winterarrangement-v2
     # 301 in _redirects, bestand weg). ARR_KALENDER stond false zolang WINTER27 niet in Mews stond; sinds 5 nov true
     # (prijskalender aan), ZV_BEREKENEN false (zondag uit Mews).
@@ -1087,6 +1088,9 @@ def zonder_voucher(html):
     html = re.sub(r'href="([^"?]*)\?mewsVoucherCode="', r'href="\1"', html)
     html = html.replace(' data-voucher=""', '')
     html = re.sub(r' met code "', '"', html)
+    # voucherloos arrangement (kerst): geen leeg actiecodeveld in de hero-boekbalk en geen lege verborgen code in blok 7a
+    html = re.sub(r'(?m)^[ \t]*<div class="field b1a-code">[^\n]*?id="bb-code" name="mewsVoucherCode" value=""[^\n]*?</div>\n', '', html)
+    html = html.replace('<input type="hidden" name="mewsVoucherCode" value="">', '')
     return html
 
 
@@ -1141,6 +1145,9 @@ def apply_arrangement(html, data):
       "zondag": true = alleen met ZV_TOON), '_andere' ({naam, url, img, alt, prijs?}).
     - '_banen' (optioneel, 1 tot 4; build-blok 'banen' na 'Dit is inbegrepen'): {naam, plaats, tekst, rijtijd, url, foto, alt,
       pos?, link?}; kaart per golfbaan met foto, naam, plaats · rijtijd, tekst en link (nieuw tabblad). Kop BANEN_KOP_A/EM, BANEN_INTRO.
+    - '_verblijven' (optioneel, 2 tot 8; build-blok 'verblijven' na 'Dit is inbegrepen', kerst): {label, datums, nachten, prijs,
+      prijs_noot, punten (3-5), start, eind (JJJJ-MM-DD), pil?, knop?}; kaart per vaste datumcombinatie met knop data-verblijf
+      (arrangement.js zet de datums in de hero-boekbalk en verstuurt die). Kop VERBLIJVEN_KOP_A/EM, VERBLIJVEN_INTRO.
     - 'ARR_NACHTEN' (getal, standaard 1): vast aantal nachten. Bij meer dan 1 krijgen de boekbalken
       data-nachten; arrangement.js zet het vertrek dan op aankomst + N (balk, widget en URL-fallback).
     - '_fotowolk': 12 foto's ({img, pos?} of een pad) die de vaste foto's van de fotowolk (blok 7a)
@@ -1242,6 +1249,37 @@ def apply_arrangement(html, data):
                 f'<a class="ar-inb-link ar-baan-link" href="{escape(b["url"])}" target="_blank" rel="noopener">'
                 f'{b.get("link", "Naar de website")}{pijl}</a></div></article>')
         html = html.replace('<!-- ARR_BANEN -->', '\n'.join(kaarten))
+
+    verblijven = data.get('_verblijven')
+    if verblijven:
+        if not 2 <= len(verblijven) <= 8:
+            sys.exit(f'_verblijven: 2 tot 8 verblijven nodig, niet {len(verblijven)}')
+        agenda = ('<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/>'
+                  '<path d="M16 2v4M8 2v4M3 10h18"/></svg>')
+        kaarten = []
+        for v in verblijven:
+            for veld in ('label', 'datums', 'nachten', 'prijs', 'prijs_noot', 'punten', 'start', 'eind'):
+                if not v.get(veld):
+                    sys.exit(f'_verblijven: veld {veld!r} ontbreekt bij {v.get("label", "?")!r}')
+            for veld in ('start', 'eind'):
+                if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', v[veld]):
+                    sys.exit(f'_verblijven: {veld} moet JJJJ-MM-DD zijn, niet {v[veld]!r}')
+            if not isinstance(v['nachten'], int) or not 3 <= len(v['punten']) <= 5:
+                sys.exit(f'_verblijven: nachten (getal) en 3 tot 5 punten nodig bij {v["label"]!r}')
+            nacht = '1 nacht' if v['nachten'] == 1 else f'{v["nachten"]} nachten'
+            pil = v.get('pil')
+            kaarten.append(
+                f'        <article class="ar-verblijf{" ar-verblijf--pil" if pil else ""}">'
+                f'<div class="ar-verblijf-top"><h3>{v["label"]}</h3>'
+                + (f'<span class="ar-zv-pil">{escape(pil, quote=False)}</span>' if pil else '') + '</div>'
+                f'<p class="ar-baan-plek ar-verblijf-datums">{agenda}<span>{v["datums"]} · {nacht}</span></p>'
+                f'<ul class="b1k-vinkjes ar-verblijf-vink">'
+                + ''.join(f'<li>{VINK_SVG}<span>{pt}</span></li>' for pt in v['punten']) + '</ul>'
+                f'<p class="ar-verblijf-prijs">{re.sub(r"(€\s?[0-9.,]+)", r"<b>\1</b>", v["prijs"])}</p>'
+                f'<p class="ar-verblijf-noot">{v["prijs_noot"]}</p>'
+                f'<button type="button" class="btn btn-primary ar-verblijf-knop" data-verblijf data-start="{v["start"]}" data-eind="{v["eind"]}"'
+                f' aria-label="Boek {escape(v["datums"])}">{v.get("knop", "Boek deze dagen")}</button></article>')
+        html = html.replace('<!-- ARR_VERBLIJVEN -->', '\n'.join(kaarten))
 
     nachten = data.get('ARR_NACHTEN', 1)
     if not isinstance(nachten, int) or nachten < 1:
@@ -3310,6 +3348,7 @@ def build(template_name, lang):
         if translations.get('WAAROM_TOON', True): aan.add('waarom')
         if translations.get('ANDERE_TOON') and translations.get('_andere'): aan.add('andere')
         if translations.get('_banen'): aan.add('banen')
+        if translations.get('_verblijven'): aan.add('verblijven')
 
     # Kamerdetailpagina (kamer-w1): kop/voet uit lander-w1 + lijstblokken, vóór de blokken en de {{KEY}}-pass
     if config.get('kamer'):
@@ -3379,6 +3418,9 @@ def build(template_name, lang):
     # Zonder actiecode: lege voucher uit de Mews-links en labels
     if translations.get('VOUCHER', None) == '':
         html = zonder_voucher(html)
+        if 'arrangement' in aan:
+            # voucherloos arrangement (kerst): ook de kamer-pop-up zonder lege code (lander-w1.js plakt '&mewsRoom=' achter de '?')
+            html = html.replace('?mewsVoucherCode=" href=', '?" href=')
 
     # Eigen Mews-boekingsmodule (optioneel JSON-veld MEWS_CONFIG, bijv. winterarrangement = Winter-actie 95c70e27):
     # alle distributor-links op deze pagina naar die config, en data-mews-config op <html> zodat lander-w1.js en

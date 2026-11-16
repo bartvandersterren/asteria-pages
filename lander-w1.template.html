@@ -315,6 +315,20 @@
     </div>
   </section>
   <!--]banen]-->
+  <!--[verblijven[-->
+  <!-- ══ ARRANGEMENT 2c: KIES JE DAGEN (build-blok 'verblijven', aan zodra de JSON een lijst '_verblijven' heeft; kerst).
+       Kaart per vaste datumcombinatie: label, datums · nachten, vinkjes, prijs + noot, optionele pil, knop 'Boek deze dagen'
+       (button data-verblijf data-start data-eind: arrangement.js zet de datums in de hero-boekbalk en verstuurt die, zodat
+       lander-w1.js de Mews-widget met die datums opent). Bureaublad raster, telefoon veegrij. Kaarten uit '_verblijven' (build.py) ══ -->
+  <section class="sec ar-sec ar-verblijven" data-toon="paper" aria-labelledby="verblijven-kop">
+    <div class="wrap">
+      <div class="ar-banen-kop"><h2 id="verblijven-kop">{{VERBLIJVEN_KOP_A}} <span class="g">{{VERBLIJVEN_KOP_EM}}</span></h2><p>{{VERBLIJVEN_INTRO}}</p></div>
+      <div class="ar-verblijf-rij" aria-label="Verblijven">
+<!-- ARR_VERBLIJVEN -->
+      </div>
+    </div>
+  </section>
+  <!--]verblijven]-->
   <!--[zondag[-->
   <!-- ══ ARRANGEMENT 3: ZONDAGVOORDEEL (build-blok 'zondag', aan met ZV_TOON in de JSON). Gekozen ontwerp a9 (14 okt), precies
        zoals Parkhotel blok-zondagvoordeel: een ivoren paneel met de kop erin, twee kaarten in het paneel (zondagkaart met

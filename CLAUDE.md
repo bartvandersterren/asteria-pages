@@ -341,7 +341,12 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   **Winterarrangement 2027 (WINTER27, Mews-config Winter-actie 95c70e27) LIVE sinds 5 nov 2026 op `/winterarrangement`**, als enige
   arrangementpagina `index, follow` (build-config `'index': ('nl',)` zet de sjabloon-noindex om); `/winterarrangement-v2` 301 in
   `_redirects`, bestand weg. Niet in menu, arrangementenoverzicht of sitemap.xml (aparte beslissing).
-  `_andere` (Ook interessant) linkt naar elkaars visit.asteria.nl-adres; kerst blijft naar asteria.nl.
+  `_andere` (Ook interessant) linkt naar elkaars visit.asteria.nl-adres; kerst sinds nov 2026 naar `/kerstarrangement` (ook
+  in `_extra` van het overzicht); Oud & Nieuw en Bridge blijven naar asteria.nl.
+  **Kerstarrangement (nov 2026, PR feature/kerstarrangement, noindex, niet in sitemap)** op `/kerstarrangement`: voucherloos
+  (`VOUCHER ""`, Mews-config Feestdagen arrangementen 4483536c via `MEWS_CONFIG`, publieke tarieven), prijskalender uit
+  (`ARR_KALENDER false`; /api/arr-kalender kent alleen privétarieven met code), blok `verblijven` (Kies je kerstdagen) met de zes
+  datumcombinaties die in Mews een kersttarief hebben (23-25/26/27, 24-25/26, 25-26; andere combinaties = alleen kamerprijs).
 - **Opbouw (wireframe-ideaal 14 okt 2026, bron `~/Documents/Parkhotel /Website ontwerp/asteria-arrangement-blokkenkiezer/bron/wireframe-ideaal.html`):**
   1 hero + boekbalk met prijs-pil en chips, zijkaart (sticky, zonder foto) naast 2-5 die stopt na de kamers, 2 dit is inbegrepen
   (ronde 2, 14 okt: gespiegeld Parkhotel-blok 'Het wellnessarrangement' van /wellness/: ivoren paneel vanaf de linker schermrand,
@@ -378,6 +383,16 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
     `BANEN_KOP_A/EM`, `BANEN_INTRO` zet build-blok `banen` aan: kaart per baan (foto, naam, plaats · rijtijd, tekst, link in nieuw
     tabblad) direct na Dit is inbegrepen, voor het zondagblok. Opzet van het Parkhotel-blok 'Kies uw golfbaan'; CSS `ar-banen`/`ar-baan`
     in `arrangement.css` (2 naast elkaar vanaf 640 px kolombreedte, anders veegrij). Foto's `fotos/l26-golfarrangement-baan-*.webp`.
+  - Vaste datumcombinaties (optioneel, kerst): `_verblijven` (lijst `{label, datums, nachten, prijs, prijs_noot, punten (3-5),
+    start, eind (JJJJ-MM-DD), pil?, knop?}`, 2 tot 8) + `VERBLIJVEN_KOP_A/EM`, `VERBLIJVEN_INTRO` zet build-blok `verblijven` aan,
+    op de plek van de golfbanen. Kaart: label, datums · nachten, vinkjes, prijs + noot, pil op de bovenrand, knop `button[data-verblijf]`:
+    `arrangement.js` zet data-start/data-eind in de hero-boekbalk en doet `requestSubmit()` (widget `setStartDate/setEndDate`,
+    terugval deeplink `mewsStart/mewsEnd`). CSS `ar-verblijf*`: telefoon veegrij, 720-1279 2 kolommen (naast de zijkaart is de kolom
+    526-660 px), vanaf 1280 3 kolommen.
+  - Voucherloos arrangement: `VOUCHER ""` + `MEWS_CONFIG` + `ARR_KALENDER false`. build.py `zonder_voucher` haalt dan ook het
+    actiecodeveld (`#bb-code`), de verborgen code in blok 7a en (alleen blok arrangement) de lege code in data-basis van de
+    kamer-pop-up weg. Test: `... /kerstarrangement.html --v3 --voucher "" --arrangement "€ 130,00"` (voucherloze broncheck, alle
+    Mews-links op de config uit data-mews-config, geen kalender, Kies je dagen: kaart 23-25 -> boekbalk + widget + deeplink).
   - Zondagvoordeel: `ZV_TOON` (true/false; uit bij kerst en oud en nieuw), `ZV_KOP_A/EM/B`, `ZV_PIL`, `ZV_ZONDAG_KOP`,
     `ZV_ZONDAG_PRIJS`, `ZV_GEWOON_PRIJS`, `ZV_ZONDAG_REGEL`, `ZV_ANDERS_KOP`, `ZV_ANDERS_REGEL`, `ZV_VOETNOOT`,
     `ZV_KAART_REGEL` (zondagregel in de zijkaart), gekozen vorm (14 okt): a9, zoals het Parkhotel-blok zondagvoordeel: ivoren paneel met kop, twee kaarten erin (zondag met terracotta rand en pil op de titelregel, gewone kaart kleiner/grijs), voetnoot in het paneel. Geen `?zv`-opties meer. Bedragen meten via Mews getAvailability (2 volwassenen, voucher, zondag- en

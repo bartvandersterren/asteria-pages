@@ -1,0 +1,328 @@
+{
+  "_controleren": [
+    "Mews-combinaties (gemeten 16 nov 2026, config 4483536c 'Feestdagen arrangementen', 2 volw., Comfort p.p.): 25-26 € 130,00, 24-25 € 172,00, 24-26 € 302,00, 23-25 € 311,50, 23-26 € 441,50, 23-27 € 551,50. De oude pagina op asteria.nl belooft aankomst 23, 24, 25 of 26 december met vertrek naar keuze (standaard 27 dec); aankomst 26 dec, vertrek 27 dec vanaf 24/25/26 dec en aankomst 22 dec geven in Mews geen kersttarief. Deze pagina toont alleen de zes boekbare combinaties. Vraag aan Stijn: Mews aanvullen of zo laten.",
+    "Inhoud per verblijf uit de Mews-tariefomschrijvingen. Controleren: bij aankomst 24 december zit er volgens de tarieven geen kerstavonddiner bij (alleen bij aankomst 23 december); het plan noemde 'bij aankomst 23 of 24 dec'. De pagina volgt de tarieven.",
+    "Diners op de vertrekdag: 24-25 (Kerstdiner Dansant op eerste kerstdag) en 25-26 / 24-26 (kerstproeverijmenu op tweede kerstdag) vallen op de dag van vertrek. Tijdstip (lunch of diner) en of je na het uitchecken nog blijft eten controleren.",
+    "Kerstdiner Dansant: viergangen met live muziek, drank inbegrepen. Mews noemt Hollands gedistilleerd; de pagina zegt 'bier, wijn, fris en Hollands gedistilleerd'. Controleren welke drank precies.",
+    "Driegangendiner bij 23-27: Mews zegt 'op 23 of 27 december' (één diner). Controleren of de gast kiest.",
+    "Pil 'Meest gekozen' op 24 t/m 26 december is een voorstel, geen gemeten cijfer. Bevestigen of weghalen.",
+    "Wellness Top Floor: niet inbegrepen, bijboeken via de receptie; openingstijden rond de feestdagen niet bekend, daarom niet genoemd.",
+    "Annuleren: niet bekend voor de kersttarieven; FAQ zegt 'zie je bij het boeken'.",
+    "Kinderen / derde persoon: Comfort kamer voor 3 personen bestaat in Mews, staat niet op de pagina. FAQ verwijst naar de receptie.",
+    "Verblijfsbelasting € 2,– p.p. per nacht overgenomen van de andere arrangementen.",
+    "Toeslag per kamertype (Royale + € 5, Deluxe + € 10 p.p. per nacht) gemeten in Mews; Junior suite, Suite en Bruidssuite staan niet op de kersttarieven.",
+    "Herofoto l26-kerstarrangement-hero.webp = kerstbal met Asteria-ster (kerst-head.png van asteria.nl). Controleren of dit een AI- of stockbeeld is. Inbegrepen-foto's tafel/proost/diner = contentshoot P1102959/P1102976/P1103079 (restaurant overdag, geen kerstdecoratie); kaartfoto bubbels = P1057653.",
+    "Oud & Nieuw arrangement vanaf € 347,00 p.p. uit de memory-peiling; prijs op asteria.nl controleren.",
+    "Boekbalk-standaarddatums (24-26 dec) zijn niet ingesteld: het sjabloon heeft geen standaardwaarde voor de boekbalk. De kaarten zetten de datums."
+  ],
+  "PAGE_TITLE": "Kerstarrangement: kerst vieren in Venray | Hotel Asteria",
+  "META_DESC": "Kerst vieren bij Hotel Asteria in Venray: overnachten met kerstontbijt, feestelijke diners en het Kerstdiner Dansant met live muziek. Aankomst 23, 24 of 25 december, vanaf € 130,00 p.p.",
+  "CANONICAL_URL": "https://visit.asteria.nl/kerstarrangement",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-kerstarrangement-hero.webp",
+  "H_EEN_A": "Kerst vieren",
+  "H_EEN_EM": "in Venray",
+  "SUB": "Elke ochtend een uitgebreid kerstontbijt, feestelijke diners en op eerste kerstdag live muziek. Jij hoeft alleen aan te schuiven.",
+  "HERO_IMG": "fotos/l26-kerstarrangement-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:57%\"",
+  "HERO_ALT": "Goudkleurige kerstbal met de rode Asteria-ster tussen dennentakken, dennenappels en kerstversiering",
+  "MEWS_CONFIG": "4483536c-8f59-4205-9abd-afa300f403d3",
+  "VOUCHER": "",
+  "CODE_ATTR": "",
+  "CTA": "Boek het arrangement",
+  "ARR_PRIJS_PIL": "vanaf € 130,00 p.p.",
+  "ARR_PRIJS": "€ 130,00",
+  "ARR_PRIJS_EENHEID": "p.p.",
+  "KAART_KOP": "Kerstarrangement",
+  "ARR_TRUST_A": "Geen boekingskosten",
+  "ARR_TRUST_B": "Directe bevestiging",
+  "KAART_IMG": "fotos/l26-kerstarrangement-bubbels.webp",
+  "KAART_ALT": "Fles Cuvée 21 Extra Dry met twee gevulde glazen op een goudkleurig bijzettafeltje",
+  "KAART_PIL": "Kerst 2026",
+  "KAART_VINK_A": "Kerstontbijt elke ochtend",
+  "KAART_VINK_B": "Kerstdiner Dansant met live muziek op eerste kerstdag",
+  "KAART_VINK_C": "Kerstproeverijmenu op tweede kerstdag",
+  "KAART_VINK_D": "Gratis parkeren",
+  "KAART_KNOP": "Boek het arrangement",
+  "KAART_TRUST": "Boek direct bij het hotel · geen boekingskosten",
+  "BOEKBALK_KNOP": "Bekijk beschikbaarheid",
+  "BOEKBALK_NOOT": "Aankomst 23, 24 of 25 december · kies hieronder je kerstdagen",
+  "KAMER_KOP_A": "In welke",
+  "KAMER_KOP_EM": "kamer",
+  "KAMER_KOP_B": "slaap je?",
+  "KAMER_SUB": "Het kerstarrangement is op basis van een Comfort kamer. Liever meer ruimte? Een Royale of Deluxe kamer kan ook, tegen een kleine toeslag per nacht.",
+  "KAMER_PIL": "Inbegrepen",
+  "KAMER_NOOT": "Prijzen per persoon op basis van 2 personen, exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
+  "_kamers": {
+    "comfort": {
+      "pil": "Inbegrepen",
+      "soort": "inbegrepen",
+      "prijs_label": "vanaf",
+      "prijs": "€ 130,00 p.p."
+    },
+    "royale": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs": "+ € 5 p.p. per nacht"
+    },
+    "deluxe": {
+      "pil": "Toeslag",
+      "soort": "toeslag",
+      "prijs": "+ € 10 p.p. per nacht"
+    }
+  },
+  "POP_BADGE": "Kerstarrangement",
+  "REVIEW_KOP_A": "Waarom gasten graag",
+  "REVIEW_KOP_EM": "terugkomen",
+  "SLOT_KOP_A": "Je",
+  "SLOT_KOP_EM": "kerst",
+  "SLOT_KOP_B": "bij Asteria",
+  "SLOT_TEKST": "Kies je kerstdagen en schuif aan: kerstontbijt, feestelijke diners en live muziek op eerste kerstdag. Vragen of een andere wens? We helpen je graag verder.",
+  "STICKY_KOP": "Kerstarrangement",
+  "STICKY_SUB": "vanaf € 130,00 p.p.",
+  "STICKY_KNOP": "Boek nu",
+  "SLOT_FOTO_A": "fotos/l26-kerstarrangement-hero.webp",
+  "SLOT_FOTO_A_POS": "55% 50%",
+  "SLOT_FOTO_B": "fotos/l26-kerstarrangement-tafel.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p.p., 1 nacht met aankomst 25 december",
+  "ARR_VOORWAARDEN": "Comfort kamer, 2 personen · aankomst 23, 24 of 25 december",
+  "ARR_MOB_NOOT": "Kies je kerstdagen hieronder",
+  "INB_KOP_A": "Dit is",
+  "INB_KOP_EM": "inbegrepen",
+  "ARR_INB_INTRO": "Welke diners erbij zitten, hangt af van je dagen. Hieronder zie je per verblijf precies wat je krijgt.",
+  "ZV_TOON": false,
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": true,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "diner",
+    "dinner",
+    "restaurant",
+    "ontbijt",
+    "kerst",
+    "sfeer"
+  ],
+  "_chips": [
+    "Kerstontbijt elke ochtend",
+    "Kerstdiner Dansant met live muziek",
+    "Aankomst 23, 24 of 25 december"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Overnachten in een Comfort kamer",
+      "regel": "één tot vier nachten, jij kiest de dagen",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Uitgebreid kerstontbijt",
+      "regel": "elke ochtend van je verblijf",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    },
+    {
+      "titel": "Viergangen kerstdiner",
+      "regel": "op kerstavond, bij aankomst op 23 december",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Kerstdiner Dansant",
+      "regel": "vier gangen met live muziek en drank, op eerste kerstdag",
+      "icoon": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>"
+    },
+    {
+      "titel": "Kerstproeverijmenu",
+      "regel": "drie gangen op tweede kerstdag",
+      "icoon": "<path d=\"M8 22h8\"/><path d=\"M12 15v7\"/><path d=\"M6 2h12l-1 8a5 5 0 0 1-10 0z\"/><path d=\"M6.5 6h11\"/>"
+    },
+    {
+      "titel": "Driegangendiner",
+      "regel": "op 23 of 27 december, bij vier nachten",
+      "icoon": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M16 2v4M8 2v4M3 10h18\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-kerstarrangement-tafel.webp",
+      "alt": "Gezelschap aan een ronde tafel in het restaurant, met borden, wijnglazen en water op tafel",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-kerstarrangement-proost.webp",
+      "alt": "Gasten proosten met witte en rode wijn aan tafel in het restaurant",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-kerstarrangement-diner.webp",
+      "alt": "Gast aan een gedekte tafel in het restaurant, met een glas witte wijn en bloemen op tafel",
+      "pos": "32% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-ontbijt.webp",
+      "alt": "Ontbijtbord met croissant, kaas, vleeswaren en druiven",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-weekend-aanbieding-comfort.webp",
+      "alt": "Comfort kamer met tweepersoonsbed",
+      "pos": "50% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Gratis parkeren",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    },
+    {
+      "tekst": "Diner in ons restaurant",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    }
+  ],
+  "VERBLIJVEN_KOP_A": "Kies je",
+  "VERBLIJVEN_KOP_EM": "kerstdagen",
+  "VERBLIJVEN_INTRO": "De dagen die je kiest, bepalen welke diners erbij zitten. Alle verblijven zijn op basis van een Comfort kamer voor 2 personen.",
+  "_verblijven": [
+    {
+      "label": "Kerstavond en eerste kerstdag",
+      "datums": "23 t/m 25 december",
+      "nachten": 2,
+      "start": "2026-12-23",
+      "eind": "2026-12-25",
+      "punten": [
+        "2 overnachtingen in een Comfort kamer",
+        "2× uitgebreid kerstontbijt",
+        "Viergangen kerstdiner op kerstavond",
+        "Kerstdiner Dansant met live muziek en drank op eerste kerstdag"
+      ],
+      "prijs": "€ 311,50 p.p.",
+      "prijs_noot": "Comfort kamer, 2 personen"
+    },
+    {
+      "label": "Kerstavond tot tweede kerstdag",
+      "datums": "23 t/m 26 december",
+      "nachten": 3,
+      "start": "2026-12-23",
+      "eind": "2026-12-26",
+      "punten": [
+        "3 overnachtingen in een Comfort kamer",
+        "3× uitgebreid kerstontbijt",
+        "Viergangen kerstdiner op kerstavond",
+        "Kerstdiner Dansant met live muziek en drank op eerste kerstdag",
+        "Kerstproeverijmenu op tweede kerstdag"
+      ],
+      "prijs": "€ 441,50 p.p.",
+      "prijs_noot": "Comfort kamer, 2 personen"
+    },
+    {
+      "label": "De hele kerst",
+      "datums": "23 t/m 27 december",
+      "nachten": 4,
+      "start": "2026-12-23",
+      "eind": "2026-12-27",
+      "punten": [
+        "4× uitgebreid kerstontbijt",
+        "Viergangen kerstdiner op kerstavond",
+        "Kerstdiner Dansant met live muziek en drank op eerste kerstdag",
+        "Kerstproeverijmenu op tweede kerstdag",
+        "Driegangendiner op 23 of 27 december"
+      ],
+      "prijs": "€ 551,50 p.p.",
+      "prijs_noot": "Comfort kamer, 2 personen"
+    },
+    {
+      "label": "Eerste kerstdag",
+      "datums": "24 t/m 25 december",
+      "nachten": 1,
+      "start": "2026-12-24",
+      "eind": "2026-12-25",
+      "punten": [
+        "1 overnachting in een Comfort kamer",
+        "Uitgebreid kerstontbijt",
+        "Kerstdiner Dansant met live muziek en drank op eerste kerstdag"
+      ],
+      "prijs": "€ 172,00 p.p.",
+      "prijs_noot": "Comfort kamer, 2 personen"
+    },
+    {
+      "label": "Beide kerstdagen",
+      "datums": "24 t/m 26 december",
+      "nachten": 2,
+      "start": "2026-12-24",
+      "eind": "2026-12-26",
+      "pil": "Meest gekozen",
+      "punten": [
+        "2 overnachtingen in een Comfort kamer",
+        "2× uitgebreid kerstontbijt",
+        "Kerstdiner Dansant met live muziek en drank op eerste kerstdag",
+        "Kerstproeverijmenu op tweede kerstdag"
+      ],
+      "prijs": "€ 302,00 p.p.",
+      "prijs_noot": "Comfort kamer, 2 personen"
+    },
+    {
+      "label": "Tweede kerstdag",
+      "datums": "25 t/m 26 december",
+      "nachten": 1,
+      "start": "2026-12-25",
+      "eind": "2026-12-26",
+      "punten": [
+        "1 overnachting in een Comfort kamer",
+        "Uitgebreid kerstontbijt",
+        "Driegangen kerstproeverijmenu op tweede kerstdag"
+      ],
+      "prijs": "€ 130,00 p.p.",
+      "prijs_noot": "Comfort kamer, 2 personen"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Wat zit er in het kerstarrangement?",
+      "a": "Je overnacht in een Comfort kamer en begint elke ochtend met een uitgebreid kerstontbijt. Welke diners erbij zitten, hangt af van je dagen: een viergangen kerstdiner op kerstavond (bij aankomst op 23 december), het Kerstdiner Dansant met live muziek en drank op eerste kerstdag en een driegangen kerstproeverijmenu op tweede kerstdag. Bij vier nachten komt er een driegangendiner op 23 of 27 december bij. Parkeren is gratis."
+    },
+    {
+      "q": "Welke dagen kan ik komen, en tot wanneer blijf ik?",
+      "a": "Je kiest uit zes verblijven: 23 t/m 25, 23 t/m 26 of 23 t/m 27 december, 24 t/m 25 of 24 t/m 26 december, of 25 t/m 26 december. Blijven tot 27 december kan bij aankomst op 23 december. Heb je een andere wens? Bel de receptie, dan kijken we wat er kan."
+    },
+    {
+      "q": "Wat is het Kerstdiner Dansant?",
+      "a": "Op eerste kerstdag serveren we een viergangen kerstdiner met live muziek. De drank is inbegrepen: bier, wijn, fris en Hollands gedistilleerd."
+    },
+    {
+      "q": "Kan ik de wellness gebruiken?",
+      "a": "De wellness op de Top Floor zit niet in het kerstarrangement, maar je kunt hem tijdens je verblijf wel bijboeken. Reserveer vooraf bij de receptie, dan weet je zeker dat er plek is."
+    },
+    {
+      "q": "Kan ik kosteloos annuleren?",
+      "a": "De annuleringsvoorwaarden van het kerstarrangement zie je bij het boeken, voordat je je reservering bevestigt. Twijfel je, bel dan even met de receptie."
+    },
+    {
+      "q": "Kan ik bij het hotel parkeren?",
+      "a": "Ja, je parkeert gratis bij het hotel."
+    }
+  ],
+  "_andere": [
+    {
+      "naam": "Winterarrangement",
+      "url": "https://visit.asteria.nl/winterarrangement",
+      "img": "fotos/l26-winterarrangement-hero.webp",
+      "alt": "Stel in witte badjassen ontbijt met croissants op bed in een hotelkamer",
+      "prijs": "vanaf € 134,50 p.p."
+    },
+    {
+      "naam": "Wellness Arrangement",
+      "url": "https://visit.asteria.nl/wellness-arrangement",
+      "img": "fotos/wt-arr.webp",
+      "alt": "Gast in badjas leest een tijdschrift in de relaxruimte",
+      "prijs": "vanaf € 139,50 p.p."
+    },
+    {
+      "naam": "Oud & Nieuw arrangement",
+      "url": "https://www.asteria.nl/arrangementen/oud-en-nieuw-arrangement",
+      "img": "fotos/l26-bubbels-hero.webp",
+      "alt": "Fles bubbels met twee gevulde glazen op een goudkleurig bijzettafeltje",
+      "prijs": "vanaf € 347,00 p.p."
+    }
+  ],
+  "ARR_NACHTEN": 1,
+  "ARR_KALENDER": false,
+  "ZV_BEREKENEN": false,
+  "ARR_VANAF_LIVE": false
+}

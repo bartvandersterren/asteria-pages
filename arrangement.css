@@ -178,6 +178,37 @@
   .lp .ar-baan-inhoud h3{font-size:24px}
 }
 
+/* ---------- 2c: kies je dagen (build-blok 'verblijven', lijst '_verblijven'; kerst). Kaart per vaste datumcombinatie in de
+   kaartstijl van de golfbanen: label (+ pil op de bovenrand), datums · nachten, vinkjes, prijs + noot, knop 'Boek deze dagen'
+   (arrangement.js: datums in de hero-boekbalk, dan de Mews-widget). Telefoon: veegrij met peek; 720-1279: 2 kolommen
+   (naast de zijkaart is de kolom 526-660 px); vanaf 1280: 3 kolommen, rij steekt iets buiten de kolom zoals de golfbanen. ---------- */
+.lp .ar-verblijf-rij{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin:-16px calc(-1 * var(--gutter)) 0;padding:16px var(--gutter) 20px;scroll-padding-left:var(--gutter)}
+.lp .ar-verblijf{position:relative;flex:0 0 min(300px,calc(100% - 48px));min-width:0;display:flex;flex-direction:column;scroll-snap-align:start;
+    background:var(--surface);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:24px 22px 22px}
+.lp .ar-verblijf--pil{box-shadow:0 0 0 2px var(--terracotta),var(--shadow-card)}
+.lp .ar-verblijf .ar-zv-pil{position:absolute;top:-11px;left:20px}
+.lp .ar-verblijf-top h3{font-size:24px;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+.lp .ar-verblijf-datums{margin-top:10px}
+.lp .ar-verblijf-vink{margin-top:18px;gap:10px}
+.lp .ar-verblijf-vink li{font-size:14px;line-height:1.45}
+.lp .ar-verblijf-vink li>.as-icoon{width:18px;height:18px}
+.lp .ar-verblijf-prijs{margin-top:auto;padding-top:20px;font-size:14px;color:var(--ink-soft)}
+.lp .ar-verblijf-prijs b{margin-right:4px;font-family:var(--font-display);font-size:34px;line-height:1;color:var(--ink);white-space:nowrap}
+.lp .ar-verblijf-noot{margin-top:4px;font-size:13px;line-height:1.4;color:var(--ink-soft)}
+.lp .ar-verblijf-knop{width:100%;margin-top:16px}
+@media (min-width:720px){
+  .lp .ar-verblijf-rij{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 20px;overflow:visible;margin:0;padding:12px 0 8px}
+  .lp .ar-verblijf{flex:none}
+}
+@media (min-width:1280px){
+  .lp .ar-verblijf-rij{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 16px}
+  .lp .lp-zone .ar-verblijf-rij{--links:max(0px,(100vw - 1120px) / 2 - 80px);margin-left:calc(-1 * min(40px, var(--links) / 2));margin-right:-24px}
+  .lp .ar-verblijf{padding:24px 18px 20px}
+  .lp .ar-verblijf-top h3{font-size:22px}
+}
+@media (max-width:1023px){ .lp .lp-zone .ar-verblijven{order:3} }
+
 /* ---------- 3: zondagvoordeel, ontwerp a9 (14 okt), precies zoals Parkhotel blok-zondagvoordeel: ivoren paneel met rand en
    de kop erin, twee kaarten in het paneel, voetnoot onderin. Zondagkaart: 2 px terracotta rand op zand, titel en pil op een
    regel, vanaf + grote prijs + p.p. per nacht op een regel, doorgestreepte prijs eronder. Gewone kaart: dunne rand, prijs
