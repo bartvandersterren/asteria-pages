@@ -156,6 +156,7 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 - `generate_translations.py` = eenmalig bootstrapscript, niet meer nodig voor dagelijks gebruik
 - **GOTCHA `{{KEY}}` in CSS:** gebruik NOOIT template keys als onderdeel van CSS-waarden (bijv. `i{{HTML_LANG}}ine-flex`). Dit breekt op andere talen. Hardcode zulke waarden.
 - **Redirects:** `_redirects` in root — oude `/wellness-arr-c` URLs → 301 naar `/wellness-arrangement`
+- **Voorpagina (19 nov 2026):** `/` stuurt met een 302 in `_redirects` door naar `/hotel-venray-v2` (besluit Stijn); de pagina blijft noindex en houdt haar eigen adres. `index.html` (kale "Welkom bij Asteria") is alleen nog de terugval voor onbekende adressen.
 
 ## Foto-index lezen
 - `foto-index.md` is te groot voor de Read tool (~60k tokens) — gebruik `Bash head -N foto-index.md` of grep om specifieke secties op te zoeken

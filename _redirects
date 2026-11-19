@@ -33,3 +33,7 @@
 /feedback-v2.html /feedback 301
 /feedback-v2-en /feedback-en 301
 /feedback-v2-de /feedback-de 301
+
+# Voorpagina (besluit Stijn 19 nov 2026): visit.asteria.nl/ stuurt door naar de hotellander in de nieuwe huisstijl.
+# 302, zodat het later zonder cacheproblemen naar een ander adres kan. Onbekende adressen tonen nog de kale index.html.
+/ /hotel-venray-v2 302
