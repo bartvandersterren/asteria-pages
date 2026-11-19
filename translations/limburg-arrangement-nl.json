@@ -1,4 +1,5 @@
 {
+  "_kop_spiegel": true,
   "_controleren": [
     "Prijzen gemeten 14 okt 2026 via Mews getAvailability (config 6dc9094c, voucher LIMBURG, 2 volwassenen, 3 nachten), aankomst 25 okt, 30 okt, 1, 3 en 15 nov, 6 dec 2026, 7 mrt, 13 en 15 jun 2027: overal gelijk. Comfort en Mindervalide EUR 830 voor 2 p. (EUR 415 p.p.), Comfort 3 pers. en Royale EUR 860 (EUR 430), Deluxe EUR 890 (EUR 445), Junior suite EUR 920 (EUR 460), Suite EUR 950 (EUR 475), Bruidssuite EUR 1.010 (EUR 505). Tarief 'Limburgs arrangement'.",
     "Aantal nachten: Mews geeft met LIMBURG alleen een tarief bij precies 3 nachten (1, 2 en 4 nachten: geen tarief). ARR_NACHTEN 3: de boekbalk zet het vertrek automatisch 3 nachten na de aankomst (ook in de widget en de URL-fallback). De boekknoppen zonder datum (zijkaart, kamers) openen de widget zonder datums; daar kiest de gast zelf 3 nachten. FAQ en voorwaardenregel zeggen dat.",

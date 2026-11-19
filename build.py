@@ -2219,6 +2219,54 @@ def al_kop_voet_en(d):
     ]
 
 
+W1_KOP_VOET = (('kop', r'<header class="top-stack[\s\S]*?</header>'), ('lade', r'<aside class="nav-drawer[\s\S]*?</aside>'),
+               ('voet', r'<footer class="footer[\s\S]*?</footer>'))
+
+
+def kop_spiegel(html, translations, lang, bron):
+    """Schakelaar "_kop_spiegel": true in de JSON van een lander-w1-, seizoen- of feedback-v2-pagina: ALLEEN kop, mobiele
+    lade en voet in de spiegelstand van /hotel-venray-v2 (blokken gesloten + spiegel uit lander-w1.template.html, links uit
+    translations/spiegel-links.json via vul_spiegel_links). De inhoud tussen kop en voet blijft gelijk: blok 'gesloten' gaat
+    hier niet aan (anders dan GESLOTEN_LANDER "spiegel"). Logo naar spiegel:home. Pagina's zonder VOUCHER in de JSON
+    (seizoen, feedback) krijgen de kop zonder actiecode; en/de (feedback-en/-de) de labels van al_kop_voet_en/_de, de
+    Mews-taal uit uitje-labels-<taal>.json en Omgeving naar /omgeving-v2-<taal> (om_overzicht_link)."""
+    with open(os.path.join(base, 'lander-w1.template.html'), encoding='utf-8') as f:
+        w1 = apply_blokken(f.read(), {'gesloten', 'spiegel'})
+    labels = {}
+    if lang != 'nl':
+        with open(os.path.join(base, ut_taalbron(UT_LABELS, lang)), encoding='utf-8') as f:
+            labels = json.load(f)
+    zonder_code = 'VOUCHER' not in translations
+    for naam, patroon in W1_KOP_VOET:
+        stuk = re.search(patroon, w1).group(0).replace('{{GESLOTEN_LOGO_URL}}', 'spiegel:home')
+        if not zonder_code:
+            # Junior suite in de voet (Mews met kamer): ook de actiecode in de terugval-URL, zoals de andere Mews-links op de pagina
+            stuk = stuk.replace('af1d00ffc556?mewsRoom=', 'af1d00ffc556?mewsVoucherCode={{VOUCHER}}&amp;mewsRoom=')
+        if zonder_code:
+            taal = '?language=' + labels['mews-taal'] if labels else ''
+            stuk = (stuk.replace('?mewsVoucherCode={{VOUCHER}}&amp;', '?').replace('?mewsVoucherCode={{VOUCHER}}', taal)
+                    .replace(' data-voucher="{{VOUCHER}}"', ''))
+        if lang == 'de':
+            paren = al_kop_voet_de(labels)
+        elif lang == 'en':
+            paren = al_kop_voet_en(labels)
+        else:
+            paren = []
+        for a_, b_ in paren:
+            stuk = stuk.replace(a_, b_)
+        if labels:
+            stuk = stuk.replace('af1d00ffc556?mewsRoom=', f'af1d00ffc556?language={labels["mews-taal"]}&amp;mewsRoom=')
+        stuk = vul_spiegel_links(stuk)
+        if lang != 'nl':
+            stuk = om_overzicht_link(stuk, lang)
+        if zonder_code and ('{{VOUCHER}}' in stuk or 'mewsVoucherCode' in stuk):
+            sys.exit(f'_kop_spiegel: actiecode blijft over in de {naam} ({bron})')
+        html, n = re.subn(patroon, lambda m: stuk, html)
+        if n != 1:
+            sys.exit(f'_kop_spiegel: {naam} {n}x gevonden in {bron} (verwacht 1)')
+    return html
+
+
 def build_adslander(config, output_file, json_file, template_name, lang):
     from html import escape
     import hashlib
@@ -3335,6 +3383,15 @@ def build(template_name, lang):
     gesloten_stand = translations.get('GESLOTEN_LANDER')
     if gesloten_stand not in (None, True, False, 'spiegel'):
         sys.exit(f'GESLOTEN_LANDER moet true, false of "spiegel" zijn, niet {gesloten_stand!r}')
+    # Alleen kop, mobiele lade en voet in de spiegelstand ("_kop_spiegel": true; inhoud ongewijzigd, zie kop_spiegel).
+    # Het arrangementenoverzicht gebruikt dezelfde vlag, maar via apply_overzicht/w1_blokken.
+    kop_spiegel_aan = translations.get('_kop_spiegel')
+    if kop_spiegel_aan not in (None, True, False):
+        sys.exit(f'_kop_spiegel moet true of false zijn, niet {kop_spiegel_aan!r}')
+    if kop_spiegel_aan and not config.get('overzicht'):
+        if gesloten_stand in (True, 'spiegel') or config.get('kamer'):
+            sys.exit(f'_kop_spiegel niet combineren met GESLOTEN_LANDER {gesloten_stand!r} of een kamerpagina ({json_file})')
+        html = kop_spiegel(html, translations, lang, json_file)
     aan = ({'gesloten', 'kopdicht'} if gesloten_stand is True else {'gesloten', 'spiegel'} if gesloten_stand == 'spiegel' else set()) | ({'scratchcard'} if translations.get('_popup_scratchcard') else set()) | ({'trustkaart'} if translations.get('KAART_IMG', None) == '' else set()) | ({'video'} if translations.get('HERO_VIDEO') else set()) | ({k for k, v in config.get('blokken', {}).items() if v} | ({'ladder'} if ladder else set())
            | ({'cadeau'} if cadeau else set()) | ({'attentie-knop'} if translations['ATTENTIE_KNOP'] else set()))
 
@@ -3411,6 +3468,16 @@ def build(template_name, lang):
         if not config.get('kamer'):
             html = kamerkaart_links(html)
         html = vul_spiegel_links(html)
+
+    # _kop_spiegel: ook de inhoudslinks met een tegenhanger in de nieuwe stijl (spiegel_inhoud: asteria.nl-kamers/wellness/
+    # restaurant/omgeving/contact/faciliteiten/over-ons + de kamerpagina's in #lp-kamerdata; plus asteria.nl/arrangementen ->
+    # het arrangementenoverzicht). Diepere asteria.nl-paden (oud-en-nieuw) en "link" in #lp-facdata (knop Meer op asteria.nl) blijven.
+    if kop_spiegel_aan and not config.get('overzicht'):
+        html = spiegel_inhoud(html)
+        html = re.sub(r'href="https://www\.asteria\.nl/arrangementen/?"', f'href="{spiegel_adres("arrangementen")}"', html)
+        # knop "Meer op asteria.nl" in de faciliteit-pop-up blijft naar asteria.nl (tekst en lander-w1.js-label noemen asteria.nl)
+        html = html.replace(f'<a class="btn btn-secondary lp-pop__meer" href="{spiegel_adres("faciliteiten")}">Meer op asteria.nl</a>',
+                            '<a class="btn btn-secondary lp-pop__meer" href="https://www.asteria.nl/faciliteiten">Meer op asteria.nl</a>')
 
     if config.get('kamer'):
         html = kamer_absoluut(html)

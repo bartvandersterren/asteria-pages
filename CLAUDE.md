@@ -249,6 +249,21 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Alle faciliteiten, Plan een dag in de buurt, Neem contact op; faciliteit-pop-ups krijgen `info` (lander-w1.js: tekstlink Meer
   informatie naast Bekijk beschikbaarheid). Geen Zalen & feesten, FAQ, Werken bij of taalkeuze. `true` = weer gesloten, `false` = oude
   volledige kop met asteria.nl-links.
+- Spiegelkop overal (19 nov 2026, tak feature/kop-spiegel-overal): `"_kop_spiegel": true` in de JSON = ALLEEN kop, mobiele lade en
+  voet in de spiegelstand (build.py `kop_spiegel`: header/aside/footer van de pagina vervangen door die uit lander-w1.template.html
+  met blokken gesloten + spiegel, links via `vul_spiegel_links`, logo `spiegel:home`). Blok `gesloten` gaat NIET aan, dus de inhoud
+  blijft zoals hij was. Staat aan op alle 22 lander-w1-, seizoen- en feedbackpagina's (8 arrangementen, flow-landers incl.
+  verblijfsverjaardag(-v2) en welkom, herfst/lente/zomer/winter, feedback(-en/-de)); daarmee heeft elke lander-w1-pagina de
+  spiegelkop of de gesloten kop. Werkt ook voor sjablonen met een vaste kop (seizoen, feedback-v2). Zonder VOUCHER in de JSON
+  (seizoen, feedback) geen actiecode in de kop; met VOUCHER krijgt ook Junior suite in de voet de code. en/de (feedback-en/-de):
+  labels van `al_kop_voet_en/_de`, Mews-taal en telefoon uit `uitje-labels-<taal>.json`, Omgeving naar /omgeving-v2-<taal>, de rest
+  naar de NL-pagina's. Waarde alleen true/false; niet samen met GESLOTEN_LANDER true/"spiegel" of op een kamerpagina (build stopt).
+  Op /arrangementen-v2 betekent dezelfde vlag hetzelfde via `apply_overzicht` (daar slaat `kop_spiegel` over).
+  Inhoudslinks gaan mee om (alleen met de vlag): `spiegel_inhoud` (asteria.nl-kamers/wellness/restaurant/omgeving/contact/
+  faciliteiten/over-ons, kamer-pop-up "Bekijk de kamerpagina" naar de detailpagina's, Junior Suite naar /kamers) + asteria.nl/arrangementen
+  -> /arrangementen-v2. Blijven bewust naar asteria.nl: knop "Meer op asteria.nl" in de faciliteit-pop-up (+ "link" in #lp-facdata),
+  diepere paden (oud-en-nieuw), "Naar asteria.nl" op feedback. Test: `test_lander_w1.py ... --kop-spiegel` (bron- en menuchecks);
+  feedback/seizoenen `... /feedback.html --kop-spiegel --alleen-kop`.
 
 ### Spiegel van de Effecty-staging (3 nov 2026, tak feature/staging-spiegel)
 
