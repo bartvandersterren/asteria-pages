@@ -37,7 +37,9 @@
     ["weekend", "/weekend-aanbieding"],
     ["oorlogsmuseum", "/oorlogsmuseum-arrangement"],
     ["golf", "/golfarrangement"],
-    ["najaar", "/najaarsarrangement"]
+    ["najaar", "/najaarsarrangement"],
+    ["kerst", "/kerstarrangement"],
+    ["winter", "/winterarrangement"]
   ],
   "weg": ["vergaderen", "zalen-feesten", "feesten", "condoleances", "bruiloften", "zaal-zeven", "evenementen", "faq", "vacatures"],
   "spiegel": {

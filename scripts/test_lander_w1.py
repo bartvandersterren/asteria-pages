@@ -59,6 +59,14 @@ Met --ladder: blok aanwezig (ster-split weg, kop blijft), teller 1 van 5, begins
 geen lus aan het eind (volgende uit), streepjes, pijltjestoetsen, swipe (scrollpositie), alleen de actieve stap voor
 schermlezers, kaarten passen in de kolom (1440: links van de zijkaart; 390: onder elkaar). Zonder --ladder: blok afwezig.
 
+Spiegelkop ("_kop_spiegel": true, sinds 19 nov 2026 op alle lander-w1-, seizoen- en feedbackpagina's): --kop-spiegel
+Bronchecks op kop, lade en voet (menu met submenu's, logo naar home van de spiegel, geen asteria.nl behalve privacy/voorwaarden,
+geen oude kamerpagina's, elk intern doel bestaat, voet Verblijf/Bij ons/Contact, Mews-links met de eigen code) + submenu (1440) en
+lade (390) in de browser. Pagina's zonder lander-w1-indeling (feedback, seizoenen): --kop-spiegel --alleen-kop (alleen die checks,
+plus overloop en consolefouten op 1440 en 390).
+  ... http://localhost:8765/najaarsarrangement.html --v3 --voucher NAJAAR2D --arrangement "€ 128,50" --kop-spiegel
+  ... http://localhost:8765/feedback.html --kop-spiegel --alleen-kop
+
 Cadeaublok (blok 3a-variant 'cadeau', aan via CADEAU_ITEMS in de JSON, welkom, sinds 14 okt op /welkom):
   ... http://localhost:8765/welkom.html --v3 --voucher WELKOM --cadeau
 Met --cadeau: blok aanwezig (ster-split weg, ster en kop blijven), 3 kaarten met badge, voetregel, geen knop of link in het
@@ -80,11 +88,21 @@ CADEAU = '--cadeau' in args
 if CADEAU: args.remove('--cadeau')
 HOTEL = '--hotel' in args
 if HOTEL: args.remove('--hotel')
+# Spiegelkop zonder gesloten inhoud ("_kop_spiegel": true in de JSON; alle lander-w1-, seizoen- en feedbackpagina's sinds
+# 19 nov 2026): kop, mobiele lade en voet zoals hotel-venray-v2, links uit translations/spiegel-links.json.
+KOPSPIEGEL = '--kop-spiegel' in args
+if KOPSPIEGEL: args.remove('--kop-spiegel')
+# Alleen de kop-checks (bron + menu, lade, overloop, consolefouten op 1440 en 390) voor pagina's met de spiegelkop die geen
+# lander-w1-indeling hebben (feedback, seizoenen): ... /feedback.html --kop-spiegel --alleen-kop
+ALLEENKOP = '--alleen-kop' in args
+if ALLEENKOP: args.remove('--alleen-kop'); KOPSPIEGEL = True
+import os as _os_ls
+_SL = json.load(open(_os_ls.path.join(_os_ls.path.dirname(_os_ls.path.abspath(__file__)), '..', 'translations', 'spiegel-links.json'), encoding='utf-8'))
 GESLOTEN = HOTEL   # hotel-venray-v2: inhoud zoals de gesloten lander (geen links naar asteria.nl, pop-upknop = Mews)
 # Spiegelstand (GESLOTEN_LANDER: "spiegel", sinds 3 nov 2026 op hotel-venray-v2): kop en voet volledig zoals de staging, alle
 # menu- en voetlinks naar de spiegel van de staging op visit.asteria.nl (translations/spiegel-links.json).
 SPIEGEL = HOTEL
-VOUCHER = '' if HOTEL else 'JUBILEUM'
+VOUCHER = '' if HOTEL or ALLEENKOP else 'JUBILEUM'
 if '--voucher' in args:
     i = args.index('--voucher'); VOUCHER = args[i + 1]; del args[i:i + 2]
 PRIJS = None
@@ -193,6 +211,73 @@ with sync_playwright() as p:
         kamers = pg.evaluate("[...document.querySelectorAll('.b4b-kaart:not([data-kloon]) .b4b-knoppen a.mews-open')].map(a=>a.getAttribute('href'))")
         check('[bron] kamerknoppen met mewsRoom en mewsRoute=rooms', kamers and all('mewsRoom=' in k and 'mewsRoute=rooms' in k for k in kamers), str(len(kamers)))
         ctx.close()
+    if KOPSPIEGEL and not HOTEL:
+        import urllib.request, re as _re
+        bron = urllib.request.urlopen(URL).read().decode('utf-8')
+        _pg = _SL['paginas']; _ovz = _SL['arrangementenoverzicht']
+        _kop = _re.search(r'<header class="top-stack[\s\S]*?</header>', bron).group(0)
+        _drawer = _re.search(r'<aside class="nav-drawer[\s\S]*?</aside>', bron).group(0)
+        _voet = _re.search(r'<footer class="footer[\s\S]*?</footer>', bron).group(0)
+        _menu = {'Kamers &amp; suites': _pg['kamers'], 'Faciliteiten': _pg['faciliteiten'], 'Wellness &amp; fitness': _pg['wellnessfaciliteiten'],
+                 'Arrangementen': _ovz, 'Omgeving': _pg['omgeving'], 'Restaurant': _pg['restaurant'], 'Wellness': _pg['wellness'],
+                 'Ons verhaal': _pg['over-ons'], 'Contact': _pg['contact']}
+        _ontbreekt = [t for t, u in _menu.items() if f'<li><a href="{u}">{t}</a></li>' not in _kop or f'<li><a href="{u}">{t}</a></li>' not in _drawer]
+        check('[bron] kop-spiegel: utility-balk met Contact, menu (Hotel en Over ons met submenu), hamburger, mobiel menu; logo naar home van de spiegel',
+              'class="utility-bar"' in _kop and f'<a href="{_pg["contact"]}">Contact</a>' in _kop and _kop.count('class="has-sub"') == 2
+              and 'nav-hamburger' in _kop and _drawer.count('class="has-sub"') == 2 and not _ontbreekt
+              and f'<a href="{_pg["home"]}" class="logo"' in _kop and 'nav-cta mews-open' in _kop and 'langswitch' not in _kop, str(_ontbreekt))
+        _zalen = [x for x in (_kop + _drawer + _voet).split('\n') if _re.search(r'zalen|vergader|feesten|vacature|veelgestelde', x, _re.I)]
+        check('[bron] kop-spiegel: geen Zalen & feesten, FAQ, Werken bij of taalkeuze in kop, lade en voet', not _zalen, str(_zalen)[:200])
+        _ext = [h for h in _re.findall(r'href="(https?://[^"]*)"', _kop + _drawer + _voet)
+                if not h.startswith(('https://app.mews.com/distributor/', 'https://maps.google.com/', 'https://www.facebook.com/',
+                                     'https://www.instagram.com/', 'https://www.linkedin.com/'))
+                and h not in ('https://www.asteria.nl/privacy', 'https://www.asteria.nl/algemene-voorwaarden')]
+        check('[bron] kop-spiegel: geen links naar asteria.nl in kop, lade en voet (behalve privacy/voorwaarden)', not _ext, str(_ext))
+        _int = [h for h in _re.findall(r'href="(/[^"]*)"', _kop + _drawer + _voet)]
+        _oud = [h for h in _int if h in ('/comfort-kamer', '/deluxe-kamer', '/royale-kamer', '/suite', '/bruidssuite', '/junior-suite', '/kamertypes')]
+        _weg = [h for h in _int if not any(_os_ls.path.isfile(_os_ls.path.join(_os_ls.path.dirname(_os_ls.path.abspath(__file__)), '..', h.strip('/') + x)) for x in ('.html', '/index.html'))]
+        check(f'[bron] kop-spiegel: {len(_int)} interne kop-/voetlinks, geen oude kamerpagina\'s, elk doel bestaat in de repo', _int and not _oud and not _weg, str(_oud + _weg))
+        check('[bron] kop-spiegel: voet Verblijf/Bij ons/Contact + socials; Comfort/Deluxe/Bruidssuite naar de detailpagina, Junior suite naar Mews met kamer',
+              'footer__socials' in _voet and all(f'<h3>{k}</h3>' in _voet for k in ('Verblijf', 'Bij ons', 'Contact'))
+              and f'<a href="{_pg["kamer-comfort"]}">Comfort kamer</a>' in _voet and f'<a href="{_pg["kamer-deluxe"]}">Deluxe kamer</a>' in _voet
+              and f'<a href="{_pg["kamer-bruidssuite"]}">Bruidssuite</a>' in _voet and 'data-room="27ea8deb-ded5-4856-8fdd-af1d00ffc315"' in _voet)
+        _mews = _re.findall(r'href="(https://app\.mews\.com/[^"]*)"', _kop + _drawer + _voet)
+        check(f'[bron] kop-spiegel: {len(_mews)} Mews-links in kop/lade/voet ' + (f'met {VOUCHER}' if VOUCHER else 'zonder actiecode'),
+              len(_mews) >= 4 and all((f'mewsVoucherCode={VOUCHER}' in h) if VOUCHER else ('mewsVoucherCode' not in h) for h in _mews), str(_mews)[:300])
+    if ALLEENKOP:
+        for w, h, mob in ((1440, 900, False), (390, 844, True)):
+            tag = f'[{w}]'
+            ctx = b.new_context(viewport={'width': w, 'height': h}, is_mobile=mob, has_touch=mob)
+            ctx.add_init_script("try{localStorage.setItem('cookie-consent','1');localStorage.setItem('ec_converted','1')}catch(e){}")
+            ctx.route('**/api/**', lambda r: r.fulfill(status=204, body=''))
+            pg = ctx.new_page(); fout = []
+            pg.on('console', lambda m: fout.append(m.text) if m.type == 'error' else None)
+            pg.on('pageerror', lambda e: fout.append(str(e)))
+            pg.goto(URL, wait_until='load'); pg.wait_for_timeout(800)
+            sw = pg.evaluate('document.documentElement.scrollWidth')
+            check(f'{tag} geen horizontale overloop', sw <= w, f'scrollWidth {sw}')
+            if mob:
+                pg.locator('.nav-hamburger').click(); pg.wait_for_timeout(500)
+                d1 = pg.evaluate("document.getElementById('nav-drawer').classList.contains('is-open')")
+                pg.locator('#nav-drawer .drawer-parent').first.click(); pg.wait_for_timeout(400)
+                d2 = pg.evaluate("(()=>{const li=document.querySelector('#nav-drawer .has-sub');return li.classList.contains('is-open')&&li.querySelector('.drawer-sub').getBoundingClientRect().height>100})()")
+                if shotdir:
+                    pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-drawer.png')
+                pg.locator('#nav-drawer .nav-drawer__close').click(); pg.wait_for_timeout(500)
+                d3 = not pg.evaluate("document.getElementById('nav-drawer').classList.contains('is-open')")
+                check(f'{tag} kop-spiegel: hamburger opent de lade, Hotel klapt uit, sluitknop sluit', d1 and d2 and d3, f'{d1} {d2} {d3}')
+            else:
+                pg.locator('.nav-links .has-sub').first.hover(); pg.wait_for_timeout(500)
+                m = pg.evaluate("(()=>{const s=document.querySelector('.nav-links .has-sub .nav-sub'),r=s.getBoundingClientRect();return {vis:getComputedStyle(s).visibility,items:s.querySelectorAll('a').length,r:Math.round(r.right),w:innerWidth}})()")
+                check(f'{tag} kop-spiegel: submenu Hotel opent bij hover (4 links, binnen beeld)', m['vis'] == 'visible' and m['items'] == 4 and m['r'] <= m['w'], str(m))
+                if shotdir:
+                    pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-submenu.png')
+            check(f'{tag} geen consolefouten', not fout, '; '.join(fout)[:300])
+            ctx.close()
+        b.close()
+        mis = [r for r in resultaten if not r[1]]
+        print(f'\n{len(resultaten) - len(mis)}/{len(resultaten)} checks OK')
+        sys.exit(1 if mis else 0)
     if HOTEL:
         import urllib.request, re as _re, os as _os
         bron = urllib.request.urlopen(URL).read().decode('utf-8')
@@ -530,7 +615,7 @@ with sync_playwright() as p:
             check(f'{tag} inbegrepen: tijdenregel in het paneel, geen losse strook eronder', ib['tijden'] >= 1 and ib['tijdenLos'] == 1, f"{ib['tijden']} / {ib['tijdenLos']}")
             check(f'{tag} inbegrepen: fotoslider met 4-6 dia\'s, evenveel bolletjes, twee pijlen', 4 <= ib['dias'] <= 6 and ib['bollen'] == ib['dias'] and ib['pijlen'] == 2, str(ib)[:300])
             check(f'{tag} inbegrepen: vinkjes, vanaf-prijs, knop met {VOUCHER}, tekstlink alle arrangementen',
-                  ib['vink'] >= 4 and PRIJS in ib['prijs'].replace('\u00a0', ' ') and ib['knop'] == VOUCHER and ib['link'] == 'https://www.asteria.nl/arrangementen', str(ib)[:300])
+                  ib['vink'] >= 4 and PRIJS in ib['prijs'].replace('\u00a0', ' ') and ib['knop'] == VOUCHER and ib['link'] == _SL['arrangementenoverzicht'], str(ib)[:300])
             if mob:
                 check(f'{tag} inbegrepen: eerst het paneel, daaronder de fotoslider (290 hoog)', ib['bg']['d'] == 'none' and ib['inhoud']['b'] <= ib['foto']['t'] + 1 and ib['foto']['h'] == 290, str(ib)[:300])
             else:
@@ -838,7 +923,7 @@ with sync_playwright() as p:
           t0 = tabst()
           pg.evaluate("window.scrollTo(0, document.querySelector('.b4b').offsetTop)"); pg.wait_for_timeout(900)
           t1 = tabst()
-        if SPIEGEL and mob:
+        if (SPIEGEL or KOPSPIEGEL) and mob:
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
             pg.locator('.nav-hamburger').click(); pg.wait_for_timeout(500)
             d1 = pg.evaluate("document.getElementById('nav-drawer').classList.contains('is-open')")
@@ -851,7 +936,7 @@ with sync_playwright() as p:
                 pg.locator('.nav-hamburger').click(); pg.wait_for_timeout(500)   # Hotel staat nog uitgeklapt
                 pg.screenshot(path=f'{shotdir}/{NAAM}-{w}-drawer.png')
                 pg.locator('#nav-drawer .nav-drawer__close').click(); pg.wait_for_timeout(400)
-        elif SPIEGEL:
+        elif SPIEGEL or KOPSPIEGEL:
             pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(300)
             pg.locator('.nav-links .has-sub').first.hover(); pg.wait_for_timeout(500)
             m = pg.evaluate("(()=>{const s=document.querySelector('.nav-links .has-sub .nav-sub'),r=s.getBoundingClientRect();return {vis:getComputedStyle(s).visibility,items:s.querySelectorAll('a').length,r:Math.round(r.right),w:innerWidth}})()")

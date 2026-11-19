@@ -1,4 +1,5 @@
 {
+  "_kop_spiegel": true,
   "_controleren": [
     "Aankomstdagen: Mews geeft met WEEKEND (config 6dc9094c, 2 volwassenen) alleen een tarief bij aankomst op vrijdag of zaterdag en precies 2 nachten (gemeten 14 okt 2026: 1 en 3 nachten en aankomst zo t/m do geven niets). Daarom geen zondagvoordeel (ZV_TOON false). asteria.nl noemt de aankomstdagen niet; graag bevestigen dat vr/za klopt.",
     "Beschikbaarheid: in Mews geven de weekenden 16/17, 23/24 en 30/31 okt en 6/7 en 13/14 nov 2026 geen enkel tarief (ook geen gewone kamer: vol of gesloten?), net als 12, 26 mrt en 14 mei 2027. Vanaf 20 nov 2026 t/m juni 2027 wel boekbaar. Periode staat niet op asteria.nl; de pagina noemt daarom geen einddatum.",

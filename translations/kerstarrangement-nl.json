@@ -1,4 +1,5 @@
 {
+  "_kop_spiegel": true,
   "_controleren": [
     "Mews-combinaties (gemeten 16 nov 2026 met CET-middernacht als StartUtc/EndUtc, zoals utc() in functions/api/arr-kalender.js; script _bron-kerst/mews_kerst2.py; config 4483536c 'Feestdagen arrangementen', 2 volw., Comfort p.p.): 24-26 € 311,50, 24-27 € 441,50, 24-28 € 551,50, 25-26 € 172,00, 25-27 € 302,00, 26-27 € 130,00. Aankomst 23 december staat op de oude asteria.nl-pagina maar heeft in Mews geen kersttarief (in geen enkele lengte); 24-28 bestaat wel maar staat niet op de oude pagina. De oude knoppen 24/25/26 naar 27 december kloppen dus wel, alleen 23 naar 27 niet. Geen kersttarief ook bij aankomst 27, 25-28, 26-28 en 24-29.",
     "Inhoud per verblijf uit de Mews-tariefomschrijvingen: kerstavonddiner bij aankomst 24 december (24-26, 24-27, 24-28), Kerstdiner Dansant op 25 december, kerstproeverijmenu op 26 december; geen diner op een vertrekdag.",
