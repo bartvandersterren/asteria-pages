@@ -7,7 +7,9 @@
    4. Actiecodeveld in de boekbalk zo breed als de code (lander-w1.css zet 9,5ch; WELLNESS2026 viel daarbuiten).
    5. Vast aantal nachten (ARR_NACHTEN > 1 in de JSON -> data-nachten op form[data-boekbalk]): vertrek = aankomst + N
       bij elke aankomstkeuze, en vlak voor verzenden (capture op document, dus vóór de submit van lander-w1.js), zodat
-      widget (setStartDate/setEndDate) en URL-fallback (mewsStart/mewsEnd) N nachten krijgen. lander-w1.js blijft ongewijzigd. */
+      widget (setStartDate/setEndDate) en URL-fallback (mewsStart/mewsEnd) N nachten krijgen. lander-w1.js blijft ongewijzigd.
+   6. Kies je dagen (build-blok 'verblijven', kerst): knop [data-verblijf] zet data-start/data-eind in de hero-boekbalk en
+      verstuurt die (requestSubmit), zodat lander-w1.js de Mews-widget (of de deeplink) met die datums opent. */
 (function () {
   'use strict';
   var rustig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -212,4 +214,30 @@
     var form = e.target;
     if (form && form.matches && form.matches('form[data-boekbalk][data-nachten]')) vastVertrek(form, false);
   }, true);
+})();
+
+/* 6. Kies je dagen: vaste datumcombinaties (alleen als er [data-verblijf]-knoppen zijn) */
+(function () {
+  'use strict';
+  if (!document.querySelector('[data-verblijf]')) return;
+  var hero = document.querySelector('.b1a-balk[data-boekbalk]') || document.querySelector('form[data-boekbalk]');
+  if (!hero) return;
+  /* waarde zetten en 'change' sturen: lander-w1.js werkt de zichtbare datum (en het minimum van het vertrek) bij */
+  function zet(invoer, v) {
+    if (!invoer) return;
+    invoer.value = v;
+    invoer.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  document.addEventListener('click', function (e) {
+    var knop = e.target.closest ? e.target.closest('[data-verblijf]') : null;
+    if (!knop) return;
+    e.preventDefault();
+    var start = knop.getAttribute('data-start'), eind = knop.getAttribute('data-eind');
+    zet(hero.querySelector('[data-rol="aankomst"]'), start);
+    zet(hero.querySelector('[data-rol="vertrek"]'), eind);
+    window.arVerblijf = { start: start, eind: eind };
+    if (typeof window.gtag === 'function') window.gtag('event', 'arr_verblijf_kies', { start: start, eind: eind });
+    if (typeof hero.requestSubmit === 'function') hero.requestSubmit();
+    else hero.dispatchEvent(new Event('submit', { cancelable: true }));
+  });
 })();

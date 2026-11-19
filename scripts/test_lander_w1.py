@@ -34,6 +34,11 @@ ivoren sectie, geen overloop op 390. Waarom Asteria: wiel met 6 echte punten en 
 de foto. FAQ: 4 tot 8 vragen, eerste open. Zondagblok alleen als de pagina het heeft (ZV_TOON); zonder: geen blok, geen
 zondagregel in zij- en telefoonkaart, geen zondag-FAQ. Boekbalk: actiecode volledig zichtbaar (ook een code van 14 tekens),
 vertrek = aankomst + data-nachten (ARR_NACHTEN, standaard 1), widget krijgt N nachten ook als het vertrek te kort stond.
+Voucherloos arrangement (kerst, VOUCHER "" + MEWS_CONFIG + ARR_KALENDER false):
+  ... http://localhost:8777/kerstarrangement.html --v3 --voucher "" --arrangement "€ 130,00" [--schermafdruk qa/kerstarrangement]
+Dan: geen mewsVoucherCode, data-voucher, actiecodeveld, 6dc9094c of bee2f902 in de bron, alle Mews-links op de config uit
+data-mews-config, geen prijskalender (geen kalendercheck), en met blok 'verblijven' (Kies je dagen): de kaart 24 t/m 26 december
+zet de hero-boekbalk op 2026-12-24/2026-12-26 en Mews (gestubde widget en deeplink) krijgt mewsStart/mewsEnd op die config.
 De prijskalender (arrangement-kalender.js) staat in deze test uit (eigen test: scripts/test_arr_kalender.py).
 Met --schermafdruk ook: kamerslider na twee pijlklikken, inbegrepen-blok, zondagblok en het wiel in twee standen.
 
@@ -85,6 +90,7 @@ if '--voucher' in args:
 PRIJS = None
 if '--arrangement' in args:
     i = args.index('--arrangement'); PRIJS = args[i + 1]; del args[i:i + 2]
+ZONDER = bool(PRIJS) and not VOUCHER   # voucherloos arrangement (kerst): geen code, geen prijskalender
 if '--schermafdruk' in args:
     i = args.index('--schermafdruk'); shotdir = args[i + 1]; del args[i:i + 2]
 URL = args[0] if args else 'http://localhost:8765/verblijfsverjaardag-v2.html'
@@ -163,12 +169,27 @@ with sync_playwright() as p:
         check('[bron] één reviewgetal (2.280) in badge, zijkaart en reviewkop, geen 2.200',
               '2.200' not in bron and bron.count('2.280 reviews') >= 3, str(bron.count('2.280 reviews')))
         check('[bron] geen tegelstrook (b2a)', 'class="sec b2a"' not in bron)
-        check('[bron] prijskalender aanwezig (dialoog #ar-kal + arrangement-kalender.js/.css)',
-              'id="ar-kal"' in bron and 'arrangement-kalender.js' in bron and 'arrangement-kalender.css' in bron and '{{KAL_' not in bron)
+        import re as _re
+        _cfg = _re.search(r'<html[^>]* data-mews-config="([0-9a-f-]+)"', bron)
+        CFG = _cfg.group(1) if _cfg else '6dc9094c-76e3-4fd8-83a7-af1d00ffc556'
+        if ZONDER:
+            check('[bron] geen prijskalender (ARR_KALENDER false: geen #ar-kal, geen arrangement-kalender.js/.css, geen arr-vanaf.js)',
+                  'id="ar-kal"' not in bron and 'arrangement-kalender' not in bron and 'arr-vanaf.js' not in bron)
+            check('[bron] voucherloos: geen mewsVoucherCode, data-voucher, actiecodeveld, "met code", 6dc9094c',
+                  'mewsVoucherCode' not in bron and 'data-voucher' not in bron and 'id="bb-code"' not in bron and ' met code' not in bron
+                  and '6dc9094c' not in bron, CFG)
+            check('[bron] geen onvervangen {{KEY}}-markers', not _re.findall(r'\{\{[A-Z_0-9]+\}\}', bron))
+        else:
+            check('[bron] prijskalender aanwezig (dialoog #ar-kal + arrangement-kalender.js/.css)',
+                  'id="ar-kal"' in bron and 'arrangement-kalender.js' in bron and 'arrangement-kalender.css' in bron and '{{KAL_' not in bron)
         ctx, pg = nieuwe_pagina(b, 1440, 900, False)
         links = pg.evaluate("[...document.querySelectorAll('a[href*=\"app.mews.com\"]')].map(a=>a.getAttribute('href'))")
-        zonder = [l for l in links if 'mewsVoucherCode=' + VOUCHER not in l or '6dc9094c-76e3-4fd8-83a7-af1d00ffc556' not in l]
-        check(f'[bron] alle {len(links)} Mews-links op config 6dc9094c met {VOUCHER}', links and not zonder, '; '.join(zonder)[:300])
+        if ZONDER:
+            zonder = [l for l in links if 'mewsVoucherCode' in l or CFG not in l]
+            check(f'[bron] alle {len(links)} Mews-links op config {CFG[:8]}, zonder mewsVoucherCode', links and not zonder, '; '.join(zonder)[:300])
+        else:
+            zonder = [l for l in links if 'mewsVoucherCode=' + VOUCHER not in l or CFG not in l]
+            check(f'[bron] alle {len(links)} Mews-links op config {CFG[:8]} met {VOUCHER}', links and not zonder, '; '.join(zonder)[:300])
         kamers = pg.evaluate("[...document.querySelectorAll('.b4b-kaart:not([data-kloon]) .b4b-knoppen a.mews-open')].map(a=>a.getAttribute('href'))")
         check('[bron] kamerknoppen met mewsRoom en mewsRoute=rooms', kamers and all('mewsRoom=' in k and 'mewsRoute=rooms' in k for k in kamers), str(len(kamers)))
         ctx.close()
@@ -427,7 +448,7 @@ with sync_playwright() as p:
                   zvKiezer:!!document.querySelector('.ar-zv-kiezer,.ar-zv-optie,[data-zv-schakel],.ar-zv-zondagknop'),
                   wKop:wa?wa.querySelector('h2').innerText:'',wPunten:wa?wa.querySelectorAll('.ar-wiel-item:not([data-kloon])').length:0,
                   wFoto:wa?(i=>i.complete&&i.naturalWidth>0)(wa.querySelector('.b3a-foto img.is-actief')):false,
-                  wKnop:wa?wa.querySelector('.mews-open').dataset.voucher:'',
+                  wKnop:wa?(wa.querySelector('.mews-open').dataset.voucher||''):'',
                   kantFoto:kant?kant.querySelectorAll('img').length:-1,kantPrijs:kant?!!kant.querySelector('.b1k-prijs'):false,
                   andere:an?[...an.querySelectorAll('a.ar-ander')].map(x=>x.getAttribute('href')):[],
                   anVol:an?[...an.querySelectorAll('a.ar-ander')].every(k=>{const i=k.querySelector('.ar-ander-foto img'),r=k.getBoundingClientRect(),f=i&&i.getBoundingClientRect();
@@ -504,7 +525,7 @@ with sync_playwright() as p:
                 return {bg:r('.ar-inb-bg'),inhoud:r('.ar-inb-inhoud'),foto:r('.ar-inb-foto'),dias:document.querySelectorAll('.ar-fs-dia').length,
                   bollen:document.querySelectorAll('.ar-fs-bol').length,pijlen:document.querySelectorAll('.ar-fs-pijl').length,
                   vink:document.querySelectorAll('.ar-inb-punt').length,prijs:(q('.ar-inb-prijs')||{}).innerText||'',
-                  knop:(q('.ar-inb-acties .mews-open')||{dataset:{}}).dataset.voucher,link:(q('.ar-inb-link')||{getAttribute:()=>''}).getAttribute('href'),
+                  knop:(q('.ar-inb-acties .mews-open')||{dataset:{}}).dataset.voucher||'',link:(q('.ar-inb-link')||{getAttribute:()=>''}).getAttribute('href'),
                   tijden:document.querySelectorAll('.ar-inb-inhoud .ar-tijden li').length,tijdenLos:document.querySelectorAll('.ar-tijden').length}})()""")
             check(f'{tag} inbegrepen: tijdenregel in het paneel, geen losse strook eronder', ib['tijden'] >= 1 and ib['tijdenLos'] == 1, f"{ib['tijden']} / {ib['tijdenLos']}")
             check(f'{tag} inbegrepen: fotoslider met 4-6 dia\'s, evenveel bolletjes, twee pijlen', 4 <= ib['dias'] <= 6 and ib['bollen'] == ib['dias'] and ib['pijlen'] == 2, str(ib)[:300])
@@ -926,7 +947,9 @@ with sync_playwright() as p:
             check(f'{tag} boekkaart onder de hero in plaats van de datumbalk', all(mk.values()), str(mk))
         else:
             # boekbalk (laatst, laadt de Mews-widget)
-            if PRIJS:
+            if ZONDER:
+                check(f'{tag} geen actiecodeveld in de boekbalk', pg.locator('#bb-code, .b1a-code, [name=mewsVoucherCode]').count() == 0)
+            elif PRIJS:
                 cv = pg.evaluate("(()=>{const i=document.getElementById('bb-code'),f=i.closest('.field').getBoundingClientRect(),r=i.getBoundingClientRect();return {waarde:i.value,cw:i.clientWidth,sw:i.scrollWidth,binnen:r.right<=f.right+1}})()")
                 check(f'{tag} actiecode {VOUCHER} volledig zichtbaar in de boekbalk', cv['waarde'] == VOUCHER and cv['sw'] <= cv['cw'] + 1 and cv['binnen'], str(cv))
                 # 14 tekens moeten ook passen (en de balk blijft binnen beeld)
@@ -963,7 +986,7 @@ with sync_playwright() as p:
             log = pg.evaluate('window.lpBoekbalk') or {}
             u = log.get('url', '')
             check(f'{tag} boekbalk-URL bevat {VOUCHER}, mewsStart, mewsEnd, mewsAdultCount=3',
-                  f'mewsVoucherCode={VOUCHER}' in u and f'mewsStart={a.isoformat()}' in u
+                  (('/' + CFG + '?') in u if ZONDER else f'mewsVoucherCode={VOUCHER}' in u) and f'mewsStart={a.isoformat()}' in u
                   and f'mewsEnd={(a + timedelta(days=ext)).isoformat()}' in u and 'mewsAdultCount=3' in u, u)
             widget = pg.evaluate("!!document.querySelector('iframe[src*=\"mews\"], .mews-distributor, [class*=\"mews\"] iframe')")
             check(f'{tag} boekbalk opent Mews (widget of URL-fallback)',
@@ -1013,6 +1036,58 @@ with sync_playwright() as p:
             if shotdir and z['zv']:
                 pg.locator('.ar-zv').scroll_into_view_if_needed(); pg.wait_for_timeout(900)
                 pg.locator('.ar-zv').screenshot(path=f'{shotdir}/{NAAM}-{w}-zondag.png')
+            ctx.close()
+        # Kies je dagen (blok 'verblijven', kerst): kaarten, raster/veegrij, knop zet de boekbalk en opent Mews met die datums
+        for w, h, mob in [(1440, 900, False), (1024, 900, False), (800, 900, False), (390, 844, True)]:
+            tag = f'[{w}]'
+            ctx, pg = nieuwe_pagina(b, w, h, mob)
+            if not pg.evaluate("!!document.querySelector('[data-verblijf]')"):
+                if w == 1440: check('[verblijven] geen blok Kies je dagen (geen _verblijven)', pg.locator('.ar-verblijven').count() == 0)
+                ctx.close(); break
+            pg.locator('.ar-verblijven').scroll_into_view_if_needed(); pg.wait_for_timeout(400)
+            v = pg.evaluate("""()=>{const rij=document.querySelector('.ar-verblijf-rij'),k=[...rij.querySelectorAll('.ar-verblijf')],r=k.map(x=>x.getBoundingClientRect());
+                const tops=[...new Set(r.map(q=>Math.round(q.top)))];
+                return {n:k.length,kop:document.querySelector('#verblijven-kop').innerText,per_rij:r.filter(q=>Math.round(q.top)===tops[0]).length,
+                  knoppen:rij.querySelectorAll('button[data-verblijf][data-start][data-eind]').length,pil:rij.querySelectorAll('.ar-verblijf--pil .ar-zv-pil').length,
+                  veeg:rij.scrollWidth>rij.clientWidth+1,over:Math.max(...k.map(x=>x.scrollWidth-x.clientWidth)),sw:document.documentElement.scrollWidth,
+                  vink:k.every(x=>{const n=x.querySelectorAll('.ar-verblijf-vink li').length;return n>=3&&n<=5}),
+                  prijs:k.every(x=>/€/.test(x.querySelector('.ar-verblijf-prijs b').textContent))}}""")
+            vorm = {1440: v['per_rij'] == 3, 1024: v['per_rij'] == 2, 800: v['per_rij'] == 2, 390: v['veeg']}[w]
+            check(f'{tag} Kies je dagen: 6 kaarten met 3-5 vinkjes, prijs en knop, 1 pil, ' + ('veegrij' if mob else f"{ {1440: 3}.get(w, 2)} per rij") + ', geen overloop',
+                  v['n'] == 6 and v['knoppen'] == 6 and v['pil'] == 1 and v['vink'] and v['prijs'] and vorm and v['over'] <= 0 and v['sw'] <= w, str(v))
+            if w in (1024, 800):
+                ctx.close(); continue
+            # widget (gestubde API): klik op 24 t/m 26 december
+            pg.evaluate("window._mews=[];window.mewsApi={setVoucherCode:v=>window._mews.push('v:'+v),setLanguageCode:()=>{},setStartDate:d=>window._mews.push('s:'+d.toISOString().slice(0,10)),"
+                        "setEndDate:d=>window._mews.push('e:'+d.toISOString().slice(0,10)),setAdultCount:n=>window._mews.push('n:'+n),open:()=>window._mews.push('open')}")
+            knop = pg.locator('button[data-verblijf][data-start="2026-12-24"][data-eind="2026-12-26"]')
+            knop.scroll_into_view_if_needed(); knop.click(); pg.wait_for_timeout(400)
+            st = pg.evaluate("""(()=>{const f=document.querySelector('.b1a-balk');return {a:f.querySelector('[data-rol=aankomst]').value,v:f.querySelector('[data-rol=vertrek]').value,
+                zicht:[...f.querySelectorAll('.value')].slice(0,2).map(x=>x.textContent),log:window.lpBoekbalk||{},mews:window._mews,html:document.documentElement.getAttribute('data-mews-config')}})()""")
+            u = st['log'].get('url', '')
+            # setStartDate krijgt een lokale datum; toISOString kan een dag terugvallen, dus alleen de volgorde en de log-datums vergelijken
+            check(f'{tag} kaart 24 t/m 26 december: boekbalk 2026-12-24/2026-12-26, widget opent met die datums op {CFG[:8]}, zonder voucher',
+                  st['a'] == '2026-12-24' and st['v'] == '2026-12-26' and 'Kies datum' not in st['zicht'] and st['log'].get('start') == '2026-12-24'
+                  and st['log'].get('eind') == '2026-12-26' and st['log'].get('route') == 'widget' and 'mewsStart=2026-12-24&mewsEnd=2026-12-26' in u
+                  and ('/' + CFG + '?') in u and st['html'] == CFG and not any(m.startswith('v:') for m in st['mews']) and st['mews'][-1] == 'open'
+                  and len([m for m in st['mews'] if m[:2] in ('s:', 'e:')]) == 2, str(st)[:400])
+            pg.evaluate("delete window.mewsApi")
+            ctx.close()
+            # deeplink-terugval: widget laadt niet (distributor.min.js leeg) -> na 4 s de distributor-URL in een nieuw tabblad
+            ctx, pg = nieuwe_pagina(b, w, h, mob)
+            ctx.route('**/distributor.min.js', lambda r: r.fulfill(status=200, content_type='application/javascript', body=''))
+            ctx.route('**/distributor/' + CFG + '?**', lambda r: r.fulfill(status=200, content_type='text/html', body='<p>mews</p>'))
+            popups = []
+            ctx.on('page', lambda np: popups.append(np))
+            knop = pg.locator('button[data-verblijf][data-start="2026-12-24"][data-eind="2026-12-26"]')
+            knop.scroll_into_view_if_needed(); knop.click(); pg.wait_for_timeout(5000)
+            pu = popups[0].url if popups else ''
+            if not pu and popups:
+                popups[0].wait_for_load_state('commit'); pu = popups[0].url
+            check(f'{tag} deeplink-terugval: distributor/{CFG[:8]} met mewsStart=2026-12-24&mewsEnd=2026-12-26',
+                  ('distributor/' + CFG) in pu and 'mewsStart=2026-12-24&mewsEnd=2026-12-26' in pu, pu[:200])
+            eigen = [f for f in pg._fouten if 'mews' not in f.lower()]
+            check(f'{tag} Kies je dagen: geen consolefouten (eigen code)', not eigen, '; '.join(eigen)[:300])
             ctx.close()
     b.close()
 
