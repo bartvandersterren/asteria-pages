@@ -4,7 +4,7 @@
     "Vertaling van valentijnsarrangement-nl.json (Duits, Sie-vorm); feiten en open punten staan in de NL-JSON. Ook interessant staat uit (die pagina's bestaan alleen in het Nederlands)."
   ],
   "PAGE_TITLE": "Valentinsarrangement: Valentinswochenende in Venray | Hotel Asteria",
-  "META_DESC": "Valentinswochenende im Hotel Asteria in Venray: eine Nacht im Deluxe-Zimmer mit eigener Infrarotsauna, ein 3-Gänge-Degustationsmenü mit einem Glas Prosecco, Frühstück und später Check-out. Anreise 13. oder 14. Februar 2027, ab € 255,00 pro Zimmer.",
+  "META_DESC": "Valentinswochenende im Hotel Asteria in Venray: eine Nacht im Deluxe-Zimmer mit eigener Infrarotsauna, ein 3-Gänge-Degustationsmenü mit einem Glas Prosecco, Frühstück und später Check-out. Anreise 13. oder 14. Februar 2027, ab € 229,00 pro Zimmer.",
   "CANONICAL_URL": "https://visit.asteria.nl/valentijnsarrangement-de",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-verjaardag-hero.webp",
   "H_EEN_A": "Valentinstag",
@@ -17,8 +17,8 @@
   "CODE_ATTR": "",
   "MEWS_START": "2027-02-13",
   "CTA": "Arrangement buchen",
-  "ARR_PRIJS_PIL": "ab € 255,00 pro Zimmer",
-  "ARR_PRIJS": "€ 255,00",
+  "ARR_PRIJS_PIL": "ab € 229,00 pro Zimmer",
+  "ARR_PRIJS": "€ 229,00",
   "ARR_PRIJS_EENHEID": "pro Zimmer",
   "KAART_KOP": "Valentinsarrangement",
   "ARR_TRUST_A": "Keine Buchungsgebühren",
@@ -39,12 +39,12 @@
   "KAMER_KOP_B": "übernachten Sie?",
   "KAMER_SUB": "Das Valentinsarrangement gilt für ein Deluxe-Zimmer mit eigener Infrarotsauna im Bad.",
   "KAMER_PIL": "Inklusive",
-  "KAMER_NOOT": "Preis pro Zimmer für 2 Personen und 1 Nacht im Deluxe-Zimmer, zuzüglich € 2,00 Kurtaxe pro Person und Nacht. Den aktuellen Preis sehen Sie bei der Buchung.",
+  "KAMER_NOOT": "Preis pro Zimmer für 2 Personen und 1 Nacht im Deluxe-Zimmer: € 229,00 bei Anreise am Sonntag, € 249,00 am Samstag, zuzüglich € 2,00 Kurtaxe pro Person und Nacht.",
   "_kamers": {
     "deluxe": {
       "pil": "Inklusive",
       "soort": "inbegrepen",
-      "prijs": "€ 255,00 pro Zimmer",
+      "prijs": "€ 229,00 pro Zimmer",
       "prijs_label": "ab"
     }
   },
@@ -56,14 +56,14 @@
   "SLOT_KOP_B": "im Asteria",
   "SLOT_TEKST": "Wählen Sie Samstag, den 13., oder Sonntag, den 14. Februar, und überlassen Sie den Rest uns: das Zimmer, das Abendessen und das Frühstück. Fragen oder ein besonderer Wunsch? Wir helfen Ihnen gern weiter.",
   "STICKY_KOP": "Valentinstag",
-  "STICKY_SUB": "ab € 255,00 pro Zimmer",
+  "STICKY_SUB": "ab € 229,00 pro Zimmer",
   "STICKY_KNOP": "Jetzt buchen",
   "SLOT_FOTO_A": "fotos/l26-bubbels-proost.webp",
   "SLOT_FOTO_A_POS": "50% 50%",
   "SLOT_FOTO_B": "fotos/l26-najaar-deluxe.webp",
   "SLOT_FOTO_B_POS": "center center",
   "ARR_PRIJS_KAART_EENHEID": "pro Zimmer, 2 Personen, 1 Nacht",
-  "ARR_VOORWAARDEN": "Deluxe-Zimmer · Anreise 13. oder 14. Februar 2027",
+  "ARR_VOORWAARDEN": "Deluxe-Zimmer · Sonntag, 14. Feb. € 229,00, Samstag, 13. Feb. € 249,00",
   "ARR_MOB_NOOT": "Code VALENTIJN ist bereits eingetragen",
   "INB_KOP_A": "Das ist",
   "INB_KOP_EM": "inklusive",
@@ -173,7 +173,7 @@
     },
     {
       "q": "Was kostet das Arrangement?",
-      "a": "Im Deluxe-Zimmer zahlen Sie € 255,00 pro Zimmer für 2 Personen und 1 Nacht. Die Suite kostet € 20 pro Nacht mehr, die Brautsuite € 50. Dazu kommt die Kurtaxe von € 2,00 pro Person und Nacht. Wenn Sie direkt bei uns buchen, zahlen Sie keine Buchungsgebühren."
+      "a": "Im Deluxe-Zimmer zahlen Sie für 2 Personen und 1 Nacht € 229,00 pro Zimmer bei Anreise am Sonntag, 14. Februar, und € 249,00 bei Anreise am Samstag, 13. Februar. Die Suite kostet € 20 pro Nacht mehr, die Brautsuite € 50. Dazu kommt die Kurtaxe von € 2,00 pro Person und Nacht. Wenn Sie direkt bei uns buchen, zahlen Sie keine Buchungsgebühren."
     },
     {
       "q": "Kann ich kostenlos stornieren?",
