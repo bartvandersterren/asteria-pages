@@ -479,6 +479,16 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
   geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).
 
+### Winterarrangement in drie talen (25 nov 2026)
+
+- `/winterarrangement-en` (warm 'you', "Winter Package") en `/winterarrangement-de` ('Sie') naast `/winterarrangement`: build-entry
+  `winterarrangement` met `arr_literals` zoals valentijnsarrangement; JSON per taal (`translations/winterarrangement-{en,de}.json`,
+  zelfde inhoud en prijzen, Ook interessant uit). Alle drie `index, follow` en in sitemap.xml. Boeken via MEWS_CONFIG 95c70e27 +
+  WINTER27, Mews-taal en-US/de-DE.
+- Nieuwe build-config `'hreflang': True`: alternate-links nl/en/de + x-default (NL) direct na de canonical.
+- Prijskalender (ARR_KALENDER) in EN/DE: de kalenderteksten staan als paren in `arrangement-literals-<taal>.json`. apply_kalender
+  laat een code in `content/arr-kalender.json` op de NL-slug staan als de -en/-de-versie wordt gebouwd.
+
 ### Valentijnsarrangement in drie talen (25 nov 2026)
 
 - `/valentijnsarrangement`, `/valentijnsarrangement-en`, `/valentijnsarrangement-de`: build-entry `valentijnsarrangement`

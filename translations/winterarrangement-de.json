@@ -1,0 +1,199 @@
+{
+  "_kop_spiegel": true,
+  "_controleren": [
+    "Übersetzung von winterarrangement-nl.json (Deutsch, Sie-Form); Fakten und offene Punkte stehen im NL-JSON. 'Auch interessant' ist aus (diese Seiten gibt es nur auf Niederländisch)."
+  ],
+  "PAGE_TITLE": "Winterarrangement: 2 Nächte mit Abendessen und Wellness | Hotel Asteria Venray",
+  "META_DESC": "Winterarrangement im Hotel Asteria in Venray: zwei Nächte mit Frühstück, einem 3-Gänge-Abendessen, Begrüßungsgetränk, Bademantel und Slippern und dem Wellnessbereich. Jetzt € 134,50 p. P.",
+  "CANONICAL_URL": "https://visit.asteria.nl/winterarrangement-de",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-winterarrangement-hero.webp",
+  "H_EEN_A": "Zwei winterliche",
+  "H_EEN_EM": "Tage in Venray",
+  "SUB": "Zwei Nächte mit Frühstück, einem 3-Gänge-Abendessen am Anreiseabend und dem Wellnessbereich. Bademantel und Slipper liegen für Sie bereit, Sie müssen nur noch anreisen.",
+  "HERO_IMG": "fotos/l26-winterarrangement-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:28%\"",
+  "HERO_ALT": "Paar in weißen Bademänteln beim Frühstück mit Croissants im Bett in einem Zimmer des Hotel Asteria",
+  "MEWS_CONFIG": "95c70e27-1332-4d94-a1d4-b4f900da3be8",
+  "VOUCHER": "WINTER27",
+  "CODE_ATTR": "",
+  "CTA": "Arrangement buchen",
+  "ARR_PRIJS_PIL": "jetzt € 134,50 p. P. · 26 % Rabatt",
+  "ARR_PRIJS": "€ 134,50",
+  "ARR_PRIJS_EENHEID": "p. P.",
+  "KAART_KOP": "Winterarrangement",
+  "ARR_TRUST_A": "Keine Buchungsgebühren",
+  "ARR_TRUST_B": "Sofortige Bestätigung",
+  "KAART_IMG": "fotos/l26-winterarrangement-voetbad.webp",
+  "KAART_ALT": "Zwei Gäste in Bademänteln an den Fußbädern im Wellnessbereich des Hotel Asteria",
+  "KAART_PIL": "26 % Rabatt",
+  "KAART_VINK_A": "2 Nächte mit Frühstück",
+  "KAART_VINK_B": "3-Gänge-Abendessen",
+  "KAART_VINK_C": "Wellness, Bademantel und Slipper",
+  "KAART_VINK_D": "Früher Check-in und später Check-out",
+  "KAART_KNOP": "Arrangement buchen",
+  "KAART_TRUST": "Direkt beim Hotel buchen · Aktionscode WINTER27",
+  "BOEKBALK_KNOP": "Arrangement buchen",
+  "BOEKBALK_NOOT": "2 Nächte, Anreise 1. Dezember bis 31. März · Aktionscode WINTER27 ist bereits für Sie eingetragen",
+  "KAMER_KOP_A": "In welchem",
+  "KAMER_KOP_EM": "Zimmer",
+  "KAMER_KOP_B": "übernachten Sie?",
+  "KAMER_SUB": "Das Winterarrangement gilt für ein Comfort-Zimmer. Sie möchten mehr Platz? Fragen Sie bei Ihrer Buchung nach den Möglichkeiten.",
+  "KAMER_PIL": "Inklusive",
+  "KAMER_NOOT": "Preis pro Person für 2 Nächte im Doppelzimmer, zuzüglich € 2,00 Kurtaxe pro Person und Nacht. Den aktuellen Preis sehen Sie bei der Buchung.",
+  "_kamers": {
+    "comfort": {
+      "pil": "Inklusive",
+      "soort": "inbegrepen",
+      "prijs_label": "ab",
+      "prijs": "€ 134,50 p. P."
+    }
+  },
+  "POP_BADGE": "Winterarrangement",
+  "REVIEW_KOP_A": "Warum Gäste gern",
+  "REVIEW_KOP_EM": "wiederkommen",
+  "SLOT_KOP_A": "Ihr",
+  "SLOT_KOP_EM": "Winteraufenthalt",
+  "SLOT_KOP_B": "wartet auf Sie",
+  "SLOT_TEKST": "Buchen Sie das Winterarrangement mit dem Code WINTER27: zwei Nächte mit Frühstück, einem 3-Gänge-Abendessen und dem Wellnessbereich. Fragen? Wir helfen Ihnen gern weiter.",
+  "STICKY_KOP": "Winterarrangement",
+  "STICKY_SUB": "jetzt € 134,50 p. P. für 2 Nächte",
+  "STICKY_KNOP": "Jetzt buchen",
+  "SLOT_FOTO_A": "fotos/l26-winterarrangement-hero.webp",
+  "SLOT_FOTO_A_POS": "40% 50%",
+  "SLOT_FOTO_B": "fotos/l26-wellness-arrangement-relax-stel.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "p. P. für 2 Nächte",
+  "ARR_VOORWAARDEN": "Gesamtwert <s>€ 181,00</s> p. P.",
+  "ARR_MOB_NOOT": "Code WINTER27 ist bereits eingetragen",
+  "INB_KOP_A": "Das ist",
+  "INB_KOP_EM": "inklusive",
+  "ARR_INB_INTRO": "Gesamtwert € 181,00 pro Person, jetzt € 134,50. Einmal buchen, um den Rest kümmern wir uns, vom Begrüßungsgetränk bis zum Frühstück am letzten Morgen.",
+  "ZV_TOON": false,
+  "ZV_KOP_A": "Am Sonntag",
+  "ZV_KOP_EM": "€ 20 pro Zimmer",
+  "ZV_KOP_B": "günstiger",
+  "ZV_PIL": "− € 20 pro Zimmer",
+  "ZV_ZONDAG_KOP": "Anreise am Sonntag",
+  "ZV_ZONDAG_PRIJS": "€ 124,50",
+  "ZV_GEWOON_PRIJS": "€ 134,50",
+  "ZV_ZONDAG_REGEL": "€ 249,00 pro Zimmer, Rabatt wird mit dem Code WINTER27 automatisch verrechnet",
+  "ZV_ANDERS_KOP": "Anreise Mo bis Sa",
+  "ZV_ANDERS_REGEL": "Anreise am Freitag oder Samstag: € 40 Aufpreis pro Aufenthalt",
+  "ZV_VOETNOOT": "Preise pro Person für 2 Nächte, bei 2 Personen im Comfort-Zimmer; der Rabatt gilt einmal pro Zimmer und Aufenthalt mit Anreise am Sonntag.",
+  "ZV_KAART_REGEL": "",
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": false,
+  "_reviews_aantal": 12,
+  "_reviews_voorkeur": [
+    "wellness",
+    "sauna",
+    "abendessen",
+    "restaurant",
+    "frühstück"
+  ],
+  "_chips": [
+    "2 Nächte mit Abendessen",
+    "Wellness, Bademantel und Slipper",
+    "Früher Check-in, später Check-out"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "Zwei Übernachtungen",
+      "regel": "in einem komfortablen Zimmer",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Reichhaltiges Frühstück",
+      "regel": "an beiden Morgen",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    },
+    {
+      "titel": "3-Gänge-Abendessen",
+      "regel": "in unserem Restaurant, am Anreiseabend",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "Begrüßungsgetränk",
+      "regel": "ein Glas Hauswein oder Spezialbier",
+      "icoon": "<path d=\"M8 22h8\"/><path d=\"M12 15v7\"/><path d=\"M6 2h12l-1 8a5 5 0 0 1-10 0z\"/><path d=\"M6.5 6h11\"/>"
+    },
+    {
+      "titel": "Bademantel und Slipper",
+      "regel": "bereit für den Wellnessbereich",
+      "icoon": "<path d=\"M12 6a2 2 0 1 1 2-2\"/><path d=\"M12 6v1.5L2.7 15.2A1 1 0 0 0 3.3 17h17.4a1 1 0 0 0 .6-1.8L12 7.5\"/>"
+    },
+    {
+      "titel": "Wellness",
+      "regel": "während Ihres Aufenthalts",
+      "icoon": "<path d=\"M12 2.7l5.7 5.7a8 8 0 1 1-11.4 0z\"/>"
+    },
+    {
+      "titel": "Früher Check-in und später Check-out",
+      "regel": "ab 12.00 Uhr und bis 14.00 Uhr, je nach Verfügbarkeit",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-weekend-aanbieding-comfort.webp",
+      "alt": "Comfort-Zimmer mit Doppelbett",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-badjas.webp",
+      "alt": "Paar in Bademänteln auf dem Hotelzimmer",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-winterarrangement-voetbad.webp",
+      "alt": "Zwei Gäste in Bademänteln an den Fußbädern im Wellnessbereich",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-diner.webp",
+      "alt": "Gast am Tisch im Restaurant beim Abendessen",
+      "pos": "55% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-ontbijt.webp",
+      "alt": "Frühstücksteller mit Croissant, Käse, Aufschnitt und Trauben",
+      "pos": "45% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Abendessen bis 21.30 Uhr",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Kostenloses Parken",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "Was ist im Winterarrangement enthalten?",
+      "a": "Zwei Übernachtungen in einem komfortablen Zimmer, an beiden Morgen ein reichhaltiges Frühstück, ein 3-Gänge-Abendessen in unserem Restaurant am Anreiseabend, ein Begrüßungsgetränk (ein Glas Hauswein oder Spezialbier), Bademantel und Slipper sowie der Wellnessbereich während Ihres Aufenthalts. Früher Check-in ab 12.00 Uhr und später Check-out bis 14.00 Uhr je nach Verfügbarkeit. Das Parken ist kostenlos."
+    },
+    {
+      "q": "Wann kann ich anreisen?",
+      "a": "Die Anreise ist vom 1. Dezember 2026 bis zum 31. März 2027 möglich. Vom 1. bis 23. Dezember reisen Sie von Sonntag bis Donnerstag an. Vom 24. Dezember bis 2. Januar ist das Arrangement nicht buchbar, ebenso wenig am 19. und 20. März und vom 26. bis 29. März."
+    },
+    {
+      "q": "Kann ich auch am zweiten Abend essen?",
+      "a": "Ja, gern. Teilen Sie es uns bei Ihrer Buchung mit, dann reservieren wir einen schönen Tisch für Sie."
+    },
+    {
+      "q": "Was bietet der Wellnessbereich und wann ist er geöffnet?",
+      "a": "Der Wellnessbereich auf dem Top Floor ist über 300 m² groß, mit vier Saunen (Infrarot, Wald, Salzstein und Nussbaum), einer Dampfkabine, Erlebnisduschen, einem Tauch- und Kräuterbad, Fußbädern und einem Ruheraum. Geöffnet von Montag bis Donnerstag von 16.00 bis 22.00 Uhr und von Freitag bis Sonntag von 12.00 bis 22.00 Uhr. Dienstag ist Badebekleidungstag; an den anderen Tagen ist der Wellnessbereich textilfrei. Bademantel und Slipper liegen auf Ihrem Zimmer bereit."
+    },
+    {
+      "q": "Kann ich kostenlos stornieren?",
+      "a": "Die Stornierungsbedingungen des Arrangements sehen Sie bei der Buchung, bevor Sie Ihre Reservierung bestätigen. Unsicher? Rufen Sie einfach die Rezeption an."
+    }
+  ],
+  "ARR_NACHTEN": 2,
+  "ARR_KALENDER": true,
+  "ZV_BEREKENEN": false,
+  "ARR_VANAF_LIVE": false
+}

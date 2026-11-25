@@ -169,13 +169,20 @@ TEMPLATES = {
     # Winterarrangement 2027: sinds 5 nov 2026 LIVE op /winterarrangement (index, follow via 'index'; /winterarrangement-v2
     # 301 in _redirects, bestand weg). ARR_KALENDER stond false zolang WINTER27 niet in Mews stond; sinds 5 nov true
     # (prijskalender aan), ZV_BEREKENEN false (zondag uit Mews).
+    # Sinds 25 nov 2026 ook in EN (/winterarrangement-en, warm 'you') en DE (/winterarrangement-de, 'Sie') via arr_taal(), zoals
+    # valentijnsarrangement; alle drie index, follow, in sitemap.xml en onderling gekoppeld met hreflang (config 'hreflang').
     'winterarrangement': {
         'template': 'lander-w1.template.html',
-        'index': ('nl',),
+        'index': ('nl', 'en', 'de'),
+        'hreflang': True,
         'langs': {
             'nl': ('winterarrangement.html', 'translations/winterarrangement-nl.json'),
+            'en': ('winterarrangement-en.html', 'translations/winterarrangement-en.json'),
+            'de': ('winterarrangement-de.html', 'translations/winterarrangement-de.json'),
         },
-        'reviews': 'content/reviews-google-asteria.json',
+        'reviews': {'nl': 'content/reviews-google-asteria.json', 'en': 'content/reviews-google-asteria-en.json',
+                    'de': 'content/reviews-google-asteria-de.json'},
+        'arr_literals': {'en': 'translations/arrangement-literals-en.json', 'de': 'translations/arrangement-literals-de.json'},
         'blokken': {'zijkaart': True, 'arrangement': True},
     },
     # Valentijnsarrangement 2027 (nov 2026): het eerste arrangement op lander-w1 in drie talen (/valentijnsarrangement,
@@ -1528,6 +1535,10 @@ def apply_kalender(html, data, kamers, nachten):
             alle = json.load(f)
     except (OSError, ValueError):
         alle = {}
+    # EN/DE-versie van een arrangement (bijv. winterarrangement-en/-de): de code blijft op de NL-slug staan
+    kaal = re.sub(r'-(en|de)$', '', slug)
+    if kaal != slug and alle.get(code, {}).get('slug') == kaal:
+        slug = kaal
     alle = {c: v for c, v in alle.items() if c == code or v.get('slug') != slug}
     alle[code] = {'slug': slug, 'nachten': nachten, 'aankomstdagen': sorted(dagen) if dagen else None,
                   'zondag': zondag, 'standaardkamer': std}
@@ -3643,6 +3654,14 @@ def build(template_name, lang):
         html, n = re.subn(r'<meta name="robots" content="noindex, follow">', '<meta name="robots" content="index, follow">', html)
         if n != 1:
             sys.exit(f'index: robots-meta niet precies een keer gevonden in {output_file}')
+
+    # Taalkoppeling (config 'hreflang', bijv. winterarrangement): alternate-links nl/en/de + x-default (NL) direct na de canonical
+    if config.get('hreflang'):
+        alt = [f'<link rel="alternate" hreflang="{t}" href="https://visit.asteria.nl/{f[:-5]}">' for t, (f, j) in config['langs'].items()]
+        alt.append(f'<link rel="alternate" hreflang="x-default" href="https://visit.asteria.nl/{config["langs"]["nl"][0][:-5]}">')
+        html, n = re.subn(r'(<link rel="canonical" href="[^"]*">)', lambda m: m.group(1) + ''.join('\n  ' + a for a in alt), html, count=1)
+        if not n:
+            sys.exit(f'hreflang: geen canonical in {output_file}')
 
     # Sanity check: no unreplaced markers
     remaining = re.findall(r'\{\{[A-Z_0-9]+\}\}', html)
