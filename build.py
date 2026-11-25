@@ -178,6 +178,26 @@ TEMPLATES = {
         'reviews': 'content/reviews-google-asteria.json',
         'blokken': {'zijkaart': True, 'arrangement': True},
     },
+    # Valentijnsarrangement 2027 (nov 2026): het eerste arrangement op lander-w1 in drie talen (/valentijnsarrangement,
+    # -en, -de), noindex, niet in menu, overzicht of sitemap. Per taal een eigen JSON; EN/DE krijgen via arr_taal() de vaste
+    # sjabloonteksten uit 'arr_literals' (paren NL -> taal), <html lang>, de Mews-taal en een restcontrole op NL-woorden.
+    # 'reviews' per taal. MEWS_START in de JSON: boekknoppen en boekbalk openen op die aankomstdatum (geen Mews-tarief nog).
+    # TODO Valentijn (25 nov 2026): de boekknoppen gaan VOORLOPIG naar de gewone boekingsmodule 6dc9094c met aankomst
+    # 1 februari 2027, zonder arrangementstarief (gast ziet de gewone kamerprijs). Zodra het Mews-tarief/de voucher voor de
+    # eigen site er is: in alle drie de JSON's VOUCHER (+ CODE_ATTR) of MEWS_CONFIG zetten, MEWS_START weghalen, eventueel
+    # ARR_KALENDER true, en de prijs (VOORSTEL € 229,00 per kamer) gelijktrekken met Mews. Daarna opnieuw bouwen.
+    'valentijnsarrangement': {
+        'template': 'lander-w1.template.html',
+        'langs': {
+            'nl': ('valentijnsarrangement.html', 'translations/valentijnsarrangement-nl.json'),
+            'en': ('valentijnsarrangement-en.html', 'translations/valentijnsarrangement-en.json'),
+            'de': ('valentijnsarrangement-de.html', 'translations/valentijnsarrangement-de.json'),
+        },
+        'reviews': {'nl': 'content/reviews-google-asteria.json', 'en': 'content/reviews-google-asteria-en.json',
+                    'de': 'content/reviews-google-asteria-de.json'},
+        'arr_literals': {'en': 'translations/arrangement-literals-en.json', 'de': 'translations/arrangement-literals-de.json'},
+        'blokken': {'zijkaart': True, 'arrangement': True},
+    },
     # Algemene hotellander (tegenhanger van parkhotelhorst.nl/hotel-horst-2/, voor Meta-verkoopads en branded Google Ads):
     # lander-w1 met blok 'hotel' = geen vouchercode (VOUCHER leeg, zie zonder_voucher), geen tegelstrook en geen
     # uitklaptab; ster-split = 'Een verblijf dat bij je past'; na de kamers faciliteiten, omgeving en arrangementen
@@ -1077,6 +1097,70 @@ def render_kamertypes(html, data):
         f'          <details class="as-accordeon__item"{" open" if i == 0 else ""}><summary class="as-accordeon__kop">{e(f["q"])}</summary>'
         f'<div class="as-accordeon__paneel"><p>{e(f["a"])}</p></div></details>'
         for i, f in enumerate(faq)))
+    return html
+
+
+def mews_start(html, start, nachten, bron):
+    """JSON-veld MEWS_START (JJJJ-MM-DD): alle Mews-distributorlinks krijgen mewsStart/mewsEnd (vertrek = start + ARR_NACHTEN),
+    elke .mews-open krijgt data-start/data-eind (lander-w1.js zet die datums in de widget) en het aankomstveld van de
+    boekbalken staat vooraf op die datum. Zonder het veld verandert er niets."""
+    import datetime
+    try:
+        a = datetime.date.fromisoformat(start)
+    except ValueError:
+        sys.exit(f'MEWS_START is geen datum (JJJJ-MM-DD): {start!r}')
+    eind = (a + datetime.timedelta(days=nachten)).isoformat()
+    q = f'mewsStart={start}&amp;mewsEnd={eind}'
+
+    def href(m):
+        url, query = m.group(1), m.group(2) or ''
+        return f'href="{url}?{q}' + ('&amp;' + query[1:] if len(query) > 1 else '') + '"'
+    html, n = re.subn(r'href="(https://app\.mews\.com/distributor/[0-9a-f-]{36})(\?[^"]*)?"', href, html)
+    # kamer-pop-up: lander-w1.js plakt '&mewsRoom=' achter data-basis
+    html = re.sub(r'data-basis="(https://app\.mews\.com/distributor/[0-9a-f-]{36})\?"', rf'data-basis="\1?{q}"', html)
+    html, m = re.subn(r'(<a\b[^>]*\bclass="[^"]*\bmews-open\b[^"]*")', rf'\1 data-start="{start}" data-eind="{eind}"', html)
+    html, b = re.subn(r'(<input class="field__invoer" type="date" id="(?:bb|hb)-aankomst"[^>]*?)>', rf'\1 value="{start}">', html)
+    # alleen de aankomst vooraf: een vast vertrek bleef staan als de gast een eerdere aankomst koos (lander-w1.js schuift het
+    # vertrek alleen op als het niet na de aankomst ligt); zonder vertrek wordt het aankomst + 1 bij kiezen en bij verzenden
+    if not n or not m or not b:
+        sys.exit(f'MEWS_START: geen Mews-links, knoppen of boekbalk gevonden in {bron} ({n}/{m}/{b})')
+    return html
+
+
+# Restcontrole arr_taal: komt een van deze NL-woorden nog voor in de zichtbare tekst, attributen of JSON-teksten van een
+# EN/DE-arrangement, dan stopt de build (eerst het paar in translations/arrangement-literals-<taal>.json zetten).
+ARR_NL_REST = re.compile(r'\b(je|jij|jullie|jouw|het|een|van|voor|met|naar|bekijk|kamer|kamers|boek|bij|ons|onze|wij|niet|ook|sluit|vorige|volgende|en|op|uur|tot)\b', re.I)
+
+
+def arr_taal(html, lang, literals_file, bron):
+    """Arrangement (lander-w1) in EN of DE: paren NL -> taal uit literals_file (lijst [nl, taal], langste eerst, ook in de
+    JSON-scripts en na de reviewmuur), <html lang>, Mews-widgettaal (data-mews-taal; lander-w1.js leest die) en de taal
+    op de voucherloze distributorlinks. Stopt als er daarna nog NL-woorden in de tekst staan (ARR_NL_REST)."""
+    from html import unescape
+    taal = {'en': ('en', 'en-GB'), 'de': ('de', 'de-DE')}[lang]
+    with open(os.path.join(base, literals_file), encoding='utf-8') as f:
+        paren = json.load(f)
+    for paar in paren:
+        if not (isinstance(paar, list) and len(paar) == 2 and paar[0]):
+            sys.exit(f'{literals_file}: elk paar moet [nl, {lang}] zijn, niet {paar!r}')
+    for nl, doel in sorted(paren, key=lambda p: -len(p[0])):
+        html = html.replace(nl, doel)
+    html, n = re.subn(r'<html lang="nl"', f'<html lang="{taal[0]}" data-mews-taal="{taal[1]}"', html, count=1)
+    if not n:
+        sys.exit(f'arr_taal: geen <html lang="nl"> in {bron}')
+    html = re.sub(r'(https://app\.mews\.com/distributor/[0-9a-f-]{36})(\?(?![^"\']*language=)[^"\']*)?(?=["\'])',
+                  lambda m: m.group(1) + ('?language=' + taal[1] if not m.group(2) else m.group(2) + '&amp;language=' + taal[1]), html)
+    # restcontrole: zichtbare tekst, alt/aria-label/title/placeholder en tekstwaarden in de JSON-scripts
+    # namen van reviewers (b5a-naam) tellen niet mee
+    kaal = re.sub(r'(?s)<script(?![^>]*application/json)[^>]*>.*?</script>|<style[^>]*>.*?</style>|<!--.*?-->|<p class="b5a-naam">.*?</p>', ' ', html)
+    stukken = re.findall(r'>([^<]+)<', kaal) + re.findall(r'(?:alt|aria-label|title|placeholder|data-leeg)="([^"]+)"', kaal)
+    for js in re.findall(r'(?s)<script type="application/json"[^>]*>(.*?)</script>', html):
+        stukken += [w for w in re.findall(r'"((?:[^"\\]|\\.)*)"', js) if ' ' in w]
+    rest = sorted({unescape(t).strip() for t in stukken if ARR_NL_REST.search(unescape(t)) and not re.search(r'https?://|\.(webp|mp4|jpg)\b', t)})
+    toegestaan = {'Hotel Asteria', 'Maasheseweg 80a'}
+    rest = [t for t in rest if t not in toegestaan]
+    if rest:
+        sys.exit(f'arr_taal: nog Nederlands in {bron} ({len(rest)}):\n  ' + '\n  '.join(r[:120] for r in rest[:80]))
     return html
 
 
@@ -3442,7 +3526,9 @@ def build(template_name, lang):
             for source, target in json.load(f):
                 html = html.replace(source, target)
 
-    # Reviewmuur uit de Google-reviews-JSON (alleen templates met 'reviews')
+    # Reviewmuur uit de Google-reviews-JSON (alleen templates met 'reviews'; een dict = bestand per taal)
+    if isinstance(config.get('reviews'), dict):
+        config = {**config, 'reviews': config['reviews'][lang]}
     if config.get('reviews'):
         if 'arrangement' in aan or config.get('overzicht'):
             n = translations.get('_reviews_aantal', 12)
@@ -3501,8 +3587,16 @@ def build(template_name, lang):
         if not n or '6dc9094c' in html:
             sys.exit(f'MEWS_CONFIG: niet volledig doorgevoerd in {output_file}')
 
+    # Vaste aankomstdatum voor de boekknoppen (optioneel JSON-veld MEWS_START, bijv. valentijnsarrangement zolang er geen tarief is)
+    if translations.get('MEWS_START'):
+        html = mews_start(html, translations['MEWS_START'], int(translations.get('ARR_NACHTEN') or 1), output_file)
+
     # Mews-boekingslinks in de juiste taal openen (alleen EN/DE)
     html = add_mews_language(html, lang)
+
+    # Arrangement in EN/DE (config 'arr_literals'): vaste sjabloonteksten, taal van de pagina en Mews, restcontrole
+    if config.get('arr_literals', {}).get(lang):
+        html = arr_taal(html, lang, config['arr_literals'][lang], output_file)
 
     # Kamer-media in ROOMS gelijk aan de detailpagina's (video + volledige fotoset)
     html = fix_room_media(html)
