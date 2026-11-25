@@ -1,0 +1,196 @@
+{
+  "_kop_spiegel": true,
+  "_controleren": [
+    "Vertaling van valentijnsarrangement-nl.json (Duits, Sie-vorm); feiten en open punten staan in de NL-JSON. Ook interessant staat uit (die pagina's bestaan alleen in het Nederlands)."
+  ],
+  "PAGE_TITLE": "Valentine's package: a romantic night in Venray | Hotel Asteria",
+  "META_DESC": "Valentine's at Hotel Asteria in Venray: a night with rose petals in your room, a tasting menu with prosecco, breakfast and the wellness area. Arrival 1 to 28 February 2027, from € 229.00 per room.",
+  "CANONICAL_URL": "https://visit.asteria.nl/valentijnsarrangement-en",
+  "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-verjaardag-hero.webp",
+  "H_EEN_A": "Valentine's",
+  "H_EEN_EM": "for the two of you",
+  "SUB": "Rose petals in your room, a tasting menu with a glass of prosecco and the wellness area on the Top Floor. One night just for the two of you.",
+  "HERO_IMG": "fotos/l26-verjaardag-hero.webp",
+  "HERO_ATTR": " style=\"--hero-x:64%\"",
+  "HERO_ALT": "Bubbles being poured for a laughing couple in their room",
+  "VOUCHER": "",
+  "CODE_ATTR": "",
+  "MEWS_START": "2027-02-01",
+  "CTA": "Book the package",
+  "ARR_PRIJS_PIL": "from € 229.00 per room",
+  "ARR_PRIJS": "€ 229.00",
+  "ARR_PRIJS_EENHEID": "per room",
+  "KAART_KOP": "Valentine's package",
+  "ARR_TRUST_A": "No booking fees",
+  "ARR_TRUST_B": "Instant confirmation",
+  "KAART_IMG": "fotos/l26-bubbels-kamer.webp",
+  "KAART_ALT": "Bottle of bubbles in an ice bucket with two glasses in the room",
+  "KAART_PIL": "Valentine's 2027",
+  "KAART_VINK_A": "Rose petals and a surprise in your room",
+  "KAART_VINK_B": "Tasting menu with a glass of prosecco",
+  "KAART_VINK_C": "Breakfast and the wellness area",
+  "KAART_VINK_D": "Free parking",
+  "KAART_KNOP": "Book the package",
+  "KAART_TRUST": "Book directly with the hotel · no booking fees",
+  "BOEKBALK_KNOP": "Check availability",
+  "BOEKBALK_NOOT": "1 night · arrival 1 to 28 February 2027",
+  "KAMER_KOP_A": "Which",
+  "KAMER_KOP_EM": "room",
+  "KAMER_KOP_B": "will you stay in?",
+  "KAMER_SUB": "The Valentine's package is based on a Comfort room. Would you prefer a Deluxe room with its own infrared sauna? Ask about the options when you book.",
+  "KAMER_PIL": "Included",
+  "KAMER_NOOT": "Price per room for 2 people and 1 night, excluding € 2.00 tourist tax per person per night. You will see the current price when you book.",
+  "_kamers": {
+    "comfort": {
+      "pil": "Included",
+      "soort": "inbegrepen",
+      "prijs_label": "from",
+      "prijs": "€ 229.00 per room"
+    },
+    "deluxe": {
+      "pil": "Upgrade",
+      "soort": "upgrade",
+      "prijs": "Upgrade available"
+    }
+  },
+  "POP_BADGE": "Valentine's package",
+  "REVIEW_KOP_A": "Why guests love",
+  "REVIEW_KOP_EM": "coming back",
+  "SLOT_KOP_A": "Your",
+  "SLOT_KOP_EM": "Valentine's",
+  "SLOT_KOP_B": "at Asteria",
+  "SLOT_TEKST": "Pick your date in February and leave the rest to us: the room, dinner, breakfast and the wellness area. Questions or a special request? We are happy to help.",
+  "STICKY_KOP": "Valentine's package",
+  "STICKY_SUB": "from € 229.00 per room",
+  "STICKY_KNOP": "Book now",
+  "SLOT_FOTO_A": "fotos/l26-bubbels-proost.webp",
+  "SLOT_FOTO_A_POS": "50% 50%",
+  "SLOT_FOTO_B": "fotos/l26-waarom-wellness.webp",
+  "SLOT_FOTO_B_POS": "center center",
+  "ARR_PRIJS_KAART_EENHEID": "per room, 2 people, 1 night",
+  "ARR_VOORWAARDEN": "Comfort room · arrival 1 to 28 February 2027",
+  "ARR_MOB_NOOT": "Arrival 1 to 28 February 2027",
+  "INB_KOP_A": "What's",
+  "INB_KOP_EM": "included",
+  "ARR_INB_INTRO": "Book once and we take care of the rest: from the rose petals in your room to breakfast the next morning.",
+  "ZV_TOON": false,
+  "WAAROM_TOON": true,
+  "ANDERE_TOON": false,
+  "_reviews_aantal": 8,
+  "_reviews_voorkeur": [
+    "dinner",
+    "restaurant",
+    "wellness",
+    "sauna",
+    "romantic"
+  ],
+  "_chips": [
+    "Tasting menu with prosecco",
+    "Rose petals and a surprise",
+    "Wellness on the Top Floor"
+  ],
+  "_inbegrepen": [
+    {
+      "titel": "A night in a Comfort room",
+      "regel": "for the two of you, upgrades available",
+      "icoon": "<path d=\"M2 4v16\"/><path d=\"M2 8h18a2 2 0 0 1 2 2v10\"/><path d=\"M2 17h20\"/><path d=\"M6 8v9\"/>"
+    },
+    {
+      "titel": "Rose petals in your room",
+      "regel": "your room is made ready for a romantic stay",
+      "icoon": "<path d=\"M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z\"/>"
+    },
+    {
+      "titel": "A surprise in your room",
+      "regel": "a loving gift on arrival",
+      "icoon": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13\"/><path d=\"M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>"
+    },
+    {
+      "titel": "Tasting menu at Restaurant Asteria",
+      "regel": "three small starters, a main course and a dessert of your choice",
+      "icoon": "<path d=\"M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2\"/><path d=\"M7 2v20\"/><path d=\"M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7\"/>"
+    },
+    {
+      "titel": "A glass of prosecco with dinner",
+      "regel": "to toast each other",
+      "icoon": "<path d=\"M8 22h8\"/><path d=\"M12 15v7\"/><path d=\"M6 2h12l-1 8a5 5 0 0 1-10 0z\"/><path d=\"M6.5 6h11\"/>"
+    },
+    {
+      "titel": "Extensive breakfast buffet",
+      "regel": "the morning after arrival",
+      "icoon": "<path d=\"M12 2v8\"/><path d=\"M4.93 10.93l1.41 1.41\"/><path d=\"M2 18h2\"/><path d=\"M20 18h2\"/><path d=\"M19.07 10.93l-1.41 1.41\"/><path d=\"M22 22H2\"/><path d=\"M8 6l4-4 4 4\"/><path d=\"M16 18a4 4 0 0 0-8 0\"/>"
+    },
+    {
+      "titel": "Access to the wellness area",
+      "regel": "on the Top Floor, with saunas and foot baths",
+      "icoon": "<path d=\"M12 2.7l5.7 5.7a8 8 0 1 1-11.4 0z\"/>"
+    }
+  ],
+  "_inbegrepen_fotos": [
+    {
+      "img": "fotos/l26-bubbels-proost.webp",
+      "alt": "Couple toasting with bubbles on the sofa in a room at Hotel Asteria",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-kerstarrangement-diner.webp",
+      "alt": "Guest at a set table in the restaurant, with a glass of white wine and flowers on the table",
+      "pos": "32% 50%"
+    },
+    {
+      "img": "fotos/l26-winterarrangement-voetbad.webp",
+      "alt": "Two guests in bathrobes at the foot baths in the wellness area of Hotel Asteria",
+      "pos": "50% 50%"
+    },
+    {
+      "img": "fotos/l26-wellness-arrangement-ontbijt.webp",
+      "alt": "Breakfast plate with a croissant, cheese, cold cuts and grapes",
+      "pos": "45% 50%"
+    },
+    {
+      "img": "fotos/l26-weekend-aanbieding-kamer.webp",
+      "alt": "Comfort room with a double bed and a window",
+      "pos": "50% 50%"
+    }
+  ],
+  "_tijden": [
+    {
+      "tekst": "Dinner until 21.30",
+      "icoon": "<circle cx=\"12\" cy=\"12\" r=\"10\"/><polyline points=\"12 6 12 12 16 14\"/>"
+    },
+    {
+      "tekst": "Free parking",
+      "icoon": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"3\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>"
+    }
+  ],
+  "_faq": [
+    {
+      "q": "What does the Valentine's package include?",
+      "a": "A night in a Comfort room with rose petals and a surprise in your room, a tasting menu at Restaurant Asteria with a glass of prosecco with dinner, an extensive breakfast buffet the next morning and access to the wellness area on the Top Floor. Parking is free."
+    },
+    {
+      "q": "When can we come?",
+      "a": "You can arrive from 1 to 28 February 2027, for one night. In 2027 Valentine's Day falls on Sunday 14 February. Pick your date in the booking module and you will see right away what is available."
+    },
+    {
+      "q": "What is the tasting menu?",
+      "a": "With the tasting menu you put together five dishes yourself: three small starters, a main course and a dessert. With dinner you both get a glass of prosecco. The restaurant serves dinner until 21.30."
+    },
+    {
+      "q": "What is in the wellness area and when is it open?",
+      "a": "The wellness area on the Top Floor covers more than 300 m², with four saunas (infrared, forest, salt stone and walnut wood), a steam cabin, experience showers, a plunge and herbal bath, foot baths and a relaxation room. Open Monday to Thursday from 16.00 to 22.00 and Friday to Sunday from 12.00 to 22.00. Tuesday is swimwear day; on the other days the wellness area is swimwear-free."
+    },
+    {
+      "q": "Can we stay in a different room?",
+      "a": "The package is based on a Comfort room. Would you prefer a Deluxe room with its own infrared sauna? Ask about the options when you book, or call reception."
+    },
+    {
+      "q": "Can I cancel free of charge?",
+      "a": "You will see the cancellation terms of the package when you book, before you confirm your reservation. Not sure? Give reception a call."
+    }
+  ],
+  "ARR_NACHTEN": 1,
+  "ARR_KALENDER": false,
+  "ZV_BEREKENEN": false,
+  "ARR_VANAF_LIVE": false
+}

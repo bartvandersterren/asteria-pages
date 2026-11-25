@@ -479,6 +479,29 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   Bruidssuite staan als "Upgrade mogelijk" tot de meerprijs bekend is. Zondagkorting zit (14 okt) nog niet in Mews: zondag en dinsdag
   geven allebei EUR 257; de pagina toont EUR 118,50 berekend. Tweede nacht met NAJAAR2D: EUR 499,50 voor 2 p. (3-5 nov).
 
+### Valentijnsarrangement in drie talen (25 nov 2026)
+
+- `/valentijnsarrangement`, `/valentijnsarrangement-en`, `/valentijnsarrangement-de`: build-entry `valentijnsarrangement`
+  (lander-w1, blokken zijkaart + arrangement), JSON per taal `translations/valentijnsarrangement-{nl,en,de}.json`. noindex,
+  follow; niet in menu, arrangementenoverzicht of sitemap. Aankomst 1-28 feb 2027, 1 nacht; prijs is een VOORSTEL (zie
+  `_controleren` in de NL-JSON). EN/DE: geen Ook interessant (die pagina's zijn alleen NL), 8 reviews.
+- Eerste arrangement op lander-w1 in EN/DE. build-config `arr_literals` {taal: bestand} -> build.py `arr_taal()`: paren
+  [nl, taal] uit `translations/arrangement-literals-<taal>.json` (vaste sjabloonteksten: Waarom Asteria, kamer- en
+  faciliteitdata, boekbalk, cookiemelding, reviewlabels; langste eerst, ook in de JSON-scripts en na de reviewmuur),
+  `<html lang>` + `data-mews-taal` (lander-w1.js `MEWS_TAAL`, standaard nl-NL), `language=` op de voucherloze Mews-links,
+  en een restcontrole: staat er daarna nog een NL-woord uit `ARR_NL_REST` in tekst, attributen of JSON-teksten, dan stopt
+  de build met de lijst (reviewernamen tellen niet mee). Kop/voet gaan via `_kop_spiegel` (al bestaande en/de-labels).
+  `reviews` in de config mag een dict per taal zijn (`content/reviews-google-asteria-en/-de.json`, 10 reviews).
+  Ander arrangement in EN/DE = JSON per taal + dezelfde `arr_literals`; nieuwe sjabloonteksten eerst als paar toevoegen.
+- Nieuw optioneel JSON-veld `MEWS_START` (JJJJ-MM-DD, build.py `mews_start`): alle distributorlinks krijgen
+  mewsStart/mewsEnd (+ ARR_NACHTEN), elke `.mews-open` `data-start`/`data-eind` (lander-w1.js zet die datums in de widget,
+  alleen als ze niet in het verleden liggen), het aankomstveld van de boekbalk staat vooraf op die datum. Andere pagina's
+  ongewijzigd (byte-gelijk nagebouwd).
+- Boekknop voorlopig zonder tarief (TODO in build.py bij de entry): gewone module 6dc9094c, aankomst 1 feb 2027.
+  `test_lander_w1.py ... --v3 --voucher "" --arrangement "€ 229,00"`: 107/111; de vier fouten zijn testaannames
+  (voucherloos verwacht een eigen MEWS_CONFIG; kamerraster telt de klonen van het Waarom-wiel mee; unload-melding komt
+  ook op /kerstarrangement voor).
+
 ### Arrangementenoverzicht /arrangementen-v2 (nov 2026, preview)
 
 - Opbouw en gedrag van parkhotelhorst.nl/arrangement/ (parkhotel-site `src/fragmenten/pagina-arrangement-v3.html` + css + gedrag),

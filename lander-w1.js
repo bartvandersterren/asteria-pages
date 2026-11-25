@@ -14,6 +14,8 @@
   var MEWS_CONFIG = document.documentElement.getAttribute('data-mews-config') || '6dc9094c-76e3-4fd8-83a7-af1d00ffc556';
   var MEWS_SRC = 'https://app.mews.com/distributor/distributor.min.js';
   var MEWS_URL = 'https://app.mews.com/distributor/' + MEWS_CONFIG;
+  /* taal van de widget via <html data-mews-taal> (build.py arr_taal, EN/DE); standaard nl-NL */
+  var MEWS_TAAL = document.documentElement.getAttribute('data-mews-taal') || 'nl-NL';
   var root = document.documentElement;
 
   /* ── hoogte van de sticky kop → --kop-h (voor de meelopende zijkaart) ── */
@@ -65,11 +67,14 @@
     var voucher = knop.getAttribute('data-voucher') || '';
     var kamer = knop.getAttribute('data-room') || '';
     var href = knop.getAttribute('href');
+    /* data-start/data-eind (build.py MEWS_START): widget opent op die datums */
+    var start = leesDatum(knop.getAttribute('data-start')), eind = leesDatum(knop.getAttribute('data-eind'));
     sluitDrawer();
     function open() {
       var api = window.mewsApi;
       if (voucher && api.setVoucherCode) api.setVoucherCode(voucher);
-      if (api.setLanguageCode) api.setLanguageCode('nl-NL');
+      if (api.setLanguageCode) api.setLanguageCode(MEWS_TAAL);
+      if (start && eind && start >= vandaag && api.setStartDate && api.setEndDate) { api.setStartDate(start); api.setEndDate(eind); }
       /* showRates() kiest alleen de kamer en opent de widget niet (live vastgesteld 14 okt 2026 op config 6dc9094c):
          daarna altijd open(), dan opent hij op de kamerstap. */
       if (kamer && api.showRates) api.showRates(kamer);
@@ -98,6 +103,14 @@
      (zoals de staging-boekbalk). Zonder JS verstuurt het formulier zelf naar dezelfde URL. */
   var MAANDEN = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'];
   var DAGEN = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
+  /* EN/DE-pagina's (data-mews-taal, build.py arr_taal): datums in die taal */
+  if (MEWS_TAAL === 'en-GB') {
+    MAANDEN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    DAGEN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  } else if (MEWS_TAAL === 'de-DE') {
+    MAANDEN = ['Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.'];
+    DAGEN = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+  }
   function twee(n) { return (n < 10 ? '0' : '') + n; }
   function ymd(d) { return d.getFullYear() + '-' + twee(d.getMonth() + 1) + '-' + twee(d.getDate()); }
   function leesDatum(v) {
@@ -105,7 +118,7 @@
     return p ? new Date(+p[1], +p[2] - 1, +p[3]) : null;
   }
   function plusDagen(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
-  function toonDatum(d) { return DAGEN[d.getDay()] + ' ' + d.getDate() + ' ' + MAANDEN[d.getMonth()]; }
+  function toonDatum(d) { return DAGEN[d.getDay()] + ' ' + d.getDate() + (MEWS_TAAL === 'de-DE' ? '.' : '') + ' ' + MAANDEN[d.getMonth()]; }
   var vandaag = new Date(); vandaag = new Date(vandaag.getFullYear(), vandaag.getMonth(), vandaag.getDate());
 
   function waardeVan(invoer) {
@@ -165,7 +178,8 @@
       var url = MEWS_URL + '?mewsVoucherCode=' + encodeURIComponent(voucher)
         + (a ? '&mewsStart=' + ymd(a) + '&mewsEnd=' + ymd(v) : '')
         + '&mewsAdultCount=' + n
-        + (k ? '&mewsRoom=' + k + '&mewsRoute=rooms' : '');
+        + (k ? '&mewsRoom=' + k + '&mewsRoute=rooms' : '')
+        + (MEWS_TAAL !== 'nl-NL' ? '&language=' + MEWS_TAAL : '');
       var log = { voucher: voucher, start: a ? ymd(a) : null, eind: v ? ymd(v) : null, volwassenen: n, url: url, route: 'wacht' };
       if (kamer) log.kamer = k;
       window.lpBoekbalk = log;
@@ -182,7 +196,7 @@
           return;
         }
         if (voucher && api.setVoucherCode) api.setVoucherCode(voucher);
-        if (api.setLanguageCode) api.setLanguageCode('nl-NL');
+        if (api.setLanguageCode) api.setLanguageCode(MEWS_TAAL);
         if (a) { api.setStartDate(a); api.setEndDate(v); }
         if (api.setAdultCount) api.setAdultCount(n);
         /* kamertype gekozen: showRates kiest de kamer, open() opent de widget op die kamer (zoals de kamerknoppen) */
