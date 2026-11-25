@@ -190,5 +190,29 @@
   "ARR_NACHTEN": 1,
   "ARR_KALENDER": false,
   "ZV_BEREKENEN": false,
-  "ARR_VANAF_LIVE": false
+  "ARR_VANAF_LIVE": false,
+  "BANEN_KOP_A": "Lieber eine",
+  "BANEN_KOP_EM": "Suite?",
+  "BANEN_INTRO": "Das Arrangement gilt für ein Deluxe-Zimmer. Möchten Sie mehr Platz oder eine freistehende Badewanne? Wählen Sie bei der Buchung die Suite oder die Brautsuite gegen Aufpreis.",
+  "BANEN_RIJ_LABEL": "Suiten",
+  "_banen": [
+    {
+      "naam": "Suite",
+      "kamer": "suite",
+      "meerprijs": "+ € 20 pro Zimmer und Nacht",
+      "tekst": "Unser geräumigstes Zimmer, mit eigener Infrarotsauna und einer großzügigen Sitzecke.",
+      "foto": "fotos/room-suite-1.webp",
+      "alt": "Suite mit Kingsize-Bett und Sitzecke",
+      "knop": "Suite buchen"
+    },
+    {
+      "naam": "Brautsuite",
+      "kamer": "bruidssuite",
+      "meerprijs": "+ € 50 pro Zimmer und Nacht",
+      "tekst": "Eine freistehende Badewanne und eine große begehbare Dusche. Keine Sauna, dafür viel Zeit für ein langes Bad.",
+      "foto": "fotos/room-bruidssuite-3.webp",
+      "alt": "Freistehende Badewanne in der Brautsuite",
+      "knop": "Brautsuite buchen"
+    }
+  ]
 }

@@ -4,7 +4,8 @@
     "Tarief Mews 'Valentijnsarrangement Deluxe' (f87dd632, privé, voucher VALENTIJN, module 6dc9094c). Inhoud volgens de Mews-omschrijving: Deluxe kamer met privé-infraroodsauna, ontbijtbuffet, 3-gangen proeverijmenu met een glas prosecco, romantisch versierde kamer, liefdevolle verrassing, late check-out 13.00 (op basis van beschikbaarheid), kosteloos annuleren tot 14 dagen voor aankomst. Geen wellness.",
     "Voucher VALENTIJN geldt alleen voor verblijven tussen 13 feb 2027 00:00 en 16 feb 2027 00:00 (CET): aankomst 13 of 14 februari (besluit Stijn 25 nov 2026: alleen het Valentijnsweekend).",
     "25 nov 2026: de aankomstrestrictie op het tarief (Mews Operations, alle kamertypes, vanaf 16 feb 2026 zonder einddatum) blokkeert ook 13/14 feb 2027. Stijn past die zelf aan in Mews Operations; via de API kan het niet (restricties uit Operations). Tot dan geeft VALENTIJN niets terug.",
-    "Prijs: kamerdeel € 116 per nacht; totaal nog niet gemeten (pas na het openzetten). Daarom 'De prijs zie je bij het boeken'. Prijskalender uit (ARR_KALENDER false)."
+    "Prijs: kamerdeel € 116 per nacht; totaal nog niet gemeten (pas na het openzetten). Daarom 'De prijs zie je bij het boeken'. Prijskalender uit (ARR_KALENDER false).",
+    "Suites: Suite + € 20 en Bruidssuite + € 50 per kamer per nacht (besluit Stijn 25 nov 2026 = verschil Default rate met Deluxe). In Mews gezet op het tarief f87dd632 voor de nachten 13 en 14 feb 2027 (Suite € 136, Bruidssuite € 166, Deluxe € 116). Aankomstrestricties Suite (bf0b2b9e) en Bruidssuite (cf9ac447) staan nog dicht (Mews Operations)."
   ],
   "PAGE_TITLE": "Valentijnsarrangement: Valentijnsweekend in Venray | Hotel Asteria",
   "META_DESC": "Valentijnsweekend bij Hotel Asteria in Venray: een nacht in een Deluxe kamer met eigen infraroodsauna, een 3-gangen proeverijmenu met een glas prosecco, ontbijt en late check-out. Aankomst 13 of 14 februari 2027.",
@@ -216,5 +217,29 @@
   "ARR_NACHTEN": 1,
   "ARR_KALENDER": false,
   "ZV_BEREKENEN": false,
-  "ARR_VANAF_LIVE": false
+  "ARR_VANAF_LIVE": false,
+  "BANEN_KOP_A": "Liever een",
+  "BANEN_KOP_EM": "suite?",
+  "BANEN_INTRO": "Het arrangement is in een Deluxe kamer. Wil je meer ruimte of een vrijstaand bad, kies dan bij het boeken de Suite of de Bruidssuite tegen een meerprijs.",
+  "BANEN_RIJ_LABEL": "Suites",
+  "_banen": [
+    {
+      "naam": "Suite",
+      "kamer": "suite",
+      "meerprijs": "+ € 20 per kamer per nacht",
+      "tekst": "Onze ruimste kamer, met een eigen infraroodsauna en een royale zithoek.",
+      "foto": "fotos/room-suite-1.webp",
+      "alt": "Suite met kingsize bed en zithoek",
+      "knop": "Boek de Suite"
+    },
+    {
+      "naam": "Bruidssuite",
+      "kamer": "bruidssuite",
+      "meerprijs": "+ € 50 per kamer per nacht",
+      "tekst": "Een vrijstaand ligbad en een ruime inloopdouche. Geen sauna, wel alle tijd voor een lang bad.",
+      "foto": "fotos/room-bruidssuite-3.webp",
+      "alt": "Vrijstaand ligbad in de Bruidssuite",
+      "knop": "Boek de Bruidssuite"
+    }
+  ]
 }

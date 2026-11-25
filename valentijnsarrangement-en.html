@@ -234,6 +234,19 @@
       </div>
     </div>
   </section>
+  <!-- ══ ARRANGEMENT 2b: GOLFBANEN (build-blok 'banen', aan zodra de JSON een lijst '_banen' heeft). Opzet van het
+       Parkhotel-blok 'Kies uw golfbaan' (/arrangement/golfarrangement/, .zd-golfbanen): kaart per baan met foto, naam,
+       plaats + rijtijd, omschrijving en link naar de baan; in de kaartstijl van de kamerkaarten. Bureaublad: kaarten naast
+       elkaar in de hoofdkolom; telefoon: veegrij met peek. Kaarten uit '_banen' (build.py) ══ -->
+  <section class="sec ar-sec ar-banen" data-toon="paper" aria-labelledby="banen-kop">
+    <div class="wrap">
+      <div class="ar-banen-kop"><h2 id="banen-kop">Prefer a <span class="g">suite?</span></h2><p>The package is in a Deluxe room. Would you like more space or a freestanding bath? Choose the Suite or the Bridal suite when you book, for a supplement.</p></div>
+      <div class="ar-banen-rij" aria-label="Suites">
+        <article class="ar-baan"><div class="ar-baan-foto"><img src="fotos/room-suite-1.webp" alt="Suite with a king-size bed and seating area" loading="lazy"></div><div class="ar-baan-inhoud"><h3>Suite</h3><p class="ar-baan-plek"><span>+ € 20 per room per night</span></p><p class="ar-baan-tekst">Our most spacious room, with its own infrared sauna and a generous seating area.</p><a class="ar-inb-link ar-baan-link mews-open" data-start="2027-02-13" data-eind="2027-02-14" data-voucher="VALENTIJN" data-room="4a642b66-68e6-444c-beeb-af1d00ffc315" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsStart=2027-02-13&amp;mewsEnd=2027-02-14&amp;mewsVoucherCode=VALENTIJN&language=en-US&amp;mewsRoom=4a642b66-68e6-444c-beeb-af1d00ffc315&amp;mewsRoute=rooms">Book the Suite<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+        <article class="ar-baan"><div class="ar-baan-foto"><img src="fotos/room-bruidssuite-3.webp" alt="Freestanding bath in the Bridal suite" loading="lazy"></div><div class="ar-baan-inhoud"><h3>Bridal suite</h3><p class="ar-baan-plek"><span>+ € 50 per room per night</span></p><p class="ar-baan-tekst">A freestanding bath and a spacious walk-in shower. No sauna, but all the time in the world for a long soak.</p><a class="ar-inb-link ar-baan-link mews-open" data-start="2027-02-13" data-eind="2027-02-14" data-voucher="VALENTIJN" data-room="a9f18d18-561b-47a9-8ba7-b2a800cfd0e2" href="https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?mewsStart=2027-02-13&amp;mewsEnd=2027-02-14&amp;mewsVoucherCode=VALENTIJN&language=en-US&amp;mewsRoom=a9f18d18-561b-47a9-8ba7-b2a800cfd0e2&amp;mewsRoute=rooms">Book the Bridal suite<svg class="as-icoon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></article>
+      </div>
+    </div>
+  </section>
   <!-- ══ ARRANGEMENT 4: WAAROM ASTERIA (build-blok 'waarom', aan met WAAROM_TOON). Vaste inhoud, zoals de staging-homepage
        (.usp-statement + .usp-wheel): het wiel draait (4 klonen voor en na, arrangement.js), de foto wisselt mee met het
        actieve punt (data-foto, data-pos), pijlen omhoog/omlaag pauzeren 6 s. Zonder JS een gewone lijst. ══ -->
