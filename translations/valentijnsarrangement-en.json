@@ -4,7 +4,7 @@
     "Vertaling van valentijnsarrangement-nl.json (Duits, Sie-vorm); feiten en open punten staan in de NL-JSON. Ook interessant staat uit (die pagina's bestaan alleen in het Nederlands)."
   ],
   "PAGE_TITLE": "Valentine's package: Valentine's weekend in Venray | Hotel Asteria",
-  "META_DESC": "Valentine's weekend at Hotel Asteria in Venray: a night in a Deluxe room with its own infrared sauna, a 3-course tasting menu with a glass of prosecco, breakfast and late check-out. Arrival 13 or 14 February 2027.",
+  "META_DESC": "Valentine's weekend at Hotel Asteria in Venray: a night in a Deluxe room with its own infrared sauna, a 3-course tasting menu with a glass of prosecco, breakfast and late check-out. Arrival 13 or 14 February 2027, from € 255.00 per room.",
   "CANONICAL_URL": "https://visit.asteria.nl/valentijnsarrangement-en",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-verjaardag-hero.webp",
   "H_EEN_A": "Valentine's",
@@ -17,9 +17,9 @@
   "CODE_ATTR": "",
   "MEWS_START": "2027-02-13",
   "CTA": "Book the package",
-  "ARR_PRIJS_PIL": "Arrival 13 or 14 February 2027",
-  "ARR_PRIJS": "",
-  "ARR_PRIJS_EENHEID": "",
+  "ARR_PRIJS_PIL": "from € 255.00 per room",
+  "ARR_PRIJS": "€ 255.00",
+  "ARR_PRIJS_EENHEID": "per room",
   "KAART_KOP": "Valentine's package",
   "ARR_TRUST_A": "No booking fees",
   "ARR_TRUST_B": "Instant confirmation",
@@ -39,12 +39,13 @@
   "KAMER_KOP_B": "will you stay in?",
   "KAMER_SUB": "The Valentine's package is in a Deluxe room, with its own infrared sauna in the bathroom.",
   "KAMER_PIL": "Included",
-  "KAMER_NOOT": "You will see the price when you book, excluding € 2.00 tourist tax per person per night.",
+  "KAMER_NOOT": "Price per room for 2 people and 1 night in the Deluxe room, excluding € 2.00 tourist tax per person per night. You will see the current price when you book.",
   "_kamers": {
     "deluxe": {
       "pil": "Included",
       "soort": "inbegrepen",
-      "prijs": "You will see the price when you book"
+      "prijs": "€ 255.00 per room",
+      "prijs_label": "from"
     }
   },
   "POP_BADGE": "Valentine's package",
@@ -55,13 +56,13 @@
   "SLOT_KOP_B": "at Asteria",
   "SLOT_TEKST": "Choose Saturday 13 or Sunday 14 February and leave the rest to us: the room, dinner and breakfast. Questions or a special request? We are happy to help.",
   "STICKY_KOP": "Valentine's package",
-  "STICKY_SUB": "You will see the price when you book",
+  "STICKY_SUB": "from € 255.00 per room",
   "STICKY_KNOP": "Book now",
   "SLOT_FOTO_A": "fotos/l26-bubbels-proost.webp",
   "SLOT_FOTO_A_POS": "50% 50%",
   "SLOT_FOTO_B": "fotos/l26-najaar-deluxe.webp",
   "SLOT_FOTO_B_POS": "center center",
-  "ARR_PRIJS_KAART_EENHEID": "You will see the price when you book",
+  "ARR_PRIJS_KAART_EENHEID": "per room, 2 people, 1 night",
   "ARR_VOORWAARDEN": "Deluxe room · arrival 13 or 14 February 2027",
   "ARR_MOB_NOOT": "Code VALENTIJN is already filled in",
   "INB_KOP_A": "What's",
@@ -172,7 +173,7 @@
     },
     {
       "q": "How much does the package cost?",
-      "a": "You will see the price when you book, as soon as you choose your date. Book directly with us and you pay no booking fees."
+      "a": "In the Deluxe room you pay € 255.00 per room for 2 people and 1 night. The Suite costs € 20 more per night, the Bridal suite € 50. Tourist tax of € 2.00 per person per night is added. Book directly with us and you pay no booking fees."
     },
     {
       "q": "Can I cancel free of charge?",

@@ -3,12 +3,11 @@
   "_controleren": [
     "Tarief Mews 'Valentijnsarrangement Deluxe' (f87dd632, privé, voucher VALENTIJN, module 6dc9094c). Inhoud volgens de Mews-omschrijving: Deluxe kamer met privé-infraroodsauna, ontbijtbuffet, 3-gangen proeverijmenu met een glas prosecco, romantisch versierde kamer, liefdevolle verrassing, late check-out 13.00 (op basis van beschikbaarheid), kosteloos annuleren tot 14 dagen voor aankomst. Geen wellness.",
     "Voucher VALENTIJN geldt alleen voor verblijven tussen 13 feb 2027 00:00 en 16 feb 2027 00:00 (CET): aankomst 13 of 14 februari (besluit Stijn 25 nov 2026: alleen het Valentijnsweekend).",
-    "25 nov 2026: de aankomstrestrictie op het tarief (Mews Operations, alle kamertypes, vanaf 16 feb 2026 zonder einddatum) blokkeert ook 13/14 feb 2027. Stijn past die zelf aan in Mews Operations; via de API kan het niet (restricties uit Operations). Tot dan geeft VALENTIJN niets terug.",
-    "Prijs: kamerdeel € 116 per nacht; totaal nog niet gemeten (pas na het openzetten). Daarom 'De prijs zie je bij het boeken'. Prijskalender uit (ARR_KALENDER false).",
-    "Suites: Suite + € 20 en Bruidssuite + € 50 per kamer per nacht (besluit Stijn 25 nov 2026 = verschil Default rate met Deluxe). In Mews gezet op het tarief f87dd632 voor de nachten 13 en 14 feb 2027 (Suite € 136, Bruidssuite € 166, Deluxe € 116). Aankomstrestricties Suite (bf0b2b9e) en Bruidssuite (cf9ac447) staan nog dicht (Mews Operations)."
+    "Suites: Suite + € 20 en Bruidssuite + € 50 per kamer per nacht (besluit Stijn 25 nov 2026 = verschil Default rate met Deluxe). In Mews gezet op het tarief f87dd632 voor de nachten 13 en 14 feb 2027 (Suite € 136, Bruidssuite € 166, Deluxe € 116). Aankomstrestricties Suite (bf0b2b9e) en Bruidssuite (cf9ac447) staan nog dicht (Mews Operations).",
+    "Prijs gemeten 25 nov 2026 via distributor 6dc9094c + VALENTIJN, 2 volwassenen, 1 nacht, aankomst 13 en 14 feb 2027 (beide gelijk): Deluxe € 255, Suite € 275, Bruidssuite € 305 per kamer (kamerdeel 116/136/166 + € 139 producten). Aankomst 12 en 15 feb: geen tarief. Restricties door Stijn/coordinator 25 nov opengezet voor 13-14 feb. Prijskalender bewust uit: de kalender toont p.p. per nacht (€ 128), de pagina per kamer, en er zijn maar twee aankomstdagen."
   ],
   "PAGE_TITLE": "Valentijnsarrangement: Valentijnsweekend in Venray | Hotel Asteria",
-  "META_DESC": "Valentijnsweekend bij Hotel Asteria in Venray: een nacht in een Deluxe kamer met eigen infraroodsauna, een 3-gangen proeverijmenu met een glas prosecco, ontbijt en late check-out. Aankomst 13 of 14 februari 2027.",
+  "META_DESC": "Valentijnsweekend bij Hotel Asteria in Venray: een nacht in een Deluxe kamer met eigen infraroodsauna, een 3-gangen proeverijmenu met een glas prosecco, ontbijt en late check-out. Aankomst 13 of 14 februari 2027, vanaf € 255,00 per kamer.",
   "CANONICAL_URL": "https://visit.asteria.nl/valentijnsarrangement",
   "OG_IMAGE": "https://visit.asteria.nl/fotos/l26-verjaardag-hero.webp",
   "H_EEN_A": "Valentijn",
@@ -21,9 +20,9 @@
   "CODE_ATTR": "",
   "MEWS_START": "2027-02-13",
   "CTA": "Boek het arrangement",
-  "ARR_PRIJS_PIL": "Aankomst 13 of 14 februari 2027",
-  "ARR_PRIJS": "",
-  "ARR_PRIJS_EENHEID": "",
+  "ARR_PRIJS_PIL": "vanaf € 255,00 per kamer",
+  "ARR_PRIJS": "€ 255,00",
+  "ARR_PRIJS_EENHEID": "per kamer",
   "KAART_KOP": "Valentijnsarrangement",
   "ARR_TRUST_A": "Geen boekingskosten",
   "ARR_TRUST_B": "Directe bevestiging",
@@ -43,12 +42,13 @@
   "KAMER_KOP_B": "slapen jullie?",
   "KAMER_SUB": "Het Valentijnsarrangement is in een Deluxe kamer, met een eigen infraroodsauna in de badkamer.",
   "KAMER_PIL": "Inbegrepen",
-  "KAMER_NOOT": "De prijs zie je bij het boeken, exclusief € 2,– verblijfsbelasting per persoon per nacht.",
+  "KAMER_NOOT": "Prijs per kamer voor 2 personen en 1 nacht in de Deluxe kamer, exclusief € 2,– verblijfsbelasting per persoon per nacht. De actuele prijs zie je bij het boeken.",
   "_kamers": {
     "deluxe": {
       "pil": "Inbegrepen",
       "soort": "inbegrepen",
-      "prijs": "De prijs zie je bij het boeken"
+      "prijs": "€ 255,00 per kamer",
+      "prijs_label": "vanaf"
     }
   },
   "POP_BADGE": "Valentijnsarrangement",
@@ -59,13 +59,13 @@
   "SLOT_KOP_B": "bij Asteria",
   "SLOT_TEKST": "Kies zaterdag 13 of zondag 14 februari en laat de rest aan ons over: de kamer, het diner en het ontbijt. Vragen of een speciale wens? We helpen je graag verder.",
   "STICKY_KOP": "Valentijnsarrangement",
-  "STICKY_SUB": "De prijs zie je bij het boeken",
+  "STICKY_SUB": "vanaf € 255,00 per kamer",
   "STICKY_KNOP": "Boek nu",
   "SLOT_FOTO_A": "fotos/l26-bubbels-proost.webp",
   "SLOT_FOTO_A_POS": "50% 50%",
   "SLOT_FOTO_B": "fotos/l26-najaar-deluxe.webp",
   "SLOT_FOTO_B_POS": "center center",
-  "ARR_PRIJS_KAART_EENHEID": "De prijs zie je bij het boeken",
+  "ARR_PRIJS_KAART_EENHEID": "per kamer, 2 personen, 1 nacht",
   "ARR_VOORWAARDEN": "Deluxe kamer · aankomst 13 of 14 februari 2027",
   "ARR_MOB_NOOT": "Code VALENTIJN staat al ingevuld",
   "INB_KOP_A": "Dit is",
@@ -177,7 +177,7 @@
     },
     {
       "q": "Wat kost het arrangement?",
-      "a": "De prijs zie je bij het boeken, zodra je je datum kiest. Boek je rechtstreeks bij ons, dan betaal je geen boekingskosten."
+      "a": "In de Deluxe kamer betaal je € 255,00 per kamer voor 2 personen en 1 nacht. De Suite kost € 20 per nacht meer, de Bruidssuite € 50. Daarbij komt € 2,– verblijfsbelasting per persoon per nacht. Boek je rechtstreeks bij ons, dan betaal je geen boekingskosten."
     },
     {
       "q": "Kan ik kosteloos annuleren?",
