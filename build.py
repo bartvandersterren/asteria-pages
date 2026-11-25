@@ -1318,6 +1318,30 @@ def apply_arrangement(html, data):
                'c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg>')
         kaarten = []
         for b in banen:
+            if b.get('kamer'):
+                # kamerkaart (bijv. 'Liever een suite?' op valentijnsarrangement): {naam, kamer (sleutel KAMER_MEWS),
+                # meerprijs, tekst, foto, alt, pos?, knop?}; knop = Mews met de actiecode en de kamer voorgeselecteerd
+                for veld in ('naam', 'kamer', 'meerprijs', 'tekst', 'foto', 'alt'):
+                    if not b.get(veld):
+                        sys.exit(f'_banen: veld {veld!r} ontbreekt bij {b.get("naam", "?")!r}')
+                if b['kamer'] not in KAMER_MEWS:
+                    sys.exit(f'_banen: onbekende kamer {b["kamer"]!r}')
+                if not os.path.exists(os.path.join(base, b['foto'])):
+                    sys.exit(f'_banen: {b["foto"]} bestaat niet')
+                code, room = data.get('VOUCHER', ''), KAMER_MEWS[b['kamer']]
+                href = (f'https://app.mews.com/distributor/6dc9094c-76e3-4fd8-83a7-af1d00ffc556?'
+                        + (f'mewsVoucherCode={code}&amp;' if code else '') + f'mewsRoom={room}&amp;mewsRoute=rooms')
+                kaarten.append(
+                    f'        <article class="ar-baan">'
+                    f'<div class="ar-baan-foto"><img src="{escape(b["foto"])}" alt="{escape(b["alt"])}"'
+                    + (f' style="object-position:{escape(b["pos"])}"' if b.get('pos') else '')
+                    + ' loading="lazy"></div>'
+                    f'<div class="ar-baan-inhoud"><h3>{b["naam"]}</h3>'
+                    f'<p class="ar-baan-plek"><span>{b["meerprijs"]}</span></p>'
+                    f'<p class="ar-baan-tekst">{b["tekst"]}</p>'
+                    f'<a class="ar-inb-link ar-baan-link mews-open"' + (f' data-voucher="{code}"' if code else '')
+                    + f' data-room="{room}" href="{href}">{b.get("knop", "Boek deze kamer")}{pijl}</a></div></article>')
+                continue
             for veld in ('naam', 'plaats', 'tekst', 'rijtijd', 'url', 'foto', 'alt'):
                 if not b.get(veld):
                     sys.exit(f'_banen: veld {veld!r} ontbreekt bij {b.get("naam", "?")!r}')
@@ -3443,6 +3467,8 @@ def build(template_name, lang):
     for k, v in ATTENTIE_ICOON_STANDAARD.items():
         translations.setdefault(k, v)
     translations.setdefault('ATTENTIE_KNOP', translations.get('CTA', ''))
+    # aria-label van de rij in blok 'banen' (golf: Golfbanen; valentijnsarrangement: suites)
+    translations.setdefault('BANEN_RIJ_LABEL', 'Golfbanen')
     # Gesloten lander: logo linkt naar de pagina zelf (standaard /hotel-venray-v2)
     translations.setdefault('GESLOTEN_LOGO_URL', '/hotel-venray-v2')
     # Optionele herovideo (blok 'video'): aan zodra de JSON HERO_VIDEO heeft; HERO_VIDEO_MOBIEL (staand, < 720 px) en

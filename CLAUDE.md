@@ -488,6 +488,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   `VOUCHER` VALENTIJN, `MEWS_START` 2027-02-13, geen vaste prijs (`ARR_PRIJS` leeg = 'De prijs zie je bij het boeken',
   build.py haalt het lege bedrag en 'vanaf' weg), prijskalender uit. Tarief stond 25 nov nog dicht door een
   aankomstrestrictie uit Mews Operations (zie `_controleren`). EN/DE: geen Ook interessant (alleen NL), 8 reviews.
+  Blok "Liever een suite?" = blok `banen` met kamerkaarten: een `_banen`-item met `kamer` (sleutel KAMER_MEWS) heeft
+  {naam, kamer, meerprijs, tekst, foto, alt, pos?, knop?} en krijgt een Mews-knop met de actiecode en de kamer
+  (mews-open + data-room) i.p.v. een websitelink; `BANEN_RIJ_LABEL` (standaard Golfbanen). Golf ongewijzigd.
 - Eerste arrangement op lander-w1 in EN/DE. build-config `arr_literals` {taal: bestand} -> build.py `arr_taal()`: paren
   [nl, taal] uit `translations/arrangement-literals-<taal>.json` (vaste sjabloonteksten: Waarom Asteria, kamer- en
   faciliteitdata, boekbalk, cookiemelding, reviewlabels; langste eerst, ook in de JSON-scripts en na de reviewmuur),

@@ -190,5 +190,29 @@
   "ARR_NACHTEN": 1,
   "ARR_KALENDER": false,
   "ZV_BEREKENEN": false,
-  "ARR_VANAF_LIVE": false
+  "ARR_VANAF_LIVE": false,
+  "BANEN_KOP_A": "Prefer a",
+  "BANEN_KOP_EM": "suite?",
+  "BANEN_INTRO": "The package is in a Deluxe room. Would you like more space or a freestanding bath? Choose the Suite or the Bridal suite when you book, for a supplement.",
+  "BANEN_RIJ_LABEL": "Suites",
+  "_banen": [
+    {
+      "naam": "Suite",
+      "kamer": "suite",
+      "meerprijs": "+ € 20 per room per night",
+      "tekst": "Our most spacious room, with its own infrared sauna and a generous seating area.",
+      "foto": "fotos/room-suite-1.webp",
+      "alt": "Suite with a king-size bed and seating area",
+      "knop": "Book the Suite"
+    },
+    {
+      "naam": "Bridal suite",
+      "kamer": "bruidssuite",
+      "meerprijs": "+ € 50 per room per night",
+      "tekst": "A freestanding bath and a spacious walk-in shower. No sauna, but all the time in the world for a long soak.",
+      "foto": "fotos/room-bruidssuite-3.webp",
+      "alt": "Freestanding bath in the Bridal suite",
+      "knop": "Book the Bridal suite"
+    }
+  ]
 }
