@@ -179,7 +179,7 @@ TEMPLATES = {
         'blokken': {'zijkaart': True, 'arrangement': True},
     },
     # Valentijnsarrangement 2027 (nov 2026): het eerste arrangement op lander-w1 in drie talen (/valentijnsarrangement,
-    # -en, -de), noindex, niet in menu, overzicht of sitemap. Per taal een eigen JSON; EN/DE krijgen via arr_taal() de vaste
+    # -en, -de); sinds 25 nov 2026 index, follow, in sitemap.xml en in het arrangementenoverzicht (niet in het menu). Per taal een eigen JSON; EN/DE krijgen via arr_taal() de vaste
     # sjabloonteksten uit 'arr_literals' (paren NL -> taal), <html lang>, de Mews-taal en een restcontrole op NL-woorden.
     # 'reviews' per taal. MEWS_START in de JSON: boekknoppen en boekbalk openen op die aankomstdatum (geen Mews-tarief nog).
     # TODO Valentijn: tarief 'Valentijnsarrangement Deluxe' (voucher VALENTIJN, alleen verblijf 13-16 feb 2027) staat in
@@ -187,6 +187,7 @@ TEMPLATES = {
     # meten en eventueel ARR_PRIJS (nu leeg = 'De prijs zie je bij het boeken') en de prijskalender zetten.
     'valentijnsarrangement': {
         'template': 'lander-w1.template.html',
+        'index': ('nl', 'en', 'de'),   # sinds 25 nov 2026 vindbaar (besluit Stijn): index, follow + sitemap.xml + arrangementenoverzicht
         'langs': {
             'nl': ('valentijnsarrangement.html', 'translations/valentijnsarrangement-nl.json'),
             'en': ('valentijnsarrangement-en.html', 'translations/valentijnsarrangement-en.json'),

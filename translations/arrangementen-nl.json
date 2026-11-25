@@ -11,7 +11,8 @@
     "Wellness bijboeken: kosten voor hotelgasten onbekend; openingstijden ma-do 16.00-22.00, vr-zo 12.00-22.00 uit de lander-w1-FAQ.",
     "Categorieën (chips) en de keuzehulpscores zijn een eerste indeling: Najaarsarrangement staat onder Wellness (eigen infraroodsauna op de Deluxe kamer), Limburg Arrangement onder Actief & golf.",
     "Annuleren: voorwaarden van de arrangementstarieven onbekend; de FAQ zegt 'zie je bij het boeken' (zoals de arrangementpagina's).",
-    "Herofoto (l26-terras, proosten op het terras; 1200 px breed, op grote schermen iets zacht) en slotfoto (l26-omg-bossen) komen uit de repo; graag bevestigen dat ze bij deze pagina passen."
+    "Herofoto (l26-terras, proosten op het terras; 1200 px breed, op grote schermen iets zacht) en slotfoto (l26-omg-bossen) komen uit de repo; graag bevestigen dat ze bij deze pagina passen.",
+    "Valentijnsarrangement (25 nov 2026): kaart uit translations/valentijnsarrangement-nl.json, categorie Feestdagen, prijs € 255,00 per kamer (niet p.p. zoals de andere kaarten). Alleen aankomst 13 of 14 feb 2027: na 14 feb 2027 de kaart weghalen."
   ],
   "PAGE_TITLE": "Arrangementen met diner en ontbijt | Hotel Asteria Venray",
   "META_DESC": "Alle arrangementen van Hotel Asteria in Venray op een rij: wellness, golf, fietsen door Limburg, Oorlogsmuseum Overloon en een weekend weg. Altijd met diner en ontbijt.",
@@ -223,6 +224,32 @@
         "default": "Op je kamer ligt een presentje van het museum klaar."
       },
       "oms": "Samen met Oorlogsmuseum Overloon: het verhaal en de beleving van de Tweede Wereldoorlog staan centraal."
+    },
+    {
+      "slug": "valentijnsarrangement",
+      "url": "/valentijnsarrangement",
+      "cat": [
+        "feest"
+      ],
+      "volgorde": 80,
+      "scores": {
+        "samen": 5,
+        "eten": 3,
+        "rust": 2,
+        "n1": 2,
+        "feest": 2,
+        "vrza": 1,
+        "doordeweeks": -2
+      },
+      "redenen": {
+        "samen": "Een romantisch versierde Deluxe kamer met eigen infraroodsauna, alleen voor jullie twee.",
+        "eten": "Een 3-gangen proeverijmenu met een glas prosecco en de volgende ochtend het ontbijtbuffet.",
+        "rust": "Je eigen infraroodsauna op de kamer en uitslapen tot 13.00 uur.",
+        "n1": "Eén nacht in het Valentijnsweekend, met late check-out.",
+        "feest": "Valentijn vieren met aankomst op zaterdag 13 of zondag 14 februari 2027.",
+        "default": "Aankomst op zaterdag 13 of zondag 14 februari 2027."
+      },
+      "oms": "Het Valentijnsweekend: een Deluxe kamer met eigen sauna, een proeverijmenu met prosecco en uitslapen tot 13.00 uur."
     }
   ],
   "KH_KOP": "Welk arrangement past bij jou?",
@@ -405,7 +432,8 @@
     "golfarrangement",
     "kerstarrangement",
     "oud-en-nieuw-arrangement",
-    "oud-en-nieuw-bridge"
+    "oud-en-nieuw-bridge",
+    "valentijnsarrangement"
   ],
   "_extra": [
     {
