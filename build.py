@@ -182,10 +182,9 @@ TEMPLATES = {
     # -en, -de), noindex, niet in menu, overzicht of sitemap. Per taal een eigen JSON; EN/DE krijgen via arr_taal() de vaste
     # sjabloonteksten uit 'arr_literals' (paren NL -> taal), <html lang>, de Mews-taal en een restcontrole op NL-woorden.
     # 'reviews' per taal. MEWS_START in de JSON: boekknoppen en boekbalk openen op die aankomstdatum (geen Mews-tarief nog).
-    # TODO Valentijn (25 nov 2026): de boekknoppen gaan VOORLOPIG naar de gewone boekingsmodule 6dc9094c met aankomst
-    # 1 februari 2027, zonder arrangementstarief (gast ziet de gewone kamerprijs). Zodra het Mews-tarief/de voucher voor de
-    # eigen site er is: in alle drie de JSON's VOUCHER (+ CODE_ATTR) of MEWS_CONFIG zetten, MEWS_START weghalen, eventueel
-    # ARR_KALENDER true, en de prijs (VOORSTEL € 229,00 per kamer) gelijktrekken met Mews. Daarna opnieuw bouwen.
+    # TODO Valentijn: tarief 'Valentijnsarrangement Deluxe' (voucher VALENTIJN, alleen verblijf 13-16 feb 2027) staat in
+    # Mews nog dicht door een aankomstrestrictie uit Mews Operations (25 nov 2026; Stijn zet hem open). Daarna de totaalprijs
+    # meten en eventueel ARR_PRIJS (nu leeg = 'De prijs zie je bij het boeken') en de prijskalender zetten.
     'valentijnsarrangement': {
         'template': 'lander-w1.template.html',
         'langs': {
@@ -1156,7 +1155,9 @@ def arr_taal(html, lang, literals_file, bron):
     stukken = re.findall(r'>([^<]+)<', kaal) + re.findall(r'(?:alt|aria-label|title|placeholder|data-leeg)="([^"]+)"', kaal)
     for js in re.findall(r'(?s)<script type="application/json"[^>]*>(.*?)</script>', html):
         stukken += [w for w in re.findall(r'"((?:[^"\\]|\\.)*)"', js) if ' ' in w]
-    rest = sorted({unescape(t).strip() for t in stukken if ARR_NL_REST.search(unescape(t)) and not re.search(r'https?://|\.(webp|mp4|jpg)\b', t)})
+    # 'je' is ook Duits ('je nach'): in DE telt dat woord niet mee
+    nl_in = lambda t: bool({w.lower() for w in ARR_NL_REST.findall(t)} - ({'je'} if lang == 'de' else set()))
+    rest = sorted({unescape(t).strip() for t in stukken if nl_in(unescape(t)) and not re.search(r'https?://|\.(webp|mp4|jpg)\b', t)})
     toegestaan = {'Hotel Asteria', 'Maasheseweg 80a'}
     rest = [t for t in rest if t not in toegestaan]
     if rest:
@@ -3511,6 +3512,10 @@ def build(template_name, lang):
         if isinstance(value, str) and not key.startswith('_'):
             html = html.replace('{{' + key + '}}', value)
 
+    # Geen vaste prijs (ARR_PRIJS leeg, bijv. valentijnsarrangement tot het tarief open staat): geen leeg bedrag en geen
+    # losse 'vanaf'; ARR_PRIJS_KAART_EENHEID is dan de prijsregel ("De prijs zie je bij het boeken")
+    if translations.get('ARR_PRIJS', None) == '':
+        html = html.replace('<b class="b1k-prijs-bedrag"></b> ', '').replace('<p class="ar-inb-prijs">vanaf <b></b> ', '<p class="ar-inb-prijs">')
     # Lege zondagregel in de zijkaart (ZV_KAART_REGEL = "") laat geen leeg streepje achter
     html = html.replace('<p class="ar-zondagregel"></p>', '')
 

@@ -483,8 +483,11 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 
 - `/valentijnsarrangement`, `/valentijnsarrangement-en`, `/valentijnsarrangement-de`: build-entry `valentijnsarrangement`
   (lander-w1, blokken zijkaart + arrangement), JSON per taal `translations/valentijnsarrangement-{nl,en,de}.json`. noindex,
-  follow; niet in menu, arrangementenoverzicht of sitemap. Aankomst 1-28 feb 2027, 1 nacht; prijs is een VOORSTEL (zie
-  `_controleren` in de NL-JSON). EN/DE: geen Ook interessant (die pagina's zijn alleen NL), 8 reviews.
+  follow; niet in menu, arrangementenoverzicht of sitemap. Sinds 25 nov 2026 (besluit Stijn) gelijk aan het Mews-tarief
+  'Valentijnsarrangement Deluxe' (voucher VALENTIJN, alleen Deluxe, verblijf 13-16 feb 2027 = aankomst 13 of 14 feb):
+  `VOUCHER` VALENTIJN, `MEWS_START` 2027-02-13, geen vaste prijs (`ARR_PRIJS` leeg = 'De prijs zie je bij het boeken',
+  build.py haalt het lege bedrag en 'vanaf' weg), prijskalender uit. Tarief stond 25 nov nog dicht door een
+  aankomstrestrictie uit Mews Operations (zie `_controleren`). EN/DE: geen Ook interessant (alleen NL), 8 reviews.
 - Eerste arrangement op lander-w1 in EN/DE. build-config `arr_literals` {taal: bestand} -> build.py `arr_taal()`: paren
   [nl, taal] uit `translations/arrangement-literals-<taal>.json` (vaste sjabloonteksten: Waarom Asteria, kamer- en
   faciliteitdata, boekbalk, cookiemelding, reviewlabels; langste eerst, ook in de JSON-scripts en na de reviewmuur),
@@ -497,10 +500,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
   mewsStart/mewsEnd (+ ARR_NACHTEN), elke `.mews-open` `data-start`/`data-eind` (lander-w1.js zet die datums in de widget,
   alleen als ze niet in het verleden liggen), het aankomstveld van de boekbalk staat vooraf op die datum. Andere pagina's
   ongewijzigd (byte-gelijk nagebouwd).
-- Boekknop voorlopig zonder tarief (TODO in build.py bij de entry): gewone module 6dc9094c, aankomst 1 feb 2027.
-  `test_lander_w1.py ... --v3 --voucher "" --arrangement "€ 229,00"`: 107/111; de vier fouten zijn testaannames
-  (voucherloos verwacht een eigen MEWS_CONFIG; kamerraster telt de klonen van het Waarom-wiel mee; unload-melding komt
-  ook op /kerstarrangement voor).
+- `test_lander_w1.py ... --v3 --voucher VALENTIJN --arrangement "De prijs zie je bij het boeken"`: 107/112; de fouten zijn
+  verwacht of testaannames (prijskalender bewust uit; kamerraster telt de klonen van het Waarom-wiel mee; 1 kamer is niet
+  veegbaar; unload-melding komt ook op /kerstarrangement voor).
 
 ### Arrangementenoverzicht /arrangementen-v2 (nov 2026, preview)
 
