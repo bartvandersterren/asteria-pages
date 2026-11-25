@@ -482,8 +482,9 @@ Na review/goedkeuring wordt de PR gemerged → Cloudflare deployt automatisch.
 ### Valentijnsarrangement in drie talen (25 nov 2026)
 
 - `/valentijnsarrangement`, `/valentijnsarrangement-en`, `/valentijnsarrangement-de`: build-entry `valentijnsarrangement`
-  (lander-w1, blokken zijkaart + arrangement), JSON per taal `translations/valentijnsarrangement-{nl,en,de}.json`. noindex,
-  follow; niet in menu, arrangementenoverzicht of sitemap. Sinds 25 nov 2026 (besluit Stijn) gelijk aan het Mews-tarief
+  (lander-w1, blokken zijkaart + arrangement), JSON per taal `translations/valentijnsarrangement-{nl,en,de}.json`. Sinds
+  25 nov 2026 `index, follow` (build-config `'index': ('nl', 'en', 'de')`), in sitemap.xml en als kaart (Feestdagen) in
+  /arrangementen-v2; niet in het menu. Na 14 feb 2027 kaart uit het overzicht en eventueel uit de sitemap halen. Sinds 25 nov 2026 (besluit Stijn) gelijk aan het Mews-tarief
   'Valentijnsarrangement Deluxe' (voucher VALENTIJN, alleen Deluxe, verblijf 13-16 feb 2027 = aankomst 13 of 14 feb):
   `VOUCHER` VALENTIJN, `MEWS_START` 2027-02-13, geen vaste prijs (`ARR_PRIJS` leeg = 'De prijs zie je bij het boeken',
   build.py haalt het lege bedrag en 'vanaf' weg), prijskalender uit. Tarief stond 25 nov nog dicht door een
