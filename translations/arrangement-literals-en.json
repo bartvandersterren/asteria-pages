@@ -586,5 +586,69 @@
  [
   " met code VALENTIJN\"",
   " with code VALENTIJN\""
+ ],
+ [
+  "data-aankomst=\"aankomst\" data-vertrek=\"vertrek\" data-vertrek-vraag=\"vertrek?\" data-nacht=\"nacht\" data-nachten-woord=\"nachten\" data-vorige=\"Vorige maand\" data-volgende=\"Volgende maand\"",
+  "data-aankomst=\"arrival\" data-vertrek=\"departure\" data-vertrek-vraag=\"departure?\" data-nacht=\"night\" data-nachten-woord=\"nights\" data-vorige=\"Previous month\" data-volgende=\"Next month\""
+ ],
+ [
+  ">Kies je aankomstdag<",
+  ">Choose your arrival day<"
+ ],
+ [
+  ">Klik op je aankomstdag. Je vertrek na ",
+  ">Click your arrival day. Your departure after "
+ ],
+ [
+  " nachten komt er vanzelf bij.<",
+  " nights is added automatically.<"
+ ],
+ [
+  "<p class=\"ark-noot\">Prijs per persoon voor ",
+  "<p class=\"ark-noot\">Price per person for "
+ ],
+ [
+  " nachten bij aankomst op die dag, <span class=\"ark-kamer\"></span>, 2 personen</p>",
+  " nights when arriving on that day, <span class=\"ark-kamer\"></span>, 2 people</p>"
+ ],
+ [
+  ">Grijs: geen aankomst mogelijk<",
+  ">Grey: no arrival possible<"
+ ],
+ [
+  ">Gevuld: je gekozen nachten<",
+  ">Filled: your chosen nights<"
+ ],
+ [
+  "class=\"ark-wis\" hidden>Wissen<",
+  "class=\"ark-wis\" hidden>Clear<"
+ ],
+ [
+  ">Bekijk kamers en prijzen<",
+  ">View rooms and prices<"
+ ],
+ [
+  "<p class=\"ark-code\">Actiecode <b>",
+  "<p class=\"ark-code\">Promo code <b>"
+ ],
+ [
+  "</b> wordt automatisch ingevuld</p>",
+  "</b> is filled in automatically</p>"
+ ],
+ [
+  "class=\"ark-x\" aria-label=\"Sluiten\"",
+  "class=\"ark-x\" aria-label=\"Close\""
+ ],
+ [
+  " met code WINTER27\"",
+  " with code WINTER27\""
+ ],
+ [
+  "for=\"bb-code\">Actiecode</label>",
+  "for=\"bb-code\">Promo code</label>"
+ ],
+ [
+  "&quot;Comfort kamer&quot;",
+  "&quot;Comfort room&quot;"
  ]
 ]
